@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/rela_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rela_sell"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/buy"
+                android:background="#00FFFFFF"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/action_buy" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/rela_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rela_rent"
+            app:layout_constraintStart_toEndOf="@+id/rela_buy"
+            app:layout_constraintTop_toTopOf="@+id/rela_buy">
+
+            <ImageButton
+                android:id="@+id/sell"
+                android:background="#00FFFFFF"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:src="@drawable/sell"
+                android:text="Sell" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/rela_rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/rela_sell"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rela_sell"
+            app:layout_constraintTop_toTopOf="@+id/rela_sell">
+            <ImageButton
+               android:src="@drawable/rent"
+                android:id="@+id/rent"
+                android:background="#00FFFFFF"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Rent"
+                android:textStyle="italic|bold"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="4dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="160dp"
+            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/title"
+                android:text="title"
+                android:lines="2"
+                android:textSize="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:text="Phonm Penh - 2h ago"
+                android:textSize="10dp" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_alignParentBottom="true"
+                android:textColor="@android:color/holo_red_light"
+                android:text="$2900"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:background="#3F51B5"
+                android:text="Sell"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="#FFC107"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/user_view"
+                android:layout_alignEnd="@+id/user_view" />
+
+            <TextView
+                android:id="@+id/user_view"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="View: 100" />
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

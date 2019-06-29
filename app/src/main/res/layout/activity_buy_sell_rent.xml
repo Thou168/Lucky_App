@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Buy_Sell_Rent.Buy.Buy">
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tv_back"
+            android:gravity="center"
+            android:text="Back"
+            android:drawableLeft="@drawable/icon_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.Toolbar>
+    <View style="@style/line"/>
+    <TextView
+        android:drawableLeft="@drawable/motorcycle"
+        android:id="@+id/vehicle"
+        android:gravity="center|left"
+        android:drawablePadding="@dimen/dp_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_8dp"
+        android:text="Vehicle"
+        android:textSize="@dimen/dp_24"
+        android:textStyle="bold" />
+    <View style="@style/line"/>
+    <TextView
+        android:drawableLeft="@drawable/eletronic"
+        android:textStyle="bold"
+        android:gravity="center|left"
+        android:drawablePadding="@dimen/dp_16"
+        android:id="@+id/eletronic"
+        android:text="Electronic"
+        android:padding="@dimen/dp_8dp"
+        android:textSize="@dimen/dp_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View style="@style/line"/>
+
+</LinearLayout>

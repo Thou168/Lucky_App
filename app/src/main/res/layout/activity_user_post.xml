@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Product_dicount.User_post">
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:gravity="center"
+                android:background="@android:color/darker_gray"
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+            </RelativeLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab"
+                android:background="@color/colorLightGray"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tv_back"
+            android:textSize="@dimen/dp_18"
+            android:drawableLeft="@drawable/icon_back"
+            android:drawablePadding="@dimen/dp_8dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:text="Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.Toolbar>
+</RelativeLayout>

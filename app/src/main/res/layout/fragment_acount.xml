@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+   <androidx.appcompat.widget.Toolbar
+       android:background="@color/colorPrimary"
+       android:layout_width="match_parent"
+       android:layout_height="40dp">
+       <ImageButton
+           android:id="@+id/btn_edit"
+           android:background="#00FFFFFF"
+           android:src="@drawable/ic_messages"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <ImageButton
+           android:layout_marginEnd="@dimen/dp_16"
+           android:id="@+id/btn_setting"
+           android:background="#00FFFFFF"
+           android:src="@drawable/ic_messages"
+           android:layout_gravity="right"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+   </androidx.appcompat.widget.Toolbar>
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="175dp">
+                    <ImageView
+                        android:id="@+id/imgCover"
+                        android:background="#999"
+                        android:layout_width="match_parent"
+                        android:layout_height="175dp"
+                        android:scaleType="centerCrop" />
+                    <Button
+                        android:id="@+id/btnUpload_Cover"
+                        android:text="Upload"
+                        android:background="#52444444"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="110dp"
+                        android:layout_height="30dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:gravity="center|bottom"
+                    android:orientation="vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfile"
+                        android:src="@drawable/image_honda_dream"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:civ_border_width="2dp">
+                    </de.hdodenhof.circleimageview.CircleImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User Name"
+                        android:textSize="@dimen/dp_24" />
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_below="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    app:tabMaxWidth="0dp"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    android:background="#999">
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tab"
+                    android:layout_marginTop="0dp"
+                    android:background="#D5E7E7E7"
+                    android:paddingTop="@dimen/dp_4">
+
+                </androidx.viewpager.widget.ViewPager>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

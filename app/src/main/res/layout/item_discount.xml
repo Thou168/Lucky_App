@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="190dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="4dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="2dp"
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/user"
+                android:background="@color/colorLightGray"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    card_view:civ_border_width="2dp"
+                    card_view:civ_border_color="@color/circle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+            <TextView
+                android:id="@+id/title"
+                android:text="title"
+                android:lines="1"
+                android:textSize="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="10dp"
+                    android:id="@+id/location"
+                    android:text="Phonm Penh - 2h ago"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_below="@+id/location"
+                    android:textColor="@android:color/holo_red_light"
+                    android:text="$2900"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_discount"
+                    android:text="1200"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/tv_price" />
+
+                <TextView
+                    android:id="@+id/user_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location"
+                    android:layout_alignParentRight="true"
+                    android:text="View: 100" />
+            </RelativeLayout>
+        </LinearLayout>
+</androidx.cardview.widget.CardView>
