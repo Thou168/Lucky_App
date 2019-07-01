@@ -5,7 +5,7 @@
     package="com.example.lucky_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <dist:module dist:instant="true" />
@@ -18,7 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Product_New_Post.Detail_New_Post"></activity>
+        <activity android:name=".Activity.Account"></activity>
+        <activity android:name=".Activity.Camera" />
+        <activity
+            android:name=".Activity.Home"
+            android:label="@string/title_activity_account"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.Notification" />
+        <activity android:name=".Activity.Message" />
+        <activity android:name=".Product_New_Post.Detail_New_Post" />
         <activity android:name=".Buy_Sell_Rent.Sell.Sell" />
         <activity android:name=".Buy_Sell_Rent.New_Main1" />
         <activity android:name=".Buy_Sell_Rent.New_Main2" />
@@ -34,13 +48,7 @@
         <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
         <activity android:name=".Product_dicount.User_post" />
         <activity android:name=".Product_dicount.Detail_Discount" />
-        <activity android:name=".Startup.StartUp">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" />
     </application>
 

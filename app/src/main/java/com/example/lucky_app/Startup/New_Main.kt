@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.fragment.app.Fragment
 import com.example.lucky_app.R
 
 class New_Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -54,7 +55,7 @@ class New_Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Message/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true

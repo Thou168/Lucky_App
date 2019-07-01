@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/customActivityAnimation</item>
     </style>
 
     <style name="customActivityAnimation" parent="@android:style/Animation.Activity">

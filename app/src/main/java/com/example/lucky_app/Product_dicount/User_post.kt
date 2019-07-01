@@ -7,7 +7,6 @@ import com.example.lucky_app.R
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_user_post.*
-import org.w3c.dom.Text
 
 class User_post : AppCompatActivity() {
 

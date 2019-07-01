@@ -1,54 +1,50 @@
-package com.example.lucky_app.Buy_Sell_Rent
+package com.example.lucky_app.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.FrameLayout
-import com.example.lucky_app.Activity.*
-import com.example.lucky_app.Buy_Sell_Rent.Sell.fragment_sell_vehicle
 import com.example.lucky_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class Sell_Main1 : AppCompatActivity() {
-
-    private var content: FrameLayout? = null
+class Camera : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_camera)
 
-        content = findViewById(R.id.content) as FrameLayout
-        supportFragmentManager.beginTransaction().replace(R.id.content, fragment_sell_vehicle()).commit()
-        val bnavigation = findViewById<BottomNavigationView>(R.id.navigation)
+        val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        bnavigation.menu.getItem(2).isChecked = true
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this@Sell_Main1,Home::class.java)
+                    val intent = Intent(this@Camera,Home::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
                 R.id.notification -> {
-                    val intent = Intent(this@Sell_Main1,Notification::class.java)
-                    startActivity(intent)
+                    val intent = Intent(this@Camera,Notification::class.java)
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    startActivity(intent)
                 }
                 R.id.camera ->{
-                    val intent = Intent(this@Sell_Main1, Camera::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+//                    val intent = Intent(this@Camera,Camera::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
                 R.id.message -> {
-                    val intent = Intent(this@Sell_Main1,Message::class.java)
+                    val intent = Intent(this@Camera,Message::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
                 R.id.account ->{
-                    val intent = Intent(this@Sell_Main1, Account::class.java)
+                    val intent = Intent(this@Camera,Account::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+
                 }
             }
             true
         }
+
     }
 }

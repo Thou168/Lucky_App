@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.lucky_app.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,13 +22,15 @@ import com.example.lucky_app.Buy_Sell_Rent.Sell.Sell
 import com.example.lucky_app.Startup.Item
 import com.example.lucky_app.Product_dicount.MyAdapter
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.fragment_home1.*
 
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
  * [Fragment_home]interface.
  */
-class Fragment_home : Fragment() {
+class Fragment_home: Fragment(){
 
     private var gridLayoutManager: GridLayoutManager? = null
     private var content: FrameLayout? = null
@@ -78,9 +83,6 @@ class Fragment_home : Fragment() {
         version.addAll(Item.getDiscount())
         horizontal.layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
         horizontal.adapter = MyAdapter(version)
-        view.findViewById<ImageView>(R.id.grid).setOnClickListener{
-
-        }
 
         val listview = view.findViewById<RecyclerView>(R.id.list_new_post)
         val item = ArrayList<Item>()
@@ -105,9 +107,18 @@ class Fragment_home : Fragment() {
         image.setOnClickListener {
             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Image")
             recyclerView!!.layoutManager = GridLayoutManager(context,1)
+//DrawerLayout
+//            val drawerLayout: DrawerLayout = view.findViewById(R.id.drawer_layout)
+//            val navView: NavigationView = view.findViewById(R.id.nav_view)
+//            val toggle = ActionBarDrawerToggle(
+//                    activity, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+//            drawerLayout.addDrawerListener(toggle)
+
+
         }
         return view
     }
+
 
 }
 
