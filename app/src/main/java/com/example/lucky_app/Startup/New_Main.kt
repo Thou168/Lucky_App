@@ -14,7 +14,7 @@ import android.view.Menu
 import androidx.fragment.app.Fragment
 import com.example.lucky_app.R
 
-class New_Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class New_Main : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,6 @@ class New_Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        navView.setNavigationItemSelectedListener(this)
     }
 
     override fun onBackPressed() {
@@ -61,32 +60,5 @@ class New_Main : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_home -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_tools -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 }

@@ -59,7 +59,7 @@ class Detail_New_Post : AppCompatActivity() {
             shareIntent.action = Intent.ACTION_SEND
             shareIntent.type="text/plain"
             shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-            startActivity(Intent.createChooser(shareIntent,getString(R.string.menu_send)))
+            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
         }
         //Button Call
         val call = findViewById<Button>(R.id.btn_call)
