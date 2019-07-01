@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
+import com.example.lucky_app.Edit_Account.Edit_account
 import com.example.lucky_app.Fragment.Tab_Adapter_Acc
 import com.example.lucky_app.R
+import com.example.lucky_app.Setting.Setting
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 
@@ -16,6 +18,7 @@ class Account : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
+
 
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.menu.getItem(4).isChecked = true
@@ -51,12 +54,16 @@ class Account : AppCompatActivity() {
 
         val setting = findViewById<ImageButton>(R.id.btn_setting)
         setting.setOnClickListener {
+            val intent = Intent(this@Account , Setting::class.java)
+            startActivity(intent)
             Toast.makeText(this@Account,"Setting", Toast.LENGTH_SHORT).show()
         }
 
         val account_edit = findViewById<ImageButton>(R.id.btn_edit)
         account_edit.setOnClickListener {
             Toast.makeText(this@Account,"Home Edit", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@Account, Edit_account::class.java);
+            startActivity(intent)
         }
         val tab = findViewById<TabLayout>(R.id.tab)
         val pager = findViewById<ViewPager>(R.id.pager)
@@ -77,5 +84,6 @@ class Account : AppCompatActivity() {
             }
         })
 
-    }
+
+    } // create
 }

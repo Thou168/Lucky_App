@@ -17,9 +17,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.Account"></activity>
+        <activity android:name=".Edit_Account.Edit_account"></activity>
+        <activity android:name=".Setting.Setting" />
+        <activity android:name=".Login_Register.Register" />
+        <activity android:name=".Login_Register.Login" />
+        <activity android:name=".Login_Register.UserAccount" />
+        <activity android:name=".Activity.Account" />
         <activity android:name=".Activity.Camera" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" />
+
         <activity
             android:name=".Activity.Home"
             android:label="@string/title_activity_account"

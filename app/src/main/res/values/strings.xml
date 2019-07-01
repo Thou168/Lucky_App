@@ -16,4 +16,32 @@
     <string name="menu_about">About Us</string>
     <string name="menu_privacy">Term of Privacy</string>
     <string name="title_activity_account">Account</string>
+
+    //user account registration
+    <string name="title_Login">Login account</string>
+    <string name="title_registration">Register to post free ad</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="Password">Password</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="or">Or</string>
+    <string name="register_by_facebook">Register by using your facebook account</string>
+
+    //Setting
+    <string name="change_password">Change Password</string>
+    <string name="language">Language</string>
+    <string name="language2">English</string>
+    <string name="setting">Setting</string>
+    <string name="notification">Notification</string>
+    <string name="version">Version</string>
+    <string name="logout">Logout</string>
+    //Edit_Account
+    <string name="txt_account_setting">Account Setting</string>
+    <string name="hit_fistname">Fist Name</string>
+    <string name="hit_lastname">Last Name</string>
+    <string name="hit_store">Store/Company Name</string>
+    <string name="hit_about_shop">About Shop/Company</string>
+    <string name="hit_wingnumber">Wing Account / Number</string>
+    <string name="hit_wingaccount">Wing Account / Name</string>
+    <string name="hit_dealer">Dealer</string>
 </resources>

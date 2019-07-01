@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_Account"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorMessage"
+        >
+        <TextView
+            android:id="@+id/tvBack_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_back"
+            android:gravity="center_vertical"
+            android:textColor="#ffff"
+            android:textSize="@dimen/dp_16"
+            android:text=" Back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="My Account"
+            android:textSize="20dp"
+            android:textColor="#ffff"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/layout_type_public_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    layout="@layout/type_public_user"/>
+                <include
+                    android:id="@+id/layout_type_121_dealer"
+                    android:layout_below="@+id/layout_type_public_user"
+                    layout="@layout/type_121_dealer"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/imgAccount_Address"
+                    android:layout_width="20dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/icon_null"
+                    android:layout_below="@+id/layout_type_121_dealer"
+                    android:background="@drawable/underline"
+                    />
+                <TextView
+                    android:id="@+id/tvAccount_Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/layout_type_121_dealer"
+                    android:layout_toRightOf="@+id/imgAccount_Address"
+                    android:hint="Address"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:drawableRight="@drawable/arrow_right_black_24dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/underline"
+                    />
+
+                <fragment
+                    android:id="@+id/map_Account"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_below="@id/tvAccount_Address"
+                    />
+
+                <Button
+                    android:id="@+id/btn_EditAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="30dp"
+                    android:text="Submit"
+                    android:layout_below="@+id/map_Account"
+                    android:background="@drawable/corner_orange"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgType"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"/>
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_toRightOf="@+id/imgType"
+        android:gravity="center_vertical"
+        android:hint="Type"
+        android:paddingLeft="10dp"
+        android:textSize="18dp"
+        android:background="@drawable/underline"
+        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+
+    <ImageView
+        android:id="@+id/imgShop_name"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgType"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilShop_Name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgType"
+        android:layout_toRightOf="@+id/imgShop_name"
+        android:background="@drawable/underline">
+
+        <EditText
+            android:id="@+id/etShop_Name"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="Shop Name"
+            android:paddingLeft="10dp"
+            android:background="@null"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imgShop_Addr"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgShop_name"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilShop_Addr"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgShop_name"
+        android:layout_toRightOf="@+id/imgShop_Addr"
+        android:background="@drawable/underline">
+
+        <EditText
+            android:id="@+id/etShop_Addr"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="Shop Address"
+            android:paddingLeft="10dp"
+            android:background="@null"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imgResponsible"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgShop_Addr"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilResponsible"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgShop_Addr"
+        android:layout_toRightOf="@+id/imgResponsible"
+        android:background="@drawable/underline">
+
+        <EditText
+            android:id="@+id/etResponsible"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="Name of Responsible Officer"
+            android:paddingLeft="10dp"
+            android:background="@null"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+        android:id="@+id/imgWingNumber"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgResponsible"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilWingNumber"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgResponsible"
+        android:layout_toRightOf="@+id/imgResponsible"
+        android:background="@drawable/underline"
+        >
+
+        <EditText
+            android:id="@+id/etWingNumber"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="Wing Account Number"
+            android:paddingLeft="10dp"
+            android:background="@null"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imgWingName"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgWingNumber"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilWingName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgWingNumber"
+        android:layout_toRightOf="@+id/imgWingName"
+        android:background="@drawable/underline"
+        >
+
+        <EditText
+            android:id="@+id/etWingName"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="Wing Account Name"
+            android:paddingLeft="10dp"
+            android:background="@null"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imgAccount_Phone"
+        android:layout_width="20dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgWingName"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_null"
+        android:background="@drawable/underline"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAccount_phone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/imgWingName"
+        android:layout_toRightOf="@+id/imgAccount_Phone"
+        android:background="@drawable/underline"
+        >
+
+        <EditText
+            android:id="@+id/etAccount_Phone"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="Phone"
+            android:paddingLeft="10dp"
+            android:background="@null"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
+</LinearLayout>

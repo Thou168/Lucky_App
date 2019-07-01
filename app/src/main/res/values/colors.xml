@@ -6,4 +6,15 @@
     <color name="tab_selected">#23B8FF</color>
     <color name="tab_bottom">#E91E63</color>
     <color name="circle">#FFC107</color>
+
+    <color name="colorHome">#FFC107</color>
+    <color name="colorNotification">#B0BF1A</color>
+    <color name="colorCamera">#7BB661</color>
+    <color name="colorMessage">#8DB600</color>
+    <color name="colorAccount">#5FA777</color>
+    <color name="colorToolbar">#FFFFFF</color>
+    <color name="blue_light">#0F65E6</color>
+    <color name="dack_color">#747474</color>
+    <color name="grey_light">#E0E0E0</color>
+    <color name="color_bar">#8DB600</color>
 </resources>

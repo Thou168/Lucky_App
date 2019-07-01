@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E2E0E0"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_setting"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorMessage">
+        <TextView
+            android:id="@+id/tb_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/setting"
+            android:textColor="#ffff"
+            android:textSize="20dp"/>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <TextView
+
+            android:id="@+id/tvaccount"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#E2E0E0"
+            android:gravity="bottom"
+            android:text="ACCOUNT SETTING"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+
+            />
+
+
+        <TextView
+            android:id="@+id/tvChangePass"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvaccount"
+            android:text="@string/change_password"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:textColor="#110505"
+            android:gravity="center_vertical"
+            android:background="#ffff"
+
+            />
+
+        <TextView
+            android:id="@+id/tvApp"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/tvChangePass"
+            android:background="#E2E0E0"
+            android:text="APP SETTING"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tvApp"
+            android:text="@string/language"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:textColor="#110505"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/tvLanguage2"
+            android:background="#ffff"
+            />
+        <TextView
+            android:id="@+id/tvLanguage2"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvApp"
+            android:text="@string/language2"
+            android:textSize="15dp"
+            android:textColor="#535151"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/arrow_down_black_24dp"
+            android:background="#ffff"
+            />
+
+
+
+        <Switch
+            android:id="@+id/stNotification"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvLanguage"
+            android:text="@string/notification"
+            android:textSize="18dp"
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:textColor="#110505"
+            android:gravity="center_vertical"
+            android:background="#ffff"
+            />
+
+
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/stNotification"
+            android:textColor="#110505"
+            android:text="@string/version"
+            android:textSize="20dp"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="10dp"
+            android:layout_toLeftOf="@+id/tvVersion2"
+            android:gravity="center_vertical"
+            android:background="#ffff"
+            />
+        <TextView
+            android:id="@+id/tvVersion2"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/stNotification"
+            android:gravity="center"
+            android:text="1.2.5"
+            android:layout_marginTop="1dp"
+            android:layout_alignParentRight="true"
+            android:background="#FFFF"
+            />
+
+        <Button
+            android:id="@+id/btnlogout"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/tvVersion"
+            android:gravity="center"
+            android:text="@string/logout"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"
+            android:textColor="#F30E0E"
+            android:background="@drawable/corner"/>
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

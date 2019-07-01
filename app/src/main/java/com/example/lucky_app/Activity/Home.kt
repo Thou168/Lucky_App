@@ -1,6 +1,8 @@
 package com.example.lucky_app.Activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -19,6 +21,7 @@ import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Buy_Sell_Rent.Buy.Buy
 import com.example.lucky_app.Buy_Sell_Rent.Rent.Rent
 import com.example.lucky_app.Buy_Sell_Rent.Sell.Sell
+import com.example.lucky_app.Login_Register.UserAccount
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.example.lucky_app.Product_dicount.MyAdapter
 import com.example.lucky_app.R
@@ -35,6 +38,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -66,9 +70,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
                 R.id.account ->{
-                    val intent = Intent(this@Home,Account::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Home, Account::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Home, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
 
             }
