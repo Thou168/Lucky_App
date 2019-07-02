@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,12 +19,14 @@
             app:layout_constraintEnd_toStartOf="@+id/rela_sell"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <ImageButton
+            <TextView
                 android:id="@+id/buy"
-                android:background="#00FFFFFF"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/action_buy" />
+                android:textStyle="bold"
+                android:textSize="@dimen/dp_20"
+                android:textColor="#DF8302"
+                android:text="Buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/rela_sell"
@@ -35,13 +39,13 @@
             app:layout_constraintStart_toEndOf="@+id/rela_buy"
             app:layout_constraintTop_toTopOf="@+id/rela_buy">
 
-            <ImageButton
+            <TextView
                 android:id="@+id/sell"
-                android:background="#00FFFFFF"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:src="@drawable/sell"
+                android:textColor="#089D01"
+                android:textStyle="bold"
+                android:textSize="@dimen/dp_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Sell" />
         </LinearLayout>
         <LinearLayout
@@ -53,25 +57,58 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rela_sell"
             app:layout_constraintTop_toTopOf="@+id/rela_sell">
-            <ImageButton
-               android:src="@drawable/rent"
+            <TextView
                 android:id="@+id/rent"
-                android:background="#00FFFFFF"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="#DF041D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Rent"
-                android:textStyle="italic|bold"
-                android:textSize="18dp" />
+                android:textSize="@dimen/dp_20" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <com.arlib.floatingsearchview.FloatingSearchView
             android:layout_width="match_parent"
             android:layout_height="55dp"/>
     </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/sp_category"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:hint="Category"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sp_brand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/sp_brand"
+            android:layout_width="90dp"
+            android:layout_height="45dp"
+            android:hint="Brand"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_category"
+            app:layout_constraintEnd_toStartOf="@+id/sp_year"
+            app:layout_constraintStart_toEndOf="@+id/sp_category"
+            app:layout_constraintTop_toTopOf="@+id/sp_category" />
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/sp_year"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:hint="Year"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_brand"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sp_brand"
+            app:layout_constraintTop_toTopOf="@+id/sp_brand" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

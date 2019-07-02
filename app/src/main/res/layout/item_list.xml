@@ -41,14 +41,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:layout_width="60dp"
-                android:background="#3F51B5"
-                android:text="Sell"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="#FFC107"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/post_type"
+                android:layout_width="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/buy"
+                android:layout_height="20dp"
                 android:layout_above="@+id/user_view"
                 android:layout_alignEnd="@+id/user_view" />
 

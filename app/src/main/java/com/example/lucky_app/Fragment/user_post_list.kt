@@ -31,7 +31,7 @@ class user_post_list: Passdata() {
 
         val item = ArrayList<Item>()
         item.clear()
-        item.addAll(Item.getPost(id))
+        item.addAll(Item.getUser_Post(id))
 
         recyclrview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclrview.adapter = MyAdapter_list(item,null)

@@ -2,35 +2,50 @@ package com.example.lucky_app.Startup
 
 import com.example.lucky_app.R
 
-class Item(var id: Int,var img_user: Int,var image: Int,var price: Double,var name: String,var type: String?,var title: String?){
+class Item(var id: Int,var img_user: Int,var image: Int,var price: Double,var name: String,var category: String,var post_type: String,var type: String?,var title: String?){
 
     companion object {
         fun getList(): ArrayList<Item> {
             val itemList = ArrayList<Item>()
             itemList.clear()
-            itemList.add(Item(1,R.drawable.thean,R.drawable.image_suzuki,1300.0, "Thean","Discount","sell motor suzuki 2018"))
-            itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream, 2000.0,"Thou","Discount","Honda Dream 2019"))
-            itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 1500.0,"Samang",null,"Honda Dream 2007 good"))
-            itemList.add(Item(1,R.drawable.thean,R.drawable.honda_dream, 2000.0,"Thean","Discount","Dream c125 sell 1200"))
-            itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 2100.0,"Samang",null,"Sell 2100"))
-            itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream, 1200.0,"Thou","Discount","sell motor dream"))
-            itemList.add(Item(1,R.drawable.thean,R.drawable.image_suzuki, 3000.0,"Thean",null,"suzuki 2019 sell 1500"))
-            itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream,5000.0, "Thou",null,"Honda Dream"))
-            itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 1200.0,"Samang","Discount","sell 2000"))
-            itemList.add(Item(3,R.drawable.thean,R.drawable.image_suzuki, 2300.0,"Samang",null,"i want to sell suzuki"))
+            itemList.add(Item(1,R.drawable.thean,R.drawable.image_suzuki,1300.0, "Thean","Motor","Sell","Discount","sell motor suzuki 2018"))
+            itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream, 2000.0,"Thou","Motor","Rent","Discount","Honda Dream 2019"))
+            itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 1500.0,"Samang","Motor","But",null,"Honda Dream 2007 good"))
+            itemList.add(Item(1,R.drawable.thean,R.drawable.honda_dream, 2000.0,"Thean","Motor","Sell","Discount","Dream c125 sell 1200"))
+            itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 2100.0,"Samang","Motor","Rent",null,"Sell 2100"))
+            itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream, 1200.0,"Thou","Motor","Sell","Discount","sell motor dream"))
+            itemList.add(Item(1,R.drawable.thean,R.drawable.image_suzuki, 3000.0,"Thean","Motor","Buy",null,"suzuki 2019 sell 1500"))
+            itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream,5000.0, "Thou","Motor","Buy",null,"Honda Dream"))
+            itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 1200.0,"Samang","Motor","Sell","Discount","sell 2000"))
+            itemList.add(Item(3,R.drawable.thean,R.drawable.image_suzuki, 2300.0,"Samang","Motor","Rent",null,"i want to sell suzuki"))
+            itemList.add(Item(1,R.drawable.thean,R.drawable.camera, 3000.0,"Thean","Electronic","Buy",null,"camera 2019 buy 1500"))
+            itemList.add(Item(2,R.drawable.thou,R.drawable.fan,5000.0, "Thou","Electronic","Buy",null,"fan new 100%"))
+            itemList.add(Item(3,R.drawable.samang,R.drawable.fan1, 1200.0,"Samang","Electronic","Sell",null,"fan sell 2000"))
+            itemList.add(Item(2,R.drawable.thou,R.drawable.camera1, 2300.0,"Thou","Electronic","Rent",null,"i want to rent camera"))
+
             return itemList
         }
-        fun getDiscount(): ArrayList<Item>{
-            val discount = ArrayList<Item>()
-            discount.clear()
+        fun getType(type: String): ArrayList<Item>{
+            val post_type = ArrayList<Item>()
+            post_type.clear()
             for (item in getList()){
-                if (item.type.equals("Discount")){
-                    discount.add(item)
+                if (item.type.equals(type)){
+                    post_type.add(item)
                 }
             }
-            return discount
+            return post_type
         }
-        fun getPost(id: Int):ArrayList<Item>{
+        fun getPost_Type(post_type: String,category: String): ArrayList<Item>{
+            val items = ArrayList<Item>()
+            items.clear()
+            for (item in getList()){
+                if (item.post_type.equals(post_type)&&item.category.equals(category)){
+                    items.add(item)
+                }
+            }
+            return items
+        }
+        fun getUser_Post(id: Int):ArrayList<Item>{
             val post = ArrayList<Item>()
             for (item in getList()){
                 if (item.id == id){

@@ -43,13 +43,20 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item>, val type:
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        val post_type = itemView.findViewById<ImageView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
 
         fun bindItems(item: Item) {
             imageView.setImageResource(item.image)
             title.setText(item.title)
+            if (item.post_type.equals("Sell")){
+                post_type.setImageResource(R.drawable.sell)
+            }else if (item.post_type.equals("Buy")){
+                post_type.setImageResource(R.drawable.buy)
+            }else
+                post_type.setImageResource(R.drawable.rent)
+
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
                 intent.putExtra("Image","https://i.imgur.com/Ggj883L.png")

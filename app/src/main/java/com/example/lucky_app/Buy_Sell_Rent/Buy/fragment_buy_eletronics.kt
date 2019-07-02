@@ -36,7 +36,7 @@ class fragment_buy_eletronics : Fragment() {
 
         val listview = view.findViewById<RecyclerView>(R.id.recyclerView)
         val item = ArrayList<Item>()
-        item.addAll(Item.getList())
+        item.addAll(Item.getPost_Type("Buy","Electronic"))
         //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         listview!!.layoutManager = GridLayoutManager(context,1)
         listview!!.adapter = MyAdapter_list(item,null)

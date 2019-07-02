@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_8dp"
-        android:text="Vehicle"
+        android:text="Motobike"
         android:textSize="@dimen/dp_24"
         android:textStyle="bold" />
     <View style="@style/line"/>

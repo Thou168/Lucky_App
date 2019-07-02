@@ -58,20 +58,20 @@ class Fragment_home: Fragment(){
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
 //Buy sell and Rent
-        val buy = view.findViewById<ImageButton>(R.id.buy)
+        val buy = view.findViewById<TextView>(R.id.buy)
         buy.setOnClickListener{
 //      getActivity()!!.getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment_buy_vehicle()).commit()
             val intent = Intent(context, Buy::class.java)
             intent.putExtra("Title","Buy")
             startActivity(intent)
         }
-        val sell = view.findViewById<ImageButton>(R.id.sell)
+        val sell = view.findViewById<TextView>(R.id.sell)
         sell.setOnClickListener {
             val intent = Intent(context,Sell::class.java)
             intent.putExtra("Title","Sell")
             startActivity(intent)
         }
-        val rent = view.findViewById<ImageButton>(R.id.rent)
+        val rent = view.findViewById<TextView>(R.id.rent)
         rent.setOnClickListener {
             val intent = Intent(context, Rent::class.java)
             intent.putExtra("Title","Rent")
@@ -80,7 +80,7 @@ class Fragment_home: Fragment(){
 
         val horizontal = view.findViewById<RecyclerView>(R.id.horizontal)
         val version = ArrayList<Item>()
-        version.addAll(Item.getDiscount())
+        version.addAll(Item.getType("Discount"))
         horizontal.layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
         horizontal.adapter = MyAdapter(version)
 

@@ -2,6 +2,7 @@ package com.example.lucky_app.Activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.core.view.GravityCompat
@@ -12,8 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.widget.ImageButton
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -93,20 +93,20 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
 //Buy sell and Rent
-        val buy = findViewById<ImageButton>(R.id.buy)
+        val buy = findViewById<TextView>(R.id.buy)
         buy.setOnClickListener{
             //      getActivity()!!.getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment_buy_vehicle()).commit()
             val intent = Intent(this@Home, Buy::class.java)
             intent.putExtra("Title","Buy")
             startActivity(intent)
         }
-        val sell = findViewById<ImageButton>(R.id.sell)
+        val sell = findViewById<TextView>(R.id.sell)
         sell.setOnClickListener {
             val intent = Intent(this@Home, Sell::class.java)
             intent.putExtra("Title","Sell")
             startActivity(intent)
         }
-        val rent = findViewById<ImageButton>(R.id.rent)
+        val rent = findViewById<TextView>(R.id.rent)
         rent.setOnClickListener {
             val intent = Intent(this@Home, Rent::class.java)
             intent.putExtra("Title","Rent")
@@ -115,7 +115,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         val horizontal = findViewById<RecyclerView>(R.id.horizontal)
         val version = ArrayList<Item>()
-        version.addAll(Item.getDiscount())
+        version.addAll(Item.getType("Discount"))
         horizontal.layoutManager = LinearLayoutManager(this@Home, LinearLayout.HORIZONTAL, false)
         horizontal.adapter = MyAdapter(version)
 
@@ -127,18 +127,18 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
         recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
 //List Grid and image
-        val list = findViewById<ImageButton>(R.id.img_list)
+        val list = findViewById<ImageView>(R.id.img_list)
         list.setOnClickListener {
             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
             recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
         }
 
-        val grid = findViewById<ImageButton>(R.id.grid)
+        val grid = findViewById<ImageView>(R.id.grid)
         grid.setOnClickListener {
             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Grid")
             recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
         }
-        val image = findViewById<ImageButton>(R.id.btn_image)
+        val image = findViewById<ImageView>(R.id.btn_image)
         image.setOnClickListener {
             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Image")
             recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
@@ -172,9 +172,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         when (item.itemId) {
             R.id.nav_profile -> {
                 // Handle the camera action
+                val intent = Intent(this@Home,Account::class.java)
+                startActivity(intent)
             }
             R.id.nav_post -> {
-
+                val intent = Intent(this@Home,Your_Post::class.java)
+                startActivity(intent)
             }
             R.id.nav_like -> {
 

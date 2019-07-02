@@ -2,7 +2,6 @@ package com.example.lucky_app.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,7 @@ class account_user_list: Fragment() {
         val recyclrview = view.findViewById<RecyclerView>(R.id.recyclerView)
 
         val item = ArrayList<Item>()
-        item.addAll(Item.getPost(2))
+        item.addAll(Item.getUser_Post(2))
 
         recyclrview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclrview.adapter = MyAdapter_list(item,null)

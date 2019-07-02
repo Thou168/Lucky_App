@@ -43,28 +43,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/btn_image"
                     android:src="@drawable/ic_image_black_24dp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@+id/grid" />
-                <ImageButton
+                <ImageView
                     android:id="@+id/img_list"
-                    android:paddingRight="@dimen/dp_8dp"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/icon_list"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
-                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
                     android:id="@+id/grid"
                     android:layout_marginEnd="10dp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_toStartOf="@+id/img_list"
-                    android:src="@drawable/icon_grid" />
+                    android:src="@drawable/ic_grid_on_black_24dp" />
             </RelativeLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_new_post"

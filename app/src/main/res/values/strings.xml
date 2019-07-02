@@ -17,6 +17,25 @@
     <string name="menu_privacy">Term of Privacy</string>
     <string name="title_activity_account">Account</string>
 
+    <string-array name="category">
+        <item>Category</item>
+        <item>Motobike</item>
+        <item>Electronic</item>
+    </string-array>
+    <string-array name="brand">
+        <item>Honda</item>
+        <item>Yamaha</item>
+        <item>Suzuki</item>
+    </string-array>
+    <string-array name="year">
+        <item>2019</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
+    </string-array>
+
     //user account registration
     <string name="title_Login">Login account</string>
     <string name="title_registration">Register to post free ad</string>

@@ -16,20 +16,15 @@
         <item
             android:id="@+id/nav_loan"
             android:title="@string/menu_loan" />
+        <item
+            android:id="@+id/nav_setting"
+            android:title="@string/menu_setting" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/menu_about" />
+        <item
+            android:id="@+id/nav_privacy"
+            android:title="@string/menu_privacy" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_setting"
-                android:title="@string/menu_setting" />
-            <item
-                android:id="@+id/nav_about"
-                android:title="@string/menu_about" />
-            <item
-                android:id="@+id/nav_privacy"
-                android:title="@string/menu_privacy" />
-        </menu>
-    </item>
 
 </menu>
