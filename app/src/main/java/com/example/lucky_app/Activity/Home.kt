@@ -28,6 +28,7 @@ import com.example.lucky_app.R
 import com.example.lucky_app.Startup.Item
 import com.example.lucky_app.Startup.Your_Post
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -144,6 +145,22 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Image")
             recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
         }
+//Dropdown
+        val category = resources.getStringArray(R.array.category)
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
+        val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
+        sp_category.setAdapter(adapter)
+
+        val brand = resources.getStringArray(R.array.brand)
+        val adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, brand)
+        val sp_brand = findViewById<MaterialBetterSpinner>(R.id.sp_brand)
+        sp_brand.setAdapter(adapter1)
+
+        val year = resources.getStringArray(R.array.year)
+        val adapter2 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, year)
+        val sp_year = findViewById<MaterialBetterSpinner>(R.id.sp_year)
+        sp_year.setAdapter(adapter2)
+
     }
 
     override fun onBackPressed() {

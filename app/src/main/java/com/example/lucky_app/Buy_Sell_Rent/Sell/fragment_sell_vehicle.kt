@@ -37,7 +37,7 @@ class fragment_sell_vehicle : PassSell1() {
 
         val listview = view.findViewById<RecyclerView>(R.id.recyclerView)
         val item = ArrayList<Item>()
-        item.addAll(Item.getPost_Type("Sell","Motor"))
+        item.addAll(Item.getPost_Type("Sell","Motobike"))
         //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         listview!!.layoutManager = GridLayoutManager(context,1)
         listview!!.adapter = MyAdapter_list(item,null)
