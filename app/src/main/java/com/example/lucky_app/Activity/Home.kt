@@ -26,6 +26,7 @@ import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.example.lucky_app.Product_dicount.MyAdapter
 import com.example.lucky_app.R
 import com.example.lucky_app.Startup.Item
+import com.example.lucky_app.Startup.Your_Post
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -176,7 +177,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 startActivity(intent)
             }
             R.id.nav_post -> {
-                val intent = Intent(this@Home,Your_Post::class.java)
+                val intent = Intent(this@Home, Your_Post::class.java)
                 startActivity(intent)
             }
             R.id.nav_like -> {
