@@ -84,7 +84,6 @@ public class Register extends AppCompatActivity {
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
 
         String url =String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/users/");
-        //     String url = "http://192.168.1.239:8000/users/";   // register
 
         OkHttpClient client = new OkHttpClient();
         JSONObject postdata = new JSONObject();
@@ -92,7 +91,6 @@ public class Register extends AppCompatActivity {
 
         try {
             postdata.put("username", phone);
-            //     postdata.put("email",pass);
             postdata.put("password", comfirm);
 
             post_body.put("telephone", phone);

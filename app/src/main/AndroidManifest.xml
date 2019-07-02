@@ -19,7 +19,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Edit_Account.Edit_account"></activity>
+        <activity android:name=".Activity.Camera"></activity>
+        <activity android:name=".Edit_Account.Edit_account" />
         <activity android:name=".Setting.Setting" />
         <activity android:name=".Login_Register.Register" />
         <activity android:name=".Login_Register.Login" />

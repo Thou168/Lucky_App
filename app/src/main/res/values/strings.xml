@@ -63,4 +63,38 @@
     <string name="hit_wingnumber">Wing Account / Number</string>
     <string name="hit_wingaccount">Wing Account / Name</string>
     <string name="hit_dealer">Dealer</string>
+
+    //Post type
+    <string-array name="posty_type">
+        <item>Sell</item>
+        <item>Buy</item>
+        <item>Rent</item>
+    </string-array>
+
+    //Condition
+    <string-array name="condition">
+        <item>New</item>
+        <item>Used</item>
+    </string-array>
+
+    // Color
+    <string-array name="color">
+        <item>Black</item>
+        <item>Red</item>
+        <item>Gold</item>
+        <item>Yellow</item>
+
+    </string-array>
+
+    //Rent type
+    <string-array name="rent_type">
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+    //Discount type
+    <string-array name="discount_type">
+        <item> Amount</item>
+        <item> Percentage </item>
+    </string-array>
+
 </resources>
