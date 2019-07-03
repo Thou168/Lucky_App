@@ -370,7 +370,7 @@
                         android:gravity="center_vertical"
                         android:hint="Rent"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="#ffff"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
                 </RelativeLayout>
@@ -542,15 +542,7 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageButton
-                        android:id="@+id/imgBtnPhone3"
-                        android:layout_width="30dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_add"
-                        android:background="@drawable/underline"
-                        android:layout_below="@+id/imgBtnPhone2"
-                        android:layout_marginRight="5dp"
-                        android:layout_alignParentRight="true"/>
+
                     <ImageView
                         android:id="@+id/imgPhone3"
                         android:layout_width="20dp"
@@ -561,11 +553,11 @@
                         android:background="@drawable/underline"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPhone3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgPhone2"
                         android:layout_toRightOf="@+id/imgPhone3"
-                        android:layout_toLeftOf="@+id/imgBtnPhone3"
+
                         android:background="@drawable/underline">
 
                         <EditText

@@ -70,7 +70,12 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mProgress.show();
-                postRequest();
+                if (editPassword.getText().toString().equals(editComfirmPass.getText().toString())) {
+                    postRequest();
+                }else {
+                    Toast.makeText(v.getContext(),"Password incorrect",Toast.LENGTH_SHORT).show();
+                    mProgress.dismiss();
+                }
             }
         });
     }//create

@@ -15,28 +15,27 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.lucky_app.Api.ConsumeAPI;
 import com.example.lucky_app.R;
-import com.example.lucky_app.post.CameraActivity;
 import com.example.lucky_app.utils.FileCompressor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputLayout;
+import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tiper.MaterialSpinner;
 
@@ -45,6 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,11 +53,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Camera extends AppCompatActivity {
@@ -75,21 +78,26 @@ public class Camera extends AppCompatActivity {
     private EditText etTitle,etVinCode,etMachineCode,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icVincode,icMachineconde,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3;
+    private ImageButton addPhone2,addPhone1;
+    private TextInputLayout tilPhone2,tilPhone3;
     private MaterialSpinner tvPostType,tvCategory, tvType_elec,tvBrand,tvModel,tvYear,tvCondition,tvColor,tvRent,tvDiscount_type;
     private Button submit_post;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
+    private ArrayAdapter<String> brands,models;
+    private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model;
     private List<String> list_category = new ArrayList<>();
     private List<String> list_type = new ArrayList<>();
     private List<String> list_brand = new ArrayList<>();
     private List<String> list_model = new ArrayList<>();
     private List<String> list_year= new ArrayList<>();
-    private List<Integer> id_category = new ArrayList<>();
-    private List<Integer> id_type = new ArrayList<>();
-    private List<Integer> id_brand = new ArrayList<>();
-    private List<Integer> id_model = new ArrayList<>();
-    private List<Integer> id_year = new ArrayList<>();
-    int id_cate;
+    private List<Integer> list_id_category = new ArrayList<>();
+    private List<Integer> list_id_type = new ArrayList<>();
+    private List<Integer> list_id_brands = new ArrayList<>();
+    private List<Integer> list_id_model = new ArrayList<>();
+    private List<Integer> list_id_year = new ArrayList<>();
+    String id_cate, id_brand,id_model,id_year,id_type;
+    int cate,brand,model,year,type;
     SharedPreferences prefer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,11 +138,12 @@ public class Camera extends AppCompatActivity {
         });
 
         Variable_Field();
+        PhoneNumber();
         DropDown();
         Call_category(Encode);
         Call_Type(Encode);
-        Call_Brand(Encode);
-        Call_Model(Encode);
+//        Call_Brand(Encode,id_cate);
+//        Call_Model(Encode);
         Call_years(Encode);
 
         imageView1.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +178,152 @@ public class Camera extends AppCompatActivity {
             }
         });
 
+
+        submit_post = (Button) findViewById(R.id.btnSubmitPost);
+        submit_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PostData(Encode);
+            }
+        });
+
     } // create
+    private void PostData(String encode) {
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        String url = "";
+        OkHttpClient client = new OkHttpClient();
+        JSONObject post = new JSONObject();
+        JSONObject sale = new JSONObject();
+        try {
+
+            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
+
+            post.put("title",etTitle.getText().toString().toLowerCase());
+            post.put("category", cate );
+            post.put("status", "");
+            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
+            post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
+            post.put("discount", etDiscount_amount.getText().toString());
+            post.put("user",null );
+            post.put("front_image_path", null);
+            post.put("right_image_path", null);
+            post.put("left_image_path", null);
+            post.put("back_image_path", null);
+            post.put("created", "");
+            post.put("created_by", 1);
+            post.put("modified", null);
+            post.put("modified_by", null);
+            post.put("approved_date", null);
+            post.put("approved_by", null);
+            post.put("rejected_date", null);
+            post.put("rejected_by",null);
+            post.put("rejected_comments", "");
+            post.put("year", year);
+            post.put("modeling", model);
+            post.put("description", etDescription.getText().toString().toLowerCase());
+            post.put("cost", etPrice.getText().toString().toLowerCase());
+            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
+            post.put("vin_code", etVinCode.getText().toString().toLowerCase());
+            post.put("machine_code", etMachineCode.getText().toString().toLowerCase());
+            post.put("type", type);
+            post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
+            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
+            post.put("contact_address", "");
+            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
+
+
+            switch (postType){
+                case "sell":
+                    url=ConsumeAPI.BASE_URL+"postsale/";
+                    Log.d("URL","URL"+url);
+                    sale.put("sale_status", 2);
+                    sale.put("record_status",2);
+                    sale.put("sold_date", null);
+                    sale.put("price", etPrice.getText().toString().toLowerCase());
+                    sale.put("total_price", etPrice.getText().toString().toLowerCase());
+
+                    post.put("sale_post",new JSONArray("["+sale+"]"));
+                    break;
+                case "rent":
+                    url = ConsumeAPI.BASE_URL+"postrent/";
+                    JSONObject rent=new JSONObject();
+                    rent.put("rent_status",1);
+                    rent.put("record_status",1);
+                    rent.put("rent_type",tvRent.getSelectedItem().toString().toLowerCase());
+                    rent.put("price",etPrice.getText().toString().toLowerCase());
+                    rent.put("total_price",etPrice.getText().toString().toLowerCase());
+                    rent.put("rent_date",null);
+                    rent.put("return_date",null);
+                    rent.put("rent_count_number",0);
+                    post.put("rent_post",new JSONArray("["+rent+"]"));
+                    break;
+                case "buy":
+                    url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";
+                    JSONObject buy=new JSONObject();
+                    buy.put("buy_status",1);
+                    buy.put("record_status",1);
+                    post.put("buy_post",new JSONArray("["+buy+"]"));
+                    break;
+            }
+
+//            if(postType == "sell") {
+//                //url = String.format("%s%s", ConsumeAPI.BASE_URL, "");
+//                url=ConsumeAPI.BASE_URL+"postsale/";
+//                Log.d("URL","URL"+url);
+//                sale.put("sale_status", 2);
+//                sale.put("record_status",2);
+//                sale.put("sold_date", null);
+//                sale.put("price", etPrice.getText().toString().toLowerCase());
+//                sale.put("total_price", etPrice.getText().toString().toLowerCase());
+//                post.put("sale_post",new JSONArray("["+sale+"]"));
+//            }
+//            else if(postType=="rent") {
+//                url = String.format("%s%s", ConsumeAPI.BASE_URL, "postrent/");
+//                JSONObject rent=new JSONObject();
+//                rent.put("rent_status",1);
+//                rent.put("record_status",1);
+//                rent.put("rent_type",tvRent.getText().toString().toLowerCase());
+//                rent.put("price",etPrice.getText().toString().toLowerCase());
+//                rent.put("total_price",etPrice.getText().toString().toLowerCase());
+//                rent.put("rent_date",null);
+//                rent.put("return_date",null);
+//                rent.put("rent_count_number",0);
+//                post.put("rent_post",new JSONArray("["+rent+"]"));
+//            }
+//            else if(postType=="buy") {
+//                url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/postbuys/");
+//
+//            }
+            Log.d(TAG,url);
+            RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
+            String auth = "Basic " + encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization",auth)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String mMessage = e.getMessage().toString();
+                    Log.d("Failure:",mMessage );
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String message = response.body().string();
+                    Log.d("Response",message);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    } //postdata
 
     private void Call_category(String encode) {
 
@@ -190,6 +344,7 @@ public class Camera extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 String respon = response.body().string();
                 try{
                     JSONObject jsonObject = new JSONObject(respon);
@@ -198,9 +353,9 @@ public class Camera extends AppCompatActivity {
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String name = object.getString("cat_name");
-                        id_category.add(id);
+                        list_id_category.add(id);
                         list_category.add(name);
-                         ArrayAdapter<Integer> ID_category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,id_category);
+                          ID_category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_category);
                         final ArrayAdapter<String> category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_category);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -215,13 +370,11 @@ public class Camera extends AppCompatActivity {
                         @Override
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
 
-                            if(tvCategory.getSelectedItemId()==1){
-                                id_cate = 1;
-                                Log.d("ID 1", String.valueOf(id_cate));
-                            }else if (tvCategory.getSelectedItemId()==2){
-                                id_cate = 2;
-                                Log.d("ID 2", String.valueOf(id_cate));
-                            }
+
+                            id_cate = String.valueOf(ID_category.getItem(i));
+                            Log.d("ID", id_cate);
+                            cate = Integer.parseInt(id_cate);
+                            Call_Brand(Encode,id_cate);
                         }
 
                         @Override
@@ -234,6 +387,8 @@ public class Camera extends AppCompatActivity {
                 }
             }
         });
+
+
     }  // category
 
     private void Call_Type(String encode) {
@@ -262,8 +417,9 @@ public class Camera extends AppCompatActivity {
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String name = object.getString("type");
-                        id_type.add(id);
+                        list_id_type.add(id);
                         list_type.add(name);
+                        ID_type = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_type);
                         final ArrayAdapter<String> type = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_type);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -271,8 +427,19 @@ public class Camera extends AppCompatActivity {
                                 tvType_elec.setAdapter(type);
                             }
                         });
-
                     }
+                    tvType_elec.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                            id_type = String.valueOf(ID_type.getItem(i));
+                            type = Integer.parseInt(id_type);
+                        }
+
+                        @Override
+                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+                        }
+                    });
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -280,7 +447,10 @@ public class Camera extends AppCompatActivity {
         });
     } // type
 
-    private void Call_Brand(String encode){
+    private void Call_Brand(String encode , String id_cate){
+        Log.d("Category id:",""+ id_cate);
+
+        final int t = Integer.parseInt(id_cate);
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/");
         OkHttpClient client = new OkHttpClient();
         String auth = "Basic "+ encode;
@@ -290,6 +460,7 @@ public class Camera extends AppCompatActivity {
                 .header("Content-Type","application/json")
                 .header("Authorization",auth)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -299,26 +470,46 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
+              //  int n = 2;
+                tvBrand.setAdapter(null);
                 try{
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
-                        int id = object.getInt("category");
-//                        int cate = Integer.parseInt(id_cate);
-//                        if (id==cate) {
+                        int cate = object.getInt("category");
+                    if (cate==t){
+                            int id = object.getInt("id");
                             String name = object.getString("brand_name");
-                            id_brand.add(id);
+                            list_id_brands.add(id);
                             list_brand.add(name);
-                            final ArrayAdapter<String> brands = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_brand);
+                            ID_brands = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_brands);
+                            brands = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_brand);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     tvBrand.setAdapter(brands);
                                 }
                             });
-                       // }else Toast.makeText(getApplicationContext(),"Something wrong",Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+
+                    tvBrand.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                           // brands.clear();
+                                id_brand = String.valueOf(ID_brands.getItem(i));
+                                Log.d("brand id",id_brand);
+                                brand = Integer.parseInt(id_brand);
+                                Call_Model(encode, id_brand);
+                        }
+
+                        @Override
+                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+                        }
+                    });
 
 
                 }catch (JSONException e){
@@ -328,7 +519,10 @@ public class Camera extends AppCompatActivity {
         });
     }// brand
 
-    private void Call_Model(String encode){
+    private void Call_Model(String encode,String id_bran){
+
+        int b = Integer.parseInt(id_bran);
+        Log.d("brand id:",""+ b);
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/");
         OkHttpClient client = new OkHttpClient();
         String auth = "Basic "+ encode;
@@ -353,18 +547,35 @@ public class Camera extends AppCompatActivity {
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
-                        String name = object.getString("modeling_name");
-                        id_model.add(id);
-                        list_model.add(name);
-                        final ArrayAdapter<String> models = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_model);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tvModel.setAdapter(models);
-                            }
-                        });
-
+                        int Brand = object.getInt("brand");
+                        if (Brand==b) {
+                            String name = object.getString("modeling_name");
+                            list_id_model.add(id);
+                            list_model.add(name);
+                            ID_model = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_model);
+                            models = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_model);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tvModel.setAdapter(models);
+                                }
+                            });
+                        }
                     }
+
+                    tvModel.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                           id_model = String.valueOf(ID_model.getItem(i));
+                           model = Integer.parseInt(id_model);
+                        }
+
+                        @Override
+                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+                        }
+                    });
+
                 }catch (JSONException e){
                     e.printStackTrace();
                     Log.d("Exception",e.getMessage());
@@ -399,8 +610,9 @@ public class Camera extends AppCompatActivity {
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String name = object.getString("year");
-                        id_year.add(id);
+                        list_id_year.add(id);
                         list_year.add(name);
+                        ID_year = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_year);
                         final ArrayAdapter<String> years = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_year);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -410,6 +622,19 @@ public class Camera extends AppCompatActivity {
                         });
 
                     }
+
+                    tvYear.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                            id_year = String.valueOf(ID_year.getItem(i));
+                            year = Integer.parseInt(id_year);
+                        }
+
+                        @Override
+                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+                        }
+                    });
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -421,6 +646,25 @@ public class Camera extends AppCompatActivity {
         final String[] posttype = getResources().getStringArray(R.array.posty_type);
         ArrayAdapter<String> post = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, posttype);
         tvPostType.setAdapter(post);
+
+        tvPostType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                String st = post.getItem(i);
+                if (st.equals("Rent")){
+                    icRent.setVisibility(View.VISIBLE);
+                    tvRent.setVisibility(View.VISIBLE);
+                }else {
+                    icRent.setVisibility(View.GONE);
+                    tvRent.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+            }
+        });
 
         String[] conditions = getResources().getStringArray(R.array.condition);
         ArrayAdapter<String> condition = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,conditions);
@@ -439,14 +683,38 @@ public class Camera extends AppCompatActivity {
         tvDiscount_type.setAdapter(discountType);
 
     }
+    private void PhoneNumber(){
+        icPhone2.setVisibility(View.GONE);
+        tilPhone2.setVisibility(View.GONE);
+        addPhone2.setVisibility(View.GONE);
+        icPhone3.setVisibility(View.GONE);
+        tilPhone3.setVisibility(View.GONE);
 
+        addPhone1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icPhone2.setVisibility(View.VISIBLE);
+                tilPhone2.setVisibility(View.VISIBLE);
+                addPhone2.setVisibility(View.VISIBLE);
+            }
+        });
+
+        addPhone2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icPhone3.setVisibility(View.VISIBLE);
+                tilPhone3.setVisibility(View.VISIBLE);
+            }
+        });
+    }
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
         return Base64.encodeToString(userpass.getBytes(),
                 Base64.NO_WRAP);
     }
     private void Variable_Field() {
-        //textview ///////
+
+//textview ///////
         tvPostType = (MaterialSpinner)findViewById(R.id.tvPostType);
         tvCategory = (MaterialSpinner) findViewById(R.id.tvCategory);
         tvType_elec= (MaterialSpinner) findViewById(R.id.tvType_elec);
@@ -457,7 +725,7 @@ public class Camera extends AppCompatActivity {
         tvColor    = (MaterialSpinner) findViewById(R.id.tvColor);
         tvRent     = (MaterialSpinner) findViewById(R.id.tvRent);
         tvDiscount_type = (MaterialSpinner)findViewById(R.id.tvDisType);
-        // edit text ////
+// edit text ////
         etTitle           = (EditText)findViewById(R.id.etTitle );
         etVinCode         = (EditText)findViewById(R.id.etVinCode );
         etMachineCode     = (EditText)findViewById(R.id.etMachineCode );
@@ -469,6 +737,15 @@ public class Camera extends AppCompatActivity {
         etPhone2          = (EditText)findViewById(R.id.etphone2 );
         etPhone3          = (EditText)findViewById(R.id.etphone3 );
         etEmail           = (EditText)findViewById(R.id.etEmail );
+
+// til phone
+        tilPhone2 = (TextInputLayout)findViewById(R.id.tilPhone2);
+        tilPhone3 = (TextInputLayout)findViewById(R.id.tilPhone3);
+
+// add phone button
+
+        addPhone2 = (ImageButton)findViewById(R.id.imgBtnPhone2);
+        addPhone1 = (ImageButton)findViewById(R.id.imgBtnPhone1);
 //// icon  ////////
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
         icCategory   = (ImageView) findViewById(R.id. imgCategory);

@@ -51,7 +51,7 @@
     <EditText
         android:id="@+id/editPhone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:background="@drawable/my_border1"
         android:hint="@string/phone_number"
         android:inputType="phone"
@@ -78,7 +78,18 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPhone" />
-
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tilpass"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    app:passwordToggleEnabled="true"
+    app:hintEnabled="false"
+    app:layout_constraintTop_toBottomOf="@+id/textView5"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent">
     <EditText
         android:id="@+id/editPasswordRegister"
         android:layout_width="match_parent"
@@ -89,14 +100,12 @@
         android:inputType="textPassword"
         android:padding="8sp"
         android:textSize="14sp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         />
-
+</com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView6"
@@ -111,23 +120,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPasswordRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/tilpass" />
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tilcomfirm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    app:passwordToggleEnabled="true"
+    app:hintEnabled="false"
+    app:layout_constraintTop_toBottomOf="@+id/textView6"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
 
+    >
     <EditText
         android:id="@+id/editConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/my_border1"
         android:ems="8"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:hint="@string/Password"
         android:inputType="textPassword"
         android:padding="8sp"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         />
-
+</com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnSub"
@@ -141,7 +161,7 @@
         android:textColor="#FAFAFA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editConfirm" />
+        app:layout_constraintTop_toBottomOf="@+id/tilcomfirm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
