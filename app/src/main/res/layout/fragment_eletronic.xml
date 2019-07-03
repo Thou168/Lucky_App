@@ -10,13 +10,13 @@
         <TextView
             android:id="@+id/tv_back"
             android:drawableLeft="@drawable/icon_back"
-            android:text="Buy"
+            android:text="@string/buy"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_gravity="center"
-            android:text="Eletronic"
+            android:text="@string/electronic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Edit_Account.Sheetviewupload">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ad Photo"
+        android:textSize="20dp"
+        android:background="#ffff"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="20dp"
+        />
+    <View style="@style/line"/>
+
+    <TextView
+        android:id="@+id/tvTake_Photo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Take Photo"
+        android:textSize="20dp"
+        android:textColor="#0E0101"
+        android:background="#ffff"
+        android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/ic_camera_black_24dp"
+        />
+    <View style="@style/line"/>
+    <TextView
+        android:id="@+id/tvAdd_photo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Add Photo"
+        android:textSize="20dp"
+        android:textColor="#090000"
+        android:background="#ffff"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/ic_image_black_24dp"
+        android:drawablePadding="10dp"
+        android:paddingLeft="10dp"
+        />
+    <View style="@style/line"/>
+</LinearLayout>

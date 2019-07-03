@@ -8,6 +8,17 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    //Detail
+    <string name="nav_detail">Detail</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="tax">Tax Type</string>
+    <string name="brand">Brand</string>
+    <string name="year">Year</string>
+    <string name="price">Price</string>
+    <string name="color">Color</string>
+    <string name="condition">Condition</string>
+
+    //menus
     <string name="menu_profile">Your Profile</string>
     <string name="menu_post">Your Post</string>
     <string name="menu_like">Your Like</string>
@@ -65,7 +76,6 @@
     <string name="language">Language</string>
     <string name="language2">English</string>
     <string name="setting">Setting</string>
-    <string name="notification">Notification</string>
     <string name="version">Version</string>
     <string name="logout">Logout</string>
     //Edit_Account
@@ -77,6 +87,32 @@
     <string name="hit_wingnumber">Wing Account / Number</string>
     <string name="hit_wingaccount">Wing Account / Name</string>
     <string name="hit_dealer">Dealer</string>
+
+    //Home
+    <string name="product_discount">Product Discount</string>
+    <string name="new_post">New Post</string>
+
+    //title
+    <string name="home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="camera">Camera</string>
+    <string name="message">Message</string>
+    <string name="account">Account</string>
+
+    //category
+    <string name="motor">Motor</string>
+    <string name="electronic">Electronic</string>
+    <string name="vehicle">Vehicle</string>
+
+    //type
+    <string name="sell">Sell</string>
+    <string name="buy">Buy</string>
+
+    //Tab
+    <string name="post">Post</string>
+    <string name="like">Like</string>
+
+
     <string name="contact_number">Contact Phone Number</string>
 
     <!-- button part -->

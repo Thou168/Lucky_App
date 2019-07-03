@@ -23,7 +23,7 @@
             <include layout="@layout/sell_buy_rent"/>
             <TextView
                 android:background="#80D3D3D3"
-                android:text="Product Discount"
+                android:text="@string/product_discount"
                 android:textSize="@dimen/dp_16"
                 android:paddingStart="@dimen/dp_16"
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 <TextView
                     android:paddingStart="@dimen/dp_16"
                     android:textSize="@dimen/dp_16"
-                    android:text="Product New Post"
+                    android:text="@string/new_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
