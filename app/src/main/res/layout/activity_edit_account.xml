@@ -9,29 +9,26 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_Account"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="40dp"
         android:background="@color/colorPrimary">
         <TextView
-            android:id="@+id/tvBack_account"
+            android:id="@+id/tv_Back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/chevron_left_36"
+            android:drawableLeft="@drawable/icon_back"
             android:gravity="center_vertical"
-            android:textColor="@color/white"
+            android:textColor="#ffff"
             android:textSize="@dimen/dp_16"
-            android:text="@string/back_button"/>
-
+            android:text=" Back"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="My Account"
-            android:textSize="@dimen/page_title"
-            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textColor="#ffff"
             android:textStyle="bold"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:gravity="center_vertical"/>
-
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
@@ -43,28 +40,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/groups_image"
-                    android:src="@drawable/ic_check_circle_black_24dp"
-                    android:layout_marginLeft="18dp" />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_20"
-                    android:layout_toRightOf="@id/groups_image"
-                    android:paddingLeft="8dp"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:id="@+id/groups_spinner"/>
-
                 <include
                     android:id="@+id/layout_type_public_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/groups_image"
-                    layout="@layout/type_public_user"/>
+                    layout="@layout/type_public_user1"/>
                 <include
                     android:id="@+id/layout_type_121_dealer"
                     android:layout_below="@+id/layout_type_public_user"
@@ -74,26 +54,28 @@
                     android:layout_width="wrap_content"/>
 
                 <ImageView
+                    android:paddingLeft="@dimen/dp_16"
                     android:id="@+id/imgAccount_Address"
-                    android:layout_width="20dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="45dp"
-                    android:src="@drawable/icon_null"
-                    android:layout_below="@+id/layout_type_121_dealer"
+                    android:layout_below="@+id/layout_type_public_user"
+                    android:layout_marginTop="0dp"
                     android:background="@drawable/underline"
-                    />
+                    android:src="@drawable/icon_null" />
+
                 <TextView
                     android:id="@+id/tvAccount_Address"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_below="@+id/layout_type_121_dealer"
+                    android:layout_below="@+id/layout_type_public_user"
+                    android:layout_marginTop="0dp"
                     android:layout_toRightOf="@+id/imgAccount_Address"
-                    android:hint="Address"
-                    android:textSize="18dp"
-                    android:paddingLeft="10dp"
+                    android:background="@drawable/underline"
                     android:drawableRight="@drawable/arrow_right_black_24dp"
                     android:gravity="center_vertical"
-                    android:background="@drawable/underline"
-                    />
+                    android:hint="Address"
+                    android:paddingLeft="10dp"
+                    android:textSize="18dp" />
 
                 <fragment
                     android:id="@+id/map_Account"

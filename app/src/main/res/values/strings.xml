@@ -60,6 +60,31 @@
         <item>2015</item>
         <item>2014</item>
     </string-array>
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="place">
+        <item>Place of Birth</item>
+        <item>Phnom Penh</item>
+        <item>Kompong Cham</item>
+    </string-array>
+    <string-array name="status">
+        <item>Married Status</item>
+        <item>Single</item>
+        <item>Married</item>
+    </string-array>
+    <string-array name="location">
+        <item>Locations</item>
+        <item>Phnom Penh</item>
+        <item>Kompong Cham</item>
+        <item>Kompong Thom</item>
+        <item>Kompong Chhnang</item>
+    </string-array>
+
+    <string name="ok_dob" translatable="false">Ok</string>
+    <string name="cancel_dob" translatable="false">Cancel</string>
 
     //user account registration
     <string name="title_Login">Login account</string>
@@ -78,7 +103,7 @@
     <string name="setting">Setting</string>
     <string name="version">Version</string>
     <string name="logout">Logout</string>
-    //Edit_Account
+//Edit_Account
     <string name="txt_account_setting">Account Setting</string>
     <string name="hit_fistname">Fist Name</string>
     <string name="hit_lastname">Last Name</string>

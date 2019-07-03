@@ -15,7 +15,7 @@ import com.example.lucky_app.Product_dicount.Detail_Discount
 import com.example.lucky_app.R
 
 
-class MyAdapter_list(private val itemList: ArrayList<Item>, val type: String?) : RecyclerView.Adapter<MyAdapter_list.ViewHolder>() {
+class MyAdapter_list(private val itemList: ArrayList<Item>,val type: String?) : RecyclerView.Adapter<MyAdapter_list.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
