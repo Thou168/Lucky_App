@@ -10,6 +10,7 @@ import com.example.lucky_app.Edit_Account.Edit_account
 import com.example.lucky_app.Fragment.Tab_Adapter_Acc
 import com.example.lucky_app.R
 import com.example.lucky_app.Setting.Setting
+import com.example.lucky_app.useraccount.UserInformationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 
@@ -84,6 +85,5 @@ class Account : AppCompatActivity() {
             }
         })
 
-
-    } // create
+    }
 }

@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
     <dist:module dist:instant="true" />
 
     <application
@@ -19,7 +26,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.Camera"></activity>
         <activity android:name=".Edit_Account.Edit_account" />
         <activity android:name=".Setting.Setting" />
         <activity android:name=".Login_Register.Register" />
@@ -27,7 +33,7 @@
         <activity android:name=".Login_Register.UserAccount" />
         <activity android:name=".Activity.Account" />
         <activity android:name=".Startup.Your_Post"></activity>
-        <activity android:name=".Activity.Account" />
+        <activity android:name=".post.CameraActivity" />
         <activity android:name=".Activity.Camera" />
 
         <meta-data
@@ -64,6 +70,17 @@
         <activity android:name=".Product_dicount.Detail_Discount" />
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" />
+        <!--<activity android:name=".useraccount.UserInformationActivity"/>-->
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
     </application>
 
 </manifest>

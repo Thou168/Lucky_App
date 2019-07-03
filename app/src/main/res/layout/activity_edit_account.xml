@@ -9,26 +9,29 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_Account"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/tvBack_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_back"
+            android:drawableLeft="@drawable/chevron_left_36"
             android:gravity="center_vertical"
-            android:textColor="#ffff"
+            android:textColor="@color/white"
             android:textSize="@dimen/dp_16"
-            android:text=" Back"/>
+            android:text="@string/back_button"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="My Account"
-            android:textSize="20dp"
-            android:textColor="#ffff"
+            android:textSize="@dimen/page_title"
+            android:textColor="@color/white"
             android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:gravity="center_vertical"/>
+
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
@@ -41,10 +44,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/groups_image"
+                    android:src="@drawable/ic_check_circle_black_24dp"
+                    android:layout_marginLeft="18dp" />
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:layout_toRightOf="@id/groups_image"
+                    android:paddingLeft="8dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:id="@+id/groups_spinner"/>
+
                 <include
                     android:id="@+id/layout_type_public_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/groups_image"
                     layout="@layout/type_public_user"/>
                 <include
                     android:id="@+id/layout_type_121_dealer"

@@ -1,290 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imgType"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"/>
-<com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/tilType"
-    android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:layout_toRightOf="@+id/imgType"
-    android:background="@drawable/underline"
-    >
-    <com.tiper.MaterialSpinner
-        android:id="@+id/tvType"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_toRightOf="@+id/imgType"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textSize="18dp"
-        android:background="@drawable/underline"
-        android:dropDownHorizontalOffset="-25dp"
-        android:spinnerMode="dropdown"
-
-      />
-</com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/imgUsername"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/tilType"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUsername"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/tilType"
-        android:layout_toRightOf="@+id/imgUsername"
-        android:background="@drawable/underline">
-
         <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
             android:hint="Username"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_check_circle_black_24dp"
+            android:textSize="@dimen/input_text"
+            android:paddingBottom="@dimen/dp_20"
+            android:inputType="textPersonName"/>
 
-    <ImageView
-        android:id="@+id/imgGender"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:src="@drawable/icon_null"
-        android:layout_below="@+id/tilUsername"
-        android:background="@drawable/underline"/>
-    <TextView
-        android:id="@+id/tvGender"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/tilUsername"
-        android:layout_toRightOf="@+id/imgGender"
-        android:hint="Gender"
-        android:textSize="18dp"
-        android:paddingLeft="10dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/underline"
-        android:drawableRight="@drawable/arrow_right_black_24dp"/>
-
-    <ImageView
-        android:id="@+id/imgDob"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgGender"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDob"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgGender"
-        android:layout_toRightOf="@+id/imgGender"
-        android:background="@drawable/underline">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="40dp"
+            android:id="@+id/genders_image"
+            android:src="@drawable/ic_check_circle_black_24dp"
+            android:layout_below="@id/etUsername"
+            android:layout_marginLeft="18dp" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etUsername"
+            android:layout_toRightOf="@id/genders_image"
+            android:paddingBottom="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_8dp"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:id="@+id/tvGender"/>
 
         <EditText
-            android:id="@+id/etDOB"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:hint="Date of Birth"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/ed_date_of_birth"
+            android:layout_below="@id/genders_image"
+            android:clickable="true"
+            android:editable="false"
+            android:layout_marginLeft="16dp"
+            android:textSize="@dimen/input_text"
+            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_check_circle_black_24dp"
+            android:paddingBottom="@dimen/dp_20"
+            android:hint="Date of Birth"/>
 
-    <ImageView
-        android:id="@+id/imgPob"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:src="@drawable/icon_null"
-        android:layout_below="@+id/tilDob"
-        android:background="@drawable/underline"/>
-    <TextView
-        android:id="@+id/tvPob"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/tilDob"
-        android:layout_toRightOf="@+id/imgPob"
-        android:hint="Place of Birth"
-        android:textSize="18dp"
-        android:paddingLeft="10dp"
-        android:drawableRight="@drawable/arrow_right_black_24dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/underline"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="40dp"
+            android:id="@+id/pob_image"
+            android:src="@drawable/ic_check_circle_black_24dp"
+            android:layout_below="@id/ed_date_of_birth"
+            android:layout_marginLeft="18dp" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ed_date_of_birth"
+            android:layout_toRightOf="@id/pob_image"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:paddingBottom="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_8dp"
+            android:background="@color/colorPrimary"
+            android:id="@+id/pob_spinner"/>
 
-    <ImageView
-        android:id="@+id/imgMarried"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:src="@drawable/icon_null"
-        android:layout_below="@+id/imgPob"
-        android:background="@drawable/underline"/>
-    <TextView
-        android:id="@+id/tvMarried"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgPob"
-        android:layout_toRightOf="@+id/imgMarried"
-        android:hint="Married Status"
-        android:textSize="18dp"
-        android:paddingLeft="10dp"
-        android:drawableRight="@drawable/arrow_right_black_24dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/underline"/>
-
-
-
-    <ImageView
-        android:id="@+id/imgWingNumber"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgMarried"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"
-        />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilWingNumber"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgMarried"
-        android:layout_toRightOf="@+id/imgWingNumber"
-        android:background="@drawable/underline"
-        >
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="40dp"
+            android:id="@+id/marital_status_image"
+            android:src="@drawable/ic_check_circle_black_24dp"
+            android:layout_below="@id/pob_spinner"
+            android:layout_marginLeft="18dp" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pob_spinner"
+            android:paddingBottom="@dimen/dp_20"
+            android:layout_toRightOf="@id/marital_status_image"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:paddingLeft="@dimen/dp_8dp"
+            android:id="@+id/marital_status_spinner"/>
 
         <EditText
-            android:id="@+id/etWingNumber"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edWingAccountNumber"
             android:hint="Wing Account Number"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/imgWingName"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgWingNumber"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"
-        />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilWingName"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgWingNumber"
-        android:layout_toRightOf="@+id/imgWingName"
-        android:background="@drawable/underline"
-        >
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/marital_status_image"
+            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_check_circle_black_24dp"
+            android:textSize="@dimen/input_text"
+            android:paddingBottom="@dimen/dp_20"
+            android:inputType="number"/>
 
         <EditText
-            android:id="@+id/etWingName"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edWingAccountName"
             android:hint="Wing Account Name"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/imgAccount_Phone"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgWingName"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"
-        />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAccount_phone"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgWingName"
-        android:layout_toRightOf="@+id/imgAccount_Phone"
-        android:background="@drawable/underline"
-        >
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/edWingAccountNumber"
+            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_check_circle_black_24dp"
+            android:textSize="@dimen/input_text"
+            android:paddingBottom="@dimen/dp_20"
+            android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/etAccount_Phone"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edPhoneNumber"
             android:hint="Phone"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/edWingAccountName"
+            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_check_circle_black_24dp"
+            android:textSize="@dimen/input_text"
+            android:paddingBottom="@dimen/dp_20"
+            android:inputType="textPhonetic"/>
 
-    <ImageView
-        android:id="@+id/imgLocation"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:src="@drawable/icon_null"
-        android:layout_below="@+id/imgAccount_Phone"
-        android:background="@drawable/underline"
-        />
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgAccount_Phone"
-        android:layout_toRightOf="@+id/imgLocation"
-        android:hint="Location"
-        android:textSize="18dp"
-        android:paddingLeft="10dp"
-        android:drawableRight="@drawable/arrow_right_black_24dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/underline"
-        />
-
-    <ImageView
-        android:id="@+id/imgJob"
-        android:layout_width="20dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgLocation"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/icon_null"
-        android:background="@drawable/underline"
-        />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilJob"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/imgLocation"
-        android:layout_toRightOf="@+id/imgJob"
-        android:background="@drawable/underline"
-        >
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="40dp"
+            android:id="@+id/location_image"
+            android:src="@drawable/ic_check_circle_black_24dp"
+            android:layout_below="@id/edPhoneNumber"
+            android:layout_marginLeft="18dp" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edPhoneNumber"
+            android:layout_toRightOf="@id/location_image"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:paddingBottom="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_8dp"
+            android:id="@+id/location_spinner"/>
 
         <EditText
-            android:id="@+id/etJob"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edJob"
             android:hint="Job"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginLeft="16dp"
+            android:paddingBottom="@dimen/dp_20"
+            android:layout_below="@id/location_image"
+            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_check_circle_black_24dp"
+            android:textSize="@dimen/input_text"
+            android:inputType="textPhonetic"/>
 
     </RelativeLayout>
 </LinearLayout>

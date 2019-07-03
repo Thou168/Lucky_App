@@ -35,4 +35,8 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+    <style name="HeaderBar">
+        <item name="android:background">#303F9F</item>
+    </style>
 </resources>

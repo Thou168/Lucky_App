@@ -15,6 +15,20 @@
     <string name="menu_setting">Setting</string>
     <string name="menu_about">About Us</string>
     <string name="menu_privacy">Term of Privacy</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string name="account_toolbar">My Account</string>
+
+    <!-- Login String -->
+    <string name="login_username">Phone Number</string>
+    <string name="login_password">Password</string>
+    <!-- End Login String -->
     <string name="title_activity_account">Account</string>
 
     <string-array name="category">
@@ -63,6 +77,35 @@
     <string name="hit_wingnumber">Wing Account / Number</string>
     <string name="hit_wingaccount">Wing Account / Name</string>
     <string name="hit_dealer">Dealer</string>
+    <string name="contact_number">Contact Phone Number</string>
+
+    <!-- button part -->
+    <string name="back_button">Back</string>
+    <string name="submit_button">Submit</string>
+    <string name="login_button">Login</string>
+    <!-- End button part -->
+
+    <!-- Spinner Array -->
+    <string-array name="groups_array">
+        <item>Public User</item>
+        <item>121 Shoppe</item>
+        <item>Other Dealer</item>
+    </string-array>
+    <string-array name="genders_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="marital_status_array">
+        <item>Single</item>
+        <item>Married</item>
+    </string-array>
+    <string-array name="province_array">
+        <item>Phnom Penh</item>
+        <item>Pursat</item>
+        <item>Battambong</item>
+    </string-array>
+    <!-- End Spinner Array -->
 
     //Post type
     <string-array name="posty_type">

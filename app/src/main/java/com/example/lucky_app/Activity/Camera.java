@@ -1,11 +1,18 @@
 package com.example.lucky_app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -19,9 +26,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.lucky_app.Api.ConsumeAPI;
 import com.example.lucky_app.R;
+import com.example.lucky_app.post.CameraActivity;
+import com.example.lucky_app.utils.FileCompressor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tiper.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,10 +46,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -43,6 +63,14 @@ import okhttp3.Response;
 public class Camera extends AppCompatActivity {
 
     private static final String TAG = "Response";
+    static final int REQUEST_TAKE_PHOTO_1=1;
+    static final int REQUEST_TAKE_PHOTO_2=2;
+    static final int REQUEST_TAKE_PHOTO_3=3;
+    static final int REQUEST_TAKE_PHOTO_4=4;
+    static final int REQUEST_GALLERY_PHOTO = 5;
+    private int REQUEST_TAKE_PHOTO_NUM=0;
+    File mPhotoFile;
+    FileCompressor mCompressor;
 
     private EditText etTitle,etVinCode,etMachineCode,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
@@ -71,6 +99,8 @@ public class Camera extends AppCompatActivity {
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode = getEncodedString(name,pass);
+        ButterKnife.bind(this);
+        mCompressor = new FileCompressor(this);
 
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
@@ -107,12 +137,39 @@ public class Camera extends AppCompatActivity {
         Call_Model(Encode);
         Call_years(Encode);
 
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_1;
+            }
+        });
 
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
+            }
+        });
 
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
+            }
+        });
+
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
+            }
+        });
 
     } // create
-
-
 
     private void Call_category(String encode) {
 
@@ -360,7 +417,6 @@ public class Camera extends AppCompatActivity {
         });
     } // years
 
-
     private void DropDown() {
         final String[] posttype = getResources().getStringArray(R.array.posty_type);
         ArrayAdapter<String> post = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, posttype);
@@ -383,7 +439,6 @@ public class Camera extends AppCompatActivity {
         tvDiscount_type.setAdapter(discountType);
 
     }
-
 
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -441,6 +496,207 @@ public class Camera extends AppCompatActivity {
         imageView2=(ImageView) findViewById(R.id.Picture2);
         imageView3=(ImageView) findViewById(R.id.Picture3);
         imageView4=(ImageView) findViewById(R.id.Picture4);
-        imageView5=(ImageView) findViewById(R.id.Picture5);
+    }
+
+    private void selectImage() {
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(Camera.this);
+        builder.setItems(items, (dialog, item) -> {
+            if (items[item].equals("Take Photo")) {
+                requestStoragePermission(true);
+            } else if (items[item].equals("Choose from Library")) {
+                requestStoragePermission(false);
+            } else if (items[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * Requesting multiple permissions (storage and camera) at once
+     * This uses multiple permission model from dexter
+     * On permanent denial opens settings dialog
+     */
+    private void requestStoragePermission(boolean isCamera) {
+        Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            if (isCamera) {
+                                dispatchTakePictureIntent();
+                            } else {
+                                dispatchGalleryIntent();
+                            }
+                        }
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).withErrorListener(error -> Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show())
+                .onSameThread()
+                .check();
+    }
+
+
+    /**
+     * Capture image from camera
+     */
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        this.getPackageName() + ".provider",
+                        photoFile);
+                //BuildConfig.APPLICATION_ID
+                mPhotoFile = photoFile;
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                //startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO_NUM);
+            }
+        }
+    }
+
+    /**
+     * Select image fro gallery
+     */
+    private void dispatchGalleryIntent() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivityForResult(pickPhoto, REQUEST_GALLERY_PHOTO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_TAKE_PHOTO_1) {
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
+            }
+            else if (requestCode == REQUEST_TAKE_PHOTO_2) {
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
+            }
+            else if (requestCode == REQUEST_TAKE_PHOTO_3) {
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
+            }
+            else if (requestCode == REQUEST_TAKE_PHOTO_4) {
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
+            }
+            else if (requestCode == REQUEST_GALLERY_PHOTO) {
+                Uri selectedImage = data.getData();
+                try {
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
+
+            }
+        }
+    }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Need Permissions");
+        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        //Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+    /**
+     * Create file with current timestamp name
+     *
+     * @return
+     * @throws IOException
+     */
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String mFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File mFile = File.createTempFile(mFileName, ".jpg", storageDir);
+        return mFile;
+    }
+
+    /**
+     * Get real file path from URI
+     *
+     * @param contentUri
+     * @return
+     */
+    public String getRealPathFromUri(Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = getContentResolver().query(contentUri, proj, null, null, null);
+            assert cursor != null;
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 }
+
+

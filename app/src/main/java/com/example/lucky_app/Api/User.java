@@ -9,6 +9,8 @@ public class User {
     private String email;
     private String first_name;
     private String last_name;
+    private Profile profile;
+    private int[] groups;
 
     public int getPk() {
         return pk;
@@ -48,5 +50,21 @@ public class User {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public void setGroups(int[] groups) {
+        this.groups = groups;
+    }
+
+    public int[] getGroups() {
+        return groups;
     }
 }

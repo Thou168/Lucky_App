@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:paddingLeft="0dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_back"
+            android:textSize="@dimen/page_title"
+            android:textColor="@color/white"
+            android:text="@string/back_button"
+            android:gravity="center"
+            android:drawableLeft="@drawable/chevron_left_36"/>
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/page_title"
+            android:textColor="@color/white"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_gravity="center" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="40dp"
+        android:id="@+id/groups_image"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="?attr/actionBarSize"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_20"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_toRightOf="@id/groups_image"
+        android:paddingLeft="8dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:id="@+id/groups_spinner"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edUsername"
+        android:hint="Username"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/groups_spinner"
+        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_check_circle_black_24dp"
+        android:textSize="@dimen/input_text"
+        android:paddingBottom="@dimen/dp_20"
+        android:inputType="textPersonName"/>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="40dp"
+        android:id="@+id/genders_image"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:layout_below="@id/edUsername"
+        android:layout_marginLeft="18dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edUsername"
+        android:layout_toRightOf="@id/genders_image"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_8dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:id="@+id/genders_spinner"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ed_date_of_birth"
+        android:layout_below="@id/genders_image"
+        android:clickable="true"
+        android:editable="false"
+        android:layout_marginLeft="16dp"
+        android:textSize="@dimen/input_text"
+        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_check_circle_black_24dp"
+        android:paddingBottom="@dimen/dp_20"
+        android:hint="Date of Birth"/>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="40dp"
+        android:id="@+id/pob_image"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:layout_below="@id/ed_date_of_birth"
+        android:layout_marginLeft="18dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ed_date_of_birth"
+        android:layout_toRightOf="@id/pob_image"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_8dp"
+        android:id="@+id/pob_spinner"/>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="40dp"
+        android:id="@+id/marital_status_image"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:layout_below="@id/pob_spinner"
+        android:layout_marginLeft="18dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pob_spinner"
+        android:paddingBottom="@dimen/dp_20"
+        android:layout_toRightOf="@id/marital_status_image"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:paddingLeft="@dimen/dp_8dp"
+        android:id="@+id/marital_status_spinner"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edWingAccountNumber"
+        android:hint="Wing Account Number"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/marital_status_image"
+        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_check_circle_black_24dp"
+        android:textSize="@dimen/input_text"
+        android:paddingBottom="@dimen/dp_20"
+        android:inputType="number"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edWingAccountName"
+        android:hint="Wing Account Name"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/edWingAccountNumber"
+        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_check_circle_black_24dp"
+        android:textSize="@dimen/input_text"
+        android:paddingBottom="@dimen/dp_20"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edPhoneNumber"
+        android:hint="Phone"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/edWingAccountName"
+        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_check_circle_black_24dp"
+        android:textSize="@dimen/input_text"
+        android:paddingBottom="@dimen/dp_20"
+        android:inputType="textPhonetic"/>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="40dp"
+        android:id="@+id/location_image"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:layout_below="@id/edPhoneNumber"
+        android:layout_marginLeft="18dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edPhoneNumber"
+        android:layout_toRightOf="@id/location_image"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_8dp"
+        android:id="@+id/location_spinner"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edJob"
+        android:hint="Job"
+        android:layout_marginLeft="16dp"
+        android:paddingBottom="@dimen/dp_20"
+        android:layout_below="@id/location_image"
+        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_check_circle_black_24dp"
+        android:textSize="@dimen/input_text"
+        android:inputType="textPhonetic"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btSubmit"
+        android:layout_below="@id/edJob"
+        android:background="@color/logo_orange"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/dp_24"
+        android:textSize="@dimen/button_tab"
+        android:text="@string/submit_button"/>
+
+
+
+</LinearLayout>
