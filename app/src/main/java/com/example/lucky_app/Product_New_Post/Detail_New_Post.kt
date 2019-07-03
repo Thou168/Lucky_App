@@ -86,6 +86,7 @@ class Detail_New_Post : AppCompatActivity() {
         like.setOnClickListener {
             Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
         }
+
     }
 
     fun makePhoneCall(number: String) : Boolean {
