@@ -289,12 +289,37 @@
                         android:id="@+id/line10"
                         android:layout_below="@+id/tv_email"
                         style="@style/line"/>
-                    <FrameLayout
-                        android:background="@color/colorLightGray"
+                    <LinearLayout
+                        android:id="@+id/layout_map"
+                        android:orientation="vertical"
                         android:layout_below="@+id/line10"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp">
-                    </FrameLayout>
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txt_show_place"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/layout_map"
+                            android:layout_alignTop="@+id/layout_map"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="0dp"
+                            android:background="#F7F7F7"
+                            android:drawableLeft="@drawable/ic_my_location_black_24dp"
+                            android:paddingLeft="12dp"
+                            android:text="Location :" />
+                        <fragment
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            xmlns:tools="http://schemas.android.com/tools"
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"/>
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/line11"
+                        android:layout_below="@+id/layout_map"
+                        style="@style/line"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

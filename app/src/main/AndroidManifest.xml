@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -50,6 +52,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="@string/google_maps_key"/>
+
         <activity android:name=".Activity.Notification" />
         <activity android:name=".Activity.Message" />
         <activity android:name=".Product_New_Post.Detail_New_Post" />
@@ -67,7 +73,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
         <activity android:name=".Product_dicount.User_post" />
-        <activity android:name=".Product_dicount.Detail_Discount" />
+        <activity android:name=".Product_dicount.Detail_Discount"/>
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" />
         <!--<activity android:name=".useraccount.UserInformationActivity"/>-->
