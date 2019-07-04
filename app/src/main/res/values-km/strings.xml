@@ -56,4 +56,14 @@
     <string name="hit_wingnumber">Wing Account / Number</string>
     <string name="hit_wingaccount">Wing Account / Name</string>
     <string name="hit_dealer">Dealer</string>
+
+    <string name="contact_number">Contact Phone Number</string>
+
+    <!-- button part -->
+    <string name="back_button">Back</string>
+    <string name="submit_button">Submit</string>
+    <string name="login_button">Login</string>
+    <!-- End button part -->
+
+
 </resources>

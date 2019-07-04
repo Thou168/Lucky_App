@@ -2,6 +2,7 @@ package com.example.lucky_app.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,10 +23,11 @@ import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_acount.*
 import java.io.IOException
+import java.io.ByteArrayOutputStream
+import java.util.*
 
 
-class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener{
-
+class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener {
 
     private val GALLERY = 1
     private val CAMERA = 2
@@ -87,31 +89,31 @@ class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_account)
+        setContentView(com.example.lucky_app.R.layout.activity_account)
 
-        val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        val bnavigation = findViewById<BottomNavigationView>(com.example.lucky_app.R.id.bnaviga)
         bnavigation.menu.getItem(4).isChecked = true
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     val intent = Intent(this@Account,Home::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
                 R.id.notification -> {
                     val intent = Intent(this@Account,Notification::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 R.id.camera ->{
                     val intent = Intent(this@Account,Camera::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 R.id.message -> {
                     val intent = Intent(this@Account,Message::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 R.id.account ->{
 //                    val intent = Intent(this@Account,Account::class.java)
@@ -144,7 +146,6 @@ class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener{
         }
 
 
-
         val setting = findViewById<ImageButton>(R.id.btn_setting)
         setting.setOnClickListener {
             val intent = Intent(this@Account , Setting::class.java)
@@ -161,8 +162,8 @@ class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener{
         val tab = findViewById<TabLayout>(R.id.tab)
         val pager = findViewById<ViewPager>(R.id.pager)
 
-        tab.addTab(tab.newTab().setText(R.string.post))
-        tab.addTab(tab.newTab().setText(R.string.like))
+        tab.addTab(tab.newTab().setText(com.example.lucky_app.R.string.post))
+        tab.addTab(tab.newTab().setText(com.example.lucky_app.R.string.like))
         val adapter = Tab_Adapter_Acc(supportFragmentManager,tab.tabCount)
         pager.adapter = adapter
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab))
