@@ -58,7 +58,7 @@ class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener {
             {
                 imgCover!!.setImageBitmap(image)
             }
-            else if(type.equals("profile"))
+            else
             {
                 imgProfile!!.setImageBitmap(image)
             }
@@ -67,14 +67,14 @@ class Account : AppCompatActivity(), Sheetviewupload.BottomSheetListener {
         {
             if(data != null)
             {
-                val content = data!!.data
+                val content = data.data
                 try{
                     val upload = MediaStore.Images.Media.getBitmap(this.contentResolver,content)
                     if(type.equals("cover"))
                     {
                         imgCover!!.setImageBitmap(upload)
                     }
-                    else if(type.equals("profile"))
+                    else
                     {
                         imgProfile!!.setImageBitmap(upload)
                     }

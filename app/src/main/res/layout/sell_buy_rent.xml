@@ -24,7 +24,7 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/dp_20"
                 android:textColor="#DF8302"
-                android:text="Buy"
+                android:text="@string/buy1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -46,7 +46,7 @@
                 android:textSize="@dimen/dp_20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sell" />
+                android:text="@string/sell1" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/rela_rent"
@@ -63,7 +63,7 @@
                 android:textColor="#DF041D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rent"
+                android:text="@string/rent"
                 android:textSize="@dimen/dp_20" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

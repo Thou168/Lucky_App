@@ -35,6 +35,7 @@ class Detail_New_Post : AppCompatActivity() {
         sliderImage.getIndicator()
 
         val id = intent.getIntExtra("ID",0)
+        val phone = findViewById<TextView>(R.id.tv_phone)
 
         val title = findViewById<TextView>(R.id.title)
         title.text = intent.getStringExtra("Title")
@@ -50,6 +51,7 @@ class Detail_New_Post : AppCompatActivity() {
             val intent = Intent(this@Detail_New_Post, User_post::class.java)
             intent.putExtra("Image_user",getIntent().getIntExtra("Image_user",R.drawable.thean))
             intent.putExtra("ID",id)
+            intent.putExtra("Phone",phone.text)
             startActivity(intent)
         }
 //Button Share
@@ -75,11 +77,11 @@ class Detail_New_Post : AppCompatActivity() {
 //                intent.putExtra("sms_body", "Here goes your message...")
 //                val smsManager = SmsManager.getDefault() as SmsManager
 
-//            val smsIntent = Intent(Intent.ACTION_VIEW)
-//            smsIntent.type = "vnd.android-dir/mms-sms"
-//            smsIntent.putExtra("address", "0962363929")
-////            smsIntent.putExtra("sms_body", "Body of Message")
-//            startActivity(smsIntent)
+            val smsIntent = Intent(Intent.ACTION_VIEW)
+            smsIntent.type = "vnd.android-dir/mms-sms"
+            smsIntent.putExtra("address", "0962363929")
+//            smsIntent.putExtra("sms_body", "Body of Message")
+            startActivity(smsIntent)
         }
 //Button Like
         val like = findViewById<Button>(R.id.btn_like)

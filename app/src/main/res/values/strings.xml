@@ -27,6 +27,10 @@
     <string name="menu_about">About Us</string>
     <string name="menu_privacy">Term of Privacy</string>
 
+    <string name="buy1">BUY</string>
+    <string name="sell1">SELL</string>
+    <string name="rent">RENT</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -40,7 +44,7 @@
     <string name="login_username">Phone Number</string>
     <string name="login_password">Password</string>
     <!-- End Login String -->
-    <string name="title_activity_account">Account</string>
+    <string name="title_activity_account"></string>
 
     <!--
      https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=20:0B:71:3B:B2:46:75:A1:87:78:2E:4C:49:3F:E3:B6:FD:2D:76:D3%3Bexample.javatpoint.com.kotlingooglemapcurrentlocation

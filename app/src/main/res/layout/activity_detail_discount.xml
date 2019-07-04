@@ -70,7 +70,7 @@
                     <TextView
                         android:textSize="@dimen/dp_16"
                         android:id="@+id/description"
-                        android:text="DESCRIPTION"
+                        android:text="@string/description"
                         android:padding="@dimen/dp_8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -83,7 +83,7 @@
                         android:layout_below="@+id/line"
                         android:padding="@dimen/dp_4"
                         android:textSize="@dimen/dt_font"
-                        android:text="@string/tax"
+                        android:text="Tax Type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -103,7 +103,7 @@
                         android:layout_below="@+id/line1"
                         android:padding="@dimen/dp_4"
                         android:textSize="@dimen/dt_font"
-                        android:text="@string/brand"
+                        android:text="Brand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -123,7 +123,7 @@
                         android:layout_below="@+id/line2"
                         android:padding="@dimen/dp_4"
                         android:textSize="@dimen/dt_font"
-                        android:text="@string/year"
+                        android:text="Year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -143,7 +143,7 @@
                         android:layout_below="@+id/line3"
                         android:padding="@dimen/dp_4"
                         android:textSize="@dimen/dt_font"
-                        android:text="@string/color"
+                        android:text="Color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -163,7 +163,7 @@
                         android:layout_below="@+id/line4"
                         android:padding="@dimen/dp_4"
                         android:textSize="@dimen/dt_font"
-                        android:text="@string/condition"
+                        android:text="Condition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -183,7 +183,7 @@
                         android:layout_below="@+id/line5"
                         android:padding="@dimen/dp_4"
                         android:textSize="@dimen/dt_font"
-                        android:text="@string/price"
+                        android:text="Price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -310,46 +310,6 @@
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
-        android:paddingTop="@dimen/dp_4"
-        android:paddingBottom="@dimen/dp_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_call"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:text="Call"
-            android:background="@drawable/shap_ratangle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_sms"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btn_sms"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@drawable/shap_ratangle"
-            android:text="SMS"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_call"
-            app:layout_constraintEnd_toStartOf="@+id/btn_loan"
-            app:layout_constraintStart_toEndOf="@+id/btn_call"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:id="@+id/btn_loan"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:text="Loan"
-            android:background="@drawable/shap_ratangle1"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_sms"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_sms"
-            app:layout_constraintTop_toTopOf="@+id/btn_sms" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:background="#46999999"
@@ -364,10 +324,71 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:text="Detail Product"
+            android:text="@string/nav_detail"
             android:textSize="@dimen/dp_18"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_share_black_24dp"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4">
+
+        <Button
+            android:id="@+id/btn_call"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/shap_ratangle"
+            android:text="Call"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_sms"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/shap_ratangle"
+            android:text="SMS"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_call"
+            app:layout_constraintEnd_toStartOf="@+id/btn_like"
+            app:layout_constraintStart_toEndOf="@+id/btn_call"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_like"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/shap_ratangle1"
+            android:text="Like"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_sms"
+            app:layout_constraintEnd_toStartOf="@+id/btn_loan"
+            app:layout_constraintStart_toEndOf="@+id/btn_sms"
+            app:layout_constraintTop_toTopOf="@+id/btn_sms"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btn_loan"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/shap_ratangle1"
+            android:text="Loan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_like"
+            app:layout_constraintTop_toTopOf="@+id/btn_sms" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </RelativeLayout>

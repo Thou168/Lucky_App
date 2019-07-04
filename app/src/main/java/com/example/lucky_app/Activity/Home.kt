@@ -1,14 +1,11 @@
 package com.example.lucky_app.Activity
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -17,47 +14,46 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arlib.floatingsearchview.FloatingSearchView
 import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Buy_Sell_Rent.Buy.Buy
 import com.example.lucky_app.Buy_Sell_Rent.Rent.Rent
 import com.example.lucky_app.Buy_Sell_Rent.Sell.Sell
-import com.example.lucky_app.Edit_Account.Sheetviewupload
-import com.example.lucky_app.Fragment.BaseExampleFragment
 import com.example.lucky_app.Login_Register.UserAccount
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.example.lucky_app.Product_dicount.MyAdapter
 import com.example.lucky_app.R
 import com.example.lucky_app.Setting.Changelanguage
 import com.example.lucky_app.Startup.Item
-import com.example.lucky_app.Startup.Search
+import com.example.lucky_app.Startup.Search1
 import com.example.lucky_app.Startup.Your_Post
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Changelanguage.BottomSheetListener {
+class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     var recyclerView: RecyclerView? = null
+    var click: String = "English"
+    lateinit var sharedPreferences: SharedPreferences
 
-    override fun language(lang : String) {
-        val locale = Locale(lang!!)
-        Locale.setDefault(locale)
-        val confi = Configuration()
-        confi.locale = locale
-        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
-        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
-        editor.putString("My_Lang", lang)
-        editor.apply()
+     fun language(lang : String) {
+         val locale = Locale(lang)
+         Locale.setDefault(locale)
+         val confi = Configuration()
+         confi.locale = locale
+         baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+         val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+         editor.putString("My_Lang", lang)
+         editor.apply()
+
     }
 
-    override fun locale() {
+    fun locale() {
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         language(language)
@@ -66,6 +62,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locale()
+        sharedPreferences = getSharedPreferences("Language",Context.MODE_PRIVATE)
+
         setContentView(R.layout.activity_home)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -76,6 +74,22 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        val language = findViewById<ImageView>(R.id.language)
+        language.setOnClickListener {
+            if(click.equals("Khmer")){
+                language.setImageResource(R.drawable.flag_khmer)
+                click = "English"
+            }else{
+
+                language.setImageResource(R.drawable.flag_english)
+                click = "Khmer"
+            }
+        }
+
+        sharedPreferences = getSharedPreferences(click,Context.MODE_PRIVATE)
+//        click = sharedPreferences.getString(click,"")
+//        navView.visibility = View.GONE
 
         navView.setNavigationItemSelectedListener(this)
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
@@ -193,18 +207,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //Search
         val search = findViewById<EditText>(R.id.search)
         search.setOnClickListener{
-           val intent = Intent(this@Home, Search::class.java)
-            intent.putExtra("items",items)
+           val intent = Intent(this@Home, Search1::class.java)
+         //   intent.putExtra("items",Item.getList())
             startActivity(intent)
         }
-//        val sv = findViewById<FloatingSearchView>(R.id.searchview)
-//        sv.setOnQueryChangeListener { oldQuery, newQuery ->
-//            if (!oldQuery.equals("") && newQuery.equals("")) {
-//                sv.clearSuggestions()
-//            }else {
-//                Toast.makeText(this@Home, "Hello", Toast.LENGTH_SHORT).show()
-//            }
-//        }
 
         val brand = resources.getStringArray(R.array.brand)
         val adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, brand)
@@ -235,22 +241,34 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.account, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings ->
-            {
-                language("en")
-                recreate()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.account, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.action_language -> {
+//                if(click.equals("Khmer")){
+//                    item.setIcon(R.drawable.flag_khmer)
+////                    val editor = sharedPreferences.edit()
+////                    editor.putString(click,"English")
+////                    editor.commit()
+////
+////                    language("km")
+////                    recreate()
+//                }else{
+//                    item.setIcon(R.drawable.flag_english)
+//
+//
+//                }
+//
+//
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
