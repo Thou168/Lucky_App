@@ -1,5 +1,9 @@
 package com.example.lucky_app.Startup
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.res.Configuration
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +17,7 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import androidx.fragment.app.Fragment
 import com.example.lucky_app.R
+import java.util.*
 
 class New_Main : AppCompatActivity() {
 
@@ -59,6 +64,7 @@ class New_Main : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+
         }
     }
 }

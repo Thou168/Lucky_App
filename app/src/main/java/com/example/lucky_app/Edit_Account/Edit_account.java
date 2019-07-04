@@ -31,6 +31,7 @@ import com.example.lucky_app.utils.CalendarConverter;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 import com.tiper.MaterialSpinner;
 
 import org.json.JSONArray;
@@ -38,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -49,7 +51,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Edit_account extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class Edit_account extends AppCompatActivity {
 
     String[] country = { "India", "USA", "China", "Japan", "Other"};
     private static final String TAG = "Response";
@@ -72,6 +74,10 @@ public class Edit_account extends AppCompatActivity implements AdapterView.OnIte
     private List<String> provinceNameArrayList=new ArrayList<>();
     private RequestQueue mQueue;
 
+    private Spinner gender,place,status,location;
+    private EditText date;
+    int mMonth,mYear,mDay;
+
     private static final String[] ANDROID_VERSIONS = {
             "Cupcake",
             "Donut",
@@ -92,96 +98,105 @@ public class Edit_account extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-
-        mQueue= Volley.newRequestQueue(this);
-
-        layout_public_user = (LinearLayout)findViewById(R.id.layout_type_public_user);
-        layout_121_dealer  = (LinearLayout)findViewById(R.id.layout_type_121_dealer);
-        prefer = getSharedPreferences("Register",MODE_PRIVATE);
-        if (prefer.contains("token")) {
-            pk = prefer.getInt("Pk",0);
-            user_id = String.valueOf(pk);
-            Log.d(TAG, user_id);
-        }else if (prefer.contains("id")) {
-            id = prefer.getInt("id", 0);
-            user_id = String.valueOf(id);
-            Log.d(TAG, user_id);
-        }
-        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",user_id);
-        name = prefer.getString("name","");
-        pass = prefer.getString("pass","");
-        Encode = getEncodedString(name,pass);
-
-        ID_Field();
-        initialUserInformation(url,Encode);
-        DropList();
-        InitialProvinceDatas();
-
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.groups_array,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        groupsSpinner.setAdapter(adapter);
-
-        ArrayAdapter<CharSequence> adapterGender=ArrayAdapter.createFromResource(this,R.array.genders_array,android.R.layout.simple_spinner_item);
-        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(adapterGender);
-
-        ArrayAdapter<CharSequence> adapterMaritalStatus=ArrayAdapter.createFromResource(this,R.array.marital_status_array,android.R.layout.simple_spinner_item);
-        adapterMaritalStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        maritalStatusSpinner.setAdapter(adapterMaritalStatus);
-
-        pobSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterPOB=new ArrayAdapter(this, android.R.layout.simple_spinner_item, provinceNameArrayList);
-        adapterPOB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pobSpinner.setAdapter(adapterPOB);
-
-
-
-        ArrayAdapter<String> adapterLocation=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, provinceNameArrayList);
-        adapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        locationSpinner.setAdapter(adapterLocation);
-
-
-        //Initial Date of birth calendar
-        final Calendar myCalendar= Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR,year);
-                myCalendar.set(Calendar.MONTH,month);
-                myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-
-            }
-        };
-
-        etDob.setOnClickListener(new View.OnClickListener() {
+        TextView back = (TextView)findViewById(R.id.tv_Back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(Edit_account.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                etDob.setText(CalendarConverter.dateConvertMMDDYY(myCalendar));
+                finish();
             }
         });
 
+//        layout_public_user = (LinearLayout)findViewById(R.id.layout_type_public_user);
+//        layout_121_dealer  = (LinearLayout)findViewById(R.id.layout_type_121_dealer);
+//
+//        prefer = getSharedPreferences("Register",MODE_PRIVATE);
+//        if (prefer.contains("token")) {
+//            pk = prefer.getInt("Pk",0);
+//            user_id = String.valueOf(pk);
+//            Log.d(TAG, user_id);
+//        }else if (prefer.contains("id")) {
+//            id = prefer.getInt("id", 0);
+//            user_id = String.valueOf(id);
+//            Log.d(TAG, user_id);
+//        }
+//        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",user_id);
+//
+//        name = prefer.getString("name","");
+//        pass = prefer.getString("pass","");
+//        Encode = getEncodedString(name,pass);
+
+
+//        ID_Field();
+      //  Groups(url,Encode);
+//        DropList();
+//Dropdown
+        gender = (Spinner)findViewById(R.id.gender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender.setAdapter(adapter);
+        place = (Spinner)findViewById(R.id.place);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.place, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        place.setAdapter(adapter1);
+        status = (Spinner)findViewById(R.id.status);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        status.setAdapter(adapter2);
+        location = (Spinner)findViewById(R.id.location);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        location.setAdapter(adapter3);
+//Date
+        date = (EditText)findViewById(R.id.birth);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
     } //create
-    @SuppressWarnings("unchecked")
-    private void DropList() {
-        /*
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,ANDROID_VERSIONS);
-        spinner.setAdapter(aa);
-        */
+    private void showDatePickerDialog(){
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerFragmentDialog datePickerFragmentDialog=DatePickerFragmentDialog.newInstance(new DatePickerFragmentDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
+                date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+            }
+        },mYear, mMonth, mDay);
+        datePickerFragmentDialog.show(getSupportFragmentManager(),null);
+        datePickerFragmentDialog.setMaxDate(System.currentTimeMillis());
+        datePickerFragmentDialog.setYearRange(1900,mYear);
+        datePickerFragmentDialog.setCancelColor(getResources().getColor(R.color.colorPrimaryDark));
+        datePickerFragmentDialog.setOkColor(getResources().getColor(R.color.colorPrimary));
+        datePickerFragmentDialog.setAccentColor(getResources().getColor(R.color.colorAccent));
+        datePickerFragmentDialog.setOkText(getResources().getString(R.string.ok_dob));
+        datePickerFragmentDialog.setCancelText(getResources().getString(R.string.cancel_dob));
     }
-    @SuppressWarnings("unchecked")
+
+//    private void DropList() {
+//        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,ANDROID_VERSIONS);
+//        spinner.setAdapter(aa);
+//
+//    }
+
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
         return Base64.encodeToString(userpass.getBytes(),
                 Base64.NO_WRAP);
     }
-    @SuppressWarnings("unchecked")
-    private void initialUserInformation(String url, String encode){
+
+    private void Groups(String url,String encode){
         MediaType MEDIA_TYPE     =  MediaType.parse("application/json");
+
+        Log.d(TAG,"tt"+url);
+
         OkHttpClient client = new OkHttpClient();
+
         String auth = "Basic "+ encode;
         Request request = new Request.Builder()
                 .url(url)
@@ -217,11 +232,11 @@ public class Edit_account extends AppCompatActivity implements AdapterView.OnIte
                         //tvType.setText("Dealer");
 
                     }
-                    etUsername.setText(convertJsonJava.getUsername());
-//                    genderSpinner.setText(convertJsonJava.getGender());
+//                    etUsername.setText(convertJsonJava.getUsername());
+//                    tvGender.setText(convertJsonJava.getGender());
 //                    etDob   .setText(convertJsonJava.getData_of_birth());
-//                    pobSpinner.setText(convertJsonJava.getPlace_of_birth());
-//                    maritalStatusSpinner.setText(convertJsonJava.getMarital_status());
+//                    tvPob.setText(convertJsonJava.getPlace_of_birth());
+//                    tvMarried.setText(convertJsonJava.getMarital_status());
 //                    etWingNumber.setText(convertJsonJava.getWing_account_number());
 //                    etWingName.setText(convertJsonJava.getWing_account_name());
 //                    etJob.setText(convertJsonJava.getJob());
@@ -238,76 +253,68 @@ public class Edit_account extends AppCompatActivity implements AdapterView.OnIte
         });
     }
     @SuppressWarnings("unchecked")
-    private void ID_Field() {
-        // public user textview
-        /*
-        spinner     =(MaterialSpinner) layout_public_user.findViewById(R.id.tvType);
-        genderSpinner   = (TextView)layout_public_user.findViewById(R.id.genderSpinner);
-        pobSpinner      =(TextView) layout_public_user.findViewById(R.id.pobSpinner);
-        locationSpinner = (TextView)layout_public_user.findViewById(R.id.locationSpinner);
-        maritalStatusSpinner  = (TextView)layout_public_user.findViewById(R.id.mar);
-        */
-        //spinner     =(MaterialSpinner) layout_public_user.findViewById(R.id.tvType);
-        groupsSpinner=(Spinner) findViewById(R.id.groups_spinner);
-        genderSpinner = (Spinner)layout_public_user.findViewById(R.id.tvGender);
-        pobSpinner =(Spinner) layout_public_user.findViewById(R.id.pob_spinner);
-        locationSpinner = (Spinner) layout_public_user.findViewById(R.id.location_spinner);
-        maritalStatusSpinner = (Spinner) layout_public_user.findViewById(R.id.marital_status_spinner);
-        //public user edittext
-        etUsername  = (EditText)layout_public_user.findViewById(R.id.etUsername);
-        etDob       = (EditText)layout_public_user.findViewById(R.id.ed_date_of_birth );
-        etJob       = (EditText)layout_public_user.findViewById(R.id.edJob );
-        etWingNumber= (EditText)layout_public_user.findViewById(R.id.etWingNumber );
-        etWingName  = (EditText)layout_public_user.findViewById(R.id.etWingName );
-        etPhone     = (EditText)layout_public_user.findViewById(R.id.etAccount_Phone );
-        etShopName  = (EditText)layout_public_user.findViewById(R.id.etShop_Name);
-        etShopAddr  = (EditText)layout_public_user.findViewById(R.id. etShop_Addr);
-        etResponsible= (EditText)layout_public_user.findViewById(R.id.etResponsible );
-
-        // 121 dealer TextView
-        tvType_121 = (TextView) layout_121_dealer.findViewById(R.id.tvType);
-        // 121 dealer EditText
-        etShopName       =(EditText)layout_121_dealer.findViewById(R.id.etShop_Name);
-        etShopAddr       =(EditText)layout_121_dealer.findViewById(R.id.etShop_Addr );
-        etWingName_121   =(EditText)layout_121_dealer.findViewById(R.id.etWingName );
-        etWingNumber_121 =(EditText)layout_121_dealer.findViewById(R.id.etWingNumber );
-        etResponsible    =(EditText)layout_121_dealer.findViewById(R.id.etResponsible );
-        etPhone_121      =(EditText)layout_121_dealer.findViewById(R.id.etAccount_Phone );
-        btnsubmit = (Button)findViewById(R.id.btn_EditAccount);
-        tvBack = (TextView)findViewById(R.id.tvBack_account);
-        tvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // textinputlayout
-        //      tilusername= (TextInputLayout)findViewById(R.id.tilUsername );
-        //      tildob     = (TextInputLayout)findViewById(R.id.tilDob );
-        //      tiljob     = (TextInputLayout)findViewById(R.id.tilJob );
-        //      tilwingnumber= (TextInputLayout)findViewById(R.id.tilWingNumber );
-        //      tilwingname= (TextInputLayout)findViewById(R.id.tilWingName );
-        //      tilphone   = (TextInputLayout)findViewById(R.id.tilAccount_phone );
-        //      tilShopName= (TextInputLayout)findViewById(R.id.tilShop_Name);
-        //      tilshopAddr= (TextInputLayout)findViewById(R.id.tilShop_Addr );
-        //      tilresponsible= (TextInputLayout)findViewById(R.id.tilResponsible );
-
-        imgType            = (ImageView)findViewById(R.id.imgType );
-        //imgGender          = (ImageView)findViewById(R.id.imgGender );
-        //imgPob             = (ImageView)findViewById(R.id.imgPob );
-        //imgLocation        = (ImageView)findViewById(R.id.imgLocation );
-        imgAddress         = (ImageView)findViewById(R.id.imgAccount_Address );
-        //imgMarried         = (ImageView)findViewById(R.id.imgMarried );
-        //imgtilUsername     = (ImageView)findViewById(R.id.imgUsername);
-        //imgtilDob          = (ImageView)findViewById(R.id.imgDob );
-        imgtilWingNumber   = (ImageView)findViewById(R.id.imgWingNumber );
-        imgtilWingName     = (ImageView)findViewById(R.id.imgWingName );
-        imgtilPhone        = (ImageView)findViewById(R.id.imgAccount_Phone );
-        imgtilShopName     = (ImageView)findViewById(R.id.imgShop_name);
-        imgtilShopAddr     = (ImageView)findViewById(R.id.imgShop_Addr);
-        imgtilResponsible  = (ImageView)findViewById(R.id.imgResponsible );
-    }
+//    private void ID_Field() {
+//        // public user textview
+//        spinner     =(MaterialSpinner) layout_public_user.findViewById(R.id.tvType);
+//        tvGender   = (TextView)layout_public_user.findViewById(R.id.tvGender);
+//        tvPob      =(TextView) layout_public_user.findViewById(R.id.tvPob);
+//        tvLocation = (TextView)layout_public_user.findViewById(R.id.tvLocation);
+//        tvMarried  = (TextView)layout_public_user.findViewById(R.id.tvMarried);
+////public user edittext
+//        etUsername  = (EditText)layout_public_user.findViewById(R.id.etUsername);
+//        etDob       = (EditText)layout_public_user.findViewById(R.id.ed_date_of_birth );
+//        etJob       = (EditText)layout_public_user.findViewById(R.id.edJob );
+//        etWingNumber= (EditText)layout_public_user.findViewById(R.id.etWingNumber );
+//        etWingName  = (EditText)layout_public_user.findViewById(R.id.etWingName );
+//        etPhone     = (EditText)layout_public_user.findViewById(R.id.etAccount_Phone );
+//        etShopName  = (EditText)layout_public_user.findViewById(R.id.etShop_Name);
+//        etShopAddr  = (EditText)layout_public_user.findViewById(R.id. etShop_Addr);
+//        etResponsible= (EditText)layout_public_user.findViewById(R.id.etResponsible );
+//
+//        // 121 dealer TextView
+//        tvType_121 = (TextView) layout_121_dealer.findViewById(R.id.tvType);
+//        // 121 dealer EditText
+//        etShopName       =(EditText)layout_121_dealer.findViewById(R.id.etShop_Name);
+//        etShopAddr       =(EditText)layout_121_dealer.findViewById(R.id.etShop_Addr );
+//        etWingName_121   =(EditText)layout_121_dealer.findViewById(R.id.etWingName );
+//        etWingNumber_121 =(EditText)layout_121_dealer.findViewById(R.id.etWingNumber );
+//        etResponsible    =(EditText)layout_121_dealer.findViewById(R.id.etResponsible );
+//        etPhone_121      =(EditText)layout_121_dealer.findViewById(R.id.etAccount_Phone );
+//        btnsubmit = (Button)findViewById(R.id.btn_EditAccount);
+//        tvBack = (TextView)findViewById(R.id.tvBack_account);
+//        tvBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//
+//// textinputlayout
+////      tilusername= (TextInputLayout)findViewById(R.id.tilUsername );
+////      tildob     = (TextInputLayout)findViewById(R.id.tilDob );
+////      tiljob     = (TextInputLayout)findViewById(R.id.tilJob );
+////      tilwingnumber= (TextInputLayout)findViewById(R.id.tilWingNumber );
+////      tilwingname= (TextInputLayout)findViewById(R.id.tilWingName );
+////      tilphone   = (TextInputLayout)findViewById(R.id.tilAccount_phone );
+////      tilShopName= (TextInputLayout)findViewById(R.id.tilShop_Name);
+////      tilshopAddr= (TextInputLayout)findViewById(R.id.tilShop_Addr );
+////      tilresponsible= (TextInputLayout)findViewById(R.id.tilResponsible );
+//
+////        imgType            = (ImageView)findViewById(R.id.imgType );
+////        imgGender          = (ImageView)findViewById(R.id.imgGender );
+////        imgPob             = (ImageView)findViewById(R.id.imgPob );
+////        imgLocation        = (ImageView)findViewById(R.id.imgLocation );
+////        imgAddress         = (ImageView)findViewById(R.id.imgAccount_Address );
+////        imgMarried         = (ImageView)findViewById(R.id.imgMarried );
+////        imgtilUsername     = (ImageView)findViewById(R.id.imgUsername);
+////        imgtilDob          = (ImageView)findViewById(R.id.imgDob );
+////        imgtilWingNumber   = (ImageView)findViewById(R.id.imgWingNumber );
+////        imgtilWingName     = (ImageView)findViewById(R.id.imgWingName );
+////        imgtilPhone        = (ImageView)findViewById(R.id.imgAccount_Phone );
+////        imgtilShopName     = (ImageView)findViewById(R.id.imgShop_name);
+////        imgtilShopAddr     = (ImageView)findViewById(R.id.imgShop_Addr);
+////        imgtilResponsible  = (ImageView)findViewById(R.id.imgResponsible );
+//    }
 
     private void InitialProvinceDatas(){
         String API_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/provinces/";
@@ -341,16 +348,4 @@ public class Edit_account extends AppCompatActivity implements AdapterView.OnIte
         mQueue.add(request);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
-        ((TextView) parent.getChildAt(0)).setTextSize(5);
-        Toast.makeText(getApplicationContext(), provinceIdArrayList.get(position) , Toast.LENGTH_LONG).show();
-        Log.d(TAG, provinceIdArrayList.get(position).toString());
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

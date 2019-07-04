@@ -1,24 +1,29 @@
 package com.example.lucky_app.Setting
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.lucky_app.Activity.Home
 import com.example.lucky_app.R
+import java.util.*
 
-class Setting : AppCompatActivity() {
+class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        val prefer:SharedPreferences = getSharedPreferences("Register", MODE_PRIVATE);
-        val Logout = findViewById<Button>(R.id.btnlogout);
+        val prefer:SharedPreferences = getSharedPreferences("Register", MODE_PRIVATE)
+        val Logout = findViewById<Button>(R.id.btnlogout)
 
         Logout.setOnClickListener {
           AlertDialog.Builder(this)
@@ -39,5 +44,26 @@ class Setting : AppCompatActivity() {
                 }
                 }).show()
         }
+        val lange = findViewById<TextView>(R.id.tvLanguage2)
+        lange.setOnClickListener{
+            val lang = Changelanguage()
+            lang.show(supportFragmentManager,lang.tag)
+        }
+    }
+
+    override fun language(lang : String) {
+        val locale = Locale(lang!!)
+        Locale.setDefault(locale)
+        val confi = Configuration()
+        confi.locale = locale
+        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("My_Lang", lang)
+        editor.apply()
+    }
+    override fun locale() {
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+        language(language)
     }
 }

@@ -1,10 +1,14 @@
 package com.example.lucky_app.Activity
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Resources
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -13,33 +17,58 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.arlib.floatingsearchview.FloatingSearchView
 import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Buy_Sell_Rent.Buy.Buy
 import com.example.lucky_app.Buy_Sell_Rent.Rent.Rent
 import com.example.lucky_app.Buy_Sell_Rent.Sell.Sell
+import com.example.lucky_app.Edit_Account.Sheetviewupload
+import com.example.lucky_app.Fragment.BaseExampleFragment
 import com.example.lucky_app.Login_Register.UserAccount
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.example.lucky_app.Product_dicount.MyAdapter
 import com.example.lucky_app.R
+import com.example.lucky_app.Setting.Changelanguage
 import com.example.lucky_app.Startup.Item
+import com.example.lucky_app.Startup.Search
 import com.example.lucky_app.Startup.Your_Post
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+import java.util.*
+import kotlin.collections.ArrayList
 
-class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Changelanguage.BottomSheetListener {
 
     var recyclerView: RecyclerView? = null
 
+    override fun language(lang : String) {
+        val locale = Locale(lang!!)
+        Locale.setDefault(locale)
+        val confi = Configuration()
+        confi.locale = locale
+        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("My_Lang", lang)
+        editor.apply()
+    }
+
+    override fun locale() {
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+        language(language)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        locale()
         setContentView(R.layout.activity_home)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -150,19 +179,52 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
         val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
         sp_category.setAdapter(adapter)
+        val items = ArrayList<Item>()
+        sp_category.setOnItemClickListener { parent, view, position, id ->
+            val selected = sp_category.getText()
+            if (selected.equals("Motobike")){
+                items.addAll(Item.getType("Motobike"))
+            }else{
+                items.addAll(Item.getType("Electronic"))
+            }
+            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
+        }
+
+//Search
+        val search = findViewById<EditText>(R.id.search)
+        search.setOnClickListener{
+           val intent = Intent(this@Home, Search::class.java)
+            intent.putExtra("items",items)
+            startActivity(intent)
+        }
+//        val sv = findViewById<FloatingSearchView>(R.id.searchview)
+//        sv.setOnQueryChangeListener { oldQuery, newQuery ->
+//            if (!oldQuery.equals("") && newQuery.equals("")) {
+//                sv.clearSuggestions()
+//            }else {
+//                Toast.makeText(this@Home, "Hello", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         val brand = resources.getStringArray(R.array.brand)
         val adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, brand)
         val sp_brand = findViewById<MaterialBetterSpinner>(R.id.sp_brand)
         sp_brand.setAdapter(adapter1)
+        sp_brand.setOnItemClickListener { parent, view, position, id ->
+            val selected = sp_brand.getText()
+            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
+        }
 
         val year = resources.getStringArray(R.array.year)
         val adapter2 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, year)
         val sp_year = findViewById<MaterialBetterSpinner>(R.id.sp_year)
         sp_year.setAdapter(adapter2)
+        sp_year.setOnItemClickListener { parent, view, position, id ->
+            val selected = sp_year.getText()
+            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
+        }
 
     }
-
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -180,7 +242,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings ->
+            {
+                language("en")
+                recreate()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

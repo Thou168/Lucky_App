@@ -11,9 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera.flash" />
@@ -28,13 +25,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Startup.Search"></activity>
         <activity android:name=".Edit_Account.Edit_account" />
         <activity android:name=".Setting.Setting" />
         <activity android:name=".Login_Register.Register" />
         <activity android:name=".Login_Register.Login" />
         <activity android:name=".Login_Register.UserAccount" />
         <activity android:name=".Activity.Account" />
-        <activity android:name=".Startup.Your_Post"></activity>
+        <activity android:name=".Startup.Your_Post" />
         <activity android:name=".post.CameraActivity" />
         <activity android:name=".Activity.Camera" />
 

@@ -71,10 +71,30 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/searchview"
+        <EditText
+            android:background="@drawable/border_bg"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:focusableInTouchMode="false"
+            android:textSize="@dimen/dp_16"
+            android:paddingLeft="8dp"
+            android:hint="Search here"
+            android:textStyle="italic"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/icon_search"
+            android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="55dp"/>
+            android:layout_height="wrap_content" />
+        <!--<com.arlib.floatingsearchview.FloatingSearchView-->
+            <!--android:id="@+id/searchview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--app:floatingSearch_searchHint="Search..."-->
+            <!--app:floatingSearch_suggestionsListAnimDuration="250"-->
+            <!--app:floatingSearch_showSearchKey="false"-->
+            <!--app:floatingSearch_leftActionMode="showSearch"-->
+            <!--app:floatingSearch_close_search_on_keyboard_dismiss="true"/>-->
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

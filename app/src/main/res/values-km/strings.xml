@@ -28,32 +28,7 @@
     <string name="menu_setting">ការកំណត់</string>
     <string name="menu_about">អំពីយើង</string>
     <string name="menu_privacy">Term of Privacy</string>
-    <string name="title_activity_account">គណនី</string>
-
-    //Home
-    <string name="product_discount">ផលិតផលបញ្ចុះតម្លៃ</string>
-    <string name="new_post">ការប្រកាសថ្មីៗ</string>
-
-    //title
-    <string name="home">ទំព័រដើម</string>
-    <string name="notification">ការជូនដំណឹង</string>
-    <string name="camera">Camera</string>
-    <string name="message">ផ្ញើសារ</string>
-    <string name="account">គណនី</string>
-
-    //category
-    <string name="motor">Motor</string>
-    <string name="electronic">អេឡិចត្រូនិច</string>
-    <string name="vehicle">យានយន្ត</string>
-
-    //type
-    <string name="sell">លក់</string>
-    <string name="buy">ទិញ</string>
-
-    //Tab
-    <string name="post">ការប្រកាស</string>
-    <string name="like">ចូលចិត្ត</string>
-
+    <string name="title_activity_account">Account</string>
     //user account registration
     <string name="title_Login">Login account</string>
     <string name="title_registration">Register to post free ad</string>
@@ -69,6 +44,7 @@
     <string name="language">Language</string>
     <string name="language2">English</string>
     <string name="setting">Setting</string>
+    <string name="notification">Notification</string>
     <string name="version">Version</string>
     <string name="logout">Logout</string>
     //Edit_Account
@@ -80,5 +56,14 @@
     <string name="hit_wingnumber">Wing Account / Number</string>
     <string name="hit_wingaccount">Wing Account / Name</string>
     <string name="hit_dealer">Dealer</string>
+
+    <string name="contact_number">Contact Phone Number</string>
+
+    <!-- button part -->
+    <string name="back_button">Back</string>
+    <string name="submit_button">Submit</string>
+    <string name="login_button">Login</string>
+    <!-- End button part -->
+
 
 </resources>

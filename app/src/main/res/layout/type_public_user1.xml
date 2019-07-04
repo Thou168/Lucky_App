@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgType"
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_null" />
+        <View style="@style/line1"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_null"/>
+        <View style="@style/line1"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_null" />
+        <View style="@style/line1"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_null"/>
+        <View style="@style/line1"/>
+        <ImageView
+            android:paddingLeft="@dimen/dp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center|left"
+            android:text="Public User"
+            android:textSize="18dp"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+        <EditText
+            android:id="@+id/Username"
+            android:lines="1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="User Name"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline" />
+        <Spinner
+            android:id="@+id/gender"
+            style="@style/spinner_style"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/sp_bg"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"/>
+        <View style="@style/line1"/>
+        <EditText
+            android:id="@+id/birth"
+            android:lines="1"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Date of Birth"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline" />
+        <Spinner
+            android:id="@+id/place"
+            style="@style/spinner_style"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/sp_bg"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"/>
+        <View style="@style/line1"/>
+        <Spinner
+            android:id="@+id/status"
+            style="@style/spinner_style"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/sp_bg"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"/>
+        <View style="@style/line1"/>
+        <EditText
+            android:id="@+id/wing_account"
+            android:lines="1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Wing Account Name"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline" />
+        <EditText
+            android:id="@+id/wing_number"
+            android:lines="1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Wing Account Number"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline" />
+        <EditText
+            android:id="@+id/phone"
+            android:lines="1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Wing Account Number"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline" />
+        <Spinner
+            android:id="@+id/location"
+            style="@style/spinner_style"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/sp_bg"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"/>
+        <View style="@style/line1"/>
+        <EditText
+            android:id="@+id/job"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Job"
+            android:lines="1"
+            android:paddingLeft="@dimen/dp_16"
+            android:background="@drawable/underline" />
+    </LinearLayout>
+</LinearLayout>

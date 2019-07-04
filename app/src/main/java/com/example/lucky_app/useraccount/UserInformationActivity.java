@@ -58,8 +58,8 @@ public class UserInformationActivity extends AppCompatActivity {
 
         //Initial Date of birth calendar
         final Calendar myCalendar= Calendar.getInstance();
-        EditText edDateofBirth=(EditText) findViewById(R.id.ed_date_of_birth);
-        DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
+        final EditText edDateofBirth=(EditText) findViewById(R.id.ed_date_of_birth);
+        final DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                myCalendar.set(Calendar.YEAR,year);
