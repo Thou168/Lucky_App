@@ -210,4 +210,8 @@
         <item> Percentage </item>
     </string-array>
 
+    //delete and edit
+    <string name="button_edit">Edit</string>
+    <string name="button_delete">Delete</string>
+
 </resources>

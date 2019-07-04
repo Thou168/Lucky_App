@@ -36,9 +36,9 @@
         <activity android:name=".post.CameraActivity" />
         <activity android:name=".Activity.Camera" />
 
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" />-->
 
         <activity
             android:name=".Activity.Home"
