@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,6 +76,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        if (sharedPref.contains("token") || sharedPref.contains("id")){
+            navView.setVisibility(View.VISIBLE)
+        }else{
+            navView.setVisibility(View.GONE)
+        }
         val language = findViewById<ImageView>(R.id.language)
         language.setOnClickListener {
             if(click.equals("Khmer")){

@@ -266,34 +266,7 @@ public class Camera extends AppCompatActivity {
                     break;
             }
 
-//            if(postType == "sell") {
-//                //url = String.format("%s%s", ConsumeAPI.BASE_URL, "");
-//                url=ConsumeAPI.BASE_URL+"postsale/";
-//                Log.d("URL","URL"+url);
-//                sale.put("sale_status", 2);
-//                sale.put("record_status",2);
-//                sale.put("sold_date", null);
-//                sale.put("price", etPrice.getText().toString().toLowerCase());
-//                sale.put("total_price", etPrice.getText().toString().toLowerCase());
-//                post.put("sale_post",new JSONArray("["+sale+"]"));
-//            }
-//            else if(postType=="rent") {
-//                url = String.format("%s%s", ConsumeAPI.BASE_URL, "postrent/");
-//                JSONObject rent=new JSONObject();
-//                rent.put("rent_status",1);
-//                rent.put("record_status",1);
-//                rent.put("rent_type",tvRent.getText().toString().toLowerCase());
-//                rent.put("price",etPrice.getText().toString().toLowerCase());
-//                rent.put("total_price",etPrice.getText().toString().toLowerCase());
-//                rent.put("rent_date",null);
-//                rent.put("return_date",null);
-//                rent.put("rent_count_number",0);
-//                post.put("rent_post",new JSONArray("["+rent+"]"));
-//            }
-//            else if(postType=="buy") {
-//                url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/postbuys/");
-//
-//            }
+
             Log.d(TAG,url);
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
@@ -433,6 +406,7 @@ public class Camera extends AppCompatActivity {
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
                             id_type = String.valueOf(ID_type.getItem(i));
                             type = Integer.parseInt(id_type);
+
                         }
 
                         @Override
@@ -471,7 +445,7 @@ public class Camera extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
               //  int n = 2;
-                tvBrand.setAdapter(null);
+
                 try{
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
@@ -502,6 +476,7 @@ public class Camera extends AppCompatActivity {
                                 id_brand = String.valueOf(ID_brands.getItem(i));
                                 Log.d("brand id",id_brand);
                                 brand = Integer.parseInt(id_brand);
+                                brands.clear();
                                 Call_Model(encode, id_brand);
                         }
 
@@ -568,6 +543,7 @@ public class Camera extends AppCompatActivity {
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
                            id_model = String.valueOf(ID_model.getItem(i));
                            model = Integer.parseInt(id_model);
+                           models.clear();
                         }
 
                         @Override
@@ -604,8 +580,9 @@ public class Camera extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+//                    JSONObject jsonObject = new JSONObject(respon);
+//                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    JSONArray jsonArray = new JSONArray();
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
@@ -707,6 +684,7 @@ public class Camera extends AppCompatActivity {
             }
         });
     }
+
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
         return Base64.encodeToString(userpass.getBytes(),

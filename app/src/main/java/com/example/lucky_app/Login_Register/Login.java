@@ -98,6 +98,25 @@ public class Login extends AppCompatActivity {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if(response.isSuccessful()) {
+                    final String mMessage = response.body().string();
+                    Log.e(TAG, mMessage);
+                    converting(mMessage);
+                }else {
+                    mProgress.dismiss();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+
             @Override
             public void onFailure(Call call, IOException e) {
                 final String mMessage = e.getMessage().toString();
@@ -109,13 +128,7 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"failure Response:"+ mMessage,Toast.LENGTH_SHORT).show();
                     }
                 });
-                //call.cancel();
-            }
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                final String mMessage = response.body().string();
-                Log.e(TAG, mMessage);
-                converting(mMessage);
+
             }
         });
     } // postRequest
