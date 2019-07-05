@@ -52,9 +52,7 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        val producthere = LatLng(13.364047, 103.860313)
-        mMap.addMarker(MarkerOptions().position(producthere).title("Product here"))
-        p0.moveCamera(CameraUpdateFactory.newLatLng(producthere))
+
 
         locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -91,13 +89,13 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
         val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         mMap.clear()
         val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
-//        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
+        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
         p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
         mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
         mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
-        mMap.isMyLocationEnabled = false
+        mMap.isMyLocationEnabled = true
         //disable
-        mMap.uiSettings.isScrollGesturesEnabled = true
+        mMap.uiSettings.isScrollGesturesEnabled = false
         //mMap.getUiSettings().setZoomGesturesEnabled(false);
         getLocationPermission()
 
