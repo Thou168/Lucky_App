@@ -85,6 +85,8 @@
     <string name="button_edit">កែប្រែ</string>
     <string name="button_delete">លុប</string>
 
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">Khmer map</string>
+
     <string name="buy1">ទិញ</string>
     <string name="sell1">លក់</string>
     <string name="rent">ជួល</string>

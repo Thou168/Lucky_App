@@ -209,6 +209,7 @@
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/relative_detailmap"
                     android:layout_below="@+id/relative"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -289,13 +290,23 @@
                         android:id="@+id/line10"
                         android:layout_below="@+id/tv_email"
                         style="@style/line"/>
-                    <FrameLayout
-                        android:background="@color/colorLightGray"
+                    <TextView
+                        android:id="@+id/txt_show_place_detail_new_post"
+                        android:layout_width="wrap_content"
                         android:layout_below="@+id/line10"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp">
-                    </FrameLayout>
+                        android:drawableLeft="@drawable/ic_my_location_black_24dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="Location :"
+                        android:background="#F7F7F7"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
+                <fragment
+                    android:id="@+id/map_detail_newpost"
+                    android:layout_below="@id/relative_detailmap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

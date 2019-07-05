@@ -35,9 +35,26 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.IOException
 import java.util.*
 
-class Detail_Discount : AppCompatActivity(),OnMapReadyCallback {
+class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
+    private val TAG = Detail_Discount::class.java.simpleName
+    private lateinit var mMap: GoogleMap
+
+    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+    private var mLocationPermissionGranted: Boolean = false
+    private var mLastKnownLocation: Location? = null
+
+    internal lateinit var txt_place: TextView
+    private val REQUEST_LOCATION = 1
+    internal lateinit var locationManager: LocationManager
+    internal lateinit var locationListener: LocationListener
+
+
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
+        val producthere = LatLng(13.364047, 103.860313)
+        mMap.addMarker(MarkerOptions().position(producthere).title("Product here"))
+        p0.moveCamera(CameraUpdateFactory.newLatLng(producthere))
 
         locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -56,7 +73,7 @@ class Detail_Discount : AppCompatActivity(),OnMapReadyCallback {
                 try {
                     val listAddress = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     //txt_place.text = txt_place.text.toString() + "" + listAddress[0].getAddressLine(0)
-                    txt_place.text = listAddress[0].featureName + ", "+ listAddress[0].thoroughfare+", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
+                    txt_place.text = listAddress[0].featureName + ", " + listAddress[0].thoroughfare + ", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -74,19 +91,20 @@ class Detail_Discount : AppCompatActivity(),OnMapReadyCallback {
         val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         mMap.clear()
         val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
-        mMap.addMarker(MarkerOptions().position(userLocation).title("Do you know? I`m here"))
+//        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
         p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
         mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
         mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
-        mMap.isMyLocationEnabled = true
+        mMap.isMyLocationEnabled = false
         //disable
-        mMap.uiSettings.isScrollGesturesEnabled = false
+        mMap.uiSettings.isScrollGesturesEnabled = true
         //mMap.getUiSettings().setZoomGesturesEnabled(false);
         getLocationPermission()
 
         getDeviceLocation()
 
     }
+
     private fun getDeviceLocation() {
         try {
             if (mLocationPermissionGranted) {
@@ -107,6 +125,7 @@ class Detail_Discount : AppCompatActivity(),OnMapReadyCallback {
         }
 
     }
+
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
@@ -116,19 +135,6 @@ class Detail_Discount : AppCompatActivity(),OnMapReadyCallback {
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         }
     }
-
-    private val TAG = Detail_Discount::class.java.simpleName
-    private lateinit var mMap: GoogleMap
-
-    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
-    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-    private var mLocationPermissionGranted: Boolean = false
-    private var mLastKnownLocation: Location? = null
-
-    internal lateinit var txt_place: TextView
-    private val REQUEST_LOCATION = 1
-    internal lateinit var locationManager: LocationManager
-    internal lateinit var locationListener: LocationListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,30 +198,31 @@ class Detail_Discount : AppCompatActivity(),OnMapReadyCallback {
         }
         //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
-        share.setOnClickListener{
+        share.setOnClickListener {
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type="text/plain"
+            shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.title_activity_account)))
         }
         //Button Call
         val call = findViewById<Button>(R.id.btn_call)
-        call.setOnClickListener{
+        call.setOnClickListener {
             //                checkPermission()
             makePhoneCall("0962363929")
         }
         //Button Like
         val like = findViewById<Button>(R.id.btn_like)
         like.setOnClickListener {
-            Toast.makeText(this@Detail_Discount,"This Product add to Your Liked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@Detail_Discount, "This Product add to Your Liked", Toast.LENGTH_SHORT).show()
         }
 
     }
-    fun makePhoneCall(number: String) : Boolean {
+
+    fun makePhoneCall(number: String): Boolean {
         try {
             val intent = Intent(Intent.ACTION_CALL)
-            intent.setData(Uri.parse("tel:$number"))
+            intent.data = Uri.parse("tel:$number")
             startActivity(intent)
             return true
         } catch (e: Exception) {

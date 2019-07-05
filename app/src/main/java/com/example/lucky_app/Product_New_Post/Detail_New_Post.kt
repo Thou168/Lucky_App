@@ -1,11 +1,17 @@
 package com.example.lucky_app.Product_New_Post
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -13,16 +19,127 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.custom.sliderimage.logic.SliderImage
+import com.example.lucky_app.Product_dicount.Detail_Discount
 import com.example.lucky_app.Product_dicount.User_post
 import com.example.lucky_app.R
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_detail_new_post.*
+import java.io.IOException
+import java.util.*
 
-class Detail_New_Post : AppCompatActivity() {
+class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
+    private val TAG = Detail_Discount::class.java.simpleName
+    private lateinit var mMap: GoogleMap
+
+    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+    private var mLocationPermissionGranted: Boolean = false
+    private var mLastKnownLocation: Location? = null
+
+    internal lateinit var txt_detail_new: TextView
+    private val REQUEST_LOCATION = 1
+    internal lateinit var locationManager: LocationManager
+    internal lateinit var locationListener: LocationListener
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
+
+        locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        locationListener = object : LocationListener {
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+            }
+
+            override fun onProviderEnabled(provider: String?) {
+            }
+
+            override fun onProviderDisabled(provider: String?) {
+            }
+
+            override fun onLocationChanged(location: Location) {
+                val geocoder = Geocoder(applicationContext, Locale.getDefault())
+                try {
+                    val listAddress = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                    //txt_place.text = txt_place.text.toString() + "" + listAddress[0].getAddressLine(0)
+                    txt_detail_new.text = listAddress[0].featureName + ", "+ listAddress[0].thoroughfare+", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+        } else {
+
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        mMap.clear()
+        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
+        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
+        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
+        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
+        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
+        mMap.isMyLocationEnabled = true
+        //disable
+        mMap.uiSettings.isScrollGesturesEnabled = false
+        //mMap.getUiSettings().setZoomGesturesEnabled(false);
+        getLocationPermission()
+
+        getDeviceLocation()
+    }
+
+    private fun getDeviceLocation() {
+        try {
+            if (mLocationPermissionGranted) {
+                val locationResult = mFusedLocationProviderClient!!.lastLocation
+                locationResult.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        mLastKnownLocation = task.result
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
+                    } else {
+                        Log.d(TAG, "Current location is null. Using defaults.")
+                        Log.e(TAG, "Exception: %s", task.exception)
+                        mMap.uiSettings.isMyLocationButtonEnabled = false
+                    }
+                }
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message)
+        }
+
+    }
+    private fun getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this.applicationContext,
+                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+
+        txt_detail_new = findViewById(R.id.txt_show_place_detail_new_post) as TextView
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 //Back
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }
