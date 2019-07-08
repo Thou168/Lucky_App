@@ -21,6 +21,7 @@
     <color name="start_color">#29B6F6</color>
     <color name="end_color">#4FC3F7</color>
     <color name="white">#FFFFFF</color>
+    <color name="gray_while">#F9F9F9</color>
 
     <color name="logo_orange">#FF9400</color>
 </resources>

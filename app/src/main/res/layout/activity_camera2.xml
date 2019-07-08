@@ -74,20 +74,23 @@
 
                     <ImageView
                         android:id="@+id/imgPostType"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
 
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvPostType"
                         android:layout_width="match_parent"
                         android:layout_height="53dp"
+                        android:layout_marginLeft="-5dp"
                         android:layout_toRightOf="@+id/imgPostType"
                         android:gravity="center_vertical"
-                        android:background="@drawable/underline"
                         android:hint="Post Type"
                         android:textSize="18dp"
+                        android:background="@null"
+                        style="@style/AppTheme.NoActionBar"
                         app:spinnerMode="dropdown"
 
 
@@ -100,14 +103,14 @@
                         android:layout_below="@+id/imgPostType"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTitle"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgPostType"
                         android:layout_toRightOf="@+id/imgTitle"
-                        android:background="@drawable/underline">
+                        android:background="@drawable/underline_gray">
 
                         <EditText
                             android:id="@+id/etTitle"
@@ -119,13 +122,15 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+
                     <ImageView
                         android:id="@+id/imgCategory"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
+                        android:paddingRight="10dp"
                         android:layout_below="@+id/imgTitle"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvCategory"
                         android:layout_width="match_parent"
@@ -135,16 +140,18 @@
                         android:gravity="center_vertical"
                         android:hint="Category"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
+                        android:layout_marginLeft="-5dp"
                         android:spinnerMode="dropdown"/>
 
                     <ImageView
                         android:id="@+id/imgType_elec"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgCategory"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvType_elec"
                         android:layout_width="match_parent"
@@ -154,16 +161,18 @@
                         android:gravity="center_vertical"
                         android:hint="Type"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
+                        android:layout_marginLeft="-5dp"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
                     <ImageView
                         android:id="@+id/imgBrand"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgType_elec"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvBrand"
                         android:layout_width="match_parent"
@@ -173,16 +182,18 @@
                         android:gravity="center_vertical"
                         android:hint="Brand"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:layout_marginLeft="-5dp"
+                        android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
                     <ImageView
                         android:id="@+id/imgModel"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgBrand"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvModel"
                         android:layout_width="match_parent"
@@ -190,17 +201,19 @@
                         android:layout_below="@+id/imgBrand"
                         android:layout_toRightOf="@+id/imgModel"
                         android:gravity="center_vertical"
+                        android:layout_marginLeft="-5dp"
                         android:hint="Model"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
                     <ImageView
                         android:id="@+id/imgYear"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
+                        android:paddingRight="10dp"
                         android:layout_below="@+id/imgModel"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvYears"
                         android:layout_width="match_parent"
@@ -208,18 +221,20 @@
                         android:layout_below="@+id/imgModel"
                         android:layout_toRightOf="@+id/imgModel"
                         android:gravity="center_vertical"
+                        android:layout_marginLeft="-5dp"
                         android:hint="Year"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
                     <ImageView
                         android:id="@+id/imgCondition"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
+                        android:paddingRight="10dp"
                         android:layout_below="@+id/imgYear"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvCondition"
                         android:layout_width="match_parent"
@@ -227,17 +242,19 @@
                         android:layout_below="@+id/imgYear"
                         android:layout_toRightOf="@+id/imgCondition"
                         android:gravity="center_vertical"
+                        android:layout_marginLeft="-5dp"
                         android:hint="Condition"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
                     <ImageView
                         android:id="@+id/imgColor"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgCondition"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
 
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvColor"
@@ -246,103 +263,28 @@
                         android:layout_below="@+id/imgCondition"
                         android:layout_toRightOf="@+id/imgColor"
                         android:gravity="center_vertical"
+                        android:layout_marginLeft="-5dp"
                         android:hint="Color"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
-                    <ImageView
-                        android:id="@+id/imgVinCode"
-                        android:layout_width="20dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgColor"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilVinCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgColor"
-                        android:layout_toRightOf="@+id/imgVinCode"
-                        android:background="@drawable/underline">
-
-                        <EditText
-                            android:id="@+id/etVinCode"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="VIN Code"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <ImageView
-                        android:id="@+id/imgMachineCode"
-                        android:layout_width="20dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgVinCode"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilMachineCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgVinCode"
-                        android:layout_toRightOf="@+id/imgMachineCode"
-                        android:background="@drawable/underline">
-
-                        <EditText
-                            android:id="@+id/etMachineCode"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="Machine Code"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <ImageView
-                        android:id="@+id/imgDescription"
-                        android:layout_width="20dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgMachineCode"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgMachineCode"
-                        android:layout_toRightOf="@+id/imgMachineCode"
-                        android:background="@drawable/underline">
-
-                        <EditText
-                            android:id="@+id/etDescription"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="Description"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
                         android:id="@+id/imgPrice"
                         android:layout_width="20dp"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgDescription"
+                        android:layout_below="@+id/imgColor"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPrice"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgDescription"
+                        android:layout_below="@+id/imgColor"
                         android:layout_toRightOf="@+id/imgPrice"
-                        android:background="@drawable/underline">
+                        android:background="@drawable/underline_gray">
 
                         <EditText
                             android:id="@+id/etPrice"
@@ -354,56 +296,72 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+
                     <ImageView
-                        android:id="@+id/imgRent"
+                        android:id="@+id/imgDescription"
                         android:layout_width="20dp"
                         android:layout_height="45dp"
+                        android:layout_below="@+id/imgPrice"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgPrice"
-                        android:background="@drawable/underline"/>
-                    <com.tiper.MaterialSpinner
-                        android:id="@+id/tvRent"
+                        android:background="@drawable/underline_gray"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgPrice"
-                        android:layout_toRightOf="@+id/imgRent"
-                        android:gravity="center_vertical"
-                        android:hint="Rent"
-                        android:textSize="18dp"
-                        android:background="#ffff"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:layout_toRightOf="@+id/imgDescription"
+                        android:background="@drawable/underline_gray">
+
+                        <EditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Description"
+                            android:paddingLeft="10dp"
+                            android:background="@null"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 </RelativeLayout>
 
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:text="DISCOUNT"
-                    android:textSize="@dimen/dp_16"
-                    android:background="@color/grey_light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+
 
                 <RelativeLayout
+                    android:id="@+id/relative_discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/titl_discount"
+                        android:padding="@dimen/dp_8"
+                        android:text="DISCOUNT"
+                        android:textSize="@dimen/dp_16"
+                        android:background="@color/grey_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <ImageView
                         android:id="@+id/imgDisType"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
+                        android:layout_below="@+id/titl_discount"
                         android:src="@drawable/icon_null"
-
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvDisType"
                         android:layout_width="match_parent"
                         android:layout_height="53dp"
+                        android:layout_below="@+id/titl_discount"
                         android:layout_toRightOf="@+id/imgDisType"
                         android:gravity="center_vertical"
                         android:hint="Discount Type"
-
+                        android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
                     <ImageView
@@ -413,20 +371,21 @@
                         android:layout_below="@+id/imgDisType"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDisAmout"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgDisType"
                         android:layout_toRightOf="@+id/imgDisAmount"
-                        android:background="@drawable/underline">
+                        android:background="@drawable/underline_gray">
 
                         <EditText
                             android:id="@+id/etDisAmount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:hint="Discount Amount"
+                            android:inputType="number"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -451,13 +410,13 @@
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilName"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgName"
-                        android:background="@drawable/underline">
+                        android:background="@drawable/underline_gray">
 
                         <EditText
                             android:id="@+id/etName"
@@ -469,15 +428,6 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageButton
-                        android:id="@+id/imgBtnPhone1"
-                        android:layout_width="30dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_add"
-                        android:background="@drawable/underline"
-                        android:layout_below="@+id/tilName"
-                        android:layout_marginRight="5dp"
-                        android:layout_alignParentRight="true"/>
                     <ImageView
                         android:id="@+id/imgPhone1"
                         android:layout_width="20dp"
@@ -485,57 +435,20 @@
                         android:layout_below="@+id/imgName"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPhone1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgName"
                         android:layout_toRightOf="@+id/imgPhone1"
-                        android:layout_toLeftOf="@+id/imgBtnPhone1"
-                        android:background="@drawable/underline">
+                        android:background="@drawable/underline_gray">
 
                         <EditText
                             android:id="@+id/etphone1"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Phone 1"
-                            android:inputType="phone"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <ImageButton
-                        android:id="@+id/imgBtnPhone2"
-                        android:layout_width="30dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_add"
-                        android:background="@drawable/underline"
-                        android:layout_below="@+id/imgBtnPhone1"
-                        android:layout_marginRight="5dp"
-                        android:layout_alignParentRight="true"/>
-                    <ImageView
-                        android:id="@+id/imgPhone2"
-                        android:layout_width="20dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone1"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhone2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone1"
-                        android:layout_toRightOf="@+id/imgPhone2"
-                        android:layout_toLeftOf="@+id/imgBtnPhone2"
-                        android:background="@drawable/underline">
-
-                        <EditText
-                            android:id="@+id/etphone2"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="Phone 2"
+                            android:hint="Phone Number"
                             android:inputType="phone"
                             android:paddingLeft="10dp"
                             android:background="@null"
@@ -543,49 +456,22 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <ImageView
-                        android:id="@+id/imgPhone3"
-                        android:layout_width="20dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone2"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhone3"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone2"
-                        android:layout_toRightOf="@+id/imgPhone3"
-
-                        android:background="@drawable/underline">
-
-                        <EditText
-                            android:id="@+id/etphone3"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="Phone 3"
-                            android:inputType="phone"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
                         android:id="@+id/imgEmail"
                         android:layout_width="20dp"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone3"
+                        android:layout_below="@+id/imgPhone1"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilEmail"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone3"
-                        android:layout_toRightOf="@+id/imgPhone3"
-                        android:background="@drawable/underline">
+                        android:layout_below="@+id/imgPhone1"
+                        android:layout_toRightOf="@+id/imgPhone1"
+                        android:background="@drawable/underline_gray">
 
                         <EditText
                             android:id="@+id/etEmail"
@@ -604,7 +490,7 @@
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgEmail"
-                        android:background="@drawable/underline"/>
+                        android:background="@drawable/underline_gray"/>
 
                     <TextView
                         android:id="@+id/tvAddress"
@@ -616,7 +502,7 @@
                         android:hint="Address"
                         android:paddingLeft="10dp"
                         android:textSize="18dp"
-                        android:background="@drawable/underline"
+                        android:background="@drawable/underline_gray"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
                     <!--<fragment-->

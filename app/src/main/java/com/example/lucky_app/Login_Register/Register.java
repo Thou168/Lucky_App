@@ -118,24 +118,29 @@ public class Register extends AppCompatActivity {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
+
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                final String mMessage = response.body().string();
+                Log.e(TAG, mMessage);
+                converting(mMessage);
+
+            }
+
             @Override
             public void onFailure(Call call, IOException e) {
                 String mMessage = e.getMessage().toString();
                 Log.w("failure Response", mMessage);
                 mProgress.dismiss();
-                Toast.makeText(getApplicationContext(), "failure Response:" + mMessage, Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "failure Response:" + mMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 //call.cancel();
-            }
-
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-
-
-                final String mMessage = response.body().string();
-                Log.e(TAG, mMessage);
-                converting(mMessage);
-
             }
         });
     }
