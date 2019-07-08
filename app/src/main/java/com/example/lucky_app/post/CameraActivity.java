@@ -1,14 +1,21 @@
 package com.example.lucky_app.post;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Base64OutputStream;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,10 +23,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.lucky_app.Api.ConsumeAPI;
 import com.example.lucky_app.R;
+import com.example.lucky_app.utils.CommonFunction;
 import com.example.lucky_app.utils.FileCompressor;
+import com.facebook.common.file.FileUtils;
+import com.facebook.internal.LockOnGetVariable;
 import com.karumi.dexter.BuildConfig;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -27,17 +43,54 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import android.util.Base64;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class CameraActivity extends AppCompatActivity {
+
+    private static final String TAG=CameraActivity.class.getSimpleName();
+    private SharedPreferences preferences;
+    private String username,password,encodeAuth,API_ENDPOIN;
+    private int pk;
+
+    private Bitmap FixBitmap;
+    ByteArrayOutputStream byteArrayOutputStream;
+    byte[] byteArray;
+    String ConvertImage;
+    OutputStream outputStream;
+    BufferedWriter bufferedWriter;
+    int RC;
+    BufferedReader bufferedReader;
+    StringBuilder stringBuilder;
+    boolean check=true;
 
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_TAKE_PHOTO_2 = 2;
@@ -47,14 +100,14 @@ public class CameraActivity extends AppCompatActivity {
     private int REQUEST_TAKE_PHOTO_NUM=0;
     File mPhotoFile;
     FileCompressor mCompressor;
-    @BindView(R.id.imageViewProfilePic)
-    ImageView imageViewProfilePic;
-    @BindView(R.id.imageViewProfilePic1)
-    ImageView ImageViewProfilePic1;
-    @BindView(R.id.imageViewProfilePic2)
-    ImageView ImageViewProfilePic2;
-    @BindView(R.id.imageViewProfilePic3)
-    ImageView ImageViewProfilePic3;
+
+    ImageView image;
+    Button choose,upload;
+    int PICK_IMAGE_REQUEST=111;
+    Bitmap bitmap;
+    ProgressDialog progressDialog;
+    Uri imageP;
+    File photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,20 +116,116 @@ public class CameraActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
 
-        ImageViewProfilePic1=(ImageView) findViewById(R.id.imageViewProfilePic1);
-        ImageViewProfilePic1.setOnClickListener(new View.OnClickListener() {
+
+        preferences=getSharedPreferences("Register",MODE_PRIVATE);
+        username=preferences.getString("name","");
+        password=preferences.getString("pass","");
+        encodeAuth="Basic "+ CommonFunction.getEncodedString(username,password);
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
+
+        API_ENDPOIN= ConsumeAPI.BASE_URL+"api/v1/users/"+pk+"/profilephoto/";
+        //API_ENDPOIN= ConsumeAPI.BASE_URL+"api/v1/imageupload/";
+        Log.d(TAG,username+" "+password+" "+pk);
+
+        image=(ImageView) findViewById(R.id.image);
+        choose=(Button) findViewById(R.id.choose);
+        upload=(Button) findViewById(R.id.upload);
+
+        choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
-                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
+                Intent intent=new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent,"Select Image"),PICK_IMAGE_REQUEST);
             }
         });
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog=new ProgressDialog(CameraActivity.this);
+                progressDialog.setMessage("Uploading, please wait....");
+                progressDialog.show();
+
+                ImageView imageView=(ImageView)findViewById(R.id.image);
+                Bitmap image=((BitmapDrawable)imageView.getDrawable()).getBitmap();
+
+                OkHttpClient client=new OkHttpClient();
+                JSONObject profile=new JSONObject();
+                JSONObject profile_body=new JSONObject();
+                photo=createTempFile(bitmap);
+
+                try{
+                    //sending image to server
+                    try{
+
+                        profile_body.put("profile_photo",encodeFileToBase64Binary(photo));
+                        Log.d(TAG,"Result"+profile_body);
+                        profile.put("profile",profile_body);
+                        /*
+                        profile.put("image",encodeFileToBase64Binary(photo));
+                        profile.put("owner",1);
+                        */
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                Log.e(TAG,"s"+profile);
+                RequestBody body=RequestBody.create(ConsumeAPI.MEDIA_TYPE,profile.toString());
+                Request request=new Request.Builder()
+                        .url(API_ENDPOIN)
+                        .put(body)
+                        .header("Content-Type","application/json")
+                        .header("Accept","application/json; charset=utf-8")
+                        //.header("Content-Type","multipart/form-data")
+                        //.header("Authorization",encodeAuth)
+                        .build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        String result=e.getMessage().toString();
+                        Log.d(TAG,"Fail:"+result);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String result=response.body().string();
+                        Log.d(TAG,result);
+                    }
+                });
+
+
+            }
+        });
+
     }
 
-    @OnClick(R.id.imageViewProfilePic)
-    public void onViewClicked() {
-        selectImage();
-        REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            imageP=data.getData();
+            try {
+                //getting image from gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                //Setting image to ImageView
+                image.setImageBitmap(bitmap);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void selectImage() {
@@ -94,12 +243,6 @@ public class CameraActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
-    /**
-     * Requesting multiple permissions (storage and camera) at once
-     * This uses multiple permission model from dexter
-     * On permanent denial opens settings dialog
-     */
     private void requestStoragePermission(boolean isCamera) {
         Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .withListener(new MultiplePermissionsListener() {
@@ -129,10 +272,6 @@ public class CameraActivity extends AppCompatActivity {
                 .check();
     }
 
-
-    /**
-     * Capture image from camera
-     */
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -157,9 +296,6 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Select image fro gallery
-     */
     private void dispatchGalleryIntent() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -167,43 +303,6 @@ public class CameraActivity extends AppCompatActivity {
         startActivityForResult(pickPhoto, REQUEST_GALLERY_PHOTO);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_TAKE_PHOTO) {
-                try {
-                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Glide.with(CameraActivity.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().circleCrop().placeholder(R.drawable.default_profile_pic)).into(imageViewProfilePic);
-            }
-            else if (requestCode == REQUEST_TAKE_PHOTO_2) {
-                try {
-                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Glide.with(CameraActivity.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().circleCrop().placeholder(R.drawable.default_profile_pic)).into(ImageViewProfilePic1);
-            }
-            else if (requestCode == REQUEST_GALLERY_PHOTO) {
-                Uri selectedImage = data.getData();
-                try {
-                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Glide.with(CameraActivity.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().circleCrop().placeholder(R.drawable.default_profile_pic)).into(imageViewProfilePic);
-
-            }
-        }
-    }
-
-    /**
-     * Showing Alert Dialog with Settings option
-     * Navigates user to app settings
-     * NOTE: Keep proper title and message depending on your app
-     */
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Need Permissions");
@@ -226,12 +325,6 @@ public class CameraActivity extends AppCompatActivity {
         startActivityForResult(intent, 101);
     }
 
-    /**
-     * Create file with current timestamp name
-     *
-     * @return
-     * @throws IOException
-     */
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -241,12 +334,6 @@ public class CameraActivity extends AppCompatActivity {
         return mFile;
     }
 
-    /**
-     * Get real file path from URI
-     *
-     * @param contentUri
-     * @return
-     */
     public String getRealPathFromUri(Uri contentUri) {
         Cursor cursor = null;
         try {
@@ -263,4 +350,106 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    private void UploadImageToServer(){
+        FixBitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        byteArray=byteArrayOutputStream.toByteArray();
+        //ConvertImage= Base64.encodeToString(byteArray,Base64.DEFAULT);
+
+    }
+
+    private File createTempFile(Bitmap bitmap) {
+        File file = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis()
+                + "_image.jpeg");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        //write the bytes in file
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    // Converting Bitmap image to Base64.encode String type
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+        return encodedImage;
+    }
+    public byte[] getByteImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        byte[] encodedImage = Base64.encode(imageBytes, Base64.NO_WRAP);
+        return encodedImage;
+    }
+    // Converting File to Base64.encode String type using Method
+    public String getStringFile(File f) {
+        InputStream inputStream = null;
+        String encodedFile= "", lastVal;
+        try {
+            inputStream = new FileInputStream(f.getAbsolutePath());
+
+            byte[] buffer = new byte[10240];//specify the size to allow
+            int bytesRead;
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            Base64OutputStream output64 = new Base64OutputStream(output, Base64.NO_WRAP);
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                output64.write(buffer, 0, bytesRead);
+            }
+            output64.close();
+            encodedFile =  output.toString();
+        }
+        catch (FileNotFoundException e1 ) {
+            e1.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        lastVal = encodedFile;
+        return lastVal;
+    }
+
+
+    private String encodeFileToBase64Binary(File fileName)
+            throws IOException {
+        //File file = new File(fileName);
+        byte[] bytes = loadFile(fileName);
+        byte[] encoded = Base64.encode(bytes,Base64.NO_WRAP);
+        String encodedString = new String(encoded);
+        return encodedString;
+    }
+
+    private static byte[] loadFile(File file) throws IOException {
+        InputStream is = new FileInputStream(file);
+
+        long length = file.length();
+        if (length > Integer.MAX_VALUE) {
+            // File is too large
+        }
+        byte[] bytes = new byte[(int)length];
+
+        int offset = 0;
+        int numRead = 0;
+        while (offset < bytes.length
+                && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+            offset += numRead;
+        }
+
+        if (offset < bytes.length) {
+            throw new IOException("Could not completely read file "+file.getName());
+        }
+
+        is.close();
+        return bytes;
+    }
 }

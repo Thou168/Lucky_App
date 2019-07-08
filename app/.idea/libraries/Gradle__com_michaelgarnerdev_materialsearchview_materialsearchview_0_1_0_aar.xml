@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.michaelgarnerdev.materialsearchview:materialsearchview:0.1.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/955414301c10355a36747c45bcf3f881/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/955414301c10355a36747c45bcf3f881/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/955414301c10355a36747c45bcf3f881/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.michaelgarnerdev.materialsearchview/materialsearchview/0.1.0/d1711dcf9cfdd5fde16e08a3e4d6de8965a03b51/materialsearchview-0.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

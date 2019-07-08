@@ -9,6 +9,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,6 +32,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.lucky_app.Api.ConsumeAPI;
 import com.example.lucky_app.R;
 import com.example.lucky_app.utils.FileCompressor;
+import com.example.lucky_app.utils.ImageUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.karumi.dexter.listener.PermissionRequest;
@@ -99,6 +102,7 @@ public class Camera extends AppCompatActivity {
     String id_cate, id_brand,id_model,id_year,id_type;
     int cate,brand,model,year,type;
     SharedPreferences prefer;
+    private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,12 +207,31 @@ public class Camera extends AppCompatActivity {
             post.put("status", "");
             post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
             post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
-            post.put("discount", etDiscount_amount.getText().toString());
+            //post.put("discount", etDiscount_amount.getText().toString());
+            post.put("discount", 0);
             post.put("user",null );
-            post.put("front_image_path", null);
-            post.put("right_image_path", null);
-            post.put("left_image_path", null);
-            post.put("back_image_path", null);
+            if(bitmapImage1==null) {
+                post.put("front_image_path", "");
+            }
+            else {
+                post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+            }
+            if(bitmapImage2==null){
+                post.put("right_image_path", "");
+            }else{
+                post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
+            }
+            if(bitmapImage3==null){
+                post.put("left_image_path", "");
+            }else{
+                post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
+            }
+            if(bitmapImage4==null){
+                post.put("back_image_path", "");
+            }else{
+                post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
+            }
+
             post.put("created", "");
             post.put("created_by", 1);
             post.put("modified", null);
@@ -218,15 +241,17 @@ public class Camera extends AppCompatActivity {
             post.put("rejected_date", null);
             post.put("rejected_by",null);
             post.put("rejected_comments", "");
-            post.put("year", year);
+            post.put("year", 1); //year
             post.put("modeling", model);
             post.put("description", etDescription.getText().toString().toLowerCase());
-            post.put("cost", etPrice.getText().toString().toLowerCase());
+            //post.put("cost", etPrice.getText().toString().toLowerCase());
+            post.put("cost", 1000);
             post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
             post.put("vin_code", etVinCode.getText().toString().toLowerCase());
             post.put("machine_code", etMachineCode.getText().toString().toLowerCase());
             post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
+            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
+            post.put("contact_phone", "23232323");
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", "");
             post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
@@ -239,9 +264,10 @@ public class Camera extends AppCompatActivity {
                     sale.put("sale_status", 2);
                     sale.put("record_status",2);
                     sale.put("sold_date", null);
-                    sale.put("price", etPrice.getText().toString().toLowerCase());
-                    sale.put("total_price", etPrice.getText().toString().toLowerCase());
-
+                    //sale.put("price", etPrice.getText().toString().toLowerCase());
+                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
+                    sale.put("price", 1000);
+                    sale.put("total_price",2000);
                     post.put("sale_post",new JSONArray("["+sale+"]"));
                     break;
                 case "rent":
@@ -843,10 +869,14 @@ public class Camera extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO_1) {
                 try {
+                    //Uri filePath=data.getData();
+                    //bitmapImage1=MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapImage1= BitmapFactory.decodeFile(mPhotoFile.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -855,6 +885,7 @@ public class Camera extends AppCompatActivity {
             else if (requestCode == REQUEST_TAKE_PHOTO_2) {
                 try {
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapImage2= BitmapFactory.decodeFile(mPhotoFile.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -863,6 +894,7 @@ public class Camera extends AppCompatActivity {
             else if (requestCode == REQUEST_TAKE_PHOTO_3) {
                 try {
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapImage3= BitmapFactory.decodeFile(mPhotoFile.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -871,6 +903,7 @@ public class Camera extends AppCompatActivity {
             else if (requestCode == REQUEST_TAKE_PHOTO_4) {
                 try {
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapImage4= BitmapFactory.decodeFile(mPhotoFile.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

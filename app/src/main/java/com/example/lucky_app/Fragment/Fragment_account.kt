@@ -1,5 +1,8 @@
 package com.example.lucky_app.Fragment
 
+import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +19,19 @@ import kotlinx.android.synthetic.main.activity_user_post.*
 import kotlinx.android.synthetic.main.fragment_acount.*
 import kotlinx.android.synthetic.main.fragment_acount.pager
 import kotlinx.android.synthetic.main.fragment_acount.tab
+import android.preference.PreferenceManager
+import android.util.Base64
+import android.util.Log
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [Fragment_account]interface.
- */
 class Fragment_account : Fragment() {
+
+    private var PRIVATE_MODE = 0
+    var username=""
+    var password=""
+    var encodeAuth=""
+    var API_ENDPOINT=""
+    var pk=0
+    var prefs: SharedPreferences?=null
 
     companion object {
         fun newInstance(): Fragment_account {
@@ -36,7 +45,6 @@ class Fragment_account : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_acount, container, false)
-
 
         val setting = view.findViewById<ImageButton>(R.id.btn_setting)
         setting.setOnClickListener {
@@ -65,7 +73,24 @@ class Fragment_account : Fragment() {
 
             }
         })
+
+        val preferences = this.activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
+        username=preferences.getString("name","")
+        password=preferences.getString("password","")
+        encodeAuth=getEncodedString(username,password)
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk", 0)
+        } else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0)
+        }
+        Toast.makeText(context,username,Toast.LENGTH_SHORT).show()
+        Log.d("Account",username)
         return view
     }
 
+    fun getEncodedString(username: String,password:String):String{
+        val userpass = "$username:$password"
+        return Base64.encodeToString(userpass.toByteArray(),
+                Base64.NO_WRAP)
+    }
 }

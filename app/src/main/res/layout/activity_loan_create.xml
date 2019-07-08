@@ -1,6 +1,540 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/my_toolbar"
+        android:background="@color/colorSubmitButton">
+        <TextView
+            android:id="@+id/tvBack_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/chevron_left_36"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_16"
+            android:text="@string/back_button"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Loan Information"
+            android:textSize="@dimen/page_title"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:gravity="center_vertical"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvLoanDetail"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:background="@color/gray_light"
+                    android:textAllCaps="true"
+                    android:text="detail"/>
+
+                <RelativeLayout
+                    android:id="@+id/rlLoanDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvLoanDetail">
+
+                    <ImageView
+                        android:id="@+id/imgJob"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilJob"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@+id/imgJob"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etJob"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Job"
+                            android:paddingLeft="10dp"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgCoBorrower"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@id/imgJob"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilCoBorrower"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgJob"
+                        android:layout_toRightOf="@+id/imgCoBorrower"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etCoBorrower"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Co-Borrower"
+                            android:paddingLeft="10dp"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgMonthlyIncome"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@id/imgCoBorrower"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilMonthlyIncome"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgCoBorrower"
+                        android:layout_toRightOf="@+id/imgMonthlyIncome"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etMonthlyIncome"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Monthly Income"
+                            android:paddingLeft="10dp"
+                            android:inputType="numberDecimal"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgMonthlyExpense"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@id/imgMonthlyIncome"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilMonthlyExpense"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgMonthlyIncome"
+                        android:layout_toRightOf="@+id/imgMonthlyIncome"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etMonthlyExpense"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Monthly Expense"
+                            android:paddingLeft="10dp"
+                            android:inputType="numberDecimal"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:layout_below="@id/rlLoanDetail"
+                    android:background="@color/gray_light"
+                    android:textAllCaps="true"
+                    android:id="@+id/tvLoanInformation"
+                    android:text="loan information"/>
+
+                <RelativeLayout
+                    android:id="@+id/rlLoanInformation"
+                    android:layout_below="@id/tvLoanInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imgPurpose"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilLoanPurpose"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@+id/imgPurpose"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etLoanPurpose"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Loan Purpose"
+                            android:paddingLeft="10dp"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgLoanAmount"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@id/imgPurpose"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilLoanAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgPurpose"
+                        android:layout_toRightOf="@+id/imgLoanAmount"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etLoanAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Loan Amount"
+                            android:paddingLeft="10dp"
+                            android:inputType="numberDecimal"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/imgLoanTerm"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@id/imgLoanAmount"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilLoanTerm"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgLoanAmount"
+                        android:layout_toRightOf="@+id/imgLoanAmount"
+                        android:background="@drawable/underline">
+
+                        <EditText
+                            android:id="@+id/etLoanTerm"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="Loan Term"
+                            android:paddingLeft="10dp"
+                            android:inputType="number"
+                            android:background="@null" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_below="@id/rlLoanInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_loan_support_document"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:background="@color/gray_light"
+                    android:textAllCaps="true"
+                    android:text="loan supporting document"/>
+
+                <RelativeLayout
+                    android:id="@+id/rlLoanSupportingDoc"
+                    android:layout_below="@id/tv_loan_support_document"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgIDCard"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <TextView
+                        android:id="@+id/tvIDCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@+id/imgIDCard"
+                        android:hint="ID Card"
+                        android:textSize="18dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/underline"
+                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgFamilyBook"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgIDCard"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <TextView
+                        android:id="@+id/tvFamilyBook"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@+id/imgFamilyBook"
+                        android:layout_below="@id/imgIDCard"
+                        android:hint="Family Book"
+                        android:textSize="18dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/underline"
+                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgStaffID"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgFamilyBook"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <TextView
+                        android:id="@+id/tvStaffID"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@+id/imgStaffID"
+                        android:layout_below="@id/imgFamilyBook"
+                        android:hint="Staff ID/ Salary Slip"
+                        android:textSize="18dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/underline"
+                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgLandTitle"
+                        android:layout_width="20dp"
+                        android:layout_height="45dp"
+                        android:layout_below="@id/imgStaffID"
+                        android:src="@drawable/icon_null"
+                        android:background="@drawable/underline"/>
+                    <TextView
+                        android:id="@+id/tvLandTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@+id/imgLandTitle"
+                        android:layout_below="@id/imgStaffID"
+                        android:hint="Land Tile"
+                        android:textSize="18dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/underline"
+                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:layout_below="@id/rlLoanSupportingDoc"
+                    android:background="@color/gray_light"
+                    android:textAllCaps="true"
+                    android:id="@+id/tvLoanCalculate"
+                    android:text="Loan Calculation"/>
+
+                <TextView
+                    android:id="@+id/laonCalculation2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:paddingLeft="@dimen/dp_8dp"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:layout_below="@id/tvLoanCalculate"
+                    android:text="ការរគណនាប្រាក់ម្ចី / Loan Calculation"/>
+                <RelativeLayout
+                    android:id="@+id/loanRow1"
+                    android:layout_below="@id/laonCalculation2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:paddingLeft="@dimen/dp_8"
+                            android:gravity="left"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:text="តម្លៃ / Price ($)" />
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:paddingLeft="@dimen/dp_8"
+                            android:gravity="left"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="8dp"
+                            android:text="អត្រាការប្រាក់ / Interest Rate (%)" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/loanRow2"
+                    android:layout_below="@id/loanRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:layout_weight="0.5"
+                            android:id="@+id/ed_loan_price"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:padding="8dp"
+                            android:background="@drawable/rounded_border_edittext"
+                            android:textSize="12sp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:layout_weight="0.5"
+                            android:id="@+id/ed_loan_interest_rate"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:padding="8dp"
+                            android:background="@drawable/rounded_border_edittext"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loanRow3"
+                    android:layout_below="@id/loanRow2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:paddingLeft="@dimen/dp_8"
+                            android:gravity="left"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:text="ប្រាក់កក់ / Deposit ($)" />
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:paddingLeft="@dimen/dp_8"
+                            android:gravity="left"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="8dp"
+                            android:text="រយៈពេល (ឆ្នាំ) / Term (Year)" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loanRow4"
+                    android:layout_below="@id/loanRow3">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:id="@+id/ed_loan_deposit"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:padding="8dp"
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/rounded_border_edittext"
+                            android:textSize="12sp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:layout_weight="0.5"
+                            android:id="@+id/ed_loan_term"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:padding="8dp"
+                            android:background="@drawable/rounded_border_edittext"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/btSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:text="@string/submit_button"
+                    android:background="@color/colorSubmitButton"
+                    android:textColor="@color/white"
+                    android:layout_below="@id/loanRow4"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

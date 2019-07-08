@@ -22,6 +22,7 @@ import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Product_dicount.Detail_Discount
 import com.example.lucky_app.Product_dicount.User_post
 import com.example.lucky_app.R
+import com.example.lucky_app.loan.LoanCreateActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -206,6 +207,11 @@ class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
             Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
         }
 
+        val loan= findViewById<Button>(R.id.btn_loan)
+        loan.setOnClickListener{
+            val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun makePhoneCall(number: String) : Boolean {

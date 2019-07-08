@@ -5,6 +5,8 @@
     package="com.example.lucky_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -77,7 +79,8 @@
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" />
         <!--<activity android:name=".useraccount.UserInformationActivity"/>-->
-
+        <activity android:name=".Activity.AccountActivity"/>
+        <activity android:name=".loan.LoanCreateActivity"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

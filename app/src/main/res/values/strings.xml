@@ -213,6 +213,40 @@
         <item> Amount</item>
         <item> Percentage </item>
     </string-array>
+    <string-array name="boolean_option">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <!-- Start Loan Information String -->
+    <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
+    <string name="title_fill_information">Fill in Information</string>
+    <string name="txt_clr_detail">DETAIL</string>
+    <string name="hit_username">Username</string>
+    <string name="hit_gender">Gender</string>
+    <string name="hit_age">Age</string>
+    <string name="hit_job">Job</string>
+    <string name="hit_mon_income">Monthy Average Income</string>
+    <string name="hit_mon_expense">Monthy Average Expense</string>
+    <string name="hit_phone">Phone</string>
+    <string name="txt_clr_information">LOAN INFORMATION</string>
+    <string name="hit_loan_amount">Loan Amount</string>
+    <string name="hit_loan_duration">Loan Duration (month)</string>
+    <string name="hit_purpos">Loan Purpose</string>
+    <string name="hit_status">Status</string>
+    <string name="txt_clr_supporting">LOAN SUPPORTING DOCUMENT</string>
+    <string name="hit_state_id">State ID</string>
+    <string name="hit_family_book">Family Book</string>
+    <string name="hit_staffid">Staff ID/ Salary Slip</string>
+    <string name="hit_hourse">House Plant</string>
+    <string name="loan_calculation">LOAN CALCULATION</string>
+    <string name="loan_calculation_title">Loan Calculation</string>
+    <string name="title_loan_price">Price ($)</string>
+    <string name="title_loan_interest_rate">Interest Rate (%)</string>
+    <string name="title_loan_deposit">Deposit ($)</string>
+    <string name="title_loan_term">Term (Year)</string>
+    <string name="title_monthly_payment">Monthly Payment</string>
+    <!-- End Loan Information String -->
 
     //delete and edit
     <string name="button_edit">Edit</string>

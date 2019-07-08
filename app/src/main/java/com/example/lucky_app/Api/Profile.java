@@ -26,6 +26,9 @@ public class Profile {
     private String wing_account_name;
     private String place_of_birth;
     private String status;
+    private String base64_profile_image;
+    private String base64_cover_photo_image;
+
 
     private int[] groups;
 
@@ -269,5 +272,21 @@ public class Profile {
 
     public void setGroups(int[] groups) {
         this.groups = groups;
+    }
+
+    public String getBase64_cover_photo_image() {
+        return base64_cover_photo_image;
+    }
+
+    public String getBase64_profile_image() {
+        return base64_profile_image;
+    }
+
+    public void setBase64_cover_photo_image(String base64_cover_photo_image) {
+        this.base64_cover_photo_image = base64_cover_photo_image;
+    }
+
+    public void setBase64_profile_image(String base64_profile_image) {
+        this.base64_profile_image = base64_profile_image;
     }
 }
