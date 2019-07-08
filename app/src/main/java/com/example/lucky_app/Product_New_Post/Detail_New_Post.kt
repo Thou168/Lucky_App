@@ -180,11 +180,12 @@ class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
             shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
             startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
         }
-        //Button Call
+//Button Call
         val call = findViewById<Button>(R.id.btn_call)
         call.setOnClickListener{
             //                checkPermission()
-            makePhoneCall("0962363929")
+//            makePhoneCall("0962363929")
+            checkPermission()
         }
 //Button SMS
         val sms = findViewById<Button>(R.id.btn_sms)

@@ -11,7 +11,6 @@ import com.example.lucky_app.R
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.Startup.Item
-import com.example.lucky_app.Startup.MyAdapter_list
 
 /**
  * A fragment representing a list of Items.
@@ -30,7 +29,7 @@ class account_user_list: Fragment() {
         item.addAll(Item.getUser_Post(2))
 
         recyclrview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        recyclrview.adapter = MyAdapter_list(item,null)
+        recyclrview.adapter = MyAdapter_user(item,null)
 
         return view
     }
