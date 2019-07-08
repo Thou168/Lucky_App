@@ -62,12 +62,13 @@
             android:layout_height="45dp"
             android:src="@drawable/icon_null"
             android:background="@drawable/underline"/>
+        <!--
         <ImageView
             android:paddingLeft="@dimen/dp_16"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:src="@drawable/icon_null"
-            android:background="@drawable/underline"/>
+            android:background="@drawable/underline"/>-->
         <ImageView
             android:paddingLeft="@dimen/dp_16"
             android:layout_width="wrap_content"
@@ -89,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/tvUserGroup"
             android:gravity="center|left"
             android:text="Public User"
             android:textSize="18dp"
@@ -153,6 +155,7 @@
             android:hint="Wing Account Number"
             android:paddingLeft="@dimen/dp_16"
             android:background="@drawable/underline" />
+        <!--
         <EditText
             android:id="@+id/phone"
             android:lines="1"
@@ -160,7 +163,7 @@
             android:layout_height="45dp"
             android:hint="Wing Account Number"
             android:paddingLeft="@dimen/dp_16"
-            android:background="@drawable/underline" />
+            android:background="@drawable/underline" />-->
         <Spinner
             android:id="@+id/location"
             style="@style/spinner_style"
