@@ -78,23 +78,6 @@ public class Edit_account extends AppCompatActivity {
     private EditText date;
     int mMonth,mYear,mDay;
 
-    private static final String[] ANDROID_VERSIONS = {
-            "Cupcake",
-            "Donut",
-            "Eclair",
-            "Froyo",
-            "Gingerbread",
-            "Honeycomb",
-            "Ice Cream Sandwich",
-            "Jelly Bean",
-            "KitKat",
-            "Lollipop",
-            "Marshmallow",
-            "Nougat",
-            "Oreo"
-    };
-
-    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,22 +94,21 @@ public class Edit_account extends AppCompatActivity {
 //        layout_public_user = (LinearLayout)findViewById(R.id.layout_type_public_user);
 //        layout_121_dealer  = (LinearLayout)findViewById(R.id.layout_type_121_dealer);
 //
-//        prefer = getSharedPreferences("Register",MODE_PRIVATE);
-//        if (prefer.contains("token")) {
-//            pk = prefer.getInt("Pk",0);
-//            user_id = String.valueOf(pk);
-//            Log.d(TAG, user_id);
-//        }else if (prefer.contains("id")) {
-//            id = prefer.getInt("id", 0);
-//            user_id = String.valueOf(id);
-//            Log.d(TAG, user_id);
-//        }
-//        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",user_id);
-//
-//        name = prefer.getString("name","");
-//        pass = prefer.getString("pass","");
-//        Encode = getEncodedString(name,pass);
-
+        prefer = getSharedPreferences("Register",MODE_PRIVATE);
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk",0);
+            user_id = String.valueOf(pk);
+            Log.d(TAG, user_id);
+        }else if (prefer.contains("id")) {
+            id = prefer.getInt("id", 0);
+            user_id = String.valueOf(id);
+            Log.d(TAG, user_id);
+        }
+        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",user_id);
+        name = prefer.getString("name","");
+        pass = prefer.getString("pass","");
+        Encode = getEncodedString(name,pass);
+        initialUserInformation(url,Encode);
 
 //        ID_Field();
         //  Groups(url,Encode);
@@ -180,11 +162,11 @@ public class Edit_account extends AppCompatActivity {
         datePickerFragmentDialog.setCancelText(getResources().getString(R.string.cancel_dob));
     }
 
-//    private void DropList() {
-//        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,ANDROID_VERSIONS);
-//        spinner.setAdapter(aa);
-//
-//    }
+    //    private void DropList() {
+    //        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,ANDROID_VERSIONS);
+    //        spinner.setAdapter(aa);
+    //
+    //    }
 
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -192,11 +174,9 @@ public class Edit_account extends AppCompatActivity {
                 Base64.NO_WRAP);
     }
 
-    private void Groups(String url,String encode){
+    private void initialUserInformation(String url,String encode){
         MediaType MEDIA_TYPE     =  MediaType.parse("application/json");
-
         Log.d(TAG,"tt"+url);
-
         OkHttpClient client = new OkHttpClient();
 
         String auth = "Basic "+ encode;
@@ -223,7 +203,6 @@ public class Edit_account extends AppCompatActivity {
                     convertJsonJava = gson.fromJson(mMessage,User.class);
                     int[] gg = convertJsonJava.getGroups();
                     g = gg[0];
-                    Log.d(TAG,"initialUserInformation:" + g);
                     if (g==1){
                         //groupsSpinner.setSelection(0);
 
@@ -349,6 +328,5 @@ public class Edit_account extends AppCompatActivity {
         });
         mQueue.add(request);
     }
-
 
 }
