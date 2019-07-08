@@ -205,8 +205,8 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
         }
         //Button Call
         val call = findViewById<Button>(R.id.btn_call)
-        call.setOnClickListener {
-            //                checkPermission()
+        call.setOnClickListener{
+            //   checkPermission()
             makePhoneCall("0962363929")
         }
         //Button Like
@@ -217,15 +217,15 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    fun makePhoneCall(number: String): Boolean {
-        try {
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.data = Uri.parse("tel:$number")
-            startActivity(intent)
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
+        fun makePhoneCall(number: String): Boolean {
+            try {
+                val intent = Intent(Intent.ACTION_CALL)
+                intent.data = Uri.parse("tel:$number")
+                startActivity(intent)
+                return true
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return false
+            }
         }
-    }
 }

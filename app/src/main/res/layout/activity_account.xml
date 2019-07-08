@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Account">
+
     <LinearLayout
         android:layout_above="@+id/bnaviga"
         android:layout_width="match_parent"
@@ -98,14 +99,12 @@
                         app:tabMode="fixed"
                         android:background="#999"/>
                     <androidx.viewpager.widget.ViewPager
-                        android:fillViewport="true"
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/tab"
                         android:background="#D5E7E7E7"
                         android:paddingTop="@dimen/dp_4">
-
                     </androidx.viewpager.widget.ViewPager>
                 </RelativeLayout>
             </RelativeLayout>

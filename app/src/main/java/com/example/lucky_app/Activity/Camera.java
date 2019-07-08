@@ -25,11 +25,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.lucky_app.Api.ConsumeAPI;
+import com.example.lucky_app.Login_Register.UserAccount;
 import com.example.lucky_app.R;
 import com.example.lucky_app.utils.FileCompressor;
 import com.example.lucky_app.utils.ImageUtil;
@@ -77,6 +80,7 @@ public class Camera extends AppCompatActivity {
     private int REQUEST_TAKE_PHOTO_NUM=0;
     File mPhotoFile;
     FileCompressor mCompressor;
+    private RelativeLayout relatve_discount;
 
     private EditText etTitle,etVinCode,etMachineCode,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
@@ -134,7 +138,11 @@ public class Camera extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),Message.class));
                         break;
                     case R.id.account :
-                        startActivity(new Intent(getApplicationContext(),Account.class));
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Account.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                 }
                 return false;
@@ -142,13 +150,15 @@ public class Camera extends AppCompatActivity {
         });
 
         Variable_Field();
-        PhoneNumber();
+
         DropDown();
         Call_category(Encode);
         Call_Type(Encode);
 //        Call_Brand(Encode,id_cate);
 //        Call_Model(Encode);
         Call_years(Encode);
+
+
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,8 +257,8 @@ public class Camera extends AppCompatActivity {
             //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost", 1000);
             post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-            post.put("vin_code", etVinCode.getText().toString().toLowerCase());
-            post.put("machine_code", etMachineCode.getText().toString().toLowerCase());
+            post.put("vin_code", "");
+            post.put("machine_code", "");
             post.put("type", type);
             //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
             post.put("contact_phone", "23232323");
@@ -314,9 +324,17 @@ public class Camera extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    String message = response.body().string();
-                    Log.d("Response",message);
-
+                    if (response.isSuccessful()) {
+                        String message = response.body().string();
+                        Log.d("Response", message);
+                        startActivity(new Intent(getApplicationContext(),Account.class));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             });
         }catch (Exception e){
@@ -373,6 +391,14 @@ public class Camera extends AppCompatActivity {
                             id_cate = String.valueOf(ID_category.getItem(i));
                             Log.d("ID", id_cate);
                             cate = Integer.parseInt(id_cate);
+                            if (cate==1){
+                                icType_elec.setVisibility(View.VISIBLE);
+                                tvType_elec.setVisibility(View.VISIBLE);
+                            }else if (cate == 2){
+                                icType_elec.setVisibility(View.GONE);
+                                tvType_elec.setVisibility(View.GONE);
+                            }
+
                             Call_Brand(Encode,id_cate);
                         }
 
@@ -606,9 +632,9 @@ public class Camera extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
-//                    JSONObject jsonObject = new JSONObject(respon);
-//                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    JSONArray jsonArray = new JSONArray();
+                    JSONObject jsonObject = new JSONObject(respon);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
@@ -654,13 +680,14 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
                 String st = post.getItem(i);
-                if (st.equals("Rent")){
-                    icRent.setVisibility(View.VISIBLE);
-                    tvRent.setVisibility(View.VISIBLE);
+
+                if (st.equals("Buy")){
+                    relatve_discount.setVisibility(View.GONE);
                 }else {
-                    icRent.setVisibility(View.GONE);
-                    tvRent.setVisibility(View.GONE);
+                    relatve_discount.setVisibility(View.VISIBLE);
                 }
+
+                icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override
@@ -677,39 +704,12 @@ public class Camera extends AppCompatActivity {
         ArrayAdapter<String> color = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,colors);
         tvColor.setAdapter(color);
 
-        String[] rents = getResources().getStringArray(R.array.rent_type);
-        ArrayAdapter<String> rent = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,rents);
-        tvRent.setAdapter(rent);
-
         String[] discount_type = getResources().getStringArray(R.array.discount_type);
         ArrayAdapter<String> discountType = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,discount_type);
         tvDiscount_type.setAdapter(discountType);
 
     }
-    private void PhoneNumber(){
-        icPhone2.setVisibility(View.GONE);
-        tilPhone2.setVisibility(View.GONE);
-        addPhone2.setVisibility(View.GONE);
-        icPhone3.setVisibility(View.GONE);
-        tilPhone3.setVisibility(View.GONE);
 
-        addPhone1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                icPhone2.setVisibility(View.VISIBLE);
-                tilPhone2.setVisibility(View.VISIBLE);
-                addPhone2.setVisibility(View.VISIBLE);
-            }
-        });
-
-        addPhone2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                icPhone3.setVisibility(View.VISIBLE);
-                tilPhone3.setVisibility(View.VISIBLE);
-            }
-        });
-    }
 
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -718,6 +718,7 @@ public class Camera extends AppCompatActivity {
     }
     private void Variable_Field() {
 
+        relatve_discount = (RelativeLayout)findViewById(R.id.relative_discount);
 //textview ///////
         tvPostType = (MaterialSpinner)findViewById(R.id.tvPostType);
         tvCategory = (MaterialSpinner) findViewById(R.id.tvCategory);
@@ -727,29 +728,22 @@ public class Camera extends AppCompatActivity {
         tvYear     = (MaterialSpinner) findViewById(R.id.tvYears);
         tvCondition= (MaterialSpinner) findViewById(R.id.tvCondition);
         tvColor    = (MaterialSpinner) findViewById(R.id.tvColor);
-        tvRent     = (MaterialSpinner) findViewById(R.id.tvRent);
         tvDiscount_type = (MaterialSpinner)findViewById(R.id.tvDisType);
 // edit text ////
         etTitle           = (EditText)findViewById(R.id.etTitle );
-        etVinCode         = (EditText)findViewById(R.id.etVinCode );
-        etMachineCode     = (EditText)findViewById(R.id.etMachineCode );
         etDescription     = (EditText)findViewById(R.id.etDescription );
         etPrice           = (EditText)findViewById(R.id.etPrice );
         etDiscount_amount = (EditText)findViewById(R.id.etDisAmount );
         etName            = (EditText)findViewById(R.id.etName );
         etPhone1          = (EditText)findViewById(R.id.etphone1 );
-        etPhone2          = (EditText)findViewById(R.id.etphone2 );
-        etPhone3          = (EditText)findViewById(R.id.etphone3 );
+
         etEmail           = (EditText)findViewById(R.id.etEmail );
 
 // til phone
-        tilPhone2 = (TextInputLayout)findViewById(R.id.tilPhone2);
-        tilPhone3 = (TextInputLayout)findViewById(R.id.tilPhone3);
 
 // add phone button
 
-        addPhone2 = (ImageButton)findViewById(R.id.imgBtnPhone2);
-        addPhone1 = (ImageButton)findViewById(R.id.imgBtnPhone1);
+
 //// icon  ////////
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
         icCategory   = (ImageView) findViewById(R.id. imgCategory);
@@ -759,17 +753,13 @@ public class Camera extends AppCompatActivity {
         icYears      = (ImageView) findViewById(R.id. imgYear);
         icCondition  = (ImageView) findViewById(R.id. imgCondition);
         icColor      = (ImageView) findViewById(R.id. imgColor);
-        icRent       = (ImageView) findViewById(R.id. imgRent);
         icTitile     = (ImageView) findViewById(R.id. imgTitle);
-        icVincode    = (ImageView) findViewById(R.id. imgVinCode);
-        icMachineconde=(ImageView) findViewById(R.id. imgMachineCode);
         icDescription= (ImageView) findViewById(R.id. imgDescription);
         icPrice      = (ImageView) findViewById(R.id. imgPrice);
         icName       = (ImageView) findViewById(R.id. imgName);
         icEmail      = (ImageView) findViewById(R.id. imgEmail);
         icPhone1     = (ImageView) findViewById(R.id. imgPhone1);
-        icPhone2     = (ImageView) findViewById(R.id. imgPhone2 );
-        icPhone3     = (ImageView) findViewById(R.id. imgPhone3);
+
         icDiscount_amount = (ImageView) findViewById(R.id. imgDisAmount);
         icDiscount_type   = (ImageView) findViewById(R.id.imgDisType );
 

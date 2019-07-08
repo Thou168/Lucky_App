@@ -1,11 +1,13 @@
 package com.example.lucky_app.Activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -13,8 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
 import android.view.View
+import android.view.Window
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +29,6 @@ import com.example.lucky_app.Login_Register.UserAccount
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.example.lucky_app.Product_dicount.MyAdapter
 import com.example.lucky_app.R
-import com.example.lucky_app.Setting.Changelanguage
 import com.example.lucky_app.Startup.Item
 import com.example.lucky_app.Startup.Search1
 import com.example.lucky_app.Startup.Your_Post
@@ -39,10 +40,16 @@ import kotlin.collections.ArrayList
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     var recyclerView: RecyclerView? = null
-    var click: String = "English"
+//    var click: String = "Khmer"
     lateinit var sharedPreferences: SharedPreferences
 
-     fun language(lang : String) {
+    val myPreferences = "mypref"
+    val namekey = "Khmer"
+
+    var english: ImageView? = null
+    var khmer: ImageView? = null
+
+    fun language(lang: String) {
          val locale = Locale(lang)
          Locale.setDefault(locale)
          val confi = Configuration()
@@ -51,24 +58,27 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
          val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
          editor.putString("My_Lang", lang)
          editor.apply()
-
-    }
-
+     }
     fun locale() {
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
+        Log.d("language",language)
         language(language)
+
     }
 
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locale()
-        sharedPreferences = getSharedPreferences("Language",Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
 
         setContentView(R.layout.activity_home)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        toolbar.title = " "
         setSupportActionBar(toolbar)
-        val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
+
+        val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -81,21 +91,29 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }else{
             navView.setVisibility(View.GONE)
         }
-        val language = findViewById<ImageView>(R.id.language)
-        language.setOnClickListener {
-            if(click.equals("Khmer")){
-                language.setImageResource(R.drawable.flag_khmer)
-                click = "English"
-            }else{
 
-                language.setImageResource(R.drawable.flag_english)
-                click = "Khmer"
-            }
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+
+        Log.d("khmer",language)
+
+        khmer = findViewById(R.id.khmer)
+        english = findViewById(R.id.english)
+        if(language.equals("km")) {
+            english!!.visibility = View.VISIBLE
+            khmer!!.visibility = View.GONE
+        }else{
+            english!!.visibility = View.GONE
+            khmer!!.visibility = View.VISIBLE
         }
-
-        sharedPreferences = getSharedPreferences(click,Context.MODE_PRIVATE)
-//        click = sharedPreferences.getString(click,"")
-//        navView.visibility = View.GONE
+        english!!.setOnClickListener {
+            language("en")
+            recreate()
+        }
+        khmer!!.setOnClickListener {
+            language("km")
+            recreate()
+        }
 
         navView.setNavigationItemSelectedListener(this)
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)

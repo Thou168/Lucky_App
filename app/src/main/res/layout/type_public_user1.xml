@@ -25,7 +25,8 @@
             android:paddingLeft="@dimen/dp_16"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
-            android:src="@drawable/icon_null" />
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
         <View style="@style/line1"/>
         <ImageView
             android:paddingLeft="@dimen/dp_16"
@@ -37,13 +38,17 @@
             android:paddingLeft="@dimen/dp_16"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
-            android:src="@drawable/icon_null"/>
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"
+            />
         <View style="@style/line1"/>
         <ImageView
             android:paddingLeft="@dimen/dp_16"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
-            android:src="@drawable/icon_null" />
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"
+            />
         <View style="@style/line1"/>
         <ImageView
             android:paddingLeft="@dimen/dp_16"
@@ -67,7 +72,8 @@
             android:paddingLeft="@dimen/dp_16"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
-            android:src="@drawable/icon_null"/>
+            android:src="@drawable/icon_null"
+            android:background="@drawable/underline"/>
         <View style="@style/line1"/>
         <ImageView
             android:paddingLeft="@dimen/dp_16"
@@ -78,6 +84,7 @@
 
     </LinearLayout>
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
