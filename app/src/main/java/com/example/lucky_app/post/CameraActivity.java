@@ -116,7 +116,6 @@ public class CameraActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
 
-
         preferences=getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");

@@ -27,8 +27,7 @@ public class Profile {
     private String place_of_birth;
     private String status;
     private String base64_profile_image;
-    private String base64_cover_photo_image;
-
+    private String base64_cover_image;
 
     private int[] groups;
 
@@ -275,7 +274,7 @@ public class Profile {
     }
 
     public String getBase64_cover_photo_image() {
-        return base64_cover_photo_image;
+        return base64_cover_image;
     }
 
     public String getBase64_profile_image() {
@@ -283,7 +282,7 @@ public class Profile {
     }
 
     public void setBase64_cover_photo_image(String base64_cover_photo_image) {
-        this.base64_cover_photo_image = base64_cover_photo_image;
+        this.base64_cover_image = base64_cover_image;
     }
 
     public void setBase64_profile_image(String base64_profile_image) {

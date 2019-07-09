@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.R
+import com.example.lucky_app.loan.LoanCreateActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.IOException
 import java.util.*
 
-class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
+class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
     private val TAG = Detail_Discount::class.java.simpleName
     private lateinit var mMap: GoogleMap
 
@@ -49,7 +50,7 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
     internal lateinit var locationManager: LocationManager
     internal lateinit var locationListener: LocationListener
 
-
+    /*
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
@@ -133,19 +134,19 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         }
     }
-
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_discount)
 
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-
+        //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+        /*
         txt_place = findViewById(R.id.txt_show_place) as TextView
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
+        //mapFragment.getMapAsync(this)
+         */
         findViewById<TextView>(R.id.tv_back).setOnClickListener { finish() }
 
         val sliderImage = findViewById<SliderImage>(R.id.slider)
@@ -215,6 +216,11 @@ class Detail_Discount : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this@Detail_Discount, "This Product add to Your Liked", Toast.LENGTH_SHORT).show()
         }
 
+        val loan= findViewById<Button>(R.id.btn_loan)
+        loan.setOnClickListener{
+            val intent = Intent(this@Detail_Discount, LoanCreateActivity::class.java)
+            startActivity(intent)
+        }
     }
 
         fun makePhoneCall(number: String): Boolean {

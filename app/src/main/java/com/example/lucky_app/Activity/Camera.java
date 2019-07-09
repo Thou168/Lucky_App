@@ -17,9 +17,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -165,6 +168,7 @@ public class Camera extends AppCompatActivity {
             public void onClick(View v) {
                 selectImage();
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_1;
+
             }
         });
 
@@ -632,6 +636,7 @@ public class Camera extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
+                    Log.d(TAG,respon);
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
 
@@ -709,7 +714,6 @@ public class Camera extends AppCompatActivity {
         tvDiscount_type.setAdapter(discountType);
 
     }
-
 
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -824,6 +828,46 @@ public class Camera extends AppCompatActivity {
      * Capture image from camera
      */
     private void dispatchTakePictureIntent() {
+        switch (REQUEST_TAKE_PHOTO_NUM){
+            case REQUEST_TAKE_PHOTO_1:
+                Toast toast=Toast.makeText(getApplicationContext(),"ថតពីមុខ",Toast.LENGTH_SHORT);
+                //toast.setMargin(50,50);
+                toast.setGravity(Gravity.TOP, 100,80);
+                //toast.show();
+                ViewGroup group = (ViewGroup) toast.getView();
+                TextView messageTextView = (TextView) group.getChildAt(0);
+                messageTextView.setTextSize(25);
+                toast.show();
+                break;
+            case REQUEST_TAKE_PHOTO_2:
+                Toast toast1=Toast.makeText(getApplicationContext(),"ថតផ្នែកខាងស្ដាំ",Toast.LENGTH_SHORT);
+                toast1.setGravity(Gravity.TOP, 100,80);
+                //toast.show();
+                ViewGroup group1 = (ViewGroup) toast1.getView();
+                TextView messageTextView1 = (TextView) group1.getChildAt(0);
+                messageTextView1.setTextSize(25);
+                toast1.show();
+                break;
+            case REQUEST_TAKE_PHOTO_3:
+                Toast toast2=Toast.makeText(getApplicationContext(),"ថតផ្នែកខាងឆ្វេង",Toast.LENGTH_SHORT);
+                toast2.setGravity(Gravity.TOP, 100,80);
+                //toast.show();
+                ViewGroup group2 = (ViewGroup) toast2.getView();
+                TextView messageTextView2 = (TextView) group2.getChildAt(0);
+                messageTextView2.setTextSize(25);
+                toast2.show();
+                break;
+            case REQUEST_TAKE_PHOTO_4:
+                Toast toast3= Toast.makeText(getApplicationContext(),"ថតពីក្រោយ",Toast.LENGTH_SHORT);
+                toast3.setGravity(Gravity.TOP, 100,80);
+                //toast.show();
+                ViewGroup group3 = (ViewGroup) toast3.getView();
+                TextView messageTextView3 = (TextView) group3.getChildAt(0);
+                messageTextView3.setTextSize(25);
+                toast3.show();
+                break;
+        }
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -871,6 +915,9 @@ public class Camera extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
+
+                requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_2) {
                 try {
@@ -880,6 +927,8 @@ public class Camera extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
+                requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_3) {
                 try {
@@ -889,6 +938,8 @@ public class Camera extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
+                requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_4) {
                 try {

@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import java.io.IOException
 import java.util.*
 
-class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
+class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
     private lateinit var mMap: GoogleMap
 
@@ -46,6 +46,7 @@ class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
     private var mLastKnownLocation: Location? = null
 
     internal lateinit var txt_detail_new: TextView
+    /*
     private val REQUEST_LOCATION = 1
     internal lateinit var locationManager: LocationManager
     internal lateinit var locationListener: LocationListener
@@ -130,10 +131,11 @@ class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         }
     }
-
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
+        /*
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 
         txt_detail_new = findViewById(R.id.txt_show_place_detail_new_post) as TextView
@@ -141,6 +143,7 @@ class Detail_New_Post : AppCompatActivity(), OnMapReadyCallback{
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        */
 //Back
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }

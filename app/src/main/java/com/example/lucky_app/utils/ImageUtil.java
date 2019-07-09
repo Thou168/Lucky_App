@@ -127,7 +127,7 @@ public class ImageUtil {
         File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis()
                 + "_image.jpeg");
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50 /*ignored for PNG*/, bos);
         byte[] bitmapdata = bos.toByteArray();
         //write the bytes in file
 
