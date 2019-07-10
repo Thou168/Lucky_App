@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:src="@drawable/icon_null"
-            android:background="@drawable/underline"/>
+            android:background="#fff"/>
         <View style="@style/line1"/>
         <ImageView
             android:paddingLeft="@dimen/dp_16"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:src="@drawable/icon_null"
-            android:background="@drawable/underline"
+            android:background="#fff"
             />
         <View style="@style/line1"/>
         <ImageView
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:src="@drawable/icon_null"
-            android:background="@drawable/underline"
+            android:background="#ffff"
             />
         <View style="@style/line1"/>
         <ImageView
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:src="@drawable/icon_null"
-            android:background="@drawable/underline"/>
+            android:background="#fff"/>
         <View style="@style/line1"/>
         <ImageView
             android:paddingLeft="@dimen/dp_16"

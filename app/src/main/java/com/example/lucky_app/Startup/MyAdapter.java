@@ -50,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
     public void onBindViewHolder(MyHolder holder, int position) {
 
         //BIND DATA
-//        holder.posTxt.setText(Double.toString(items.get(position).getCast()));
+//        holder.posTxt.setText(Double.toString(items.get(position).getCost()));
         if(items.get(position).getPost_type().equals("Buy")){
             holder.type_post.setImageResource(R.drawable.buy);
         }else if(items.get(position).getPost_type().equals("Sell")){

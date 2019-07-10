@@ -105,6 +105,7 @@ public class Edit_account extends AppCompatActivity {
 
         tvUserGroup=(TextView) findViewById(R.id.tvUserGroup);
         etUsername=(EditText) findViewById(R.id.Username);
+
         etWingName=(EditText) findViewById(R.id.wing_account);
         etWingNumber=(EditText) findViewById(R.id.wing_number);
         //etPhone=(EditText) findViewById(R.id.phone);
@@ -114,18 +115,21 @@ public class Edit_account extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);
+
         place = (Spinner) findViewById(R.id.place);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.place, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        place.setAdapter(adapter1);
+//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.place, android.R.layout.simple_spinner_item);
+//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        place.setAdapter(adapter1);
+
         status = (Spinner) findViewById(R.id.status);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         status.setAdapter(adapter2);
+
         location = (Spinner) findViewById(R.id.location);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        location.setAdapter(adapter3);
+//        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
+//        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        location.setAdapter(adapter3);
         //Date
         date = (EditText) findViewById(R.id.birth);
         date.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +145,7 @@ public class Edit_account extends AppCompatActivity {
             }
         });
 
+        Province();
         Button btSubmit=(Button) findViewById(R.id.btn_EditAccount);
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +154,10 @@ public class Edit_account extends AppCompatActivity {
                 PutData(url,Encode);
             }
         });
-    }
+
+    } // oncreate
+
+
     private void showDatePickerDialog(){
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -219,10 +227,10 @@ public class Edit_account extends AppCompatActivity {
                             convertJsonJava = gson.fromJson(mMessage,User.class);
                             int[] gg = convertJsonJava.getGroups();
                             etUsername.setText(convertJsonJava.getUsername());
-        //                    tvGender.setText(convertJsonJava.getGender());
-        //                    etDob   .setText(convertJsonJava.getData_of_birth());
-        //                    tvPob.setText(convertJsonJava.getPlace_of_birth());
-        //                    tvMarried.setText(convertJsonJava.getMarital_status());
+//                            tvGender.setText(convertJsonJava.getGender());
+
+//                            tvPob.setText(convertJsonJava.getPlace_of_birth());
+//                            tvMarried.setText(convertJsonJava.getMarital_status());
                             if(convertJsonJava.getProfile()!=null) {
                                 etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
                                 etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
@@ -361,6 +369,7 @@ public class Edit_account extends AppCompatActivity {
             pro.put("marital_status",married);
             pro.put("shop_address",shop_addr);
             */
+
             pro.put("wing_account_number",etWingNumber.getText().toString());
             pro.put("wing_account_name",etWingName.getText().toString());
 
@@ -395,5 +404,48 @@ public class Edit_account extends AppCompatActivity {
                 //finish();
             }
         });
+    }
+
+    public void Province(){
+        final String rl = "http://103.205.26.103:8000/api/v1/provinces/";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(rl)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String province = response.body().string();
+                try{
+                    JSONObject jsonObject = new JSONObject(province);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        int id = object.getInt("id");
+                        String pro = object.getString("province");
+                        provinceIdArrayList.add(id);
+                        provinceNameArrayList.add(pro);
+                    ArrayAdapter<Integer> ad_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,provinceIdArrayList);
+                    ArrayAdapter<String> ad_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,provinceNameArrayList);
+
+                            location.setAdapter(ad_name);
+                            place.setAdapter(ad_name);
+                    }
+
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+        });
+
     }
 }

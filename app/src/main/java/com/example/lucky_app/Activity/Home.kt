@@ -136,9 +136,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
                 R.id.camera ->{
-                    val intent = Intent(this@Home,Camera::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Home, Camera::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Home, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.message -> {val intent = Intent(this@Home,Message::class.java)
                     startActivity(intent)
@@ -285,12 +291,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //            R.id.action_language -> {
 //                if(click.equals("Khmer")){
 //                    item.setIcon(R.drawable.flag_khmer)
-////                    val editor = sharedPreferences.edit()
-////                    editor.putString(click,"English")
-////                    editor.commit()
-////
-////                    language("km")
-////                    recreate()
+//                    val editor = sharedPreferences.edit()
+//                    editor.putString(click,"English")
+//                    editor.commit()
+//
+//                    language("km")
+//                    recreate()
 //                }else{
 //                    item.setIcon(R.drawable.flag_english)
 //

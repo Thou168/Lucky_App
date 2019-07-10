@@ -305,14 +305,14 @@
                         android:layout_below="@+id/imgPrice"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
+                        android:background="#F9F9F9"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/imgPrice"
                         android:layout_toRightOf="@+id/imgDescription"
-                        android:background="@drawable/underline_gray">
+                        android:background="#F9F9F9">
 
                         <EditText
                             android:id="@+id/etDescription"
@@ -385,7 +385,7 @@
                             android:id="@+id/etDisAmount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Discount Amount"
+                            android:hint="Discount"
                             android:inputType="number"
                             android:paddingLeft="10dp"
                             android:background="@null"

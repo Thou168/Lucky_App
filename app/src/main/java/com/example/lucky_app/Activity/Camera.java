@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -91,7 +93,7 @@ public class Camera extends AppCompatActivity {
             icTitile,icVincode,icMachineconde,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3;
     private ImageButton addPhone2,addPhone1;
     private TextInputLayout tilPhone2,tilPhone3;
-    private MaterialSpinner tvPostType,tvCategory, tvType_elec,tvBrand,tvModel,tvYear,tvCondition,tvColor,tvRent,tvDiscount_type;
+    private MaterialSpinner tvPostType,tvCategory, tvType_elec,tvBrand,tvModel,tvYear,tvCondition,tvColor,tvDiscount_type;
     private Button submit_post;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
@@ -168,6 +170,7 @@ public class Camera extends AppCompatActivity {
         });
 
         Variable_Field();
+        TextChange();
 
         DropDown();
         Call_category(Encode);
@@ -304,7 +307,7 @@ public class Camera extends AppCompatActivity {
                     JSONObject rent=new JSONObject();
                     rent.put("rent_status",1);
                     rent.put("record_status",1);
-                    rent.put("rent_type",tvRent.getSelectedItem().toString().toLowerCase());
+                    rent.put("rent_type","month");
                     rent.put("price",etPrice.getText().toString().toLowerCase());
                     rent.put("total_price",etPrice.getText().toString().toLowerCase());
                     rent.put("rent_date",null);
@@ -418,6 +421,7 @@ public class Camera extends AppCompatActivity {
                                 tvType_elec.setVisibility(View.GONE);
                             }
 
+                            icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             Call_Brand(Encode,id_cate);
                         }
 
@@ -476,6 +480,7 @@ public class Camera extends AppCompatActivity {
                         @Override
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
                             id_type = String.valueOf(ID_type.getItem(i));
+                            icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             type = Integer.parseInt(id_type);
 
                         }
@@ -548,6 +553,7 @@ public class Camera extends AppCompatActivity {
                                 Log.d("brand id",id_brand);
                                 brand = Integer.parseInt(id_brand);
                                 brands.clear();
+                                icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 Call_Model(encode, id_brand);
                         }
 
@@ -615,6 +621,7 @@ public class Camera extends AppCompatActivity {
                            id_model = String.valueOf(ID_model.getItem(i));
                            model = Integer.parseInt(id_model);
                            models.clear();
+                           icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         }
 
                         @Override
@@ -677,6 +684,7 @@ public class Camera extends AppCompatActivity {
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
                             id_year = String.valueOf(ID_year.getItem(i));
                             year = Integer.parseInt(id_year);
+                            icYears.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         }
 
                         @Override
@@ -719,14 +727,55 @@ public class Camera extends AppCompatActivity {
         String[] conditions = getResources().getStringArray(R.array.condition);
         ArrayAdapter<String> condition = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,conditions);
         tvCondition.setAdapter(condition);
+        tvCondition.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+            }
+        });
 
         String[] colors = getResources().getStringArray(R.array.color);
         ArrayAdapter<String> color = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,colors);
         tvColor.setAdapter(color);
+        tvColor.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+            }
+        });
+
 
         String[] discount_type = getResources().getStringArray(R.array.discount_type);
         ArrayAdapter<String> discountType = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,discount_type);
         tvDiscount_type.setAdapter(discountType);
+        tvDiscount_type.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
+                String d = discountType.getItem(i);
+                if (d.equals("Amount")){
+                    etDiscount_amount.setHint("Discount Amount");
+                }else if (d.equals("Percentage")){
+                    etDiscount_amount.setHint("Discount Percentage");
+                }
+
+                icDiscount_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+
+            }
+        });
 
     }
 
@@ -788,6 +837,28 @@ public class Camera extends AppCompatActivity {
         imageView4=(ImageView) findViewById(R.id.Picture4);
     }
 
+    private void TextChange(){
+        etTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icTitile.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 3) {
+                    icTitile.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icTitile.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};

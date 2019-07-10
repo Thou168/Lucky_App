@@ -3,14 +3,13 @@ package com.example.lucky_app.Product_New_Post
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
@@ -18,23 +17,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Product_dicount.Detail_Discount
-import com.example.lucky_app.Product_dicount.User_post
 import com.example.lucky_app.R
 import com.example.lucky_app.loan.LoanCreateActivity
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_detail_new_post.*
+import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
-import java.util.*
 
 class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
@@ -44,97 +34,116 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
     private var mLocationPermissionGranted: Boolean = false
     private var mLastKnownLocation: Location? = null
+    private var pk=0
+    private var name=""
+    private var pass=""
+    private var Encode=""
+    private var p=0
+
+
 
     internal lateinit var txt_detail_new: TextView
-    /*
-    private val REQUEST_LOCATION = 1
-    internal lateinit var locationManager: LocationManager
-    internal lateinit var locationListener: LocationListener
-    override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
-
-        locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        locationListener = object : LocationListener {
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            }
-
-            override fun onProviderEnabled(provider: String?) {
-            }
-
-            override fun onProviderDisabled(provider: String?) {
-            }
-
-            override fun onLocationChanged(location: Location) {
-                val geocoder = Geocoder(applicationContext, Locale.getDefault())
-                try {
-                    val listAddress = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                    //txt_place.text = txt_place.text.toString() + "" + listAddress[0].getAddressLine(0)
-                    txt_detail_new.text = listAddress[0].featureName + ", "+ listAddress[0].thoroughfare+", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-
-        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-        } else {
-
-        }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        mMap.clear()
-        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
-        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
-        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
-        mMap.isMyLocationEnabled = true
-        //disable
-        mMap.uiSettings.isScrollGesturesEnabled = false
-        //mMap.getUiSettings().setZoomGesturesEnabled(false);
-        getLocationPermission()
-
-        getDeviceLocation()
-    }
-
-    private fun getDeviceLocation() {
-        try {
-            if (mLocationPermissionGranted) {
-                val locationResult = mFusedLocationProviderClient!!.lastLocation
-                locationResult.addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        mLastKnownLocation = task.result
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
-                    } else {
-                        Log.d(TAG, "Current location is null. Using defaults.")
-                        Log.e(TAG, "Exception: %s", task.exception)
-                        mMap.uiSettings.isMyLocationButtonEnabled = false
-                    }
-                }
-            }
-        } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message)
-        }
-
-    }
-    private fun getLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this.applicationContext,
-                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
-        }
-    }
-    */
+//    /*
+//    private val REQUEST_LOCATION = 1
+//    internal lateinit var locationManager: LocationManager
+//    internal lateinit var locationListener: LocationListener
+//    override fun onMapReady(p0: GoogleMap) {
+//        mMap = p0
+//
+//        locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//
+//        locationListener = object : LocationListener {
+//            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+//            }
+//
+//            override fun onProviderEnabled(provider: String?) {
+//            }
+//
+//            override fun onProviderDisabled(provider: String?) {
+//            }
+//
+//            override fun onLocationChanged(location: Location) {
+//                val geocoder = Geocoder(applicationContext, Locale.getDefault())
+//                try {
+//                    val listAddress = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+//                    //txt_place.text = txt_place.text.toString() + "" + listAddress[0].getAddressLine(0)
+//                    txt_detail_new.text = listAddress[0].featureName + ", "+ listAddress[0].thoroughfare+", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//            }
+//        }
+//
+//        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+//        } else {
+//
+//        }
+//
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+//        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//        mMap.clear()
+//        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
+//        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
+//        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
+//        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
+//        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
+//        mMap.isMyLocationEnabled = true
+//        //disable
+//        mMap.uiSettings.isScrollGesturesEnabled = false
+//        //mMap.getUiSettings().setZoomGesturesEnabled(false);
+//        getLocationPermission()
+//
+//        getDeviceLocation()
+//    }
+//
+//    private fun getDeviceLocation() {
+//        try {
+//            if (mLocationPermissionGranted) {
+//                val locationResult = mFusedLocationProviderClient!!.lastLocation
+//                locationResult.addOnCompleteListener(this) { task ->
+//                    if (task.isSuccessful) {
+//                        mLastKnownLocation = task.result
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
+//                    } else {
+//                        Log.d(TAG, "Current location is null. Using defaults.")
+//                        Log.e(TAG, "Exception: %s", task.exception)
+//                        mMap.uiSettings.isMyLocationButtonEnabled = false
+//                    }
+//                }
+//            }
+//        } catch (e: SecurityException) {
+//            Log.e("Exception: %s", e.message)
+//        }
+//
+//    }
+//    private fun getLocationPermission() {
+//        if (ContextCompat.checkSelfPermission(this.applicationContext,
+//                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
+//            mLocationPermissionGranted = true
+//        } else {
+//            ActivityCompat.requestPermissions(this,
+//                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+//        }
+//    }
+//    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
+
+        val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        name = sharedPref.getString("name", "")
+        pass = sharedPref.getString("pass", "")
+        Encode = getEncodedString(name,pass)
+        if (sharedPref.contains("token")) {
+           pk = sharedPref.getInt("pk",0)
+        } else if (sharedPref.contains("id")) {
+           pk = sharedPref.getInt("id", 0)
+        }
+        p = intent.getIntExtra("ID",0)
+
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 //
 //        txt_detail_new = findViewById(R.id.txt_show_place_detail_new_post) as TextView
@@ -167,9 +176,12 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
 //
 //        val title = findViewById<TextView>(R.id.title)
 //        title.text = intent.getStringExtra("Title")
-////        val price = findViewById<TextView>(R.id.tv_price)
-////        price.text = intent.getStringExtra("Price")
-//
+        val price = findViewById<TextView>(R.id.tv_price)
+        price.text = intent.getDoubleExtra("Price",0.0).toString()
+
+        val brand = findViewById<TextView>(R.id.tv_brand)
+        brand.text = intent.getIntExtra("ID",0).toString()
+
 //        val name = findViewById<TextView>(R.id.tv_name)
 //        name.text = intent.getStringExtra("Name")
 //        val img_user = findViewById<CircleImageView>(R.id.cr_img)
@@ -216,6 +228,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         val like = findViewById<Button>(R.id.btn_like)
         like.setOnClickListener {
             Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
+            Like_post(Encode);
         }
 
         val loan= findViewById<Button>(R.id.btn_loan)
@@ -223,8 +236,51 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
             startActivity(intent)
         }
+
+
+    }  // oncreate
+
+    fun Like_post(encode: String) {
+        var url="http://103.205.26.103:8000/like/"
+        val MEDIA_TYPE = MediaType.parse("application/json")
+        val post = JSONObject()
+        try{
+            post.put("post", p)
+            post.put("like_by",pk)
+            post.put("record_status",1)
+
+
+        val client = OkHttpClient()
+        val body = RequestBody.create(MEDIA_TYPE, post.toString())
+        val auth = "Basic $encode"
+        val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .header("Authorization", auth)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                var respon = response.body()!!.string()
+            Log.d("Response",respon)
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+
+            }
+        })
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
+    private fun getEncodedString(username: String, password: String): String {
+        val userpass = "$username:$password"
+        return Base64.encodeToString(userpass.toByteArray(),
+                Base64.NO_WRAP)
+    }
     fun makePhoneCall(number: String) : Boolean {
         try {
             val intent = Intent(Intent.ACTION_CALL)

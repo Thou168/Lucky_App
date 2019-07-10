@@ -14,16 +14,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.Activity.Item_API
 import com.example.lucky_app.R
-import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 
 
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
+    internal var loadMoreListener: OnLoadMoreListener? = null
+    internal var isLoading = false
+    internal var isMoreDataAvailable = true
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -50,6 +51,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         return itemList.size
     }
 
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val post_type = itemView.findViewById<ImageView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
@@ -64,7 +66,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
             title.text = item.title
-            cost.text = item.cast.toString()
+            cost.text = item.cost.toString()
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)
@@ -78,9 +80,9 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                intent.putExtra("Image",decodedByte)
 //                intent.putExtra("Image_user",decodedByte)
 //                intent.putExtra("Title",item.title)
-////                intent.putExtra("Price",item.price.toString())
+                  intent.putExtra("Price",item.cost)
 ////                intent.putExtra("Name",item.name)
-//                intent.putExtra("ID",item.id)
+                  intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)
             }
            // Glide.with(itemView.context).load(version.url).into(imageView)
@@ -98,4 +100,26 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             return Base64.encodeToString(arr, Base64.DEFAULT)
         }
     }
+
+    //
+    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    fun setMoreDataAvailable(moreDataAvailable: Boolean) {
+        isMoreDataAvailable = moreDataAvailable
+    }
+
+    fun notifyDataChanged() {
+        notifyDataSetChanged()
+        isLoading = false
+    }
+
+
+    interface OnLoadMoreListener {
+        fun onLoadMore()
+    }
+
+    fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
+        this.loadMoreListener = loadMoreListener
+    }
+    //
 }

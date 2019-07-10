@@ -34,6 +34,7 @@ public class Convert_Json_Java {
 
     public void setData_of_birth(String data_of_birth) {   this.data_of_birth = data_of_birth;  }
 
+
     public String getAddress() {   return address;   }
 
     public void setAddress(String address) {    this.address = address;  }
