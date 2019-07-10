@@ -182,22 +182,22 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
 //            intent.putExtra("Phone",phone.text)
 //            startActivity(intent)
 //        }
-////Button Share
-//        val share = findViewById<ImageButton>(R.id.btn_share)
-//        share.setOnClickListener{
-//            val shareIntent = Intent()
-//            shareIntent.action = Intent.ACTION_SEND
-//            shareIntent.type="text/plain"
-//            shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-//            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
-//        }
-////Button Call
-//        val call = findViewById<Button>(R.id.btn_call)
-//        call.setOnClickListener{
-//            //                checkPermission()
-////            makePhoneCall("0962363929")
-//            checkPermission()
-//        }
+//Button Share
+        val share = findViewById<ImageButton>(R.id.btn_share)
+        share.setOnClickListener{
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.type="text/plain"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
+        }
+//Button Call
+        val call = findViewById<Button>(R.id.btn_call)
+        call.setOnClickListener{
+            //                checkPermission()
+//            makePhoneCall("0962363929")
+            checkPermission()
+        }
 ////Button SMS
 //        val sms = findViewById<Button>(R.id.btn_sms)
 //        sms.setOnClickListener {
@@ -212,17 +212,17 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
 ////            smsIntent.putExtra("sms_body", "Body of Message")
 //            startActivity(smsIntent)
 //        }
-////Button Like
-//        val like = findViewById<Button>(R.id.btn_like)
-//        like.setOnClickListener {
-//            Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
-//        }
-//
-//        val loan= findViewById<Button>(R.id.btn_loan)
-//        loan.setOnClickListener{
-//            val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-//            startActivity(intent)
-//        }
+//Button Like
+        val like = findViewById<Button>(R.id.btn_like)
+        like.setOnClickListener {
+            Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
+        }
+
+        val loan= findViewById<Button>(R.id.btn_loan)
+        loan.setOnClickListener{
+            val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun makePhoneCall(number: String) : Boolean {

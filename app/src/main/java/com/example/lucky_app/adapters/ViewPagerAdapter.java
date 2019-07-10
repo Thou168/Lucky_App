@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.lucky_app.fragments.FragmentA;
+import com.example.lucky_app.fragments.FragmentA1;
 import com.example.lucky_app.fragments.FragmentB;
 import com.example.lucky_app.fragments.FragmentC;
 
@@ -18,7 +19,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment=null;
         if(position==0){
-            fragment=new FragmentA();
+            fragment=new FragmentA1();
         }
         else if(position==1){
             fragment=new FragmentB();
@@ -35,10 +36,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         String title = null;
         if (position == 0)
         {
-            title = "Tab-1";
+            title = "Post";
         }
         else if (position == 1) {
-            title = "Tab-2";
+            title = "Like";
         }
         return title;
     }

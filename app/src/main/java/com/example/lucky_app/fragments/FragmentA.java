@@ -1,6 +1,7 @@
 package com.example.lucky_app.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +12,40 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lucky_app.Activity.Item_API;
+import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image;
 import com.example.lucky_app.R;
+import com.example.lucky_app.Startup.Item;
 import com.example.lucky_app.adapters.CustomAdapter;
 import com.example.lucky_app.adapters.RecyclerViewAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FragmentA extends Fragment {
     RecyclerView recyclerView;
     ListView list;
+    ArrayList<Item_API> list_item;
+    MyAdapter_list_grid_image ad_list;
     public FragmentA(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);
 
+        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        Get();
         return view;
         /*
         list = (ListView) view.findViewById(R.id.list);
@@ -75,6 +96,57 @@ public class FragmentA extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+    }
+    private void Get() {
+
+        String url ="http://103.205.26.103:8000/postbyuser/";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                Log.d("Response",respon);
+                try{
+                    JSONObject jsonObject = new JSONObject(respon);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+
+                        String title = object.getString("title");
+                        int id = object.getInt("id");
+                        String condition = object.getString("condition");
+                        String img_user = object.getString("base64_front_image");
+                        String image = object.getString("base64_front_image");
+                        Double cost = object.getDouble("cost");
+                        String postType = object.getString("post_type");
+
+                        list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType));
+                        ad_list = new MyAdapter_list_grid_image(list_item,"List");
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.setAdapter(ad_list);
+                            }
+                        });
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("Error",call.toString());
+            }
+        });
     }
 
 }

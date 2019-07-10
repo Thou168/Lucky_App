@@ -462,13 +462,12 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             }
         })
     }
-
     fun getMyPosts(){
         var posts=PostViewModel()
-        var URL_ENDPOINT=ConsumeAPI.BASE_URL+"postbyuser/"
+        val URL_ENDPOINT=ConsumeAPI.BASE_URL+"postbyuser/"
         var MEDIA_TYPE=MediaType.parse("application/json")
-        var client= OkHttpClient()
-        var request=Request.Builder()
+        val client= OkHttpClient()
+        val request=Request.Builder()
                 .url(URL_ENDPOINT)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
