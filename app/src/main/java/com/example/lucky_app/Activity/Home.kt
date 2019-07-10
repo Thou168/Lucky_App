@@ -16,7 +16,6 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.View
-import android.view.Window
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,12 +33,19 @@ import com.example.lucky_app.Startup.Search1
 import com.example.lucky_app.Startup.Your_Post
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     var recyclerView: RecyclerView? = null
+    var list_item: ArrayList<Item_API>? = null
+    var grid: ImageView? = null
+    var list: ImageView? = null
+    var image_list: ImageView? = null
 //    var click: String = "Khmer"
     lateinit var sharedPreferences: SharedPreferences
 
@@ -156,7 +162,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
-                "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
+                            "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
         sliderImage.setItems(images)
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
@@ -181,7 +187,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             intent.putExtra("Title","Rent")
             startActivity(intent)
         }
-
+//RecyclerView
         val horizontal = findViewById<RecyclerView>(R.id.horizontal)
         val version = ArrayList<Item>()
         version.addAll(Item.getType("Discount"))
@@ -189,29 +195,33 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         horizontal.adapter = MyAdapter(version)
 
         val listview = findViewById<RecyclerView>(R.id.list_new_post)
-        val item = ArrayList<Item>()
-        item.addAll(Item.getList())
+//        val item = ArrayList<Item>()
+//        item.addAll(Item.getList())
+        val item = ArrayList<Item_API>()
+        item.addAll(Get())
+        Log.d("Item API: ",item.size.toString())
         //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclerView = findViewById<RecyclerView>(R.id.list_new_post)
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
-        recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
+        Get()
+//        recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
 //List Grid and image
-        val list = findViewById<ImageView>(R.id.img_list)
-        list.setOnClickListener {
-            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
-            recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
-        }
+//        val list = findViewById<ImageView>(R.id.img_list)
+//        list.setOnClickListener {
+//            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
+//            recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
+//        }
 
-        val grid = findViewById<ImageView>(R.id.grid)
-        grid.setOnClickListener {
-            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Grid")
-            recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
-        }
-        val image = findViewById<ImageView>(R.id.btn_image)
-        image.setOnClickListener {
-            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Image")
-            recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
-        }
+//        val grid = findViewById<ImageView>(R.id.grid)
+//        grid.setOnClickListener {
+//            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Grid")
+//            recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
+//        }
+//        val image = findViewById<ImageView>(R.id.btn_image)
+//        image.setOnClickListener {
+//            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Image")
+//            recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
+//        }
 //Dropdown
         val category = resources.getStringArray(R.array.category)
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
@@ -325,5 +335,82 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun Get(): ArrayList<Item_API>{
+
+        val itemApi = ArrayList<Item_API>()
+        val url = "http://103.205.26.103:8000/allposts/"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                val respon = response.body()!!.string()
+                Log.d("Response", respon)
+                try {
+                    val jsonObject = JSONObject(respon)
+                    val jsonArray = jsonObject.getJSONArray("results")
+
+                    Log.d("count",jsonArray.length().toString())
+
+                    for (i in 0 until jsonArray.length()) {
+
+                        val `object` = jsonArray.getJSONObject(i)
+
+                        val title = `object`.getString("title")
+                        val id = `object`.getInt("id")
+                        val condition = `object`.getString("condition")
+                        val cost = `object`.getDouble("cost")
+                        val image = `object`.getString("base64_front_image")
+                        val img_user = `object`.getString("base64_right_image")
+
+//                        val buy = `object`.getString("buys")
+//                        val sell = `object`.getString("sales")
+                        val postType = `object`.getString("post_type")
+//                        var postType: String? = null
+//                        when {
+//                            buy != "[]" -> postType = "Buy"
+//                            sell != "[]" -> postType = "Sell"
+//                            rent != "[]" -> postType = "Rent"
+//                        }
+//                        Log.d("PostType",postType)
+                        itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType))
+                        runOnUiThread {
+                            recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+//List Grid and Image
+                            list = findViewById(R.id.img_list)
+                            list!!.setOnClickListener {
+                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
+                            }
+                            grid = findViewById(R.id.grid)
+                            grid!!.setOnClickListener {
+                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
+                                recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
+                            }
+                            image_list = findViewById(R.id.btn_image)
+                            image_list!!.setOnClickListener {
+                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image")
+                                recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
+                            }
+                        }
+
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
+        return itemApi
     }
 }

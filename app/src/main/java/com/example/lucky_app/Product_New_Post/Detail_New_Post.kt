@@ -135,6 +135,13 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
+//        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+//
+//        txt_detail_new = findViewById(R.id.txt_show_place_detail_new_post) as TextView
+//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+//        val mapFragment = supportFragmentManager
+//                .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment
+//        mapFragment.getMapAsync(this)
         /*
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 
@@ -148,74 +155,74 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }
 //Slider
-        val sliderImage = findViewById<SliderImage>(R.id.slider)
-        val images = listOf(intent.getStringExtra("Image"),"https://i.redd.it/obx4zydshg601.jpg")
-        sliderImage.setItems(images)
-        sliderImage.addTimerToSlide(3000)
-        sliderImage.removeTimerSlide()
-        sliderImage.getIndicator()
+//        val sliderImage = findViewById<SliderImage>(R.id.slider)
+//        val images = listOf(R.drawable.fan,R.drawable.motorcycle)
+//        sliderImage.setItems(images)
+//        sliderImage.addTimerToSlide(3000)
+//        sliderImage.removeTimerSlide()
+//        sliderImage.getIndicator()
 
-        val id = intent.getIntExtra("ID",0)
-        val phone = findViewById<TextView>(R.id.tv_phone)
-
-        val title = findViewById<TextView>(R.id.title)
-        title.text = intent.getStringExtra("Title")
-        val price = findViewById<TextView>(R.id.tv_price)
-        price.text = intent.getStringExtra("Price")
-
-        val name = findViewById<TextView>(R.id.tv_name)
-        name.text = intent.getStringExtra("Name")
-        val img_user = findViewById<CircleImageView>(R.id.cr_img)
-        img_user.setImageResource(intent.getIntExtra("Image_user",R.drawable.thou))
-//User Post
-        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-            val intent = Intent(this@Detail_New_Post, User_post::class.java)
-            intent.putExtra("Image_user",getIntent().getIntExtra("Image_user",R.drawable.thean))
-            intent.putExtra("ID",id)
-            intent.putExtra("Phone",phone.text)
-            startActivity(intent)
-        }
-//Button Share
-        val share = findViewById<ImageButton>(R.id.btn_share)
-        share.setOnClickListener{
-            val shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type="text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
-        }
-//Button Call
-        val call = findViewById<Button>(R.id.btn_call)
-        call.setOnClickListener{
-            //                checkPermission()
-//            makePhoneCall("0962363929")
-            checkPermission()
-        }
-//Button SMS
-        val sms = findViewById<Button>(R.id.btn_sms)
-        sms.setOnClickListener {
-//                val phoneNumber = "0962363929"
-//                val uri = Uri.parse("smsto:0962363929")
-//                intent.putExtra("sms_body", "Here goes your message...")
-//                val smsManager = SmsManager.getDefault() as SmsManager
-
-            val smsIntent = Intent(Intent.ACTION_VIEW)
-            smsIntent.type = "vnd.android-dir/mms-sms"
-            smsIntent.putExtra("address", "0962363929")
-//            smsIntent.putExtra("sms_body", "Body of Message")
-            startActivity(smsIntent)
-        }
-//Button Like
-        val like = findViewById<Button>(R.id.btn_like)
-        like.setOnClickListener {
-            Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
-        }
-
-        val loan= findViewById<Button>(R.id.btn_loan)
-        loan.setOnClickListener{
-            val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-            startActivity(intent)
-        }
+//        val id = intent.getIntExtra("ID",0)
+//        val phone = findViewById<TextView>(R.id.tv_phone)
+//
+//        val title = findViewById<TextView>(R.id.title)
+//        title.text = intent.getStringExtra("Title")
+////        val price = findViewById<TextView>(R.id.tv_price)
+////        price.text = intent.getStringExtra("Price")
+//
+//        val name = findViewById<TextView>(R.id.tv_name)
+//        name.text = intent.getStringExtra("Name")
+//        val img_user = findViewById<CircleImageView>(R.id.cr_img)
+//        img_user.setImageResource(intent.getIntExtra("Image_user",R.drawable.thou))
+////User Post
+//        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+//            val intent = Intent(this@Detail_New_Post, User_post::class.java)
+//            intent.putExtra("Image_user",getIntent().getIntExtra("Image_user",R.drawable.thean))
+//            intent.putExtra("ID",id)
+//            intent.putExtra("Phone",phone.text)
+//            startActivity(intent)
+//        }
+////Button Share
+//        val share = findViewById<ImageButton>(R.id.btn_share)
+//        share.setOnClickListener{
+//            val shareIntent = Intent()
+//            shareIntent.action = Intent.ACTION_SEND
+//            shareIntent.type="text/plain"
+//            shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
+//        }
+////Button Call
+//        val call = findViewById<Button>(R.id.btn_call)
+//        call.setOnClickListener{
+//            //                checkPermission()
+////            makePhoneCall("0962363929")
+//            checkPermission()
+//        }
+////Button SMS
+//        val sms = findViewById<Button>(R.id.btn_sms)
+//        sms.setOnClickListener {
+////                val phoneNumber = "0962363929"
+////                val uri = Uri.parse("smsto:0962363929")
+////                intent.putExtra("sms_body", "Here goes your message...")
+////                val smsManager = SmsManager.getDefault() as SmsManager
+//
+//            val smsIntent = Intent(Intent.ACTION_VIEW)
+//            smsIntent.type = "vnd.android-dir/mms-sms"
+//            smsIntent.putExtra("address", "0962363929")
+////            smsIntent.putExtra("sms_body", "Body of Message")
+//            startActivity(smsIntent)
+//        }
+////Button Like
+//        val like = findViewById<Button>(R.id.btn_like)
+//        like.setOnClickListener {
+//            Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
+//        }
+//
+//        val loan= findViewById<Button>(R.id.btn_loan)
+//        loan.setOnClickListener{
+//            val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     fun makePhoneCall(number: String) : Boolean {

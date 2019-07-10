@@ -26,10 +26,12 @@
     <string name="menu_setting">Setting</string>
     <string name="menu_about">About Us</string>
     <string name="menu_privacy">Term of Privacy</string>
-
+//Buy Sell Rent
     <string name="buy1">BUY</string>
     <string name="sell1">SELL</string>
     <string name="rent">RENT</string>
+
+    <string name="back">Back</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -133,7 +135,7 @@
     //title
     <string name="home">Home</string>
     <string name="notification">Notification</string>
-    <string name="camera">Camera</string>
+    <string name="camera">Post Ad</string>
     <string name="message">Message</string>
     <string name="account">Account</string>
 

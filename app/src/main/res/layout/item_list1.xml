@@ -69,30 +69,31 @@
             <View
                 android:layout_alignParentTop="true"
                 style="@style/line"/>
-            <Button
-                android:id="@+id/btnrefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:gravity="center"
-                android:background="#00FFFFFF"
+            <!--<Button-->
+                <!--android:id="@+id/btnrefresh"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:gravity="center"-->
+                <!--android:background="#00FFFFFF"-->
+                <!--android:drawableLeft="@drawable/refresh"-->
+                <!--android:text="Pending" />-->
 
-                android:drawableLeft="@drawable/refresh"
-                android:text="Pending" />
-
             <Button
-                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/dp_24"
                 android:id="@+id/btnedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:gravity="center"
+                android:layout_centerVertical="true"
                 android:background="#00FFFFFF"
-                android:paddingLeft="@dimen/dp_20"
                 android:drawableLeft="@drawable/edit"
-                android:text="Edit" />
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="Edit"
+                android:textAllCaps="false" />
 
             <Button
+                android:layout_marginEnd="@dimen/dp_24"
                 android:id="@+id/btndelete"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
@@ -100,7 +101,7 @@
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:background="#00FFFFFF"
-                android:paddingLeft="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_16"
                 android:drawableLeft="@drawable/delete"
                 android:text="Delete" />
         </RelativeLayout>

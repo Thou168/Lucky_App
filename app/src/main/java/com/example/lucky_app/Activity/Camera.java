@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -126,6 +127,14 @@ public class Camera extends AppCompatActivity {
         }
         ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
+
+        TextView back = (TextView)findViewById(R.id.tv_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
