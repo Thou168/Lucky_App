@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import com.example.lucky_app.R
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import com.example.lucky_app.Fragment.account_user_list.SimpleRVAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lucky_app.R
 import com.example.lucky_app.Startup.Item
+
 
 /**
  * A fragment representing a list of Items.
@@ -19,9 +22,12 @@ import com.example.lucky_app.Startup.Item
  */
 class account_user_list: Fragment() {
 
+    var strings = arrayOf("1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7")
+
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.user_post_list, container, false)
+
+        val view = inflater.inflate(com.example.lucky_app.R.layout.user_post_list, container, false)
 
         val recyclrview = view.findViewById<RecyclerView>(R.id.recyclerView)
 
@@ -30,7 +36,31 @@ class account_user_list: Fragment() {
 
         recyclrview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclrview.adapter = MyAdapter_user(item,null)
-
+        //recyclrview.isNestedScrollingEnabled=false
         return view
+
+    }
+
+    inner class SimpleRVAdapter(private val dataSource: Array<String>) : RecyclerView.Adapter<SimpleViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
+            val view = TextView(parent.context)
+            return SimpleViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
+            holder.textView.text = dataSource[position]
+        }
+
+        override fun getItemCount(): Int {
+            return dataSource.size
+        }
+    }
+    class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var textView: TextView
+
+        init {
+            textView = itemView as TextView
+        }
     }
 }

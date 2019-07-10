@@ -94,6 +94,7 @@ public class Camera extends AppCompatActivity {
     private Button submit_post;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
+    private int pk;
     private ArrayAdapter<String> brands,models;
     private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model;
     private List<String> list_category = new ArrayList<>();
@@ -118,6 +119,11 @@ public class Camera extends AppCompatActivity {
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode = getEncodedString(name,pass);
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk",0);
+        }else if (prefer.contains("id")) {
+            pk = prefer.getInt("id", 0);
+        }
         ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
 
@@ -247,7 +253,7 @@ public class Camera extends AppCompatActivity {
             }
 
             post.put("created", "");
-            post.put("created_by", 1);
+            post.put("created_by", pk);
             post.put("modified", null);
             post.put("modified_by", null);
             post.put("approved_date", null);
@@ -259,7 +265,7 @@ public class Camera extends AppCompatActivity {
             post.put("modeling", model);
             post.put("description", etDescription.getText().toString().toLowerCase());
             //post.put("cost", etPrice.getText().toString().toLowerCase());
-            post.put("cost", 1000);
+            post.put("cost",etPrice.getText().toString());
             post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
             post.put("vin_code", "");
             post.put("machine_code", "");
@@ -274,14 +280,14 @@ public class Camera extends AppCompatActivity {
             switch (postType){
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/";
-                    Log.d("URL","URL"+url);
+                    //Log.d("URL","URL"+url);
                     sale.put("sale_status", 2);
                     sale.put("record_status",2);
                     sale.put("sold_date", null);
                     //sale.put("price", etPrice.getText().toString().toLowerCase());
                     //sale.put("total_price", etPrice.getText().toString().toLowerCase());
-                    sale.put("price", 1000);
-                    sale.put("total_price",2000);
+                    sale.put("price", etPrice.getText().toString());
+                    sale.put("total_price",etPrice.getText().toString());
                     post.put("sale_post",new JSONArray("["+sale+"]"));
                     break;
                 case "rent":

@@ -15,6 +15,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.viewpager.widget.ViewPager
@@ -27,6 +28,8 @@ import com.example.lucky_app.Edit_Account.Sheetviewupload
 import com.example.lucky_app.Fragment.Tab_Adapter_Acc
 import com.example.lucky_app.R
 import com.example.lucky_app.Setting.Setting
+import com.example.lucky_app.adapters.ViewPagerAdapter
+import com.example.lucky_app.models.PostViewModel
 import com.example.lucky_app.utils.FileCompressor
 import com.example.lucky_app.utils.ImageUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -72,23 +75,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     var mCompressor: FileCompressor?=null
     var bitmapImage:Bitmap?=null
 
-    //upload image from gallery or camera, it implement from interface BottomSheetListener
-    /*
-    override fun camera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, CAMERA)
-    }
-
-    override fun gallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, GALLERY)
-    }
-    */
-
+    internal lateinit var tabLayout: TabLayout
+    internal lateinit var viewPager: ViewPager
+    internal lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.lucky_app.R.layout.activity_account)
+        setContentView(R.layout.activity_account_user)
 
         val bnavigation = findViewById<BottomNavigationView>(com.example.lucky_app.R.id.bnaviga)
         bnavigation.menu.getItem(4).isChecked = true
@@ -159,13 +152,16 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             val intent = Intent(this@Account, Edit_account::class.java)
             startActivity(intent)
         }
+        /*
         val tab = findViewById<TabLayout>(R.id.tab)
         val pager = findViewById<ViewPager>(R.id.pager)
 
         tab.addTab(tab.newTab().setText(com.example.lucky_app.R.string.post))
         tab.addTab(tab.newTab().setText(com.example.lucky_app.R.string.like))
         val adapter = Tab_Adapter_Acc(supportFragmentManager,tab.tabCount)
+
         pager.adapter = adapter
+        pager.isNestedScrollingEnabled=false
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab))
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -177,6 +173,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
             }
         })
+        */
+
+        viewPager = findViewById<View>(R.id.viewPager) as ViewPager
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = viewPagerAdapter
+        tabLayout = findViewById<View>(R.id.tabs) as TabLayout
+        tabLayout.setupWithViewPager(viewPager)
 
         val preferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
@@ -189,6 +192,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         }
         tvUsername=findViewById<TextView>(R.id.tvUsername)
         getUserProfile()
+        getMyPosts()
         mCompressor = FileCompressor(this)
     }
 
@@ -447,6 +451,49 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                             val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
                             var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                             imgCover!!.setImageBitmap(decodedByte)
+                        }
+
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
+    }
+
+    fun getMyPosts(){
+        var posts=PostViewModel()
+        var URL_ENDPOINT=ConsumeAPI.BASE_URL+"postbyuser/"
+        var MEDIA_TYPE=MediaType.parse("application/json")
+        var client= OkHttpClient()
+        var request=Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encodeAuth)
+                .build()
+        client.newCall(request).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                val gson = Gson()
+                try {
+                    val jsonObject=JSONObject(mMessage)
+                    val jsonArray=jsonObject.getJSONArray("results")
+                    val jsonCount=jsonObject.getInt("count")
+                    runOnUiThread {
+                        if(jsonCount>0){
+                            for (i in 0 until jsonArray.length()) {
+                                val obj=jsonArray.getJSONObject(i)
+                                Log.e("TAG","T"+obj)
+                            }
+
                         }
 
                     }
