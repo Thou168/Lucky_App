@@ -321,6 +321,7 @@ public class Camera extends AppCompatActivity {
                     rent.put("return_date",null);
                     rent.put("rent_count_number",0);
                     post.put("rent_post",new JSONArray("["+rent+"]"));
+                    Log.d("Failure:","m"+post);
                     break;
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";
@@ -355,11 +356,12 @@ public class Camera extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
                         String message = response.body().string();
-                        Log.d("Response", message);
+
                         startActivity(new Intent(getApplicationContext(),Account.class));
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                Log.d("Responseqqq", message);
                                 Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
                             }
                         });

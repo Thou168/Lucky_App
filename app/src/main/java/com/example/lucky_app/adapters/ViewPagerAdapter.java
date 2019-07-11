@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.lucky_app.fragments.FragmentA;
 import com.example.lucky_app.fragments.FragmentA1;
 import com.example.lucky_app.fragments.FragmentB;
+import com.example.lucky_app.fragments.FragmentB1;
 import com.example.lucky_app.fragments.FragmentC;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -22,7 +23,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             fragment=new FragmentA1();
         }
         else if(position==1){
-            fragment=new FragmentB();
+            fragment=new FragmentB1();
         }
         return fragment;
     }

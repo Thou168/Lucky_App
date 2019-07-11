@@ -24,6 +24,9 @@ public class FragmentB extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);
+
+
+
         return view;
         /*
         list = (ListView) view.findViewById(R.id.list);

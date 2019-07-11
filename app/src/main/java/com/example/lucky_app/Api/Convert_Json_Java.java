@@ -18,6 +18,7 @@ public class Convert_Json_Java {
     private String wing_account_number;
     private String wing_account_name;
     private String place_of_birth;
+    private int post;
     private int id;
     private int pk;
     private int[] groups;
@@ -25,6 +26,13 @@ public class Convert_Json_Java {
     private Profile profile;
     private User user ;
 
+    public int getPost() {
+        return post;
+    }
+
+    public void setPost(int post) {
+        this.post = post;
+    }
 
     public String getGender() {  return gender;   }
 

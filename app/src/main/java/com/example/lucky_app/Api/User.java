@@ -8,9 +8,19 @@ public class User {
     private String username;
     private String email;
     private String first_name;
+    private Integer post;
     private String last_name;
     private Profile profile;
     private int[] groups;
+
+
+    public Integer getPost() {
+        return post;
+    }
+
+    public void setPost(Integer post) {
+        this.post = post;
+    }
 
     public int getPk() {
         return pk;

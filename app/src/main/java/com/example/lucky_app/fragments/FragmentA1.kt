@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.Activity.Item_API
 import com.example.lucky_app.Api.ConsumeAPI
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image
+import com.example.lucky_app.Product_New_Post.MyAdapter_user_post
 import com.example.lucky_app.Product_dicount.Passtocontact
 import com.example.lucky_app.Startup.Item
 import com.example.lucky_app.Startup.MyAdapter_list
@@ -111,7 +112,7 @@ class FragmentA1: Fragment() {
                         itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType))
                         Log.d("Item: ",itemApi.size.toString())
 //                        activity!!.runOnUiThread {
-                            recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                            recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
                             recyclerView!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
                         }
 
