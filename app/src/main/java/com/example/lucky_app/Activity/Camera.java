@@ -251,24 +251,32 @@ public class Camera extends AppCompatActivity {
             post.put("user",null );
             if(bitmapImage1==null) {
                 post.put("front_image_path", "");
+                post.put("front_image_base64", "");
             }
             else {
                 post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+                post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
             }
             if(bitmapImage2==null){
                 post.put("right_image_path", "");
+                post.put("right_image_base64", "");
             }else{
                 post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
+                post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
             }
             if(bitmapImage3==null){
                 post.put("left_image_path", "");
+                post.put("left_image_base64", "");
             }else{
                 post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
+                post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
             }
             if(bitmapImage4==null){
                 post.put("back_image_path", "");
+                post.put("back_image_base64", "");
             }else{
                 post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
+                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
             }
 
             post.put("created", "");
@@ -282,6 +290,7 @@ public class Camera extends AppCompatActivity {
             post.put("rejected_comments", "");
             post.put("year", 1); //year
             post.put("modeling", model);
+            //post.put("modeling", 1);
             post.put("description", etDescription.getText().toString().toLowerCase());
             //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
@@ -403,7 +412,7 @@ public class Camera extends AppCompatActivity {
                         String name = object.getString("cat_name");
                         list_id_category.add(id);
                         list_category.add(name);
-                          ID_category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_category);
+                        ID_category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_category);
                         final ArrayAdapter<String> category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_category);
                         runOnUiThread(new Runnable() {
                             @Override

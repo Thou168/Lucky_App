@@ -21,7 +21,6 @@ import com.example.lucky_app.R
 import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 
-
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
     internal var loadMoreListener: OnLoadMoreListener? = null
@@ -62,6 +61,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
+            val options = BitmapFactory.Options()
+            options.inSampleSize = 8
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)

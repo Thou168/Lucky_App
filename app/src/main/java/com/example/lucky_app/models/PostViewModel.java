@@ -34,10 +34,10 @@ public class PostViewModel {
     private String contact_email;
     private String contact_address;
     private String color;
-    private String base64_front_image;
-    private String base64_right_image;
-    private String base64_left_image;
-    private String base64_back_image;
+    private String front_image_base64;
+    private String right_image_base64;
+    private String left_image_base64;
+    private String back_image_base64;
     private SaleViewModel[] sales;
     private BuyViewModel[] buys;
     private RentViewModel[] rents;
@@ -175,19 +175,19 @@ public class PostViewModel {
     }
 
     public String getBase64_back_image() {
-        return base64_back_image;
+        return back_image_base64;
     }
 
     public String getBase64_front_image() {
-        return base64_front_image;
+        return front_image_base64;
     }
 
     public String getBase64_left_image() {
-        return base64_left_image;
+        return left_image_base64;
     }
 
     public String getBase64_right_image() {
-        return base64_right_image;
+        return right_image_base64;
     }
 
     public String getColor() {
@@ -330,19 +330,19 @@ public class PostViewModel {
     }
 
     public void setBase64_back_image(String base64_back_image) {
-        this.base64_back_image = base64_back_image;
+        this.back_image_base64 = base64_back_image;
     }
 
     public void setBase64_front_image(String base64_front_image) {
-        this.base64_front_image = base64_front_image;
+        this.front_image_base64 = base64_front_image;
     }
 
     public void setBase64_left_image(String base64_left_image) {
-        this.base64_left_image = base64_left_image;
+        this.left_image_base64 = base64_left_image;
     }
 
     public void setBase64_right_image(String base64_right_image) {
-        this.base64_right_image = base64_right_image;
+        this.right_image_base64 = base64_right_image;
     }
 
     public void setBuys(BuyViewModel[] buys) {

@@ -376,8 +376,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val id = `object`.getInt("id")
                         val condition = `object`.getString("condition")
                         val cost = `object`.getDouble("cost")
-                        val image = `object`.getString("base64_front_image")
-                        val img_user = `object`.getString("base64_right_image")
+                        val image = `object`.getString("front_image_base64")
+                        val img_user = `object`.getString("right_image_base64")
 
 //                        val buy = `object`.getString("buys")
 //                        val sell = `object`.getString("sales")

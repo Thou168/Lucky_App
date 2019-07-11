@@ -637,7 +637,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     fun getImageUri(inContext:Context,inImage:Bitmap):Uri {
         val bytes:ByteArrayOutputStream = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path:String = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        val path:String = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
         return Uri.parse(path)
     }
 }

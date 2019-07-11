@@ -105,8 +105,8 @@ class FragmentA1: Fragment() {
                         val id = `object`.getInt("id")
                         val condition = `object`.getString("condition")
                         val cost = `object`.getDouble("cost")
-                        val image = `object`.getString("base64_front_image")
-                        val img_user = `object`.getString("base64_right_image")
+                        val image = `object`.getString("front_image_base64")
+                        val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
 
                         itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType))
