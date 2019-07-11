@@ -14,7 +14,6 @@ public class Convert_Json_Java {
     private String job;
     private String province;
     private String marital_status;
-    private String shop_address;
     private String wing_account_number;
     private String wing_account_name;
     private String place_of_birth;
@@ -59,9 +58,6 @@ public class Convert_Json_Java {
 
     public void setMarital_status(String marital_status) {  this.marital_status = marital_status;   }
 
-    public String getShop_address() {   return shop_address;   }
-
-    public void setShop_address(String shop_address) {    this.shop_address = shop_address;  }
 
     public String getWing_account_number() {  return wing_account_number;  }
 

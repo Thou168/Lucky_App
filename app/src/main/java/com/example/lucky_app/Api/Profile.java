@@ -21,6 +21,7 @@ public class Profile {
     private String record_status;
     private String province;
     private String marital;
+    private String marital_status;
     private String shop_address;
     private String wing_account_number;
     private String wing_account_name;
@@ -128,6 +129,14 @@ public class Profile {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    public String getMarital_status() {        return marital_status;    }
+
+    public void setMarital_status(String marital_status) {     this.marital_status = marital_status;   }
+
+    public String getBase64_cover_image() {     return base64_cover_image;  }
+
+    public void setBase64_cover_image(String base64_cover_image) {    this.base64_cover_image = base64_cover_image;   }
 
     public String getAddress() {
         return address;

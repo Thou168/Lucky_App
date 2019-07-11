@@ -38,12 +38,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.lucky_app.Api.ConsumeAPI;
+import com.example.lucky_app.Api.User;
 import com.example.lucky_app.Login_Register.UserAccount;
 import com.example.lucky_app.R;
 import com.example.lucky_app.utils.FileCompressor;
 import com.example.lucky_app.utils.ImageUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -114,6 +117,7 @@ public class Camera extends AppCompatActivity {
     int cate,brand,model,year,type;
     SharedPreferences prefer;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
+    String test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,12 +174,15 @@ public class Camera extends AppCompatActivity {
         });
 
         Variable_Field();
+        initialUserInformation(pk,Encode);
         TextChange();
 
         DropDown();
         Call_category(Encode);
         Call_Type(Encode);
-//        Call_Brand(Encode,id_cate);
+
+    //  Call_Brand(Encode,test);
+
 //        Call_Model(Encode);
         Call_years(Encode);
 
@@ -224,6 +231,50 @@ public class Camera extends AppCompatActivity {
         });
 
     } // create
+
+    private void initialUserInformation(int pk, String encode) {
+        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
+        MediaType MEDIA_TYPE     =  MediaType.parse("application/json");
+        Log.d(TAG,"tt"+url);
+        OkHttpClient client = new OkHttpClient();
+
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                Gson gson = new Gson();
+                try{
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            User converJsonJava = new User();
+                            converJsonJava = gson.fromJson(respon,User.class);
+
+                            etPhone1.setText(converJsonJava.getUsername());
+
+                        }
+                    });
+                }catch (JsonParseException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+        });
+    }
+
     private void PostData(String encode) {
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
@@ -410,9 +461,10 @@ public class Camera extends AppCompatActivity {
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
 
 
-                            id_cate = String.valueOf(ID_category.getItem(i));
-                            Log.d("ID", id_cate);
-                            cate = Integer.parseInt(id_cate);
+                                id_cate = String.valueOf(ID_category.getItem(i));
+                                Log.d("ID", id_cate);
+                                cate = Integer.parseInt(id_cate);
+
                             if (cate==1){
                                 icType_elec.setVisibility(View.VISIBLE);
                                 tvType_elec.setVisibility(View.VISIBLE);
@@ -420,9 +472,10 @@ public class Camera extends AppCompatActivity {
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
                             }
-
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
                             Call_Brand(Encode,id_cate);
+
                         }
 
                         @Override
@@ -438,6 +491,7 @@ public class Camera extends AppCompatActivity {
 
 
     }  // category
+
 
     private void Call_Type(String encode) {
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/types/");

@@ -138,10 +138,12 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
         if (sharedPref.contains("token")) {
-           pk = sharedPref.getInt("pk",0)
+           pk = sharedPref.getInt("Pk",0)
         } else if (sharedPref.contains("id")) {
            pk = sharedPref.getInt("id", 0)
         }
+
+        Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
 
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
@@ -267,7 +269,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             }
 
             override fun onFailure(call: Call, e: IOException) {
-
+                Log.d("Error",call.toString())
             }
         })
 

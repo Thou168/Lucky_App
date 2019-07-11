@@ -209,7 +209,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclerView = findViewById<RecyclerView>(R.id.list_new_post)
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
-        Get()
+        //Get()
 //        recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
 //List Grid and image
 //        val list = findViewById<ImageView>(R.id.img_list)

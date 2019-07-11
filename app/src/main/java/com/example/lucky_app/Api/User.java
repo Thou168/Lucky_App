@@ -10,6 +10,11 @@ public class User {
     private String first_name;
     private String last_name;
     private Profile profile;
+    private String Phone;
+    private String gender;
+    private String marital_status;
+    private String date_of_birth;
+    private String shop_name;
     private int[] groups;
 
     public int getPk() {
@@ -18,6 +23,14 @@ public class User {
 
     public void setPk(int pk) {
         this.pk = pk;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 
     public String getUsername() {
@@ -35,6 +48,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getShop_name() {     return shop_name;  }
+
+    public void setShop_name(String shop_name) {     this.shop_name = shop_name;  }
+
+    public String getDate_of_birth() {     return date_of_birth; }
+
+    public void setDate_of_birth(String date_of_birth) {    this.date_of_birth = date_of_birth;  }
 
     public String getFirst_name() {
         return first_name;
@@ -66,5 +87,21 @@ public class User {
 
     public int[] getGroups() {
         return groups;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMarital_status() {
+        return marital_status;
+    }
+
+    public void setMarital_status(String marital_status) {
+        this.marital_status = marital_status;
     }
 }
