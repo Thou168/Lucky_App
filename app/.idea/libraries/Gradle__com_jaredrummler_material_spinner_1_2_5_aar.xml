@@ -5,6 +5,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/359d5d297b683c3d29fbdcafa2937980/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jaredrummler/material-spinner/1.2.5/3971eccf2ac2af9666cbb85a64c3ebf4d61833e8/material-spinner-1.2.5-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

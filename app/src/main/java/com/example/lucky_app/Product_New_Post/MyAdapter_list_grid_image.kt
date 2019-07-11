@@ -14,9 +14,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.Activity.Item_API
 import com.example.lucky_app.R
+import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 
 
@@ -51,13 +53,12 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         return itemList.size
     }
 
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val post_type = itemView.findViewById<ImageView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
-
+        var id:Int=0
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
@@ -82,7 +83,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                intent.putExtra("Title",item.title)
                   intent.putExtra("Price",item.cost)
 ////                intent.putExtra("Name",item.name)
-                  intent.putExtra("ID",item.id)
+                intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)
             }
            // Glide.with(itemView.context).load(version.url).into(imageView)

@@ -239,7 +239,6 @@ public class Edit_account extends AppCompatActivity {
                         }
                     });
 
-
                 }catch (JsonParseException e){
                     e.printStackTrace();
                 }
@@ -419,26 +418,29 @@ public class Edit_account extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String province = response.body().string();
-                try{
-                    JSONObject jsonObject = new JSONObject(province);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        int id = object.getInt("id");
-                        String pro = object.getString("province");
-                        provinceIdArrayList.add(id);
-                        provinceNameArrayList.add(pro);
-                    ArrayAdapter<Integer> ad_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,provinceIdArrayList);
-                    ArrayAdapter<String> ad_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,provinceNameArrayList);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            JSONObject jsonObject = new JSONObject(province);
+                            JSONArray jsonArray = jsonObject.getJSONArray("results");
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int id = object.getInt("id");
+                                String pro = object.getString("province");
+                                provinceIdArrayList.add(id);
+                                provinceNameArrayList.add(pro);
+                                ArrayAdapter<Integer> ad_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,provinceIdArrayList);
+                                ArrayAdapter<String> ad_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,provinceNameArrayList);
 
-                            location.setAdapter(ad_name);
-                            place.setAdapter(ad_name);
+                                location.setAdapter(ad_name);
+                                place.setAdapter(ad_name);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }
-
-
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
+                });
             }
             @Override
             public void onFailure(Call call, IOException e) {

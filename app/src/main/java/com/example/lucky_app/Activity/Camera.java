@@ -82,8 +82,12 @@ public class Camera extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO_2=2;
     static final int REQUEST_TAKE_PHOTO_3=3;
     static final int REQUEST_TAKE_PHOTO_4=4;
-    static final int REQUEST_GALLERY_PHOTO = 5;
+    static final int REQUEST_GALLERY_PHOTO_1=5;
+    static final int REQUEST_GALLERY_PHOTO_2=6;
+    static final int REQUEST_GALLERY_PHOTO_3=7;
+    static final int REQUEST_GALLERY_PHOTO_4=8;
     private int REQUEST_TAKE_PHOTO_NUM=0;
+    private int REQUEST_CHOOSE_PHOTO_NUM=0;
     File mPhotoFile;
     FileCompressor mCompressor;
     private RelativeLayout relatve_discount;
@@ -186,7 +190,7 @@ public class Camera extends AppCompatActivity {
             public void onClick(View v) {
                 selectImage();
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_1;
-
+                REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_1;
             }
         });
 
@@ -195,6 +199,7 @@ public class Camera extends AppCompatActivity {
             public void onClick(View v) {
                 selectImage();
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
+                REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_2;
             }
         });
 
@@ -203,6 +208,7 @@ public class Camera extends AppCompatActivity {
             public void onClick(View v) {
                 selectImage();
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
+                REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_3;
             }
         });
 
@@ -211,6 +217,7 @@ public class Camera extends AppCompatActivity {
             public void onClick(View v) {
                 selectImage();
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
+                REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_4;
             }
         });
 
@@ -236,7 +243,7 @@ public class Camera extends AppCompatActivity {
 
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
-            post.put("status", "");
+            post.put("status", "1");
             post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
             post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
             //post.put("discount", etDiscount_amount.getText().toString());
@@ -984,7 +991,7 @@ public class Camera extends AppCompatActivity {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivityForResult(pickPhoto, REQUEST_GALLERY_PHOTO);
+        startActivityForResult(pickPhoto, REQUEST_CHOOSE_PHOTO_NUM);
     }
 
     @Override
@@ -1036,14 +1043,46 @@ public class Camera extends AppCompatActivity {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
             }
-            else if (requestCode == REQUEST_GALLERY_PHOTO) {
+            else if (requestCode == REQUEST_GALLERY_PHOTO_1) {
                 Uri selectedImage = data.getData();
                 try {
                     mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                    bitmapImage1=BitmapFactory.decodeFile(mPhotoFile.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
+
+            }
+            else if (requestCode == REQUEST_GALLERY_PHOTO_2) {
+                Uri selectedImage = data.getData();
+                try {
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                    bitmapImage2=BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
+            }
+            else if (requestCode == REQUEST_GALLERY_PHOTO_3) {
+                Uri selectedImage = data.getData();
+                try {
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                    bitmapImage3=BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
+            }
+            else if (requestCode == REQUEST_GALLERY_PHOTO_4) {
+                Uri selectedImage = data.getData();
+                try {
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                    bitmapImage4=BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
 
             }
         }
