@@ -111,6 +111,7 @@
         android:layout_width="match_parent"
         android:id="@+id/bnaviga"
         app:menu="@menu/bottom_navigation"
+        android:background="@color/white"
         android:layout_height="40dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

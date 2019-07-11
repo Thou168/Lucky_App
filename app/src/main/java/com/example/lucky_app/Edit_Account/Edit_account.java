@@ -2,7 +2,6 @@ package com.example.lucky_app.Edit_Account;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;

@@ -14,21 +14,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.Activity.Item_API
 import com.example.lucky_app.R
-import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 
-class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
+
+class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_user_post.ViewHolder>() {
 
     internal var loadMoreListener: OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
-            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list1, parent, false)
             Log.d("Type ",type.toString())
             return ViewHolder(layout)
         }else if (type.equals("Grid")){
@@ -52,17 +51,16 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         return itemList.size
     }
 
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val post_type = itemView.findViewById<ImageView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
-        var id:Int=0
+
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
-            val options = BitmapFactory.Options()
-            options.inSampleSize = 8
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)
@@ -84,7 +82,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                intent.putExtra("Title",item.title)
                   intent.putExtra("Price",item.cost)
 ////                intent.putExtra("Name",item.name)
-                intent.putExtra("ID",item.id)
+                  intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)
             }
            // Glide.with(itemView.context).load(version.url).into(imageView)
