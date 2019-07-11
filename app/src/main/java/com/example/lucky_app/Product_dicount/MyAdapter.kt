@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.R
 import com.example.lucky_app.Startup.Item
+import com.example.lucky_app.useraccount.User_post
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MyAdapter(private val itemList: ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
@@ -55,7 +56,7 @@ class MyAdapter(private val itemList: ArrayList<Item>) : RecyclerView.Adapter<My
 
 
             itemView.findViewById<LinearLayout>(R.id.user).setOnClickListener {
-                val intent = Intent(imageView.context,User_post::class.java)
+                val intent = Intent(imageView.context, User_post::class.java)
                 intent.putExtra("Image_user",item.img_user)
                 intent.putExtra("ID",item.id)
                 imageView.context.startActivity(intent)

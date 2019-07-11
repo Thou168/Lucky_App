@@ -1,10 +1,6 @@
 package com.example.lucky_app.Product_dicount
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -14,27 +10,17 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.R
 import com.example.lucky_app.loan.LoanCreateActivity
+import com.example.lucky_app.useraccount.User_post
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import de.hdodenhof.circleimageview.CircleImageView
-import java.io.IOException
-import java.util.*
 
 class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
     private val TAG = Detail_Discount::class.java.simpleName

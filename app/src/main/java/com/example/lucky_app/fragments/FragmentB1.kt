@@ -119,8 +119,8 @@ class FragmentB1: Fragment() {
                                             val id = jsonObject1.getInt("id")
                                             val condition = jsonObject1.getString("condition")
                                             val cost = jsonObject1.getDouble("cost")
-                                            val image = jsonObject1.getString("base64_front_image")
-                                            val img_user = jsonObject1.getString("base64_right_image")
+                                            val image = jsonObject1.getString("front_image_base64")
+                                            val img_user = jsonObject1.getString("right_image_base64")
                                             val postType = jsonObject1.getString("post_type")
 
                                             itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType))

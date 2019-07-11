@@ -17,7 +17,15 @@ public class User {
     private String date_of_birth;
     private String shop_name;
     private int[] groups;
+    private int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Integer getPost() {
         return post;

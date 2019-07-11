@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.drm.DrmStore
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Location
@@ -24,17 +23,16 @@ import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Api.ConsumeAPI
 import com.example.lucky_app.Api.User
 import com.example.lucky_app.Product_dicount.Detail_Discount
-import com.example.lucky_app.Product_dicount.User_post
+import com.example.lucky_app.useraccount.User_post
 import com.example.lucky_app.R
 import com.example.lucky_app.loan.LoanCreateActivity
 import com.example.lucky_app.models.PostViewModel
 import com.example.lucky_app.utils.LoanCalculator
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -42,7 +40,6 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.util.*
 
 class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
@@ -75,6 +72,11 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private lateinit var edLoanDeposit:EditText
     private lateinit var edLoanTerm:EditText
     private lateinit var sliderImage:SliderImage
+    private lateinit var img_user:CircleImageView
+    private lateinit var user_name:TextView
+    private lateinit var user_telephone:TextView
+    private lateinit var user_email:TextView
+    private lateinit var user_location:TextView
 
     /*
     private val REQUEST_LOCATION = 1
@@ -202,13 +204,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         back.setOnClickListener { finish() }
         //Slider
         sliderImage = findViewById<SliderImage>(R.id.slider)
-        /*
-        val images = listOf("https://www.allkpop.com/upload/2018/09/af_org/01133025/red-velvet.jpg","https://upload.wikimedia.org/wikipedia/commons/8/83/Red_Velvet_at_Korea_Popular_Music_Awards_red_carpet_on_December_20%2C_2018.png")
-        sliderImage.setItems(images)
-        sliderImage.addTimerToSlide(3000)
-        sliderImage.removeTimerSlide()
-        sliderImage.getIndicator()
-        */
+
 //        val id = intent.getIntExtra("ID",0)
 //        val phone = findViewById<TextView>(R.id.tv_phone)
 //
@@ -226,19 +222,12 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         edLoanDeposit=findViewById<EditText>(R.id.ed_loan_deposit)
         edLoanTerm=findViewById<EditText>(R.id.ed_loan_term)
 
-//        val name = findViewById<TextView>(R.id.tv_name)
-//        name.text = intent.getStringExtra("Name")
-//        val img_user = findViewById<CircleImageView>(R.id.cr_img)
-//        img_user.setImageResource(intent.getIntExtra("Image_user",R.drawable.thou))
-////User Post
-//        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-//            val intent = Intent(this@Detail_New_Post, User_post::class.java)
-//            intent.putExtra("Image_user",getIntent().getIntExtra("Image_user",R.drawable.thean))
-//            intent.putExtra("ID",id)
-//            intent.putExtra("Phone",phone.text)
-//            startActivity(intent)
-//        }
-//Button Share
+        user_name = findViewById<TextView>(R.id.tv_name)
+        img_user = findViewById<CircleImageView>(R.id.cr_img)
+        user_telephone=findViewById<TextView>(R.id.tv_iconphone)
+        user_email=findViewById<TextView>(R.id.tv_phone)
+
+        //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
         share.setOnClickListener{
             val shareIntent = Intent()
@@ -442,24 +431,105 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                         val base64_left_image=postDetail.base64_left_image.toString()
                         val base64_back_image=postDetail.base64_back_image.toString()
 
-                        val decodedFrontImageString = Base64.decode(base64_front_image, Base64.DEFAULT)
-                        val decodedFrontByte = BitmapFactory.decodeByteArray(decodedFrontImageString, 0, decodedFrontImageString.size)
-                        val decodedRightImageString = Base64.decode(base64_right_image, Base64.DEFAULT)
-                        val decodedRightByte = BitmapFactory.decodeByteArray(decodedRightImageString, 0, decodedRightImageString.size)
-                        val decodedLeftImageString = Base64.decode(base64_left_image, Base64.DEFAULT)
-                        val decodedLeftByte = BitmapFactory.decodeByteArray(decodedLeftImageString, 0, decodedLeftImageString.size)
-                        val decodedBackImageString = Base64.decode(base64_back_image, Base64.DEFAULT)
-                        val decodedBackByte = BitmapFactory.decodeByteArray(decodedBackImageString, 0, decodedBackImageString.size)
+                        var front_image:String=""
+                        var right_image:String=""
+                        var back_image:String=""
+                        var left_image:String=""
 
-                        val images = listOf(getImageUri(this@Detail_New_Post,decodedFrontByte).toString(),getImageUri(this@Detail_New_Post,decodedRightByte).toString(),getImageUri(this@Detail_New_Post,decodedLeftByte).toString(),getImageUri(this@Detail_New_Post,decodedBackByte).toString())
+                        if(!base64_front_image.isNullOrEmpty()){
+                            val decodedFrontImageString = Base64.decode(base64_front_image, Base64.DEFAULT)
+                            val decodedFrontByte = BitmapFactory.decodeByteArray(decodedFrontImageString, 0, decodedFrontImageString.size)
+                            front_image=getImageUri(this@Detail_New_Post,decodedFrontByte).toString()
+                        }
+
+                        if(!base64_right_image.isNullOrEmpty()){
+                            val decodedRightImageString = Base64.decode(base64_right_image, Base64.DEFAULT)
+                            val decodedRightByte = BitmapFactory.decodeByteArray(decodedRightImageString, 0, decodedRightImageString.size)
+                            right_image=getImageUri(this@Detail_New_Post,decodedRightByte).toString()
+                        }
+                        if(!base64_left_image.isNullOrEmpty()){
+                            val decodedLeftImageString = Base64.decode(base64_left_image, Base64.DEFAULT)
+                            val decodedLeftByte = BitmapFactory.decodeByteArray(decodedLeftImageString, 0, decodedLeftImageString.size)
+                            left_image=getImageUri(this@Detail_New_Post,decodedLeftByte).toString()
+                        }
+                        if(!base64_back_image.isNullOrEmpty()){
+                            val decodedBackImageString = Base64.decode(base64_back_image, Base64.DEFAULT)
+                            val decodedBackByte = BitmapFactory.decodeByteArray(decodedBackImageString, 0, decodedBackImageString.size)
+                            back_image=getImageUri(this@Detail_New_Post,decodedBackByte).toString()
+                        }
+
+                        val images = listOf(front_image,
+                                right_image,
+                                left_image,
+                                back_image)
                         sliderImage.setItems(images)
                         sliderImage.addTimerToSlide(3000)
                         sliderImage.removeTimerSlide()
                         sliderImage.getIndicator()
+
+                        val created_by:Int=postDetail.created_by.toInt()
+                        Log.d(TAG,"crea"+ created_by)
+                        getUserProfile(created_by,auth)
+
+
                     }
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
                 }
+            }
+        })
+    }
+
+    fun getUserProfile(id:Int,encode: String){
+        var user1 = User()
+        var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+id
+        var MEDIA_TYPE=MediaType.parse("application/json")
+        var client= OkHttpClient()
+        var request=Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encode)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                val gson = Gson()
+                try {
+                    user1= gson.fromJson(mMessage, User::class.java)
+                    runOnUiThread {
+
+                        val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
+                        if(profilepicture==null){
+
+                        }else
+                        {
+                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                            img_user.setImageBitmap(decodedByte)
+                        }
+                        user_name.setText(user1.username)
+                        user_telephone.setText(user1.profile.telephone)
+                        user_email.setText(user1.email)
+                        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+                            Log.d(TAG,"T"+user1.id)
+                            val intent = Intent(this@Detail_New_Post, User_post::class.java)
+                            intent.putExtra("ID",user1.id.toString())
+                            //intent.putExtra("Phone",phone.text)
+                            startActivity(intent)
+                        }
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace()
+                }
+
             }
         })
     }

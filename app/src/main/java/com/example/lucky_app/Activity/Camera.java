@@ -381,7 +381,7 @@ public class Camera extends AppCompatActivity {
                     rent.put("return_date",null);
                     rent.put("rent_count_number",0);
                     post.put("rent_post",new JSONArray("["+rent+"]"));
-                    Log.d("Failure:","m"+post);
+                    Log.d("Failure:","m"+rent);
                     break;
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";

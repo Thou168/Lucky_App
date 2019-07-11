@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Product_dicount.User_post">
+    tools:context=".useraccount.User_post">
     <ScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"
@@ -24,6 +24,8 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_user"
                     android:layout_width="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_height="100dp" />
             </RelativeLayout>
             <com.google.android.material.tabs.TabLayout

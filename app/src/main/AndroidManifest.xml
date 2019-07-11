@@ -89,7 +89,7 @@
             android:label="@string/title_activity_new__main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
-        <activity android:name=".Product_dicount.User_post" />
+        <activity android:name=".useraccount.User_post" />
         <activity android:name=".Product_dicount.Detail_Discount"/>
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" />

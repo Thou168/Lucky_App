@@ -2,7 +2,7 @@ package com.example.lucky_app.Fragment
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.example.lucky_app.Product_dicount.User_post
+import com.example.lucky_app.useraccount.User_post
 
 abstract class Passdata: Fragment(){
     lateinit var ACTIVITY: User_post
