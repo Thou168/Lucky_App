@@ -20,7 +20,10 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.custom.sliderimage.logic.SliderImage
+import com.example.lucky_app.Activity.Item_API
 import com.example.lucky_app.Api.ConsumeAPI
 import com.example.lucky_app.Api.User
 import com.example.lucky_app.Product_dicount.Detail_Discount
@@ -34,6 +37,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_list.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -47,6 +51,7 @@ import java.util.*
 class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
     private lateinit var mMap: GoogleMap
+    private var list_rela: RecyclerView? = null
 
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
@@ -207,6 +212,9 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                 .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment
         mapFragment.getMapAsync(this)
         */
+
+        list_rela = findViewById(R.id.list_rela)
+
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }
@@ -634,6 +642,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     }
 
     fun initialRelatedPost(encode:String,postType:String,category:Int,modeling:Int,cost:Float){
+        val itemApi = ArrayList<Item_API>()
         val URL_ENDPOINT=ConsumeAPI.BASE_URL+"relatedpost/?post_type="+postType+"&category="+category+"&modeling="+modeling+"&min_price="+(cost-500)+"&max_price="+(cost+500)
         val client= OkHttpClient()
         val request=Request.Builder()
@@ -651,16 +660,43 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
                 val gson = Gson()
-                try {
-                    Log.d(TAG,"Related post "+mMessage)
-                    val jsonObject= JSONObject(mMessage)
+                runOnUiThread {
+                    try {
+                        Log.d(TAG, "Related post " + mMessage)
+                        val jsonObject = JSONObject(mMessage)
+                        val jsonArray = jsonObject.getJSONArray("results")
                     val jsonCount=jsonObject.getInt("count")
-                    runOnUiThread {
-                        //tv_count_view.setText("View: "+jsonCount)
-                    }
+                        for (i in 0 until jsonArray.length()) {
+                            val obj = jsonArray.getJSONObject(i)
 
-                } catch (e: JsonParseException) {
-                    e.printStackTrace()
+                            val title = obj.getString("title")
+                            val id = obj.getInt("id")
+                            val condition = obj.getString("condition")
+                            val cost = obj.getDouble("cost")
+                            val image = obj.getString("front_image_base64")
+                            val img_user = obj.getString("right_image_base64")
+                            val postType = obj.getString("post_type")
+
+                            var location_duration = ""
+                            //var count_view=countPostView(Encode,id)
+
+                            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                            val time: Long = sdf.parse(obj.getString("created")).getTime()
+                            val now: Long = System.currentTimeMillis()
+                            val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+
+                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
+                            list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                            list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,1)
+                        }
+
+                        //tv_count_view.setText("View: "+jsonCount)
+
+
+                    } catch (e: JsonParseException) {
+                        e.printStackTrace()
+                    }
                 }
 
             }

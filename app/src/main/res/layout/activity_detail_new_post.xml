@@ -546,13 +546,17 @@
                         android:background="#F7F7F7"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
-
                 <fragment
                     android:id="@+id/map_detail_newpost"
                     android:layout_below="@id/relative_detailmap"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="200dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_rela"
+                    android:layout_below="@id/map_detail_newpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

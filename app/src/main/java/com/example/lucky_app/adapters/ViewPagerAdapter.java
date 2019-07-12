@@ -46,7 +46,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             title = "Like";
         }
         else if (position == 2) {
-            title = "Load";
+            title = "Loan";
         }
         return title;
     }
