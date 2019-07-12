@@ -237,7 +237,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         tv_count_view=findViewById<TextView>(R.id.count_view)
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
 
-        //Button Share
+//Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
         share.setOnClickListener{
             val shareIntent = Intent()
@@ -515,7 +515,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         var MEDIA_TYPE=MediaType.parse("application/json")
         var client= OkHttpClient()
         var request=Request.Builder()
-                .url(URL_ENDPOINT)
+                .url(URL_ENDPOINT) 
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
                 .header("Authorization",encode)
@@ -532,6 +532,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                 val gson = Gson()
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
+                    Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
 
                         val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image

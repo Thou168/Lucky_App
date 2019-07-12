@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/user"
                 android:background="@color/colorLightGray"
                 android:orientation="horizontal"

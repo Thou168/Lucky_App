@@ -49,6 +49,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var recyclerView: RecyclerView? = null
     var list_item: ArrayList<Item_API>? = null
+
+    var best_list: RecyclerView? = null
+
     var grid: ImageView? = null
     var list: ImageView? = null
     var image_list: ImageView? = null
@@ -215,23 +218,25 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             intent.putExtra("Title","Rent")
             startActivity(intent)
         }
-//RecyclerView
-        val horizontal = findViewById<RecyclerView>(R.id.horizontal)
+//Best Deal
         val version = ArrayList<Item>()
         version.addAll(Item.getType("Discount"))
-        horizontal.layoutManager = LinearLayoutManager(this@Home, LinearLayout.HORIZONTAL, false)
-        horizontal.adapter = MyAdapter(version)
+
+        best_list = findViewById<RecyclerView>(R.id.horizontal)
+        best_list!!.layoutManager = LinearLayoutManager(this@Home, LinearLayout.HORIZONTAL, false)
+//        best_list!!.adapter = MyAdapter(version)
+        getBest()
 
         val listview = findViewById<RecyclerView>(R.id.list_new_post)
 //        val item = ArrayList<Item>()
 //        item.addAll(Item.getList())
-        val item = ArrayList<Item_API>()
-        item.addAll(Get())
-        Log.d("Item API: ",item.size.toString())
+//        val item = ArrayList<Item_API>()
+//        item.addAll(Get())
+//        Log.d("Item API: ",item.size.toString())
         //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclerView = findViewById<RecyclerView>(R.id.list_new_post)
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
-        //Get()
+        Get()
 //        recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
 //List Grid and image
 //        val list = findViewById<ImageView>(R.id.img_list)
@@ -366,7 +371,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     private fun Get(): ArrayList<Item_API>{
-
         val itemApi = ArrayList<Item_API>()
         val url = "http://103.205.26.103:8000/allposts/"
         val client = OkHttpClient()
@@ -474,6 +478,57 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     e.printStackTrace()
                 }
 
+            }
+        })
+        return itemApi
+    }
+    private fun getBest(): ArrayList<Item_discount>{
+        val itemApi = ArrayList<Item_discount>()
+        val url = "http://103.205.26.103:8000/bestdeal/"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                val respon = response.body()!!.string()
+                Log.d("Response", respon)
+                try {
+                    val jsonObject = JSONObject(respon)
+                    val jsonArray = jsonObject.getJSONArray("results")
+
+                    Log.d("count",jsonArray.length().toString())
+
+                    for (i in 0 until jsonArray.length()) {
+
+                        val `object` = jsonArray.getJSONObject(i)
+
+                        val title = `object`.getString("title")
+                        val id = `object`.getInt("id")
+                        val condition = `object`.getString("condition")
+                        val cost = `object`.getDouble("cost")
+                        val discount = `object`.getDouble("discount")
+                        val image = `object`.getString("front_image_base64")
+                        val img_user = `object`.getString("right_image_base64")
+
+                        val postType = `object`.getString("post_type")
+
+                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType))
+                        runOnUiThread {
+                            best_list!!.adapter = MyAdapter(itemApi)
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         })
         return itemApi

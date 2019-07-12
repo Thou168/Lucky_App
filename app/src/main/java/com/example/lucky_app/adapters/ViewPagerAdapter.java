@@ -25,12 +25,15 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         else if(position==1){
             fragment=new FragmentB1();
         }
+        else if(position==2){
+            fragment=new FragmentB1();
+        }
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
     @Override
     public CharSequence getPageTitle(int position) {
@@ -41,6 +44,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         }
         else if (position == 1) {
             title = "Like";
+        }
+        else if (position == 2) {
+            title = "Load";
         }
         return title;
     }

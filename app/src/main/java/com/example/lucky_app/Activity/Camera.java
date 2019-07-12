@@ -63,7 +63,9 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -137,7 +139,7 @@ public class Camera extends AppCompatActivity {
         }
         ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
-
+        Log.d(TAG,"time"+Instant.now().toString());
         TextView back = (TextView)findViewById(R.id.tv_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,9 +332,13 @@ public class Camera extends AppCompatActivity {
                 post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
             }
 
+            Date date= new Date();
+            long time = date.getTime();
+            Timestamp ts = new Timestamp(time);
+            //Instant.now().toString()
             post.put("created", "");
             post.put("created_by", pk);
-            post.put("modified", null);
+            post.put("modified", "");
             post.put("modified_by", null);
             post.put("approved_date", null);
             post.put("approved_by", null);

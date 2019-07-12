@@ -11,9 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lucky_app.Activity.Item_API
 import com.example.lucky_app.R
@@ -57,6 +55,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
+        val btn_delete = itemView.findViewById<Button>(R.id.btndelete)
 
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
@@ -85,7 +84,10 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                   intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)
             }
-           // Glide.with(itemView.context).load(version.url).into(imageView)
+
+            btn_delete.setOnClickListener {
+                Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
+            }
         }
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()
