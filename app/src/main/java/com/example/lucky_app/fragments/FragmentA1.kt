@@ -56,8 +56,6 @@ class FragmentA1: Fragment() {
 //        phone.text = tvphone
         recyclerView = view.findViewById(R.id.recycler_view)
 
-        Log.d("Hello","lsdfjasjf")
-
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
@@ -91,7 +89,6 @@ class FragmentA1: Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-
 
                 val gson = Gson()
                 try {
