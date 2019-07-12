@@ -57,6 +57,9 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
+        val location_duration=itemView.findViewById<TextView>(R.id.location)
+        val show_view=itemView.findViewById<TextView>(R.id.user_view)
+
         var id:Int=0
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
@@ -69,6 +72,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()
+            location_duration.text=item.location_duration
+            show_view.text="View: "+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

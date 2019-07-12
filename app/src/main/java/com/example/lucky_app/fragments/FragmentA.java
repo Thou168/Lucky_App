@@ -1,10 +1,14 @@
 package com.example.lucky_app.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -13,17 +17,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lucky_app.Activity.Item_API;
+import com.example.lucky_app.Api.ConsumeAPI;
 import com.example.lucky_app.Product_New_Post.MyAdapter_list_grid_image;
 import com.example.lucky_app.R;
 import com.example.lucky_app.Startup.Item;
 import com.example.lucky_app.adapters.CustomAdapter;
 import com.example.lucky_app.adapters.RecyclerViewAdapter;
+import com.example.lucky_app.utils.CommonFunction;
+import com.tiper.MaterialSpinner;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,6 +47,8 @@ public class FragmentA extends Fragment {
     ListView list;
     ArrayList<Item_API> list_item;
     MyAdapter_list_grid_image ad_list;
+    SharedPreferences prefer;
+    private String name,pass,Encode;
     public FragmentA(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +59,10 @@ public class FragmentA extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         Get();
+        prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
+        name = prefer.getString("name","");
+        pass = prefer.getString("pass","");
+        Encode = CommonFunction.getEncodedString(name,pass);
         return view;
         /*
         list = (ListView) view.findViewById(R.id.list);
@@ -127,7 +144,44 @@ public class FragmentA extends Fragment {
                         Double cost = object.getDouble("cost");
                         String postType = object.getString("post_type");
 
-                        list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType));
+                        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                        Long time = sdf.parse(object.getString("created")).getTime();
+                        Long now = System.currentTimeMillis();
+                        CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
+
+                        String URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id;
+                        OkHttpClient client = new OkHttpClient();
+                        String auth = "Basic "+ Encode;
+                        Request request = new Request.Builder()
+                                .url(URL_ENDPOINT1)
+                                .header("Accept","application/json")
+                                .header("Content-Type","application/json")
+                                .header("Authorization",auth)
+                                .build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                String respon = response.body().string();
+                                try{
+                                    JSONObject jsonObject = new JSONObject(respon);
+                                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                                    String jsonCount=jsonObject.getString("count");
+                                    list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount));
+                                    ad_list = new MyAdapter_list_grid_image(list_item,"List");
+                                    recyclerView.setAdapter(ad_list);
+                                }catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        /*
+                        list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago,));
                         ad_list = new MyAdapter_list_grid_image(list_item,"List");
 
                         getActivity().runOnUiThread(new Runnable() {
@@ -136,6 +190,7 @@ public class FragmentA extends Fragment {
                                 recyclerView.setAdapter(ad_list);
                             }
                         });
+                        */
                     }
                 }catch (Exception e){
                     e.printStackTrace();

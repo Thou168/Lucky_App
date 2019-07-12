@@ -12,6 +12,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.format.DateUtils
 import android.util.Base64
 import android.util.Log
 import android.view.KeyEvent
@@ -40,6 +41,8 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
@@ -77,6 +80,8 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private lateinit var user_telephone:TextView
     private lateinit var user_email:TextView
     private lateinit var user_location:TextView
+    private lateinit var tv_count_view:TextView
+    private lateinit var tv_location_duration:TextView
 
     /*
     private val REQUEST_LOCATION = 1
@@ -182,6 +187,9 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         p = intent.getIntExtra("ID",0)
 
         initialProductPostDetail(Encode)
+        submitCountView(Encode)
+        countPostView(Encode)
+
 
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 //
@@ -226,6 +234,8 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         img_user = findViewById<CircleImageView>(R.id.cr_img)
         user_telephone=findViewById<TextView>(R.id.tv_iconphone)
         user_email=findViewById<TextView>(R.id.tv_phone)
+        tv_count_view=findViewById<TextView>(R.id.count_view)
+        tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
 
         //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
@@ -426,6 +436,13 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                         tvColor.setText(postDetail.color.toString())
                         tvDescription.setText(postDetail.description.toString())
 
+                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                        val time:Long = sdf.parse(postDetail.created).getTime()
+                        val now:Long = System.currentTimeMillis()
+                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+                        tv_location_duration.setText(ago)
+
                         val base64_front_image=postDetail.base64_front_image.toString()
                         val base64_right_image=postDetail.base64_right_image.toString()
                         val base64_left_image=postDetail.base64_left_image.toString()
@@ -468,9 +485,21 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                         sliderImage.getIndicator()
 
                         val created_by:Int=postDetail.created_by.toInt()
-                        Log.d(TAG,"crea"+ created_by)
                         getUserProfile(created_by,auth)
 
+                        //Initial Related Post
+                        var postType:String=""
+                        val rent=postDetail.rents
+                        val sale=postDetail.sales
+                        val buy=postDetail.buys
+                        if(rent.count()>0)
+                            postType="rent"
+                        if(sale.count()>0)
+                            postType="sell"
+                        if(buy.count()>0)
+                            postType="buy"
+                        Log.d(TAG,"credfafa"+ postType)
+                        initialRelatedPost(encode,postType,postDetail.category,postDetail.modeling,postDetail.cost.toFloat())
 
                     }
                 } catch (e: JsonParseException) {
@@ -567,6 +596,108 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         }catch (e:Exception){
             e.printStackTrace()
         }
+    }
+
+    fun submitCountView(encode: String) {
+        var url=ConsumeAPI.BASE_URL+"countview/"
+        val MEDIA_TYPE = MediaType.parse("application/json")
+        val post = JSONObject()
+        try{
+            post.put("post", p)
+            post.put("number",1)
+
+            val client = OkHttpClient()
+            val body = RequestBody.create(MEDIA_TYPE, post.toString())
+            val auth = "Basic $encode"
+            val request = Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", auth)
+                    .build()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onResponse(call: Call, response: Response) {
+                    var respon = response.body()!!.string()
+                    Log.d("Response",respon)
+                }
+
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.d("Error",call.toString())
+                }
+            })
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun initialRelatedPost(encode:String,postType:String,category:Int,modeling:Int,cost:Float){
+        val URL_ENDPOINT=ConsumeAPI.BASE_URL+"relatedpost/?post_type="+postType+"&category="+category+"&modeling="+modeling+"&min_price="+(cost-500)+"&max_price="+(cost+500)
+        val client= OkHttpClient()
+        val request=Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encode)
+                .build()
+        client.newCall(request).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                val gson = Gson()
+                try {
+                    Log.d(TAG,"Related post "+mMessage)
+                    val jsonObject= JSONObject(mMessage)
+                    val jsonCount=jsonObject.getInt("count")
+                    runOnUiThread {
+                        //tv_count_view.setText("View: "+jsonCount)
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
+    }
+
+    fun countPostView(encode:String){
+        val URL_ENDPOINT=ConsumeAPI.BASE_URL+"countview/?post="+postId
+        var MEDIA_TYPE=MediaType.parse("application/json")
+        val client= OkHttpClient()
+        val request=Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encode)
+                .build()
+        client.newCall(request).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                val gson = Gson()
+                try {
+                    val jsonObject= JSONObject(mMessage)
+                    val jsonCount=jsonObject.getInt("count")
+                    runOnUiThread {
+                        tv_count_view.setText("View: "+jsonCount)
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
     }
 
     fun calculateLoanMonthlyPayment(){

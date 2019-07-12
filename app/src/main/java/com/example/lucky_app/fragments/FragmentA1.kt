@@ -3,6 +3,7 @@ package com.example.lucky_app.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,9 @@ import com.google.gson.JsonParseException
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A fragment representing a list of Items.
@@ -109,11 +113,53 @@ class FragmentA1: Fragment() {
                         val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
 
-                        itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType))
-                        Log.d("Item: ",itemApi.size.toString())
+                        //var count_view=countPostView(encodeAuth,id)
+
+                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                        val time:Long = sdf.parse(`object`.getString("created")).getTime()
+                        val now:Long = System.currentTimeMillis()
+                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+
+                        val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
+                        var MEDIA_TYPE=MediaType.parse("application/json")
+                        val client1= OkHttpClient()
+                        //val auth = "Basic $encode"
+                        val request1=Request.Builder()
+                                .url(URL_ENDPOINT1)
+                                .header("Accept","application/json")
+                                .header("Content-Type","application/json")
+                                .header("Authorization",encodeAuth)
+                                .build()
+                        client1.newCall(request1).enqueue(object : Callback{
+                            override fun onFailure(call: Call, e: IOException) {
+                                val mMessage = e.message.toString()
+                                Log.w("failure Response", mMessage)
+                            }
+                            @Throws(IOException::class)
+                            override fun onResponse(call: Call, response: Response) {
+                                val mMessage = response.body()!!.string()
+                                val gson = Gson()
+                                try {
+                                    Log.d("FRAGMENT 1",mMessage)
+                                    val jsonObject= JSONObject(mMessage)
+                                    val jsonCount=jsonObject.getInt("count")
+                                    activity!!.runOnUiThread {
+                                        itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
+                                        recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
+                                        recyclerView!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
+                                    }
+
+                                } catch (e: JsonParseException) {
+                                    e.printStackTrace()
+                                }
+
+                            }
+                        })
+
+                        //Log.d("Item: ",itemApi.size.toString())
 //                        activity!!.runOnUiThread {
-                            recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
-                            recyclerView!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
+
                         }
 
                     }
@@ -134,5 +180,41 @@ class FragmentA1: Fragment() {
 
             }
         })
+    }
+    fun countPostView(encode:String,postId:Int):Int{
+        var count=0
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"countview/?post="+postId
+        var MEDIA_TYPE=MediaType.parse("application/json")
+        val client= OkHttpClient()
+        //val auth = "Basic $encode"
+        val request=Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encode)
+                .build()
+        client.newCall(request).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                val gson = Gson()
+                try {
+                    val jsonObject= JSONObject(mMessage)
+                    val jsonCount=jsonObject.getInt("count")
+                    activity!!.runOnUiThread {
+                        count=jsonCount
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
+        return count
     }
 }
