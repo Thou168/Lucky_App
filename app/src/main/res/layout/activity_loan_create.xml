@@ -84,28 +84,36 @@
 
                     <ImageView
                         android:id="@+id/imgCoBorrower"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_below="@id/imgJob"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilCoBorrower"
+                    <com.tiper.MaterialSpinner
+                        android:id="@+id/etCoBorrower"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@id/imgJob"
+                        android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgCoBorrower"
-                        android:background="@drawable/underline">
-
-                        <EditText
-                            android:id="@+id/etCoBorrower"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="Co-Borrower"
-                            android:paddingLeft="10dp"
-                            android:background="@null" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_below="@+id/imgJob"
+                        android:gravity="center_vertical"
+                        android:hint="Co-Borrower"
+                        android:layout_marginLeft="-5dp"
+                        android:textSize="18dp"
+                        android:background="@null"
+                        android:spinnerMode="dropdown"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/etCoBorrower"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="45dp"-->
+                            <!--android:layout_toRightOf="@+id/imgIDCard"-->
+                            <!--android:hint="Co-Borrower"-->
+                            <!--android:textSize="18dp"-->
+                            <!--android:paddingLeft="10dp"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:background="@drawable/underline"-->
+                            <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
 
                     <ImageView
                         android:id="@+id/imgMonthlyIncome"
@@ -277,247 +285,141 @@
 
                     <ImageView
                         android:id="@+id/imgIDCard"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <TextView
+                    <com.tiper.MaterialSpinner
                         android:id="@+id/tvIDCard"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgIDCard"
-                        android:hint="ID Card"
-                        android:textSize="18dp"
-                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
-                        android:background="@drawable/underline"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:hint="ID Card"
+                        android:layout_marginLeft="-5dp"
+                        android:textSize="18dp"
+                        android:background="@null"
+                        android:spinnerMode="dropdown"/>
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tvIDCard"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:layout_toRightOf="@+id/imgIDCard"-->
+                        <!--android:hint="ID Card"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:paddingLeft="10dp"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:background="@drawable/underline"-->
+                        <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
 
                     <ImageView
                         android:id="@+id/imgFamilyBook"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:layout_below="@id/imgIDCard"
+                        android:layout_below="@+id/imgIDCard"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <TextView
+
+                    <com.tiper.MaterialSpinner
                         android:id="@+id/tvFamilyBook"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgFamilyBook"
-                        android:layout_below="@id/imgIDCard"
-                        android:hint="Family Book"
-                        android:textSize="18dp"
-                        android:paddingLeft="10dp"
+                        android:layout_below="@+id/imgIDCard"
                         android:gravity="center_vertical"
-                        android:background="@drawable/underline"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:hint="Family Book"
+                        android:layout_marginLeft="-5dp"
+                        android:textSize="18dp"
+                        android:background="@null"
+                        android:spinnerMode="dropdown"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tvFamilyBook"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:layout_toRightOf="@+id/imgFamilyBook"-->
+                        <!--android:layout_below="@id/imgIDCard"-->
+                        <!--android:hint="Family Book"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:paddingLeft="10dp"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:background="@drawable/underline"-->
+                        <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
 
                     <ImageView
                         android:id="@+id/imgStaffID"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:layout_below="@id/imgFamilyBook"
+                        android:layout_below="@+id/imgFamilyBook"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <TextView
+                    <com.tiper.MaterialSpinner
                         android:id="@+id/tvStaffID"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgStaffID"
-                        android:layout_below="@id/imgFamilyBook"
-                        android:hint="Staff ID/ Salary Slip"
-                        android:textSize="18dp"
-                        android:paddingLeft="10dp"
+                        android:layout_below="@+id/imgFamilyBook"
                         android:gravity="center_vertical"
-                        android:background="@drawable/underline"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:hint="Staff ID/ Salary Slip"
+                        android:layout_marginLeft="-5dp"
+                        android:textSize="18dp"
+                        android:background="@null"
+                        android:spinnerMode="dropdown"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tvStaffID"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:layout_toRightOf="@+id/imgStaffID"-->
+                        <!--android:layout_below="@id/imgFamilyBook"-->
+                        <!--android:hint="Staff ID/ Salary Slip"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:paddingLeft="10dp"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:background="@drawable/underline"-->
+                        <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
 
                     <ImageView
                         android:id="@+id/imgLandTitle"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:layout_below="@id/imgStaffID"
+                        android:layout_below="@+id/imgStaffID"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <TextView
+                    <com.tiper.MaterialSpinner
                         android:id="@+id/tvLandTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgLandTitle"
-                        android:layout_below="@id/imgStaffID"
-                        android:hint="Land Tile"
-                        android:textSize="18dp"
-                        android:paddingLeft="10dp"
+                        android:layout_below="@+id/imgStaffID"
                         android:gravity="center_vertical"
-                        android:background="@drawable/underline"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:hint="Land Tile"
+                        android:layout_marginLeft="-5dp"
+                        android:textSize="18dp"
+                        android:background="@null"
+                        android:spinnerMode="dropdown"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tvLandTitle"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:layout_toRightOf="@+id/imgLandTitle"-->
+                        <!--android:layout_below="@id/imgStaffID"-->
+                        <!--android:hint="Land Tile"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:paddingLeft="10dp"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:background="@drawable/underline"-->
+                        <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
 
                 </RelativeLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="@dimen/dp_8"
-                    android:layout_below="@id/rlLoanSupportingDoc"
-                    android:background="@color/gray_light"
-                    android:textAllCaps="true"
-                    android:id="@+id/tvLoanCalculate"
-                    android:text="Loan Calculation"/>
-
-                <TextView
-                    android:id="@+id/laonCalculation2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:paddingLeft="@dimen/dp_8dp"
-                    android:paddingTop="@dimen/dp_8"
-                    android:paddingBottom="@dimen/dp_8"
-                    android:layout_below="@id/tvLoanCalculate"
-                    android:text="ការរគណនាប្រាក់ម្ចី / Loan Calculation"/>
-                <RelativeLayout
-                    android:id="@+id/loanRow1"
-                    android:layout_below="@id/laonCalculation2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:paddingLeft="@dimen/dp_8"
-                            android:gravity="left"
-                            android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:layout_marginTop="8dp"
-                            android:text="តម្លៃ / Price ($)" />
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:paddingLeft="@dimen/dp_8"
-                            android:gravity="left"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="8dp"
-                            android:text="អត្រាការប្រាក់ / Interest Rate (%)" />
-                    </LinearLayout>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/loanRow2"
-                    android:layout_below="@id/loanRow1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal">
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            android:layout_weight="0.5"
-                            android:id="@+id/ed_loan_price"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="8dp"
-                            android:background="@drawable/rounded_border_edittext"
-                            android:textSize="12sp"/>
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            android:layout_weight="0.5"
-                            android:id="@+id/ed_loan_interest_rate"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="8dp"
-                            android:background="@drawable/rounded_border_edittext"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/loanRow3"
-                    android:layout_below="@id/loanRow2">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:paddingLeft="@dimen/dp_8"
-                            android:gravity="left"
-                            android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:layout_marginTop="8dp"
-                            android:text="ប្រាក់កក់ / Deposit ($)" />
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:paddingLeft="@dimen/dp_8"
-                            android:gravity="left"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="8dp"
-                            android:text="រយៈពេល (ឆ្នាំ) / Term (Year)" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/loanRow4"
-                    android:layout_below="@id/loanRow3">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal">
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:id="@+id/ed_loan_deposit"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="8dp"
-                            android:inputType="numberDecimal"
-                            android:background="@drawable/rounded_border_edittext"
-                            android:textSize="12sp"/>
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:layout_weight="0.5"
-                            android:id="@+id/ed_loan_term"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="8dp"
-                            android:background="@drawable/rounded_border_edittext"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-                </RelativeLayout>
                 <Button
                     android:id="@+id/btSubmit"
                     android:layout_width="match_parent"
@@ -529,7 +431,7 @@
                     android:text="@string/submit_button"
                     android:background="@color/colorSubmitButton"
                     android:textColor="@color/white"
-                    android:layout_below="@id/loanRow4"
+                    android:layout_below="@id/rlLoanSupportingDoc"
                     android:textSize="14sp"/>
             </RelativeLayout>
 

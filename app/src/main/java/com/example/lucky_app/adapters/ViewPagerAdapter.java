@@ -9,6 +9,7 @@ import com.example.lucky_app.fragments.FragmentA1;
 import com.example.lucky_app.fragments.FragmentB;
 import com.example.lucky_app.fragments.FragmentB1;
 import com.example.lucky_app.fragments.FragmentC;
+import com.example.lucky_app.fragments.FragmentC1;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -26,7 +27,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             fragment=new FragmentB1();
         }
         else if(position==2){
-            fragment=new FragmentB1();
+            fragment=new FragmentC1();
         }
         return fragment;
     }

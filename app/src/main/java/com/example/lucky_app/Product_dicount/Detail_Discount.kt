@@ -5,6 +5,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
@@ -22,8 +23,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.GoogleMap
 import de.hdodenhof.circleimageview.CircleImageView
 
-class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
-    private val TAG = Detail_Discount::class.java.simpleName
+class Detail_Discount : AppCompatActivity()/*, OnMapReadyCallback*/ {
+    /*private val TAG = Detail_Discount::class.java.simpleName
     private lateinit var mMap: GoogleMap
 
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
@@ -36,7 +37,6 @@ class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
     internal lateinit var locationManager: LocationManager
     internal lateinit var locationListener: LocationListener
 
-    /*
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
@@ -97,7 +97,7 @@ class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
                 locationResult.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         mLastKnownLocation = task.result
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 8f))
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
@@ -112,27 +112,29 @@ class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
     }
 
     private fun getLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            }
         }
-    }
-    */
+    }*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_discount)
 
-        //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-        /*
+        /*ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
         txt_place = findViewById(R.id.txt_show_place) as TextView
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
-        //mapFragment.getMapAsync(this)
-         */
+        mapFragment.getMapAsync(this)*/
+
         findViewById<TextView>(R.id.tv_back).setOnClickListener { finish() }
 
         val sliderImage = findViewById<SliderImage>(R.id.slider)
@@ -192,9 +194,9 @@ class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
         }
         //Button Call
         val call = findViewById<Button>(R.id.btn_call)
-        call.setOnClickListener{
+        call.setOnClickListener {
             //   checkPermission()
-            makePhoneCall("0962363929")
+            //makePhoneCall("0962363929")
         }
         //Button Like
         val like = findViewById<Button>(R.id.btn_like)
@@ -202,22 +204,22 @@ class Detail_Discount : AppCompatActivity(){//}, OnMapReadyCallback {
             Toast.makeText(this@Detail_Discount, "This Product add to Your Liked", Toast.LENGTH_SHORT).show()
         }
 
-        val loan= findViewById<Button>(R.id.btn_loan)
-        loan.setOnClickListener{
+        val loan = findViewById<Button>(R.id.btn_loan)
+        loan.setOnClickListener {
             val intent = Intent(this@Detail_Discount, LoanCreateActivity::class.java)
             startActivity(intent)
         }
     }
 
-        fun makePhoneCall(number: String): Boolean {
-            try {
-                val intent = Intent(Intent.ACTION_CALL)
-                intent.data = Uri.parse("tel:$number")
-                startActivity(intent)
-                return true
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return false
-            }
+    fun makePhoneCall(number: String): Boolean {
+        try {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:$number")
+            startActivity(intent)
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
         }
+    }
 }

@@ -65,12 +65,13 @@ class FragmentC1: Fragment() {
             pk = preferences.getInt("id", 0)
         }
         getMyLike()
+        Log.d(TAG,"I'm access loan fragment")
 
         return view
     }
 
     private fun getMyLike() {
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"likebyuser/"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"api/v1/loan/"
         val client= OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)
@@ -86,18 +87,22 @@ class FragmentC1: Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
+                Log.d(TAG,"I'm success loan fragment"+mMessage)
 
                 try {
                     activity!!.runOnUiThread {
                         val itemApi = ArrayList<Item_API>()
                         val jsonObject = JSONObject(mMessage)
-                        Log.d("Run  :"," la"+jsonObject)
+                        Log.d("Run GET Loan  :"," la"+jsonObject)
+
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
                         for (i in 0 until jsonArray.length()) {
                         val `object` = jsonArray.getJSONObject(i)
                         post_id = `object`.getInt("post")
 //                        Log.d("Post id ",post_id.toString())
+
+
 
                             val url_user = "http://103.205.26.103:8000/allposts/"+post_id+"/"
                             Log.d("Post id ",url_user)
@@ -133,7 +138,7 @@ class FragmentC1: Fragment() {
                                             val now:Long = System.currentTimeMillis()
                                             val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                                             ///
-                                            val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
+                                            val URL_ENDPOINT1= ConsumeAPI.BASE_URL + "countview/?post="+id
                                             var MEDIA_TYPE=MediaType.parse("application/json")
                                             val client1= OkHttpClient()
                                             //val auth = "Basic $encode"

@@ -39,8 +39,10 @@
         <activity android:name=".Startup.Search"></activity>
         <activity android:name=".Startup.Search1"></activity>
         <activity android:name=".Edit_Account.Edit_account" />
+        <activity android:name=".Activity.Notification"/>
         <activity android:name=".Setting.Setting" />
         <activity android:name=".Login_Register.Register" />
+
         <activity android:name=".Login_Register.Login" />
         <activity android:name=".Login_Register.UserAccount" >
         </activity>
@@ -71,7 +73,6 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
         android:value="@string/google_maps_key"/>
 
-        <activity android:name=".Activity.Notification" />
         <activity android:name=".Activity.Message" />
         <activity android:name=".Product_New_Post.Detail_New_Post" />
         <activity android:name=".Buy_Sell_Rent.Sell.Sell" />

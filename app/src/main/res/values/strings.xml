@@ -47,6 +47,36 @@
     <string name="login_password">Password</string>
     <!-- End Login String -->
     <string name="title_activity_account"></string>
+    
+    //loancreateactivity
+    
+    <string-array name="co_borrower">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="ID_card">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="Family_book">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="Staff_id">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="Land_Tile">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+
+
 
     <!--
      https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=20:0B:71:3B:B2:46:75:A1:87:78:2E:4C:49:3F:E3:B6:FD:2D:76:D3%3Bexample.javatpoint.com.kotlingooglemapcurrentlocation
@@ -330,5 +360,11 @@
         <item>Item 3R</item>
         <item>Item 3S</item>
         <item>Item 3T</item>
+        <item>Item 3U</item>
+        <item>Item 3V</item>
+        <item>Item 3W</item>
+        <item>Item 3X</item>
+        <item>Item 3Y</item>
+        <item>Item 3Z</item>
     </string-array>
 </resources>
