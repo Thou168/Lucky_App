@@ -60,7 +60,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val location_duration=itemView.findViewById<TextView>(R.id.location)
         val show_view=itemView.findViewById<TextView>(R.id.user_view)
 
-        var id:Int=0
+//        var id:Int=0
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
@@ -88,8 +88,9 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                intent.putExtra("Image_user",decodedByte)
 //                intent.putExtra("Title",item.title)
                   intent.putExtra("Price",item.cost)
-////                intent.putExtra("Name",item.name)
-                intent.putExtra("ID",item.id)
+//                intent.putExtra("Name",item.name)
+                  intent.putExtra("ID",item.id)
+                  Log.d("ID  :",item.id.toString())
                 itemView.context.startActivity(intent)
             }
            // Glide.with(itemView.context).load(version.url).into(imageView)

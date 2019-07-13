@@ -57,14 +57,13 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
     private var mLocationPermissionGranted: Boolean = false
     private var mLastKnownLocation: Location? = null
-    private var postID:Int=0
+    private var postId:Int=0
     private var pk=0
     private var name=""
     private var pass=""
     private var Encode=""
     private var p=0
     internal lateinit var txt_detail_new: TextView
-    private var postId:Int=0
 
     private lateinit var tvPostTitle:TextView
     private lateinit var tvPrice:TextView
@@ -178,6 +177,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
         postId = intent.getIntExtra("ID",0)
+        Log.d("ID Detail  :",postId.toString())
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
@@ -686,9 +686,12 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 
-                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
-                            list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
-                            list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,1)
+                            if(postId != id) {
+                                Log.d("PostId ",postId.toString())
+                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
+                            }
+                            list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
+                            list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2)
                         }
 
                         //tv_count_view.setText("View: "+jsonCount)

@@ -96,7 +96,7 @@ class FragmentB1: Fragment() {
                         for (i in 0 until jsonArray.length()) {
                         val `object` = jsonArray.getJSONObject(i)
                         post_id = `object`.getInt("post")
-//                        Log.d("Post id ",post_id.toString())
+                        Log.d("Post id ",post_id.toString())
 
                             val url_user = "http://103.205.26.103:8000/allposts/"+post_id+"/"
                             Log.d("Post id ",url_user)

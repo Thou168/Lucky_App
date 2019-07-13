@@ -415,13 +415,13 @@ public class Camera extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG,"TTTT"+response.body().string());
-                    String message = response.body().string();
-                    Log.d("Responseqqq", message);
+            //        String message = response.body().string();
+            //        Log.d("Responseqqq", message);
                     startActivity(new Intent(getApplicationContext(),Account.class));
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("Responseqqq", message);
+            //              Log.d("Responseqqq", message);
                             Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
                         }
                     });
