@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.ss.bannerslider:bannerslider:1.8.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e503334f02f078e00d00a7bcd08af68d/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e503334f02f078e00d00a7bcd08af68d/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/884fb3881a24c6f98d6925cc4306f318/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/884fb3881a24c6f98d6925cc4306f318/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -243,7 +243,7 @@ public class Camera extends AppCompatActivity {
 
     private void initialUserInformation(int pk, String encode) {
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
-        MediaType MEDIA_TYPE     =  MediaType.parse("application/json");
+        MediaType MEDIA_TYPE=MediaType.parse("application/json");
         Log.d(TAG,"tt"+url);
         OkHttpClient client = new OkHttpClient();
 
@@ -296,12 +296,12 @@ public class Camera extends AppCompatActivity {
 
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
-            post.put("status", "1");
+            post.put("status", 1);
             post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
             post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
-            //post.put("discount", etDiscount_amount.getText().toString());
-            post.put("discount", 0);
-            post.put("user",null );
+            post.put("discount", etDiscount_amount.getText().toString());
+            //post.put("discount", 0);
+            post.put("user",pk );
             if(bitmapImage1==null) {
                 post.put("front_image_path", "");
                 post.put("front_image_base64", "");
@@ -331,14 +331,10 @@ public class Camera extends AppCompatActivity {
                 post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
                 post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
             }
-
-            Date date= new Date();
-            long time = date.getTime();
-            Timestamp ts = new Timestamp(time);
             //Instant.now().toString()
             post.put("created", "");
             post.put("created_by", pk);
-            post.put("modified", "");
+            post.put("modified", Instant.now().toString());
             post.put("modified_by", null);
             post.put("approved_date", null);
             post.put("approved_by", null);
@@ -352,9 +348,9 @@ public class Camera extends AppCompatActivity {
             //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-            post.put("vin_code", "");
-            post.put("machine_code", "");
-            post.put("type", type);
+            post.put("vin_code", "null");
+            post.put("machine_code", "null");
+            post.put("type", 3);
             //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
             post.put("contact_phone", "23232323");
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
@@ -366,19 +362,20 @@ public class Camera extends AppCompatActivity {
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/";
                     //Log.d("URL","URL"+url);
-                    sale.put("sale_status", 2);
-                    sale.put("record_status",2);
+                    sale.put("sale_status", 4);
+                    sale.put("record_status",1);
                     sale.put("sold_date", null);
                     //sale.put("price", etPrice.getText().toString().toLowerCase());
                     //sale.put("total_price", etPrice.getText().toString().toLowerCase());
                     sale.put("price", etPrice.getText().toString());
                     sale.put("total_price",etPrice.getText().toString());
                     post.put("sale_post",new JSONArray("["+sale+"]"));
+
                     break;
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/";
                     JSONObject rent=new JSONObject();
-                    rent.put("rent_status",1);
+                    rent.put("rent_status",4);
                     rent.put("record_status",1);
                     rent.put("rent_type","month");
                     rent.put("price",etPrice.getText().toString().toLowerCase());
@@ -387,19 +384,16 @@ public class Camera extends AppCompatActivity {
                     rent.put("return_date",null);
                     rent.put("rent_count_number",0);
                     post.put("rent_post",new JSONArray("["+rent+"]"));
-                    Log.d("Failure:","m"+rent);
                     break;
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";
                     JSONObject buy=new JSONObject();
-                    buy.put("buy_status",1);
+                    buy.put("buy_status",4);
                     buy.put("record_status",1);
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;
             }
-
-
-            Log.d(TAG,url);
+            Log.d(TAG,post.toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
             Request request = new Request.Builder()
@@ -420,18 +414,17 @@ public class Camera extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.isSuccessful()) {
-                        String message = response.body().string();
-
-                        startActivity(new Intent(getApplicationContext(),Account.class));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("Responseqqq", message);
-                                Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
+                    Log.d(TAG,"TTTT"+response.body().string());
+                    String message = response.body().string();
+                    Log.d("Responseqqq", message);
+                    startActivity(new Intent(getApplicationContext(),Account.class));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("Responseqqq", message);
+                            Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         }catch (Exception e){

@@ -1,12 +1,15 @@
 package com.example.lucky_app.Activity
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.format.DateUtils
 import android.util.Log
 import androidx.core.view.GravityCompat
@@ -37,6 +40,11 @@ import com.example.lucky_app.utils.CommonFunction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 import okhttp3.*
 import org.json.JSONObject
@@ -134,7 +142,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             language("km")
             recreate()
         }
-
+        requestStoragePermission(false)
+        requestStoragePermission(true)
         navView.setNavigationItemSelectedListener(this)
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.setOnNavigationItemSelectedListener { item ->
@@ -569,5 +578,51 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         })
         return count
+    }
+    private fun requestStoragePermission(isCamera: Boolean) {
+        Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .withListener(object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            if (isCamera) {
+                                //dispatchTakePictureIntent()
+                            } else {
+                                //dispatchGalleryIntent()
+                            }
+                        }
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied) {
+                            // show alert dialog navigating to Settings
+                            showSettingsDialog()
+                        }
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest>, token: PermissionToken) {
+                        token.continuePermissionRequest()
+                    }
+                }).withErrorListener { error -> Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show() }
+                .onSameThread()
+                .check()
+    }
+    // navigating user to app settings
+    private fun openSettings() {
+        //Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        val intent = Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivityForResult(intent, 101)
+    }
+    private fun showSettingsDialog() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Need Permissions")
+        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.")
+        builder.setPositiveButton("GOTO SETTINGS") { dialog, which ->
+            dialog.cancel()
+            openSettings()
+        }
+        builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+        builder.show()
+
     }
 }

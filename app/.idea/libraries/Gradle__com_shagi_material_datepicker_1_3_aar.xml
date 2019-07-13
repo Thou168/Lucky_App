@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.shagi:material-datepicker:1.3@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cac4fa11682e9159903f87a0618ec45c/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cac4fa11682e9159903f87a0618ec45c/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f50cf92439c46f218707e83cf03f5f17/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f50cf92439c46f218707e83cf03f5f17/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

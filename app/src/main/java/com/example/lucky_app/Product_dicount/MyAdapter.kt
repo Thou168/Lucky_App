@@ -1,9 +1,11 @@
 package com.example.lucky_app.Product_dicount
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +59,9 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
              title.text = item.title
              cost.text = price.toString()
 
+            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
+            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            imageView.setImageBitmap(decodedByte)
 
             itemView.findViewById<LinearLayout>(R.id.user).setOnClickListener {
 //                val intent = Intent(imageView.context,User_post::class.java)
