@@ -106,23 +106,3 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
 
     //
     internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-    fun setMoreDataAvailable(moreDataAvailable: Boolean) {
-        isMoreDataAvailable = moreDataAvailable
-    }
-
-    fun notifyDataChanged() {
-        notifyDataSetChanged()
-        isLoading = false
-    }
-
-
-    interface OnLoadMoreListener {
-        fun onLoadMore()
-    }
-
-    fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
-        this.loadMoreListener = loadMoreListener
-    }
-    //
-}

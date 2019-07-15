@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.lucky_app"
+        applicationId "com.bt_121shoppe.lucky_app"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
