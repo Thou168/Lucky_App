@@ -57,29 +57,29 @@
     //user account registration
     <string name="title_Login">Login account</string>
     <string name="title_registration">Register to post free ad</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="email" translatable="false">Email</string>
-    <string name="Password">Password</string>
-    <string name="confirm">Confirm Password</string>
-    <string name="or">Or</string>
-    <string name="register_by_facebook">Register by using your facebook account</string>
+    <string name="phone_number">លេខទូរស័ព្ទ</string>
+    <string name="email" translatable="false">អ៊ីម៉ែល</string>
+    <string name="Password">លេខសម្ងាត់</string>
+    <string name="confirm">បញ្ជាក់លេខសម្ងាត់</string>
+    <string name="or">ឬ</string>
+    <string name="register_by_facebook">ចុះឈ្មោះដោយប្រើ​​គណនីហ្វេសប៊ុក</string>
 
     //Setting
-    <string name="change_password">Change Password</string>
-    <string name="language">Language</string>
-    <string name="language2">English</string>
-    <string name="setting">Setting</string>
-    <string name="version">Version</string>
-    <string name="logout">Logout</string>
+    <string name="change_password">ប្តូរលេខសម្ងាត់</string>
+    <string name="language">ភាសា</string>
+    <string name="language2">អង់គ្លេស</string>
+    <string name="setting">ការកំណត់</string>
+    <string name="version">កំណែ</string>
+    <string name="logout">ចាកចេញ</string>
     //Edit_Account
-    <string name="txt_account_setting">Account Setting</string>
-    <string name="hit_fistname">Fist Name</string>
-    <string name="hit_lastname">Last Name</string>
-    <string name="hit_store">Store/Company Name</string>
-    <string name="hit_about_shop">About Shop/Company</string>
-    <string name="hit_wingnumber">Wing Account / Number</string>
-    <string name="hit_wingaccount">Wing Account / Name</string>
-    <string name="hit_dealer">Dealer</string>
+    <string name="txt_account_setting">ការកំណត់គណនី</string>
+    <string name="hit_fistname">នាមខ្លួន</string>
+    <string name="hit_lastname">នាមត្រកួល</string>
+    <string name="hit_store">ឈ្មោះហាង/ក្រុមហ៊ុន</string>
+    <string name="hit_about_shop">អំពីហាង/ក្រុមហ៊ុន</string>
+    <string name="hit_wingnumber">គណនីវីង/លេខ</string>
+    <string name="hit_wingaccount">គណនីវីង/ឈ្មោះ</string>
+    <string name="hit_dealer">អ្នកចែកចាយ</string>
 
     //delete and edit
     <string name="button_edit">កែប្រែ</string>
@@ -92,7 +92,56 @@
     <string name="sell1">លក់</string>
     <string name="rent">ជួល</string>
 
-    <string name="back">Back</string>
+    <string name="back">ត្រឡប់</string>
+
+    <!-- Start Loan Information String -->
+    <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
+    <string name="title_fill_information">បំពេញព័ត៌មាន</string>
+    <string name="txt_clr_detail">ព័ត៌មានលំអិត</string>
+    <string name="hit_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="hit_gender">ភេទ</string>
+    <string name="hit_age">អាយុ</string>
+    <string name="hit_job">មុខរបរ</string>
+    <string name="hit_mon_income">ប្រាក់ចំណូលប្រចាំខែ</string>
+    <string name="hit_mon_expense">ប្រាក់ចំណាយប្រចាំខែ</string>
+    <string name="hit_phone">លេខទូរស័ព្ទ</string>
+    <string name="txt_clr_information">ព័ត៌មានឥណទាន</string>
+    <string name="hit_loan_amount">ចំនួនប្រាក់កម្ចី</string>
+    <string name="hit_loan_duration">រយៈពេលខ្ចី(ខែ)</string>
+    <string name="hit_purpos">គោលបំណងប្រាក់កម្ចី</string>
+    <string name="hit_status">ស្ថានភាព</string>
+    <string name="txt_clr_supporting">ឯកសារគាំទ្រការខ្ចីប្រាក់</string>
+    <string name="hit_state_id">អត្តសញ្ញាណប័ណ្ណ</string>
+    <string name="hit_family_book">សៀវភៅគ្រួសារ</string>
+    <string name="hit_staffid">Sប័ណ្ណបុគ្គលិក/ប័ណ្ណប្រាក់ខែ</string>
+    <string name="hit_hourse">ប្លង់ផ្ទះ</string>
+    <string name="loan_calculation">ការគណនាប្រាក់កម្ចី</string>
+    <string name="loan_calculation_title">ការគណនាប្រាក់កម្ចី</string>
+    <string name="title_loan_price">តម្លៃ ($)</string>
+    <string name="title_loan_interest_rate">អត្រាការប្រាក់ (%)</string>
+    <string name="title_loan_deposit">ដកប្រាក់ ($)</string>
+    <string name="title_loan_term">រយៈពេល(ឆ្នាំ)</string>
+    <string name="title_monthly_payment">ទូរទាត់ប្រចាំខែ</string>
+
+    <string name="contact_number">លេខទំនាក់ទំនង</string>
+
+    <!-- button part -->
+    <string name="back_button">ត្រឡប់</string>
+    <string name="submit_button">បញ្ជូន</string>
+    <string name="login_button">ចូល</string>
+
+    <string name="menu_home">ទំព័រដើម</string>
+    <string name="menu_gallery">វិចិត្រសាល</string>
+    <string name="menu_slideshow">បង្ហាញស្លាយ</string>
+    <string name="menu_tools">ឧបករណ៍</string>
+    <string name="menu_share">ចែករំលែក</string>
+    <string name="menu_send">ផ្ញើ</string>
+
+    <string name="account_toolbar">គណនីរបស់ខ្ញុំ</string>
+
+    <!-- Login String -->
+    <string name="login_username">លេខទូរស័ព្ទ</string>
+    <string name="login_password">លេខសម្ងាត់</string>
 
 
 </resources>

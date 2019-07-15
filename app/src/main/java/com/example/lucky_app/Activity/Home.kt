@@ -380,6 +380,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     private fun Get(): ArrayList<Item_API>{
+
         val itemApi = ArrayList<Item_API>()
         val url = "http://103.205.26.103:8000/allposts/"
         val client = OkHttpClient()
@@ -437,6 +438,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     .url(URL_ENDPOINT1)
                                     .header("Accept","application/json")
                                     .header("Content-Type","application/json")
+                                    //.header("Authorization",auth)
                        //             .header("Authorization",auth)
                                     .build()
                             client1.newCall(request1).enqueue(object : Callback{
