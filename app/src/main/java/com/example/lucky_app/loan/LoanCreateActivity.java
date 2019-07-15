@@ -67,10 +67,15 @@ public class LoanCreateActivity extends AppCompatActivity {
 //    String[] staff_id = getResources().getStringArray(R.array.Staff_id);
 //    String[] land_title = getResources().getStringArray(R.array.Land_Tile);
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_create);
+
+
+
         txtBack = (TextView)findViewById(R.id.tvBack_account);
         txtBack.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -246,20 +251,21 @@ public class LoanCreateActivity extends AppCompatActivity {
             }
         });
 
+
     } //oncreate
 
     private void consumeLoanCreateApi(){
-        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/";
+        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"loanbyuser/";
 
         OkHttpClient client=new OkHttpClient();
         JSONObject data=new JSONObject();
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",1);
+            data.put("loan_interest_rate",loan_term); //loan term
             data.put("loan_duration","24");
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",1);
+            data.put("loan_status",9);
             data.put("record_status",1);
             data.put("username","Bye");
             data.put("gender","female");

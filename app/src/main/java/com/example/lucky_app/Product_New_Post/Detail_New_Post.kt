@@ -178,6 +178,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         setContentView(R.layout.activity_detail_new_post)
         postId = intent.getIntExtra("ID",0)
         Log.d("ID Detail  :",postId.toString())
+
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
@@ -285,6 +286,8 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         val loan= findViewById<Button>(R.id.btn_loan)
         loan.setOnClickListener{
             val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+            //put extra id from detail new post to loancreate activity
+            intent.putExtra("PutIDLoan",postId)
             startActivity(intent)
         }
 

@@ -437,7 +437,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     .url(URL_ENDPOINT1)
                                     .header("Accept","application/json")
                                     .header("Content-Type","application/json")
-                                    .header("Authorization",auth)
+                                    //.header("Authorization",auth)
                                     .build()
                             client1.newCall(request1).enqueue(object : Callback{
                                 override fun onFailure(call: Call, e: IOException) {
@@ -452,6 +452,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     runOnUiThread {
                                         try {
                                             val jsonObject= JSONObject(mMessage1)
+                                            Log.d("FFFFFF"," CCOUNT"+jsonObject)
                                             val jsonCount=jsonObject.getInt("count")
                                             cc=jsonCount
                                             itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
