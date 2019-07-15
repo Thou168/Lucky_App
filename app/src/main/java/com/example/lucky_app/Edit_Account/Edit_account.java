@@ -105,18 +105,11 @@ public class Edit_account extends AppCompatActivity {
         Encode =getEncodedString(name,pass);
         Log.e(TAG,name+" "+pass+" "+pk+" "+Encode+" "+url);
 
-
-
-
         tvType = (TextView)findViewById(R.id.tvType);
-
         etUsername  =(EditText) findViewById(R.id.etUsername);
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
         etPhone     =(EditText) findViewById(R.id.etPhone_account);
-
-
-
         mp_Dob     = (MaterialSpinner) findViewById(R.id.mp_Dob);
         mp_Pob     = (MaterialSpinner) findViewById(R.id.mp_Pob);
         mp_Married = (MaterialSpinner) findViewById(R.id.mp_Married);
@@ -136,7 +129,6 @@ public class Edit_account extends AppCompatActivity {
         mp_Married.setAdapter(adapter2);
 
         //Date
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,8 +173,6 @@ public class Edit_account extends AppCompatActivity {
         datePickerFragmentDialog.setOkText(getResources().getString(R.string.ok_dob));
         datePickerFragmentDialog.setCancelText(getResources().getString(R.string.cancel_dob));
     }
-
-
 
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -256,14 +246,17 @@ public class Edit_account extends AppCompatActivity {
                                 married.add(0,m);
                                 mp_Married.setSelection(0);
 
-                                int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
-                                int pob=ad_id.getPosition(p);
-                                Log.d(TAG,"r"+pob);
-                                mp_Pob.setSelection(pob);
-
-                                int l = Integer.parseInt(convertJsonJava.getProfile().getProvince());
-                                int prov = ad_id.getPosition(l);
-                                mp_location.setSelection(prov);
+                                if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
+                                    int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
+                                    int pob = ad_id.getPosition(p);
+                                    Log.d(TAG, "r" + pob);
+                                    mp_Pob.setSelection(pob);
+                                }
+                                if(convertJsonJava.getProfile().getProvince()!=null) {
+                                    int l = Integer.parseInt(convertJsonJava.getProfile().getProvince());
+                                    int prov = ad_id.getPosition(l);
+                                    mp_location.setSelection(prov);
+                                }
                             }
                         }
                     });
@@ -426,18 +419,16 @@ public class Edit_account extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String message = response.body().string();
-                    Log.d("Response", message);
-                    startActivity(new Intent(getApplicationContext(), Account.class));
-                }else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                String message = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+
+                        Log.d("Response", message);
+                        startActivity(new Intent(getApplicationContext(), Account.class));
+                    }
+                });
                 //finish();
             }
         });

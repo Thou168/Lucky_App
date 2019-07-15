@@ -377,7 +377,7 @@ public class Camera extends AppCompatActivity {
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/";
                     //Log.d("URL","URL"+url);
-                    sale.put("sale_status", 4);
+                    sale.put("sale_status", 3);
                     sale.put("record_status",1);
                     sale.put("sold_date", null);
                     //sale.put("price", etPrice.getText().toString().toLowerCase());
@@ -390,7 +390,7 @@ public class Camera extends AppCompatActivity {
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/";
                     JSONObject rent=new JSONObject();
-                    rent.put("rent_status",4);
+                    rent.put("rent_status",3);
                     rent.put("record_status",1);
                     rent.put("rent_type","month");
                     rent.put("price",etPrice.getText().toString().toLowerCase());
@@ -403,7 +403,7 @@ public class Camera extends AppCompatActivity {
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";
                     JSONObject buy=new JSONObject();
-                    buy.put("buy_status",4);
+                    buy.put("buy_status",3);
                     buy.put("record_status",1);
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;

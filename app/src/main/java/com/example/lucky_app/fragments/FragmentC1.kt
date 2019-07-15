@@ -65,7 +65,6 @@ class FragmentC1: Fragment() {
             pk = preferences.getInt("id", 0)
         }
         getMyLoan()
-        Log.d(TAG,"I'm access loan fragment")
 
         return view
     }
@@ -87,13 +86,13 @@ class FragmentC1: Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                Log.d(TAG,"I'm success loan fragment"+mMessage)
+                Log.d(TAG,"Laon "+mMessage)
 
                 try {
                     activity!!.runOnUiThread {
                         val itemApi = ArrayList<Item_API>()
                         val jsonObject = JSONObject(mMessage)
-                        Log.d("Run GET Loan  :"," la"+jsonObject)
+                        //Log.d("Run GET Loan  :"," la"+jsonObject)
 
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
@@ -109,7 +108,7 @@ class FragmentC1: Fragment() {
                                     .url(url_user)
                                     .header("Accept","application/json")
                                     .header("Content-Type","application/json")
-                                    .header("Authorization",encodeAuth)
+                                    //.header("Authorization",encodeAuth)
                                     .build()
                             client1.newCall(request1).enqueue(object : Callback{
                                 override fun onFailure(call: Call, e: IOException) {

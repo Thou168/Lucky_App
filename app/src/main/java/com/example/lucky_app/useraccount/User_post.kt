@@ -83,7 +83,7 @@ class User_post : AppCompatActivity() {
                 .url(URL_ENDPOINT)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
-                .header("Authorization",encode)
+                //.header("Authorization",encode)
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -143,7 +143,7 @@ class User_post : AppCompatActivity() {
                 .url(URL_ENDPOINT)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
-                .header("Authorization",encode)
+                //.header("Authorization",encode)
                 .build()
         client.newCall(request).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {

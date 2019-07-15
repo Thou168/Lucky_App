@@ -428,15 +428,16 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
-                        val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
-                        val coverpicture: String= if(user1.profile.cover_photo==null) " " else user1.profile.base64_cover_photo_image
+                        val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
+                        val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
                         Log.d("TAGGGGG",profilepicture)
                         Log.d("TAGGGGG",coverpicture)
                         tvUsername!!.setText(user1.username)
                         //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                         //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                        if(profilepicture==null){
-
+                        if(profilepicture.isNullOrEmpty()){
+                            imgProfile!!.setImageResource(R.drawable.user)
+                            Log.d("Profile","TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
                         }else
                         {
                             val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)

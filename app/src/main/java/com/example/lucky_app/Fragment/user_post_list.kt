@@ -77,7 +77,7 @@ class user_post_list: Passdata() {
                 .url(URL_ENDPOINT)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
-                .header("Authorization",encode)
+                //.header("Authorization",encode)
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -122,7 +122,7 @@ class user_post_list: Passdata() {
                                         .url(URL_ENDPOINT1)
                                         .header("Accept","application/json")
                                         .header("Content-Type","application/json")
-                                        .header("Authorization",encode)
+                                        //.header("Authorization",encode)
                                         .build()
                                 client1.newCall(request1).enqueue(object : Callback{
                                     override fun onFailure(call: Call, e: IOException) {

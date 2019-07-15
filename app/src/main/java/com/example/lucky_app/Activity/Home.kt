@@ -7,10 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.format.DateUtils
+import android.util.Base64
 import android.util.Log
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -26,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.sliderimage.logic.SliderImage
 import com.example.lucky_app.Api.ConsumeAPI
+import com.example.lucky_app.Api.User
 import com.example.lucky_app.Buy_Sell_Rent.Buy.Buy
 import com.example.lucky_app.Buy_Sell_Rent.Rent.Rent
 import com.example.lucky_app.Buy_Sell_Rent.Sell.Sell
@@ -46,6 +49,9 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_acount.*
+import kotlinx.android.synthetic.main.nav_header_home.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -116,6 +122,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         if (sharedPref.contains("token") || sharedPref.contains("id")){
             navView.setVisibility(View.VISIBLE)
+            name = sharedPref.getString("name", "")
+            pass = sharedPref.getString("pass", "")
+            Encode = CommonFunction.getEncodedString(name,pass)
+            if (sharedPref.contains("token")) {
+                pk = sharedPref.getInt("Pk",0)
+            } else if (sharedPref.contains("id")) {
+                pk = sharedPref.getInt("id", 0)
+            }
+            getUserProfile()
         }else{
             navView.setVisibility(View.GONE)
         }
@@ -190,14 +205,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }
 
         //val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
-        name = sharedPref.getString("name", "")
-        pass = sharedPref.getString("pass", "")
-        Encode = CommonFunction.getEncodedString(name,pass)
-        if (sharedPref.contains("token")) {
-            pk = sharedPref.getInt("Pk",0)
-        } else if (sharedPref.contains("id")) {
-            pk = sharedPref.getInt("id", 0)
-        }
+
 
 //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
@@ -377,6 +385,73 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun getUserProfile(){
+        var user1 = User()
+        var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
+        var MEDIA_TYPE=MediaType.parse("application/json")
+        val encodeAuth="Basic $Encode"
+        var client= OkHttpClient()
+        var request=Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encodeAuth)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+
+                val gson = Gson()
+                try {
+                    user1= gson.fromJson(mMessage, User::class.java)
+                    runOnUiThread {
+                        val drawer_username=findViewById<TextView>(R.id.drawer_username)
+                        drawer_username.setText(user1.username)
+
+                        val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
+                        val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
+                        Log.d("TAGGGGG",profilepicture)
+                        Log.d("TAGGGGG",coverpicture)
+                        //tvUsername!!.setText(user1.username)
+                        //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                        //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
+                        if(profilepicture.isNullOrEmpty()){
+                            imageView!!.setImageResource(R.drawable.user)
+                        }else
+                        {
+                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                            val imageView=findViewById<CircleImageView>(R.id.imageView)
+                            imageView!!.setImageBitmap(decodedByte)
+                        }
+
+                        if(coverpicture==null){
+
+                        }else
+                        {
+                            val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
+                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                            val cover_layout=findViewById<LinearLayout>(R.id.cover_layout)
+
+                            //imgCover!!.setImageBitmap(decodedByte)
+                        }
+
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
     }
 
     private fun Get(): ArrayList<Item_API>{

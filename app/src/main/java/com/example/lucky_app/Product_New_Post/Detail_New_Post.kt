@@ -335,7 +335,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                 .url(url)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .header("Authorization", auth)
+                //.header("Authorization", auth)
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -529,7 +529,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                 .url(URL_ENDPOINT) 
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
-                .header("Authorization",encode)
+                //.header("Authorization",encode)
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
