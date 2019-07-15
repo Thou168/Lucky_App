@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Loan Information"
+            android:text="@string/loan_information"
             android:textSize="@dimen/page_title"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -77,7 +77,7 @@
                             android:id="@+id/etJob"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Job"
+                            android:hint="@string/hit_job"
                             android:paddingLeft="10dp"
                             android:background="@null" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -135,7 +135,7 @@
                             android:id="@+id/etMonthlyIncome"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Monthly Income"
+                            android:hint="@string/hit_mon_income"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
                             android:background="@null" />
@@ -161,7 +161,7 @@
                             android:id="@+id/etMonthlyExpense"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Monthly Expense"
+                            android:hint="@string/hit_mon_expense"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
                             android:background="@null" />
@@ -180,7 +180,7 @@
                     android:background="@color/gray_light"
                     android:textAllCaps="true"
                     android:id="@+id/tvLoanInformation"
-                    android:text="loan information"/>
+                    android:text="@string/txt_clr_information"/>
 
                 <RelativeLayout
                     android:id="@+id/rlLoanInformation"
@@ -205,7 +205,7 @@
                             android:id="@+id/etLoanPurpose"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Loan Purpose"
+                            android:hint="@string/hit_purpos"
                             android:paddingLeft="10dp"
                             android:background="@null" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -230,7 +230,7 @@
                             android:id="@+id/etLoanAmount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Loan Amount"
+                            android:hint="@string/hit_loan_amount"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
                             android:background="@null" />
@@ -256,7 +256,7 @@
                             android:id="@+id/etLoanTerm"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Loan Term"
+                            android:hint="@string/title_loan_term"
                             android:paddingLeft="10dp"
                             android:inputType="number"
                             android:background="@null" />
@@ -275,7 +275,7 @@
                     android:paddingLeft="@dimen/dp_8"
                     android:background="@color/gray_light"
                     android:textAllCaps="true"
-                    android:text="loan supporting document"/>
+                    android:text="@string/txt_clr_supporting"/>
 
                 <RelativeLayout
                     android:id="@+id/rlLoanSupportingDoc"
@@ -297,7 +297,7 @@
                         android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgIDCard"
                         android:gravity="center_vertical"
-                        android:hint="ID Card"
+                        android:hint="@string/hit_state_id"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"
@@ -332,7 +332,7 @@
                         android:layout_toRightOf="@+id/imgFamilyBook"
                         android:layout_below="@+id/imgIDCard"
                         android:gravity="center_vertical"
-                        android:hint="Family Book"
+                        android:hint="@string/hit_family_book"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"
@@ -366,7 +366,7 @@
                         android:layout_toRightOf="@+id/imgStaffID"
                         android:layout_below="@+id/imgFamilyBook"
                         android:gravity="center_vertical"
-                        android:hint="Staff ID/ Salary Slip"
+                        android:hint="@string/hit_staffid"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"
@@ -400,7 +400,7 @@
                         android:layout_toRightOf="@+id/imgLandTitle"
                         android:layout_below="@+id/imgStaffID"
                         android:gravity="center_vertical"
-                        android:hint="Land Tile"
+                        android:hint="@string/hit_hourse"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"

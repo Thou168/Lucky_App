@@ -18,7 +18,7 @@
                 android:id="@+id/tv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back"
+                android:text="@string/back"
                 android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/arrow_back_black_24dp"/>
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Post Ad"
+                android:text="@string/camera"
                 android:textColor="#fff"
                 android:textSize="15dp"/>
         </androidx.appcompat.widget.Toolbar>
@@ -64,7 +64,7 @@
                 </LinearLayout>
                 <TextView
                     android:padding="@dimen/dp_8"
-                    android:text="DETAIL"
+                    android:text="@string/txt_clr_detail"
                     android:textSize="@dimen/dp_16"
                     android:background="@color/grey_light"
                     android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                         android:layout_marginLeft="-5dp"
                         android:layout_toRightOf="@+id/imgPostType"
                         android:gravity="center_vertical"
-                        android:hint="Post Type"
+                        android:hint="@string/post_type"
                         android:textSize="18dp"
                         android:background="@null"
                         style="@style/AppTheme.NoActionBar"
@@ -117,7 +117,7 @@
                             android:id="@+id/etTitle"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Title"
+                            android:hint="@string/title"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -139,7 +139,7 @@
                         android:layout_toRightOf="@+id/imgCategory"
                         android:layout_below="@+id/tilTitle"
                         android:gravity="center_vertical"
-                        android:hint="Category"
+                        android:hint="@string/category"
                         android:textSize="18dp"
                         android:background="@null"
                         android:layout_marginLeft="-5dp"
@@ -160,7 +160,7 @@
                         android:layout_toRightOf="@+id/imgType_elec"
                         android:layout_below="@+id/imgCategory"
                         android:gravity="center_vertical"
-                        android:hint="Type"
+                        android:hint="@string/type"
                         android:textSize="18dp"
                         android:background="@null"
                         android:layout_marginLeft="-5dp"
@@ -181,7 +181,7 @@
                         android:layout_below="@+id/imgType_elec"
                         android:layout_toRightOf="@+id/imgBrand"
                         android:gravity="center_vertical"
-                        android:hint="Brand"
+                        android:hint="@string/brand"
                         android:textSize="18dp"
                         android:layout_marginLeft="-5dp"
                         android:background="@null"
@@ -203,7 +203,7 @@
                         android:layout_toRightOf="@+id/imgModel"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
-                        android:hint="Model"
+                        android:hint="@string/model"
                         android:textSize="18dp"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
@@ -223,7 +223,7 @@
                         android:layout_toRightOf="@+id/imgModel"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
-                        android:hint="Year"
+                        android:hint="@string/year"
                         android:textSize="18dp"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
@@ -244,7 +244,7 @@
                         android:layout_toRightOf="@+id/imgCondition"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
-                        android:hint="Condition"
+                        android:hint="@string/condition"
                         android:textSize="18dp"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
@@ -265,7 +265,7 @@
                         android:layout_toRightOf="@+id/imgColor"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
-                        android:hint="Color"
+                        android:hint="@string/color"
                         android:textSize="18dp"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
@@ -291,7 +291,7 @@
                             android:id="@+id/etPrice"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Price"
+                            android:hint="@string/price"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -318,7 +318,7 @@
                             android:id="@+id/etDescription"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Description"
+                            android:hint="@string/description"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -338,7 +338,7 @@
                     <TextView
                         android:id="@+id/titl_discount"
                         android:padding="@dimen/dp_8"
-                        android:text="DISCOUNT"
+                        android:text="@string/discountt"
                         android:textSize="@dimen/dp_16"
                         android:background="@color/grey_light"
                         android:layout_width="match_parent"
@@ -359,7 +359,7 @@
                         android:layout_below="@+id/titl_discount"
                         android:layout_toRightOf="@+id/imgDisType"
                         android:gravity="center_vertical"
-                        android:hint="Discount Type"
+                        android:hint="@string/discount_type"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"
@@ -385,7 +385,7 @@
                             android:id="@+id/etDisAmount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Discount"
+                            android:hint="@string/discount"
                             android:inputType="number"
                             android:paddingLeft="10dp"
                             android:background="@null"
@@ -396,7 +396,7 @@
 
                 <TextView
                     android:padding="@dimen/dp_8"
-                    android:text="CONTACT DETAIL"
+                    android:text="@string/contact_detail"
                     android:textSize="@dimen/dp_16"
                     android:background="@color/grey_light"
                     android:layout_width="match_parent"
@@ -423,7 +423,7 @@
                             android:id="@+id/etName"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Name"
+                            android:hint="@string/name"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -449,7 +449,7 @@
                             android:id="@+id/etphone1"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Phone Number"
+                            android:hint="@string/phone_number"
                             android:inputType="phone"
                             android:paddingLeft="10dp"
                             android:background="@null"
@@ -478,7 +478,7 @@
                             android:id="@+id/etEmail"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="Email"
+                            android:hint="@string/email"
                             android:inputType="textEmailAddress"
                             android:paddingLeft="10dp"
                             android:background="@null"
@@ -500,7 +500,7 @@
                         android:layout_below="@+id/imgEmail"
                         android:layout_toRightOf="@+id/imgAddress"
                         android:gravity="center_vertical"
-                        android:hint="Address"
+                        android:hint="@string/address"
                         android:paddingLeft="10dp"
                         android:textSize="18dp"
                         android:background="@drawable/underline_gray"
@@ -520,7 +520,7 @@
                         android:layout_height="30dp"
                         android:layout_margin="30dp"
                         android:layout_centerInParent="true"
-                        android:text="Submit"
+                        android:text="@string/submit_button"
                         android:layout_below="@+id/tvAddress"
                         android:background="@drawable/shap_ratangle1"/>
                 </RelativeLayout>

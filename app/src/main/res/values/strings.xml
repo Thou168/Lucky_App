@@ -31,6 +31,8 @@
     <string name="sell1">SELL</string>
     <string name="rent">RENT</string>
 
+    <string name="search">Search here</string>
+
     <string name="back">Back</string>
 
     <string name="menu_home">Home</string>
@@ -75,7 +77,7 @@
         <item>No</item>
     </string-array>
 
-
+    <string name="category">Category</string>
 
 
     <!--
@@ -272,6 +274,7 @@
     <string name="hit_mon_expense">Monthy Average Expense</string>
     <string name="hit_phone">Phone</string>
     <string name="txt_clr_information">LOAN INFORMATION</string>
+    <string name="loan_information">Loan Information</string>
     <string name="hit_loan_amount">Loan Amount</string>
     <string name="hit_loan_duration">Loan Duration (month)</string>
     <string name="hit_purpos">Loan Purpose</string>
@@ -370,4 +373,25 @@
         <item>Item 3Y</item>
         <item>Item 3Z</item>
     </string-array>
+
+    <string name="birth">Date of birth</string>
+    <string name="place">Place of birth</string>
+    <string name="married">Married Status</string>
+    <string name="location">Location</string>
+
+    //Camera post
+    <string name="choose">Choose</string>
+    <string name="upload">Upload</string>
+    //post ad
+    <string name="post_type">Post type</string>
+    <string name="title">Title</string>
+    <string name="type">Type</string>
+    <string name="model">Model</string>
+    <string name="address">Address</string>
+    <string name="name">Name</string>
+    <string name="contact_detail">CONTACT DETAIL</string>
+    <string name="discountt">Discount</string>
+    <string name="discount">DISCOUNT</string>
+    <string name="discount_type">Discount type</string>
+
 </resources>

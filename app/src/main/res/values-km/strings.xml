@@ -12,12 +12,12 @@
 
     //Detail
     <string name="nav_detail">ពត័មានលម្អិត</string>
-    <string name="description">ការពណ៏នា</string>
+    <string name="description">ការពណ៌នា</string>
     <string name="tax">ប្រភេទពន្ធ</string>
     <string name="brand">ម៉ាក</string>
     <string name="year">ឆ្នាំផលិត</string>
     <string name="price">តម្លៃ</string>
-    <string name="color">ពណ៏</string>
+    <string name="color">ពណ៌</string>
     <string name="condition">លក្ខខណ្ឌ</string>
 
     //menu
@@ -37,12 +37,12 @@
     //title
     <string name="home">ទំព័រដើម</string>
     <string name="notification">ការជូនដំណឹង</string>
-    <string name="camera">Post Ad</string>
+    <string name="camera">ដាក់លក់</string>
     <string name="message">ផ្ញើសារ</string>
     <string name="account">គណនី</string>
 
     //category
-    <string name="motor">Motor</string>
+    <string name="motor">ម៉ូតូ</string>
     <string name="electronic">អេឡិចត្រូនិច</string>
     <string name="vehicle">យានយន្ត</string>
 
@@ -56,7 +56,7 @@
 
     //user account registration
     <string name="title_Login">Login account</string>
-    <string name="title_registration">Register to post free ad</string>
+    <string name="title_registration">ចុះឈ្មោះលក់ដោយឥតគិតថ្លៃ</string>
     <string name="phone_number">លេខទូរស័ព្ទ</string>
     <string name="email" translatable="false">អ៊ីម៉ែល</string>
     <string name="Password">លេខសម្ងាត់</string>
@@ -92,10 +92,12 @@
     <string name="sell1">លក់</string>
     <string name="rent">ជួល</string>
 
+    <string name="search">ស្វែងរក</string>
+
     <string name="back">ត្រឡប់</string>
 
     <!-- Start Loan Information String -->
-    <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
+    <style name="loan_calculation_title1">ការរគណនាប្រាក់កម្ចី/ Loan Calculation</style>
     <string name="title_fill_information">បំពេញព័ត៌មាន</string>
     <string name="txt_clr_detail">ព័ត៌មានលំអិត</string>
     <string name="hit_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
@@ -106,6 +108,7 @@
     <string name="hit_mon_expense">ប្រាក់ចំណាយប្រចាំខែ</string>
     <string name="hit_phone">លេខទូរស័ព្ទ</string>
     <string name="txt_clr_information">ព័ត៌មានឥណទាន</string>
+    <string name="loan_information">ព័ត៌មានឥណទាន</string>
     <string name="hit_loan_amount">ចំនួនប្រាក់កម្ចី</string>
     <string name="hit_loan_duration">រយៈពេលខ្ចី(ខែ)</string>
     <string name="hit_purpos">គោលបំណងប្រាក់កម្ចី</string>
@@ -113,7 +116,7 @@
     <string name="txt_clr_supporting">ឯកសារគាំទ្រការខ្ចីប្រាក់</string>
     <string name="hit_state_id">អត្តសញ្ញាណប័ណ្ណ</string>
     <string name="hit_family_book">សៀវភៅគ្រួសារ</string>
-    <string name="hit_staffid">Sប័ណ្ណបុគ្គលិក/ប័ណ្ណប្រាក់ខែ</string>
+    <string name="hit_staffid">ប័ណ្ណបុគ្គលិក/ប័ណ្ណប្រាក់ខែ</string>
     <string name="hit_hourse">ប្លង់ផ្ទះ</string>
     <string name="loan_calculation">ការគណនាប្រាក់កម្ចី</string>
     <string name="loan_calculation_title">ការគណនាប្រាក់កម្ចី</string>
@@ -143,5 +146,151 @@
     <string name="login_username">លេខទូរស័ព្ទ</string>
     <string name="login_password">លេខសម្ងាត់</string>
 
+    <string name="category">ប្រភេទទំនិញ</string>
+
+    <string-array name="co_borrower">
+        <item>បាទ/ចាស៎</item>
+        <item>ទេ</item>
+    </string-array>
+
+    <string-array name="ID_card">
+        <item>បាទ/ចាស៎</item>
+        <item>ទេ</item>
+    </string-array>
+
+    <string-array name="Family_book">
+        <item>បាទ/ចាស៎</item>
+        <item>ទេ</item>
+    </string-array>
+
+    <string-array name="Staff_id">
+        <item>បាទ/ចាស៎</item>
+        <item>ទេ</item>
+    </string-array>
+
+    <string-array name="Land_Tile">
+        <item>បាទ/ចាស៎</item>
+        <item>ទេ</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>ប្រភេទទំនិញ</item>
+        <item>ម៉ូតូ</item>
+        <item>អេឡិចត្រូនិច</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>ភេទ</item>
+        <item>ប្រុស</item>
+        <item>ស្រី</item>
+        <item>ផ្សេងទៀត</item>
+    </string-array>
+    <string-array name="place">
+        <item>ទីកន្លែងកំណើត</item>
+        <item>ភ្នំពេញ</item>
+        <item>កំពង់ចាម</item>
+    </string-array>
+    <string-array name="status">
+        <item>ស្ថានភាព</item>
+        <item>នៅលាវ</item>
+        <item>រៀបការ</item>
+        <item>Separated</item>
+        <item>លែងលះ</item>
+        <item>មេម៉ាយ</item>
+    </string-array>
+    <string-array name="location">
+        <item>ទីតាំង</item>
+        <item>ភ្នំពេញ</item>
+        <item>កំពង់ចាម</item>
+        <item>កំពង់ធំ</item>
+        <item>កំពង់ឆ្នាំង</item>
+    </string-array>
+
+    <!-- Spinner Array -->
+    <string-array name="groups_array">
+        <item>Public User</item>
+        <item>121 Shoppe</item>
+        <item>អ្នកចែកចាយផ្សេងទៀត</item>
+    </string-array>
+    <string-array name="genders_array">
+        <item>ប្រុស</item>
+        <item>ស្រី</item>
+        <item>ផ្សេងទៀត</item>
+    </string-array>
+    <string-array name="marital_status_array">
+        <item>នៅលាវ</item>
+        <item>រៀបការ</item>
+    </string-array>
+    <string-array name="province_array">
+        <item>ភ្នំពេញ</item>
+        <item>ពោធិ៍សាត់</item>
+        <item>បាត់ដំបង</item>
+    </string-array>
+    <!-- End Spinner Array -->
+
+    //Post type
+    <string-array name="posty_type">
+        <item>លក់</item>
+        <item>ទិញ</item>
+        <item>ជួល</item>
+    </string-array>
+
+    //Condition
+    <string-array name="condition">
+        <item>ថ្មី</item>
+        <item>ប្រើ</item>
+    </string-array>
+
+    // Color
+    <string-array name="color">
+        <item>ខៀវ</item>
+        <item>ខ្មៅ</item>
+        <item>ប្រាក់</item>
+        <item>ក្រហម</item>
+        <item>ប្រផេះ</item>
+        <item>លឿង</item>
+        <item>ផ្កាឈូក</item>
+        <item>ស្វាយ</item>
+        <item>ទឹកក្រូច</item>
+        <item>បៃតង</item>
+
+    </string-array>
+
+    //Rent type
+    <string-array name="rent_type">
+        <item>សប្តាហ៍</item>
+        <item>ខែ</item>
+    </string-array>
+    //Discount type
+    <string-array name="discount_type">
+        <item> ចំនួន</item>
+        <item> ភាគរយ</item>
+    </string-array>
+    <string-array name="boolean_option">
+        <item>បាទ/ចាស៎</item>
+        <item>ទេ</item>
+    </string-array>
+
+    <string name="birth">ថ្ងៃខែឆ្នាំកំណើត</string>
+    <string name="place">ទីកន្លែងកំណើត</string>
+    <string name="married">ស្ថានភាព</string>
+    <string name="location">ទីតាំង</string>
+
+
+    //Camera post
+    <string name="choose">ជ្រើសរើស</string>
+    <string name="upload">បញ្ជូល</string>
+
+    //post ad
+    <string name="post_type">ប្រភេទប្រកាស</string>
+    <string name="title">ចំណងជើង</string>
+    <string name="type">ប្រភេទ</string>
+    <string name="model">ម៉ូដែល</string>
+    <string name="address">អាស័យដ្ឋាន</string>
+    <string name="name">ឈ្មោះ</string>
+    <string name="contact_detail">ព័ត៌មានលម្អិតទំនាក់ទំនង</string>
+    <string name="discountt">បញ្ចុះតម្លៃ</string>
+    <string name="discount">បញ្ចុះតម្លៃ</string>
+    <string name="discount_type">ប្រភេទបញ្ចុះតម្លៃ</string>
 
 </resources>
