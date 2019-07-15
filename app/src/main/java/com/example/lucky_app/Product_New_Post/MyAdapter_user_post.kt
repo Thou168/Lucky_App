@@ -85,6 +85,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 itemView.context.startActivity(intent)
             }
 
+
             btn_delete.setOnClickListener {
                 Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
             }
