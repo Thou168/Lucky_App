@@ -103,11 +103,7 @@
         <item>2017</item>
         <item>2016</item>
         <item>2015</item>
-        <item>2014</item>
-        <item>2013</item>
-        <item>2012</item>
-        <item>2011</item>
-        <item>2010</item>
+
     </string-array>
     <string-array name="gender">
         <item>Gender</item>
@@ -236,9 +232,16 @@
 
     // Color
     <string-array name="color">
+        <item>Blue</item>
         <item>Black</item>
+        <item>Silver</item>
         <item>Red</item>
+        <item>Gray</item>
         <item>Yellow</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Orange</item>
+        <item>Green</item>
 
     </string-array>
 

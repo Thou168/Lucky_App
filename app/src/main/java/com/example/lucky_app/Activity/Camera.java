@@ -1,6 +1,7 @@
 package com.example.lucky_app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -12,6 +13,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -97,7 +99,7 @@ public class Camera extends AppCompatActivity {
     FileCompressor mCompressor;
     private RelativeLayout relatve_discount;
 
-    private EditText etTitle,etVinCode,etMachineCode,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
+    private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icVincode,icMachineconde,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3;
     private ImageButton addPhone2,addPhone1;
@@ -121,9 +123,11 @@ public class Camera extends AppCompatActivity {
     private List<Integer> list_id_year = new ArrayList<>();
     String id_cate, id_brand,id_model,id_year,id_type;
     int cate,brand,model,year,type;
-    SharedPreferences prefer;
+    SharedPreferences prefer,pre_id;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
     String test;
+    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,9 +141,10 @@ public class Camera extends AppCompatActivity {
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
+        Log.d("Pk",""+pk);
         ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
-        Log.d(TAG,"time"+Instant.now().toString());
+   //     Log.d(TAG,"time"+Instant.now().toString());
         TextView back = (TextView)findViewById(R.id.tv_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +184,7 @@ public class Camera extends AppCompatActivity {
             }
         });
 
+        pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         initialUserInformation(pk,Encode);
         TextChange();
@@ -187,7 +193,7 @@ public class Camera extends AppCompatActivity {
         Call_category(Encode);
         Call_Type(Encode);
 
-    //  Call_Brand(Encode,test);
+//      Call_Brand(Encode);
 
 //        Call_Model(Encode);
         Call_years(Encode);
@@ -294,12 +300,19 @@ public class Camera extends AppCompatActivity {
 
             String postType = tvPostType.getSelectedItem().toString().toLowerCase();
 
+
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
             post.put("status", 1);
             post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
-            post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
-            post.put("discount", etDiscount_amount.getText().toString());
+
+            if (postType.equals("buy")) {
+                post.put("discount", "0");
+                post.put("discount_type","amount");
+            }else {
+                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
+                post.put("discount",etDiscount_amount.getText().toString());
+            }
             //post.put("discount", 0);
             post.put("user",pk );
             if(bitmapImage1==null) {
@@ -341,18 +354,20 @@ public class Camera extends AppCompatActivity {
             post.put("rejected_date", null);
             post.put("rejected_by",null);
             post.put("rejected_comments", "");
-            post.put("year", 1); //year
+            post.put("year", year); //year
             post.put("modeling", model);
             //post.put("modeling", 1);
             post.put("description", etDescription.getText().toString().toLowerCase());
             //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-            post.put("vin_code", "null");
-            post.put("machine_code", "null");
-            post.put("type", 3);
+
             //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
-            post.put("contact_phone", "23232323");
+
+            post.put("vin_code", "");
+            post.put("machine_code", "");
+            post.put("type", type);
+            post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", "");
             post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
@@ -415,13 +430,13 @@ public class Camera extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG,"TTTT"+response.body().string());
-            //        String message = response.body().string();
-            //        Log.d("Responseqqq", message);
+             //       String message = response.body().string();
+              //      Log.d("Responseqqq", message);
                     startActivity(new Intent(getApplicationContext(),Account.class));
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-            //              Log.d("Responseqqq", message);
+                       //     Log.d("Responseqqq", message);
                             Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -429,6 +444,7 @@ public class Camera extends AppCompatActivity {
             });
         }catch (Exception e){
             e.printStackTrace();
+
         }
     } //postdata
 
@@ -472,7 +488,6 @@ public class Camera extends AppCompatActivity {
                         });
                     }
 
-
                     tvCategory.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
@@ -480,6 +495,7 @@ public class Camera extends AppCompatActivity {
 
                                 id_cate = String.valueOf(ID_category.getItem(i));
                                 Log.d("ID", id_cate);
+
                                 cate = Integer.parseInt(id_cate);
 
                             if (cate==1){
@@ -488,10 +504,13 @@ public class Camera extends AppCompatActivity {
                             }else if (cate == 2){
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
+                                type = 3;
+                                Log.d("Typd id", String.valueOf(type));
                             }
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
-
-                            Call_Brand(Encode,id_cate);
+                            tvBrand.setSelection(-1);
+                            icBrand.setImageResource(R.drawable.icon_null);
+                           Call_Brand(Encode,id_cate);
 
                         }
 
@@ -505,7 +524,6 @@ public class Camera extends AppCompatActivity {
                 }
             }
         });
-
 
     }  // category
 
@@ -568,10 +586,12 @@ public class Camera extends AppCompatActivity {
         });
     } // type
 
-    private void Call_Brand(String encode , String id_cate){
-        Log.d("Category id:",""+ id_cate);
+    private void Call_Brand(String encode, String id_cate){
+        int t = Integer.parseInt(id_cate);
+        Log.d("Category id:",""+ this.id_cate);
 
-        final int t = Integer.parseInt(id_cate);
+        list_id_brands = new ArrayList<>();
+        list_brand=new ArrayList<>();
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/");
         OkHttpClient client = new OkHttpClient();
         String auth = "Basic "+ encode;
@@ -591,7 +611,6 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
-              //  int n = 2;
 
                 try{
                     JSONObject jsonObject = new JSONObject(respon);
@@ -623,8 +642,9 @@ public class Camera extends AppCompatActivity {
                                 id_brand = String.valueOf(ID_brands.getItem(i));
                                 Log.d("brand id",id_brand);
                                 brand = Integer.parseInt(id_brand);
-                                brands.clear();
                                 icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                                tvModel.setSelection(-1);
+                                icModel.setImageResource(R.drawable.icon_null);
                                 Call_Model(encode, id_brand);
                         }
 
@@ -643,7 +663,8 @@ public class Camera extends AppCompatActivity {
     }// brand
 
     private void Call_Model(String encode,String id_bran){
-
+        list_id_model = new ArrayList<>();
+        list_model = new ArrayList<>();
         int b = Integer.parseInt(id_bran);
         Log.d("brand id:",""+ b);
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/");
@@ -691,7 +712,7 @@ public class Camera extends AppCompatActivity {
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
                            id_model = String.valueOf(ID_model.getItem(i));
                            model = Integer.parseInt(id_model);
-                           models.clear();
+                      //     models.clear();
                            icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         }
 
@@ -782,6 +803,7 @@ public class Camera extends AppCompatActivity {
 
                 if (st.equals("Buy")){
                     relatve_discount.setVisibility(View.GONE);
+
                 }else {
                     relatve_discount.setVisibility(View.VISIBLE);
                 }
