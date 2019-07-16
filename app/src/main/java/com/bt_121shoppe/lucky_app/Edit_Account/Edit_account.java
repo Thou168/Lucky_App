@@ -214,7 +214,6 @@ public class Edit_account extends AppCompatActivity {
 
                             etUsername.setText(convertJsonJava.getUsername());
 
-
                             if(convertJsonJava.getProfile()!=null) {
                                 etPhone.setText(convertJsonJava.getProfile().getTelephone());
                                 etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
@@ -356,8 +355,8 @@ public class Edit_account extends AppCompatActivity {
 //            wingnumber = etWingNumber_121.getText().toString();
 //            wingname   = etWingName_121.getText().toString();
 //        }
-
         MediaType media = MediaType.parse("application/json");
+
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
         JSONObject pro  = new JSONObject();

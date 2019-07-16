@@ -109,5 +109,5 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
     }
 
     //
-    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView);
 }
