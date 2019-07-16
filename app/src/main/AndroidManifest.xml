@@ -52,6 +52,7 @@
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".notifications.NotificationActivity" />
+        <activity android:name=".AccountTab.MainAccountTabs"/>
         <activity
             android:name=".Activity.Home"
             android:icon="@drawable/logo"

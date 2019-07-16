@@ -78,8 +78,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
-
-
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)
@@ -107,7 +105,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             }
 
             btn_delete.setOnClickListener {
-                Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
+                //Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
                 lateinit var sharedPref: SharedPreferences
                 var name=""
                 var pass=""

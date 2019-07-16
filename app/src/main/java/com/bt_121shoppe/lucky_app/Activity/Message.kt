@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -41,7 +42,7 @@ class Message : AppCompatActivity() {
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Message, Account::class.java)
+                        val intent = Intent(this@Message, MainAccountTabs::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

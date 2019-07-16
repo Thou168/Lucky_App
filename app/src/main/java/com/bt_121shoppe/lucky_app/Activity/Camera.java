@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
@@ -170,7 +171,7 @@ public class Camera extends AppCompatActivity {
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Account.class));
+                            startActivity(new Intent(getApplicationContext(), MainAccountTabs.class));
                         }else {
                             startActivity(new Intent(getApplicationContext(), UserAccount.class));
                         }

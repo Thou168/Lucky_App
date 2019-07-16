@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_notification
 import com.bt_121shoppe.lucky_app.R
@@ -55,7 +56,7 @@ class Notification : AppCompatActivity() {
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Notification, Account::class.java)
+                        val intent = Intent(this@Notification, MainAccountTabs::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
