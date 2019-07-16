@@ -32,10 +32,14 @@ import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Buy.Buy
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Rent.Rent
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.Sell
+import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.lucky_app.Product_dicount.MyAdapter
 import com.bt_121shoppe.lucky_app.R
+import com.bt_121shoppe.lucky_app.Setting.AboutUsActivity
+import com.bt_121shoppe.lucky_app.Setting.Setting
+import com.bt_121shoppe.lucky_app.Setting.TermPrivacyActivity
 import com.bt_121shoppe.lucky_app.Startup.Item
 import com.bt_121shoppe.lucky_app.Startup.Search1
 import com.bt_121shoppe.lucky_app.Startup.Your_Post
@@ -358,7 +362,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         when (item.itemId) {
             R.id.nav_profile -> {
                 // Handle the camera action
-                val intent = Intent(this@Home,Account::class.java)
+                val intent = Intent(this@Home, Edit_account::class.java)
                 startActivity(intent)
             }
             R.id.nav_post -> {
@@ -366,19 +370,24 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 startActivity(intent)
             }
             R.id.nav_like -> {
-
+                val intent = Intent(this@Home,Account::class.java)
+                startActivity(intent)
             }
             R.id.nav_loan -> {
-
+                val intent = Intent(this@Home,Account::class.java)
+                startActivity(intent)
             }
             R.id.nav_setting -> {
-
+                val intent = Intent(this@Home, Setting::class.java)
+                startActivity(intent)
             }
             R.id.nav_about -> {
-
+                val intent = Intent(this@Home, AboutUsActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_privacy -> {
-
+                val intent = Intent(this@Home, TermPrivacyActivity::class.java)
+                startActivity(intent)
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

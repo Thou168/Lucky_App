@@ -26,7 +26,7 @@
     <string name="menu_setting">Setting</string>
     <string name="menu_about">About Us</string>
     <string name="menu_privacy">Term of Privacy</string>
-//Buy Sell Rent
+    //Buy Sell Rent
     <string name="buy1">BUY</string>
     <string name="sell1">SELL</string>
     <string name="rent">RENT</string>
@@ -49,9 +49,9 @@
     <string name="login_password">Password</string>
     <!-- End Login String -->
     <string name="title_activity_account"></string>
-    
+
     //loancreateactivity
-    
+
     <string-array name="co_borrower">
         <item>Yes</item>
         <item>No</item>
@@ -154,7 +154,7 @@
     <string name="setting">Setting</string>
     <string name="version">Version</string>
     <string name="logout">Logout</string>
-//Edit_Account
+    //Edit_Account
     <string name="txt_account_setting">Account Setting</string>
     <string name="hit_fistname">Fist Name</string>
     <string name="hit_lastname">Last Name</string>
@@ -264,6 +264,7 @@
 
     <!-- Start Loan Information String -->
     <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
+
     <string name="title_fill_information">Fill in Information</string>
     <string name="txt_clr_detail">DETAIL</string>
     <string name="hit_username">Username</string>
@@ -296,7 +297,6 @@
     //delete and edit
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
-
 
 
     <string-array name="tab_A">
@@ -393,5 +393,30 @@
     <string name="discountt">Discount</string>
     <string name="discount">DISCOUNT</string>
     <string name="discount_type">Discount type</string>
+
+    <string name="about_us_heading">About Us</string>
+    <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
+    <string name="about_us_description">Welcome to 121 online market platform!
+        A new modern online market in Cambodia. User friendly, super quick and easy to use in online market, helps you Buy, Sell or Rent anything in your neighborhood. 121 Online Market Platform is the future of E-Commerce in Cambodia, aiming to make up for all inconveniences of other markets, and replace them with new modern solutions.
+        For example possibility to add products by signing up for an account with very clear information details, and marking the position of dealers’ shop on the map, its help you can understand more clearly about dealer. You can use it through the website, or download our free application from Play Store, App Store or Google Play.
+    </string>
+
+    <string name="term_privacy_heading">Privacy Policy</string>
+    <string name="term_privacy_description">This Privacy Policy describes how 121 Online Market Platform (website, tools, apps and services) is responsible for collection, using and retain of personal information. Your privacy is important to us, so we collect only the data that we really need to let this App run smoothly and properly.
+        This privacy policy enter into force on 1st Aug, 2019. By using the 121 Online Market Platform agree with this PRIVACY POLICY. You should check this page occasionally to ensure you are familiar with any changes.
+    </string>
+    <string name="rigth_suspend">Rights to Suspend or Terminate</string>
+    <string name="right_suspend_description">You agree that this App, in its own discretion, may terminate any listing or use of the service immediately and without notice if\n
+    (a) You are not abiding by the general rules of this App\n
+    (b) You have repeatedly broken a certain term\n
+    (c) You have listed a suspicious it
+    </string>
+    
+    <string name="general_term">General Terms</string>
+    <string name="general_term_description">This App is intended to be a friendly, enjoyable and useful experience, but as with anything concerning any kind of transactions there are risks involved and we strongly advise you to understand all of these terms before submitting the listing.
+    This App acts as the screen for sellers/lessors to post listings and for buyers/lessees to bid/purchase on seller or lessor\'s listings. We are not involved in the actual transaction between buyers/lessees and sellers/lessors. As a result, we have no control over the quality, safety or legality of the items listed the truth or accuracy of the product listings, We cannot and do not control whether or not sellers/lessors will complete the sale/rent of items they offer or buyers/lessees will complete the purchases/rent of items they have bid on.
+    In addition, This App shall not be responsible for any items sold/rent through it, for any damage to items during the inspection period, nor for misrepresentations or breaches of contract by either buyer, lessee, seller or lessor.
+    This App shall not be responsible for the cost of procurement of substitute goods or any losses resulting from any goods purchased or obtained. This App assumes no liability for the content of the listings. However if you fall victim of a fraudulent transaction, we will assist you as much as we can.
+    </string>
 
 </resources>

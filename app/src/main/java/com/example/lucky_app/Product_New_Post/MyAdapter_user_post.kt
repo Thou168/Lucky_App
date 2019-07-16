@@ -13,27 +13,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lucky_app.Activity.Item_API
-import com.example.lucky_app.R
+import com.bt_121shoppe.lucky_app.Activity.Item_API
+import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post
+import com.bt_121shoppe.lucky_app.R
 import java.io.ByteArrayOutputStream
 
 
 class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_user_post.ViewHolder>() {
 
-    internal var loadMoreListener: OnLoadMoreListener? = null
+    internal var loadMoreListener: com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post.OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list1, parent, false)
-            Log.d("Type ",type.toString())
+            Log.d("Type ", type.toString())
             return ViewHolder(layout)
-        }else if (type.equals("Grid")){
-            Log.d("Type ",type.toString())
+        } else if (type.equals("Grid")) {
+            Log.d("Type ", type.toString())
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_grid, parent, false)
             return ViewHolder(layout)
-        }else{
-            Log.d("Type ",type.toString())
+        } else {
+            Log.d("Type ", type.toString())
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
             return ViewHolder(layout)
         }
@@ -67,11 +68,11 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             title.text = item.title
             cost.text = item.cost.toString()
 
-            if (item.postType.equals("sell")){
+            if (item.postType.equals("sell")) {
                 post_type.setImageResource(R.drawable.sell)
-            }else if (item.postType.equals("buy")){
+            } else if (item.postType.equals("buy")) {
                 post_type.setImageResource(R.drawable.buy)
-            }else
+            } else
                 post_type.setImageResource(R.drawable.rent)
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
@@ -79,23 +80,25 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
 //                intent.putExtra("Image",decodedByte)
 //                intent.putExtra("Image_user",decodedByte)
 //                intent.putExtra("Title",item.title)
-                  intent.putExtra("Price",item.cost)
+                intent.putExtra("Price", item.cost)
 ////                intent.putExtra("Name",item.name)
-                  intent.putExtra("ID",item.id)
+                intent.putExtra("ID", item.id)
                 itemView.context.startActivity(intent)
             }
 
 
             btn_delete.setOnClickListener {
-                Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
+                Toast.makeText(it.context, "Hello" + item.title, Toast.LENGTH_SHORT).show()
             }
         }
+
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
             val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
             return Uri.parse(path)
         }
+
         fun BitMapToString(bitmap: Bitmap): String {
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
@@ -105,4 +108,5 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
     }
 
     //
-    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView);
+}

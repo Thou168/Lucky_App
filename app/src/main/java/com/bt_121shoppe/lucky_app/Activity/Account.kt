@@ -42,10 +42,12 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.fragment_acount.imgCover
 import kotlinx.android.synthetic.main.fragment_acount.imgProfile
 import okhttp3.*
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
@@ -191,6 +193,8 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         getUserProfile()
         getMyPosts()
         mCompressor = FileCompressor(this)
+
+
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

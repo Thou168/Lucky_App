@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.bt_121shoppe.lucky_app.Activity.Home
@@ -48,6 +49,9 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
             val lang = Changelanguage()
             lang.show(supportFragmentManager,lang.tag)
         }
+
+        var txtBack = findViewById<View>(R.id.tvBack_account) as TextView
+        txtBack.setOnClickListener(View.OnClickListener { finish() })
     }
 
     override fun language(lang : String) {
