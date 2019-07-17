@@ -53,6 +53,7 @@ import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.squareup.picasso.Picasso;
 import com.tiper.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
@@ -66,6 +67,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -107,7 +109,7 @@ public class Camera extends AppCompatActivity {
     private String name,pass,Encode;
     private int pk;
     private ArrayAdapter<String> brands,models;
-    private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model;
+    private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model,id_brand_Model;
     private List<String> list_category = new ArrayList<>();
     private List<String> list_type = new ArrayList<>();
     private List<String> list_brand = new ArrayList<>();
@@ -118,6 +120,7 @@ public class Camera extends AppCompatActivity {
     private List<Integer> list_id_brands = new ArrayList<>();
     private List<Integer> list_id_model = new ArrayList<>();
     private List<Integer> list_id_year = new ArrayList<>();
+    private List<Integer> list_brand_model = new ArrayList<>();
     String id_cate, id_brand,id_model,id_year,id_type;
     int cate,brand,model,year,type;
     SharedPreferences prefer,pre_id;
@@ -183,17 +186,16 @@ public class Camera extends AppCompatActivity {
 
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
-        initialUserInformation(pk,Encode);
-        TextChange();
-
         DropDown();
         Call_category(Encode);
         Call_Type(Encode);
-
-//      Call_Brand(Encode);
-
-//        Call_Model(Encode);
         Call_years(Encode);
+        initialUserInformation(pk,Encode);
+        getData_Post(Encode);
+        TextChange();
+
+
+
 
 
 
@@ -244,6 +246,149 @@ public class Camera extends AppCompatActivity {
 
     } // create
 
+    private void getData_Post(String encode){
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null) {
+            int d1 = bundle.getInt("id_product", 0);
+            String d2 = String.valueOf(d1);
+            final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"postbyuser/",d2);
+            Log.d("Url",url);
+            OkHttpClient client = new OkHttpClient();
+            String auth = "Basic "+ encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String respon = response.body().string();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                    try {
+                        JSONObject object = new JSONObject(respon);
+                        String title = object.getString("title");
+                        String description = object.getString("description");
+                        int price = object.getInt("cost");
+                        String discount = object.getString("discount");
+                        String phone = object.getString("contact_phone");
+                        String email = object.getString("contact_email");
+
+                        String post_type = object.getString("post_type");
+                        int category = object.getInt("category");
+                        int c = ID_category.getPosition(category);
+                        Log.d("Cate id", category + " and "+ c);
+                        int type_elec = object.getInt("type");
+                         int te;
+                        if (category==2) {
+                             te=3;
+                            icType_elec.setVisibility(View.GONE);
+                            tvType_elec.setVisibility(View.GONE);
+                        }else {
+                            icType_elec.setVisibility(View.VISIBLE);
+                            tvType_elec.setVisibility(View.VISIBLE);
+                             te = ID_type.getPosition(type_elec);
+                        }
+                   //     int brand = ID_brands.getPosition(category);
+
+
+                        int model = object.getInt("modeling");
+
+                 //       int m = ID_model.getPosition(model);
+                        Log.d("model id", String.valueOf(model));
+                        int year = object.getInt("year");
+                        int y = ID_year.getPosition(year);
+
+
+                        String condition = object.getString("condition");
+                        String color = object.getString("color");
+                        String dis_type = object.getString("discount_type");
+
+                        String fron = object.getString("front_image_base64");
+                        String back = object.getString("back_image_base64");
+                        String left = object.getString("left_image_base64");
+                        String right= object.getString("right_image_base64");
+
+                        List<String> list = new ArrayList<>();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                etTitle.setText(title);
+                                etDescription.setText(description);
+                                etPrice.setText(String.valueOf(price));
+                                etDiscount_amount.setText(discount);
+                                etPhone1.setText(phone);
+                                etEmail.setText(email);
+
+                                if (post_type.equals("sell")){
+                                    tvPostType.setSelection(0);
+                                }else if (post_type.equals("buy")){
+                                    tvPostType.setSelection(1);
+                                }else tvPostType.setSelection(2);
+
+                                if (condition.equals("new")){
+                                    tvCondition.setSelection(0);
+                                }else tvCondition.setSelection(1);
+
+                                switch (color){
+                                    case "blue": tvColor.setSelection(0);  break;
+                                    case "black": tvColor.setSelection(1);  break;
+                                    case "silver":tvColor.setSelection(2);   break;
+                                    case "red":  tvColor.setSelection(3); break;
+                                    case "gray": tvColor.setSelection(4);  break;
+                                    case "yellow":  tvColor.setSelection(5); break;
+                                    case "pink":  tvColor.setSelection(6); break;
+                                    case "purple": tvColor.setSelection(7);  break;
+                                    case "orange": tvColor.setSelection(8);  break;
+                                    case "green":tvColor.setSelection(9); break;
+                                    default: tvColor.setSelection(-1); break;
+                                }
+                                tvCategory.setSelection(c);
+                                tvType_elec.setSelection(te);
+
+                                get_model(encode,model);
+                                tvYear.setSelection(y);
+
+
+
+                                byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
+                                 bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+                                imageView1.setImageBitmap(bitmapImage1);
+                                byte[] decodedString2 = Base64.decode(back, Base64.DEFAULT);
+                                 bitmapImage2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+                                imageView2.setImageBitmap(bitmapImage2);
+                                byte[] decodedString3 = Base64.decode(left, Base64.DEFAULT);
+                                 bitmapImage3 = BitmapFactory.decodeByteArray(decodedString3, 0, decodedString3.length);
+                                imageView3.setImageBitmap(bitmapImage3);
+                                byte[] decodedString4 = Base64.decode(right, Base64.DEFAULT);
+                                 bitmapImage4 = BitmapFactory.decodeByteArray(decodedString4, 0, decodedString4.length);
+                                imageView4.setImageBitmap(bitmapImage4);
+
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } //
+
+                        }
+                    });
+                    Log.d("Edit", respon);
+                }
+            });
+        }
+    }
     private void initialUserInformation(int pk, String encode) {
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
         MediaType MEDIA_TYPE=MediaType.parse("application/json");
@@ -426,17 +571,26 @@ public class Camera extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(TAG,"TTTT"+response.body().string());
-             //       String message = response.body().string();
-              //      Log.d("Responseqqq", message);
-                    startActivity(new Intent(getApplicationContext(),Account.class));
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                       //     Log.d("Responseqqq", message);
-                            Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Log.d(TAG, "TTTT" + response.body().string());
+                    //       String message = response.body().string();
+                    //      Log.d("Responseqqq", message);
+                    if (response.isSuccessful()) {
+                        startActivity(new Intent(getApplicationContext(), Account.class));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //     Log.d("Responseqqq", message);
+                                Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "Error"+response.body().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             });
         }catch (Exception e){
@@ -689,6 +843,9 @@ public class Camera extends AppCompatActivity {
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         int Brand = object.getInt("brand");
+                        list_brand_model.add(Brand);
+                        id_brand_Model = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,list_brand_model);
+
                         if (Brand==b) {
                             String name = object.getString("modeling_name");
                             list_id_model.add(id);
@@ -788,6 +945,91 @@ public class Camera extends AppCompatActivity {
         });
     } // years
 
+    private void get_model(String encode , int model_id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/"+model_id);
+        OkHttpClient client = new OkHttpClient();
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon_model = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(respon_model);
+                    int brand_id = jsonObject.getInt("brand");
+                    String name = jsonObject.getString("modeling_name");
+                    List<String> listMN = new ArrayList<>();
+                    listMN.add(name);
+                    Log.d("Brand",brand_id+" Model: "+name );
+                    ArrayAdapter<Integer> adapterM_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,model_id);
+                    ArrayAdapter<String> adapterM_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,listMN);
+                    tvModel.setAdapter(adapterM_name);
+
+                   tvModel.setSelection(0);
+
+                    final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/"+brand_id);
+                    Log.d("Url brand",url);
+                    OkHttpClient client = new OkHttpClient();
+                    String auth = "Basic "+ encode;
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .header("Accept","application/json")
+                            .header("Content-Type","application/json")
+                            .header("Authorization",auth)
+                            .build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String respon_brand = response.body().string();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                            try {
+                                JSONObject object = new JSONObject(respon_brand);
+                                String brand_name = object.getString("brand_name");
+                                Log.d("brand name",brand_name);
+                                List<String> ListBn = new ArrayList<>();
+                                ListBn.add(brand_name);
+                                ArrayAdapter<Integer> adapterB_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,brand_id);
+                                ArrayAdapter<String> adapterB_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,ListBn);
+                                tvBrand.setAdapter(adapterB_name);
+                                tvBrand.setSelection(0);
+
+
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                                }
+                            });
+                        }
+                    });
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+                          }
+                        });
+            }
+        });
+    }
     private void DropDown() {
         final String[] posttype = getResources().getStringArray(R.array.posty_type);
         ArrayAdapter<String> post = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, posttype);
@@ -858,7 +1100,7 @@ public class Camera extends AppCompatActivity {
                     etDiscount_amount.setHint("Discount Percentage");
                 }
 
-                icDiscount_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override

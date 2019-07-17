@@ -17,6 +17,8 @@ import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.lucky_app.R
+import com.bt_121shoppe.lucky_app.Activity.Camera
+
 import java.io.ByteArrayOutputStream
 
 
@@ -58,6 +60,8 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
         val btn_delete = itemView.findViewById<Button>(R.id.btndelete)
+        val btn_edit = itemView.findViewById<Button>(R.id.btnedit_post)
+        val btn_renew = itemView.findViewById<Button>(R.id.btn_renew)
 
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
@@ -87,9 +91,14 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 itemView.context.startActivity(intent)
             }
 
-
+            btn_renew.setOnClickListener {
+                Toast.makeText(it.context, "Re_new:" + item.title, Toast.LENGTH_SHORT).show()
+            }
+            itemView.findViewById<Button>(R.id.btnedit_post).setOnClickListener {
+                Toast.makeText(it.context,"BTN Edit",Toast.LENGTH_SHORT).show()
+            }
             btn_delete.setOnClickListener {
-                Toast.makeText(it.context, "Hello" + item.title, Toast.LENGTH_SHORT).show()
+                Toast.makeText(it.context, "Delete" + item.title, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -109,5 +118,5 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
     }
 
     //
-    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView);
+    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

@@ -66,6 +66,7 @@ public class Edit_account extends AppCompatActivity {
     private List<String> provinceNameArrayList=new ArrayList<>();
     private RequestQueue mQueue;
 
+    ArrayAdapter<CharSequence> adapter;
     private MaterialSpinner mp_Gender,mp_Dob,mp_Married,mp_Pob,mp_location;
 
     int mMonth,mYear,mDay;
@@ -105,7 +106,7 @@ public class Edit_account extends AppCompatActivity {
         mp_Gender  = (MaterialSpinner) findViewById(R.id.mp_Gender);
         mp_location= (MaterialSpinner) findViewById(R.id.mp_Location);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.genders_array, android.R.layout.simple_spinner_item);
+         adapter = ArrayAdapter.createFromResource(this, R.array.genders_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mp_Gender.setAdapter(adapter);
 
@@ -220,9 +221,13 @@ public class Edit_account extends AppCompatActivity {
                                 etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
 
                                 String s = convertJsonJava.getProfile().getGender();
-                                List<String> sex = new ArrayList<>();
-                                sex.add(0,s);
-                                mp_Gender.setSelection(0);
+                                if(s.equals("female")){
+                                    mp_Gender.setSelection(1);
+                                }else if (s.equals("male")){
+                                    mp_Gender.setSelection(0);
+                                }else if (s.equals("other")){
+                                    mp_Gender.setSelection(2);
+                                }
 
                                 String d = convertJsonJava.getProfile().getDate_of_birth();
                                 List<String> date = new ArrayList<>();
@@ -230,9 +235,14 @@ public class Edit_account extends AppCompatActivity {
                                 mp_Dob.setSelection(0);
 
                                 String m = convertJsonJava.getProfile().getMarital_status();
-                                List<String> married = new ArrayList<>();
-                                married.add(0,m);
-                                mp_Married.setSelection(0);
+                                switch (m){
+                                    case "single": mp_Married.setSelection(0); break;
+                                    case "married": mp_Married.setSelection(1); break;
+                                    case "separated": mp_Married.setSelection(2); break;
+                                    case "divorced": mp_Married.setSelection(3); break;
+                                    case "windowed": mp_Married.setSelection(4); break;
+                                    default: mp_Gender.setSelection(-1); break;
+                                }
 
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
