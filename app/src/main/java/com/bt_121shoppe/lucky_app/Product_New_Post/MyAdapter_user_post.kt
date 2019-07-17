@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.Activity.Camera
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.R
 import java.io.ByteArrayOutputStream
@@ -72,6 +73,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
+        val btn_edit = itemView.findViewById<Button>(R.id.btnedit_post)
         val btn_delete = itemView.findViewById<Button>(R.id.btndelete)
         val btn_renewal = itemView.findViewById<Button>(R.id.btn_renew)
 
@@ -104,6 +106,12 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 itemView.context.startActivity(intent)
             }
 
+            btn_edit.setOnClickListener {
+                Toast.makeText(it.context,"Edit"+item.title,Toast.LENGTH_SHORT).show()
+                val intent = Intent(itemView.context,Camera::class.java)
+                intent.putExtra("id_product",item.id)
+                itemView.context.startActivity(intent)
+            }
             btn_delete.setOnClickListener {
                 //Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
                 lateinit var sharedPref: SharedPreferences

@@ -211,6 +211,9 @@
     <string-array name="marital_status_array">
         <item>Single</item>
         <item>Married</item>
+        <item>Separated</item>
+        <item>Divorced</item>
+        <item>Windowed</item>
     </string-array>
     <string-array name="province_array">
         <item>Phnom Penh</item>
@@ -411,7 +414,7 @@
     (b) You have repeatedly broken a certain term\n
     (c) You have listed a suspicious it
     </string>
-    
+
     <string name="general_term">General Terms</string>
     <string name="general_term_description">This App is intended to be a friendly, enjoyable and useful experience, but as with anything concerning any kind of transactions there are risks involved and we strongly advise you to understand all of these terms before submitting the listing.
     This App acts as the screen for sellers/lessors to post listings and for buyers/lessees to bid/purchase on seller or lessor\'s listings. We are not involved in the actual transaction between buyers/lessees and sellers/lessors. As a result, we have no control over the quality, safety or legality of the items listed the truth or accuracy of the product listings, We cannot and do not control whether or not sellers/lessors will complete the sale/rent of items they offer or buyers/lessees will complete the purchases/rent of items they have bid on.

@@ -34,7 +34,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Setting.TermPrivacyActivity"></activity>
+        <activity android:name=".Setting.ChangePassword"></activity>
+        <activity android:name=".Setting.TermPrivacyActivity" />
         <activity android:name=".Setting.AboutUsActivity" />
         <activity android:name=".Startup.Search" />
         <activity android:name=".Startup.Search1" />
@@ -43,7 +44,9 @@
         <activity android:name=".Setting.Setting" />
         <activity android:name=".Login_Register.Register" />
         <activity android:name=".Login_Register.Login" />
-        <activity android:name=".Login_Register.UserAccount" />
+        <activity android:name=".Login_Register.UserAccount" >
+
+        </activity>
         <activity android:name=".Startup.Your_Post" />
         <activity android:name=".post.CameraActivity" />
         <activity android:name=".Activity.Camera" /> <!-- <meta-data -->
@@ -51,7 +54,7 @@
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".notifications.NotificationActivity" />
-        <activity android:name=".Activity.Account"/>
+        <activity android:name=".Activity.Account" />
         <activity
             android:name=".Activity.Home"
             android:icon="@drawable/logo"

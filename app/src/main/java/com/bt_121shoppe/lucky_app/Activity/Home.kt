@@ -137,6 +137,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             getUserProfile()
         }else{
             navView.setVisibility(View.GONE)
+
+
+
         }
 
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)

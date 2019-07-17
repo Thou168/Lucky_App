@@ -44,8 +44,19 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
                 }
                 }).show()
         }
-        val lange = findViewById<TextView>(R.id.tvLanguage2)
-        lange.setOnClickListener{
+        val Changepassword = findViewById<TextView>(R.id.tvChangePass)
+        Changepassword.setOnClickListener {
+            val intent = Intent(this@Setting,ChangePassword::class.java)
+            startActivity(intent)
+        }
+
+        val lange2 = findViewById<TextView>(R.id.tvLanguage2)
+        lange2.setOnClickListener{
+            val lang = Changelanguage()
+            lang.show(supportFragmentManager,lang.tag)
+        }
+        val lange1 = findViewById<TextView>(R.id.tvLanguage)
+        lange1.setOnClickListener {
             val lang = Changelanguage()
             lang.show(supportFragmentManager,lang.tag)
         }
@@ -63,10 +74,12 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
         val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
         editor.putString("My_Lang", lang)
         editor.apply()
+          recreate()
     }
     override fun locale() {
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         language(language)
+
     }
 }

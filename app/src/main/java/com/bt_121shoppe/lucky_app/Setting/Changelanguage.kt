@@ -16,6 +16,7 @@ class Changelanguage : BottomSheetDialogFragment() {
     interface BottomSheetListener {
         fun language(lang : String)
         fun locale()
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -24,6 +25,7 @@ class Changelanguage : BottomSheetDialogFragment() {
         view.english.setOnClickListener{
             langauge!!.language("en")
             dismiss()
+
         }
         view.khmer.setOnClickListener{
             langauge!!.language("km")
@@ -36,6 +38,7 @@ class Changelanguage : BottomSheetDialogFragment() {
 
         try {
            langauge = context as BottomSheetListener?
+
         }
         catch (e: ClassCastException){
             throw ClassCastException(context!!.toString())
