@@ -35,6 +35,7 @@ import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
@@ -258,12 +259,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
         }
 //Button Call
-        val call = findViewById<Button>(R.id.btn_call)
-        call.setOnClickListener{
-            //                checkPermission()
-//            makePhoneCall("0962363929")
-            checkPermission()
-        }
+
 ////Button SMS
 //        val sms = findViewById<Button>(R.id.btn_sms)
 //        sms.setOnClickListener {
@@ -339,6 +335,17 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         })
 
     }  // oncreate
+    fun dialContactPhone(phoneNumber:String) {
+    startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
+    }
+    fun sms(phoneNumber:String) {
+//        startActivity( Intent(Intent.ACTION_SEND, Uri.fromParts("tel", phoneNumber, null)))
+        val sendIntent =  Intent(Intent.ACTION_VIEW)
+        sendIntent.putExtra("address"  ,phoneNumber)
+        sendIntent.putExtra("sms_body", "")
+        sendIntent.setType("vnd.android-dir/mms-sms")
+        startActivity(sendIntent)
+    }
 
     fun initialProductPostDetail(encode: String){
         var url:String
@@ -596,9 +603,11 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                         user_telephone.setText(user1.profile.telephone)
                         user_email.setText(user1.email)
                         findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-                            Log.d(TAG,"T"+user1.id)
+//                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
                             val intent = Intent(this@Detail_New_Post, User_post::class.java)
                             intent.putExtra("ID",user1.id.toString())
+                            intent.putExtra("Phone",user1.profile.telephone)
+                            intent.putExtra("Email",user1.profile.email)
                             //intent.putExtra("Phone",phone.text)
                             startActivity(intent)
                         }
@@ -716,6 +725,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                             val image = obj.getString("front_image_base64")
                             val img_user = obj.getString("right_image_base64")
                             val postType = obj.getString("post_type")
+                            val phoneNumber = obj.getString("contact_phone")
 
                             var location_duration = ""
                             //var count_view=countPostView(Encode,id)
@@ -725,7 +735,19 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                             val time: Long = sdf.parse(obj.getString("created")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-
+//Call
+                            val call = findViewById<Button>(R.id.btn_call)
+                            call.setOnClickListener{
+                                //   makePhoneCall("0962363929")
+                                dialContactPhone(phoneNumber)
+                                Log.d("Phone ",phoneNumber)
+                            }
+//SMS
+                            val sms = findViewById<Button>(R.id.btn_sms)
+                            sms.setOnClickListener {
+                                sms(phoneNumber)
+                                Log.d("SMS ",phoneNumber)
+                            }
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))

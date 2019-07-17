@@ -43,7 +43,8 @@ class User_post : AppCompatActivity() {
         password = sharedPref.getString("pass", "")
         encode = "Basic "+com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString(username,password)
 
-        img_user = findViewById<CircleImageView>(R.id.img_user)
+        Log.d("ENCODE1: ",encode)
+        img_user = findViewById(R.id.img_user)
 
         findViewById<TextView>(R.id.tv_back).setOnClickListener { finish() }
 

@@ -186,13 +186,13 @@ class Detail_Discount : AppCompatActivity()/*, OnMapReadyCallback*/ {
             shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
             startActivity(Intent.createChooser(shareIntent, getString(R.string.title_activity_account)))
         }
-        //Button Call
+//Button Call
         val call = findViewById<Button>(R.id.btn_call)
         call.setOnClickListener {
             //   checkPermission()
-            //makePhoneCall("0962363929")
+            //   makePhoneCall("0962363929")
         }
-        //Button Like
+//Button Like
         val like = findViewById<Button>(R.id.btn_like)
         like.setOnClickListener {
             Toast.makeText(this@Detail_Discount, "This Product add to Your Liked", Toast.LENGTH_SHORT).show()

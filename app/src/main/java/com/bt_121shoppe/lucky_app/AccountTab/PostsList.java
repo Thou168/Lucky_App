@@ -42,6 +42,8 @@ public class PostsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rvNewsList = getView() != null ? (RecyclerView) getView() : (RecyclerView)inflater.inflate(R.layout.news_recycler_view, container, false);
+
+
         return rvNewsList;
     }
 

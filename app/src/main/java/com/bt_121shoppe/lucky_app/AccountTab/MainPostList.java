@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.fragments.FragmentA1;
+import com.bt_121shoppe.lucky_app.fragments.Fragment_history;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class MainPostList extends Fragment {
     private void setUpPager() {
         NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
         FragmentA1 n1 = new FragmentA1();
-        PostsList n2 = new PostsList();
+        Fragment_history n2 = new Fragment_history();
 
         adp.addFrag(n1, "Active ads");
         adp.addFrag(n2, "History");

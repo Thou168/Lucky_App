@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
  * Activities containing this fragment MUST implement the
  * [FragmentA1]interface.
  */
-class FragmentA1: Fragment() {
+class Fragment_history: Fragment() {
     val TAG = "SubPostFragement"
     private var username: String? = null
     private var password: String? = null
@@ -40,10 +40,10 @@ class FragmentA1: Fragment() {
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
 
-    fun FragmentA1(){}
+    fun Fragment_history(){}
 
-    fun newInstance(): FragmentA1 {
-        return com.bt_121shoppe.lucky_app.fragments.FragmentA1()
+    fun newInstance(): Fragment_history {
+        return com.bt_121shoppe.lucky_app.fragments.Fragment_history()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class FragmentA1: Fragment() {
     private fun getMyPosts(){
         val itemApi = ArrayList<Item_API>()
         var posts= PostViewModel()
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser/?status=1"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser/?status=2"
         var MEDIA_TYPE= MediaType.parse("application/json")
         val client= OkHttpClient()
         val request= Request.Builder()
@@ -95,15 +95,13 @@ class FragmentA1: Fragment() {
                 val mMessage = e.message.toString()
                 Log.w("failure Response", mMessage)
             }
+            @SuppressLint("SimpleDateFormat")
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-
                 try {
-
                     activity!!.runOnUiThread {
                     val jsonObject = JSONObject(mMessage)
-                    Log.d("Run  :"," la"+jsonObject)
                     val jsonArray = jsonObject.getJSONArray("results")
                     val jsonCount= jsonObject.getInt("count")
                     for (i in 0 until jsonArray.length()) {
@@ -142,7 +140,7 @@ class FragmentA1: Fragment() {
                             @Throws(IOException::class)
                             override fun onResponse(call: Call, response: Response) {
                                 val mMessage = response.body()!!.string()
-                                val gson = Gson()
+
                                 try {
                                     Log.d("FRAGMENT 1",mMessage)
                                     val jsonObject= JSONObject(mMessage)
@@ -160,22 +158,9 @@ class FragmentA1: Fragment() {
                             }
                         })
 
-                        //Log.d("Item: ",itemApi.size.toString())
-//                        activity!!.runOnUiThread {
-
                         }
 
                     }
-//                    activity!!.runOnUiThread {
-//                        if(jsonCount>0){
-//                            for (i in 0 until jsonArray.length()) {
-//                                val obj=jsonArray.getJSONObject(i)
-//                                Log.e("TAG","T"+obj)
-//                            }
-//
-//                        }
-//
-//                    }
 
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
