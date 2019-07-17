@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.AccountTab.PostsList
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post
@@ -32,12 +33,23 @@ import kotlin.collections.ArrayList
  * [FragmentA1]interface.
  */
 class FragmentA1: Fragment() {
-
+    val TAG = "SubPostFragement"
     private var username: String? = null
     private var password: String? = null
     private var pk: Int? = null
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
+
+    fun FragmentA1(){}
+
+    fun newInstance(): FragmentA1 {
+        return com.bt_121shoppe.lucky_app.fragments.FragmentA1()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate: ")
+    }
 
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,9 +68,15 @@ class FragmentA1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        getMyPosts()
+        //getMyPosts()
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //setUpRecyclerView()
+        getMyPosts()
     }
     private fun getMyPosts(){
         val itemApi = ArrayList<Item_API>()
