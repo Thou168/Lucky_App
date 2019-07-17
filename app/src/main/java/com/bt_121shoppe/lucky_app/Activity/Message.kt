@@ -42,7 +42,7 @@ class Message : AppCompatActivity() {
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Message, MainAccountTabs::class.java)
+                        val intent = Intent(this@Message, Account::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

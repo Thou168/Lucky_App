@@ -194,7 +194,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Home, MainAccountTabs::class.java)
+                        val intent = Intent(this@Home, Account::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.AccountTab.MainLikeList
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
@@ -32,6 +33,7 @@ import kotlin.collections.ArrayList
  */
 class FragmentB1: Fragment() {
 
+    val TAG = "LikeFragement"
     var post_id = 0
     private var username: String? = null
     private var password: String? = null
@@ -39,16 +41,25 @@ class FragmentB1: Fragment() {
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
 
+    fun FragmentB1() {}
+
+    fun newInstance(): FragmentB1 {
+        return com.bt_121shoppe.lucky_app.fragments.FragmentB1()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate: ")
+    }
+
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment, container, false)
-
 
 //        val tvphone = ACTIVITY.intent.getStringExtra("Phone")
 //        val phone = view.findViewById<TextView>(R.id.phone)
 //        phone.text = tvphone
         recyclerView = view.findViewById(R.id.recycler_view)
-
 
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
@@ -59,9 +70,15 @@ class FragmentB1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        getMyLike()
+        //getMyLike()
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //setUpRecyclerView()
+        getMyLike()
     }
 
     private fun getMyLike() {

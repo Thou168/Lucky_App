@@ -101,10 +101,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <com.bt_121shoppe.lucky_app.utils.NonScrollableVP
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/pagerMain"
+        android:paddingBottom="40dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

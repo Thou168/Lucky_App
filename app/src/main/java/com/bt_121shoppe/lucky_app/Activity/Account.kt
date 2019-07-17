@@ -18,7 +18,13 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.bt_121shoppe.lucky_app.AccountTab.MainLikeList
+import com.bt_121shoppe.lucky_app.AccountTab.MainLoanList
+import com.bt_121shoppe.lucky_app.AccountTab.MainPostList
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
@@ -27,9 +33,11 @@ import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.Setting.Setting
 import com.bt_121shoppe.lucky_app.adapters.ViewPagerAdapter
+import com.bt_121shoppe.lucky_app.fragments.FragmentB1
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.FileCompressor
 import com.bt_121shoppe.lucky_app.utils.ImageUtil
+import com.bt_121shoppe.lucky_app.utils.NonScrollableVP
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
@@ -73,6 +81,8 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     var mPhotoFile: File?=null
     var mCompressor: FileCompressor?=null
     var bitmapImage:Bitmap?=null
+    internal lateinit var mainPager: ViewPager
+    internal lateinit var tabs: TabLayout
 
     internal lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
@@ -80,7 +90,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_account_user)
+        setContentView(R.layout.main_tab_layout)
 
         val bnavigation = findViewById<BottomNavigationView>(com.bt_121shoppe.lucky_app.R.id.bnaviga)
         bnavigation.menu.getItem(4).isChecked = true
@@ -137,6 +147,8 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             //upload.show(supportFragmentManager,upload.tag)
         }
 
+        mainPager = findViewById<View>(R.id.pagerMain) as ViewPager
+        tabs = findViewById<View>(R.id.tabs) as TabLayout
 
         val setting = findViewById<ImageButton>(R.id.btn_setting)
         setting.setOnClickListener {
@@ -174,12 +186,14 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         })
         */
 
+        /*
         viewPager = findViewById<View>(R.id.viewPager) as ViewPager
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = viewPagerAdapter
         tabLayout = findViewById<View>(R.id.tabs) as TabLayout
         tabLayout.setupWithViewPager(viewPager)
-
+           */
+        setUpPager()
         val preferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
@@ -619,4 +633,44 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             cursor?.close()
         }
     }
+
+    private fun setUpPager() {
+        val posts = MainPostList.newInstance()
+        val likes = FragmentB1()
+        val loans = MainLoanList.newInstance()
+        val adapter = MainPager(supportFragmentManager)
+
+        adapter.addFragment(posts, "Post")
+        adapter.addFragment(likes, "Like")
+        adapter.addFragment(loans, "Loan")
+
+        mainPager!!.setAdapter(adapter)
+        tabs!!.setupWithViewPager(mainPager)
+
+    }
+
+    private inner class MainPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+        internal var mFragments: MutableList<Fragment> = ArrayList()
+        internal var mFragmentsTitle: MutableList<String> = ArrayList()
+
+        fun addFragment(f: Fragment, s: String) {
+            mFragments.add(f)
+            mFragmentsTitle.add(s)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            Log.d("mylog", mFragmentsTitle[position])
+            return mFragmentsTitle[position]
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return mFragments[position]
+        }
+
+        override fun getCount(): Int {
+            return mFragments.size
+        }
+    }
+
 }

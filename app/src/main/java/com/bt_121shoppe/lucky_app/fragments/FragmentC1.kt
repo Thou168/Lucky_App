@@ -1,7 +1,6 @@
 package com.bt_121shoppe.lucky_app.fragments
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.AccountTab.LoansList
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
  * [FragmentC1]interface.
  */
 class FragmentC1: Fragment() {
-
+    val TAG = "SubLoanFragement"
     var post_id = 0
     private var username: String? = null
     private var password: String? = null
@@ -40,16 +40,25 @@ class FragmentC1: Fragment() {
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
 
+    fun FragmentC1(){}
+
+    fun newInstance(): FragmentC1 {
+        return com.bt_121shoppe.lucky_app.fragments.FragmentC1()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate: ")
+    }
+
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment, container, false)
-
 
 //        val tvphone = ACTIVITY.intent.getStringExtra("Phone")
 //        val phone = view.findViewById<TextView>(R.id.phone)
 //        phone.text = tvphone
         recyclerView = view.findViewById(R.id.recycler_view)
-
 
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
@@ -60,9 +69,13 @@ class FragmentC1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        getMyLoan()
-
+        //getMyLoan()
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getMyLoan()
     }
 
     private fun getMyLoan() {

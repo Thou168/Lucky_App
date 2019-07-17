@@ -171,7 +171,7 @@ public class Camera extends AppCompatActivity {
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), MainAccountTabs.class));
+                            startActivity(new Intent(getApplicationContext(), Account.class));
                         }else {
                             startActivity(new Intent(getApplicationContext(), UserAccount.class));
                         }

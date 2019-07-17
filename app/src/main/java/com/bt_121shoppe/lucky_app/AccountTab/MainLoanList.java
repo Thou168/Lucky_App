@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.lucky_app.R;
+import com.bt_121shoppe.lucky_app.fragments.FragmentC1;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -51,11 +52,11 @@ public class MainLoanList extends Fragment {
     private void setUpPager() {
         MainLoanList.NewsPagerAdapter adp = new MainLoanList.NewsPagerAdapter(getChildFragmentManager());
 
-        LoansList n1 = new LoansList();
+        FragmentC1 n1 = new FragmentC1();
         LoansList n2 = new LoansList();
 
-        adp.addFrag(n1, "Active ads (0)");
-        adp.addFrag(n2, "History (0)");
+        adp.addFrag(n1, "Active ads");
+        adp.addFrag(n2, "History");
 
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         vpNews.setAdapter(adp);

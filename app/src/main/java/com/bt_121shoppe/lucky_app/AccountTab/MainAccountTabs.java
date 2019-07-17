@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -24,19 +26,37 @@ import com.bt_121shoppe.lucky_app.Activity.Camera;
 import com.bt_121shoppe.lucky_app.Activity.Home;
 import com.bt_121shoppe.lucky_app.Activity.Message;
 import com.bt_121shoppe.lucky_app.Activity.Notification;
+import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
+import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account;
 import com.bt_121shoppe.lucky_app.R;
+import com.bt_121shoppe.lucky_app.Setting.Setting;
+import com.bt_121shoppe.lucky_app.fragments.FragmentB1;
+import com.bt_121shoppe.lucky_app.models.PostViewModel;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.bt_121shoppe.lucky_app.utils.FileCompressor;
 import com.bt_121shoppe.lucky_app.utils.NonScrollableVP;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainAccountTabs extends FragmentActivity {
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class MainAccountTabs extends AppCompatActivity {
 
     static final  int REQUEST_TAKE_PHOTO=1;
     static final int REQUEST_GALLARY_PHOTO=2;
@@ -108,12 +128,32 @@ public class MainAccountTabs extends FragmentActivity {
         tabs=(TabLayout)findViewById(R.id.tabs);
         tvUsername=(TextView) findViewById(R.id.tvUsername);
 
+        mCompressor=new FileCompressor(this);
         setUpPager();
+
+
+        ImageButton setting=(ImageButton) findViewById(R.id.btn_setting);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainAccountTabs.this, Setting.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton account_edit=(ImageButton) findViewById(R.id.btn_edit);
+        account_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainAccountTabs.this, Edit_account.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpPager() {
         MainPostList posts =MainPostList.newInstance();
-        MainLikeList likes =new MainLikeList();
+        FragmentB1 likes =new FragmentB1();
         MainLoanList loans=MainLoanList.newInstance();
         MainPager adapter = new MainPager(getSupportFragmentManager());
 
@@ -155,4 +195,45 @@ public class MainAccountTabs extends FragmentActivity {
             return mFragments.size();
         }
     }
+
+    private void getMyPosts(){
+        PostViewModel posts=new PostViewModel();
+        String URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser/";
+        MediaType MEDIA_TYPE=MediaType.parse("application/json");
+        OkHttpClient client=new OkHttpClient();
+        Request request=new Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encodeAuth)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String mMessage = response.body().string();
+                Gson gson = new Gson();
+                try{
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                        }
+                    });
+                }catch (JsonParseException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String mMessage = e.getMessage().toString();
+                Log.w("failure Response", mMessage);
+            }
+        });
+
+
+    }
+
 }
