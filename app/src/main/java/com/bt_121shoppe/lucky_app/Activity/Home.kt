@@ -87,6 +87,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var pass=""
     private var Encode=""
 
+    val category: MaterialBetterSpinner? = null
+
     fun language(lang: String) {
          val locale = Locale(lang)
          Locale.setDefault(locale)
@@ -293,20 +295,22 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //            recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
 //        }
 //Dropdown
-        val category = resources.getStringArray(R.array.category)
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
-        val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
-        sp_category.setAdapter(adapter)
-        val items = ArrayList<Item>()
-        sp_category.setOnItemClickListener { parent, view, position, id ->
-            val selected = sp_category.getText()
-            if (selected.equals("Motobike")){
-                items.addAll(Item.getType("Motobike"))
-            }else{
-                items.addAll(Item.getType("Electronic"))
-            }
-            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
-        }
+        getCategory()
+
+//        val category = resources.getStringArray(R.array.category)
+//        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
+//        val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
+//        sp_category.setAdapter(adapter)
+//        val items = ArrayList<Item>()
+//        sp_category.setOnItemClickListener { parent, view, position, id ->
+//            val selected = sp_category.getText()
+//            if (selected.equals("Motobike")){
+//                items.addAll(Item.getType("Motobike"))
+//            }else{
+//                items.addAll(Item.getType("Electronic"))
+//            }
+//            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
+//        }
 
 //Search
         val search = findViewById<EditText>(R.id.search)
@@ -410,6 +414,49 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    private fun getCategory(){
+        val itemApi = ArrayList<String>()
+        val url = ConsumeAPI.BASE_URL+"/api/v1/categories/"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val respon = response.body()!!.string()
+                Log.d("Response", respon)
+                try {
+                    val jsonObject = JSONObject(respon)
+                    val jsonArray = jsonObject.getJSONArray("results")
+                    //Log.d("count",jsonArray.length().toString())
+                    for (i in 0 until jsonArray.length()) {
+                        val `object` = jsonArray.getJSONObject(i)
+                        val cagory = `object`.getString("cat_name")
+                         runOnUiThread {
+                            itemApi.add(cagory)
+//                             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
+
+                             val adapter = ArrayAdapter<String>(applicationContext, android.R.layout.simple_dropdown_item_1line, itemApi);
+                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                             val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
+                             sp_category.setAdapter(adapter)
+
+                             Log.d("CATEGORY ",itemApi.size.toString())
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
     }
 
     fun getUserProfile(){

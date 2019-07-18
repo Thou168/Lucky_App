@@ -59,6 +59,7 @@
                     android:id="@+id/count_view"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
                     android:text="view: 100"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -596,46 +597,41 @@
         android:paddingTop="@dimen/dp_4"
         android:paddingBottom="@dimen/dp_4">
 
-        <Button
+        <ImageView
             android:id="@+id/btn_call"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/shap_ratangle"
-            android:text="Call"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/phone_call"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_sms"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_sms"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/shap_ratangle"
-            android:text="SMS"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/messaging"
             app:layout_constraintBottom_toBottomOf="@+id/btn_call"
             app:layout_constraintEnd_toStartOf="@+id/btn_like"
             app:layout_constraintStart_toEndOf="@+id/btn_call"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_like"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/shap_ratangle1"
-            android:text="Like"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/like"
             app:layout_constraintBottom_toBottomOf="@+id/btn_sms"
             app:layout_constraintEnd_toStartOf="@+id/btn_loan"
             app:layout_constraintStart_toEndOf="@+id/btn_sms"
-            app:layout_constraintTop_toTopOf="@+id/btn_sms"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/btn_sms"/>
 
-        <Button
+        <ImageView
             android:id="@+id/btn_loan"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/shap_ratangle1"
-            android:text="Loan"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/loan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_like"
             app:layout_constraintTop_toTopOf="@+id/btn_sms" />

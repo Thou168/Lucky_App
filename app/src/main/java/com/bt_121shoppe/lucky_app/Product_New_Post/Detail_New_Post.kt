@@ -277,7 +277,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
 //            startActivity(smsIntent)
 //        }
 //Button Like
-        val like = findViewById<Button>(R.id.btn_like)
+        val like = findViewById<ImageView>(R.id.btn_like)
         like.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
                 Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
@@ -288,7 +288,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             }
         }
 
-        val loan= findViewById<Button>(R.id.btn_loan)
+        val loan= findViewById<ImageView>(R.id.btn_loan)
         loan.setOnClickListener{
 
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -739,14 +739,14 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 //Call
-                            val call = findViewById<Button>(R.id.btn_call)
+                            val call = findViewById<ImageView>(R.id.btn_call)
                             call.setOnClickListener{
                                 //   makePhoneCall("0962363929")
                                 dialContactPhone(phoneNumber)
                                 Log.d("Phone ",phoneNumber)
                             }
 //SMS
-                            val sms = findViewById<Button>(R.id.btn_sms)
+                            val sms = findViewById<ImageView>(R.id.btn_sms)
                             sms.setOnClickListener {
                                 sms(phoneNumber)
                                 Log.d("SMS ",phoneNumber)
