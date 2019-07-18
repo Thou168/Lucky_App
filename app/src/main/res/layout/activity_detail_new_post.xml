@@ -599,8 +599,8 @@
 
         <ImageView
             android:id="@+id/btn_call"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/phone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_sms"
@@ -609,8 +609,8 @@
 
         <ImageView
             android:id="@+id/btn_sms"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/messaging"
             app:layout_constraintBottom_toBottomOf="@+id/btn_call"
             app:layout_constraintEnd_toStartOf="@+id/btn_like"
@@ -619,8 +619,8 @@
 
         <ImageView
             android:id="@+id/btn_like"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/like"
             app:layout_constraintBottom_toBottomOf="@+id/btn_sms"
             app:layout_constraintEnd_toStartOf="@+id/btn_loan"
@@ -629,8 +629,8 @@
 
         <ImageView
             android:id="@+id/btn_loan"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/loan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_like"

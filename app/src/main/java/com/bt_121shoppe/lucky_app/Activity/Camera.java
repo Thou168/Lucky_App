@@ -199,6 +199,7 @@ public class Camera extends AppCompatActivity {
               edit_id = bundle.getInt("id_product", 0);
 
          }
+         Log.d("Edit id", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         DropDown();
@@ -251,7 +252,7 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    if (bundle!=null) {
+                    if (edit_id!=0) {
                         mProgress.show();
                         EditPost_Approve(Encode, edit_id);
                     }
