@@ -2,6 +2,7 @@ package com.bt_121shoppe.lucky_app.Edit_Account;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class Edit_account extends AppCompatActivity {
     private List<Integer> provinceIdArrayList=new ArrayList<>();
     private List<String> provinceNameArrayList=new ArrayList<>();
     private RequestQueue mQueue;
-
+    private ProgressDialog mProgress;
     ArrayAdapter<CharSequence> adapter;
     private MaterialSpinner mp_Gender,mp_Dob,mp_Married,mp_Pob,mp_location;
 
@@ -94,6 +95,11 @@ public class Edit_account extends AppCompatActivity {
         pass = prefer.getString("pass","");
         Encode =getEncodedString(name,pass);
         Log.e(TAG,name+" "+pass+" "+pk+" "+Encode+" "+url);
+
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         tvType = (TextView)findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
@@ -134,6 +140,7 @@ public class Edit_account extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //summitUserInformation();
+                mProgress.show();
                 PutData(url,Encode);
             }
         });
@@ -345,26 +352,7 @@ public class Edit_account extends AppCompatActivity {
 
     private void PutData(String url,String encode) {
 
-//        String t = tvType.getText().toString();
-//        username  = etUsername.getText().toString();
-//        gender    = tvGender.getText().toString().toLowerCase();
-//        dob       = etDob.getText().toString();
-//        pob       = tvPob.getText().toString();
-//        married   = tvMarried.getText().toString().toLowerCase();
-//        phone     = etPhone.getText().toString();
-//        location  = tvLocation.getText().toString();
-//        job       = etJob.getText().toString();
-//        shop_name        = etShopName.getText().toString();
-//        shop_addr        = etShopAddr.getText().toString();
-//        responsible_name = etResponsible.getText().toString();
-//
-//        if (t.equals("Public User") || t.equals("Dealer")){
-//            wingnumber = etWingNumber.getText().toString();
-//            wingname   = etWingName.getText().toString();
-//        }else if (t.equals("121 Dealer")){
-//            wingnumber = etWingNumber_121.getText().toString();
-//            wingname   = etWingName_121.getText().toString();
-//        }
+
         MediaType media = MediaType.parse("application/json");
 
         OkHttpClient client = new OkHttpClient();
@@ -413,6 +401,7 @@ public class Edit_account extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 String message = e.getMessage().toString();
                 Log.d("failure Response",message);
+                mProgress.dismiss();
             }
 
             @Override
@@ -421,8 +410,7 @@ public class Edit_account extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
-
+                        mProgress.dismiss();
                         Log.d("Response", message);
                         startActivity(new Intent(getApplicationContext(), Account.class));
                     }

@@ -124,6 +124,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+
         if (sharedPref.contains("token") || sharedPref.contains("id")){
             navView.setVisibility(View.VISIBLE)
             name = sharedPref.getString("name", "")
@@ -137,8 +138,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             getUserProfile()
         }else{
             navView.setVisibility(View.GONE)
-
-
 
         }
 

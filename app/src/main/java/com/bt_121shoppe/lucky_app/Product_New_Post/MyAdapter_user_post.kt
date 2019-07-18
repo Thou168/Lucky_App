@@ -108,7 +108,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             }
 
             btn_edit.setOnClickListener {
-                Toast.makeText(it.context,"Edit"+item.title,Toast.LENGTH_SHORT).show()
+                Toast.makeText(it.context,"Edit "+item.title,Toast.LENGTH_SHORT).show()
                 val intent = Intent(itemView.context,Camera::class.java)
                 intent.putExtra("id_product",item.id)
                 itemView.context.startActivity(intent)
