@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "7f07b09034fb44879e413e1314e73b0b"]
     }
     buildTypes {
         release {
@@ -115,5 +116,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-
+    implementation 'net.hockeyapp.android:HockeySDK:5.2.0'
 }

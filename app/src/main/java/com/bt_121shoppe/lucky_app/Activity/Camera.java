@@ -158,6 +158,11 @@ public class Camera extends AppCompatActivity {
             }
         });
 
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
+
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -56,6 +56,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.nav_header_home.*
+import net.hockeyapp.android.CrashManager
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -295,23 +296,24 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //            recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
 //        }
 //Dropdown
+        //getCategory()
         category = findViewById(R.id.sp_category)
         getCategory()
 
-//        val category = resources.getStringArray(R.array.category)
-//        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
-//        val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
-//        sp_category.setAdapter(adapter)
-//        val items = ArrayList<Item>()
-//        sp_category.setOnItemClickListener { parent, view, position, id ->
-//            val selected = sp_category.getText()
-//            if (selected.equals("Motobike")){
-//                items.addAll(Item.getType("Motobike"))
-//            }else{
-//                items.addAll(Item.getType("Electronic"))
-//            }
-//            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
-//        }
+        val category = resources.getStringArray(R.array.category)
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
+        val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
+        sp_category.setAdapter(adapter)
+        val items = ArrayList<Item>()
+        sp_category.setOnItemClickListener { parent, view, position, id ->
+            val selected = sp_category.getText()
+            if (selected.equals("Motobike")){
+                items.addAll(Item.getType("Motobike"))
+            }else{
+                items.addAll(Item.getType("Electronic"))
+            }
+            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
+        }
 
 //Search
         val search = findViewById<EditText>(R.id.search)
@@ -415,7 +417,18 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        checkForCrashes()
+    }
+
+    private fun checkForCrashes() {
+        CrashManager.register(this)
+    }
+
     private fun getCategory(){
         val itemApi = ArrayList<String>()
         val url = ConsumeAPI.BASE_URL+"/api/v1/categories/"
