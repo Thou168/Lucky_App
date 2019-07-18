@@ -73,35 +73,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/imgPostType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:paddingRight="10dp"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
 
-                    <com.tiper.MaterialSpinner
-                        android:id="@+id/tvPostType"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginLeft="-5dp"
-                        android:layout_toRightOf="@+id/imgPostType"
-                        android:gravity="center_vertical"
-                        android:hint="@string/post_type"
-                        android:textSize="18dp"
-                        android:background="@null"
-                        style="@style/AppTheme.NoActionBar"
-                        app:spinnerMode="dropdown"
-
-
-                        />
 
                     <ImageView
                         android:id="@+id/imgTitle"
                         android:layout_width="20dp"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPostType"
+
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline_gray"/>
@@ -109,7 +87,6 @@
                         android:id="@+id/tilTitle"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPostType"
                         android:layout_toRightOf="@+id/imgTitle"
                         android:background="@drawable/underline_gray">
 
@@ -123,6 +100,29 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <ImageView
+                        android:id="@+id/imgPostType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/icon_null"
+                        android:layout_below="@+id/imgTitle"
+                        android:background="@drawable/underline_gray"/>
+
+                    <com.tiper.MaterialSpinner
+                        android:id="@+id/tvPostType"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="-5dp"
+                        android:layout_toRightOf="@+id/imgPostType"
+                        android:gravity="center_vertical"
+                        android:hint="@string/post_type"
+                        android:textSize="18dp"
+                        android:background="@null"
+                        android:layout_below="@+id/imgTitle"
+                        style="@style/AppTheme.NoActionBar"
+                        app:spinnerMode="dropdown"
+                        />
 
                     <ImageView
                         android:id="@+id/imgCategory"
@@ -130,14 +130,14 @@
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
                         android:paddingRight="10dp"
-                        android:layout_below="@+id/imgTitle"
+                        android:layout_below="@+id/imgPostType"
                         android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvCategory"
                         android:layout_width="match_parent"
                         android:layout_height="53dp"
                         android:layout_toRightOf="@+id/imgCategory"
-                        android:layout_below="@+id/tilTitle"
+                        android:layout_below="@+id/imgPostType"
                         android:gravity="center_vertical"
                         android:hint="@string/category"
                         android:textSize="18dp"

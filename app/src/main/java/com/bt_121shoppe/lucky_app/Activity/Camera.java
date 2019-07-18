@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,6 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs;
+import com.bt_121shoppe.lucky_app.models.CreatePostModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
@@ -124,8 +127,10 @@ public class Camera extends AppCompatActivity {
     String id_cate, id_brand,id_model,id_year,id_type;
     int cate,brand,model,year,type;
     SharedPreferences prefer,pre_id;
+    ProgressDialog mProgress;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
-    String test;
+    int edit_id,status;
+    Bundle bundle;
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     @Override
@@ -152,6 +157,11 @@ public class Camera extends AppCompatActivity {
                 finish();
             }
         });
+
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
@@ -184,6 +194,11 @@ public class Camera extends AppCompatActivity {
             }
         });
 
+         bundle = getIntent().getExtras();
+         if (bundle!=null) {
+              edit_id = bundle.getInt("id_product", 0);
+
+         }
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         DropDown();
@@ -191,13 +206,8 @@ public class Camera extends AppCompatActivity {
         Call_Type(Encode);
         Call_years(Encode);
         initialUserInformation(pk,Encode);
-        getData_Post(Encode);
+        getData_Post(Encode,edit_id);
         TextChange();
-
-
-
-
-
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,27 +250,32 @@ public class Camera extends AppCompatActivity {
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PostData(Encode);
+
+                    if (bundle!=null) {
+                        mProgress.show();
+                        EditPost_Approve(Encode, edit_id);
+                    }
+                     else  {
+                    mProgress.show();
+                    PostData(Encode);
+                }
             }
         });
 
     } // create
 
-    private void getData_Post(String encode){
+    private void getData_Post(String encode,int id){
 
-        Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
-            int d1 = bundle.getInt("id_product", 0);
-            String d2 = String.valueOf(d1);
-            final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"postbyuser/",d2);
-            Log.d("Url",url);
+            final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "postbyuser/", id);
+            Log.d("Url", url);
             OkHttpClient client = new OkHttpClient();
-            String auth = "Basic "+ encode;
+            String auth = "Basic " + encode;
             Request request = new Request.Builder()
                     .url(url)
-                    .header("Accept","application/json")
-                    .header("Content-Type","application/json")
-                    .header("Authorization",auth)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", auth)
                     .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
@@ -276,118 +291,147 @@ public class Camera extends AppCompatActivity {
                         public void run() {
 
 
-                    try {
-                        JSONObject object = new JSONObject(respon);
-                        String title = object.getString("title");
-                        String description = object.getString("description");
-                        int price = object.getInt("cost");
-                        String discount = object.getString("discount");
-                        String phone = object.getString("contact_phone");
-                        String email = object.getString("contact_email");
+                            try {
+                                JSONObject object = new JSONObject(respon);
 
-                        String post_type = object.getString("post_type");
-                        int category = object.getInt("category");
-                        int c = ID_category.getPosition(category);
-                        Log.d("Cate id", category + " and "+ c);
-                        int type_elec = object.getInt("type");
-                         int te;
-                        if (category==2) {
-                             te=3;
-                            icType_elec.setVisibility(View.GONE);
-                            tvType_elec.setVisibility(View.GONE);
-                        }else {
-                            icType_elec.setVisibility(View.VISIBLE);
-                            tvType_elec.setVisibility(View.VISIBLE);
-                             te = ID_type.getPosition(type_elec);
-                        }
-                   //     int brand = ID_brands.getPosition(category);
+//                                JSONArray array_sale = object.getJSONArray("sales");
+//                                for (int i = 0; i<array_sale.length();i++) {
+//                                    JSONObject ob_sale = array_sale.getJSONObject(i);
+//                                    int sale_status = ob_sale.getInt("sale_status");
+//                                    Log.d("sale_status", String.valueOf(sale_status));
+//                                    status = sale_status;
+//                                }
+//                                JSONArray array_buy = object.getJSONArray("buys");
+//                                for (int i=0;i<array_buy.length();i++) {
+//                                    JSONObject ob_buy = array_buy.getJSONObject(i);
+//                                    int buy_status = ob_buy.getInt("buy_status");
+//                                    Log.d("buy_status", String.valueOf(buy_status));
+//                                    status = buy_status;
+//                                }
+//                                JSONArray array_rent = object.getJSONArray("rents");
+//                                for (int i=0;i<array_rent.length();i++) {
+//                                    JSONObject ob_rent = array_rent.getJSONObject(i);
+//                                    int rent_status = ob_rent.getInt("rent_status");
+//                                    Log.d("rent_status", String.valueOf(rent_status));
+//                                    status = rent_status;
+//                                }
+                                String title = object.getString("title");
+                                String description = object.getString("description");
+                                int price = object.getInt("cost");
+                                String discount = object.getString("discount");
+                                String phone = object.getString("contact_phone");
+                                String email = object.getString("contact_email");
 
+                                String post_type = object.getString("post_type");
+                                int category = object.getInt("category");
+                                int c = ID_category.getPosition(category);
+                                Log.d("Cate id", category + " and " + c);
+                                int type_elec = object.getInt("type");
 
-                        int model = object.getInt("modeling");
-
-                 //       int m = ID_model.getPosition(model);
-                        Log.d("model id", String.valueOf(model));
-                        int year = object.getInt("year");
-                        int y = ID_year.getPosition(year);
-
-
-                        String condition = object.getString("condition");
-                        String color = object.getString("color");
-                        String dis_type = object.getString("discount_type");
-
-                        String fron = object.getString("front_image_base64");
-                        String back = object.getString("back_image_base64");
-                        String left = object.getString("left_image_base64");
-                        String right= object.getString("right_image_base64");
-
-                        List<String> list = new ArrayList<>();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                etTitle.setText(title);
-                                etDescription.setText(description);
-                                etPrice.setText(String.valueOf(price));
-                                etDiscount_amount.setText(discount);
-                                etPhone1.setText(phone);
-                                etEmail.setText(email);
-
-                                if (post_type.equals("sell")){
-                                    tvPostType.setSelection(0);
-                                }else if (post_type.equals("buy")){
-                                    tvPostType.setSelection(1);
-                                }else tvPostType.setSelection(2);
-
-                                if (condition.equals("new")){
-                                    tvCondition.setSelection(0);
-                                }else tvCondition.setSelection(1);
-
-                                switch (color){
-                                    case "blue": tvColor.setSelection(0);  break;
-                                    case "black": tvColor.setSelection(1);  break;
-                                    case "silver":tvColor.setSelection(2);   break;
-                                    case "red":  tvColor.setSelection(3); break;
-                                    case "gray": tvColor.setSelection(4);  break;
-                                    case "yellow":  tvColor.setSelection(5); break;
-                                    case "pink":  tvColor.setSelection(6); break;
-                                    case "purple": tvColor.setSelection(7);  break;
-                                    case "orange": tvColor.setSelection(8);  break;
-                                    case "green":tvColor.setSelection(9); break;
-                                    default: tvColor.setSelection(-1); break;
+                                int te;
+                                if (category == 2) {
+                                    te = 3;
+                                    icType_elec.setVisibility(View.GONE);
+                                    tvType_elec.setVisibility(View.GONE);
+                                } else {
+                                    icType_elec.setVisibility(View.VISIBLE);
+                                    tvType_elec.setVisibility(View.VISIBLE);
+                                    te = ID_type.getPosition(type_elec);
                                 }
-                                tvCategory.setSelection(c);
-                                tvType_elec.setSelection(te);
-
-                                get_model(encode,model);
-                                tvYear.setSelection(y);
+                                //     int brand = ID_brands.getPosition(category);
 
 
+                                int model = object.getInt("modeling");
 
-                                byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
-                                 bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
-                                imageView1.setImageBitmap(bitmapImage1);
-                                byte[] decodedString2 = Base64.decode(back, Base64.DEFAULT);
-                                 bitmapImage2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
-                                imageView2.setImageBitmap(bitmapImage2);
-                                byte[] decodedString3 = Base64.decode(left, Base64.DEFAULT);
-                                 bitmapImage3 = BitmapFactory.decodeByteArray(decodedString3, 0, decodedString3.length);
-                                imageView3.setImageBitmap(bitmapImage3);
-                                byte[] decodedString4 = Base64.decode(right, Base64.DEFAULT);
-                                 bitmapImage4 = BitmapFactory.decodeByteArray(decodedString4, 0, decodedString4.length);
-                                imageView4.setImageBitmap(bitmapImage4);
+                                //       int m = ID_model.getPosition(model);
+                                Log.d("model id", String.valueOf(model));
+                                int year = object.getInt("year");
+                                int y = ID_year.getPosition(year);
 
-                            }
-                        });
+                                String condition = object.getString("condition");
+                                String color = object.getString("color");
+                                String dis_type = object.getString("discount_type");
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } //
+                                String fron = object.getString("front_image_base64");
+                                String back = object.getString("back_image_base64");
+                                String left = object.getString("left_image_base64");
+                                String right = object.getString("right_image_base64");
+
+                                List<String> list = new ArrayList<>();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        etTitle.setText(title);
+                                        etDescription.setText(description);
+                                        etPrice.setText(String.valueOf(price));
+                                        etDiscount_amount.setText(discount);
+                                        etPhone1.setText(phone);
+                                        etEmail.setText(email);
+
+                                        if (post_type.equals("sell")) {
+                                            tvPostType.setSelection(0);
+                                        } else if (post_type.equals("buy")) {
+                                            tvPostType.setSelection(1);
+                                        } else tvPostType.setSelection(2);
+
+                                        if (condition.equals("new")) {
+                                            tvCondition.setSelection(0);
+                                        } else tvCondition.setSelection(1);
+
+                                        if (dis_type.equals("amount")){
+                                            tvDiscount_type.setSelection(0);
+                                        }else {
+                                            tvDiscount_type.setSelection(1);
+                                        }
+
+                                        switch (color) {
+                                            case "blue":    tvColor.setSelection(0);  break;
+                                            case "black":   tvColor.setSelection(1);  break;
+                                            case "silver":  tvColor.setSelection(2);  break;
+                                            case "red":     tvColor.setSelection(3);  break;
+                                            case "gray":    tvColor.setSelection(4);  break;
+                                            case "yellow":  tvColor.setSelection(5);  break;
+                                            case "pink":    tvColor.setSelection(6);  break;
+                                            case "purple":  tvColor.setSelection(7);  break;
+                                            case "orange":  tvColor.setSelection(8);  break;
+                                            case "green":   tvColor.setSelection(9);  break;
+                                            default:
+                                                tvColor.setSelection(-1);
+                                                break;
+                                        }
+                                        tvCategory.setSelection(c);
+                                        tvType_elec.setSelection(te);
+
+//                                        get_model(encode, model);
+                                        tvYear.setSelection(y);
+
+
+                                        byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
+                                        bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+                                        imageView1.setImageBitmap(bitmapImage1);
+                                        byte[] decodedString2 = Base64.decode(back, Base64.DEFAULT);
+                                        bitmapImage2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+                                        imageView2.setImageBitmap(bitmapImage2);
+                                        byte[] decodedString3 = Base64.decode(left, Base64.DEFAULT);
+                                        bitmapImage3 = BitmapFactory.decodeByteArray(decodedString3, 0, decodedString3.length);
+                                        imageView3.setImageBitmap(bitmapImage3);
+                                        byte[] decodedString4 = Base64.decode(right, Base64.DEFAULT);
+                                        bitmapImage4 = BitmapFactory.decodeByteArray(decodedString4, 0, decodedString4.length);
+                                        imageView4.setImageBitmap(bitmapImage4);
+
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } //
 
                         }
                     });
                     Log.d("Edit", respon);
                 }
             });
-        }
+        }  //getextra
     }
     private void initialUserInformation(int pk, String encode) {
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
@@ -562,42 +606,428 @@ public class Camera extends AppCompatActivity {
                     .build();
 
             client.newCall(request).enqueue(new Callback() {
+
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                   String respon = response.body().string();
+                    Log.d(TAG, "TTTT" + respon);
+
+                    Gson gson = new Gson();
+                    CreatePostModel createPostModel = new CreatePostModel();
+                    try{
+                        createPostModel = gson.fromJson(respon,CreatePostModel.class);
+                        if (createPostModel!=null){
+                            int id = createPostModel.getId();
+                            if (id!=0){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+                                        startActivity(new Intent(Camera.this,Home.class));
+                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        }
+                    }catch (JsonParseException e){
+                        e.printStackTrace();
+                        mProgress.dismiss();
+                    }
+
+                }//
                 @Override
                 public void onFailure(Call call, IOException e) {
                     String mMessage = e.getMessage().toString();
                     Log.d("Failure:",mMessage );
+                    mProgress.dismiss();
 
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(TAG, "TTTT" + response.body().string());
-                    //       String message = response.body().string();
-                    //      Log.d("Responseqqq", message);
-                    if (response.isSuccessful()) {
-                        startActivity(new Intent(getApplicationContext(), Account.class));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //     Log.d("Responseqqq", message);
-                                Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Error"+response.body().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
-
+            mProgress.dismiss();
         }
     } //postdata
+    private void EditPost_Approve(String encode,int edit_id) {
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        String url = "";
+        OkHttpClient client = new OkHttpClient();
+        JSONObject post = new JSONObject();
+        JSONObject sale = new JSONObject();
+        try {
+
+            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
+
+
+            post.put("title",etTitle.getText().toString().toLowerCase());
+            post.put("category", cate );
+            post.put("status", 1);
+            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
+
+            if (postType.equals("buy")) {
+                post.put("discount", "0");
+                post.put("discount_type","amount");
+            }else {
+                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
+                post.put("discount",etDiscount_amount.getText().toString());
+            }
+            //post.put("discount", 0);
+            post.put("user",pk );
+            if(bitmapImage1==null) {
+                post.put("front_image_path", "");
+                post.put("front_image_base64", "");
+            }
+            else {
+                post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+                post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+            }
+            if(bitmapImage2==null){
+                post.put("right_image_path", "");
+                post.put("right_image_base64", "");
+            }else{
+                post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
+                post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
+            }
+            if(bitmapImage3==null){
+                post.put("left_image_path", "");
+                post.put("left_image_base64", "");
+            }else{
+                post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
+                post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
+            }
+            if(bitmapImage4==null){
+                post.put("back_image_path", "");
+                post.put("back_image_base64", "");
+            }else{
+                post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
+                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
+            }
+            //Instant.now().toString()
+            post.put("created", "");
+            post.put("created_by", pk);
+            post.put("modified", Instant.now().toString());
+            post.put("modified_by", null);
+            post.put("approved_date", null);
+            post.put("approved_by", null);
+            post.put("rejected_date", null);
+            post.put("rejected_by",null);
+            post.put("rejected_comments", "");
+            post.put("year", year); //year
+            post.put("modeling", model);
+            //post.put("modeling", 1);
+            post.put("description", etDescription.getText().toString().toLowerCase());
+            //post.put("cost", etPrice.getText().toString().toLowerCase());
+            post.put("cost",etPrice.getText().toString());
+            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
+
+            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
+
+            post.put("vin_code", "");
+            post.put("machine_code", "");
+            post.put("type", type);
+            post.put("contact_phone", etPhone1.getText().toString());
+            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
+            post.put("contact_address", "");
+            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
+
+
+            switch (postType){
+                case "sell":
+                    url=ConsumeAPI.BASE_URL+"postsale/"+edit_id+"/";
+                    //Log.d("URL","URL"+url);
+                    sale.put("sale_status", 3);
+                    sale.put("record_status",1);
+                    sale.put("sold_date", null);
+                    //sale.put("price", etPrice.getText().toString().toLowerCase());
+                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
+                    sale.put("price", etPrice.getText().toString());
+                    sale.put("total_price",etPrice.getText().toString());
+                    post.put("sale_post",new JSONArray("["+sale+"]"));
+
+                    break;
+                case "rent":
+                    url = ConsumeAPI.BASE_URL+"postrent/"+ edit_id+"/";
+                    JSONObject rent=new JSONObject();
+                    rent.put("rent_status",3);
+                    rent.put("record_status",1);
+                    rent.put("rent_type","month");
+                    rent.put("price",etPrice.getText().toString().toLowerCase());
+                    rent.put("total_price",etPrice.getText().toString().toLowerCase());
+                    rent.put("rent_date",null);
+                    rent.put("return_date",null);
+                    rent.put("rent_count_number",0);
+                    post.put("rent_post",new JSONArray("["+rent+"]"));
+                    break;
+                case "buy":
+                    url = ConsumeAPI.BASE_URL+"api/v1/postbuys/"+ edit_id + "/";
+                    JSONObject buy=new JSONObject();
+                    buy.put("buy_status",3);
+                    buy.put("record_status",1);
+                    post.put("buy_post",new JSONArray("["+buy+"]"));
+                    break;
+            }
+            Log.d(TAG,post.toString());
+            RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
+            String auth = "Basic " + encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .put(body)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization",auth)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String respon = response.body().string();
+                    Log.d(TAG, "TTTT" + respon);
+                    Gson gson = new Gson();
+                    CreatePostModel createPostModel = new CreatePostModel();
+                    try{
+                        createPostModel = gson.fromJson(respon,CreatePostModel.class);
+                        if (createPostModel!=null){
+                            int id = createPostModel.getId();
+                            if (id!=0){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+                                        startActivity(new Intent(Camera.this,Home.class));
+                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        }
+                    }catch (JsonParseException e){
+                        e.printStackTrace();
+                        mProgress.dismiss();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String mMessage = e.getMessage().toString();
+                    Log.d("Failure:",mMessage );
+                    mProgress.dismiss();
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            mProgress.dismiss();
+        }
+    } //edit post approve
+    private void EditPost_Pending(String encode,int edit_id){
+        final String url = "http://103.205.26.103:8000/postbyuser/"+ edit_id +"/";
+
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        OkHttpClient client = new OkHttpClient();
+        JSONObject post = new JSONObject();
+        JSONObject sale = new JSONObject();
+        JSONObject buy=new JSONObject();
+        JSONObject rent=new JSONObject();
+        try {
+
+            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
+            post.put("title",etTitle.getText().toString().toLowerCase());
+            post.put("category", cate );
+            post.put("status", 1);
+            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
+
+            if (postType.equals("buy")) {
+                post.put("discount", "0");
+                post.put("discount_type","amount");
+            }else {
+                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
+                post.put("discount",etDiscount_amount.getText().toString());
+            }
+            //post.put("discount", 0);
+            post.put("user",pk );
+            if(bitmapImage1==null) {
+                post.put("front_image_path", "");
+                post.put("front_image_base64", "");
+            }
+            else {
+                post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+                post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+            }
+            if(bitmapImage2==null){
+                post.put("right_image_path", "");
+                post.put("right_image_base64", "");
+            }else{
+                post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
+                post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
+            }
+            if(bitmapImage3==null){
+                post.put("left_image_path", "");
+                post.put("left_image_base64", "");
+            }else{
+                post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
+                post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
+            }
+            if(bitmapImage4==null){
+                post.put("back_image_path", "");
+                post.put("back_image_base64", "");
+            }else{
+                post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
+                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
+            }
+            //Instant.now().toString()
+            post.put("created", "");
+            post.put("created_by", pk);
+            post.put("modified", Instant.now().toString());
+            post.put("modified_by", null);
+            post.put("approved_date", null);
+            post.put("approved_by", null);
+            post.put("rejected_date", null);
+            post.put("rejected_by",null);
+            post.put("rejected_comments", "");
+            post.put("year", year); //year
+            post.put("modeling", model);
+            //post.put("modeling", 1);
+            post.put("description", etDescription.getText().toString().toLowerCase());
+            //post.put("cost", etPrice.getText().toString().toLowerCase());
+            post.put("cost",etPrice.getText().toString());
+            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
+
+            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
+
+            post.put("vin_code", "");
+            post.put("machine_code", "");
+            post.put("type", type);
+            post.put("contact_phone", etPhone1.getText().toString());
+            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
+            post.put("contact_address", "");
+            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
+
+
+            switch (postType){
+                case "sell":
+                    sale.put("sale_status", 3);
+                    sale.put("record_status",1);
+                    sale.put("sold_date", null);
+                    //sale.put("price", etPrice.getText().toString().toLowerCase());
+                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
+                    sale.put("price", etPrice.getText().toString());
+                    sale.put("total_price",etPrice.getText().toString());
+                    post.put("sale_post",new JSONArray("["+sale+"]"));
+
+                    post.put("rent_post",new JSONArray("["+""+"]"));
+                    post.put("buy_post",new JSONArray("["+""+"]"));
+                    break;
+                case "rent":
+
+                    rent.put("rent_status",3);
+                    rent.put("record_status",1);
+                    rent.put("rent_type","month");
+                    rent.put("price",etPrice.getText().toString().toLowerCase());
+                    rent.put("total_price",etPrice.getText().toString().toLowerCase());
+                    rent.put("rent_date",null);
+                    rent.put("return_date",null);
+                    rent.put("rent_count_number",0);
+                    post.put("rent_post",new JSONArray("["+rent+"]"));
+
+                    post.put("sale_post",new JSONArray("["+""+"]"));
+                    post.put("buy_post",new JSONArray("["+""+"]"));
+                    break;
+                case "buy":
+
+                    buy.put("buy_status",3);
+                    buy.put("record_status",1);
+                    post.put("buy_post",new JSONArray("["+buy+"]"));
+
+//                    post.put("sale_post",new JSONArray("["+""+"]"));
+//                    post.put("rent_post",new JSONArray("["+""+"]"));
+                    break;
+            }
+            Log.d(TAG,post.toString());
+            RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
+            String auth = "Basic " + encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .put(body)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization",auth)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String respon = response.body().string();
+                    Log.d(TAG, "TTTT" + respon);
+                    Gson gson = new Gson();
+                    CreatePostModel createPostModel = new CreatePostModel();
+                    try{
+                        createPostModel = gson.fromJson(respon,CreatePostModel.class);
+                        if (createPostModel!=null){
+                            int id = createPostModel.getId();
+                            if (id!=0){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+                                        startActivity(new Intent(Camera.this,Home.class));
+                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        }
+                    }catch (JsonParseException e){
+                        e.printStackTrace();
+                        mProgress.dismiss();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String mMessage = e.getMessage().toString();
+                    Log.d("Failure:",mMessage );
+                    mProgress.dismiss();
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            mProgress.dismiss();
+        }
+    }
 
     private void Call_category(String encode) {
 
@@ -677,7 +1107,6 @@ public class Camera extends AppCompatActivity {
         });
 
     }  // category
-
 
     private void Call_Type(String encode) {
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/types/");
@@ -978,7 +1407,6 @@ public class Camera extends AppCompatActivity {
                     ArrayAdapter<Integer> adapterM_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,model_id);
                     ArrayAdapter<String> adapterM_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,listMN);
                     tvModel.setAdapter(adapterM_name);
-
                    tvModel.setSelection(0);
 
                     final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/"+brand_id);
@@ -1013,6 +1441,7 @@ public class Camera extends AppCompatActivity {
                                 ArrayAdapter<String> adapterB_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,ListBn);
                                 tvBrand.setAdapter(adapterB_name);
                                 tvBrand.setSelection(0);
+
 
 
                             }catch (JSONException e){
