@@ -140,24 +140,34 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             } else if (sharedPref.contains("id")) {
                 pk = sharedPref.getInt("id", 0)
             }
+            english!!.setOnClickListener { language("en")
+                recreate()
+            }
+            khmer!!.setOnClickListener { language("km")
+                recreate()
+            }
+            if(language.equals("km")) {
+                english!!.visibility = View.VISIBLE
+                khmer!!.visibility = View.GONE
+            }else{
+                english!!.visibility = View.GONE
+                khmer!!.visibility = View.VISIBLE
+            }
             getUserProfile()
-            english!!.setOnClickListener {
-                language("en")
-                recreate()
-            }
-            khmer!!.setOnClickListener {
-                language("km")
-                recreate()
-            }
         }else{
             navView.setVisibility(View.GONE)
 
-            english!!.setOnClickListener {
-                language("en")
+            if(language.equals("km")) {
+                english!!.visibility = View.VISIBLE
+                khmer!!.visibility = View.GONE
+            }else{
+                english!!.visibility = View.GONE
+                khmer!!.visibility = View.VISIBLE
+            }
+            english!!.setOnClickListener { language("en")
                 recreate()
             }
-            khmer!!.setOnClickListener {
-                language("km")
+            khmer!!.setOnClickListener { language("km")
                 recreate()
             }
 
@@ -165,13 +175,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         Log.d("khmer",language)
 
-        if(language.equals("km")) {
-            english!!.visibility = View.VISIBLE
-            khmer!!.visibility = View.GONE
-        }else{
-            english!!.visibility = View.GONE
-            khmer!!.visibility = View.VISIBLE
-        }
+
 
         requestStoragePermission(false)
         requestStoragePermission(true)
