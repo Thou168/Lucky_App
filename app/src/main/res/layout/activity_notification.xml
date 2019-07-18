@@ -19,19 +19,19 @@
             android:drawableLeft="@drawable/icon_back"
             android:layout_height="35dp"/>
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
-        android:id="@+id/noti_recy"
-        android:layout_above="@+id/bnaviga"
-        android:layout_below="@id/toolbar_notification"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/layout_notification"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/noti_recy"-->
+        <!--android:layout_above="@+id/bnaviga"-->
+        <!--android:layout_below="@id/toolbar_notification"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<androidx.recyclerview.widget.RecyclerView-->
+            <!--android:id="@+id/layout_notification"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+        <!--</androidx.recyclerview.widget.RecyclerView>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:menu="@menu/bottom_navigation"
         android:id="@+id/bnaviga"

@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
@@ -117,10 +119,14 @@ class Detail_Discount : AppCompatActivity()/*, OnMapReadyCallback*/ {
             }
         }
     }*/
+    private var postId:Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_discount)
+
+        postId = intent.getIntExtra("ID",0)
+        Log.d("ID Detail Des :",postId.toString())
 
         /*ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
         txt_place = findViewById(R.id.txt_show_place) as TextView
@@ -200,7 +206,9 @@ class Detail_Discount : AppCompatActivity()/*, OnMapReadyCallback*/ {
 
         val loan = findViewById<Button>(R.id.btn_loan)
         loan.setOnClickListener {
+
             val intent = Intent(this@Detail_Discount, LoanCreateActivity::class.java)
+//            intent.putExtra("IDforLoanDes",postId)
             startActivity(intent)
         }
     }

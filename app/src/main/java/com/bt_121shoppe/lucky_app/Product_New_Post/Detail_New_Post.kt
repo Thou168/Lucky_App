@@ -178,8 +178,9 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
+
         postId = intent.getIntExtra("ID",0)
-        Log.d("ID Detail  :",postId.toString())
+        Log.d("ID Detail New :",postId.toString())
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
@@ -371,6 +372,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                     //.header("Authorization", auth)
                     .build()
         }
+
         //val url=ConsumeAPI.BASE_URL+"allposts/"+postId
         val client=OkHttpClient()
         /*
@@ -486,15 +488,15 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
 
                         })
 
-                        tvPostTitle.setText(postDetail.title)
-                        tvPrice.setText("$ "+postDetail.cost)
+                        tvPostTitle.setText(postDetail.title.toString())
+                        tvPrice.setText("$ "+postDetail.cost.toString())
                         tvCondition.setText(postDetail.condition.toString())
                         tvColor.setText(postDetail.color.toString())
                         tvDescription.setText(postDetail.description.toString())
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                        val time:Long = sdf.parse(postDetail.created).getTime()
+                        sdf.timeZone = TimeZone.getTimeZone("GMT")
+                        val time:Long = sdf.parse(postDetail.created).time
                         val now:Long = System.currentTimeMillis()
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                         tv_location_duration.setText(ago)
