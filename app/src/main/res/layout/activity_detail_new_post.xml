@@ -601,7 +601,7 @@
             android:id="@+id/btn_call"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/phone_call"
+            android:src="@drawable/phone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_sms"
             app:layout_constraintStart_toStartOf="parent"
