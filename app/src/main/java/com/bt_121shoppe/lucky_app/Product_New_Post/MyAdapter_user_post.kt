@@ -21,6 +21,7 @@ import android.widget.Toast
 import com.bt_121shoppe.lucky_app.Startup.MainActivity
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import android.os.Build
 //import javax.swing.text.StyleConstants.setIcon
 import androidx.appcompat.app.AlertDialog
 import com.bt_121shoppe.lucky_app.Activity.Account
@@ -149,7 +150,9 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                             //data.put("id",60)
                             data.put("status",2)
                             //ata.put("description","Test")
-                            data.put("modified", Instant.now().toString())
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                data.put("modified", Instant.now().toString())
+                            }
                             data.put("modified_by", pk)
                             data.put("rejected_comments",reason)
                         }catch (e: JSONException){
@@ -285,7 +288,9 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                                 //data.put("id",60)
                                 data.put("status",1)
                                 //ata.put("description","Test")
-                                data.put("modified", Instant.now().toString())
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    data.put("modified", Instant.now().toString())
+                                }
                                 data.put("modified_by", pk)
                                 data.put("rejected_comments","")
                             }catch (e: JSONException){

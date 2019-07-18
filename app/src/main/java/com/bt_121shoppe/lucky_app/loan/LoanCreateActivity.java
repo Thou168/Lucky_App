@@ -1,6 +1,8 @@
 package com.bt_121shoppe.lucky_app.loan;
 
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
+import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.models.LoanViewModel;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
@@ -44,7 +48,7 @@ public class LoanCreateActivity extends AppCompatActivity {
     private int pk;
     private Boolean status_card,status_family,status_staff,status_title = null;
     private Boolean status_borrower = null;
-    private int postID;
+//    private int postID;
     //loan_information
     private Button btSubmit;
     EditText job_loan_information,monthly_income_loan_information,monthly_expense;
@@ -67,9 +71,8 @@ public class LoanCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_create);
 
-        Bundle extras = getIntent().getExtras();
-        postID = extras.getInt("PutIDLoan",0);
-        Log.d(TAG,"Loan ID "+postID);
+//        postID = getIntent().getIntExtra("PutIDLoan",postID);
+//        Log.d(TAG,"Loan ID "+postID);
 
         txtBack = (TextView)findViewById(R.id.tvBack_account);
         txtBack.setOnClickListener(new View.OnClickListener(){
@@ -250,14 +253,14 @@ public class LoanCreateActivity extends AppCompatActivity {
     } //oncreate
 
     private void consumeLoanCreateApi(){
-        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/";
+        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"/api/v1/loan/";
 
         OkHttpClient client=new OkHttpClient();
         JSONObject data=new JSONObject();
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",loan_term.getText().toString()); //loan term
+            data.put("loan_interest_rate",loan_term.getText().toString().toLowerCase()); //loan term
             data.put("loan_duration","24");
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
             data.put("loan_status",9);
@@ -274,7 +277,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("family_book",status_family);    //family_book
             data.put("staff_id",status_staff);   //staff_id
             data.put("house_plant",status_title);  //land_title
-            data.put("post",postID);
+            data.put("post",getIntent().getIntExtra("PutIDLoan",0));
             data.put("created_by",pk);
 
             Log.d(TAG," d"+data);
@@ -332,6 +335,7 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
                                                     dialog.dismiss();
                                                 }
                                             });
