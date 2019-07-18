@@ -68,9 +68,16 @@ public class Register extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgress.show();
+                //mProgress.show();
                 if (editPassword.getText().toString().equals(editComfirmPass.getText().toString())) {
-                    postRequest();
+                    //postRequest();
+                    Intent intent = new Intent(Register.this, VerifyMobileActivity.class);
+                    intent.putExtra("authType",1);
+                    intent.putExtra("phoneNumber",editPhone.getText().toString());
+                    intent.putExtra("password",comfirm = editPassword.getText().toString());
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    //finish();
                 }else {
                     Toast.makeText(v.getContext(),"Password incorrect",Toast.LENGTH_SHORT).show();
                     mProgress.dismiss();
@@ -84,9 +91,7 @@ public class Register extends AppCompatActivity {
         pass= editPassword.getText().toString();
         comfirm = editPassword.getText().toString();
 
-
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
-
         String url =String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/users/");
 
         OkHttpClient client = new OkHttpClient();
@@ -117,8 +122,6 @@ public class Register extends AppCompatActivity {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-
-
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 final String mMessage = response.body().string();

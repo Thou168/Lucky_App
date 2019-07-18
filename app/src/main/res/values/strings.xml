@@ -397,6 +397,9 @@
     <string name="discount">DISCOUNT</string>
     <string name="discount_type">Discount type</string>
 
+    <string name="bt_verify">Verify</string>
+    <string name="verify_code">Verify Code</string>
+
     <string name="about_us_heading">About Us</string>
     <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
     <string name="about_us_description">Welcome to 121 online market platform!

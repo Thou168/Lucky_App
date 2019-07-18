@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: io.github.ivanespitiac:imageslider:1.0.3@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf97bf1c8ac65f5d9cb55ba6bac39799/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/73774544f20f16ca1795504a97103444/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf97bf1c8ac65f5d9cb55ba6bac39799/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf97bf1c8ac65f5d9cb55ba6bac39799/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/73774544f20f16ca1795504a97103444/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/73774544f20f16ca1795504a97103444/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

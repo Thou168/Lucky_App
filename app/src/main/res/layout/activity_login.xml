@@ -97,19 +97,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         />
 
-
-
-
     <Button
         android:id="@+id/btnSubmitLogin"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@drawable/shap_ratangle"
+        android:layout_height="wrap_content"
+        android:background="@color/logo_orange"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:text="Submit"
-        android:textColor="#FAFAFA"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPasswordLogin" />

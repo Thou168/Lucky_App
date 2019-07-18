@@ -508,7 +508,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line7"
-                        android:drawableLeft="@drawable/icon_phone"
+
                         android:text="0123456789"
                         android:id="@+id/tv_phone"
                         android:layout_toEndOf="@+id/tv_iconphone" />
@@ -527,7 +527,7 @@
                         android:layout_below="@+id/line8"
                         android:id="@+id/tv_email"
                         android:text=""
-                        android:drawableLeft="@drawable/icon_email"
+
                         android:paddingLeft="@dimen/dp_4"
                         android:layout_toEndOf="@+id/tv_iconemail"
                         android:layout_width="wrap_content"
@@ -540,7 +540,7 @@
                         android:id="@+id/txt_show_place_detail_new_post"
                         android:layout_width="wrap_content"
                         android:layout_below="@+id/line10"
-                        android:drawableLeft="@drawable/ic_my_location_black_24dp"
+
                         android:paddingLeft="5dp"
                         android:layout_marginLeft="8dp"
                         android:text="Location :"

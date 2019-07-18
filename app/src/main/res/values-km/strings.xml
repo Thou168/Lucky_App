@@ -91,10 +91,10 @@
     <string name="buy1">ទិញ</string>
     <string name="sell1">លក់</string>
     <string name="rent">ជួល</string>
-
     <string name="search">ស្វែងរក</string>
-
     <string name="back">ត្រឡប់</string>
+    <string name="bt_verify">ផ្ទៀងផ្ទាត់</string>
+    <string name="verify_code">លេខកូដផ្ទៀងផ្ទាត់</string>
 
     <!-- Start Loan Information String -->
     <style name="loan_calculation_title1">ការរគណនាប្រាក់កម្ចី/ Loan Calculation</style>

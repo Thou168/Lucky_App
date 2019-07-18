@@ -87,7 +87,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                intent.putExtra("Title",item.title)
                   intent.putExtra("Price",item.cost)
 //                intent.putExtra("Name",item.name)
-//                    intent.putExtra("postt",1)
+                    //intent.putExtra("postt",1)
                   intent.putExtra("ID",item.id)
                   Log.d("ID  :",item.id.toString())
                 itemView.context.startActivity(intent)
