@@ -87,7 +87,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var pass=""
     private var Encode=""
 
-    val category: MaterialBetterSpinner? = null
+    var category: MaterialBetterSpinner? = null
 
     fun language(lang: String) {
          val locale = Locale(lang)
@@ -295,6 +295,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //            recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
 //        }
 //Dropdown
+        category = findViewById(R.id.sp_category)
         getCategory()
 
 //        val category = resources.getStringArray(R.array.category)
@@ -442,10 +443,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             itemApi.add(cagory)
 //                             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
 
-                             val adapter = ArrayAdapter<String>(applicationContext, android.R.layout.simple_dropdown_item_1line, itemApi);
+                             val adapter = ArrayAdapter(applicationContext, android.R.layout.simple_dropdown_item_1line, itemApi)
                              adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                             val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
-                             sp_category.setAdapter(adapter)
+                             category!!.setAdapter(adapter)
 
                              Log.d("CATEGORY ",itemApi.size.toString())
 
