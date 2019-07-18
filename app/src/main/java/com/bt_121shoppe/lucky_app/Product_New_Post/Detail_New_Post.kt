@@ -185,6 +185,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
+        Log.d("adfjlsfjsldk",Encode)
         if (sharedPref.contains("token")) {
            pk = sharedPref.getInt("Pk",0)
         } else if (sharedPref.contains("id")) {
@@ -788,7 +789,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                 val mMessage = response.body()!!.string()
                 val gson = Gson()
                 try {
-                    val jsonObject= JSONObject(mMessage)
+                    val jsonObject = JSONObject(mMessage)
                     val jsonCount=jsonObject.getInt("count")
                     runOnUiThread {
                         tv_count_view.setText("View: "+jsonCount)

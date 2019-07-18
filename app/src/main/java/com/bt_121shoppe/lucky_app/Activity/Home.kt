@@ -116,6 +116,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         toolbar.title = " "
         setSupportActionBar(toolbar)
 
+        khmer = findViewById(R.id.khmer)
+        english = findViewById(R.id.english)
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+
+
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -135,20 +141,30 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 pk = sharedPref.getInt("id", 0)
             }
             getUserProfile()
+            english!!.setOnClickListener {
+                language("en")
+                recreate()
+            }
+            khmer!!.setOnClickListener {
+                language("km")
+                recreate()
+            }
         }else{
             navView.setVisibility(View.GONE)
 
-
+            english!!.setOnClickListener {
+                language("en")
+                recreate()
+            }
+            khmer!!.setOnClickListener {
+                language("km")
+                recreate()
+            }
 
         }
 
-        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = prefer.getString("My_Lang", "")
-
         Log.d("khmer",language)
 
-        khmer = findViewById(R.id.khmer)
-        english = findViewById(R.id.english)
         if(language.equals("km")) {
             english!!.visibility = View.VISIBLE
             khmer!!.visibility = View.GONE
@@ -156,14 +172,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             english!!.visibility = View.GONE
             khmer!!.visibility = View.VISIBLE
         }
-        english!!.setOnClickListener {
-            language("en")
-            recreate()
-        }
-        khmer!!.setOnClickListener {
-            language("km")
-            recreate()
-        }
+
         requestStoragePermission(false)
         requestStoragePermission(true)
         navView.setNavigationItemSelectedListener(this)
