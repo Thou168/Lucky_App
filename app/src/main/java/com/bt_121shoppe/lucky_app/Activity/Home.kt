@@ -57,6 +57,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.nav_header_home.*
 import net.hockeyapp.android.CrashManager
+
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException

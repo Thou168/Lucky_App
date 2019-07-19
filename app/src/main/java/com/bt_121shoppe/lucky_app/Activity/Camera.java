@@ -197,9 +197,9 @@ public class Camera extends AppCompatActivity {
          bundle = getIntent().getExtras();
          if (bundle!=null) {
               edit_id = bundle.getInt("id_product", 0);
-
+              Log.d("Edit_id:", String.valueOf(edit_id));
          }
-         Log.d("Edit id", String.valueOf(edit_id));
+        Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         DropDown();
@@ -252,14 +252,15 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    if (edit_id!=0) {
+                    if (bundle!=null) {
                         mProgress.show();
+                        Toast.makeText(getApplicationContext(),"Edit",Toast.LENGTH_SHORT).show();
                         EditPost_Approve(Encode, edit_id);
-                    }
-                     else  {
+                    } else  {
                     mProgress.show();
+                        Toast.makeText(getApplicationContext(),"Post",Toast.LENGTH_SHORT).show();
                     PostData(Encode);
-                }
+                   }
             }
         });
 
@@ -342,7 +343,7 @@ public class Camera extends AppCompatActivity {
                                 //     int brand = ID_brands.getPosition(category);
 
 
-                                int model = object.getInt("modeling");
+                                int modeling = object.getInt("modeling");
 
                                 //       int m = ID_model.getPosition(model);
                                 Log.d("model id", String.valueOf(model));
@@ -402,7 +403,7 @@ public class Camera extends AppCompatActivity {
                                         }
                                         tvCategory.setSelection(c);
                                         tvType_elec.setSelection(te);
-
+                             //           model = modeling;
 //                                        get_model(encode, model);
                                         tvYear.setSelection(y);
 
@@ -487,6 +488,7 @@ public class Camera extends AppCompatActivity {
 
             String postType = tvPostType.getSelectedItem().toString().toLowerCase();
 
+
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
             post.put("status", 1);
@@ -563,7 +565,7 @@ public class Camera extends AppCompatActivity {
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/";
                     //Log.d("URL","URL"+url);
-                    sale.put("sale_status", 4);
+                    sale.put("sale_status", 3);
                     sale.put("record_status",1);
                     sale.put("sold_date", null);
                     //sale.put("price", etPrice.getText().toString().toLowerCase());
@@ -576,7 +578,7 @@ public class Camera extends AppCompatActivity {
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/";
                     JSONObject rent=new JSONObject();
-                    rent.put("rent_status",4);
+                    rent.put("rent_status",3);
                     rent.put("record_status",1);
                     rent.put("rent_type","month");
                     rent.put("price",etPrice.getText().toString().toLowerCase());
@@ -589,14 +591,11 @@ public class Camera extends AppCompatActivity {
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";
                     JSONObject buy=new JSONObject();
-                    buy.put("buy_status",4);
+                    buy.put("buy_status",3);
                     buy.put("record_status",1);
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;
             }
-
-
-
             Log.d(TAG,post.toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
@@ -844,193 +843,7 @@ public class Camera extends AppCompatActivity {
             mProgress.dismiss();
         }
     } //edit post approve
-    private void EditPost_Pending(String encode,int edit_id){
-        final String url = "http://103.205.26.103:8000/postbyuser/"+ edit_id +"/";
 
-        MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        OkHttpClient client = new OkHttpClient();
-        JSONObject post = new JSONObject();
-        JSONObject sale = new JSONObject();
-        JSONObject buy=new JSONObject();
-        JSONObject rent=new JSONObject();
-        try {
-
-            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-            post.put("title",etTitle.getText().toString().toLowerCase());
-            post.put("category", cate );
-            post.put("status", 1);
-            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
-
-            if (postType.equals("buy")) {
-                post.put("discount", "0");
-                post.put("discount_type","amount");
-            }else {
-                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
-                post.put("discount",etDiscount_amount.getText().toString());
-            }
-            //post.put("discount", 0);
-            post.put("user",pk );
-            if(bitmapImage1==null) {
-                post.put("front_image_path", "");
-                post.put("front_image_base64", "");
-            }
-            else {
-                post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
-                post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
-            }
-            if(bitmapImage2==null){
-                post.put("right_image_path", "");
-                post.put("right_image_base64", "");
-            }else{
-                post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
-                post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
-            }
-            if(bitmapImage3==null){
-                post.put("left_image_path", "");
-                post.put("left_image_base64", "");
-            }else{
-                post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
-                post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
-            }
-            if(bitmapImage4==null){
-                post.put("back_image_path", "");
-                post.put("back_image_base64", "");
-            }else{
-                post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
-                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
-            }
-            //Instant.now().toString()
-            post.put("created", "");
-            post.put("created_by", pk);
-            post.put("modified", Instant.now().toString());
-            post.put("modified_by", null);
-            post.put("approved_date", null);
-            post.put("approved_by", null);
-            post.put("rejected_date", null);
-            post.put("rejected_by",null);
-            post.put("rejected_comments", "");
-            post.put("year", year); //year
-            post.put("modeling", model);
-            //post.put("modeling", 1);
-            post.put("description", etDescription.getText().toString().toLowerCase());
-            //post.put("cost", etPrice.getText().toString().toLowerCase());
-            post.put("cost",etPrice.getText().toString());
-            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-
-            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
-
-            post.put("vin_code", "");
-            post.put("machine_code", "");
-            post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString());
-            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
-            post.put("contact_address", "");
-            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
-
-
-            switch (postType){
-                case "sell":
-                    sale.put("sale_status", 3);
-                    sale.put("record_status",1);
-                    sale.put("sold_date", null);
-                    //sale.put("price", etPrice.getText().toString().toLowerCase());
-                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
-                    sale.put("price", etPrice.getText().toString());
-                    sale.put("total_price",etPrice.getText().toString());
-                    post.put("sale_post",new JSONArray("["+sale+"]"));
-
-                    post.put("rent_post",new JSONArray("["+""+"]"));
-                    post.put("buy_post",new JSONArray("["+""+"]"));
-                    break;
-                case "rent":
-
-                    rent.put("rent_status",3);
-                    rent.put("record_status",1);
-                    rent.put("rent_type","month");
-                    rent.put("price",etPrice.getText().toString().toLowerCase());
-                    rent.put("total_price",etPrice.getText().toString().toLowerCase());
-                    rent.put("rent_date",null);
-                    rent.put("return_date",null);
-                    rent.put("rent_count_number",0);
-                    post.put("rent_post",new JSONArray("["+rent+"]"));
-
-                    post.put("sale_post",new JSONArray("["+""+"]"));
-                    post.put("buy_post",new JSONArray("["+""+"]"));
-                    break;
-                case "buy":
-
-                    buy.put("buy_status",3);
-                    buy.put("record_status",1);
-                    post.put("buy_post",new JSONArray("["+buy+"]"));
-
-//                    post.put("sale_post",new JSONArray("["+""+"]"));
-//                    post.put("rent_post",new JSONArray("["+""+"]"));
-                    break;
-            }
-            Log.d(TAG,post.toString());
-            RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
-            String auth = "Basic " + encode;
-            Request request = new Request.Builder()
-                    .url(url)
-                    .put(body)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .header("Authorization",auth)
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String respon = response.body().string();
-                    Log.d(TAG, "TTTT" + respon);
-                    Gson gson = new Gson();
-                    CreatePostModel createPostModel = new CreatePostModel();
-                    try{
-                        createPostModel = gson.fromJson(respon,CreatePostModel.class);
-                        if (createPostModel!=null){
-                            int id = createPostModel.getId();
-                            if (id!=0){
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mProgress.dismiss();
-                                        startActivity(new Intent(Camera.this,Home.class));
-                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            }else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mProgress.dismiss();
-                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            }
-                        }
-                    }catch (JsonParseException e){
-                        e.printStackTrace();
-                        mProgress.dismiss();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    String mMessage = e.getMessage().toString();
-                    Log.d("Failure:",mMessage );
-                    mProgress.dismiss();
-
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-            mProgress.dismiss();
-        }
-    }
 
     private void Call_category(String encode) {
 
@@ -1623,6 +1436,8 @@ public class Camera extends AppCompatActivity {
 
             }
         });
+
+
     }
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
