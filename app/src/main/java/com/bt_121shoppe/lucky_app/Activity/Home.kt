@@ -90,6 +90,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var Encode=""
 
     var category: MaterialBetterSpinner? = null
+    var drawerLayout: DrawerLayout? = null
 
     fun language(lang: String) {
          val locale = Locale(lang)
@@ -127,15 +128,16 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout.addDrawerListener(toggle)
+        drawerLayout!!.addDrawerListener(toggle)
         toggle.syncState()
 
         if (sharedPref.contains("token") || sharedPref.contains("id")){
             navView.setVisibility(View.VISIBLE)
+            drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             name = sharedPref.getString("name", "")
             pass = sharedPref.getString("pass", "")
             Encode = CommonFunction.getEncodedString(name,pass)
@@ -159,7 +161,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             getUserProfile()
         }else{
-            navView.setVisibility(View.GONE)
+//            navView.setVisibility(View.GONE)
+            drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
             if(language.equals("km")) {
                 english!!.visibility = View.VISIBLE
@@ -298,8 +301,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //        }
 //Dropdown
         //getCategory()
-        category = findViewById(R.id.sp_category)
-        getCategory()
+//        category = findViewById(R.id.sp_category)
+//        getCategory()
 
         val category = resources.getStringArray(R.array.category)
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
