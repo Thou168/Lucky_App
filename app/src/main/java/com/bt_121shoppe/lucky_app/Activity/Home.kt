@@ -26,7 +26,6 @@ import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
@@ -44,6 +43,8 @@ import com.bt_121shoppe.lucky_app.Setting.TermPrivacyActivity
 import com.bt_121shoppe.lucky_app.Startup.Item
 import com.bt_121shoppe.lucky_app.Startup.Search1
 import com.bt_121shoppe.lucky_app.Startup.Your_Post
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
+import com.bt_121shoppe.lucky_app.utils.CheckNetwork
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -115,8 +116,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onCreate(savedInstanceState)
         locale()
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
-
         setContentView(R.layout.activity_home)
+
+        if(CheckNetwork.isIntenetAvailable(this@Home)){
+
+        }else{
+            Toast.makeText(this@Home,"No Internet connection",Toast.LENGTH_LONG).show();
+        }
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = " "
         setSupportActionBar(toolbar)
@@ -211,7 +218,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
-                R.id.message -> {val intent = Intent(this@Home,Message::class.java)
+                R.id.message -> {val intent = Intent(this@Home,ChatMainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
@@ -504,35 +511,33 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     runOnUiThread {
                         val drawer_username=findViewById<TextView>(R.id.drawer_username)
                         drawer_username.setText(user1.username)
+                        if(user1.profile!=null) {
+                            val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
+                            val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image
+                            Log.d("TAGGGGG", profilepicture)
+                            Log.d("TAGGGGG", coverpicture)
+                            //tvUsername!!.setText(user1.username)
+                            //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                            //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
+                            if (profilepicture.isNullOrEmpty()) {
+                                imageView!!.setImageResource(R.drawable.user)
+                            } else {
+                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                val imageView = findViewById<CircleImageView>(R.id.imageView)
+                                imageView!!.setImageBitmap(decodedByte)
+                            }
 
-                        val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
-                        val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
-                        Log.d("TAGGGGG",profilepicture)
-                        Log.d("TAGGGGG",coverpicture)
-                        //tvUsername!!.setText(user1.username)
-                        //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
-                        //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                        if(profilepicture.isNullOrEmpty()){
-                            imageView!!.setImageResource(R.drawable.user)
-                        }else
-                        {
-                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            val imageView=findViewById<CircleImageView>(R.id.imageView)
-                            imageView!!.setImageBitmap(decodedByte)
+                            if (coverpicture == null) {
+
+                            } else {
+                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                val cover_layout = findViewById<LinearLayout>(R.id.cover_layout)
+
+                                //imgCover!!.setImageBitmap(decodedByte)
+                            }
                         }
-
-                        if(coverpicture==null){
-
-                        }else
-                        {
-                            val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            val cover_layout=findViewById<LinearLayout>(R.id.cover_layout)
-
-                            //imgCover!!.setImageBitmap(decodedByte)
-                        }
-
                     }
 
                 } catch (e: JsonParseException) {

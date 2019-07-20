@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.bt_121shoppe.lucky_app.AccountTab.MainLikeList
 import com.bt_121shoppe.lucky_app.AccountTab.MainLoanList
 import com.bt_121shoppe.lucky_app.AccountTab.MainPostList
 import com.bumptech.glide.Glide
@@ -33,11 +32,11 @@ import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.Setting.Setting
 import com.bt_121shoppe.lucky_app.adapters.ViewPagerAdapter
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 import com.bt_121shoppe.lucky_app.fragments.FragmentB1
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.FileCompressor
 import com.bt_121shoppe.lucky_app.utils.ImageUtil
-import com.bt_121shoppe.lucky_app.utils.NonScrollableVP
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
@@ -50,12 +49,10 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.fragment_acount.imgCover
 import kotlinx.android.synthetic.main.fragment_acount.imgProfile
 import okhttp3.*
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.io.File
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 
 class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
@@ -112,7 +109,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 R.id.message -> {
-                    val intent = Intent(this@Account,Message::class.java)
+                    val intent = Intent(this@Account,ChatMainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
@@ -441,34 +438,34 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
                 val gson = Gson()
                 try {
+                    Log.d("User",mMessage)
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
-                        val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
-                        val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
-                        Log.d("TAGGGGG",profilepicture)
-                        Log.d("TAGGGGG",coverpicture)
-                        tvUsername!!.setText(user1.username)
-                        //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
-                        //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                        if(profilepicture.isNullOrEmpty()){
-                            imgProfile!!.setImageResource(R.drawable.user)
-                            Log.d("Profile","TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-                        }else
-                        {
-                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            imgProfile!!.setImageBitmap(decodedByte)
+                        if(user1.profile!=null) {
+                            val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
+                            val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image
+                            Log.d("TAGGGGG", profilepicture)
+                            Log.d("TAGGGGG", coverpicture)
+                            tvUsername!!.setText(user1.username)
+                            //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                            //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
+                            if (profilepicture.isNullOrEmpty()) {
+                                imgProfile!!.setImageResource(R.drawable.user)
+                                Log.d("Profile", "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+                            } else {
+                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                imgProfile!!.setImageBitmap(decodedByte)
+                            }
+
+                            if (coverpicture == null) {
+
+                            } else {
+                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                imgCover!!.setImageBitmap(decodedByte)
+                            }
                         }
-
-                        if(coverpicture==null){
-
-                        }else
-                        {
-                            val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            imgCover!!.setImageBitmap(decodedByte)
-                        }
-
                     }
 
                 } catch (e: JsonParseException) {
@@ -500,19 +497,21 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                 val gson = Gson()
                 try {
                     val jsonObject=JSONObject(mMessage)
-                    val jsonArray=jsonObject.getJSONArray("results")
-                    val jsonCount=jsonObject.getInt("count")
-                    runOnUiThread {
-                        if(jsonCount>0){
-                            for (i in 0 until jsonArray.length()) {
-                                val obj=jsonArray.getJSONObject(i)
-                                Log.e("TAG","T"+obj)
+                    val detail:String=jsonObject.getString("detail").toString()
+                    //if(detail.isNullOrEmpty()) {
+                        val jsonArray = jsonObject.getJSONArray("results")
+                        val jsonCount = jsonObject.getInt("count")
+                        runOnUiThread {
+                            if (jsonCount > 0) {
+                                for (i in 0 until jsonArray.length()) {
+                                    val obj = jsonArray.getJSONObject(i)
+                                    Log.e("TAG", "T" + obj)
+                                }
+
                             }
 
                         }
-
-                    }
-
+                    //}
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
                 }

@@ -104,94 +104,100 @@ class FragmentB1: Fragment() {
                         val itemApi = ArrayList<Item_API>()
                         val jsonObject = JSONObject(mMessage)
                         Log.d("Run  :"," la"+jsonObject)
-                        val jsonArray = jsonObject.getJSONArray("results")
-                        val jsonCount= jsonObject.getInt("count")
-                        for (i in 0 until jsonArray.length()) {
-                        val `object` = jsonArray.getJSONObject(i)
-                        post_id = `object`.getInt("post")
-                        Log.d("Post id ",post_id.toString())
+                        val detail:String=jsonObject.getString("detail").toString()
+                        if(detail.isNullOrEmpty()) {
+                            val jsonArray = jsonObject.getJSONArray("results")
+                            val jsonCount = jsonObject.getInt("count")
+                            for (i in 0 until jsonArray.length()) {
+                                val `object` = jsonArray.getJSONObject(i)
+                                post_id = `object`.getInt("post")
+                                Log.d("Post id ", post_id.toString())
 
-                            val url_user = "http://103.205.26.103:8000/allposts/"+post_id+"/"
-                            Log.d("Post id ",url_user)
-                            val client1 = OkHttpClient()
-                            val request1 = Request.Builder()
-                                    .url(url_user)
-                                    .header("Accept","application/json")
-                                    .header("Content-Type","application/json")
-                                    .header("Authorization",encodeAuth)
-                                    .build()
-                            client1.newCall(request1).enqueue(object : Callback{
-                                override fun onFailure(call: Call, e: IOException) {
-                                    val mmessage = e.message.toString()
-                                    Log.w("failure Response", mmessage)
-                                }
-                                @Throws(IOException::class)
-                                override fun onResponse(call: Call, response: Response) {
-                                    val mmessage = response.body()!!.string()
-                                    try {
-                                        activity!!.runOnUiThread{
-                                            val jsonObject1 = JSONObject(mmessage)
+                                val url_user = "http://103.205.26.103:8000/allposts/" + post_id + "/"
+                                Log.d("Post id ", url_user)
+                                val client1 = OkHttpClient()
+                                val request1 = Request.Builder()
+                                        .url(url_user)
+                                        .header("Accept", "application/json")
+                                        .header("Content-Type", "application/json")
+                                        .header("Authorization", encodeAuth)
+                                        .build()
+                                client1.newCall(request1).enqueue(object : Callback {
+                                    override fun onFailure(call: Call, e: IOException) {
+                                        val mmessage = e.message.toString()
+                                        Log.w("failure Response", mmessage)
+                                    }
 
-                                            val title = jsonObject1.getString("title")
-                                            val id = jsonObject1.getInt("id")
-                                            val condition = jsonObject1.getString("condition")
-                                            val cost = jsonObject1.getDouble("cost")
-                                            val image = jsonObject1.getString("front_image_base64")
-                                            val img_user = jsonObject1.getString("right_image_base64")
-                                            val postType = jsonObject1.getString("post_type")
+                                    @Throws(IOException::class)
+                                    override fun onResponse(call: Call, response: Response) {
+                                        val mmessage = response.body()!!.string()
+                                        try {
+                                            activity!!.runOnUiThread {
+                                                val jsonObject1 = JSONObject(mmessage)
 
-                                            //var count_view=countPostView(encodeAuth,id)
+                                                val title = jsonObject1.getString("title")
+                                                val id = jsonObject1.getInt("id")
+                                                val condition = jsonObject1.getString("condition")
+                                                val cost = jsonObject1.getDouble("cost")
+                                                val image = jsonObject1.getString("front_image_base64")
+                                                val img_user = jsonObject1.getString("right_image_base64")
+                                                val postType = jsonObject1.getString("post_type")
 
-                                            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                                            val time:Long = sdf.parse(`object`.getString("created")).getTime()
-                                            val now:Long = System.currentTimeMillis()
-                                            val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+                                                //var count_view=countPostView(encodeAuth,id)
 
-                                            val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+post_id
-                                            var MEDIA_TYPE=MediaType.parse("application/json")
-                                            val client1= OkHttpClient()
-                                            //val auth = "Basic $encode"
-                                            val request1=Request.Builder()
-                                                    .url(URL_ENDPOINT1)
-                                                    .header("Accept","application/json")
-                                                    .header("Content-Type","application/json")
-                                                    .header("Authorization",encodeAuth)
-                                                    .build()
-                                            client1.newCall(request1).enqueue(object : Callback{
-                                                override fun onFailure(call: Call, e: IOException) {
-                                                    val mMessage = e.message.toString()
-                                                    Log.w("failure Response", mMessage)
-                                                }
-                                                @Throws(IOException::class)
-                                                override fun onResponse(call: Call, response: Response) {
-                                                    val mMessage = response.body()!!.string()
-                                                    val gson = Gson()
-                                                    Log.d("FRAGMENT 2",mMessage)
-                                                    try {
-                                                        val jsonObject= JSONObject(mMessage)
-                                                        val jsonCount=jsonObject.getInt("count")
-                                                        activity!!.runOnUiThread {
-                                                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
-                                                            recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
-                                                            recyclerView!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
-                                                        }
+                                                val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                                sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                                                val time: Long = sdf.parse(`object`.getString("created")).getTime()
+                                                val now: Long = System.currentTimeMillis()
+                                                val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 
-                                                    } catch (e: JsonParseException) {
-                                                        e.printStackTrace()
+                                                val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + post_id
+                                                var MEDIA_TYPE = MediaType.parse("application/json")
+                                                val client1 = OkHttpClient()
+                                                //val auth = "Basic $encode"
+                                                val request1 = Request.Builder()
+                                                        .url(URL_ENDPOINT1)
+                                                        .header("Accept", "application/json")
+                                                        .header("Content-Type", "application/json")
+                                                        .header("Authorization", encodeAuth)
+                                                        .build()
+                                                client1.newCall(request1).enqueue(object : Callback {
+                                                    override fun onFailure(call: Call, e: IOException) {
+                                                        val mMessage = e.message.toString()
+                                                        Log.w("failure Response", mMessage)
                                                     }
 
-                                                }
-                                            })
+                                                    @Throws(IOException::class)
+                                                    override fun onResponse(call: Call, response: Response) {
+                                                        val mMessage = response.body()!!.string()
+                                                        val gson = Gson()
+                                                        Log.d("FRAGMENT 2", mMessage)
+                                                        try {
+                                                            val jsonObject = JSONObject(mMessage)
+                                                            val jsonCount = jsonObject.getInt("count")
+                                                            activity!!.runOnUiThread {
+                                                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
+                                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                                                recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
+                                                            }
 
-                                            //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),count_view.toString()))
+                                                        } catch (e: JsonParseException) {
+                                                            e.printStackTrace()
+                                                        }
 
+                                                    }
+                                                })
+
+                                                //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),count_view.toString()))
+
+                                            }
+
+                                        } catch (e: JsonParseException) {
+                                            e.printStackTrace()
                                         }
-
-                                    } catch (e: JsonParseException) {
-                                        e.printStackTrace() }
-                                }
-                            })
+                                    }
+                                })
+                            }
                         }
                     }
                 } catch (e: JsonParseException) {

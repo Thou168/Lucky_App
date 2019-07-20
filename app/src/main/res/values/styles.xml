@@ -62,4 +62,8 @@
         <item name="tabPaddingStart">8dp</item>
         <item name="tabPaddingEnd">8dp</item>
     </style>
+
+    <style name="MenuStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>

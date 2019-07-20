@@ -599,8 +599,10 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                         }else
                         {
                             val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+
                             var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                             img_user.setImageBitmap(decodedByte)
+
                         }
                         user_name.setText(user1.username)
                         user_telephone.setText(user1.profile.telephone)

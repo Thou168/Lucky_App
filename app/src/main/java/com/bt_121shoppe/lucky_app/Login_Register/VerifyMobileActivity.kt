@@ -2,7 +2,6 @@ package com.bt_121shoppe.lucky_app.Login_Register
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,15 +12,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.bt_121shoppe.lucky_app.Activity.Account
 import com.bt_121shoppe.lucky_app.Activity.Home
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java
 import com.bt_121shoppe.lucky_app.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.rengwuxian.materialedittext.MaterialEditText
@@ -30,6 +28,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
 class VerifyMobileActivity : AppCompatActivity() {
@@ -37,6 +36,7 @@ class VerifyMobileActivity : AppCompatActivity() {
     internal lateinit var otp: MaterialEditText
     internal lateinit var login: Button
     internal lateinit var back:TextView
+    internal lateinit var resend:TextView
     internal lateinit var tvphonenumber:TextView
     internal lateinit var no: String
     internal lateinit var password:String
@@ -45,6 +45,8 @@ class VerifyMobileActivity : AppCompatActivity() {
     private var mVerificationId: String? = null
     internal lateinit var prefer: SharedPreferences
     internal lateinit var mProgress: ProgressDialog
+    internal lateinit var mResendToken:PhoneAuthProvider.ForceResendingToken
+    internal lateinit var reference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +69,9 @@ class VerifyMobileActivity : AppCompatActivity() {
         mProgress.setCancelable(false)
         mProgress.isIndeterminate = true
 
+
+        reference = FirebaseDatabase.getInstance().reference
+
         sendVerificationCode(no)
         tvphonenumber.setText(no)
         back.setOnClickListener(View.OnClickListener { finish() })
@@ -80,6 +85,11 @@ class VerifyMobileActivity : AppCompatActivity() {
 
             verifyVerificationCode(code)
         })
+
+        resend=findViewById<TextView>(R.id.tv_resend)
+        resend.setOnClickListener(View.OnClickListener {
+            resendVerificationCode("+855"+no,mResendToken)
+        })
     }
 
     private fun sendVerificationCode(no: String) {
@@ -90,6 +100,15 @@ class VerifyMobileActivity : AppCompatActivity() {
                 this,
                 mCallbacks
         )
+    }
+    private fun resendVerificationCode(phoneNumber:String, token:PhoneAuthProvider.ForceResendingToken) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                token)            // ForceResendingToken from callbacks
     }
 
     private val mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -105,11 +124,12 @@ class VerifyMobileActivity : AppCompatActivity() {
             Toast.makeText(this@VerifyMobileActivity, e.message, Toast.LENGTH_LONG).show()
         }
 
-        override fun onCodeSent(s: String?, forceResendingToken: PhoneAuthProvider.ForceResendingToken?) {
+        override fun onCodeSent(s: String?, forceResendingToken: PhoneAuthProvider.ForceResendingToken) {
             super.onCodeSent(s, forceResendingToken)
 
             //storing the verification id that is sent to the user
             mVerificationId = s
+            mResendToken = forceResendingToken
         }
     }
 
@@ -122,18 +142,23 @@ class VerifyMobileActivity : AppCompatActivity() {
         mAuth!!.signInWithCredential(credential)
                 .addOnCompleteListener(this@VerifyMobileActivity) { task ->
                     if (task.isSuccessful) {
+                        val firebaseUser = mAuth!!.getCurrentUser()
+                        val userId = firebaseUser!!.getUid()
 
-                        /*
-                        val intent = Intent(this@VerifyMobileActivity, Home::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        */
+                        val hashMap = HashMap<String, String>()
+                        hashMap["id"] = userId
+                        hashMap["username"] = no
+                        hashMap["imageURL"] = "default"
+                        Log.d("TAG", "" + hashMap)
+                        reference.child("users").child(userId).setValue(hashMap)
 
                         if(authType==1){//register
+
                             registerRequest()
                         }else if(authType==2){ // login
                             postLoginRequest()
                         }
+
                     } else {
                         var message = "Someting is wrong, we will fix it soon....."
 

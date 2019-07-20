@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.R
 import java.io.ByteArrayOutputStream
+import android.R.attr.data
+import java.nio.charset.StandardCharsets
 
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
@@ -65,8 +67,22 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             val options = BitmapFactory.Options()
             options.inSampleSize = 8
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            imageView.setImageBitmap(decodedByte)
+    /*
+            val strPath = String(decodedString, StandardCharsets.UTF_8)
+            Log.d("TAGGGGGGGGGGGGG",strPath)
+            val decodedByte=BitmapFactory.decodeFile(strPath,options)
+            */
+            if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
+                //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
+                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                imageView.setImageBitmap(decodedByte)
+            }else{
+
+                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
+                Log.d("IMAGE SIZE", decodedByte.width.toString()+" "+decodedByte.height.toString())
+            }
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP)
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()

@@ -74,5 +74,23 @@
             android:background="@color/logo_orange"
             android:textColor="#FFF"
             android:text="@string/bt_verify"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:text="Don't Receive the Code?"/>
+
+        <TextView
+            android:id="@+id/tv_resend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorSubmitButton"
+            android:text="Resend"/>
+
     </LinearLayout>
 </RelativeLayout>
