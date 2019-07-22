@@ -104,8 +104,8 @@ class FragmentB1: Fragment() {
                         val itemApi = ArrayList<Item_API>()
                         val jsonObject = JSONObject(mMessage)
                         Log.d("Run  :"," la"+jsonObject)
-                        val detail:String=jsonObject.getString("detail").toString()
-                        if(detail.isNullOrEmpty()) {
+                        //val detail:String=jsonObject.getString("detail").toString()
+                        //if(detail.isNullOrEmpty()) {
                             val jsonArray = jsonObject.getJSONArray("results")
                             val jsonCount = jsonObject.getInt("count")
                             for (i in 0 until jsonArray.length()) {
@@ -198,7 +198,7 @@ class FragmentB1: Fragment() {
                                     }
                                 })
                             }
-                        }
+                        //}
                     }
                 } catch (e: JsonParseException) {
                     e.printStackTrace() }

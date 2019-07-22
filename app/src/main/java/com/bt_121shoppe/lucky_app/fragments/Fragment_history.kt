@@ -102,8 +102,8 @@ class Fragment_history: Fragment() {
                 try {
                     activity!!.runOnUiThread {
                     val jsonObject = JSONObject(mMessage)
-                        val detail:String=jsonObject.getString("detail").toString()
-                        if(detail==null) {
+                        //val detail:String=jsonObject.getString("detail").toString()
+                        //if(detail==null) {
                             val jsonArray = jsonObject.getJSONArray("results")
                             val jsonCount = jsonObject.getInt("count")
                             for (i in 0 until jsonArray.length()) {
@@ -162,7 +162,7 @@ class Fragment_history: Fragment() {
                                 })
 
                             }
-                        }
+                        //}
                     }
 
                 } catch (e: JsonParseException) {

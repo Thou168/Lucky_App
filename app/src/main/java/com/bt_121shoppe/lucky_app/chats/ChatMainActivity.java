@@ -94,7 +94,7 @@ public class ChatMainActivity extends AppCompatActivity {
                 com.bt_121shoppe.lucky_app.models.User user=dataSnapshot.getValue(com.bt_121shoppe.lucky_app.models.User.class);
                 username.setText(user.getUsername());
                 if(user.getImageURL().equals("default")){
-                    profile_image.setImageResource(R.drawable.default_profile_pic);
+                    profile_image.setImageResource(R.drawable.user);
                 }else{
                     Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
                 }

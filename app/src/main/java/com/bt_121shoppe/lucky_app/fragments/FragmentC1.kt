@@ -102,7 +102,7 @@ class FragmentC1: Fragment() {
                         val itemApi = ArrayList<Item_API>()
                         val jsonObject = JSONObject(mMessage)
                         //Log.d("Run GET Loan  :"," la"+jsonObject)
-                        if(jsonObject.getString("detail").toString().isNullOrEmpty()) {
+                        //if(jsonObject.getString("detail").toString().isNullOrEmpty()) {
                             val jsonArray = jsonObject.getJSONArray("results")
                             val jsonCount = jsonObject.getInt("count")
                             for (i in 0 until jsonArray.length()) {
@@ -193,7 +193,7 @@ class FragmentC1: Fragment() {
                                     }
                                 })
                             }
-                        }
+                        //}
                     }
                 } catch (e: JsonParseException) {
                     e.printStackTrace() }

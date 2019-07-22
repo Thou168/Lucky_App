@@ -497,7 +497,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                 val gson = Gson()
                 try {
                     val jsonObject=JSONObject(mMessage)
-                    val detail:String=jsonObject.getString("detail").toString()
+                    //val detail:String=jsonObject.getString("detail").toString()
                     //if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount = jsonObject.getInt("count")
