@@ -57,6 +57,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_detail_discount.view.*
 import kotlinx.android.synthetic.main.nav_header_home.*
 import net.hockeyapp.android.CrashManager
 
@@ -91,7 +92,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var pass=""
     private var Encode=""
 
-    var category: MaterialBetterSpinner? = null
+    var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
 
     fun language(lang: String) {
@@ -309,23 +310,23 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //        }
 //Dropdown
         //getCategory()
-//        category = findViewById(R.id.sp_category)
-//        getCategory()
+        category = findViewById(R.id.sp_category)
+        getCategory()
 
-        val category = resources.getStringArray(R.array.category)
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
-        val sp_category = findViewById<MaterialBetterSpinner>(R.id.sp_category)
-        sp_category.setAdapter(adapter)
-        val items = ArrayList<Item>()
-        sp_category.setOnItemClickListener { parent, view, position, id ->
-            val selected = sp_category.getText()
-            if (selected.equals("Motobike")){
-                items.addAll(Item.getType("Motobike"))
-            }else{
-                items.addAll(Item.getType("Electronic"))
-            }
-            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
-        }
+//        val category = resources.getStringArray(R.array.category)
+//        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
+//        val sp_category = findViewById<Spinner>(R.id.sp_category)
+//        sp_category.setAdapter(adapter)
+//        val items = ArrayList<Item>()
+//        sp_category.setOnItemClickListener { parent, view, position, id ->
+//            val selected = sp_category.text
+//            if (selected.equals("Motobike")){
+//                items.addAll(Item.getType("Motobike"))
+//            }else{
+//                items.addAll(Item.getType("Electronic"))
+//            }
+//            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
+//        }
 
 //Search
         val search = findViewById<EditText>(R.id.search)
@@ -699,9 +700,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     Log.d("count",jsonArray.length().toString())
 
                     for (i in 0 until jsonArray.length()) {
-
+                        var cc =0
                         val `object` = jsonArray.getJSONObject(i)
-
                         val title = `object`.getString("title")
                         val id = `object`.getInt("id")
                         val condition = `object`.getString("condition")
@@ -709,18 +709,53 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val discount = `object`.getDouble("discount")
                         val image = `object`.getString("front_image_base64")
                         val img_user = `object`.getString("right_image_base64")
-
                         val postType = `object`.getString("post_type")
-
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                         val time:Long = sdf.parse(`object`.getString("created")).getTime()
                         val now:Long = System.currentTimeMillis()
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 
-                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
+//                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
                         runOnUiThread {
-                            best_list!!.adapter = MyAdapter(itemApi)
+//                            best_list!!.adapter = MyAdapter(itemApi)
+                            val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
+                            var MEDIA_TYPE=MediaType.parse("application/json")
+                            val client1= OkHttpClient()
+                            val auth = "Basic $Encode"
+                            val request1=Request.Builder()
+                                    .url(URL_ENDPOINT1)
+                                    .header("Accept","application/json")
+                                    .header("Content-Type","application/json")
+                                    //.header("Authorization",auth)
+                                    //             .header("Authorization",auth)
+                                    .build()
+                            client1.newCall(request1).enqueue(object : Callback{
+                                override fun onFailure(call: Call, e: IOException) {
+                                    val mMessage1 = e.message.toString()
+                                    Log.w("failure Response", mMessage1)
+                                }
+                                @Throws(IOException::class)
+                                override fun onResponse(call: Call, response: Response) {
+                                    val mMessage1 = response.body()!!.string()
+                                    val gson = Gson()
+                                    //Log.d("HOME",mMessage1)
+                                    runOnUiThread {
+                                        try {
+                                            val jsonObject= JSONObject(mMessage1)
+                                            Log.d("FFFFFF"," CCOUNT"+jsonObject)
+                                            val jsonCount=jsonObject.getInt("count")
+                                            cc=jsonCount
+                                            itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString(),cc.toString()))
+
+                                            best_list!!.adapter = MyAdapter(itemApi)
+                                            //List Grid and Image
+                                        } catch (e: JsonParseException) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }
+                            })
 
                         }
                     }
