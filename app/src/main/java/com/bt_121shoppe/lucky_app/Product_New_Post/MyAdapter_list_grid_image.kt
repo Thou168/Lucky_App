@@ -85,7 +85,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP)
 //            Log.d("String = ",)
             title.text = item.title
-            cost.text = item.cost.toString()
+            cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
             show_view.text="View: "+item.count_view
 

@@ -700,7 +700,13 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                         val postType = `object`.getString("post_type")
 
-                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType))
+                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                        val time:Long = sdf.parse(`object`.getString("created")).getTime()
+                        val now:Long = System.currentTimeMillis()
+                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+
+                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
                         runOnUiThread {
                             best_list!!.adapter = MyAdapter(itemApi)
 

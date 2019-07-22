@@ -51,11 +51,12 @@
                 android:layout_alignEnd="@+id/user_view" />
 
             <TextView
+                android:layout_marginEnd="@dimen/dp_8"
                 android:id="@+id/user_view"
-                android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:text="View: 100" />
         </RelativeLayout>
     </LinearLayout>

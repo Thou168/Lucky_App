@@ -41,6 +41,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
         val title = itemView.findViewById<TextView>(R.id.title)
         val discount = itemView.findViewById<TextView>(R.id.tv_discount)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
+        val location = itemView.findViewById<TextView>(R.id.location)
 
         fun bindItems(item: Item_discount) {
 
@@ -58,6 +59,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
 //            img_user.setImageResource(item.img_user)
              title.text = item.title
              cost.text = price.toString()
+             location.text = item.time
 
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)

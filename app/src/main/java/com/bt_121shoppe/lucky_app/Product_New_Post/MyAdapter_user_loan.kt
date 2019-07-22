@@ -57,7 +57,7 @@ class MyAdapter_user_loan(private val itemList: ArrayList<Item_API>, val type: S
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
         val btn_delete = itemView.findViewById<Button>(R.id.btndelete)
-
+        val location = itemView.findViewById<TextView>(R.id.location)
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
@@ -67,6 +67,7 @@ class MyAdapter_user_loan(private val itemList: ArrayList<Item_API>, val type: S
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()
+            location.text = item.location_duration
 
             if (item.postType.equals("sell")) {
                 post_type.setImageResource(R.drawable.sell)
