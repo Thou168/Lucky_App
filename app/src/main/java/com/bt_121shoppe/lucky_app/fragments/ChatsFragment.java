@@ -3,6 +3,7 @@ package com.bt_121shoppe.lucky_app.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,11 +90,13 @@ public class ChatsFragment extends Fragment {
                 mUsers.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user=snapshot.getValue(User.class);
-
+                    Log.d("TAG","User ID="+user.getId());
                     for(String id: userList){
+                        //Log.d("TAG","User Chat ID="+id);
                         if(user.getId().equals(id)){
                             if(mUsers.size()!=0){
                                 for(User user1:mUsers){
+                                    //Log.d("TAG","User"+user1);
                                     if(!user.getId().equals(user1.getId())){
                                         mUsers.add(user);
                                     }

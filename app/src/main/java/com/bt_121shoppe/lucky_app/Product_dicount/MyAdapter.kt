@@ -1,6 +1,7 @@
 package com.bt_121shoppe.lucky_app.Product_dicount
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.text.SpannableString
 import android.text.Spanned
@@ -62,9 +63,16 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
              location.text = item.time
 
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            imageView.setImageBitmap(decodedByte)
 
+            if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
+                //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
+                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                imageView.setImageBitmap(decodedByte)
+            }else {
+
+                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
+            }
             itemView.findViewById<LinearLayout>(R.id.user).setOnClickListener {
 //                val intent = Intent(imageView.context,User_post::class.java)
 //                intent.putExtra("Image_user",item.img_user)

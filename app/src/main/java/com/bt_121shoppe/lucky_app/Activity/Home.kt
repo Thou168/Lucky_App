@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -523,9 +524,20 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                 imageView!!.setImageResource(R.drawable.user)
                             } else {
                                 val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                //var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 val imageView = findViewById<CircleImageView>(R.id.imageView)
-                                imageView!!.setImageBitmap(decodedByte)
+                                //imageView!!.setImageBitmap(decodedByte)
+
+                                if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
+                                    //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
+                                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                    imageView.setImageBitmap(decodedByte)
+                                }else {
+
+                                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                    imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
+                                }
+
                             }
 
                             if (coverpicture == null) {

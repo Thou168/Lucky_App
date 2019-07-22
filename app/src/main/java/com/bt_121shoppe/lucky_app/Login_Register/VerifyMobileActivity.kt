@@ -144,16 +144,13 @@ class VerifyMobileActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val firebaseUser = mAuth!!.getCurrentUser()
                         val userId = firebaseUser!!.getUid()
-
-                        val hashMap = HashMap<String, String>()
-                        hashMap["id"] = userId
-                        hashMap["username"] = no
-                        hashMap["imageURL"] = "default"
-                        Log.d("TAG", "" + hashMap)
-                        reference.child("users").child(userId).setValue(hashMap)
-
                         if(authType==1){//register
-
+                            val hashMap = HashMap<String, String>()
+                            hashMap["id"] = userId
+                            hashMap["username"] = no
+                            hashMap["imageURL"] = "default"
+                            Log.d("TAG", "" + hashMap)
+                            reference.child("users").child(userId).setValue(hashMap)
                             registerRequest()
                         }else if(authType==2){ // login
                             postLoginRequest()

@@ -21,6 +21,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.fragments.ChatsFragment;
+import com.bt_121shoppe.lucky_app.fragments.ProfileFragment;
 import com.bt_121shoppe.lucky_app.fragments.UsersFragment;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.bumptech.glide.Glide;
@@ -75,8 +76,6 @@ public class ChatMainActivity extends AppCompatActivity {
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
 
-
-
         preferences = getSharedPreferences("Register",MODE_PRIVATE);
         uusername=preferences.getString("name","");
         password=preferences.getString("pass","");
@@ -114,6 +113,7 @@ public class ChatMainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
         viewPagerAdapter.addFragment(new UsersFragment(),"Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
