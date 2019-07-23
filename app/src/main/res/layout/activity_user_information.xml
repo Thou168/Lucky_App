@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edUsername"
-        android:hint="Username"
+        android:hint="@string/hit_username"
         android:layout_marginLeft="16dp"
         android:layout_below="@id/groups_spinner"
         android:drawableLeft="@drawable/ic_check_circle_black_24dp"
@@ -95,7 +95,7 @@
         android:drawablePadding="16dp"
         android:drawableStart="@drawable/ic_check_circle_black_24dp"
         android:paddingBottom="@dimen/dp_20"
-        android:hint="Date of Birth"/>
+        android:hint="@string/birth"/>
 
     <ImageView
         android:layout_width="18dp"
@@ -135,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edWingAccountNumber"
-        android:hint="Wing Account Number"
+        android:hint="@string/hit_wingnumber"
         android:layout_marginLeft="16dp"
         android:layout_below="@id/marital_status_image"
         android:drawableLeft="@drawable/ic_check_circle_black_24dp"
@@ -149,7 +149,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edWingAccountName"
-        android:hint="Wing Account Name"
+        android:hint="@string/hit_wingaccount"
         android:layout_marginLeft="16dp"
         android:layout_below="@id/edWingAccountNumber"
         android:drawableLeft="@drawable/ic_check_circle_black_24dp"
@@ -163,7 +163,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edPhoneNumber"
-        android:hint="Phone"
+        android:hint="@string/hit_phone"
         android:layout_marginLeft="16dp"
         android:layout_below="@id/edWingAccountName"
         android:drawableLeft="@drawable/ic_check_circle_black_24dp"
@@ -194,7 +194,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edJob"
-        android:hint="Job"
+        android:hint="@string/hit_job"
         android:layout_marginLeft="16dp"
         android:paddingBottom="@dimen/dp_20"
         android:layout_below="@id/location_image"

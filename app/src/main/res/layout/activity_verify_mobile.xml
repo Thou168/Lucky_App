@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp_8dp"
             android:paddingBottom="@dimen/dp_16"
-            android:text="We just send the verify code to this number. Enter the code from that message there."/>
+            android:text="@string/condittion_verify"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"

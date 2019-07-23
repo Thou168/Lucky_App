@@ -132,7 +132,7 @@
                         android:layout_marginLeft="@dimen/dp_16"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
-                        android:text="Model"
+                        android:text="@string/model"
                         android:textSize="14sp" />
 
                     <TextView
@@ -143,7 +143,7 @@
                         android:layout_toRightOf="@id/modelTitle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
-                        android:text="model"
+                        android:text="@string/model"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -287,7 +287,7 @@
                         android:paddingLeft="@dimen/dp_16"
                         android:paddingTop="@dimen/dp_8"
                         android:paddingBottom="@dimen/dp_8"
-                        android:text="LOAN CALCULATION"/>
+                        android:text="@string/loan_description"/>
                     <RelativeLayout
                         android:id="@+id/loanRow1"
                         android:layout_below="@id/laonCalculation2"
@@ -307,7 +307,7 @@
                                 android:textStyle="bold"
                                 android:textSize="14sp"
                                 android:layout_marginTop="8dp"
-                                android:text="Price ($)" />
+                                android:text="@string/Price" />
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -317,7 +317,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="8dp"
-                                android:text="Interest Rate (%)" />
+                                android:text="@string/interest_rate" />
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -377,7 +377,7 @@
                                 android:textStyle="bold"
                                 android:textSize="14sp"
                                 android:layout_marginTop="8dp"
-                                android:text="Deposit ($)" />
+                                android:text="@string/deposit" />
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -387,7 +387,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="8dp"
-                                android:text="Term (Year)" />
+                                android:text="@string/term" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -437,7 +437,7 @@
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/dp_8dp"
                         android:paddingLeft="16dp"
-                        android:text="Monthly Payment"/>
+                        android:text="@string/Monthly_payment"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -463,7 +463,7 @@
                         android:background="@color/colorLightGray"
                         android:paddingTop="@dimen/dp_8dp"
                         android:paddingBottom="@dimen/dp_8dp"
-                        android:text="CONTACT"
+                        android:text="@string/contact"
                         android:gravity="center"
                         android:textSize="@dimen/dp_16"
                         android:id="@+id/contact"
@@ -543,7 +543,7 @@
 
                         android:paddingLeft="5dp"
                         android:layout_marginLeft="8dp"
-                        android:text="Location :"
+                        android:text="@string/location"
                         android:background="#F7F7F7"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
@@ -568,7 +568,7 @@
         android:layout_height="40dp">
         <TextView
             android:gravity="center"
-            android:text="Back"
+            android:text="@string/back"
             android:id="@+id/tv_back"
             android:textColor="@android:color/black"
             android:drawableLeft="@drawable/icon_back"

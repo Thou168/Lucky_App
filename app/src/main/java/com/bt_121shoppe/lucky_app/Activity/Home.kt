@@ -662,7 +662,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     for (i in 0 until jsonArray.length()) {
 
                         val `object` = jsonArray.getJSONObject(i)
-
                         val title = `object`.getString("title")
                         val id = `object`.getInt("id")
                         val condition = `object`.getString("condition")

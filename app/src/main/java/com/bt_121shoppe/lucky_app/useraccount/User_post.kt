@@ -126,7 +126,6 @@ class User_post : AppCompatActivity() {
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
                 }
-
             }
         })
     }

@@ -292,7 +292,6 @@ public class Camera extends AppCompatActivity {
                         @Override
                         public void run() {
 
-
                             try {
                                 JSONObject object = new JSONObject(respon);
 

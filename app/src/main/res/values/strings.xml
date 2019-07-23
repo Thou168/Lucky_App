@@ -49,6 +49,8 @@
     <string name="login_password">Password</string>
     <!-- End Login String -->
     <string name="title_activity_account"></string>
+    //search
+    <string name="search_all">Search All Products</string>
 
     //loancreateactivity
 
@@ -154,6 +156,8 @@
     <string name="setting">Setting</string>
     <string name="version">Version</string>
     <string name="logout">Logout</string>
+    <string name="app_setting">APP SETTING</string>
+    <string name="account_setting">ACCOUNT SETTING</string>
     //Edit_Account
     <string name="txt_account_setting">Account Setting</string>
     <string name="hit_fistname">Fist Name</string>
@@ -176,7 +180,7 @@
     <string name="account">Account</string>
 
     //category
-    <string name="motor">Motor</string>
+    <string name="motor">Motorbike</string>
     <string name="electronic">Electronic</string>
     <string name="vehicle">Vehicle</string>
 
@@ -187,6 +191,13 @@
     //Tab
     <string name="post">Post</string>
     <string name="like">Like</string>
+
+    //change password
+
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_password">New Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="condition_change_password">You will use the new password to access your account.</string>
 
 
     <string name="contact_number">Contact Phone Number</string>
@@ -301,6 +312,15 @@
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
 
+    //Loan
+    <string name="loan_description">Loan Description</string>
+    <string name="Price">Price ($)</string>
+    <string name="interest_rate">Interest Rate (%)</string>
+    <string name="deposit">Deposit ($)</string>
+    <string name="term">Term (Year)</string>
+    <string name="Monthly_payment">Monthly Payment</string>
+    <string name="contact">CONTACT</string>
+    <string name="locaion">Location :</string>
 
     <string-array name="tab_A">
         <item>Item 1A</item>
@@ -382,6 +402,12 @@
     <string name="married">Married Status</string>
     <string name="location">Location</string>
 
+    //login
+    <string name="connect_facebook">Quick Connect with Facebook</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="log_or_register">Login or Register with your phone number</string>
+
     //Camera post
     <string name="choose">Choose</string>
     <string name="upload">Upload</string>
@@ -399,6 +425,7 @@
 
     <string name="bt_verify">Verify</string>
     <string name="verify_code">Verify Code</string>
+    <string name="condittion_verify">We just send the verify code to this number. Enter the code from that message there.</string>
 
     <string name="about_us_heading">About Us</string>
     <string name="about_us_heading_2">Welcome to 121 online market platform!</string>

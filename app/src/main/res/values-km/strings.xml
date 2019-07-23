@@ -11,7 +11,7 @@
     <string name="action_settings">ការកំណត់</string>
 
     //Detail
-    <string name="nav_detail">ពត័មានលម្អិត</string>
+    <string name="nav_detail">ព័ត៌មានលម្អិត</string>
     <string name="description">ការពណ៌នា</string>
     <string name="tax">ប្រភេទពន្ធ</string>
     <string name="brand">ម៉ាក</string>
@@ -71,6 +71,9 @@
     <string name="setting">ការកំណត់</string>
     <string name="version">កំណែ</string>
     <string name="logout">ចាកចេញ</string>
+    <string name="app_setting">ការកំណត់កម្មវិធី</string>
+    <string name="account_setting">ការកំណត់គណនី</string>
+
     //Edit_Account
     <string name="txt_account_setting">ការកំណត់គណនី</string>
     <string name="hit_fistname">នាមខ្លួន</string>
@@ -318,5 +321,31 @@
 កម្មវិធីនេះ នឹងមិនទទួលខុសត្រូវចំពោះថ្លៃដើមនៃការផ្គត់ផ្គង់ទំនិញជំនួស ឬការខាតបង់ណាមួយដែលកើតចេញពីផលិតផលដែលបានទិញ ឬបានទទួលឡើយ ។
 កម្មវិធីនេះ មិនមានការទទួលខុសត្រូវចំពោះខ្លឹមសារនៃផលិតផលដែលបានប្រកាសទិញ លក់ ជួលឡើយ ។ ទោះយ៉ាងណាក៏ដោយប្រសិនបើអ្នកប្រើប្រាស់ក្លាយជាជនរងគ្រោះនៃប្រតិបត្តិការឆបោក យើងខ្ញុំនឹងជួយអ្នកប្រើប្រាស់ឲ្យអស់ពីលទ្ធភាពរបស់យើងខ្ញុំ ។
 </string>
+    <string name="condittion_verify">យើងនឹងផ្ញើកូដផ្ទៀងផ្ទាត់ទៅកាន់លេខនេះ។ អ្នកគ្រាន់តែបញ្ចូលកូដែលទទួលបានពីសារនៅទីនេះ</string>
+
+    //Loan
+    <string name="loan_description">ព័ត៌មានលម្អិតឥណទាន</string>
+    <string name="Price">តម្លៃ($))</string>
+    <string name="interest_rate">អត្រាការប្រាក់(%)</string>
+    <string name="deposit">ដកប្រាក់($)</string>
+    <string name="term">រយៈពេល​(ឆ្នាំ)</string>
+    <string name="Monthly_payment">ការចំណាយប្រចាំខែ</string>
+    <string name="contact">ទំនាក់ទំនង</string>
+    <string name="locaion">ទីតាំង​ :</string>
+
+    //change password
+    <string name="confirm_password">បញ្ជាក់លេខសម្ងាត់</string>
+    <string name="new_password">លេខសម្ងាត់ថ្មី</string>
+    <string name="old_password">លេខសម្ងាត់ចាស់</string>
+    <string name="condition_change_password">អ្នកនឹងប្រើពាក្យសម្ងាត់ថ្មីដើម្បីចូលប្រើគណនីរបស់អ្នក</string>
+
+    //search
+    <string name="search_all">ស្វែករកគ្រប់ផលិតផល</string>
+
+    //login
+    <string name="connect_facebook">ភ្ជាប់រហ័សជាមួយហ្វេសប៊ុក</string>
+    <string name="login">ចូល</string>
+    <string name="register">ចុះឈ្មោះ</string>
+    <string name="log_or_register">ចូលឬចុះឈ្មោះជាមួយលេខទូរស័ព្ទរបស់អ្នក</string>
 
 </resources>

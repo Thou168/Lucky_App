@@ -13,7 +13,6 @@ import com.bt_121shoppe.lucky_app.Product_dicount.Detail_Discount
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.Startup.Item
 
-
 class MyAdapter_user(private val itemList: ArrayList<Item>, val type: String?) : RecyclerView.Adapter<MyAdapter_user.ViewHolder>() {
 
 

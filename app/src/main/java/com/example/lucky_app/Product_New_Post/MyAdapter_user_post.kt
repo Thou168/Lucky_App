@@ -24,7 +24,9 @@ import java.io.ByteArrayOutputStream
 
 class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_user_post.ViewHolder>() {
 
-    internal var loadMoreListener: MyAdapter_list_grid_image.OnLoadMoreListener? = null
+//    internal var loadMoreListener: OnLoadMoreListener? = null
+    internal var loadMoreListener: com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post.OnLoadMoreListener? = null
+//    internal var loadMoreListener: MyAdapter_list_grid_image.OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -81,15 +83,19 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 post_type.setImageResource(R.drawable.rent)
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-                val intent = Intent(itemView.context, Detail_New_Post::class.java)
+//                val intent = Intent(itemView.context, Detail_New_Post::class.java)
 //                intent.putExtra("Image",decodedByte)
 //                intent.putExtra("Image_user",decodedByte)
 //                intent.putExtra("Title",item.title)
-                intent.putExtra("Price", item.cost)
-////                intent.putExtra("Name",item.name)
-                intent.putExtra("ID", item.id)
-                itemView.context.startActivity(intent)
-            }
+//                  intent.putExtra("Price",item.cost)
+//////                intent.putExtra("Name",item.name)
+//                  intent.putExtra("ID",item.id)
+//                itemView.context.startActivity(intent)
+//                intent.putExtra("Price", item.cost)
+//////                intent.putExtra("Name",item.name)
+//                intent.putExtra("ID", item.id)
+//                itemView.context.startActivity(intent)
+//            }
 
             btn_renew.setOnClickListener {
                 Toast.makeText(it.context, "Re_new:" + item.title, Toast.LENGTH_SHORT).show()
@@ -118,5 +124,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
     }
 
     //
-    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+}
+    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView);
 }

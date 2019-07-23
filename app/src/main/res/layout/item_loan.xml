@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="4dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="160dp"
+                android:layout_height="match_parent" />
+            <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/title"
+                android:text="title"
+                android:lines="2"
+                android:textSize="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:text="Phonm Penh - 2h ago"
+                android:textSize="10dp" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_alignParentBottom="true"
+                android:textColor="@android:color/holo_red_light"
+                android:text="$2900"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/post_type"
+                android:layout_width="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/buy"
+                android:layout_height="20dp"
+                android:layout_above="@+id/user_view"
+                android:layout_alignEnd="@+id/user_view" />
+
+            <TextView
+                android:id="@+id/user_view"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="View: 100" />
+        </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <View
+                android:layout_alignParentTop="true"
+                style="@style/line"/>
+            <!--<Button-->
+                <!--android:id="@+id/btnrefresh"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:gravity="center"-->
+                <!--android:background="#00FFFFFF"-->
+                <!--android:drawableLeft="@drawable/refresh"-->
+                <!--android:text="Pending" />-->
+            <!--<Button-->
+                <!--android:layout_marginStart="@dimen/dp_24"-->
+                <!--android:id="@+id/btn_renew"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="#00FFFFFF"-->
+                <!--android:drawableLeft="@drawable/refresh"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingLeft="@dimen/dp_20"-->
+                <!--android:text="Renew"-->
+                <!--android:textAllCaps="false" />-->
+
+            <Button
+                android:layout_centerInParent="true"
+                android:id="@+id/btnedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="#00FFFFFF"
+                android:drawableLeft="@drawable/edit"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="@string/button_edit"
+                android:textAllCaps="false" />
+
+            <Button
+                android:layout_marginEnd="@dimen/dp_24"
+                android:id="@+id/btndelete"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:background="#00FFFFFF"
+                android:paddingLeft="@dimen/dp_16"
+                android:drawableLeft="@drawable/delete"
+                android:text="@string/button_delete" />
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

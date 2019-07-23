@@ -14,7 +14,7 @@
             android:id="@+id/back_notification"
             android:layout_width="70dp"
             android:textColor="@color/white"
-            android:text="Back"
+            android:text="@string/back"
             android:gravity="center"
             android:drawableLeft="@drawable/icon_back"
             android:layout_height="35dp"/>

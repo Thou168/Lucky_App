@@ -20,12 +20,12 @@
             android:gravity="center_vertical"
             android:textColor="#ffff"
             android:textSize="@dimen/dp_16"
-            android:text=" Back"/>
+            android:text="@string/back"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="My Account"
+            android:text="@string/account_toolbar"
             android:textSize="20dp"
             android:textColor="#ffff"
             android:textStyle="bold"
@@ -74,7 +74,7 @@
                     android:background="@drawable/underline"
                     android:drawableRight="@drawable/arrow_right_black_24dp"
                     android:gravity="center_vertical"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
 
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_margin="30dp"
-                    android:text="Submit"
+                    android:text="@string/submit_button"
                     android:layout_below="@+id/map_Account"
                     android:background="@drawable/corner_orange"/>
             </RelativeLayout>

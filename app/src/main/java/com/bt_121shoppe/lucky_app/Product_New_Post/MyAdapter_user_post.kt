@@ -361,7 +361,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         isLoading = false
     }
 
-
     interface OnLoadMoreListener {
         fun onLoadMore()
     }

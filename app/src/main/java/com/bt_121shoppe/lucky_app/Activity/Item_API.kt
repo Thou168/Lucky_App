@@ -50,3 +50,4 @@ class Item_API(var id: Int, var img_user: String, var image: String, var title: 
 //    }
 
 }
+

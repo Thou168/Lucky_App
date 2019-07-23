@@ -1,26 +1,23 @@
 package com.bt_121shoppe.lucky_app.loan;
 
-import android.app.PendingIntent;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
-import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.models.LoanViewModel;
-import com.bt_121shoppe.lucky_app.utils.CommonFunction;
+
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -28,13 +25,18 @@ import com.tiper.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -44,10 +46,10 @@ public class LoanCreateActivity extends AppCompatActivity {
 
     private static final String TAG=LoanCreateActivity.class.getSimpleName();
     private SharedPreferences preferences;
-    private String username,password,encodeAuth;
-    private int pk;
+    private String username,password,Encode;
+    private int pk,id_edit=0, postid;
     private Boolean status_card,status_family,status_staff,status_title = null;
-    private Boolean status_borrower = null;
+    private String status_borrower = null;
 //    private int postID;
     //loan_information
     private Button btSubmit;
@@ -56,9 +58,11 @@ public class LoanCreateActivity extends AppCompatActivity {
     EditText loan_purpose,loan_amount,loan_term;
 //    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
     MaterialSpinner id_card,family_book,staff_id_or_salary_slip,land_tile;
-
     TextView txtBack;
     boolean estadoCadastro = true;
+    SharedPreferences  pre_id;
+    Bundle bundle;
+
 
  //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
 //    String[] card_id = getResources().getStringArray(R.array.ID_card);
@@ -104,19 +108,39 @@ public class LoanCreateActivity extends AppCompatActivity {
         preferences=getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
-        encodeAuth="Basic "+ CommonFunction.getEncodedString(username,password);
+        Encode=getEncodedString(username,password);
         if (preferences.contains("token")) {
             pk = preferences.getInt("Pk",0);
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
         }
+        Log.d("Pk",""+pk);
+        ButterKnife.bind(this);
         Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,1.5,12)));
-
+        bundle = getIntent().getExtras();
+        if(bundle!=null)
+        {
+            postid=bundle.getInt("id",0);
+            Log.d("Post id",String.valueOf(postid));
+        }
+        bundle = getIntent().getExtras();
+        if (bundle!=null) {
+            id_edit = bundle.getInt("id",0);
+            Log.d("Loan id",String.valueOf(id_edit));
+            getLoan_user(Encode);
+        }
+        pre_id = getSharedPreferences("id",MODE_PRIVATE);
         btSubmit=(Button) findViewById(R.id.btSubmit);
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consumeLoanCreateApi();
+                if(id_edit!=0)
+                {
+                    Edit_loan(Encode,id_edit);
+
+                }else {
+                    consumeLoanCreateApi(Encode);
+                }
             }
         });
 
@@ -130,11 +154,11 @@ public class LoanCreateActivity extends AppCompatActivity {
                 Log.d("Borrower", item);
                 if(!item.equals(null)){
                     if (item.equals("Yes")){
-                        status_borrower = true;
-                        Log.d("Value borrow ",status_borrower.toString());
+                        status_borrower = "Yes";
+                        Log.d("Value borrow ",status_borrower);
                     }else {
-                        status_borrower = false;
-                        Log.d("Value borrow ",status_borrower.toString());
+                        status_borrower = "No";
+                        Log.d("Value borrow ",status_borrower);
                     }
 
                 }
@@ -252,20 +276,19 @@ public class LoanCreateActivity extends AppCompatActivity {
 
     } //oncreate
 
-    private void consumeLoanCreateApi(){
-        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"/api/v1/loan/";
-
+    private void consumeLoanCreateApi(String encode){
+        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/";
         OkHttpClient client=new OkHttpClient();
         JSONObject data=new JSONObject();
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",loan_term.getText().toString().toLowerCase()); //loan term
-            data.put("loan_duration","24");
+            data.put("loan_interest_rate",0.5);
+            data.put("loan_duration",loan_term.getText().toString());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
             data.put("loan_status",9);
             data.put("record_status",1);
-            data.put("username","Bye");
+            data.put("username",status_borrower);
             data.put("gender","female");
             data.put("age",0);
             data.put("job",job_loan_information.getText().toString().toLowerCase());
@@ -285,12 +308,13 @@ public class LoanCreateActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         RequestBody body=RequestBody.create(ConsumeAPI.MEDIA_TYPE,data.toString());
+        String auth = "Basic " + encode;
         Request request=new Request.Builder()
                 .url(urlAPIEndpoint)
                 .post(body)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
-                .header("Authorization",encodeAuth)
+                .header("Authorization",auth)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -312,7 +336,6 @@ public class LoanCreateActivity extends AppCompatActivity {
                         alertDialog.show();
                     }
                 });
-
             }
 
             @Override
@@ -367,5 +390,213 @@ public class LoanCreateActivity extends AppCompatActivity {
             }
         });
     }
+    private void getLoan_user(String encode){
 
+        if(id_edit !=0){
+            final String url = String.format("%s%s/", ConsumeAPI.BASE_URL,"api/v1/loan/"+id_edit);
+            Log.d("Url",url);
+            OkHttpClient client = new OkHttpClient();
+            String auth = "Basic "+ encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String respone = response.body().string();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject object = new JSONObject(respone);
+                                String job = object.getString("job");
+                                Double income = object.getDouble("average_income");
+                                Double expense = object.getDouble("average_expense");
+                                String purpose = object.getString("loan_purpose");
+                                Double amount = object.getDouble("loan_amount");
+                                int term = object.getInt("loan_duration");
+                                Boolean stateId = object.getBoolean("state_id");
+                                Boolean family = object.getBoolean("family_book");
+                                Boolean staffId = object.getBoolean("staff_id");
+                                Boolean house = object.getBoolean("house_plant");
+                                String coborrow= object.getString("username");
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        job_loan_information.setText(job);
+                                        monthly_income_loan_information.setText(String.valueOf(income));
+                                        monthly_expense.setText(String.valueOf(expense));
+                                        loan_purpose.setText(purpose);
+                                        loan_amount.setText(String.valueOf(amount));
+                                        loan_term.setText(String.valueOf(term));
+                                        if(stateId == true ) {
+                                            id_card.setSelection(1);
+                                        }else if (stateId == false){
+                                            id_card.setSelection(0);
+                                        }
+                                        if(family == true ) {
+                                            family_book.setSelection(1);
+                                        }else if (family == false){
+                                            family_book.setSelection(0);
+                                        }
+                                        if(staffId == true ) {
+                                            staff_id_or_salary_slip.setSelection(1);
+                                        }else if (staffId == false){
+                                            staff_id_or_salary_slip.setSelection(0);
+                                        }
+                                        if(house == true ) {
+                                            land_tile.setSelection(1);
+                                        }else if (house == false){
+                                            land_tile.setSelection(0);
+                                        }
+                                        if(coborrow.equals("Yes") ) {
+                                            co_borrower_loan_information.setSelection(1);
+                                        }else if (coborrow.equals("No")){
+                                            co_borrower_loan_information.setSelection(0);
+                                        }
+
+                                    }
+
+                                });
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    Log.d("Edit", respone);
+                }
+            });
+
+        }
+    }
+    private void Edit_loan(String encode,int id_edit){
+
+        final String url = String.format("%s%s/", ConsumeAPI.BASE_URL,"api/v1/loan/"+id_edit);
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        OkHttpClient client=new OkHttpClient();
+        JSONObject data=new JSONObject();
+        try{
+            data.put("loan_to",pk);
+            data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
+            data.put("loan_interest_rate",0.5);
+            data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
+            data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
+            data.put("loan_status",9);
+            data.put("record_status",1);
+            data.put("username",status_borrower);
+            data.put("gender","female");
+            data.put("age",0);
+            data.put("job",job_loan_information.getText().toString().toLowerCase());
+            data.put("average_income",monthly_income_loan_information.getText().toString().toLowerCase());
+            data.put("average_expense",monthly_expense.getText().toString().toLowerCase());
+            data.put("telephone","011308281");
+            data.put("address","Wat Phnom");
+            data.put("state_id",status_card);   //id_card
+            data.put("family_book",status_family);    //family_book
+            data.put("staff_id",status_staff);   //staff_id
+            data.put("house_plant",status_title);  //land_title
+            data.put("post",postid);
+            data.put("created_by",pk);
+
+            Log.d(TAG," d"+data);
+            RequestBody body=RequestBody.create(MEDIA_TYPE,data.toString());
+            String auth = "Basic "+ encode;
+            Request request=new Request.Builder()
+                    .url(url)
+                    .put(body)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String result=response.body().string();
+                    Log.d("Response",result);
+                    Gson gson=new Gson();
+                    LoanViewModel loanObj=new LoanViewModel();
+                    try{
+                        loanObj=gson.fromJson(result,LoanViewModel.class);
+                        if(loanObj!=null){
+                            int statusCode=loanObj.getStatus();
+                            if(statusCode == 201){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
+                                        alertDialog.setTitle("Edit your loan");
+                                        alertDialog.setMessage("Loan wasn't edit");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        finish();
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
+                                    }
+                                });
+                            } else{
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
+                                        alertDialog.setTitle("Edit your loan");
+                                        alertDialog.setMessage("Loan was edit Successfully.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        finish();
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
+                                    }
+                                });
+                            }
+                        }
+                    }catch (JsonParseException e){
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String result=e.getMessage().toString();
+                    Log.d(TAG,"Fail:"+result);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
+                            alertDialog.setTitle("Edit your loan");
+                            alertDialog.setMessage("Please check again!!");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    });
+                }
+            });
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private String getEncodedString(String username, String password) {
+        final String userpass = username+":"+password;
+        return Base64.encodeToString(userpass.getBytes(), Base64.NO_WRAP);
+    }
 }
