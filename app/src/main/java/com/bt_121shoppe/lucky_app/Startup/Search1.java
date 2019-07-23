@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.Startup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -44,6 +45,7 @@ public class Search1 extends AppCompatActivity {
     SearchView sv;
     RecyclerView rv;
     ArrayList<Item> items;
+    String category,model,year;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,14 +73,18 @@ public class Search1 extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(layoutManager1);
 
+        Intent intent = getIntent();
+        category = intent.getStringExtra("category");
+        model    = intent.getStringExtra("brand");
+        year     = intent.getStringExtra("year");
 
-
+        Log.d("SSSeach","Category:"+category+" Brand:"+ model + "Year:"+year);
     sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
             String title = sv.getQuery().toString();
 
-            Search_data(title);
+            Search_data(title,category,model,year);
             return false;
         }
 
@@ -90,8 +96,9 @@ public class Search1 extends AppCompatActivity {
 
     }  // create
 
-    private  void Search_data(String title){
-        String url = "http://103.205.26.103:8000/postsearch/?search="+title+"&category=&modeling=&year=";
+    private  void Search_data(String title, String category, String model, String year){
+        String url = "http://103.205.26.103:8000/postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
+        Log.d("Url:",url);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)

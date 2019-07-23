@@ -39,7 +39,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.SpinnerActivity"></activity>
+        <activity android:name=".Splash_screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".Activity.SpinnerActivity" />
         <activity android:name=".chats.MessageActivity" />
         <activity android:name=".chats.ChatMainActivity" />
         <activity android:name=".Login_Register.VerifyMobileActivity" />

@@ -121,6 +121,8 @@
                         android:hint="@string/post_type"
                         android:textSize="18dp"
                         android:background="@null"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:layout_below="@+id/imgTitle"
                         style="@style/AppTheme.NoActionBar"
                         app:spinnerMode="dropdown"
@@ -145,6 +147,8 @@
                         android:hint="@string/category"
                         android:textSize="18dp"
                         android:background="@null"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:layout_marginLeft="-5dp"
                         android:spinnerMode="dropdown"/>
 
@@ -166,6 +170,8 @@
                         android:hint="@string/type"
                         android:textSize="18dp"
                         android:background="@null"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:layout_marginLeft="-5dp"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
@@ -186,6 +192,8 @@
                         android:gravity="center_vertical"
                         android:hint="@string/brand"
                         android:textSize="18dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:layout_marginLeft="-5dp"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
@@ -208,6 +216,8 @@
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/model"
                         android:textSize="18dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
                     <ImageView
@@ -227,6 +237,8 @@
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/year"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:textSize="18dp"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
@@ -249,6 +261,8 @@
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/condition"
                         android:textSize="18dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
                     <ImageView
@@ -270,6 +284,8 @@
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/color"
                         android:textSize="18dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:background="@null"
                         android:drawableRight="@drawable/arrow_right_black_24dp"/>
 
@@ -363,6 +379,8 @@
                         android:layout_toRightOf="@+id/imgDisType"
                         android:gravity="center_vertical"
                         android:hint="@string/discount_type"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"
