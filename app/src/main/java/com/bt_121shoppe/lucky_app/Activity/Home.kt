@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -72,28 +74,35 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var recyclerView: RecyclerView? = null
     var list_item: ArrayList<Item_API>? = null
-
     var best_list: RecyclerView? = null
-
     var grid: ImageView? = null
     var list: ImageView? = null
     var image_list: ImageView? = null
 //    var click: String = "Khmer"
     lateinit var sharedPreferences: SharedPreferences
-
     val myPreferences = "mypref"
     val namekey = "Khmer"
-
     var english: ImageView? = null
     var khmer: ImageView? = null
-
     private var pk=0
     private var name=""
     private var pass=""
     private var Encode=""
+    private var categoryId:String=""
+    private var brandId:String=""
+    private var yearId:String=""
 
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
+    private var listItems: ArrayList<String>?=null
+
+    internal lateinit var ddBrand:Button
+    internal lateinit var listItems1: Array<String?>
+    internal lateinit var categoryIdItems: Array<Int?>
+    internal lateinit var brandListItems: Array<String?>
+    internal lateinit var brandIdListItems: Array<Int?>
+    internal lateinit var yearListItems: Array<String?>
+    internal lateinit var yearIdListItems: Array<Int?>
 
     fun language(lang: String) {
          val locale = Locale(lang)
@@ -134,7 +143,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         english = findViewById(R.id.english)
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
-
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -188,10 +196,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
 
         }
-
-        Log.d("khmer",language)
-
-
+        //Log.d("khmer",language)
 
         requestStoragePermission(false)
         requestStoragePermission(true)
@@ -205,7 +210,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
                 R.id.notification -> {
-                    val intent = Intent(this@Home,Notification::class.java)
+                    val intent = Intent(this@Home,SpinnerActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
@@ -220,9 +225,16 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
-                R.id.message -> {val intent = Intent(this@Home,ChatMainActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                R.id.message -> {
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Home,ChatMainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Home, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -241,9 +253,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }
 
         //val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
-
-
-//SliderImage
+        //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
                             "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
@@ -251,7 +261,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
-//Buy sell and Rent
+        //Buy sell and Rent
         val buy = findViewById<TextView>(R.id.buy)
         buy.setOnClickListener{
             //      getActivity()!!.getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment_buy_vehicle()).commit()
@@ -271,87 +281,78 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             intent.putExtra("Title","Rent")
             startActivity(intent)
         }
-//Best Deal
+        //Best Deal
         val version = ArrayList<Item>()
         version.addAll(Item.getType("Discount"))
 
         best_list = findViewById<RecyclerView>(R.id.horizontal)
         best_list!!.layoutManager = LinearLayoutManager(this@Home, LinearLayout.HORIZONTAL, false)
-//        best_list!!.adapter = MyAdapter(version)
+        //best_list!!.adapter = MyAdapter(version)
         getBest()
 
         val listview = findViewById<RecyclerView>(R.id.list_new_post)
-//        val item = ArrayList<Item>()
-//        item.addAll(Item.getList())
-//        val item = ArrayList<Item_API>()
-//        item.addAll(Get())
-//        Log.d("Item API: ",item.size.toString())
-        //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+
         recyclerView = findViewById<RecyclerView>(R.id.list_new_post)
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
         Get()
-//        recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
-//List Grid and image
-//        val list = findViewById<ImageView>(R.id.img_list)
-//        list.setOnClickListener {
-//            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List")
-//            recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
-//        }
 
-//        val grid = findViewById<ImageView>(R.id.grid)
-//        grid.setOnClickListener {
-//            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Grid")
-//            recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
-//        }
-//        val image = findViewById<ImageView>(R.id.btn_image)
-//        image.setOnClickListener {
-//            recyclerView!!.adapter = MyAdapter_list_grid_image(item, "Image")
-//            recyclerView!!.layoutManager = GridLayoutManager(this@Home, 1)
-//        }
-//Dropdown
-        //getCategory()
-        category = findViewById(R.id.sp_category)
-        getCategory()
+        val ddCategory:Button=findViewById(R.id.sp_category)
+        ddBrand=findViewById(R.id.sp_brand)
+        val ddYear:Button=findViewById(R.id.sp_year)
 
-//        val category = resources.getStringArray(R.array.category)
-//        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
-//        val sp_category = findViewById<Spinner>(R.id.sp_category)
-//        sp_category.setAdapter(adapter)
-//        val items = ArrayList<Item>()
-//        sp_category.setOnItemClickListener { parent, view, position, id ->
-//            val selected = sp_category.text
-//            if (selected.equals("Motobike")){
-//                items.addAll(Item.getType("Motobike"))
-//            }else{
-//                items.addAll(Item.getType("Electronic"))
-//            }
-//            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
-//        }
+        initialCategoryDropdown()
+        initialBrandDropdownList()
+        initialYearDropdownList()
 
-//Search
+        ddCategory.setOnClickListener(View.OnClickListener {
+            val mBuilder = AlertDialog.Builder(this@Home)
+            mBuilder.setTitle("Choose Category")
+            mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
+                ddCategory.setText(listItems1!!.get(i))
+                categoryId=categoryIdItems!!.get(i).toString()
+                //Toast.makeText(this@Home, categoryIdItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+                initialBrandDropdownList()
+                dialogInterface.dismiss()
+            })
+
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        })
+
+        ddBrand.setOnClickListener(View.OnClickListener {
+            val mBuilder = AlertDialog.Builder(this@Home)
+            mBuilder.setTitle("Choose Brand")
+            mBuilder.setSingleChoiceItems(brandListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
+                ddBrand.setText(brandListItems!!.get(i))
+                brandId = brandIdListItems!!.get(i).toString()
+                Toast.makeText(this@Home, brandIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+                dialogInterface.dismiss()
+            })
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        })
+
+        ddYear.setOnClickListener(View.OnClickListener {
+            val mBuilder = AlertDialog.Builder(this@Home)
+            mBuilder.setTitle("Choose Year")
+            mBuilder.setSingleChoiceItems(yearListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
+                ddYear.setText(yearListItems!!.get(i))
+                yearId=yearIdListItems!!.get(i).toString()
+                //Toast.makeText(this@Home, yearIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+                dialogInterface.dismiss()
+            })
+
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        })
+
         val search = findViewById<EditText>(R.id.search)
         search.setOnClickListener{
-           val intent = Intent(this@Home, Search1::class.java)
-         //   intent.putExtra("items",Item.getList())
+            val intent = Intent(this@Home, Search1::class.java)
+            intent.putExtra("category",categoryId)
+            intent.putExtra("brand",brandId)
+            intent.putExtra("year",yearId)
             startActivity(intent)
-        }
-
-        val brand = resources.getStringArray(R.array.brand)
-        val adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, brand)
-        val sp_brand = findViewById<MaterialBetterSpinner>(R.id.sp_brand)
-        sp_brand.setAdapter(adapter1)
-        sp_brand.setOnItemClickListener { parent, view, position, id ->
-            val selected = sp_brand.getText()
-            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
-        }
-
-        val year = resources.getStringArray(R.array.year)
-        val adapter2 = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, year)
-        val sp_year = findViewById<MaterialBetterSpinner>(R.id.sp_year)
-        sp_year.setAdapter(adapter2)
-        sp_year.setOnItemClickListener { parent, view, position, id ->
-            val selected = sp_year.getText()
-            Toast.makeText(this@Home,selected,Toast.LENGTH_LONG).show()
         }
 
     }
@@ -364,35 +365,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             super.onBackPressed()
         }
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.account, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.action_language -> {
-//                if(click.equals("Khmer")){
-//                    item.setIcon(R.drawable.flag_khmer)
-//                    val editor = sharedPreferences.edit()
-//                    editor.putString(click,"English")
-//                    editor.commit()
-//
-//                    language("km")
-//                    recreate()
-//                }else{
-//                    item.setIcon(R.drawable.flag_english)
-//
-//
-//                }
-//
-//
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
@@ -442,7 +414,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         CrashManager.register(this)
     }
 
-    private fun getCategory(){
+    private fun initialCategoryDropdown(){
         val itemApi = ArrayList<String>()
         val url = ConsumeAPI.BASE_URL+"/api/v1/categories/"
         val client = OkHttpClient()
@@ -457,24 +429,126 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val respon = response.body()!!.string()
-                Log.d("Response", respon)
+                Log.d("Response","initial Category "+ respon)
                 try {
+                    listItems = ArrayList<String>()
+
                     val jsonObject = JSONObject(respon)
                     val jsonArray = jsonObject.getJSONArray("results")
                     //Log.d("count",jsonArray.length().toString())
+                    listItems1 = arrayOfNulls<String>(jsonArray.length())
+                    categoryIdItems= arrayOfNulls<Int>(jsonArray.length())
                     for (i in 0 until jsonArray.length()) {
                         val `object` = jsonArray.getJSONObject(i)
+                        var cat_id=`object`.getInt("id")
                         val cagory = `object`.getString("cat_name")
                          runOnUiThread {
-                            itemApi.add(cagory)
-//                             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, category)
+                             listItems1[i]=cagory
+                             categoryIdItems[i]=cat_id
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
 
-                             val adapter = ArrayAdapter(applicationContext, android.R.layout.simple_dropdown_item_1line, itemApi)
-                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                             category!!.setAdapter(adapter)
+            }
+        })
+    }
 
-                             Log.d("CATEGORY ",itemApi.size.toString())
+    private fun initialBrandDropdownList(){
 
+        val url = ConsumeAPI.BASE_URL+"/api/v1/brands/"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val respon = response.body()!!.string()
+                try {
+                    runOnUiThread {
+                        ddBrand.setText("Brand")
+                        brandId=""
+                        val jsonObject = JSONObject(respon)
+                        val jsonArray = jsonObject.getJSONArray("results")
+
+                        if (categoryId.isNullOrEmpty()) {
+                            brandListItems = arrayOfNulls<String>(jsonArray.length())
+                            brandIdListItems = arrayOfNulls<Int>(jsonArray.length())
+                            for (i in 0 until jsonArray.length()) {
+                                val `object` = jsonArray.getJSONObject(i)
+                                var id = `object`.getInt("id")
+                                val brand = `object`.getString("brand_name")
+                                    brandListItems[i] = brand
+                                    brandIdListItems[i] = id
+                            }
+                        } else {
+                            var count=0
+                            for (i in 0 until jsonArray.length()) {
+                                val `object` = jsonArray.getJSONObject(i)
+                                var cat = `object`.getInt("category").toString()
+
+                                if (categoryId.equals(cat)) {
+                                    count++
+                                }
+                            }
+                            brandListItems = arrayOfNulls<String>(count)
+                            brandIdListItems = arrayOfNulls<Int>(count)
+                            var ccount=0
+                            for (i in 0 until jsonArray.length()) {
+                                val `object` = jsonArray.getJSONObject(i)
+                                var cat = `object`.getInt("category").toString()
+                                if (categoryId.equals(cat)) {
+                                    var id = `object`.getInt("id")
+                                    val brand = `object`.getString("brand_name")
+                                    Log.d("HOME","BRAND "+id+" "+brand)
+                                    brandListItems[ccount] = brand
+                                    brandIdListItems[ccount] = id
+                                    ccount++
+                                }
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            }
+        })
+    }
+
+    private fun initialYearDropdownList(){
+        val url = ConsumeAPI.BASE_URL+"/api/v1/years/"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val respon = response.body()!!.string()
+                //Log.d("Response","initial Category "+ respon)
+                try {
+                    val jsonObject = JSONObject(respon)
+                    val jsonArray = jsonObject.getJSONArray("results")
+                    yearListItems = arrayOfNulls<String>(jsonArray.length())
+                    yearIdListItems= arrayOfNulls<Int>(jsonArray.length())
+                    for (i in 0 until jsonArray.length()) {
+                        val `object` = jsonArray.getJSONObject(i)
+                        var id=`object`.getInt("id")
+                        val year = `object`.getString("year")
+                        runOnUiThread {
+                            yearListItems[i]=year
+                            yearIdListItems[i]=id
                         }
                     }
                 } catch (e: Exception) {
@@ -849,4 +923,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         builder.show()
 
     }
+
 }
+

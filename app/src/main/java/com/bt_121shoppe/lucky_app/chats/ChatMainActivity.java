@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.chats;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
+import com.bt_121shoppe.lucky_app.Login_Register.UserAccount;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.fragments.ChatsFragment;
 import com.bt_121shoppe.lucky_app.fragments.ProfileFragment;
@@ -74,7 +76,13 @@ public class ChatMainActivity extends AppCompatActivity {
         username=findViewById(R.id.username);
 
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+
+        if(firebaseUser==null){
+            Intent intent =new Intent(ChatMainActivity.this, UserAccount.class);
+            startActivity(intent);
+            finish();
+        }else
+            databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
 
         preferences = getSharedPreferences("Register",MODE_PRIVATE);
         uusername=preferences.getString("name","");

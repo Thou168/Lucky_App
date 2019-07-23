@@ -21,6 +21,7 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:background">#E4999999</item>
     </style>
+
     <style name="line1">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -65,5 +66,10 @@
 
     <style name="MenuStyle" parent="Theme.AppCompat.Light">
         <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="SpinnerButtonStyle" parent="android:Widget.Holo.Spinner">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 </resources>

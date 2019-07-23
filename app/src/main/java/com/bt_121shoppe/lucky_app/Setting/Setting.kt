@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.bt_121shoppe.lucky_app.Activity.Home
 import com.bt_121shoppe.lucky_app.R
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
@@ -35,6 +36,7 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
                     editor.clear()
                     editor.commit()
                     dialog.cancel()
+                    FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this@Setting, Home::class.java))
                 }
                                      .setNegativeButton(Html.fromHtml("<font color='#1616FA'>Cancel</font>"), object: DialogInterface.OnClickListener {

@@ -69,7 +69,6 @@ class VerifyMobileActivity : AppCompatActivity() {
         mProgress.setCancelable(false)
         mProgress.isIndeterminate = true
 
-
         reference = FirebaseDatabase.getInstance().reference
 
         sendVerificationCode(no)

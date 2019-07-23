@@ -29,6 +29,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account
+import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.Setting.Setting
 import com.bt_121shoppe.lucky_app.adapters.ViewPagerAdapter
@@ -39,6 +40,7 @@ import com.bt_121shoppe.lucky_app.utils.FileCompressor
 import com.bt_121shoppe.lucky_app.utils.ImageUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.karumi.dexter.Dexter
@@ -88,6 +90,23 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_tab_layout)
+
+        val preferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        username=preferences.getString("name","")
+        password=preferences.getString("pass","")
+        encodeAuth="Basic "+ getEncodedString(username,password)
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk", 0)
+        } else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0)
+        }
+        Log.d("Account", "User pk "+ username)
+        if(pk==0){
+            Log.d("Account", "User pk "+ pk)
+            val intent= Intent(this@Account,UserAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         val bnavigation = findViewById<BottomNavigationView>(com.bt_121shoppe.lucky_app.R.id.bnaviga)
         bnavigation.menu.getItem(4).isChecked = true
@@ -191,15 +210,6 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         tabLayout.setupWithViewPager(viewPager)
            */
         setUpPager()
-        val preferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
-        username=preferences.getString("name","")
-        password=preferences.getString("pass","")
-        encodeAuth="Basic "+ getEncodedString(username,password)
-        if (preferences.contains("token")) {
-            pk = preferences.getInt("Pk", 0)
-        } else if (preferences.contains("id")) {
-            pk = preferences.getInt("id", 0)
-        }
         tvUsername=findViewById<TextView>(R.id.tvUsername)
         getUserProfile()
         getMyPosts()
