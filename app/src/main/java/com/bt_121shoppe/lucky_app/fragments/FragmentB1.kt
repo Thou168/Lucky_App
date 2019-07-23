@@ -16,6 +16,7 @@ import com.bt_121shoppe.lucky_app.AccountTab.MainLikeList
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
+import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_like
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -177,7 +178,7 @@ class FragmentB1: Fragment() {
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
                                                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
-                                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                                                recyclerView!!.adapter = MyAdapter_user_like(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }
 

@@ -150,6 +150,7 @@ class FragmentA1: Fragment() {
                                             Log.d("FRAGMENT 1", mMessage)
                                             val jsonObject = JSONObject(mMessage)
                                             val jsonCount = jsonObject.getInt("count")
+
                                             activity!!.runOnUiThread {
                                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")

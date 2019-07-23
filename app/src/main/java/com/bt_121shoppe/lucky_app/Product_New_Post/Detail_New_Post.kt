@@ -352,7 +352,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     fun initialProductPostDetail(encode: String){
         var url:String
         var request:Request
-        Log.d(TAG,"POST type"+pt)
+        Log.d(TAG,"POST type: "+pt)
         val auth = "Basic $encode"
         if(pt==1) {
             url = ConsumeAPI.BASE_URL + "postbyuser/" + postId

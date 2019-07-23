@@ -147,26 +147,26 @@ public class Login extends AppCompatActivity {
                 public void run() {
                     if (key!=null){
 
-                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
-                        intent.putExtra("authType",2);
-                        intent.putExtra("phoneNumber",name);
-                        intent.putExtra("password",pass);
-                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-
-
-//                        SharedPreferences.Editor editor = prefer.edit();
-//                        editor.putString("token",key);
-//                        editor.putString("name",name);
-//                        editor.putString("pass",pass);
-//                        editor.putInt("Pk",pk);
-//                        editor.commit();
-//                        mProgress.dismiss();
-//                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(Login.this, Home.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
+//                        intent.putExtra("authType",2);
+//                        intent.putExtra("phoneNumber",name);
+//                        intent.putExtra("password",pass);
+//                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
-//                        finish();
+
+
+                        SharedPreferences.Editor editor = prefer.edit();
+                        editor.putString("token",key);
+                        editor.putString("name",name);
+                        editor.putString("pass",pass);
+                        editor.putInt("Pk",pk);
+                        editor.commit();
+                        mProgress.dismiss();
+                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Login.this, Home.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
 
                     }else {
                         mProgress.dismiss();

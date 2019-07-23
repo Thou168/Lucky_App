@@ -96,6 +96,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:hint="@string/title"
+
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -131,6 +132,7 @@
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
                         android:paddingRight="10dp"
+
                         android:layout_below="@+id/imgPostType"
                         android:background="@drawable/underline_gray"/>
                     <com.tiper.MaterialSpinner

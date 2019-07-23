@@ -1,8 +1,11 @@
 package com.bt_121shoppe.lucky_app.Startup;
 
 import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +13,34 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bt_121shoppe.lucky_app.R;
+import com.bt_121shoppe.lucky_app.Activity.Item_API;
+import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 
+import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image;
+import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post;
+import com.bt_121shoppe.lucky_app.R;
+import com.google.gson.JsonParseException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.TimeZone;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Search1 extends AppCompatActivity {
 
+    ArrayList<Item_API> item_apis = new ArrayList<>();
     SearchView sv;
     RecyclerView rv;
     ArrayList<Item> items;
@@ -45,23 +70,124 @@ public class Search1 extends AppCompatActivity {
 //        RecyclerView recy_horizontal1 = (RecyclerView) view.findViewById(R.id.list_new_post);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(layoutManager1);
-        rv.setAdapter(adapter1);
 
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+    sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            String title = sv.getQuery().toString();
+
+            Search_data(title);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    });
+
+    }  // create
+
+    private  void Search_data(String title){
+        String url = "http://103.205.26.103:8000/postsearch/?search="+title+"&category=&modeling=&year=";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+
+
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                Log.d("Search:",respon);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                try{
+                    JSONObject jsonObject = new JSONObject(respon);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    for (int i = 0; i<jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        int id = object.getInt("id");
+                        String title = object.getString("title");
+                        double cost = object.getDouble("cost");
+                        String condition = object.getString("condition");
+                        String image = object.getString("front_image_base64");
+                        String img_user = object.getString("right_image_base64");
+                        String post_type = object.getString("post_type");
+
+                        /////////////
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                        long time = sdf.parse(object.getString("created")).getTime();
+                        long now = System.currentTimeMillis();
+                        CharSequence ago = DateUtils.getRelativeTimeSpanString(time,now,DateUtils.MINUTE_IN_MILLIS);
+
+                        String url_endpoint = String.format("%s%s", ConsumeAPI.BASE_URL,"countview/?post=" + id);
+                        OkHttpClient client1 = new OkHttpClient();
+                        Request request1 = new Request.Builder()
+                                .url(url_endpoint)
+                                .header("Accept","application/json")
+                                .header("Content-Type","application/json")
+                                .build();
+                        client1.newCall(request1).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                String message = e.getMessage().toString();
+                                Log.d("failure Response",message);
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                String mMessage = response.body().string();
+
+                                try{
+                                   JSONObject object_count = new JSONObject(mMessage);
+                                   String json_count = object_count.getString("count");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            item_apis.add(new Item_API(id,img_user,image,title,cost,condition,post_type,ago.toString(),json_count));
+                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis,"List");
+                                            rv.setAdapter(adapterUserPost);
+                                        }
+                                    });
+
+                                }catch (JsonParseException e){
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                    }
+                });
+
             }
-
             @Override
-            public boolean onQueryTextChange(String query) {
-                //FILTER AS YOU TYPE
-                adapter1.getFilter().filter(query);
-                return false;
+            public void onFailure(Call call, IOException e) {
+
             }
         });
-
     }
+
+
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getMenuInflater();

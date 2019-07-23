@@ -331,7 +331,7 @@ public class Camera extends AppCompatActivity {
                                 int type_elec = object.getInt("type");
 
                                 int te;
-                                if (category == 2) {
+                                if (category == 1) {
                                     te = 3;
                                     icType_elec.setVisibility(View.GONE);
                                     tvType_elec.setVisibility(View.GONE);
@@ -1081,7 +1081,7 @@ public class Camera extends AppCompatActivity {
                             if (cate==1){
                                 icType_elec.setVisibility(View.VISIBLE);
                                 tvType_elec.setVisibility(View.VISIBLE);
-                            }else if (cate == 2){
+                            }else {
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
                                 type = 3;
