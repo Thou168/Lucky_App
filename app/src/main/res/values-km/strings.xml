@@ -266,8 +266,8 @@
     </string-array>
     //Discount type
     <string-array name="discount_type">
-        <item> ចំនួន</item>
-        <item> ភាគរយ</item>
+        <item> $</item>
+        <item> %</item>
     </string-array>
     <string-array name="boolean_option">
         <item>បាទ/ចាស៎</item>

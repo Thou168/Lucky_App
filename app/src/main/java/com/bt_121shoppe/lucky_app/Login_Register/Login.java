@@ -147,14 +147,15 @@ public class Login extends AppCompatActivity {
                 public void run() {
                     if (key!=null){
 
-//                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
-//                        intent.putExtra("authType",2);
-//                        intent.putExtra("phoneNumber",name);
-//                        intent.putExtra("password",pass);
-//                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        startActivity(intent);
+                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
+                        intent.putExtra("authType",2);
+                        intent.putExtra("phoneNumber",name);
+                        intent.putExtra("password",pass);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        mProgress.dismiss();
+                        startActivity(intent);
 
-
+                        /*
                         SharedPreferences.Editor editor = prefer.edit();
                         editor.putString("token",key);
                         editor.putString("name",name);
@@ -167,7 +168,7 @@ public class Login extends AppCompatActivity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
-
+                        */
 //                        SharedPreferences.Editor editor = prefer.edit();
 //                        editor.putString("token",key);
 //                        editor.putString("name",name);

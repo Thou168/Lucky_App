@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
@@ -28,7 +27,7 @@ import com.bt_121shoppe.lucky_app.Activity.Message;
 import com.bt_121shoppe.lucky_app.Activity.Notification;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
-import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account;
+import com.bt_121shoppe.lucky_app.useraccount.Edit_account;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.Setting.Setting;
 import com.bt_121shoppe.lucky_app.fragments.FragmentB1;
@@ -40,9 +39,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;

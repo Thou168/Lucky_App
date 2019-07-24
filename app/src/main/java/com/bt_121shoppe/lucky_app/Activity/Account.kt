@@ -28,7 +28,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
-import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account
+import com.bt_121shoppe.lucky_app.useraccount.Edit_account
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.Setting.Setting
@@ -40,7 +40,6 @@ import com.bt_121shoppe.lucky_app.utils.FileCompressor
 import com.bt_121shoppe.lucky_app.utils.ImageUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.karumi.dexter.Dexter

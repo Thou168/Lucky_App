@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="សូមស្វាគមន៏​ មក​កាន់កម្មវិធី ទិញ លក់ ជួល ផលិតផលអនឡាញ"
+        android:text="សូមស្វាគមន៍ មក​កាន់កម្មវិធី ទិញ លក់ ជួល ផលិតផលអនឡាញ"
         android:textSize="@dimen/dp_16"
         android:gravity="center_horizontal"
         android:textColor="#DF041D"

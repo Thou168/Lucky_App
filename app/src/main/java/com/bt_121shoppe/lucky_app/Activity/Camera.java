@@ -5,9 +5,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -26,7 +26,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,8 +35,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs;
+import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity;
 import com.bt_121shoppe.lucky_app.models.CreatePostModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -58,13 +57,11 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.tiper.MaterialSpinner;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -73,8 +70,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -86,7 +81,7 @@ import okhttp3.Response;
 
 public class Camera extends AppCompatActivity {
 
-    private static final String TAG = "Response";
+    private static final String TAG = Camera.class.getSimpleName();
     static final int REQUEST_TAKE_PHOTO_1=1;
     static final int REQUEST_TAKE_PHOTO_2=2;
     static final int REQUEST_TAKE_PHOTO_3=3;
@@ -106,8 +101,7 @@ public class Camera extends AppCompatActivity {
             icTitile,icVincode,icMachineconde,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3;
     private ImageButton addPhone2,addPhone1;
     private TextInputLayout tilPhone2,tilPhone3;
-    private MaterialSpinner tvPostType,tvCategory, tvType_elec,tvBrand,tvModel,tvYear,tvCondition,tvColor,tvDiscount_type;
-    private Button submit_post;
+    private Button submit_post,tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
     private int pk;
@@ -124,13 +118,18 @@ public class Camera extends AppCompatActivity {
     private List<Integer> list_id_model = new ArrayList<>();
     private List<Integer> list_id_year = new ArrayList<>();
     private List<Integer> list_brand_model = new ArrayList<>();
-    String id_cate, id_brand,id_model,id_year,id_type;
-    int cate,brand,model,year,type;
+    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor;
+    int idYear=0;
+    int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
     ProgressDialog mProgress;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
     int edit_id,status;
     Bundle bundle;
+    int mmodel=1;
+
+    private String[] postTypeListItems,conditionListItems,discountTypeListItems,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems;
+    private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems;
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     @Override
@@ -199,7 +198,7 @@ public class Camera extends AppCompatActivity {
               edit_id = bundle.getInt("id_product", 0);
               Log.d("Edit_id:", String.valueOf(edit_id));
          }
-        Log.d("Edit_id:", String.valueOf(edit_id));
+        //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         DropDown();
@@ -209,6 +208,119 @@ public class Camera extends AppCompatActivity {
         initialUserInformation(pk,Encode);
         getData_Post(Encode,edit_id);
         TextChange();
+
+        tvCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose Category");
+                mBuilder.setSingleChoiceItems(categoryListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvCategory.setText(categoryListItems[i]);
+                        cate = categoryIdListItems[i];
+                        if (cate==1){
+                            icType_elec.setVisibility(View.VISIBLE);
+                            tvType_elec.setVisibility(View.VISIBLE);
+                            Call_Type(Encode);
+                        }else {
+                            icType_elec.setVisibility(View.GONE);
+                            tvType_elec.setVisibility(View.GONE);
+                            type = 3;
+                        }
+                        icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        icBrand.setImageResource(R.drawable.icon_null);
+                        Call_Brand(Encode,cate);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        tvType_elec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose Type");
+                mBuilder.setSingleChoiceItems(typeListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvType_elec.setText(typeListItems[i]);
+                        type = typeIdListItems[i];
+                        icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        tvBrand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose Brand");
+                mBuilder.setSingleChoiceItems(brandListItem, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvBrand.setText(brandListItem[i]);
+                        brand = brandIdListItems[i];
+                        icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        Call_Model(Encode, brand,null);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        tvModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose Model");
+                mBuilder.setSingleChoiceItems(modelListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvModel.setText(modelListItems[i]);
+                        model = modelIdListItems[i];
+                        icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        tvYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose an item");
+                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvYear.setText(yearListItems[i]);
+                        year = yearIdListItems[i];
+                        icYears.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        //Toast.makeText(Camera.this,year,Toast.LENGTH_LONG).show();
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,23 +363,21 @@ public class Camera extends AppCompatActivity {
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    if (bundle!=null) {
-                        mProgress.show();
-                        Toast.makeText(getApplicationContext(),"Edit",Toast.LENGTH_SHORT).show();
-                        EditPost_Approve(Encode, edit_id);
-                    } else  {
+                if (bundle!=null) {
                     mProgress.show();
-                        Toast.makeText(getApplicationContext(),"Post",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Edit",Toast.LENGTH_SHORT).show();
+                    EditPost_Approve(Encode, edit_id);
+                } else  {
+                    mProgress.show();
+                    //Toast.makeText(getApplicationContext(),"Post",Toast.LENGTH_SHORT).show();
                     PostData(Encode);
-                   }
+                }
             }
         });
 
     } // create
 
     private void getData_Post(String encode,int id){
-
         if (bundle!=null) {
             final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "postbyuser/", id);
             Log.d("Url", url);
@@ -291,73 +401,38 @@ public class Camera extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             try {
                                 JSONObject object = new JSONObject(respon);
-
-//                                JSONArray array_sale = object.getJSONArray("sales");
-//                                for (int i = 0; i<array_sale.length();i++) {
-//                                    JSONObject ob_sale = array_sale.getJSONObject(i);
-//                                    int sale_status = ob_sale.getInt("sale_status");
-//                                    Log.d("sale_status", String.valueOf(sale_status));
-//                                    status = sale_status;
-//                                }
-//                                JSONArray array_buy = object.getJSONArray("buys");
-//                                for (int i=0;i<array_buy.length();i++) {
-//                                    JSONObject ob_buy = array_buy.getJSONObject(i);
-//                                    int buy_status = ob_buy.getInt("buy_status");
-//                                    Log.d("buy_status", String.valueOf(buy_status));
-//                                    status = buy_status;
-//                                }
-//                                JSONArray array_rent = object.getJSONArray("rents");
-//                                for (int i=0;i<array_rent.length();i++) {
-//                                    JSONObject ob_rent = array_rent.getJSONObject(i);
-//                                    int rent_status = ob_rent.getInt("rent_status");
-//                                    Log.d("rent_status", String.valueOf(rent_status));
-//                                    status = rent_status;
-//                                }
                                 String title = object.getString("title");
                                 String description = object.getString("description");
                                 int price = object.getInt("cost");
                                 String discount = object.getString("discount");
                                 String phone = object.getString("contact_phone");
                                 String email = object.getString("contact_email");
+                                strPostType = object.getString("post_type");
+                                cate = object.getInt("category");
+                                type = object.getInt("type");
 
-                                String post_type = object.getString("post_type");
-                                int category = object.getInt("category");
-                                int c = ID_category.getPosition(category);
-                                Log.d("Cate id", category + " and " + c);
-                                int type_elec = object.getInt("type");
-
-                                int te;
-                                if (category == 1) {
-                                    te = 3;
+                                if (cate == 2) {
+                                    type = 3;
                                     icType_elec.setVisibility(View.GONE);
                                     tvType_elec.setVisibility(View.GONE);
                                 } else {
                                     icType_elec.setVisibility(View.VISIBLE);
                                     tvType_elec.setVisibility(View.VISIBLE);
-                                    te = ID_type.getPosition(type_elec);
                                 }
-                                //     int brand = ID_brands.getPosition(category);
+                                model = object.getInt("modeling");
+                                mmodel = object.getInt("modeling");
+                                year = object.getInt("year");
 
-
-                                int modeling = object.getInt("modeling");
-
-                                //       int m = ID_model.getPosition(model);
-                                Log.d("model id", String.valueOf(model));
-                                int year = object.getInt("year");
-                                int y = ID_year.getPosition(year);
-
-                                String condition = object.getString("condition");
-                                String color = object.getString("color");
-                                String dis_type = object.getString("discount_type");
+                                strCondition = object.getString("condition");
+                                strColor = object.getString("color");
+                                strDiscountType = object.getString("discount_type");
 
                                 String fron = object.getString("front_image_base64");
                                 String back = object.getString("back_image_base64");
                                 String left = object.getString("left_image_base64");
                                 String right = object.getString("right_image_base64");
-
                                 List<String> list = new ArrayList<>();
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -369,43 +444,23 @@ public class Camera extends AppCompatActivity {
                                         etPhone1.setText(phone);
                                         etEmail.setText(email);
 
-                                        if (post_type.equals("sell")) {
-                                            tvPostType.setSelection(0);
-                                        } else if (post_type.equals("buy")) {
-                                            tvPostType.setSelection(1);
-                                        } else tvPostType.setSelection(2);
+                                        String postType = strPostType.substring(0,1).toUpperCase() + strPostType.substring(1);
+                                        String condition= strCondition.substring(0,1).toUpperCase() + strCondition.substring(1);
+                                        String discountType= strDiscountType.substring(0,1).toUpperCase() + strDiscountType.substring(1);
+                                        String color= strColor.substring(0,1).toUpperCase() + strColor.substring(1);
 
-                                        if (condition.equals("new")) {
-                                            tvCondition.setSelection(0);
-                                        } else tvCondition.setSelection(1);
+                                        tvPostType.setText(postType);
+                                        tvCondition.setText(condition);
+                                        tvDiscount_type.setText(discountType);
+                                        tvColor.setText(color);
 
-                                        if (dis_type.equals("amount")){
-                                            tvDiscount_type.setSelection(0);
-                                        }else {
-                                            tvDiscount_type.setSelection(1);
-                                        }
-
-                                        switch (color) {
-                                            case "blue":    tvColor.setSelection(0);  break;
-                                            case "black":   tvColor.setSelection(1);  break;
-                                            case "silver":  tvColor.setSelection(2);  break;
-                                            case "red":     tvColor.setSelection(3);  break;
-                                            case "gray":    tvColor.setSelection(4);  break;
-                                            case "yellow":  tvColor.setSelection(5);  break;
-                                            case "pink":    tvColor.setSelection(6);  break;
-                                            case "purple":  tvColor.setSelection(7);  break;
-                                            case "orange":  tvColor.setSelection(8);  break;
-                                            case "green":   tvColor.setSelection(9);  break;
-                                            default:
-                                                tvColor.setSelection(-1);
-                                                break;
-                                        }
-                                        tvCategory.setSelection(c);
-                                        tvType_elec.setSelection(te);
-                             //           model = modeling;
-//                                        get_model(encode, model);
-                                        tvYear.setSelection(y);
-
+                                        Call_Brand(Encode,cate);
+                                        //Call_Model(Encode,brand);
+                                        getCategegoryName(Encode,cate);
+                                        getTypeName(Encode,type);
+                                        getYearName(Encode,year);
+                                        getModelName(Encode,model);
+                                        //Log.d(TAG,"Brand_id"+ brand);
 
                                         byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
                                         bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
@@ -422,22 +477,23 @@ public class Camera extends AppCompatActivity {
 
                                     }
                                 });
-
+                                model=object.getInt("modeling");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } //
-
                         }
                     });
-                    Log.d("Edit", respon);
+                    //Log.d("Edit", respon);
                 }
             });
+            model=mmodel;
         }  //getextra
     }
+
     private void initialUserInformation(int pk, String encode) {
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
         MediaType MEDIA_TYPE=MediaType.parse("application/json");
-        Log.d(TAG,"tt"+url);
+        //Log.d(TAG,"tt"+url);
         OkHttpClient client = new OkHttpClient();
 
         String auth = "Basic "+ encode;
@@ -478,26 +534,38 @@ public class Camera extends AppCompatActivity {
     }
 
     private void PostData(String encode) {
+        if(strDiscountType==null || strDiscountType.isEmpty())
+            strDiscountType="amount";
+        if(strCondition==null || strCondition.isEmpty())
+            strCondition="new";
+        if(strColor==null || strColor.isEmpty())
+            strColor="black";
+        String str_dis=etDiscount_amount.getText().toString();
+        if(str_dis==null || str_dis.isEmpty())
+            str_dis="0";
+        /*
+        final ProgressDialog mProgress=new ProgressDialog(Camera.this);
+        mProgress.setMessage("Sumitting");
+        mProgress.show();
+        */
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
         OkHttpClient client = new OkHttpClient();
         JSONObject post = new JSONObject();
         JSONObject sale = new JSONObject();
         try {
-
-            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-
+            //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
             post.put("title",etTitle.getText().toString().toLowerCase());
-            post.put("category", cate );
+            post.put("category", cate);
             post.put("status", 1);
-            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
+            post.put("condition",strCondition);
 
-            if (postType.equals("buy")) {
+            if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
             }else {
-                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
-                post.put("discount",etDiscount_amount.getText().toString());
+                post.put("discount_type", strDiscountType);
+                post.put("discount",str_dis);
             }
             //post.put("discount", 0);
             post.put("user",pk );
@@ -542,24 +610,18 @@ public class Camera extends AppCompatActivity {
             post.put("rejected_comments", "");
             post.put("year", year); //year
             post.put("modeling", model);
-            //post.put("modeling", 1);
             post.put("description", etDescription.getText().toString().toLowerCase());
-            //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
-            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-
-            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
-
+            post.put("post_type",strPostType);
             post.put("vin_code", "");
             post.put("machine_code", "");
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", "");
-            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
+            post.put("color", strColor);
 
-
-            switch (postType){
+            switch (strPostType){
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/";
                     //Log.d("URL","URL"+url);
@@ -571,7 +633,6 @@ public class Camera extends AppCompatActivity {
                     sale.put("price", etPrice.getText().toString());
                     sale.put("total_price",etPrice.getText().toString());
                     post.put("sale_post",new JSONArray("["+sale+"]"));
-
                     break;
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/";
@@ -606,13 +667,10 @@ public class Camera extends AppCompatActivity {
                     .build();
 
             client.newCall(request).enqueue(new Callback() {
-
-
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                    String respon = response.body().string();
                     Log.d(TAG, "TTTT" + respon);
-
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
@@ -623,9 +681,19 @@ public class Camera extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        alertDialog.setTitle("Post ads");
+                                        alertDialog.setMessage("This Post ads has been successfully submitted.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
                                         mProgress.dismiss();
                                         startActivity(new Intent(Camera.this,Home.class));
-                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -633,8 +701,18 @@ public class Camera extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        alertDialog.setTitle("Loan");
+                                        alertDialog.setMessage("This Post ads has been error while submiting.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
                                         mProgress.dismiss();
-                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -642,6 +720,22 @@ public class Camera extends AppCompatActivity {
                         }
                     }catch (JsonParseException e){
                         e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                alertDialog.setTitle("Post ads");
+                                alertDialog.setMessage("This Post ads has been error while submiting.");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+                        });
+
                         mProgress.dismiss();
                     }
 
@@ -650,37 +744,77 @@ public class Camera extends AppCompatActivity {
                 public void onFailure(Call call, IOException e) {
                     String mMessage = e.getMessage().toString();
                     Log.d("Failure:",mMessage );
-                    mProgress.dismiss();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                            alertDialog.setTitle("Post ads");
+                            alertDialog.setMessage("This Post ads has been error while submiting.");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    });
 
+                    mProgress.dismiss();
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
+            runOnUiThread(new Runnable() {
+                              @Override
+                              public void run() {
+                                  AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                  alertDialog.setTitle("Post ads");
+                                  alertDialog.setMessage("This Post ads has been error while submiting.");
+                                  alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                          new DialogInterface.OnClickListener() {
+                                              public void onClick(DialogInterface dialog, int which) {
+                                                  dialog.dismiss();
+                                              }
+                                          });
+                                  alertDialog.show();
+                              }
+                          });
             mProgress.dismiss();
         }
+
     } //postdata
+
     private void EditPost_Approve(String encode,int edit_id) {
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
         OkHttpClient client = new OkHttpClient();
         JSONObject post = new JSONObject();
         JSONObject sale = new JSONObject();
+        //Log.d(TAG,"Edit Model "+mmodel);
+        if(strDiscountType==null || strDiscountType.isEmpty())
+            strDiscountType="amount";
+        if(strCondition==null || strCondition.isEmpty())
+            strCondition="new";
+        if(strColor==null || strColor.isEmpty())
+            strColor="black";
+        String str_dis=etDiscount_amount.getText().toString();
+        if(str_dis==null || str_dis.isEmpty())
+            str_dis="0";
+        if(model==0)
+            model=mmodel;
         try {
-
-            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-
-
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
             post.put("status", 1);
-            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
+            post.put("condition",strCondition);
 
-            if (postType.equals("buy")) {
+            if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
             }else {
-                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
-                post.put("discount",etDiscount_amount.getText().toString());
+                post.put("discount_type", strDiscountType);
+                post.put("discount",str_dis);
             }
             //post.put("discount", 0);
             post.put("user",pk );
@@ -714,10 +848,10 @@ public class Camera extends AppCompatActivity {
                 post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
             }
             //Instant.now().toString()
-            post.put("created", "");
+            //post.put("created", "");
             post.put("created_by", pk);
             post.put("modified", Instant.now().toString());
-            post.put("modified_by", null);
+            post.put("modified_by", pk);
             post.put("approved_date", null);
             post.put("approved_by", null);
             post.put("rejected_date", null);
@@ -725,32 +859,24 @@ public class Camera extends AppCompatActivity {
             post.put("rejected_comments", "");
             post.put("year", year); //year
             post.put("modeling", model);
-            //post.put("modeling", 1);
             post.put("description", etDescription.getText().toString().toLowerCase());
-            //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
-            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-
-            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
-
+            post.put("post_type",strPostType);
             post.put("vin_code", "");
             post.put("machine_code", "");
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", "");
-            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
+            post.put("color", strColor);
 
-
-            switch (postType){
+            switch (strPostType){
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/"+edit_id+"/";
                     //Log.d("URL","URL"+url);
-                    sale.put("sale_status", 3);
+                    sale.put("sale_status", 4);
                     sale.put("record_status",1);
                     sale.put("sold_date", null);
-                    //sale.put("price", etPrice.getText().toString().toLowerCase());
-                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
                     sale.put("price", etPrice.getText().toString());
                     sale.put("total_price",etPrice.getText().toString());
                     post.put("sale_post",new JSONArray("["+sale+"]"));
@@ -759,7 +885,7 @@ public class Camera extends AppCompatActivity {
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/"+ edit_id+"/";
                     JSONObject rent=new JSONObject();
-                    rent.put("rent_status",3);
+                    rent.put("rent_status",4);
                     rent.put("record_status",1);
                     rent.put("rent_type","month");
                     rent.put("price",etPrice.getText().toString().toLowerCase());
@@ -772,7 +898,7 @@ public class Camera extends AppCompatActivity {
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/"+ edit_id + "/";
                     JSONObject buy=new JSONObject();
-                    buy.put("buy_status",3);
+                    buy.put("buy_status",4);
                     buy.put("record_status",1);
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;
@@ -804,9 +930,19 @@ public class Camera extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        alertDialog.setTitle("Post ads");
+                                        alertDialog.setMessage("This Post ads has been successfully submitted.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
                                         mProgress.dismiss();
                                         startActivity(new Intent(Camera.this,Home.class));
-                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -814,8 +950,18 @@ public class Camera extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        alertDialog.setTitle("Post ads");
+                                        alertDialog.setMessage("This Post ads has been error while submiting.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
                                         mProgress.dismiss();
-                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -823,6 +969,21 @@ public class Camera extends AppCompatActivity {
                         }
                     }catch (JsonParseException e){
                         e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                alertDialog.setTitle("Post ads");
+                                alertDialog.setMessage("This Post ads has been error while submiting.");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+                        });
                         mProgress.dismiss();
                     }
 
@@ -832,12 +993,42 @@ public class Camera extends AppCompatActivity {
                 public void onFailure(Call call, IOException e) {
                     String mMessage = e.getMessage().toString();
                     Log.d("Failure:",mMessage );
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                            alertDialog.setTitle("Post ads");
+                            alertDialog.setMessage("This Post ads has been error while submiting.");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    });
                     mProgress.dismiss();
 
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                    alertDialog.setTitle("Post ads");
+                    alertDialog.setMessage("This Post ads has been error while submiting.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+            });
             mProgress.dismiss();
         }
     } //edit post approve
@@ -852,17 +1043,17 @@ public class Camera extends AppCompatActivity {
         JSONObject rent=new JSONObject();
 
         try {
-            String postType = tvPostType.getSelectedItem().toString().toLowerCase();
+            //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
             post.put("status", 1);
-            post.put("condition",tvCondition.getSelectedItem().toString().toLowerCase() );
+            post.put("condition",strCondition.isEmpty()?"new":strCondition);
 
-            if (postType.equals("buy")) {
+            if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
             }else {
-                post.put("discount_type", tvDiscount_type.getSelectedItem().toString().toLowerCase() );
+                post.put("discount_type", strDiscountType.isEmpty()?"amount":strDiscountType );
                 post.put("discount",etDiscount_amount.getText().toString());
             }
             //post.put("discount", 0);
@@ -912,8 +1103,8 @@ public class Camera extends AppCompatActivity {
             post.put("description", etDescription.getText().toString().toLowerCase());
             //post.put("cost", etPrice.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
-            post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-
+            //post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
+            post.put("post_type",strPostType);
             //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
             post.put("vin_code", "");
             post.put("machine_code", "");
@@ -921,9 +1112,9 @@ public class Camera extends AppCompatActivity {
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", "");
-            post.put("color", tvColor.getSelectedItem().toString().toLowerCase());
+            post.put("color", strColor.isEmpty()?"black":strColor);
 
-            switch (postType){
+            switch (strPostType){
                 case "sell":
                     sale.put("sale_status", 3);
                     sale.put("record_status",1);
@@ -1046,27 +1237,21 @@ public class Camera extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 String respon = response.body().string();
                 try{
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    categoryListItems=new String[jsonArray.length()];
+                    categoryIdListItems=new int[jsonArray.length()];
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String name = object.getString("cat_name");
-                        list_id_category.add(id);
-                        list_category.add(name);
-                        ID_category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_category);
-                        final ArrayAdapter<String> category = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_category);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tvCategory.setAdapter(category);
-                            }
-                        });
+                        categoryListItems[i]=name;
+                        categoryIdListItems[i]=id;
                     }
 
+                    /*
                     tvCategory.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
@@ -1098,6 +1283,7 @@ public class Camera extends AppCompatActivity {
 
                         }
                     });
+                    */
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -1105,7 +1291,6 @@ public class Camera extends AppCompatActivity {
         });
 
     }  // category
-
 
     private void Call_Type(String encode) {
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/types/");
@@ -1126,49 +1311,36 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
-                try{
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        int id = object.getInt("id");
-                        String name = object.getString("type");
-                        list_id_type.add(id);
-                        list_type.add(name);
-                        ID_type = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_type);
-                        final ArrayAdapter<String> type = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_type);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tvType_elec.setAdapter(type);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            tvType_elec.setHint(getString(R.string.type));
+                            tvType_elec.setText("");
+                            icType_elec.setImageResource(R.drawable.icon_null);
+                            type=0;
+                            JSONObject jsonObject = new JSONObject(respon);
+                            JSONArray jsonArray = jsonObject.getJSONArray("results");
+                            typeListItems=new String[jsonArray.length()];
+                            typeIdListItems=new int[jsonArray.length()];
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int id = object.getInt("id");
+                                String name = object.getString("type");
+                                typeListItems[i]=name;
+                                typeIdListItems[i]=id;
                             }
-                        });
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }
-                    tvType_elec.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                            id_type = String.valueOf(ID_type.getItem(i));
-                            icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            type = Integer.parseInt(id_type);
+                });
 
-                        }
-
-                        @Override
-                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
-                        }
-                    });
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
             }
         });
     } // type
 
-    private void Call_Brand(String encode, String id_cate){
-        int t = Integer.parseInt(id_cate);
-        Log.d("Category id:",""+ this.id_cate);
-
+    private void Call_Brand(String encode, int id_cate){
         list_id_brands = new ArrayList<>();
         list_brand=new ArrayList<>();
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/");
@@ -1190,62 +1362,49 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            brand=0;
+                            tvBrand.setText("");
+                            tvBrand.setHint(getString(R.string.brand));
+                            icBrand.setImageResource(R.drawable.icon_null);
+                            JSONObject jsonObject = new JSONObject(respon);
+                            JSONArray jsonArray = jsonObject.getJSONArray("results");
+                            int count=0,ccount=0;
+                            for(int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int cate = object.getInt("category");
+                                if(id_cate==cate)
+                                    count++;
+                            }
+                            brandIdListItems=new int[count];
+                            brandListItem=new String[count];
 
-                try{
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        int cate = object.getInt("category");
-                    if (cate==t){
-                            int id = object.getInt("id");
-                            String name = object.getString("brand_name");
-                            list_id_brands.add(id);
-                            list_brand.add(name);
-                            ID_brands = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_brands);
-                            brands = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_brand);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tvBrand.setAdapter(brands);
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int cate = object.getInt("category");
+                                if (cate==id_cate){
+                                    int id = object.getInt("id");
+                                    String name = object.getString("brand_name");
+                                    brandListItem[ccount]=name;
+                                    brandIdListItems[ccount]=id;
+                                    ccount++;
                                 }
-                            });
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
                         }
-
                     }
+                });
 
-                    tvBrand.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                           // brands.clear();
-                                id_brand = String.valueOf(ID_brands.getItem(i));
-                                Log.d("brand id",id_brand);
-                                brand = Integer.parseInt(id_brand);
-                                icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                                tvModel.setSelection(-1);
-                                icModel.setImageResource(R.drawable.icon_null);
-                                Call_Model(encode, id_brand);
-                        }
-
-                        @Override
-                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
-                        }
-                    });
-
-
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
             }
         });
     }// brand
 
-    private void Call_Model(String encode,String id_bran){
-        list_id_model = new ArrayList<>();
-        list_model = new ArrayList<>();
-        int b = Integer.parseInt(id_bran);
-        Log.d("brand id:",""+ b);
+    private void Call_Model(String encode,int id_bran,String modelName){
+
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/");
         OkHttpClient client = new OkHttpClient();
         String auth = "Basic "+ encode;
@@ -1264,50 +1423,44 @@ public class Camera extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
-                try{
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        int id = object.getInt("id");
-                        int Brand = object.getInt("brand");
-                        list_brand_model.add(Brand);
-                        id_brand_Model = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,list_brand_model);
-
-                        if (Brand==b) {
-                            String name = object.getString("modeling_name");
-                            list_id_model.add(id);
-                            list_model.add(name);
-                            ID_model = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_model);
-                            models = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_model);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tvModel.setAdapter(models);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            model=0;
+                            tvModel.setText("");
+                            tvModel.setHint(getString(R.string.model));
+                            JSONObject jsonObject = new JSONObject(respon);
+                            JSONArray jsonArray = jsonObject.getJSONArray("results");
+                            int count=0,ccount=0;
+                            for(int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int Brand = object.getInt("brand");
+                                if(Brand==id_bran)
+                                    count++;
+                            }
+                            modelListItems=new String[count];
+                            modelIdListItems=new int[count];
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int id = object.getInt("id");
+                                int Brand = object.getInt("brand");
+                                if (Brand==id_bran) {
+                                    String name = object.getString("modeling_name");
+                                    modelListItems[ccount]=name;
+                                    modelIdListItems[ccount]=id;
+                                    ccount++;
                                 }
-                            });
+                            }
+
+                            if(modelName!=null && !modelName.isEmpty())
+                                tvModel.setText(modelName);
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            Log.d("Exception",e.getMessage());
                         }
                     }
-
-                    tvModel.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                           id_model = String.valueOf(ID_model.getItem(i));
-                           model = Integer.parseInt(id_model);
-                      //     models.clear();
-                           icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        }
-
-                        @Override
-                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
-                        }
-                    });
-
-                }catch (JSONException e){
-                    e.printStackTrace();
-                    Log.d("Exception",e.getMessage());
-                }
+                });
             }
         });
     } // model
@@ -1332,40 +1485,29 @@ public class Camera extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
-                    Log.d(TAG,respon);
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        int id = object.getInt("id");
-                        String name = object.getString("year");
-                        list_id_year.add(id);
-                        list_year.add(name);
-                        ID_year = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_id_year);
-                        final ArrayAdapter<String> years = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,list_year);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tvYear.setAdapter(years);
+                    int count=0;
+                    yearListItems=new String[jsonArray.length()];
+                    yearIdListItems=new int[jsonArray.length()];
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    int id = object.getInt("id");
+                                    String name = object.getString("year");
+                                    yearListItems[i]=name;
+                                    yearIdListItems[i]=id;
+                                }
+                            }catch (JSONException e){
+                                e.printStackTrace();
                             }
-                        });
-
-                    }
-
-                    tvYear.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                            id_year = String.valueOf(ID_year.getItem(i));
-                            year = Integer.parseInt(id_year);
-                            icYears.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        }
-
-                        @Override
-                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
 
                         }
                     });
+
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -1405,8 +1547,8 @@ public class Camera extends AppCompatActivity {
                     Log.d("Brand",brand_id+" Model: "+name );
                     ArrayAdapter<Integer> adapterM_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,model_id);
                     ArrayAdapter<String> adapterM_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,listMN);
-                    tvModel.setAdapter(adapterM_name);
-                   tvModel.setSelection(0);
+                    //tvModel.setAdapter(adapterM_name);
+                   //tvModel.setSelection(0);
 
                     final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/"+brand_id);
                     Log.d("Url brand",url);
@@ -1438,8 +1580,8 @@ public class Camera extends AppCompatActivity {
                                 ListBn.add(brand_name);
                                 ArrayAdapter<Integer> adapterB_id = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,brand_id);
                                 ArrayAdapter<String> adapterB_name = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,ListBn);
-                                tvBrand.setAdapter(adapterB_name);
-                                tvBrand.setSelection(0);
+                                //tvBrand.setAdapter(adapterB_name);
+                                //tvBrand.setSelection(0);
 
 
 
@@ -1458,82 +1600,338 @@ public class Camera extends AppCompatActivity {
             }
         });
     }
+
+    private void getCategegoryName(String encode,int id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/categories/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                try{
+                    JSONObject jsonObject = new JSONObject(respon);
+                    String catName = jsonObject.getString("cat_name");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvCategory.setText(catName);
+                        }
+                    });
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void getTypeName(String encode,int id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/types/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            JSONObject jsonObject = new JSONObject(respon);
+                            String typename=jsonObject.getString("type");
+                            tvType_elec.setText(typename);
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void getBrandName(String encode, int id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("Failure Error",e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            JSONObject jsonObject = new JSONObject(respon);
+                            String brandname=jsonObject.getString("brand_name");
+                            tvBrand.setText(brandname);
+                            //Call_Model(Encode,id,);
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void getModelName(String encode,int id){
+
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            JSONObject jsonObject = new JSONObject(respon);
+                            int brandId=jsonObject.getInt("brand");
+                            String name=jsonObject.getString("modeling_name");
+                            brand=brandId;
+                            getBrandName(Encode,brand);
+                            Call_Model(Encode,brand,name);
+                            //tvModel.setText(name);
+                            Log.d(TAG,"Brand from model "+name);
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            Log.d("Exception",e.getMessage());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void getYearName(String encode,int id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/years/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        String auth = "Basic "+ encode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                try{
+                    JSONObject jsonObject = new JSONObject(respon);
+                    String yearname=jsonObject.getString("year");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvYear.setText(yearname);
+                        }
+                    });
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void DropDown() {
-        final String[] posttype = getResources().getStringArray(R.array.posty_type);
-        ArrayAdapter<String> post = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, posttype);
-        tvPostType.setAdapter(post);
 
-        tvPostType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        postTypeListItems=getResources().getStringArray(R.array.posty_type);
+        tvPostType.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String st = post.getItem(i);
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose an item");
+                mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvPostType.setText(postTypeListItems[i]);
+                        //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
+                        icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
-                if (st.equals("Buy")){
-                    relatve_discount.setVisibility(View.GONE);
+                        switch (i){
+                            case 0:
+                                strPostType="sell";
+                                relatve_discount.setVisibility(View.VISIBLE);
+                                break;
+                            case 1:
+                                strPostType="buy";
+                                relatve_discount.setVisibility(View.GONE);
+                                break;
+                            case 2:
+                                strPostType="rent";
+                                relatve_discount.setVisibility(View.VISIBLE);
+                                break;
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
 
-                }else {
-                    relatve_discount.setVisibility(View.VISIBLE);
-                }
-
-                icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
-            }
-        });
-
-        String[] conditions = getResources().getStringArray(R.array.condition);
-        ArrayAdapter<String> condition = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,conditions);
-        tvCondition.setAdapter(condition);
-        tvCondition.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
-        String[] colors = getResources().getStringArray(R.array.color);
-        ArrayAdapter<String> color = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,colors);
-        tvColor.setAdapter(color);
-        tvColor.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        conditionListItems = getResources().getStringArray(R.array.condition);
+        tvCondition.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose an item");
+                mBuilder.setSingleChoiceItems(conditionListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvCondition.setText(conditionListItems[i]);
+                        icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        switch (i){
+                            case 0:
+                                strCondition="new";
+                                break;
+                            case 1:
+                                strCondition="used";
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
 
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
-
-        String[] discount_type = getResources().getStringArray(R.array.discount_type);
-        ArrayAdapter<String> discountType = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,discount_type);
-        tvDiscount_type.setAdapter(discountType);
-        tvDiscount_type.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        colorListItems = getResources().getStringArray(R.array.color);
+        tvColor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String d = discountType.getItem(i);
-                if (d.equals("Amount")){
-                    etDiscount_amount.setHint("Discount Amount");
-                }else if (d.equals("Percentage")){
-                    etDiscount_amount.setHint("Discount Percentage");
-                }
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose an item");
+                mBuilder.setSingleChoiceItems(colorListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvColor.setText(colorListItems[i]);
+                        switch (i){
+                            case 0:
+                                strColor="blue";
+                                break;
+                            case 1:
+                                strColor="black";
+                                break;
+                            case 2:
+                                strColor="silver";
+                                break;
+                            case 3:
+                                strColor="red";
+                                break;
+                            case 4:
+                                strColor="gray";
+                                break;
+                            case 5:
+                                strColor="yellow";
+                                break;
+                            case 6:
+                                strColor="pink";
+                                break;
+                            case 7:
+                                strColor="purple";
+                                break;
+                            case 8:
+                                strColor="orange";
+                                break;
+                            case 9:
+                                strColor="green";
+                                break;
+                        }
+                        icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        dialogInterface.dismiss();
+                    }
+                });
 
-                icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
+        });
 
+        discountTypeListItems = getResources().getStringArray(R.array.discount_type);
+        tvDiscount_type.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                mBuilder.setTitle("Choose an item");
+                mBuilder.setSingleChoiceItems(discountTypeListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tvDiscount_type.setText(discountTypeListItems[i]);
+                        switch (i){
+                            case 0:
+                                //etDiscount_amount.setHint("Discount Amount");
+                                strDiscountType="amount";
+                                break;
+                            case 1:
+                                //etDiscount_amount.setHint("Discount Percentage");
+                                strDiscountType="percent";
+                                break;
+                        }
+                        icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        dialogInterface.dismiss();
+                    }
+                });
 
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
@@ -1544,35 +1942,29 @@ public class Camera extends AppCompatActivity {
         return Base64.encodeToString(userpass.getBytes(),
                 Base64.NO_WRAP);
     }
+
     private void Variable_Field() {
 
         relatve_discount = (RelativeLayout)findViewById(R.id.relative_discount);
-//textview ///////
-        tvPostType = (MaterialSpinner)findViewById(R.id.tvPostType);
-        tvCategory = (MaterialSpinner) findViewById(R.id.tvCategory);
-        tvType_elec= (MaterialSpinner) findViewById(R.id.tvType_elec);
-        tvBrand    = (MaterialSpinner) findViewById(R.id.tvBrand);
-        tvModel    = (MaterialSpinner) findViewById(R.id.tvModel);
-        tvYear     = (MaterialSpinner) findViewById(R.id.tvYears);
-        tvCondition= (MaterialSpinner) findViewById(R.id.tvCondition);
-        tvColor    = (MaterialSpinner) findViewById(R.id.tvColor);
-        tvDiscount_type = (MaterialSpinner)findViewById(R.id.tvDisType);
-// edit text ////
+        //textview ///////
+        tvPostType = (Button)findViewById(R.id.tvPostType);
+        tvCategory = (Button) findViewById(R.id.tvCategory);
+        tvType_elec= (Button) findViewById(R.id.tvType_elec);
+        tvBrand    = (Button) findViewById(R.id.tvBrand);
+        tvModel    = (Button) findViewById(R.id.tvModel);
+        tvYear     = (Button) findViewById(R.id.tvYears);
+        tvCondition= (Button) findViewById(R.id.tvCondition);
+        tvColor    = (Button) findViewById(R.id.tvColor);
+        tvDiscount_type = (Button) findViewById(R.id.tvDisType);
+        // edit text ////
         etTitle           = (EditText)findViewById(R.id.etTitle );
         etDescription     = (EditText)findViewById(R.id.etDescription );
         etPrice           = (EditText)findViewById(R.id.etPrice );
         etDiscount_amount = (EditText)findViewById(R.id.etDisAmount );
         etName            = (EditText)findViewById(R.id.etName );
         etPhone1          = (EditText)findViewById(R.id.etphone1 );
-
         etEmail           = (EditText)findViewById(R.id.etEmail );
-
-// til phone
-
-// add phone button
-
-
-//// icon  ////////
+        //// icon  ////////
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
         icCategory   = (ImageView) findViewById(R.id. imgCategory);
         icType_elec  = (ImageView) findViewById(R.id.imgType_elec );
@@ -1587,10 +1979,8 @@ public class Camera extends AppCompatActivity {
         icName       = (ImageView) findViewById(R.id. imgName);
         icEmail      = (ImageView) findViewById(R.id. imgEmail);
         icPhone1     = (ImageView) findViewById(R.id. imgPhone1);
-
         icDiscount_amount = (ImageView) findViewById(R.id. imgDisAmount);
         icDiscount_type   = (ImageView) findViewById(R.id.imgDisType );
-
         imageView1=(ImageView) findViewById(R.id.Picture1);
         imageView2=(ImageView) findViewById(R.id.Picture2);
         imageView3=(ImageView) findViewById(R.id.Picture3);
@@ -1621,6 +2011,7 @@ public class Camera extends AppCompatActivity {
 
 
     }
+
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};

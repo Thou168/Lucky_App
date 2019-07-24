@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/colorMessage">
+            android:background="@color/colorSubmitButton">
             <TextView
                 android:id="@+id/tv_back"
                 android:layout_width="wrap_content"
@@ -21,7 +22,7 @@
                 android:text="@string/back"
                 android:textStyle="bold"
                 android:gravity="center_vertical"
-                android:drawableLeft="@drawable/arrow_back_black_24dp"/>
+                android:drawableLeft="@drawable/chevron_left_36"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,6 +31,7 @@
                 android:textColor="#fff"
                 android:textSize="15dp"/>
         </androidx.appcompat.widget.Toolbar>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -96,7 +98,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:hint="@string/title"
-
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -111,6 +114,21 @@
                         android:layout_below="@+id/imgTitle"
                         android:background="@drawable/underline_gray"/>
 
+                    <Button
+                        android:id="@+id/tvPostType"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="-5dp"
+                        android:layout_toRightOf="@+id/imgPostType"
+                        android:gravity="center_vertical"
+                        android:hint="@string/post_type"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:textSize="18dp"
+                        android:background="@drawable/underline_gray"
+                        android:layout_below="@+id/imgTitle"
+                        android:drawableRight="@drawable/chevron_down_24"/>
+                    <!--
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvPostType"
                         android:layout_width="match_parent"
@@ -121,36 +139,33 @@
                         android:hint="@string/post_type"
                         android:textSize="18dp"
                         android:background="@null"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
                         android:layout_below="@+id/imgTitle"
                         style="@style/AppTheme.NoActionBar"
                         app:spinnerMode="dropdown"
                         />
-
+                    -->
                     <ImageView
                         android:id="@+id/imgCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
                         android:paddingRight="10dp"
-
                         android:layout_below="@+id/imgPostType"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvCategory"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgCategory"
                         android:layout_below="@+id/imgPostType"
                         android:gravity="center_vertical"
                         android:hint="@string/category"
                         android:textSize="18dp"
-                        android:background="@null"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:background="@drawable/underline_gray"
                         android:layout_marginLeft="-5dp"
-                        android:spinnerMode="dropdown"/>
+                        android:drawableRight="@drawable/chevron_down_24" />
 
                     <ImageView
                         android:id="@+id/imgType_elec"
@@ -160,20 +175,20 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgCategory"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvType_elec"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgType_elec"
                         android:layout_below="@+id/imgCategory"
                         android:gravity="center_vertical"
                         android:hint="@string/type"
                         android:textSize="18dp"
-                        android:background="@null"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:background="@drawable/underline_gray"
                         android:layout_marginLeft="-5dp"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgBrand"
@@ -183,20 +198,20 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgType_elec"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvBrand"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgType_elec"
                         android:layout_toRightOf="@+id/imgBrand"
                         android:gravity="center_vertical"
                         android:hint="@string/brand"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
                         android:textSize="18dp"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
                         android:layout_marginLeft="-5dp"
-                        android:background="@null"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgModel"
@@ -206,20 +221,20 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgBrand"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvModel"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgBrand"
                         android:layout_toRightOf="@+id/imgModel"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/model"
                         android:textSize="18dp"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:background="@null"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                     <ImageView
                         android:id="@+id/imgYear"
                         android:layout_width="wrap_content"
@@ -228,20 +243,20 @@
                         android:paddingRight="10dp"
                         android:layout_below="@+id/imgModel"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvYears"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgModel"
                         android:layout_toRightOf="@+id/imgModel"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/year"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
                         android:textSize="18dp"
-                        android:background="@null"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgCondition"
@@ -251,20 +266,20 @@
                         android:paddingRight="10dp"
                         android:layout_below="@+id/imgYear"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvCondition"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgYear"
+                        style="?android:attr/spinnerStyle"
                         android:layout_toRightOf="@+id/imgCondition"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/condition"
                         android:textSize="18dp"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:background="@null"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:paddingLeft="7dp"
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                     <ImageView
                         android:id="@+id/imgColor"
                         android:layout_width="wrap_content"
@@ -274,20 +289,20 @@
                         android:layout_below="@+id/imgCondition"
                         android:background="@drawable/underline_gray"/>
 
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvColor"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgCondition"
                         android:layout_toRightOf="@+id/imgColor"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/color"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
                         android:textSize="18dp"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:background="@null"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
 
                     <ImageView
@@ -343,11 +358,7 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-
                 </RelativeLayout>
-
-
 
                 <RelativeLayout
                     android:id="@+id/relative_discount"
@@ -362,7 +373,6 @@
                         android:background="@color/grey_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <ImageView
                         android:id="@+id/imgDisType"
                         android:layout_width="wrap_content"
@@ -371,20 +381,20 @@
                         android:layout_below="@+id/titl_discount"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline_gray"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvDisType"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/titl_discount"
                         android:layout_toRightOf="@+id/imgDisType"
                         android:gravity="center_vertical"
                         android:hint="@string/discount_type"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
                         android:layout_marginLeft="-5dp"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
                         android:textSize="18dp"
-                        android:background="@null"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgDisAmount"
@@ -409,8 +419,7 @@
                             android:hint="@string/discount"
                             android:inputType="number"
                             android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
+                            android:background="@null" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </RelativeLayout>
@@ -525,7 +534,7 @@
                         android:paddingLeft="10dp"
                         android:textSize="18dp"
                         android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/arrow_right_black_24dp"/>
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <!--<fragment-->
                     <!--android:id="@+id/map_post"-->
@@ -537,13 +546,14 @@
 
                     <Button
                         android:id="@+id/btnSubmitPost"
-                        android:layout_width="200dp"
-                        android:layout_height="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="30dp"
                         android:layout_centerInParent="true"
                         android:text="@string/submit_button"
                         android:layout_below="@+id/tvAddress"
-                        android:background="@drawable/shap_ratangle1"/>
+                        android:textColor="#FFF"
+                        android:background="@color/logo_orange"/>
                 </RelativeLayout>
 
 

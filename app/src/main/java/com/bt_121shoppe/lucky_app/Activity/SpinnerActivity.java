@@ -50,7 +50,7 @@ public class SpinnerActivity extends AppCompatActivity {
 
         initialCategoryAPI();
         Button mButton=(Button) findViewById(R.id.button);
-        listItems=new String[20];
+        //listItems=new String[20];
         listItems=getResources().getStringArray(R.array.location);
 
         mButton.setOnClickListener(new View.OnClickListener() {

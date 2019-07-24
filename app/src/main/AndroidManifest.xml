@@ -57,15 +57,15 @@
         <activity android:name=".Setting.AboutUsActivity" />
         <activity android:name=".Startup.Search" />
         <activity android:name=".Startup.Search1" />
-        <activity android:name=".Edit_Account.Edit_account" />
+        <activity android:name=".useraccount.Edit_account" />
         <activity android:name=".Activity.Notification" />
         <activity android:name=".Setting.Setting" />
+        <activity android:name=".Login_Register.UserAccount"/>
         <activity android:name=".Login_Register.Register" />
         <activity android:name=".Login_Register.Login" />
-        <activity android:name=".Login_Register.UserAccount" >
+        <activity android:name=".Activity.Home" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -78,6 +78,7 @@
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".notifications.NotificationActivity" />
         <activity android:name=".Activity.Account" />
+        <!--
         <activity
             android:name=".Activity.Home"
             android:icon="@drawable/logo"
@@ -85,7 +86,7 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

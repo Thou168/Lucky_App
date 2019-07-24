@@ -35,7 +35,7 @@ import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Buy.Buy
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Rent.Rent
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.Sell
-import com.bt_121shoppe.lucky_app.Edit_Account.Edit_account
+import com.bt_121shoppe.lucky_app.useraccount.Edit_account
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.lucky_app.Product_dicount.MyAdapter
@@ -57,9 +57,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_detail_discount.view.*
 import kotlinx.android.synthetic.main.nav_header_home.*
 import net.hockeyapp.android.CrashManager
 
@@ -325,7 +323,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             mBuilder.setSingleChoiceItems(brandListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
                 ddBrand.setText(brandListItems!!.get(i))
                 brandId = brandIdListItems!!.get(i).toString()
-                Toast.makeText(this@Home, brandIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+                //Toast.makeText(this@Home, brandIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
                 dialogInterface.dismiss()
             })
             val mDialog = mBuilder.create()

@@ -258,7 +258,6 @@
         <item>Purple</item>
         <item>Orange</item>
         <item>Green</item>
-
     </string-array>
 
     //Rent type
@@ -268,8 +267,8 @@
     </string-array>
     //Discount type
     <string-array name="discount_type">
-        <item> Amount</item>
-        <item> Percentage </item>
+        <item> $</item>
+        <item> %</item>
     </string-array>
     <string-array name="boolean_option">
         <item>Yes</item>
