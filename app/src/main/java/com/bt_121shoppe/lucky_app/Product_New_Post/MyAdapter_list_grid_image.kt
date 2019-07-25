@@ -66,7 +66,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
             val options = BitmapFactory.Options()
             options.inSampleSize = 8
-            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
+            val decodedString = Base64.decode(item.image, Base64.DEFAULT)
     /*
             val strPath = String(decodedString, StandardCharsets.UTF_8)
             Log.d("TAGGGGGGGGGGGGG",strPath)

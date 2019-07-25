@@ -64,7 +64,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
              location.text = item.time
             count_view.text = "View:"+item.countview
 
-            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
+            val decodedString = Base64.decode(item.image, Base64.DEFAULT)
 
             if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
                 //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))

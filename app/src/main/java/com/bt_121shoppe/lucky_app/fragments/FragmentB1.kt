@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
@@ -41,6 +43,8 @@ class FragmentB1: Fragment() {
     private var pk: Int? = null
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
+    var progreessbar: ProgressBar? = null
+    var txtno_found: TextView? = null
 
     fun FragmentB1() {}
 
@@ -61,6 +65,9 @@ class FragmentB1: Fragment() {
 //        val phone = view.findViewById<TextView>(R.id.phone)
 //        phone.text = tvphone
         recyclerView = view.findViewById(R.id.recycler_view)
+        progreessbar = view.findViewById(R.id.progress_bar)
+        progreessbar!!.visibility = View.VISIBLE
+        txtno_found = view.findViewById(R.id.text)
 
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
@@ -99,16 +106,21 @@ class FragmentB1: Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-
+                val jsonObject = JSONObject(mMessage)
                 try {
                     activity!!.runOnUiThread {
                         val itemApi = ArrayList<Item_API>()
-                        val jsonObject = JSONObject(mMessage)
+
                         Log.d("Run  :"," la"+jsonObject)
                         //val detail:String=jsonObject.getString("detail").toString()
                         //if(detail.isNullOrEmpty()) {
                             val jsonArray = jsonObject.getJSONArray("results")
                             val jsonCount = jsonObject.getInt("count")
+                        if (jsonCount == 0 ){
+                            progreessbar!!.visibility = View.GONE
+                            txtno_found!!.visibility = View.VISIBLE
+                        }
+                        progreessbar!!.visibility = View.GONE
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
                                 post_id = `object`.getInt("post")
