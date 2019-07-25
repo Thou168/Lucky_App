@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Verify Code"
+            android:text="@string/verify_code"
             android:textSize="@dimen/page_title"
             android:textColor="@color/white"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -81,7 +81,7 @@
             android:layout_marginTop="36dp"
             android:textAlignment="center"
             android:gravity="center_vertical"
-            android:text="Don't Receive the Code?"/>
+            android:text="@string/dont_receive"/>
 
         <TextView
             android:id="@+id/tv_resend"
@@ -90,7 +90,7 @@
             android:layout_marginTop="24dp"
             android:textAlignment="center"
             android:textColor="@color/colorSubmitButton"
-            android:text="Resend"/>
+            android:text="@string/resend"/>
 
     </LinearLayout>
 </RelativeLayout>

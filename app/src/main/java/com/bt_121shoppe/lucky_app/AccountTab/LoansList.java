@@ -1,6 +1,8 @@
 package com.bt_121shoppe.lucky_app.AccountTab;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +13,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bt_121shoppe.lucky_app.R;
+import com.bt_121shoppe.lucky_app.utils.LoanCalculator;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class LoansList extends Fragment {
     public static final String TAG = "SubLoanFragement";
     RecyclerView rvNewsList;
     LinearLayout main;
+
     public LoansList(){
 
     }
@@ -37,6 +45,7 @@ public class LoansList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rvNewsList = getView() != null ? (RecyclerView) getView() : (RecyclerView)inflater.inflate(R.layout.news_recycler_view, container, false);
+
         return rvNewsList;
     }
 

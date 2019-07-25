@@ -10,6 +10,7 @@
 
     //Detail
     <string name="nav_detail">Detail</string>
+    <string name="detail">DETAIL</string>
     <string name="description">DESCRIPTION</string>
     <string name="tax">Tax Type</string>
     <string name="brand">Brand</string>
@@ -121,12 +122,12 @@
         <item>Kompong Cham</item>
     </string-array>
     <string-array name="status">
-        <item>Married Status</item>
+        <item>Marital Status</item>
         <item>Single</item>
         <item>Married</item>
         <item>Separated</item>
         <item>Divorced</item>
-        <item>Windowed</item>
+        <item>Widowed</item>
     </string-array>
     <string-array name="location">
         <item>Locations</item>
@@ -153,6 +154,7 @@
     <string name="change_password">Change Password</string>
     <string name="language">Language</string>
     <string name="language2">English</string>
+    <string name="khmer">Khmer</string>
     <string name="setting">Setting</string>
     <string name="version">Version</string>
     <string name="logout">Logout</string>
@@ -305,6 +307,7 @@
     <string name="title_loan_deposit">Deposit ($)</string>
     <string name="title_loan_term">Term (Year)</string>
     <string name="title_monthly_payment">Monthly Payment</string>
+    <string name="hit_co_borrower">Co-Borrower</string>
     <!-- End Loan Information String -->
 
     //delete and edit
@@ -409,6 +412,7 @@
 
     //Camera post
     <string name="choose">Choose</string>
+    <string name="choose_language">Choose language</string>
     <string name="upload">Upload</string>
     //post ad
     <string name="post_type">Post type</string>
@@ -454,5 +458,22 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_snipper">SnipperActivity</string>
+
+    //dealer
+    <string name="name_officer">Name of Responsible Officer</string>
+    <string name="shop_address">Shop Address</string>
+    <string name="shop_name">Shop Name</string>
+    //verify
+    <string name="dont_receive">Do not Receive the Code?</string>
+    <string name="resend">Resend</string>
+    <string name="enter_number">Enter your phone number</string>
+    //message
+    <string name="type_message">Type a message...</string>
+    <string name="username">Username</string>
+    <string name="renew">Renew</string>
+    //filter
+    <string name="choose_category">Choose Category</string>
+    <string name="choose_brand">Choose Brand</string>
+    <string name="choose_year">Choose Year</string>
 
 </resources>

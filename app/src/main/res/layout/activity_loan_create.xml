@@ -51,7 +51,7 @@
                     android:paddingLeft="@dimen/dp_8"
                     android:background="@color/gray_light"
                     android:textAllCaps="true"
-                    android:text="detail"/>
+                    android:text="@string/detail"/>
 
                 <RelativeLayout
                     android:id="@+id/rlLoanDetail"
@@ -98,7 +98,7 @@
                         android:layout_toRightOf="@+id/imgCoBorrower"
                         android:layout_below="@+id/imgJob"
                         android:gravity="center_vertical"
-                        android:hint="Co-Borrower"
+                        android:hint="@string/hit_co_borrower"
                         android:layout_marginLeft="-5dp"
                         android:textSize="18dp"
                         android:background="@null"
