@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back"
+                android:text="@string/back"
                 android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/arrow_back_black_24dp"/>
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Post Ad"
+                android:text="@string/camera"
                 android:textColor="#fff"
                 android:textSize="15dp"/>
         </androidx.appcompat.widget.Toolbar>
@@ -63,7 +63,7 @@
                 </LinearLayout>
                 <TextView
                     android:padding="@dimen/dp_8"
-                    android:text="DETAIL"
+                    android:text="@string/detail"
                     android:textSize="@dimen/dp_16"
                     android:background="@color/grey_light"
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
         </LinearLayout>
                 <TextView
                     android:padding="@dimen/dp_8"
-                    android:text="DISCOUNT"
+                    android:text="@string/discount"
                     android:textSize="@dimen/dp_16"
                     android:background="@color/grey_light"
                     android:layout_width="match_parent"

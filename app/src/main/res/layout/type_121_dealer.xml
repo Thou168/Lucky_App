@@ -22,7 +22,7 @@
         android:layout_height="45dp"
         android:layout_toRightOf="@+id/imgType"
         android:gravity="center_vertical"
-        android:hint="Type"
+        android:hint="@string/type"
         android:paddingLeft="10dp"
         android:textSize="18dp"
         android:background="@drawable/underline"
@@ -48,7 +48,7 @@
             android:id="@+id/etShop_Name"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="Shop Name"
+            android:hint="@string/shop_name"
             android:paddingLeft="10dp"
             android:background="@null"
             />
@@ -74,7 +74,7 @@
             android:id="@+id/etShop_Addr"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="Shop Address"
+            android:hint="@string/shop_address"
             android:paddingLeft="10dp"
             android:background="@null"
             />
@@ -100,7 +100,7 @@
             android:id="@+id/etResponsible"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="Name of Responsible Officer"
+            android:hint="@string/name_officer"
             android:paddingLeft="10dp"
             android:background="@null"
             />
@@ -127,7 +127,7 @@
             android:id="@+id/etWingNumber"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="Wing Account Number"
+            android:hint="@string/hit_wingnumber"
             android:paddingLeft="10dp"
             android:background="@null"
             />
@@ -155,7 +155,7 @@
             android:id="@+id/etWingName"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="Wing Account Name"
+            android:hint="@string/hit_wingaccount"
             android:paddingLeft="10dp"
             android:background="@null"
             />
@@ -183,7 +183,7 @@
             android:id="@+id/etAccount_Phone"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="Phone"
+            android:hint="@string/hit_phone"
             android:paddingLeft="10dp"
             android:background="@null"
             />

@@ -126,8 +126,8 @@
                         android:paddingLeft="7dp"
                         android:textSize="18dp"
                         android:background="@drawable/underline_gray"
-                        android:layout_below="@+id/imgTitle"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:layout_below="@+id/imgTitle"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
                     <!--
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvPostType"
@@ -164,8 +164,8 @@
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="7dp"
                         android:background="@drawable/underline_gray"
-                        android:layout_marginLeft="-5dp"
-                        android:drawableRight="@drawable/chevron_down_24" />
+                        android:layout_marginLeft="-5dp"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24" />-->
 
                     <ImageView
                         android:id="@+id/imgType_elec"
@@ -187,8 +187,8 @@
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="7dp"
                         android:background="@drawable/underline_gray"
-                        android:layout_marginLeft="-5dp"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:layout_marginLeft="-5dp"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
 
                     <ImageView
                         android:id="@+id/imgBrand"
@@ -210,8 +210,8 @@
                         android:paddingLeft="7dp"
                         android:textSize="18dp"
                         android:layout_marginLeft="-5dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
 
                     <ImageView
                         android:id="@+id/imgModel"
@@ -233,8 +233,8 @@
                         android:textSize="18dp"
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="7dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgYear"
                         android:layout_width="wrap_content"
@@ -255,8 +255,8 @@
                         android:layout_marginLeft="-5dp"
                         android:hint="@string/year"
                         android:textSize="18dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"-->
 
                     <ImageView
                         android:id="@+id/imgCondition"
@@ -278,8 +278,8 @@
                         android:hint="@string/condition"
                         android:textSize="18dp"
                         android:paddingLeft="7dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgColor"
                         android:layout_width="wrap_content"
@@ -301,8 +301,8 @@
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="7dp"
                         android:textSize="18dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"-->
 
 
                     <ImageView
@@ -393,8 +393,9 @@
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="7dp"
                         android:textSize="18dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray" />
+                        <!--android:drawableRight="@drawable/chevron_down_24"-->
+
 
                     <ImageView
                         android:id="@+id/imgDisAmount"
@@ -533,8 +534,8 @@
                         android:hint="@string/address"
                         android:paddingLeft="10dp"
                         android:textSize="18dp"
-                        android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        android:background="@drawable/underline_gray"/>
+                        <!--android:drawableRight="@drawable/chevron_down_24"-->
 
                     <!--<fragment-->
                     <!--android:id="@+id/map_post"-->

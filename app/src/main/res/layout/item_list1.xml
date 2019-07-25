@@ -88,7 +88,7 @@
                 android:drawableLeft="@drawable/refresh"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
-                android:text="Renew"
+                android:text="@string/renew"
                 android:textAllCaps="false" />
 
             <Button
@@ -101,7 +101,7 @@
                 android:drawableLeft="@drawable/edit"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
-                android:text="Edit"
+                android:text="@string/button_edit"
                 android:textAllCaps="false" />
 
             <Button
@@ -115,7 +115,7 @@
                 android:background="#00FFFFFF"
                 android:paddingLeft="@dimen/dp_16"
                 android:drawableLeft="@drawable/delete"
-                android:text="Delete" />
+                android:text="@string/button_delete" />
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

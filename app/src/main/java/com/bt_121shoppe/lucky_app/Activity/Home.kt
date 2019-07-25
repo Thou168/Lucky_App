@@ -304,7 +304,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         ddCategory.setOnClickListener(View.OnClickListener {
             val mBuilder = AlertDialog.Builder(this@Home)
-            mBuilder.setTitle("Choose Category")
+            mBuilder.setTitle(R.string.choose_category)
             mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
                 ddCategory.setText(listItems1!!.get(i))
                 categoryId=categoryIdItems!!.get(i).toString()
@@ -319,7 +319,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         ddBrand.setOnClickListener(View.OnClickListener {
             val mBuilder = AlertDialog.Builder(this@Home)
-            mBuilder.setTitle("Choose Brand")
+            mBuilder.setTitle(R.string.choose_brand)
             mBuilder.setSingleChoiceItems(brandListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
                 ddBrand.setText(brandListItems!!.get(i))
                 brandId = brandIdListItems!!.get(i).toString()
@@ -332,7 +332,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         ddYear.setOnClickListener(View.OnClickListener {
             val mBuilder = AlertDialog.Builder(this@Home)
-            mBuilder.setTitle("Choose Year")
+            mBuilder.setTitle(R.string.choose_year)
             mBuilder.setSingleChoiceItems(yearListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
                 ddYear.setText(yearListItems!!.get(i))
                 yearId=yearIdListItems!!.get(i).toString()

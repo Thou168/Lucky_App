@@ -12,6 +12,7 @@
 
     //Detail
     <string name="nav_detail">ព័ត៌មានលម្អិត</string>
+    <string name="detail">ព័ត៌មានលម្អិត</string>
     <string name="description">ការពណ៌នា</string>
     <string name="tax">ប្រភេទពន្ធ</string>
     <string name="brand">ម៉ាក</string>
@@ -27,7 +28,7 @@
     <string name="menu_loan">ឥណទានរបស់អ្នក</string>
     <string name="menu_setting">ការកំណត់</string>
     <string name="menu_about">អំពីយើង</string>
-    <string name="menu_privacy">Term of Privacy</string>
+    <string name="menu_privacy">លក្ខខណ្ឌ</string>
     <string name="title_activity_account">គណនី</string>
 
     //Home
@@ -37,7 +38,7 @@
     //title
     <string name="home">ទំព័រដើម</string>
     <string name="notification">ការជូនដំណឹង</string>
-    <string name="camera">ដាក់លក់</string>
+    <string name="camera">ប្រកាស</string>
     <string name="message">ផ្ញើសារ</string>
     <string name="account">គណនី</string>
 
@@ -67,6 +68,7 @@
     //Setting
     <string name="change_password">ប្តូរលេខសម្ងាត់</string>
     <string name="language">ភាសា</string>
+    <string name="khmer">ខ្មែរ</string>
     <string name="language2">អង់គ្លេស</string>
     <string name="setting">ការកំណត់</string>
     <string name="version">កំណែ</string>
@@ -128,6 +130,7 @@
     <string name="title_loan_deposit">ដកប្រាក់ ($)</string>
     <string name="title_loan_term">រយៈពេល(ឆ្នាំ)</string>
     <string name="title_monthly_payment">ទូរទាត់ប្រចាំខែ</string>
+    <string name="hit_co_borrower">អ្នកចូលរួមខ្ចី</string>
 
     <string name="contact_number">លេខទំនាក់ទំនង</string>
 
@@ -221,7 +224,7 @@
         <item>ផ្សេងទៀត</item>
     </string-array>
     <string-array name="marital_status_array">
-        <item>នៅលាវ</item>
+        <item>នៅលីវ</item>
         <item>រៀបការ</item>
     </string-array>
     <string-array name="province_array">
@@ -282,6 +285,7 @@
 
     //Camera post
     <string name="choose">ជ្រើសរើស</string>
+    <string name="choose_language">ជ្រើសរើសភាសា</string>
     <string name="upload">បញ្ជូល</string>
 
     //post ad
@@ -325,7 +329,7 @@
 
     //Loan
     <string name="loan_description">ព័ត៌មានលម្អិតឥណទាន</string>
-    <string name="Price">តម្លៃ($))</string>
+    <string name="Price">តម្លៃ($)</string>
     <string name="interest_rate">អត្រាការប្រាក់(%)</string>
     <string name="deposit">ដកប្រាក់($)</string>
     <string name="term">រយៈពេល​(ឆ្នាំ)</string>
@@ -347,5 +351,25 @@
     <string name="login">ចូល</string>
     <string name="register">ចុះឈ្មោះ</string>
     <string name="log_or_register">ចូលឬចុះឈ្មោះជាមួយលេខទូរស័ព្ទរបស់អ្នក</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_snipper">SnipperActivity</string>
+
+    //dealer
+    <string name="name_officer">ឈ្មោះអ្នកទទួលខុសត្រូវ</string>
+    <string name="shop_address">ទីតាំងហាង</string>
+    <string name="shop_name">ឈ្មោះហាង</string>
+
+    //verify
+    <string name="dont_receive">មិនទទួលបានលេខកូដ?</string>
+    <string name="resend">ផ្ញើសារម្តងទៀត</string>
+    <string name="enter_number">បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក</string>
+    //message
+    <string name="type_message">បញ្ខូលសារនៅទីនេះ...</string>
+    <string name="username">Username</string>
+    <string name="renew">ធ្វើអោយថ្មី</string>
+    //filter
+    <string name="choose_category">ជ្រើសរើសប្រភេទផលិតផល</string>
+    <string name="choose_brand">ជ្រើសរើសម៉ាកផលិតផល</string>
+    <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
 
 </resources>

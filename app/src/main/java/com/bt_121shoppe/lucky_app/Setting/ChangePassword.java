@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.lucky_app.Activity.Home;
@@ -51,6 +52,7 @@ public class ChangePassword extends AppCompatActivity {
         pass = prefer.getString("pass","");
         Encode = getEncodedString(name,pass);
 
+        TextView back = findViewById(R.id.tvBack_setting);
         etOld = (EditText)findViewById(R.id.etOldpass);
         etNew = (EditText)findViewById(R.id.etNewpass);
         etComfirm = (EditText)findViewById(R.id.etComfirmpass);
@@ -66,9 +68,14 @@ public class ChangePassword extends AppCompatActivity {
 
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
-
     private void Change(String encode) {
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/changepassword/");

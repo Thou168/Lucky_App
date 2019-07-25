@@ -48,7 +48,7 @@
                         android:scaleType="centerCrop" />
                     <Button
                         android:id="@+id/btnUpload_Cover"
-                        android:text="Upload"
+                        android:text="@string/upload"
                         android:background="#52444444"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"

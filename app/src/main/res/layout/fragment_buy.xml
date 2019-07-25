@@ -15,7 +15,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:layout_gravity="center"
-            android:text="Vehicles"
+            android:text="@string/vehicle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>

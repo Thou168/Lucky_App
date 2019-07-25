@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
         <TextView
             android:gravity="center"
-            android:text="Message"
+            android:text="@string/message"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
