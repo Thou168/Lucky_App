@@ -22,7 +22,7 @@
         android:visibility="gone"
         android:layout_marginTop="80dp"
         android:id="@+id/text"
-        android:text="No Fount"
+        android:text="No Result"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>

@@ -39,6 +39,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -88,6 +89,8 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private lateinit var user_location:TextView
     private lateinit var tv_count_view:TextView
     private lateinit var tv_location_duration:TextView
+    private lateinit var tex_noresult:TextView
+    private lateinit var mprocessBar:ProgressBar
 
     /*
     private val REQUEST_LOCATION = 1
@@ -219,7 +222,10 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         mapFragment.getMapAsync(this)
         */
 
+        tex_noresult = findViewById(R.id.txt_noresult)
         list_rela = findViewById(R.id.list_rela)
+        mprocessBar = findViewById(R.id.mprogressbar)
+        mprocessBar.visibility = View.VISIBLE
 
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
@@ -309,7 +315,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
-                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText().toString(), Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
                 return@OnKeyListener true
             }
@@ -713,13 +719,19 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                val gson = Gson()
+                val jsonObject = JSONObject(mMessage)
+                val jsonCount=jsonObject.getInt("count")
+                Log.d("Thou",jsonCount.toString())
+
                 runOnUiThread {
                     try {
                         Log.d(TAG, "Related post " + mMessage)
-                        val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
-                    val jsonCount=jsonObject.getInt("count")
+                        if (jsonCount <= 1 ){
+                            mprocessBar.visibility = View.GONE
+                            tex_noresult.visibility = View.VISIBLE
+                        }
+                        mprocessBar.visibility = View.GONE
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
 
