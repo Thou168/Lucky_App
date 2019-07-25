@@ -87,11 +87,13 @@ public class Edit_account extends AppCompatActivity {
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
+
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode =getEncodedString(name,pass);
-        Log.e(TAG,name+" "+pass+" "+pk+" "+Encode+" "+url);
+
+        convertDateofBirth("1996");
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Updating...");
@@ -109,11 +111,17 @@ public class Edit_account extends AppCompatActivity {
         mp_Gender  = (Button) findViewById(R.id.mp_Gender);
         mp_location= (Button) findViewById(R.id.mp_Location);
 
+        imgType=(ImageView) findViewById(R.id.imgType);
+        imgtilUsername=(ImageView) findViewById(R.id.imgUsername);
         imgGender=(ImageView) findViewById(R.id.imgGender);
+        imgtilDob=(ImageView) findViewById(R.id.imgDob);
         imgMarried=(ImageView) findViewById(R.id.imgMarried);
         imgtilDob=(ImageView) findViewById(R.id.imgDob);
         imgPob=(ImageView) findViewById(R.id.imgPob);
         imgLocation=(ImageView) findViewById(R.id.imgLocation);
+        imgtilPhone=(ImageView) findViewById(R.id.imgPhone_account);
+        imgtilWingName=(ImageView) findViewById(R.id.imgWingName);
+        imgtilWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +254,7 @@ public class Edit_account extends AppCompatActivity {
                 mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        strDob=yearListItems[i];
                         mp_Dob.setText(yearListItems[i]);
                         imgtilDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         //id_location=provinceIdListItems[i];
@@ -340,31 +349,47 @@ public class Edit_account extends AppCompatActivity {
                             }else {
                                 tvType.setText("Public User");
                             }
-
+                            imgType.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             etUsername.setText(convertJsonJava.getUsername());
-
+                            imgtilUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             if(convertJsonJava.getProfile()!=null) {
-                                etPhone.setText(convertJsonJava.getProfile().getTelephone());
-                                etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
-                                etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
+                                if(convertJsonJava.getProfile().getTelephone()!=null){
+                                    etPhone.setText(convertJsonJava.getProfile().getTelephone());
+                                    imgtilPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                                }
+                                if(convertJsonJava.getProfile().getWing_account_number()!=null){
+                                    etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
+                                    imgtilWingNumber.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                                }
+                                if(convertJsonJava.getProfile().getWing_account_name()!=null){
+                                    etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
+                                    imgtilWingName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                                }
+
                                 String s = convertJsonJava.getProfile().getGender();
                                 mp_Gender.setText(s);
+                                imgGender.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                                
                                 String d = convertJsonJava.getProfile().getDate_of_birth();
-                                List<String> date = new ArrayList<>();
-                                date.add(0,d);
-                                //mp_Dob.setSelection(0);
+                                String dd[]=d.split("-");
+                                strDob=dd[0];
+                                mp_Dob.setText(strDob);
+                                imgtilDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);
+                                imgMarried.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
-                                    Log.d(TAG,"province Id "+p);
+                                    //Log.d(TAG,"province Id "+p);
                                     getProvinceName(p,true);
+                                    imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
                                 if(convertJsonJava.getProfile().getProvince()!=null) {
                                     int l = Integer.parseInt(convertJsonJava.getProfile().getProvince());
-                                    Log.d(TAG,"Location Id "+l);
+                                    //Log.d(TAG,"Location Id "+l);
+                                    imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     getProvinceName(l,false);
                                 }
                             }
@@ -422,7 +447,8 @@ public class Edit_account extends AppCompatActivity {
             data.put("password",pass);
             data.put("first_name",etUsername.getText().toString());
             //pro.put("gender",gender);
-            pro.put("data_of_birth", strDob);
+            if(!strDob.isEmpty() && strDob!=null)
+                pro.put("date_of_birth", convertDateofBirth(strDob));
             pro.put("address","");
             pro.put("shop_name","");
             pro.put("responsible_officer","");
@@ -557,17 +583,20 @@ public class Edit_account extends AppCompatActivity {
 
     public void getProvinceName(int id,boolean isPob){
         final String rl = ConsumeAPI.BASE_URL+"api/v1/provinces/"+id+"/";
+        String auth="Basic "+Encode;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(rl)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
+                .header("Authorization",auth)
                 .build();
         client.newCall(request).enqueue(new Callback() {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String province = response.body().string();
+                Log.d(TAG,"Province "+province);
                 try{
                     JSONObject jsonObject = new JSONObject(province);
                     String pro=jsonObject.getString("province");
@@ -637,5 +666,16 @@ public class Edit_account extends AppCompatActivity {
 
         });
 
+    }
+
+    private String convertDateofBirth(String year){
+        String dd=Instant.now().toString();
+        String d[]=dd.split("-");
+        for(int i=0;i<d.length;i++){
+            Log.e(TAG,d[i]);
+        }
+        String dob=String.format("%s-%s-%s",year,d[1],d[2]);
+        Log.d(TAG,dob);
+        return dob;
     }
 }

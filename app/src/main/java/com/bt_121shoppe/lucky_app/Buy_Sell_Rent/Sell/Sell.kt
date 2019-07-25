@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell_Main1
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell_Main2
 import com.bt_121shoppe.lucky_app.R
+import kotlinx.android.synthetic.main.activity_camera2.*
 
 class Sell : AppCompatActivity() {
 
@@ -14,8 +15,12 @@ class Sell : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_sell_rent)
 
+        var toolbar:androidx.appcompat.widget.Toolbar=findViewById(R.id.toolbar)
+        toolbar.setBackgroundColor(getColor(R.color.logo_green))
+
         val title = findViewById<TextView>(R.id.title)
-        title.text = intent.getStringExtra("Title")
+        //title.text = intent.getStringExtra("Title")
+        title.text=getString(R.string.sell)
 
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }

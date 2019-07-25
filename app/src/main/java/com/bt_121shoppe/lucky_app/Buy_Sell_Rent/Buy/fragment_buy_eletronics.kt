@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.bt_121shoppe.lucky_app.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -51,7 +52,10 @@ class fragment_buy_eletronics : Fragment() {
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
-//Back
+        //Back
+        val toolbar:Toolbar=view.findViewById(R.id.toolbar)
+        toolbar.setBackgroundColor(activity!!.getColor(R.color.logo_orange))
+
         val back = view.findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { getActivity()?.finish() }
 

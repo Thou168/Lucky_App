@@ -208,7 +208,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
                 R.id.notification -> {
-                    val intent = Intent(this@Home,SpinnerActivity::class.java)
+                    val intent = Intent(this@Home,Notification::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                 }
@@ -470,7 +470,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val respon = response.body()!!.string()
                 try {
                     runOnUiThread {
-                        ddBrand.setText("Brand")
+                        ddBrand.setHint(getString(R.string.brand))
                         brandId=""
                         val jsonObject = JSONObject(respon)
                         val jsonArray = jsonObject.getJSONArray("results")

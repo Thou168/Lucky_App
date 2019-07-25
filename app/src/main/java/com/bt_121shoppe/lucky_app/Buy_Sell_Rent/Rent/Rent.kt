@@ -13,8 +13,11 @@ class Rent : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_sell_rent)
 
+        var toolbar:androidx.appcompat.widget.Toolbar=findViewById(R.id.toolbar)
+        toolbar.setBackgroundColor(getColor(R.color.logo_red))
+
         val title = findViewById<TextView>(R.id.title)
-        title.text = intent.getStringExtra("Title")
+        title.text = getString(R.string.rent)
 
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.GridLayoutManager
@@ -43,7 +44,7 @@ class fragment_buy_vehicle : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_buy, container, false)
-//Slider
+        //Slider
         val sliderImage = view.findViewById(R.id.slider_vehicles) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
                 "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
@@ -51,10 +52,12 @@ class fragment_buy_vehicle : Fragment() {
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
-//Back
-//        val back_buy = BACK_BUY.intent.getStringExtra("Back")
+        //Back
+
+        val toolbar:Toolbar=view.findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(activity!!.getColor(R.color.logo_orange))
+
         val back = view.findViewById<TextView>(R.id.tv_back)
-//        back.text = back_buy.toString()
         back.setOnClickListener { getActivity()?.finish() }
 
         reecycleview = view.findViewById(R.id.recyclerView)
@@ -73,9 +76,7 @@ class fragment_buy_vehicle : Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-
         Listmoto_buy()
-
         return view
     }
     private fun Listmoto_buy () {

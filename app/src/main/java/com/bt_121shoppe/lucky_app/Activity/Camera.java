@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -119,7 +120,7 @@ public class Camera extends AppCompatActivity {
     private List<Integer> list_id_year = new ArrayList<>();
     private List<Integer> list_brand_model = new ArrayList<>();
     String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor;
-    int idYear=0;
+    int idYear=0,process_type=0,post_type=0,category=0;
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
     ProgressDialog mProgress;
@@ -193,11 +194,7 @@ public class Camera extends AppCompatActivity {
             }
         });
 
-         bundle = getIntent().getExtras();
-         if (bundle!=null) {
-              edit_id = bundle.getInt("id_product", 0);
-              Log.d("Edit_id:", String.valueOf(edit_id));
-         }
+        Toolbar toolbar=findViewById(R.id.toolbar);
         //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
@@ -208,6 +205,37 @@ public class Camera extends AppCompatActivity {
         initialUserInformation(pk,Encode);
         getData_Post(Encode,edit_id);
         TextChange();
+
+        bundle = getIntent().getExtras();
+        if (bundle!=null) {
+            process_type=bundle.getInt("process_type",0);
+            if(process_type==1){
+                strPostType=bundle.getString("post_type");
+                cate=bundle.getInt("category",0);
+
+                if(strPostType.equals("buy")){
+                    toolbar.setBackgroundColor(getColor(R.color.logo_orange));
+                }else if(strPostType.equals("sell")){
+                    toolbar.setBackgroundColor(getColor(R.color.logo_green));
+                }else if(strPostType.equals("rent")){
+                    toolbar.setBackgroundColor(getColor(R.color.logo_red));
+                }
+
+                tvPostType.setText(strPostType.substring(0,1).toUpperCase() + strPostType.substring(1));
+                getCategegoryName(Encode,cate);
+                if(cate==1){
+                    icType_elec.setVisibility(View.VISIBLE);
+                    tvType_elec.setVisibility(View.VISIBLE);
+                }else{
+                    type=3;
+                    icType_elec.setVisibility(View.GONE);
+                    tvType_elec.setVisibility(View.GONE);
+                }
+            }else {
+                edit_id = bundle.getInt("id_product", 0);
+                Log.d("Edit_id:", String.valueOf(edit_id));
+            }
+        }
 
         tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override

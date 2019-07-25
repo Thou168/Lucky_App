@@ -98,16 +98,21 @@
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/sp_category"
             android:layout_width="120dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:hint="@string/category"
             style="?android:attr/spinnerStyle"
             android:textAlignment="center"
             android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:drawableRight="@drawable/chevron_down_24"
+            android:background="@drawable/underline_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sp_brand"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,12 +120,16 @@
 
         <Button
             android:id="@+id/sp_brand"
-            android:layout_width="90dp"
-            android:layout_height="45dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:hint="@string/brand"
             style="?android:attr/spinnerStyle"
             android:textAlignment="center"
             android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:background="@drawable/underline_gray"
+            android:drawableRight="@drawable/chevron_down_24"
             app:layout_constraintBottom_toBottomOf="@+id/sp_category"
             app:layout_constraintEnd_toStartOf="@+id/sp_year"
             app:layout_constraintStart_toEndOf="@+id/sp_category"
@@ -128,11 +137,16 @@
 
         <Button
             android:id="@+id/sp_year"
-            android:layout_width="120dp"
-            android:layout_height="45dp"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
             android:gravity="center"
             style="?android:attr/spinnerStyle"
             android:hint="@string/year"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:background="@drawable/underline_gray"
+            android:textAlignment="center"
+            android:drawableRight="@drawable/chevron_down_24"
             app:layout_constraintBottom_toBottomOf="@+id/sp_brand"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sp_brand"

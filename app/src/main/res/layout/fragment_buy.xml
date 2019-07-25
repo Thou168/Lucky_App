@@ -4,18 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
             android:id="@+id/tv_back"
-            android:drawableLeft="@drawable/icon_back"
+            android:drawableLeft="@drawable/chevron_left_36"
             android:gravity="center"
+            android:text="@string/back_button"
+            android:textColor="#fff"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/title"
             android:layout_gravity="center"
-            android:text="Vehicles"
+            android:text="@string/motor"
+            android:textSize="16sp"
+            android:textColor="#fff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>

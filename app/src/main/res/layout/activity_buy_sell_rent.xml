@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".Buy_Sell_Rent.Buy.Buy">
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="40dp">
@@ -14,13 +15,18 @@
             android:id="@+id/tv_back"
             android:gravity="center"
             android:text="@string/back"
-            android:drawableLeft="@drawable/icon_back"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:drawableLeft="@drawable/chevron_left_36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/title"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
+            android:text="@string/rent"
+            android:textColor="#fff"
+            android:textSize="16sp"
             android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>
     <View style="@style/line"/>

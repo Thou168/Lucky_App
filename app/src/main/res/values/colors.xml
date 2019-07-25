@@ -26,4 +26,6 @@
     <color name="gray_while">#F9F9F9</color>
 
     <color name="logo_orange">#FF9400</color>
+    <color name="logo_green">#089D01</color>
+    <color name="logo_red">#DF041D</color>
 </resources>
