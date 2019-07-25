@@ -687,12 +687,12 @@ public class Camera extends AppCompatActivity {
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
+                                                        mProgress.dismiss();
+                                                        startActivity(new Intent(Camera.this,Home.class));
                                                         dialog.dismiss();
                                                     }
                                                 });
                                         alertDialog.show();
-                                        mProgress.dismiss();
-                                        startActivity(new Intent(Camera.this,Home.class));
                                         //Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -702,7 +702,7 @@ public class Camera extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                        alertDialog.setTitle("Loan");
+                                        alertDialog.setTitle("Post ads");
                                         alertDialog.setMessage("This Post ads has been error while submiting.");
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
@@ -936,12 +936,12 @@ public class Camera extends AppCompatActivity {
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
+                                                        mProgress.dismiss();
+                                                        startActivity(new Intent(Camera.this,Home.class));
                                                         dialog.dismiss();
                                                     }
                                                 });
                                         alertDialog.show();
-                                        mProgress.dismiss();
-                                        startActivity(new Intent(Camera.this,Home.class));
                                         //Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                     }
                                 });

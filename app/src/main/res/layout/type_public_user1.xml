@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-   >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/imgType"
@@ -16,14 +15,12 @@
             android:id="@+id/tvType"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text=""
+            android:text="Public User"
             android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/imgType"
             android:gravity="center_vertical"
             android:textSize="15dp"
-            android:background="@drawable/underline_gray"
-            />
-
+            android:background="@drawable/underline_gray" />
 
     <ImageView
         android:id="@+id/imgUsername"
@@ -60,21 +57,20 @@
         android:layout_below="@id/imgUsername"
         android:background="@drawable/underline_gray"/>
 
-    <com.tiper.MaterialSpinner
+    <Button
         android:id="@+id/mp_Gender"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgGender"
         android:layout_below="@+id/imgUsername"
         android:gravity="center_vertical"
         android:hint="@string/hit_gender"
         android:textSize="18dp"
-        android:background="@null"
-        style="@style/AppTheme.NoActionBar"
-        app:spinnerMode="dropdown"
-
-        />
+        android:paddingLeft="7dp"
+        android:drawableRight="@drawable/chevron_down_24"
+        android:background="@drawable/underline_gray"
+        style="?android:attr/spinnerStyle" />
 
     <ImageView
         android:id="@+id/imgDob"
@@ -85,21 +81,20 @@
         android:layout_below="@id/imgGender"
         android:background="@drawable/underline_gray"/>
 
-    <com.tiper.MaterialSpinner
+    <Button
         android:id="@+id/mp_Dob"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgGender"
         android:layout_below="@+id/imgGender"
         android:gravity="center_vertical"
         android:hint="@string/birth"
         android:textSize="18dp"
-        android:background="@null"
-        style="@style/AppTheme.NoActionBar"
-        app:spinnerMode="dropdown"
-
-        />
+        android:background="@drawable/underline_gray"
+        style="?android:attr/spinnerStyle"
+        android:paddingLeft="7dp"
+        android:drawableRight="@drawable/chevron_down_24"/>
 
     <ImageView
         android:id="@+id/imgPob"
@@ -110,20 +105,20 @@
         android:layout_below="@id/imgDob"
         android:background="@drawable/underline_gray"/>
 
-    <com.tiper.MaterialSpinner
+    <Button
         android:id="@+id/mp_Pob"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgPob"
         android:layout_below="@+id/imgDob"
         android:gravity="center_vertical"
         android:hint="@string/place"
         android:textSize="18dp"
-        android:background="@null"
-        style="@style/AppTheme.NoActionBar"
-        app:spinnerMode="dropdown"
-
+        style="?android:attr/spinnerStyle"
+        android:paddingLeft="7dp"
+        android:background="@drawable/underline_gray"
+        android:drawableRight="@drawable/chevron_down_24"
         />
     <ImageView
         android:id="@+id/imgMarried"
@@ -134,21 +129,20 @@
         android:layout_below="@id/imgPob"
         android:background="@drawable/underline_gray"/>
 
-    <com.tiper.MaterialSpinner
+    <Button
         android:id="@+id/mp_Married"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgMarried"
         android:layout_below="@+id/imgPob"
         android:gravity="center_vertical"
         android:hint="@string/married"
         android:textSize="18dp"
-        android:background="@null"
-        style="@style/AppTheme.NoActionBar"
-        app:spinnerMode="dropdown"
-
-        />
+        android:paddingLeft="7dp"
+        style="?android:attr/spinnerStyle"
+        android:background="@drawable/underline_gray"
+        android:drawableRight="@drawable/chevron_down_24"/>
 
     <ImageView
         android:id="@+id/imgWingName"
@@ -237,20 +231,20 @@
         android:layout_below="@id/imgPhone_account"
         android:background="@drawable/underline_gray"/>
 
-    <com.tiper.MaterialSpinner
+    <Button
         android:id="@+id/mp_Location"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgLocation"
         android:layout_below="@+id/imgPhone_account"
         android:gravity="center_vertical"
         android:hint="@string/location"
         android:textSize="18dp"
-        android:background="@null"
-        style="@style/AppTheme.NoActionBar"
-        app:spinnerMode="dropdown"
-
+        android:background="@drawable/underline_gray"
+        style="?android:attr/spinnerStyle"
+        android:paddingLeft="7dp"
+        android:drawableRight="@drawable/chevron_down_24"
         />
 
 

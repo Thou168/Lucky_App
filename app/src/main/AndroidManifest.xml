@@ -39,13 +39,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".Activity.SpinnerActivity" />
         <activity android:name=".chats.MessageActivity" />
@@ -63,11 +62,9 @@
         <activity android:name=".Login_Register.UserAccount"/>
         <activity android:name=".Login_Register.Register" />
         <activity android:name=".Login_Register.Login" />
+
         <activity android:name=".Activity.Home" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".Startup.Your_Post" />

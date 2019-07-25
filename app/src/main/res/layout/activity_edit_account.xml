@@ -7,16 +7,17 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="false"
     android:orientation="vertical">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_Account"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorSubmitButton">
         <TextView
             android:id="@+id/tv_Back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_back"
+            android:drawableLeft="@drawable/chevron_left_36"
             android:gravity="center_vertical"
             android:textColor="#ffff"
             android:textSize="@dimen/dp_16"
@@ -31,6 +32,7 @@
             android:textStyle="bold"
             android:gravity="center_vertical"/>
     </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -89,11 +91,13 @@
                 <Button
                     android:id="@+id/btn_EditAccount"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="30dp"
+                    android:layout_centerInParent="true"
+                    android:textColor="#FFF"
                     android:text="@string/submit_button"
                     android:layout_below="@+id/map_Account"
-                    android:background="@drawable/corner_orange"/>
+                    android:background="@color/logo_orange"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
