@@ -82,8 +82,8 @@ public class Search1 extends AppCompatActivity {
     sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
+            item_apis.clear();
             String title = sv.getQuery().toString();
-
             Search_data(title,category,model,year);
             return false;
         }

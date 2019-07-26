@@ -22,6 +22,7 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:node="replace" /> <!-- <uses-feature android:name="android.hardware.camera" /> -->
@@ -39,6 +40,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" />
 
         <activity android:name=".Splash_screen">
             <intent-filter>
@@ -84,9 +88,7 @@
 
         </activity>
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="7f07b09034fb44879e413e1314e73b0b" />

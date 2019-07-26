@@ -540,12 +540,12 @@
                         android:id="@+id/txt_show_place_detail_new_post"
                         android:layout_width="wrap_content"
                         android:layout_below="@+id/line10"
-
                         android:paddingLeft="5dp"
                         android:layout_marginLeft="8dp"
                         android:text="@string/location"
                         android:background="#F7F7F7"
                         android:layout_height="wrap_content" />
+
                 </RelativeLayout>
                 <fragment
                     android:id="@+id/map_detail_newpost"
