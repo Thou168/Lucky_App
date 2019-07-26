@@ -33,11 +33,11 @@ import java.io.IOException
 import java.time.Instant
 import kotlin.collections.ArrayList
 
-class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type: String?) : RecyclerView.Adapter<MyAdapter_edit_loan.ViewHolder>() {
+class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val type: String?) : RecyclerView.Adapter<MyAdapter_history_loan.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
-            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_loan, parent, false)
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_history_loan, parent, false)
             Log.d("Type ",type.toString())
             return ViewHolder(layout)
         }else if (type.equals("Grid")){
@@ -67,8 +67,6 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
-        val btn_delete = itemView.findViewById<Button>(R.id.btndelete)
-        val btn_edit = itemView.findViewById<Button>(R.id.btnedit)
         val count_view = itemView.findViewById<TextView>(R.id.count_view)
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -105,20 +103,6 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                 intent.putExtra("post",item.id)
                 itemView.context.startActivity(intent)
             }
-
-            btn_edit.setOnClickListener{
-
-                val intent = Intent(itemView.context, LoanCreateActivity::class.java)
-                intent.putExtra("id",item.loanId)
-                intent.putExtra("post",item.id)
-                itemView.context.startActivity(intent)
-            }
-
-            btn_delete.setOnClickListener {
-
-
-            }
-
         }
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()

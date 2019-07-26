@@ -401,7 +401,7 @@
 
     <string name="birth">Date of birth</string>
     <string name="place">Place of birth</string>
-    <string name="married">Married Status</string>
+    <string name="married">Marital Status</string>
     <string name="location">Location</string>
 
     //login
@@ -475,5 +475,9 @@
     <string name="choose_category">Choose Category</string>
     <string name="choose_brand">Choose Brand</string>
     <string name="choose_year">Choose Year</string>
+
+    <string name="public_user">Public User</string>
+    <string name="search_here">Search...</string>
+
 
 </resources>

@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.fragments.FragmentC1;
+import com.bt_121shoppe.lucky_app.fragments.Loan_history;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class MainLoanList extends Fragment {
         MainLoanList.NewsPagerAdapter adp = new MainLoanList.NewsPagerAdapter(getChildFragmentManager());
 
         FragmentC1 n1 = new FragmentC1();
-        LoansList n2 = new LoansList();
+        Loan_history n2 = new Loan_history();
 
         adp.addFrag(n1, "Active ads");
         adp.addFrag(n2, "History");

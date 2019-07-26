@@ -15,7 +15,7 @@
             android:id="@+id/tvType"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="Public User"
+            android:text="@string/public_user"
             android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/imgType"
             android:gravity="center_vertical"
