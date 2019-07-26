@@ -69,6 +69,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
         val btn_delete = itemView.findViewById<Button>(R.id.btndelete)
         val btn_edit = itemView.findViewById<Button>(R.id.btnedit)
+        val count_view = itemView.findViewById<TextView>(R.id.count_view)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItems(item: LoanItemAPI) {
@@ -80,6 +81,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()
+            count_view.text = "view:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)
