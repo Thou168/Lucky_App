@@ -50,7 +50,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
             val dis = item.dis
             val cost1 = item.cost
             val price = cost1 - dis
-            val st = cost1.toString()
+            val st = "$"+cost1.toString()
             val ms = SpannableString(st)
             val mst = StrikethroughSpan()
             ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -60,7 +60,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
 //            imageView.setImageResource(item.image)
 //            img_user.setImageResource(item.img_user)
              title.text = item.title
-             cost.text = price.toString()
+             cost.text = "$"+price.toString()
              location.text = item.time
             count_view.text = "View:"+item.countview
 
