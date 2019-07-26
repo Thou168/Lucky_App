@@ -543,14 +543,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                             etPhone1.setText(converJsonJava.getUsername());
                             String addr = converJsonJava.getProfile().getAddress();
-                            String[] splitAddr = addr.split(",");
-                            latitude = Double.valueOf(splitAddr[0]);
-                            longtitude = Double.valueOf(splitAddr[1]);
-                            get_location(latitude,longtitude);
-                            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                                    .findFragmentById(R.id.map_post);
-                            mapFragment.getMapAsync(Camera.this::onMapReady);
+                            if(addr.isEmpty()){
+                                    get_location(true);
+                            }else {
+                                String[] splitAddr = addr.split(",");
+                                latitude = Double.valueOf(splitAddr[0]);
+                                longtitude = Double.valueOf(splitAddr[1]);
+                                get_location(false);
+                                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                        .findFragmentById(R.id.map_post);
+                                mapFragment.getMapAsync(Camera.this::onMapReady);
 
+                            }
                         }
                     });
                 }catch (JsonParseException e){
@@ -650,7 +654,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
-            post.put("contact_address", "");
+            post.put("contact_address", latlng);
             post.put("color", strColor);
 
             switch (strPostType){
@@ -2331,12 +2335,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    private void get_location(double latitude, double longtitude) {
+    private void get_location(boolean isCurrent) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             buildAlertMessageNoGps();
         }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            getLocation(latitude,longtitude);
+            getLocation(isCurrent);
         }
     }
     private void buildAlertMessageNoGps(){
@@ -2359,7 +2363,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         final AlertDialog alert = builder.create();
         alert.show();
     }
-    private void getLocation(double late,double lng) {
+    private void getLocation(boolean isCurrent) {
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
@@ -2367,8 +2371,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location!=null){
-//                latitude = location.getLatitude();
-//                longtitude = location.getLongitude();
+                latitude = location.getLatitude();
+                longtitude = location.getLongitude();
 
                 latlng = latitude+","+longtitude;
                 try{
