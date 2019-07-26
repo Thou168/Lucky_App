@@ -117,23 +117,48 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
                 R.id.notification -> {
-                    val intent = Intent(this@Account,Notification::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    if (preferences.contains("token") || preferences.contains("id")) {
+                        val intent = Intent(this@Account, Notification::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Account, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.camera ->{
-                    val intent = Intent(this@Account,Camera::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    if (preferences.contains("token") || preferences.contains("id")) {
+                        val intent = Intent(this@Account, Camera::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Account, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.message -> {
-                    val intent = Intent(this@Account,ChatMainActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    if (preferences.contains("token") || preferences.contains("id")) {
+                        val intent = Intent(this@Account, ChatMainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Account, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.account ->{
-//                    val intent = Intent(this@Account,Account::class.java)
-//                    startActivity(intent)
+                    if (preferences.contains("token") || preferences.contains("id")) {
+                        val intent = Intent(this@Account, Account::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Account, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
 
             }
