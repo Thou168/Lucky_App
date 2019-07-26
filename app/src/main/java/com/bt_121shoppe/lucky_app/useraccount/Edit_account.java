@@ -2,11 +2,21 @@ package com.bt_121shoppe.lucky_app.useraccount;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -25,6 +37,13 @@ import com.bt_121shoppe.lucky_app.Activity.Home;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -48,12 +67,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Edit_account extends AppCompatActivity {
+public class Edit_account extends AppCompatActivity implements OnMapReadyCallback {
 
-    String[] country = { "India", "USA", "China", "Japan", "Other"};
+
     private static final String TAG = Edit_account.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
-    private TextView tvType, tvType_121,tvBack;
+    private TextView tvType, tvType_121,tvAddress_account;
     private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone;
     private TextInputLayout tilusername,tildob,tiljob,tilwingnumber,tilwingname,tilphone,tilShopName,tilshopAddr,tilresponsible;
     private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgtilUsername,imgtilDob,imgtilWingNumber,
@@ -69,6 +88,11 @@ public class Edit_account extends AppCompatActivity {
     private ProgressDialog mProgress;
     ArrayAdapter<CharSequence> adapter;
 
+    private static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
+    double latitude,longtitude;
+    String latlng;
+    GoogleMap mMap;
     int mMonth,mYear,mDay;
     private String[] genderListItems,maritalStatusListItems,yearListItems,provinceListItems;
     private int[] provinceIdListItems,yearIdListItems;
@@ -81,6 +105,8 @@ public class Edit_account extends AppCompatActivity {
         TextView back = (TextView) findViewById(R.id.tv_Back);
 //        layout_public_user = (LinearLayout)findViewById(R.id.layout_type_public_user);
 //        layout_121_dealer  = (LinearLayout)findViewById(R.id.layout_type_121_dealer);
+
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         if (prefer.contains("token")) {
             pk = prefer.getInt("Pk",0);
@@ -103,17 +129,19 @@ public class Edit_account extends AppCompatActivity {
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
         etPhone     =(EditText) findViewById(R.id.etPhone_account);
-        mp_Dob     = (Button) findViewById(R.id.mp_Dob);
-        mp_Pob     = (Button) findViewById(R.id.mp_Pob);
-        mp_Married = (Button) findViewById(R.id.mp_Married);
-        mp_Gender  = (Button) findViewById(R.id.mp_Gender);
-        mp_location= (Button) findViewById(R.id.mp_Location);
+        mp_Dob      = (Button) findViewById(R.id.mp_Dob);
+        mp_Pob      = (Button) findViewById(R.id.mp_Pob);
+        mp_Married  = (Button) findViewById(R.id.mp_Married);
+        mp_Gender   = (Button) findViewById(R.id.mp_Gender);
+        mp_location = (Button) findViewById(R.id.mp_Location);
+        tvAddress_account = (TextView) findViewById(R.id.tvAccount_Address);
 
-        imgGender=(ImageView) findViewById(R.id.imgGender);
-        imgMarried=(ImageView) findViewById(R.id.imgMarried);
-        imgtilDob=(ImageView) findViewById(R.id.imgDob);
-        imgPob=(ImageView) findViewById(R.id.imgPob);
-        imgLocation=(ImageView) findViewById(R.id.imgLocation);
+        imgGender   =(ImageView) findViewById(R.id.imgGender);
+        imgMarried  =(ImageView) findViewById(R.id.imgMarried);
+        imgtilDob   =(ImageView) findViewById(R.id.imgDob);
+        imgPob      =(ImageView) findViewById(R.id.imgPob);
+        imgLocation =(ImageView) findViewById(R.id.imgLocation);
+        imgAddress  = (ImageView) findViewById(R.id.imgAccount_Address);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -184,8 +212,6 @@ public class Edit_account extends AppCompatActivity {
                 mDialog.show();
             }
         });
-
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -352,6 +378,25 @@ public class Edit_account extends AppCompatActivity {
                                 String d = convertJsonJava.getProfile().getDate_of_birth();
                                 List<String> date = new ArrayList<>();
                                 date.add(0,d);
+
+
+                                 String addr = convertJsonJava.getProfile().getAddress();
+                                 if (addr.isEmpty()) {
+                                     get_location(true);
+                                 }else {
+                                 String[] splitAddr = addr.split(",");
+                                 latitude = Double.valueOf(splitAddr[0]);
+                                 longtitude = Double.valueOf(splitAddr[1]);
+                                 get_location(false);
+                                 //get_location(false);
+                                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                         .findFragmentById(R.id.map_Account);
+                                 mapFragment.getMapAsync(Edit_account.this::onMapReady);
+
+                             }
+                                //Toast.makeText(Edit_account.this,"my addr"+lat +"  "+lon,Toast.LENGTH_LONG).show();
+                                //Log.d(TAG,"my address " +addr+" "+lat+" "+lon);
+
                                 //mp_Dob.setSelection(0);
 
                                 String m = convertJsonJava.getProfile().getMarital_status();
@@ -423,7 +468,7 @@ public class Edit_account extends AppCompatActivity {
             data.put("first_name",etUsername.getText().toString());
             //pro.put("gender",gender);
             pro.put("data_of_birth", strDob);
-            pro.put("address","");
+            pro.put("address",latlng);
             pro.put("shop_name","");
             pro.put("responsible_officer","");
             pro.put("job","");
@@ -440,7 +485,7 @@ public class Edit_account extends AppCompatActivity {
                 pro.put("place_of_birth",id_pob);
             pro.put("user_status",1);
             pro.put("record_status",1);
-            pro.put("modified", Instant.now().toString());
+   //         pro.put("modified", Instant.now().toString());
             data.put("profile",pro);
             data.put("groups", new JSONArray("[\"1\"]"));
             //data.put("groups",new JSONArray("["+id_type+"]"));
@@ -637,5 +682,86 @@ public class Edit_account extends AppCompatActivity {
 
         });
 
+    }
+
+
+    private void get_location(boolean isCurrent) {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            buildAlertMessageNoGps();
+        }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            getLocation(isCurrent);
+        }
+    }
+
+    private void getLocation(boolean isCurent) {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        }else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location!=null){
+                if(isCurent) {
+                    latitude = location.getLatitude();
+                    longtitude = location.getLongitude();
+                }
+                latlng = latitude+","+longtitude;
+
+                try{
+                    Geocoder geocoder = new Geocoder(this);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+//                    String country = addressList.get(0).getCountryName();
+//                    String city    = addressList.get(0).getLocality();
+                    String road = addressList.get(0).getAddressLine(0);
+
+                    tvAddress_account.setText( road );
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
+            }else {
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }  //
+
+    private void buildAlertMessageNoGps(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn On your PGS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng current_location = new LatLng(latitude, longtitude);
+  //      mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(old,10));
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5),2000,null);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(current_location)
+                .zoom(18)
+                .bearing(90)
+                .tilt(30)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longtitude)));
     }
 }

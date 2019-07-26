@@ -98,8 +98,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:hint="@string/title"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -522,28 +520,29 @@
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgEmail"
-                        android:background="@drawable/underline_gray"/>
+                        android:background="#ffff"/>
 
                     <TextView
-                        android:id="@+id/tvAddress"
+                        android:id="@+id/tvAddress_post"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/imgEmail"
                         android:layout_toRightOf="@+id/imgAddress"
                         android:gravity="center_vertical"
                         android:hint="@string/address"
                         android:paddingLeft="10dp"
                         android:textSize="18dp"
-                        android:background="@drawable/underline_gray"/>
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
+                        android:background="#fff"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
-                    <!--<fragment-->
-                    <!--android:id="@+id/map_post"-->
-                    <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="170dp"-->
-                    <!--android:layout_below="@id/tvAddress"-->
-                    <!--/>-->
+                    <fragment
+                    android:id="@+id/map_post"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@id/tvAddress_post"
+                    />
 
                     <Button
                         android:id="@+id/btnSubmitPost"
@@ -552,7 +551,7 @@
                         android:layout_margin="30dp"
                         android:layout_centerInParent="true"
                         android:text="@string/submit_button"
-                        android:layout_below="@+id/tvAddress"
+                        android:layout_below="@+id/map_post"
                         android:textColor="#FFF"
                         android:background="@color/logo_orange"/>
                 </RelativeLayout>

@@ -4,21 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -46,6 +54,13 @@ import com.bt_121shoppe.lucky_app.Login_Register.UserAccount;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.utils.FileCompressor;
 import com.bt_121shoppe.lucky_app.utils.ImageUtil;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -62,6 +77,8 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -79,8 +96,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Camera extends AppCompatActivity {
+public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final LatLng old = new LatLng(11.5585741,104.905055);
+    private static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
+    double latitude,longtitude;
+    private GoogleMap mMap;
+    private String latlng;
     private static final String TAG = Camera.class.getSimpleName();
     static final int REQUEST_TAKE_PHOTO_1=1;
     static final int REQUEST_TAKE_PHOTO_2=2;
@@ -98,9 +121,8 @@ public class Camera extends AppCompatActivity {
 
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
-            icTitile,icVincode,icMachineconde,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3;
-    private ImageButton addPhone2,addPhone1;
-    private TextInputLayout tilPhone2,tilPhone3;
+            icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1;
+    private TextView tvAddress;
     private Button submit_post,tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
@@ -201,6 +223,8 @@ public class Camera extends AppCompatActivity {
         //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+
         DropDown();
         Call_category(Encode);
         Call_Type(Encode);
@@ -518,6 +542,14 @@ public class Camera extends AppCompatActivity {
                             converJsonJava = gson.fromJson(respon,User.class);
 
                             etPhone1.setText(converJsonJava.getUsername());
+                            String addr = converJsonJava.getProfile().getAddress();
+                            String[] splitAddr = addr.split(",");
+                            latitude = Double.valueOf(splitAddr[0]);
+                            longtitude = Double.valueOf(splitAddr[1]);
+                            get_location(latitude,longtitude);
+                            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                    .findFragmentById(R.id.map_post);
+                            mapFragment.getMapAsync(Camera.this::onMapReady);
 
                         }
                     });
@@ -850,7 +882,7 @@ public class Camera extends AppCompatActivity {
             //Instant.now().toString()
             //post.put("created", "");
             post.put("created_by", pk);
-            post.put("modified", Instant.now().toString());
+ //           post.put("modified", Instant.now().toString());
             post.put("modified_by", pk);
             post.put("approved_date", null);
             post.put("approved_by", null);
@@ -867,7 +899,7 @@ public class Camera extends AppCompatActivity {
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
-            post.put("contact_address", "");
+            post.put("contact_address", latlng);
             post.put("color", strColor);
 
             switch (strPostType){
@@ -1956,6 +1988,7 @@ public class Camera extends AppCompatActivity {
         tvCondition= (Button) findViewById(R.id.tvCondition);
         tvColor    = (Button) findViewById(R.id.tvColor);
         tvDiscount_type = (Button) findViewById(R.id.tvDisType);
+        tvAddress  = (TextView) findViewById(R.id.tvAddress_post);
         // edit text ////
         etTitle           = (EditText)findViewById(R.id.etTitle );
         etDescription     = (EditText)findViewById(R.id.etDescription );
@@ -2296,6 +2329,86 @@ public class Camera extends AppCompatActivity {
                 cursor.close();
             }
         }
+    }
+
+    private void get_location(double latitude, double longtitude) {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            buildAlertMessageNoGps();
+        }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            getLocation(latitude,longtitude);
+        }
+    }
+    private void buildAlertMessageNoGps(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn On your PGS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void getLocation(double late,double lng) {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        }else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location!=null){
+//                latitude = location.getLatitude();
+//                longtitude = location.getLongitude();
+
+                latlng = latitude+","+longtitude;
+                try{
+                    Geocoder geocoder = new Geocoder(this);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+//                    String country = addressList.get(0).getCountryName();
+//                    String city    = addressList.get(0).getLocality();
+                    String road = addressList.get(0).getAddressLine(0);
+
+                    tvAddress.setText( road );
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
+            }else {
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }  //
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+
+        LatLng current_location = new LatLng(latitude, longtitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(old,10));
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5),2000,null);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(current_location)
+                .zoom(18)
+                .bearing(90)
+                .tilt(30)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longtitude)));
+
     }
 }
 
