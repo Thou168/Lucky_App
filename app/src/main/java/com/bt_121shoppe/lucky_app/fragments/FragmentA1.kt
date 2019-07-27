@@ -233,4 +233,5 @@ class FragmentA1: Fragment() {
         })
         return count
     }
+
 }

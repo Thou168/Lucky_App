@@ -102,6 +102,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     internal lateinit var yearListItems: Array<String?>
     internal lateinit var yearIdListItems: Array<Int?>
 
+    var progreessbar: ProgressBar? = null
+    var txtno_found: TextView? = null
+    var progreessbar1: ProgressBar? = null
+    var txtno_found1: TextView? = null
+
     fun language(lang: String) {
          val locale = Locale(lang)
          Locale.setDefault(locale)
@@ -136,6 +141,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = " "
         setSupportActionBar(toolbar)
+
+        progreessbar =findViewById(R.id.progress_bar)
+        progreessbar!!.visibility = View.VISIBLE
+        txtno_found =findViewById(R.id.text)
+
+        progreessbar1 =findViewById(R.id.progress_bar1)
+        progreessbar1!!.visibility = View.VISIBLE
+        txtno_found1 =findViewById(R.id.text1)
 
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
@@ -379,15 +392,17 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 startActivity(intent)
             }
             R.id.nav_post -> {
-                val intent = Intent(this@Home, Your_Post::class.java)
+                val intent = Intent(this@Home, Account::class.java)
                 startActivity(intent)
             }
             R.id.nav_like -> {
                 val intent = Intent(this@Home,Account::class.java)
+                intent.putExtra("Tab",1)
                 startActivity(intent)
             }
             R.id.nav_loan -> {
                 val intent = Intent(this@Home,Account::class.java)
+                intent.putExtra("Tab",2)
                 startActivity(intent)
             }
             R.id.nav_setting -> {
@@ -562,7 +577,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         })
     }
-
     fun getUserProfile(){
         var user1 = User()
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
@@ -648,10 +662,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .build()
-
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
-
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
 
@@ -683,10 +695,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val now:Long = System.currentTimeMillis()
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 
-
                         //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),count_view.toString()))
                         runOnUiThread {
-
                             var cc=0
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
@@ -708,12 +718,19 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                 override fun onResponse(call: Call, response: Response) {
                                     val mMessage1 = response.body()!!.string()
                                     val gson = Gson()
+                                    val jsonObject= JSONObject(mMessage1)
                                     //Log.d("HOME",mMessage1)
                                     runOnUiThread {
                                         try {
-                                            val jsonObject= JSONObject(mMessage1)
                                             Log.d("FFFFFF"," CCOUNT"+jsonObject)
                                             val jsonCount=jsonObject.getInt("count")
+
+                                            if (jsonCount == 0 ){
+                                                progreessbar1!!.visibility = View.GONE
+                                                txtno_found1!!.visibility = View.VISIBLE
+                                            }
+                                            progreessbar1!!.visibility = View.GONE
+
                                             cc=jsonCount
                                             itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
 
@@ -770,14 +787,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                 val respon = response.body()!!.string()
                 Log.d("Response", respon)
+                val jsonObject = JSONObject(respon)
                 try {
-                    val jsonObject = JSONObject(respon)
-                    val jsonArray = jsonObject.getJSONArray("results")
 
-                    Log.d("count",jsonArray.length().toString())
+                    val jsonArray = jsonObject.getJSONArray("results")
+                    Log.d("count best",jsonArray.length().toString())
 
                     for (i in 0 until jsonArray.length()) {
-                        var cc =0
+                        var cc = 0
                         val `object` = jsonArray.getJSONObject(i)
                         val title = `object`.getString("title")
                         val id = `object`.getInt("id")
@@ -795,6 +812,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
 //                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
                         runOnUiThread {
+
 //                            best_list!!.adapter = MyAdapter(itemApi)
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
@@ -822,6 +840,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             val jsonObject= JSONObject(mMessage1)
                                             Log.d("FFFFFF"," CCOUNT"+jsonObject)
                                             val jsonCount=jsonObject.getInt("count")
+                                            if (jsonCount == 0 ){
+                                                progreessbar!!.visibility = View.GONE
+                                                txtno_found!!.visibility = View.VISIBLE
+                                            }
+                                            progreessbar!!.visibility = View.GONE
+
                                             cc=jsonCount
                                             itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString(),cc.toString()))
 

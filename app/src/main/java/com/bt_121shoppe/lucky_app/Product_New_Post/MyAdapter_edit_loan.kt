@@ -15,22 +15,11 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.R
 import java.io.ByteArrayOutputStream
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.annotation.RequiresApi
 //import javax.swing.text.StyleConstants.setIcon
-import androidx.appcompat.app.AlertDialog
-import com.bt_121shoppe.lucky_app.Activity.*
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
-import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.fragments.LoanItemAPI
-import com.bt_121shoppe.lucky_app.fragments.Fragment_history
-import com.bt_121shoppe.lucky_app.utils.CommonFunction
-import okhttp3.*
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
-import java.time.Instant
 import kotlin.collections.ArrayList
 
 class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type: String?) : RecyclerView.Adapter<MyAdapter_edit_loan.ViewHolder>() {
