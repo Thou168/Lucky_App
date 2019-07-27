@@ -82,8 +82,8 @@
     <string name="hit_lastname">នាមត្រកួល</string>
     <string name="hit_store">ឈ្មោះហាង/ក្រុមហ៊ុន</string>
     <string name="hit_about_shop">អំពីហាង/ក្រុមហ៊ុន</string>
-    <string name="hit_wingnumber">គណនីវីង/លេខ</string>
-    <string name="hit_wingaccount">គណនីវីង/ឈ្មោះ</string>
+    <string name="hit_wingnumber">លេខ/គណនីវីង</string>
+    <string name="hit_wingaccount">ឈ្មោះ/គណនីវីង</string>s
     <string name="hit_dealer">អ្នកចែកចាយ</string>
 
     //delete and edit
@@ -214,7 +214,7 @@
 
     <!-- Spinner Array -->
     <string-array name="groups_array">
-        <item>Public User</item>
+        <item>អ្នកប្រើសាធារណៈ</item>
         <item>121 Shoppe</item>
         <item>អ្នកចែកចាយផ្សេងទៀត</item>
     </string-array>
@@ -292,7 +292,7 @@
     <string name="post_type">ប្រភេទប្រកាស</string>
     <string name="title">ចំណងជើង</string>
     <string name="type">ប្រភេទ</string>
-    <string name="model">ម៉ូដែល</string>
+    <string name="model">ម៉ូឌែល</string>
     <string name="address">អាស័យដ្ឋាន</string>
     <string name="name">ឈ្មោះ</string>
     <string name="contact_detail">ព័ត៌មានលម្អិតទំនាក់ទំនង</string>
@@ -372,4 +372,6 @@
     <string name="choose_brand">ជ្រើសរើសម៉ាកផលិតផល</string>
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
 
+    <string name="public_user">អ្នកប្រើសាធារណៈ</string>
+    <string name="search_here">ស្វែងរក...</string>
 </resources>

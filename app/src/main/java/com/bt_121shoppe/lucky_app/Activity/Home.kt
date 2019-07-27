@@ -208,9 +208,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
                 R.id.notification -> {
-                    val intent = Intent(this@Home,Notification::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Home, Notification::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Home, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -470,7 +476,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val respon = response.body()!!.string()
                 try {
                     runOnUiThread {
-                        ddBrand.setHint(getString(R.string.brand))
+                        ddBrand.setText("Brand")
                         brandId=""
                         val jsonObject = JSONObject(respon)
                         val jsonArray = jsonObject.getJSONArray("results")

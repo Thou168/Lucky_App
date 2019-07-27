@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import android.Manifest;
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +27,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
@@ -52,6 +54,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount;
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.utils.FileCompressor;
 import com.bt_121shoppe.lucky_app.utils.ImageUtil;
@@ -196,13 +199,25 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         startActivity(intent);
                         break;
                     case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notification.class));
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Notification.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                     case R.id.camera:
-
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), android.graphics.Camera.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                     case R.id.message:
-                        startActivity(new Intent(getApplicationContext(),Message.class));
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {

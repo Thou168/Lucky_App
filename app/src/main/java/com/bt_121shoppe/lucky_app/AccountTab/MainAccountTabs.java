@@ -1,10 +1,13 @@
 package com.bt_121shoppe.lucky_app.AccountTab;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +24,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.bt_121shoppe.lucky_app.Activity.Camera;
+import com.bt_121shoppe.lucky_app.Activity.Account;
 import com.bt_121shoppe.lucky_app.Activity.Home;
-import com.bt_121shoppe.lucky_app.Activity.Message;
-import com.bt_121shoppe.lucky_app.Activity.Notification;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
+import com.bt_121shoppe.lucky_app.Login_Register.UserAccount;
 import com.bt_121shoppe.lucky_app.useraccount.Edit_account;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.Setting.Setting;
@@ -35,6 +37,7 @@ import com.bt_121shoppe.lucky_app.models.PostViewModel;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.bt_121shoppe.lucky_app.utils.FileCompressor;
 import com.bt_121shoppe.lucky_app.utils.NonScrollableVP;
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -93,16 +96,32 @@ public class MainAccountTabs extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(), Notification.class));
+                        if (preferences.contains("token")||preferences.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Notification.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                     case R.id.camera:
-                        startActivity(new Intent(getApplicationContext(), Camera.class));
+                        if (preferences.contains("token")||preferences.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Camera.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                     case R.id.message:
-                        startActivity(new Intent(getApplicationContext(), Message.class));
+                        if (preferences.contains("token")||preferences.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                     case R.id.account :
-
+                        if (preferences.contains("token")||preferences.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Account.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
                         break;
                 }
                 return false;

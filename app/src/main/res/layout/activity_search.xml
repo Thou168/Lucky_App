@@ -29,7 +29,7 @@
         android:layout_below="@+id/toolbar"
         android:id="@+id/mSearch"
         android:layout_width="match_parent"
-        app:defaultQueryHint="Search.."
+        app:defaultQueryHint="@string/search_here"
         android:layout_height="40dp">
     </androidx.appcompat.widget.SearchView>
     <androidx.recyclerview.widget.RecyclerView

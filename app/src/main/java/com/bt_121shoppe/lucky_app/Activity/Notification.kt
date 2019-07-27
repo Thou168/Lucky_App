@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 import com.bt_121shoppe.lucky_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -42,18 +43,38 @@ class Notification : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
-//                R.id.notification -> {
-//                    val intent = Intent(this@Notification,Notification::class.java)
-//                    startActivity(intent)
-//                }
-                R.id.camera ->{
-                    val intent = Intent(this@Notification,Camera::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                R.id.notification -> {
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Notification, Notification::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
-                R.id.message -> {val intent = Intent(this@Notification,Message::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                R.id.camera ->{
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Notification, Camera::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
+                }
+                R.id.message -> {
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Notification, ChatMainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
