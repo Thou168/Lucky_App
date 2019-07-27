@@ -2,6 +2,7 @@ package com.bt_121shoppe.lucky_app.Activity
 
 import android.Manifest
 import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -677,9 +678,16 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         adapter.addFragment(likes, "Like")
         adapter.addFragment(loans, "Loan")
 
-        mainPager!!.setAdapter(adapter)
-        tabs!!.setupWithViewPager(mainPager)
+        mainPager.setAdapter(adapter)
+        tabs.setupWithViewPager(mainPager)
 
+        tabs.getTabAt(intent.getIntExtra("Tab",0))!!.select()
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        
     }
 
     private inner class MainPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {

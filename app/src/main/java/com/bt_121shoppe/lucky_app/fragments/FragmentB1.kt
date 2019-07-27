@@ -143,8 +143,9 @@ class FragmentB1: Fragment() {
 
                                     @Throws(IOException::class)
                                     override fun onResponse(call: Call, response: Response) {
-                                        val mmessage = response.body()!!.string()
+
                                         try {
+                                            val mmessage = response.body()!!.string()
                                             activity!!.runOnUiThread {
                                                 val jsonObject1 = JSONObject(mmessage)
 

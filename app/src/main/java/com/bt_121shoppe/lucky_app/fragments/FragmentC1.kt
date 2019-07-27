@@ -106,6 +106,7 @@ class FragmentC1: Fragment() {
                 val jsonObject = JSONObject(mMessage)
 
                 try {
+
                     activity!!.runOnUiThread {
                         val itemApi = ArrayList<LoanItemAPI>()
                         //Log.d("Run GET Loan  :"," la"+jsonObject)
@@ -209,4 +210,5 @@ class FragmentC1: Fragment() {
             }
         })
     }
+
 }

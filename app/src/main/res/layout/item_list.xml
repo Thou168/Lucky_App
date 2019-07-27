@@ -49,7 +49,7 @@
                 android:layout_marginRight="@dimen/dp_8"
                 android:layout_width="50dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/buy"
+                android:src="@drawable/rent"
                 android:layout_height="20dp"
                 android:layout_above="@+id/user_view"
                 android:layout_alignEnd="@+id/user_view" />
