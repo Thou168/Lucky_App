@@ -556,7 +556,8 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     }
 
     private fun selectImage() {
-        val items = arrayOf<CharSequence>("Take Photo", "Choose from Library", "Cancel")
+        val items =resources.getStringArray(R.array.photo_upload)
+//        val items = arrayOf<CharSequence>("Take Photo", "Choose from Library", "Cancel")
         val builder = androidx.appcompat.app.AlertDialog.Builder(this@Account)
         builder.setItems(items) { dialog, item ->
             if (items[item] == "Take Photo") {

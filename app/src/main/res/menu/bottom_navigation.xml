@@ -14,8 +14,8 @@
         android:title="@string/camera"/>
     <item
     android:id="@+id/message"
-    android:icon="@drawable/tab_message_selector"
-    android:title="@string/message"/>
+    android:icon="@drawable/icon_chat"
+    android:title="@string/chat"/>
     <item
         android:id="@+id/account"
         android:icon="@drawable/tab_account_selector"

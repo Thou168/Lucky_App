@@ -26,7 +26,7 @@
                 android:id="@+id/title"
                 android:text="title"
                 android:lines="2"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
