@@ -27,7 +27,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/camera"
                 android:textColor="#fff"
-                android:textSize="15dp"/>
+                android:textSize="16dp"/>
         </androidx.appcompat.widget.Toolbar>
         <ScrollView
             android:layout_width="match_parent"

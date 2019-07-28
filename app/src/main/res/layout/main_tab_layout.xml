@@ -58,6 +58,7 @@
 
                 <Button
                     android:id="@+id/btnUpload_Cover"
+                    android:textSize="14dp"
                     android:text="@string/upload"
                     android:background="#52444444"
                     android:layout_alignParentRight="true"
@@ -85,7 +86,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </LinearLayout>
         </RelativeLayout>
 

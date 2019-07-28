@@ -82,7 +82,7 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_below="@+id/line"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:text="Tax Type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -91,7 +91,7 @@
                         android:layout_below="@+id/line"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <View
@@ -102,7 +102,7 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_below="@+id/line1"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:text="Brand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -111,7 +111,7 @@
                         android:layout_below="@+id/line1"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <View
@@ -122,7 +122,7 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_below="@+id/line2"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:text="Year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -131,7 +131,7 @@
                         android:layout_below="@+id/line2"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <View
@@ -142,7 +142,7 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_below="@+id/line3"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:text="Color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -151,7 +151,7 @@
                         android:layout_below="@+id/line3"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <View
@@ -162,7 +162,7 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_below="@+id/line4"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:text="Condition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -171,7 +171,7 @@
                         android:layout_below="@+id/line4"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <View
@@ -182,7 +182,7 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:layout_below="@+id/line5"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:text="Price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -191,7 +191,7 @@
                         android:layout_below="@+id/line5"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/dp_4"
-                        android:textSize="@dimen/dt_font"
+                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <View

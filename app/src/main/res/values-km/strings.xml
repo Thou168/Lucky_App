@@ -39,7 +39,7 @@
     <string name="home">ទំព័រដើម</string>
     <string name="notification">ការជូនដំណឹង</string>
     <string name="camera">ប្រកាស</string>
-    <string name="message">ផ្ញើសារ</string>
+    <string name="chat">ជជែក</string>
     <string name="account">គណនី</string>
 
     //category
@@ -374,4 +374,13 @@
 
     <string name="public_user">អ្នកប្រើសាធារណៈ</string>
     <string name="search_here">ស្វែងរក...</string>
+    <string name="no_result">គ្មានរកឃើញលទ្ធផលទេ</string>
+    <string name="related_poat">ការប្រកាសដែលពាក់ព័ន្ធគ្នា</string>
+
+    <string-array name="photo_upload">
+        <item>ថតរូប</item>
+        <item>ជ្រើសរើសពីវិចិត្រសាល</item>
+        <item>ត្រឡប់</item>
+    </string-array>
+
 </resources>

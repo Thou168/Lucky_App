@@ -21,10 +21,10 @@ class Notification : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification)
-//        back_noti=findViewById<TextView>(R.id.back_notification)
-//        back_noti.setOnClickListener{
-//            finish()
-//        }
+        back_noti=findViewById<TextView>(R.id.back_notification)
+        back_noti.setOnClickListener{
+            finish()
+        }
 
 //        val recyclerView_notification = findViewById<RecyclerView>(R.id.layout_notification)
 //        val items = ArrayList<Item>()

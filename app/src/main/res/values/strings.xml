@@ -178,7 +178,7 @@
     <string name="home">Home</string>
     <string name="notification">Notification</string>
     <string name="camera">Post Ad</string>
-    <string name="message">Message</string>
+    <string name="chat">Chat</string>
     <string name="account">Account</string>
 
     //category
@@ -478,6 +478,13 @@
 
     <string name="public_user">Public User</string>
     <string name="search_here">Search...</string>
+    <string name="no_result">No Result</string>
+    <string name="related_poat">Related Post</string>
 
+    <string-array name="photo_upload">
+        <item>Take Photo</item>
+        <item>Choose from Library</item>
+        <item>Cancel</item>
+    </string-array>
 
 </resources>
