@@ -21,6 +21,10 @@
     <string name="color">ពណ៌</string>
     <string name="condition">លក្ខខណ្ឌ</string>
 
+    //loan_yes_or_no
+    <string name="yes_loan">ព្រម</string>
+    <string name="no_loan">មិនព្រម</string>
+
     //menu
     <string name="menu_profile">គណនីរបស់អ្នក</string>
     <string name="menu_post">ការប្រកាសរបស់អ្នក</string>

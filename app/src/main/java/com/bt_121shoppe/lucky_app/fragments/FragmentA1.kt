@@ -70,9 +70,9 @@ class FragmentA1: Fragment() {
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)
         if (preferences.contains("token")) {
-            pk = preferences.getInt("Pk", 0)
+            pk = preferences.getInt("Pk", 0)    //login
         } else if (preferences.contains("id")) {
-            pk = preferences.getInt("id", 0)
+            pk = preferences.getInt("id", 0)    //register
         }
         //getMyPosts()
 
@@ -89,7 +89,7 @@ class FragmentA1: Fragment() {
         var posts= PostViewModel()
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser/?status=1"
         var MEDIA_TYPE= MediaType.parse("application/json")
-        val client= OkHttpClient()
+        val client = OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)
                 .header("Accept","application/json")
@@ -110,8 +110,8 @@ class FragmentA1: Fragment() {
                     Log.d("Run  :"," la"+jsonObject)
                         //val detail:String=jsonObject.getString("detail").toString()
                         //if(detail.isNullOrEmpty()) {
-                            val jsonArray = jsonObject.getJSONArray("results")
-                            val jsonCount = jsonObject.getInt("count")
+                        val jsonArray = jsonObject.getJSONArray("results")
+                        val jsonCount = jsonObject.getInt("count")
                         if (jsonCount == 0 ){
                             progreessbar!!.visibility = View.GONE
                             txtno_found!!.visibility = View.VISIBLE

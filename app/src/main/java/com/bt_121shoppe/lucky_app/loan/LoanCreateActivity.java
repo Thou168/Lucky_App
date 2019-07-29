@@ -47,16 +47,18 @@ public class LoanCreateActivity extends AppCompatActivity {
     private static final String TAG=LoanCreateActivity.class.getSimpleName();
     private SharedPreferences preferences;
     private String username,password,Encode;
-    private int pk,id_edit=0, postid;
+    private int pk, id_edit=0,id_cancel=0,cancelid;
+    private int postid;
+    private String pk_create;
     private Boolean status_card,status_family,status_staff,status_title = null;
     private String status_borrower = null;
-//    private int postID;
+    //    private int postID;
     //loan_information
     private Button btSubmit;
     EditText job_loan_information,monthly_income_loan_information,monthly_expense;
     MaterialSpinner co_borrower_loan_information;
     EditText loan_purpose,loan_amount,loan_term;
-//    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
+    //    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
     MaterialSpinner id_card,family_book,staff_id_or_salary_slip,land_tile;
     TextView txtBack;
     boolean estadoCadastro = true;
@@ -64,7 +66,7 @@ public class LoanCreateActivity extends AppCompatActivity {
     Bundle bundle;
 
 
- //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
+    //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
 //    String[] card_id = getResources().getStringArray(R.array.ID_card);
 //    String[] book_family = getResources().getStringArray(R.array.Family_book);
 //    String[] staff_id = getResources().getStringArray(R.array.Staff_id);
@@ -117,18 +119,21 @@ public class LoanCreateActivity extends AppCompatActivity {
         Log.d("Pk",""+pk);
         ButterKnife.bind(this);
         Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,1.5,12)));
+
         bundle = getIntent().getExtras();
         if(bundle!=null)
         {
             postid=bundle.getInt("id",0);
             Log.d("Post id",String.valueOf(postid));
         }
+
         bundle = getIntent().getExtras();
         if (bundle!=null) {
             id_edit = bundle.getInt("id",0);
-            Log.d("Loan id",String.valueOf(id_edit));
+            Log.d("Loan edit id",String.valueOf(id_edit));
             getLoan_user(Encode);
         }
+
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         btSubmit=(Button) findViewById(R.id.btSubmit);
         btSubmit.setOnClickListener(new View.OnClickListener() {
@@ -283,10 +288,10 @@ public class LoanCreateActivity extends AppCompatActivity {
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",0);
+            data.put("loan_interest_rate",0.5);
             data.put("loan_duration",loan_term.getText().toString());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",9);
+            data.put("loan_status",1);
             data.put("record_status",1);
             data.put("username",status_borrower);
             data.put("gender","female");
@@ -488,7 +493,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",0);
+            data.put("loan_interest_rate",0.5);
             data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
             data.put("loan_status",9);
@@ -506,7 +511,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("staff_id",status_staff);   //staff_id
             data.put("house_plant",status_title);  //land_title
             data.put("post",postid);
-            data.put("created_by",pk);
+            data.put("created_by",pk_create);
 
             Log.d(TAG," d"+data);
             RequestBody body=RequestBody.create(MEDIA_TYPE,data.toString());
@@ -590,6 +595,7 @@ public class LoanCreateActivity extends AppCompatActivity {
                     });
                 }
             });
+
         }catch (JSONException e){
             e.printStackTrace();
         }

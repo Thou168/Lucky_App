@@ -201,6 +201,9 @@
     <string name="old_password">Old Password</string>
     <string name="condition_change_password">You will use the new password to access your account.</string>
 
+    //loan_yes_or_no
+    <string name="yes_loan">Yes</string>
+    <string name="no_loan">No</string>
 
     <string name="contact_number">Contact Phone Number</string>
 

@@ -33,13 +33,12 @@ import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
-
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+//import com.google.android.gms.location.FusedLocationProviderClient
+//import com.google.android.gms.maps.GoogleMap
+//import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -52,13 +51,13 @@ import java.util.*
 
 class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
-    private lateinit var mMap: GoogleMap
+//    private lateinit var mMap: GoogleMap
     private var list_rela: RecyclerView? = null
 
- //   private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
-    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-    private var mLocationPermissionGranted: Boolean = false
-    private var mLastKnownLocation: Location? = null
+//    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+//    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+//    private var mLocationPermissionGranted: Boolean = false
+//    private var mLastKnownLocation: Location? = null
     private var postId:Int=0
     private var pk=0
     private var name=""
@@ -89,10 +88,93 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private lateinit var user_location:TextView
     private lateinit var tv_count_view:TextView
     private lateinit var tv_location_duration:TextView
-    private lateinit var tex_noresult:TextView
-    private lateinit var mprocessBar:ProgressBar
 
+    /*
+    private val REQUEST_LOCATION = 1
+    internal lateinit var locationManager: LocationManager
+    internal lateinit var locationListener: LocationListener
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
 
+        locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        locationListener = object : LocationListener {
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+            }
+
+            override fun onProviderEnabled(provider: String?) {
+            }
+
+            override fun onProviderDisabled(provider: String?) {
+            }
+
+            override fun onLocationChanged(location: Location) {
+                val geocoder = Geocoder(applicationContext, Locale.getDefault())
+                try {
+                    val listAddress = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                    //txt_place.text = txt_place.text.toString() + "" + listAddress[0].getAddressLine(0)
+                    txt_detail_new.text = listAddress[0].featureName + ", "+ listAddress[0].thoroughfare+", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+        } else {
+
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        mMap.clear()
+        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
+        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
+        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
+        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
+        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
+        mMap.isMyLocationEnabled = true
+        //disable
+        mMap.uiSettings.isScrollGesturesEnabled = false
+        //mMap.getUiSettings().setZoomGesturesEnabled(false);
+        getLocationPermission()
+
+        getDeviceLocation()
+    }
+
+    private fun getDeviceLocation() {
+        try {
+            if (mLocationPermissionGranted) {
+                val locationResult = mFusedLocationProviderClient!!.lastLocation
+                locationResult.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        mLastKnownLocation = task.result
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
+                    } else {
+                        Log.d(TAG, "Current location is null. Using defaults.")
+                        Log.e(TAG, "Exception: %s", task.exception)
+                        mMap.uiSettings.isMyLocationButtonEnabled = false
+                    }
+                }
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message)
+        }
+
+    }
+    private fun getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this.applicationContext,
+                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        }
+    }
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
@@ -137,10 +219,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         mapFragment.getMapAsync(this)
         */
 
-        tex_noresult = findViewById(R.id.txt_noresult)
         list_rela = findViewById(R.id.list_rela)
-        mprocessBar = findViewById(R.id.mprogressbar)
-        mprocessBar.visibility = View.VISIBLE
 
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
@@ -230,7 +309,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
-                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText().toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
                 return@OnKeyListener true
             }
@@ -285,7 +364,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                     .build()
         }
         else {
-            url = ConsumeAPI.BASE_URL + "allposts/" + postId
+            url = ConsumeAPI.BASE_URL + "detailposts/" + postId
             request = Request.Builder()
                     .url(url)
                     .header("Accept", "application/json")
@@ -494,7 +573,7 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         var MEDIA_TYPE=MediaType.parse("application/json")
         var client= OkHttpClient()
         var request=Request.Builder()
-                .url(URL_ENDPOINT) 
+                .url(URL_ENDPOINT)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
                 //.header("Authorization",encode)
@@ -634,19 +713,13 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                val jsonObject = JSONObject(mMessage)
-                val jsonCount=jsonObject.getInt("count")
-                Log.d("Thou",jsonCount.toString())
-
+                val gson = Gson()
                 runOnUiThread {
                     try {
                         Log.d(TAG, "Related post " + mMessage)
+                        val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
-                        if (jsonCount <= 1 ){
-                            mprocessBar.visibility = View.GONE
-                            tex_noresult.visibility = View.VISIBLE
-                        }
-                        mprocessBar.visibility = View.GONE
+                    val jsonCount=jsonObject.getInt("count")
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
 
