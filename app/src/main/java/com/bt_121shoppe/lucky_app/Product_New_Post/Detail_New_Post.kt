@@ -2,22 +2,28 @@ package com.bt_121shoppe.lucky_app.Product_New_Post
 
 import android.Manifest
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.format.DateUtils
 import android.util.Base64
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,6 +39,15 @@ import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
+import com.google.android.gms.maps.CameraUpdateFactory
+
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 //import com.google.android.gms.location.FusedLocationProviderClient
 //import com.google.android.gms.maps.GoogleMap
 //import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -42,6 +57,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.math.RoundingMode
@@ -49,9 +65,17 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
+class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
+
+
+    //, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
 //    private lateinit var mMap: GoogleMap
+    private lateinit var mMap: GoogleMap
+    private val REQUEST_LOCATION = 1
+    internal lateinit var locationManager: LocationManager
+    internal var latitude: Double = 0.toDouble()
+    internal var longtitude:Double = 0.toDouble()
     private var list_rela: RecyclerView? = null
 
 //    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
@@ -88,93 +112,65 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
     private lateinit var user_location:TextView
     private lateinit var tv_count_view:TextView
     private lateinit var tv_location_duration:TextView
+    private lateinit var tex_noresult:TextView
+    private lateinit var mprocessBar:ProgressBar
+    private lateinit var address_detial:TextView
 
-    /*
-    private val REQUEST_LOCATION = 1
-    internal lateinit var locationManager: LocationManager
-    internal lateinit var locationListener: LocationListener
-    override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
-
-        locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        locationListener = object : LocationListener {
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            }
-
-            override fun onProviderEnabled(provider: String?) {
-            }
-
-            override fun onProviderDisabled(provider: String?) {
-            }
-
-            override fun onLocationChanged(location: Location) {
-                val geocoder = Geocoder(applicationContext, Locale.getDefault())
-                try {
-                    val listAddress = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                    //txt_place.text = txt_place.text.toString() + "" + listAddress[0].getAddressLine(0)
-                    txt_detail_new.text = listAddress[0].featureName + ", "+ listAddress[0].thoroughfare+", " + listAddress[0].adminArea + ", " + listAddress[0].countryName
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-
-        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-        } else {
-
-        }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        mMap.clear()
-        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
-        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
-        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
-        mMap.isMyLocationEnabled = true
-        //disable
-        mMap.uiSettings.isScrollGesturesEnabled = false
-        //mMap.getUiSettings().setZoomGesturesEnabled(false);
-        getLocationPermission()
-
-        getDeviceLocation()
-    }
-
-    private fun getDeviceLocation() {
-        try {
-            if (mLocationPermissionGranted) {
-                val locationResult = mFusedLocationProviderClient!!.lastLocation
-                locationResult.addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        mLastKnownLocation = task.result
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
-                    } else {
-                        Log.d(TAG, "Current location is null. Using defaults.")
-                        Log.e(TAG, "Exception: %s", task.exception)
-                        mMap.uiSettings.isMyLocationButtonEnabled = false
-                    }
-                }
-            }
-        } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message)
-        }
-
-    }
-    private fun getLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this.applicationContext,
-                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
-        }
-    }
-    */
+//        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+//        } else {
+//
+//        }
+//
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+//        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//        mMap.clear()
+//        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
+//        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
+//        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
+//        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
+//        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
+//        mMap.isMyLocationEnabled = true
+//        //disable
+//        mMap.uiSettings.isScrollGesturesEnabled = false
+//        //mMap.getUiSettings().setZoomGesturesEnabled(false);
+//        getLocationPermission()
+//
+//        getDeviceLocation()
+//    }
+//
+//    private fun getDeviceLocation() {
+//        try {
+//            if (mLocationPermissionGranted) {
+//                val locationResult = mFusedLocationProviderClient!!.lastLocation
+//                locationResult.addOnCompleteListener(this) { task ->
+//                    if (task.isSuccessful) {
+//                        mLastKnownLocation = task.result
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
+//                    } else {
+//                        Log.d(TAG, "Current location is null. Using defaults.")
+//                        Log.e(TAG, "Exception: %s", task.exception)
+//                        mMap.uiSettings.isMyLocationButtonEnabled = false
+//                    }
+//                }
+//            }
+//        } catch (e: SecurityException) {
+//            Log.e("Exception: %s", e.message)
+//        }
+//
+//    }
+//    private fun getLocationPermission() {
+//        if (ContextCompat.checkSelfPermission(this.applicationContext,
+//                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
+//            mLocationPermissionGranted = true
+//        } else {
+//            ActivityCompat.requestPermissions(this,
+//                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+//        }
+//    }
+//    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
@@ -250,6 +246,8 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         user_email=findViewById<TextView>(R.id.tv_phone)
         tv_count_view=findViewById<TextView>(R.id.count_view)
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
+        address_detial = findViewById<TextView>(R.id.address_detail_new_post)
+
 
 //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
@@ -493,6 +491,21 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
                         tvCondition.setText(postDetail.condition.toString())
                         tvColor.setText(postDetail.color.toString())
                         tvDescription.setText(postDetail.description.toString())
+
+                        val addr = postDetail.contact_address.toString()
+                        Log.d("LAAAAA",addr)
+                        if(addr.isEmpty()) {
+
+                        }else{
+                            val splitAddr = addr.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                             latitude = java.lang.Double.valueOf(splitAddr[0])
+                             longtitude = java.lang.Double.valueOf(splitAddr[1])
+
+                            get_location(latitude, longtitude)
+                            val mapFragment = supportFragmentManager
+                                    .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment?
+                            mapFragment!!.getMapAsync(OnMapReadyCallback { this@Detail_New_Post.onMapReady(it) })
+                        }
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.timeZone = TimeZone.getTimeZone("GMT")
@@ -950,4 +963,72 @@ class Detail_New_Post : AppCompatActivity(){//, OnMapReadyCallback{
         val path:String = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
         return Uri.parse(path)
     }
+
+
+    private fun get_location(latitude:Double,longtitude:Double) {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps()
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            getLocation(latitude, longtitude)
+        }
+    }
+
+    private fun buildAlertMessageNoGps() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Please Turn On your PGS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, which -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+                .setNegativeButton("No") { dialog, which -> dialog.cancel() }
+        val alert = builder.create()
+        alert.show()
+    }
+
+    private fun getLocation(latitude: Double,longtitude: Double) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+        } else {
+            val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            if (location != null) {
+
+                try {
+                    val geocoder = Geocoder(this)
+                    var addressList: List<Address>? = null
+                    addressList = geocoder.getFromLocation(latitude, longtitude, 1)
+                    //                    String country = addressList.get(0).getCountryName();
+                    //                    String city    = addressList.get(0).getLocality();
+                    val road = addressList!![0].getAddressLine(0)
+
+                    address_detial.setText(road)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+
+            } else {
+                Toast.makeText(this, "Unble to Trace your location", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }  //
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+
+        if (googleMap != null) {
+            mMap = googleMap
+        }
+        val current_location = LatLng(latitude, longtitude)
+        mMap.animateCamera(CameraUpdateFactory.zoomIn())
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5f), 2000, null)
+        val cameraPosition = CameraPosition.Builder()
+                .target(current_location)
+                .zoom(18f)
+                .bearing(90f)
+                .tilt(30f)
+                .build()
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        mMap.addMarker(MarkerOptions().position(LatLng(latitude, longtitude)))
+
+    }
+
+
 }

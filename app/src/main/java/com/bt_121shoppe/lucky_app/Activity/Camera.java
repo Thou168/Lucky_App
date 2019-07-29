@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import android.Manifest;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -62,6 +63,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -101,6 +103,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Camera extends AppCompatActivity implements OnMapReadyCallback {
+
 
     private static final LatLng old = new LatLng(11.5585741,104.905055);
     private static final int REQUEST_LOCATION = 1;
@@ -432,11 +435,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 if (bundle!=null) {
                     mProgress.show();
-                    //Toast.makeText(getApplicationContext(),"Edit",Toast.LENGTH_SHORT).show();
-                    EditPost_Approve(Encode, edit_id);
+      //              EditPost_Approve(Encode, edit_id);
                 } else  {
                     mProgress.show();
-                    //Toast.makeText(getApplicationContext(),"Post",Toast.LENGTH_SHORT).show();
                     PostData(Encode);
                 }
             }
@@ -465,6 +466,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
+                    Gson gson = new Gson();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -495,6 +497,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 strCondition = object.getString("condition");
                                 strColor = object.getString("color");
                                 strDiscountType = object.getString("discount_type");
+
+
+                                String addr = object.getString("contact_address");
+
+                                    String[] splitAddr = addr.split(",");
+                                    latitude = Double.valueOf(splitAddr[0]);
+                                    longtitude = Double.valueOf(splitAddr[1]);
+                                    getLocation_edit(latitude,longtitude);
+                                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                            .findFragmentById(R.id.map_post);
+                                    mapFragment.getMapAsync(Camera.this::onMapReady);
+
 
                                 String fron = object.getString("front_image_base64");
                                 String back = object.getString("back_image_base64");
@@ -1111,191 +1125,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             mProgress.dismiss();
         }
     } //edit post approve
-
-    private void EditPost_Pending(String encode,int edit_id){
-        final String url = "http://103.205.26.103:8000/postbyuser/"+ edit_id +"/";
-        MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        OkHttpClient client = new OkHttpClient();
-        JSONObject post = new JSONObject();
-        JSONObject sale = new JSONObject();
-        JSONObject buy=new JSONObject();
-        JSONObject rent=new JSONObject();
-
-        try {
-            //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-            post.put("title",etTitle.getText().toString().toLowerCase());
-            post.put("category", cate );
-            post.put("status", 1);
-            post.put("condition",strCondition.isEmpty()?"new":strCondition);
-
-            if (strPostType.equals("buy")) {
-                post.put("discount", "0");
-                post.put("discount_type","amount");
-            }else {
-                post.put("discount_type", strDiscountType.isEmpty()?"amount":strDiscountType );
-                post.put("discount",etDiscount_amount.getText().toString());
-            }
-            //post.put("discount", 0);
-            post.put("user",pk );
-            if(bitmapImage1==null) {
-                post.put("front_image_path", "");
-                post.put("front_image_base64", "");
-            }
-            else {
-                post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
-                post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
-            }
-            if(bitmapImage2==null){
-                post.put("right_image_path", "");
-                post.put("right_image_base64", "");
-            }else{
-                post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
-                post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
-            }
-            if(bitmapImage3==null){
-                post.put("left_image_path", "");
-                post.put("left_image_base64", "");
-            }else{
-                post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
-                post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
-            }
-            if(bitmapImage4==null){
-                post.put("back_image_path", "");
-                post.put("back_image_base64", "");
-            }else{
-                post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
-                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
-            }
-            //Instant.now().toString()
-            post.put("created", "");
-            post.put("created_by", pk);
-            post.put("modified", Instant.now().toString());
-            post.put("modified_by", null);
-            post.put("approved_date", null);
-            post.put("approved_by", null);
-            post.put("rejected_date", null);
-            post.put("rejected_by",null);
-            post.put("rejected_comments", "");
-            post.put("year", year); //year
-            post.put("modeling", model);
-            //post.put("modeling", 1);
-            post.put("description", etDescription.getText().toString().toLowerCase());
-            //post.put("cost", etPrice.getText().toString().toLowerCase());
-            post.put("cost",etPrice.getText().toString());
-            //post.put("post_type",tvPostType.getSelectedItem().toString().toLowerCase() );
-            post.put("post_type",strPostType);
-            //post.put("contact_phone", etPhone1.getText().toString().toLowerCase());
-            post.put("vin_code", "");
-            post.put("machine_code", "");
-            post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString());
-            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
-            post.put("contact_address", "");
-            post.put("color", strColor.isEmpty()?"black":strColor);
-
-            switch (strPostType){
-                case "sell":
-                    sale.put("sale_status", 3);
-                    sale.put("record_status",1);
-                    sale.put("sold_date", null);
-                    //sale.put("price", etPrice.getText().toString().toLowerCase());
-                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
-                    sale.put("price", etPrice.getText().toString());
-                    sale.put("total_price",etPrice.getText().toString());
-                    post.put("sale_post",new JSONArray("["+sale+"]"));
-
-                    post.put("rent_post",new JSONArray("["+""+"]"));
-                    post.put("buy_post",new JSONArray("["+""+"]"));
-                    break;
-                case "rent":
-
-                    rent.put("rent_status",3);
-                    rent.put("record_status",1);
-                    rent.put("rent_type","month");
-                    rent.put("price",etPrice.getText().toString().toLowerCase());
-                    rent.put("total_price",etPrice.getText().toString().toLowerCase());
-                    rent.put("rent_date",null);
-                    rent.put("return_date",null);
-                    rent.put("rent_count_number",0);
-                    post.put("rent_post",new JSONArray("["+rent+"]"));
-
-                    post.put("sale_post",new JSONArray("["+""+"]"));
-                    post.put("buy_post",new JSONArray("["+""+"]"));
-                    break;
-                case "buy":
-
-                    buy.put("buy_status",3);
-                    buy.put("record_status",1);
-                    post.put("buy_post",new JSONArray("["+buy+"]"));
-
-//                    post.put("sale_post",new JSONArray("["+""+"]"));
-//                    post.put("rent_post",new JSONArray("["+""+"]"));
-                    break;
-            }
-            Log.d(TAG,post.toString());
-            RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
-            String auth = "Basic " + encode;
-            Request request = new Request.Builder()
-                    .url(url)
-                    .put(body)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .header("Authorization",auth)
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String respon = response.body().string();
-                    Log.d(TAG, "TTTT" + respon);
-                    Gson gson = new Gson();
-                    CreatePostModel createPostModel = new CreatePostModel();
-                    try{
-                        createPostModel = gson.fromJson(respon,CreatePostModel.class);
-                        if (createPostModel!=null){
-                            int id = createPostModel.getId();
-                            if (id!=0){
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mProgress.dismiss();
-                                        startActivity(new Intent(Camera.this,Home.class));
-                                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            }else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mProgress.dismiss();
-                                        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            }
-                        }
-                    }catch (JsonParseException e){
-                        e.printStackTrace();
-                        mProgress.dismiss();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    String mMessage = e.getMessage().toString();
-                    Log.d("Failure:",mMessage );
-                    mProgress.dismiss();
-
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-            mProgress.dismiss();
-        }
-    }
 
     private void Call_category(String encode) {
 
@@ -2383,7 +2212,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             buildAlertMessageNoGps();
         }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            getLocation(isCurrent);
+                getLocation(isCurrent);
         }
     }
     private void buildAlertMessageNoGps(){
@@ -2406,7 +2235,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         final AlertDialog alert = builder.create();
         alert.show();
     }
-    private void getLocation(boolean isCurrent) {
+    private void getLocation_edit(double latitude, double longtitude){
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
@@ -2414,16 +2243,47 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location!=null){
-                latitude = location.getLatitude();
-                longtitude = location.getLongitude();
 
-                latlng = latitude+","+longtitude;
+                try{
+                    Geocoder geocoder = new Geocoder(this);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude, longtitude,1);
+//                    String country = addressList.get(0).getCountryName();
+//                    String city    = addressList.get(0).getLocality();
+                    String road = addressList.get(0).getAddressLine(0);
+
+                    tvAddress.setText( road );
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
+            }else {
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void getLocation(boolean isCurrent) {
+
+
+
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        }else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location!=null){
+                if(isCurrent) {
+                    latitude = location.getLatitude();
+                    longtitude = location.getLongitude();
+                }
+
                 try{
                     Geocoder geocoder = new Geocoder(this);
                     List<Address> addressList = null;
                     addressList = geocoder.getFromLocation(latitude,longtitude,1);
-//                    String country = addressList.get(0).getCountryName();
-//                    String city    = addressList.get(0).getLocality();
+
                     String road = addressList.get(0).getAddressLine(0);
 
                     tvAddress.setText( road );
@@ -2440,13 +2300,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
         mMap = googleMap;
-
-
         LatLng current_location = new LatLng(latitude, longtitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(old,10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(old, 10));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(5),2000,null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 2000, null);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(current_location)
                 .zoom(18)
@@ -2454,7 +2314,59 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 .tilt(30)
                 .build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longtitude)));
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longtitude)));
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
+                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                latitude = latLng.latitude;
+                longtitude = latLng.longitude;
+                latlng = latitude+","+longtitude;
+                mMap.clear();
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.addMarker(markerOptions);
+
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(getApplicationContext(),
+                                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                    return;
+                }
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (location!=null) {
+                    try {
+                        Geocoder geocoder = new Geocoder(getApplicationContext());
+                        List<Address> addressList = null;
+                        addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+                        String country = addressList.get(0).getCountryName();
+                        String city = addressList.get(0).getLocality();
+                        String road = addressList.get(0).getAddressLine(0);
+
+                        tvAddress.setText(road);
+                        Log.d("LATITUDE",latitude+","+longtitude);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Unble to Trace your location", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
 
     }
 }
