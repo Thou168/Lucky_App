@@ -185,6 +185,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         uploadprofile = findViewById<ImageView>(R.id.imgCover)
         uploadprofile!!.setOnClickListener{
             type = "cover"
+            selectImage()
             //val upload = Sheetviewupload()
             //upload.show(supportFragmentManager,upload.tag)
         }
@@ -561,8 +562,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     }
 
     private fun selectImage() {
-        val items =resources.getStringArray(R.array.photo_upload)
-//        val items = arrayOf<CharSequence>("Take Photo", "Choose from Library", "Cancel")
+        val items = arrayOf<CharSequence>("Take Photo", "Choose from Library", "Cancel")
         val builder = androidx.appcompat.app.AlertDialog.Builder(this@Account)
         builder.setItems(items) {
             dialog, item ->

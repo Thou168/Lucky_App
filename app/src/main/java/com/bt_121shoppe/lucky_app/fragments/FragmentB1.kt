@@ -86,7 +86,7 @@ class FragmentB1: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //setUpRecyclerView()
-        getMyLike()
+//        getMyLike()
     }
 
     private fun getMyLike() {

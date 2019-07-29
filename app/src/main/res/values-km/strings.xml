@@ -14,6 +14,7 @@
     <string name="nav_detail">ព័ត៌មានលម្អិត</string>
     <string name="detail">ព័ត៌មានលម្អិត</string>
     <string name="description">ការពណ៌នា</string>
+    <string name="Description">ការពណ៌នា</string>
     <string name="tax">ប្រភេទពន្ធ</string>
     <string name="brand">ម៉ាក</string>
     <string name="year">ឆ្នាំផលិត</string>
@@ -336,7 +337,7 @@
     <string name="Price">តម្លៃ($)</string>
     <string name="interest_rate">អត្រាការប្រាក់(%)</string>
     <string name="deposit">ដកប្រាក់($)</string>
-    <string name="term">រយៈពេល​(ឆ្នាំ)</string>
+    <string name="term">រយៈពេល​(ខែ)</string>
     <string name="Monthly_payment">ការចំណាយប្រចាំខែ</string>
     <string name="contact">ទំនាក់ទំនង</string>
     <string name="locaion">ទីតាំង​ :</string>
@@ -381,10 +382,6 @@
     <string name="no_result">គ្មានរកឃើញលទ្ធផលទេ</string>
     <string name="related_poat">ការប្រកាសដែលពាក់ព័ន្ធគ្នា</string>
 
-    <string-array name="photo_upload">
-        <item>ថតរូប</item>
-        <item>ជ្រើសរើសពីវិចិត្រសាល</item>
-        <item>ត្រឡប់</item>
-    </string-array>
+    <string name="english_khmer">ខ្មែរ</string>
 
 </resources>

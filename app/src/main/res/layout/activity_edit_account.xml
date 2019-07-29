@@ -59,7 +59,7 @@
                 <ImageView
 
                     android:id="@+id/imgAccount_Address"
-                    android:layout_width="20dp"
+                    android:layout_width="15dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_type_public_user"
                     android:background="#ffff"
