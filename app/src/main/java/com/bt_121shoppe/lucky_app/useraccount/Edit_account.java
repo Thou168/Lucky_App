@@ -394,10 +394,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                  mapFragment.getMapAsync(Edit_account.this::onMapReady);
 
                              }
-                                //Toast.makeText(Edit_account.this,"my addr"+lat +"  "+lon,Toast.LENGTH_LONG).show();
-                                //Log.d(TAG,"my address " +addr+" "+lat+" "+lon);
-
-                                //mp_Dob.setSelection(0);
 
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);

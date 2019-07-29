@@ -545,6 +545,13 @@
                         android:text="@string/location"
                         android:background="#F7F7F7"
                         android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/address_detail_new_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/line10"
+                        android:paddingLeft="10dp"
+                        android:layout_toRightOf="@id/txt_show_place_detail_new_post"/>
 
                 </RelativeLayout>
                 <fragment

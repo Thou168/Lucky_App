@@ -39,4 +39,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/mSearch" />
 
+    <TextView
+        android:id="@+id/tvSearch_notFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mSearch"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:text="No Result Found...!"
+        android:textSize="25dp"
+        android:visibility="gone"/>
+    <ProgressBar
+        android:id="@+id/progress_search"
+        android:layout_below="@+id/tvSearch_notFound"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center_vertical"/>
 </RelativeLayout>

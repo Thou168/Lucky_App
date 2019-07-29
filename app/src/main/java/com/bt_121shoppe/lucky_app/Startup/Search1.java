@@ -1,10 +1,12 @@
 package com.bt_121shoppe.lucky_app.Startup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,8 @@ public class Search1 extends AppCompatActivity {
     RecyclerView rv;
     ArrayList<Item> items;
     String category,model,year;
+    TextView not_found;
+    ProgressBar mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,10 @@ public class Search1 extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        mProgress = (ProgressBar) findViewById(R.id.progress_search);
+        not_found = (TextView) findViewById(R.id.tvSearch_notFound);
         sv= (SearchView) findViewById(R.id.mSearch);
         rv = (RecyclerView)findViewById(R.id.myRecycler) ;
         sv.setFocusable(true);
@@ -83,6 +91,7 @@ public class Search1 extends AppCompatActivity {
         @Override
         public boolean onQueryTextSubmit(String query) {
             item_apis.clear();
+            mProgress.setVisibility(View.VISIBLE);
             String title = sv.getQuery().toString();
             Search_data(title,category,model,year);
             return false;
@@ -117,11 +126,18 @@ public class Search1 extends AppCompatActivity {
                     @Override
                     public void run() {
 
-
-                try{
+                try {
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i = 0; i<jsonArray.length();i++){
+                    int count = jsonObject.getInt("count");
+                    Log.d("CCCCCCCC", String.valueOf(count));
+                    if (count == 0) {
+                        mProgress.setVisibility(View.GONE);
+                        not_found.setVisibility(View.VISIBLE);
+                    }else {
+                        not_found.setVisibility(View.GONE);
+                        mProgress.setVisibility(View.GONE);
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String title = object.getString("title");
@@ -136,39 +152,39 @@ public class Search1 extends AppCompatActivity {
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                         long time = sdf.parse(object.getString("created")).getTime();
                         long now = System.currentTimeMillis();
-                        CharSequence ago = DateUtils.getRelativeTimeSpanString(time,now,DateUtils.MINUTE_IN_MILLIS);
+                        CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
 
-                        String url_endpoint = String.format("%s%s", ConsumeAPI.BASE_URL,"countview/?post=" + id);
+                        String url_endpoint = String.format("%s%s", ConsumeAPI.BASE_URL, "countview/?post=" + id);
                         OkHttpClient client1 = new OkHttpClient();
                         Request request1 = new Request.Builder()
                                 .url(url_endpoint)
-                                .header("Accept","application/json")
-                                .header("Content-Type","application/json")
+                                .header("Accept", "application/json")
+                                .header("Content-Type", "application/json")
                                 .build();
                         client1.newCall(request1).enqueue(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 String message = e.getMessage().toString();
-                                Log.d("failure Response",message);
+                                Log.d("failure Response", message);
                             }
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 String mMessage = response.body().string();
 
-                                try{
-                                   JSONObject object_count = new JSONObject(mMessage);
-                                   String json_count = object_count.getString("count");
+                                try {
+                                    JSONObject object_count = new JSONObject(mMessage);
+                                    String json_count = object_count.getString("count");
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            item_apis.add(new Item_API(id,img_user,image,title,cost,condition,post_type,ago.toString(),json_count));
-                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis,"List");
+                                            item_apis.add(new Item_API(id, img_user, image, title, cost, condition, post_type, ago.toString(), json_count));
+                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List");
                                             rv.setAdapter(adapterUserPost);
                                         }
                                     });
 
-                                }catch (JsonParseException e){
+                                } catch (JsonParseException e) {
                                     e.printStackTrace();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -178,6 +194,8 @@ public class Search1 extends AppCompatActivity {
 
 
                     }
+
+                }
                 }catch (JSONException e){
                     e.printStackTrace();
                 } catch (ParseException e) {
