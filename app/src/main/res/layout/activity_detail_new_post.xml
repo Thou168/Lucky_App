@@ -75,12 +75,10 @@
                 android:layout_below="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <RelativeLayout
                     android:id="@+id/relative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:id="@+id/description"
                         android:layout_width="match_parent"
@@ -90,7 +88,6 @@
                         android:text="@string/description"
                         android:textSize="@dimen/dp_16"
                         android:textStyle="bold" />
-
                     <View
                         android:id="@+id/line"
                         style="@style/line"
@@ -112,7 +109,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line"
-                        android:layout_toRightOf="@id/brandTitle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginLeft="166dp"
+                        android:layout_marginTop="1dp"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
                         android:text="@string/brand"
@@ -136,11 +136,11 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/tv_Model"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line2"
-                        android:layout_toRightOf="@id/modelTitle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
                         android:text="@string/model"
@@ -164,11 +164,11 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/tv_Year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line3"
-                        android:layout_toRightOf="@id/yearTitle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
                         android:text="@string/year"
@@ -197,11 +197,11 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/tv_Condition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line4"
-                        android:layout_toRightOf="@id/conditionTitle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
                         android:text="@string/condition"
@@ -225,11 +225,11 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/tv_Color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line5"
-                        android:layout_toRightOf="@id/colorTitle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
                         android:text="@string/color"
@@ -242,24 +242,13 @@
                         android:layout_below="@+id/tv_Color" />
 
                     <TextView
-                        android:id="@+id/descriptionTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line6"
-                        android:layout_marginLeft="@dimen/dp_16"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/description"
-                        android:textSize="14sp" />
-
-                    <TextView
                         android:id="@+id/tv_Description"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line6"
-                        android:layout_toRightOf="@id/descriptionTitle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
+                        android:layout_marginStart="@dimen/dp_20"
                         android:text="@string/description"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -497,64 +486,91 @@
                         android:background="@color/colorLightGray"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"/>
-                    <TextView
-                        android:layout_marginStart="@dimen/dp_8dp"
-                        android:id="@+id/tv_iconphone"
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_below="@+id/line7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:paddingLeft="@dimen/dp_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line7"
-
-                        android:text="0123456789"
-                        android:id="@+id/tv_phone"
-                        android:layout_toEndOf="@+id/tv_iconphone" />
+                        android:paddingTop="@dimen/dp_8"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/phone_contact"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+                        <TextView
+                            android:paddingStart="@dimen/dp_20"
+                            android:id="@+id/tv_phone"
+                            android:text="077350356"
+                            android:textSize="@dimen/dp_16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                     <View
-                        android:layout_below="@+id/tv_iconphone"
+                        android:layout_below="@+id/linearLayout"
                         android:id="@+id/line8"
                         android:background="@color/colorLightGray"
                         style="@style/line"/>
-                    <TextView
-                        android:layout_marginStart="@dimen/dp_8dp"
-                        android:id="@+id/tv_iconemail"
+                    <LinearLayout
+                        android:paddingStart="@dimen/dp_8"
+                        android:id="@+id/linearLayout1"
                         android:layout_below="@+id/line8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_below="@+id/line8"
-                        android:id="@+id/tv_email"
-                        android:text=""
-
-                        android:paddingLeft="@dimen/dp_4"
-                        android:layout_toEndOf="@+id/tv_iconemail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <View
-                        android:id="@+id/line10"
-                        android:layout_below="@+id/tv_email"
-                        style="@style/line"/>
-                    <TextView
-                        android:id="@+id/txt_show_place_detail_new_post"
-                        android:layout_width="wrap_content"
-                        android:layout_below="@+id/line10"
-                        android:paddingLeft="5dp"
-                        android:layout_marginLeft="8dp"
-                        android:text="@string/location"
-                        android:background="#F7F7F7"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/address_detail_new_post"
+                        android:paddingTop="@dimen/dp_8"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/line10"
-                        android:paddingLeft="10dp"
-                        android:layout_toRightOf="@id/txt_show_place_detail_new_post"/>
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/email_contact"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+                        <TextView
+                            android:paddingLeft="@dimen/dp_20"
+                            android:id="@+id/tv_email"
+                            android:text=""
+                            android:textSize="@dimen/dp_16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
 
+                    <View
+                        android:layout_below="@+id/linearLayout1"
+                        android:id="@+id/line9"
+                        android:background="@color/colorLightGray"
+                        style="@style/line"/>
+                    <LinearLayout
+                        android:paddingStart="@dimen/dp_8"
+                        android:id="@+id/linearLayout2"
+                        android:layout_below="@+id/line9"
+                        android:paddingTop="@dimen/dp_8"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/map_contact"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+                        <TextView
+                            android:id="@+id/address"
+                            android:paddingLeft="@dimen/dp_20"
+                            android:text="Phnom Penh"
+                            android:textSize="@dimen/dp_16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <View
+                        android:layout_below="@+id/linearLayout2"
+                        android:id="@+id/line10"
+                        android:background="@color/colorLightGray"
+                        style="@style/line"/>
                 </RelativeLayout>
                 <fragment
+                    android:layout_marginTop="@dimen/dp_8"
                     android:id="@+id/map_detail_newpost"
                     android:layout_below="@id/relative_detailmap"
                     android:name="com.google.android.gms.maps.SupportMapFragment"

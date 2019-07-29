@@ -163,8 +163,6 @@ class FragmentC1: Fragment() {
                                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                                                 ///
                                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
-                                                Log.d("Respone 1",URL_ENDPOINT1)
-
                                                 var MEDIA_TYPE = MediaType.parse("application/json")
                                                 val client1 = OkHttpClient()
                                                 //val auth = "Basic $encode"
@@ -185,7 +183,7 @@ class FragmentC1: Fragment() {
                                                         val mMessage = response.body()!!.string()
                                                         val gson = Gson()
                                                         try {
-                                                            Log.d("FRAGMENT 3", mMessage)
+                                                            Log.d("FRAGMENT 1", mMessage)
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
