@@ -95,6 +95,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)
+        Log.d("Hello",password)
         if (preferences.contains("token")) {
             pk = preferences.getInt("Pk", 0)
         } else if (preferences.contains("id")) {
@@ -452,6 +453,8 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
     fun getUserProfile(){
         var user1 = User()
+        Log.d("Thou",pk.toString())
+        Log.d("Hello",encodeAuth)
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
         var MEDIA_TYPE=MediaType.parse("application/json")
         var client= OkHttpClient()
@@ -529,11 +532,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
+                Log.w("failure Response123", mMessage)
                 val gson = Gson()
+                val jsonObject=JSONObject(mMessage)
                 try {
-                    val jsonObject=JSONObject(mMessage)
-                    //val detail:String=jsonObject.getString("detail").toString()
-                    //if(detail.isNullOrEmpty()) {
+
+//                    val detail:String=jsonObject.getString("detail").toString()
+//                    if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount = jsonObject.getInt("count")
                         runOnUiThread {
@@ -546,7 +551,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                             }
 
                         }
-                    //}
+//                    }
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
                 }

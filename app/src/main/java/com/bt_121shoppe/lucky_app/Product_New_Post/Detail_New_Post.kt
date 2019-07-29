@@ -242,11 +242,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         user_name = findViewById<TextView>(R.id.tv_name)
         img_user = findViewById<CircleImageView>(R.id.cr_img)
-        user_telephone=findViewById<TextView>(R.id.tv_iconphone)
-        user_email=findViewById<TextView>(R.id.tv_phone)
+        user_telephone=findViewById<TextView>(R.id.tv_phone)
+        user_email=findViewById<TextView>(R.id.tv_email)
         tv_count_view=findViewById<TextView>(R.id.count_view)
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
-        address_detial = findViewById<TextView>(R.id.address_detail_new_post)
+        address_detial = findViewById<TextView>(R.id.address)
 
 
 //Button Share

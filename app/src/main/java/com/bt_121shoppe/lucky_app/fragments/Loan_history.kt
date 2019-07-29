@@ -104,6 +104,8 @@ class Loan_history: Fragment() {
                         val itemApi = ArrayList<LoanItemAPI>()
                         //Log.d("Run GET Loan  :"," la"+jsonObject)
 
+//                        val detail:String=jsonObject.getString("detail").toString()
+//                        if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
                         if (jsonCount == 0 ){
@@ -112,33 +114,34 @@ class Loan_history: Fragment() {
                         }
                         progreessbar!!.visibility = View.GONE
                         for (i in 0 until jsonArray.length()) {
-                        val `object` = jsonArray.getJSONObject(i)
+                            val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
-                            Log.d("Loan ID","LaLa"+loanID)
-                        post_id = `object`.getInt("post")
-                        //Log.d("Post id ",post_id.toString())
+                            Log.d("Loan ID", "LaLa" + loanID)
+                            post_id = `object`.getInt("post")
+                            //Log.d("Post id ",post_id.toString())
 
-                            val url_user = ConsumeAPI.BASE_URL+"allposts/"+post_id+"/"
-                            Log.d("Post id ",url_user)
+                            val url_user = ConsumeAPI.BASE_URL + "allposts/" + post_id + "/"
+                            Log.d("Post id ", url_user)
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
                                     .url(url_user)
-                                    .header("Accept","application/json")
-                                    .header("Content-Type","application/json")
-                                    .header("Authorization",encodeAuth)
+                                    .header("Accept", "application/json")
+                                    .header("Content-Type", "application/json")
+                                    .header("Authorization", encodeAuth)
                                     .build()
-                            client1.newCall(request1).enqueue(object : Callback{
+                            client1.newCall(request1).enqueue(object : Callback {
                                 override fun onFailure(call: Call, e: IOException) {
                                     val mmessage = e.message.toString()
                                     Log.w("failure Response", mmessage)
                                 }
+
                                 @Throws(IOException::class)
                                 override fun onResponse(call: Call, response: Response) {
                                     val mmessage = response.body()!!.string()
                                     try {
-                                        activity!!.runOnUiThread{
+                                        activity!!.runOnUiThread {
                                             val jsonObject1 = JSONObject(mmessage)
-                                            if(jsonObject1 != null) {
+                                            if (jsonObject1 != null) {
                                                 val title = jsonObject1.getString("title")
                                                 val id = jsonObject1.getInt("id")
                                                 val condition = jsonObject1.getString("condition")
@@ -177,7 +180,7 @@ class Loan_history: Fragment() {
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
-                                                                itemApi.add(LoanItemAPI(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),loanID))
+                                                                itemApi.add(LoanItemAPI(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(), loanID))
                                                                 recyclerView!!.adapter = MyAdapter_history_loan(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }
@@ -192,10 +195,16 @@ class Loan_history: Fragment() {
                                         }
 
                                     } catch (e: JsonParseException) {
-                                        e.printStackTrace() }
+                                        e.printStackTrace()
+                                    }
                                 }
                             })
                         }
+//                        }else{
+//                            progreessbar!!.visibility = View.GONE
+//                            txtno_found!!.visibility = View.VISIBLE
+//                            progreessbar!!.visibility = View.GONE
+//                        }
                     }
                 } catch (e: JsonParseException) {
                     e.printStackTrace() }

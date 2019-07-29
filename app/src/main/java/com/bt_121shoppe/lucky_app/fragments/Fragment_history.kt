@@ -109,8 +109,8 @@ class Fragment_history: Fragment() {
                 try {
                     activity!!.runOnUiThread {
 
-                        //val detail:String=jsonObject.getString("detail").toString()
-                        //if(detail==null) {
+//                        val detail:String=jsonObject.getString("detail").toString()
+//                        if(detail.isNullOrEmpty()) {
                             val jsonArray = jsonObject.getJSONArray("results")
                             val jsonCount = jsonObject.getInt("count")
                         if (jsonCount == 0 ){
@@ -174,7 +174,11 @@ class Fragment_history: Fragment() {
                                 })
 
                             }
-                        //}
+//                        }else{
+//                            progreessbar!!.visibility = View.GONE
+//                            txtno_found!!.visibility = View.VISIBLE
+//                            progreessbar!!.visibility = View.GONE
+//                        }
                     }
 
                 } catch (e: JsonParseException) {
