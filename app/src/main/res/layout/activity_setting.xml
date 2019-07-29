@@ -106,7 +106,7 @@
             android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tvApp"
-            android:text="@string/language2"
+            android:text="@string/english_khmer"
             android:textSize="14dp"
             android:textColor="#535151"
             android:padding="10dp"

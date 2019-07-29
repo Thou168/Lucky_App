@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -61,7 +62,7 @@
 
                     <ImageView
                         android:id="@+id/imgJob"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
@@ -77,6 +78,7 @@
                             android:id="@+id/etJob"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/hit_job"
                             android:paddingLeft="10dp"
                             android:background="@null" />
@@ -84,9 +86,8 @@
 
                     <ImageView
                         android:id="@+id/imgCoBorrower"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_below="@id/imgJob"
                         android:src="@drawable/icon_null"
@@ -99,8 +100,6 @@
                         android:layout_below="@+id/imgJob"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_co_borrower"
-                        android:layout_marginLeft="-5dp"
-                        android:textSize="18dp"
                         android:background="@null"
                         android:spinnerMode="dropdown"/>
                         <!--<TextView-->
@@ -117,7 +116,7 @@
 
                     <ImageView
                         android:id="@+id/imgMonthlyIncome"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:layout_below="@id/imgCoBorrower"
@@ -135,6 +134,7 @@
                             android:id="@+id/etMonthlyIncome"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/hit_mon_income"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
@@ -143,7 +143,7 @@
 
                     <ImageView
                         android:id="@+id/imgMonthlyExpense"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:layout_below="@id/imgMonthlyIncome"
@@ -161,6 +161,7 @@
                             android:id="@+id/etMonthlyExpense"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/hit_mon_expense"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
@@ -189,7 +190,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/imgPurpose"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
@@ -205,6 +206,7 @@
                             android:id="@+id/etLoanPurpose"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/hit_purpos"
                             android:paddingLeft="10dp"
                             android:background="@null" />
@@ -212,7 +214,7 @@
 
                     <ImageView
                         android:id="@+id/imgLoanAmount"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:layout_below="@id/imgPurpose"
@@ -230,6 +232,7 @@
                             android:id="@+id/etLoanAmount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/hit_loan_amount"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
@@ -238,7 +241,7 @@
 
                     <ImageView
                         android:id="@+id/imgLoanTerm"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:layout_below="@id/imgLoanAmount"
@@ -256,6 +259,7 @@
                             android:id="@+id/etLoanTerm"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/title_loan_term"
                             android:paddingLeft="10dp"
                             android:inputType="number"
@@ -285,9 +289,8 @@
 
                     <ImageView
                         android:id="@+id/imgIDCard"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
@@ -298,8 +301,7 @@
                         android:layout_toRightOf="@+id/imgIDCard"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_state_id"
-                        android:layout_marginLeft="-5dp"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:background="@null"
                         android:spinnerMode="dropdown"/>
 
@@ -317,10 +319,9 @@
 
                     <ImageView
                         android:id="@+id/imgFamilyBook"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgIDCard"
-                        android:paddingRight="10dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
@@ -333,8 +334,7 @@
                         android:layout_below="@+id/imgIDCard"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_family_book"
-                        android:layout_marginLeft="-5dp"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:background="@null"
                         android:spinnerMode="dropdown"/>
                     <!--<TextView-->
@@ -352,11 +352,9 @@
 
                     <ImageView
                         android:id="@+id/imgStaffID"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgFamilyBook"
-                        android:paddingRight="10dp"
-                        android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
                     <com.tiper.MaterialSpinner
@@ -367,8 +365,7 @@
                         android:layout_below="@+id/imgFamilyBook"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_staffid"
-                        android:layout_marginLeft="-5dp"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:background="@null"
                         android:spinnerMode="dropdown"/>
                     <!--<TextView-->
@@ -386,10 +383,9 @@
 
                     <ImageView
                         android:id="@+id/imgLandTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgStaffID"
-                        android:paddingRight="10dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
@@ -401,8 +397,7 @@
                         android:layout_below="@+id/imgStaffID"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_hourse"
-                        android:layout_marginLeft="-5dp"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:background="@null"
                         android:spinnerMode="dropdown"/>
                     <!--<TextView-->

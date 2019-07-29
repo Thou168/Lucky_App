@@ -1922,8 +1922,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void selectImage() {
-//        final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};
-        String[] items =getResources().getStringArray(R.array.photo_upload);
+        final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(Camera.this);
         builder.setItems(items, (dialog, item) -> {
             if (items[item].equals("Take Photo")) {

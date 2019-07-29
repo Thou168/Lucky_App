@@ -81,7 +81,7 @@
 
                     <ImageView
                         android:id="@+id/imgTitle"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
 
                         android:layout_gravity="center_vertical"
@@ -107,9 +107,8 @@
 
                     <ImageView
                         android:id="@+id/imgPostType"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgTitle"
                         android:background="@drawable/underline_gray"/>
@@ -118,12 +117,12 @@
                         android:id="@+id/tvPostType"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginLeft="-5dp"
+
                         android:layout_toRightOf="@+id/imgPostType"
                         android:gravity="center_vertical"
                         android:hint="@string/post_type"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:textSize="14dp"
                         android:background="@drawable/underline_gray"
                         android:layout_below="@+id/imgTitle"/>
@@ -146,10 +145,9 @@
                     -->
                     <ImageView
                         android:id="@+id/imgCategory"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
-                        android:paddingRight="10dp"
                         android:layout_below="@+id/imgPostType"
                         android:background="@drawable/underline_gray"/>
                     <Button
@@ -162,16 +160,14 @@
                         android:hint="@string/category"
                         android:textSize="14dp"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
-                        android:background="@drawable/underline_gray"
-                        android:layout_marginLeft="-5dp"/>
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/underline_gray" />
                         <!--android:drawableRight="@drawable/chevron_down_24" />-->
 
                     <ImageView
                         android:id="@+id/imgType_elec"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgCategory"
                         android:background="@drawable/underline_gray"/>
@@ -185,16 +181,14 @@
                         android:hint="@string/type"
                         android:textSize="14dp"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
-                        android:background="@drawable/underline_gray"
-                        android:layout_marginLeft="-5dp"/>
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/underline_gray" />
                         <!--android:drawableRight="@drawable/chevron_down_24"/>-->
 
                     <ImageView
                         android:id="@+id/imgBrand"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgType_elec"
                         android:background="@drawable/underline_gray"/>
@@ -207,17 +201,15 @@
                         android:gravity="center_vertical"
                         android:hint="@string/brand"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:textSize="14dp"
-                        android:layout_marginLeft="-5dp"
                         android:background="@drawable/underline_gray"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"/>-->
 
                     <ImageView
                         android:id="@+id/imgModel"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgBrand"
                         android:background="@drawable/underline_gray"/>
@@ -228,19 +220,17 @@
                         android:layout_below="@+id/imgBrand"
                         android:layout_toRightOf="@+id/imgModel"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="-5dp"
                         android:hint="@string/model"
                         android:textSize="14dp"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:background="@drawable/underline_gray"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgYear"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
-                        android:paddingRight="10dp"
                         android:layout_below="@+id/imgModel"
                         android:background="@drawable/underline_gray"/>
                     <Button
@@ -250,9 +240,8 @@
                         android:layout_below="@+id/imgModel"
                         android:layout_toRightOf="@+id/imgModel"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="-5dp"
                         android:hint="@string/year"
                         android:textSize="14dp"
                         android:background="@drawable/underline_gray"/>
@@ -260,10 +249,9 @@
 
                     <ImageView
                         android:id="@+id/imgCondition"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
-                        android:paddingRight="10dp"
                         android:layout_below="@+id/imgYear"
                         android:background="@drawable/underline_gray"/>
                     <Button
@@ -274,17 +262,15 @@
                         style="?android:attr/spinnerStyle"
                         android:layout_toRightOf="@+id/imgCondition"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="-5dp"
                         android:hint="@string/condition"
                         android:textSize="14dp"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:background="@drawable/underline_gray"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgColor"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgCondition"
                         android:background="@drawable/underline_gray"/>
@@ -296,10 +282,9 @@
                         android:layout_below="@+id/imgCondition"
                         android:layout_toRightOf="@+id/imgColor"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="-5dp"
                         android:hint="@string/color"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:textSize="14dp"
                         android:background="@drawable/underline_gray"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
@@ -307,7 +292,7 @@
 
                     <ImageView
                         android:id="@+id/imgPrice"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgColor"
                         android:layout_gravity="center_vertical"
@@ -335,7 +320,7 @@
 
                     <ImageView
                         android:id="@+id/imgDescription"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgPrice"
                         android:layout_gravity="center_vertical"
@@ -353,8 +338,8 @@
                             android:id="@+id/etDescription"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:textSize="@dimen/dp_16"
-                            android:hint="@string/description"
+                            android:textSize="14dp"
+                            android:hint="@string/Description"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
@@ -371,15 +356,14 @@
                         android:id="@+id/titl_discount"
                         android:padding="@dimen/dp_8"
                         android:text="@string/discountt"
-                        android:textSize="14dp"
+                        android:textSize="16dp"
                         android:background="@color/grey_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView
                         android:id="@+id/imgDisType"
-                        android:layout_width="wrap_content"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:paddingRight="10dp"
                         android:layout_below="@+id/titl_discount"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline_gray"/>
@@ -391,9 +375,8 @@
                         android:layout_toRightOf="@+id/imgDisType"
                         android:gravity="center_vertical"
                         android:hint="@string/discount_type"
-                        android:layout_marginLeft="-5dp"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="7dp"
+                        android:paddingLeft="10dp"
                         android:textSize="14dp"
                         android:background="@drawable/underline_gray" />
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
@@ -401,7 +384,7 @@
 
                     <ImageView
                         android:id="@+id/imgDisAmount"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgDisType"
                         android:layout_gravity="center_vertical"
@@ -419,6 +402,7 @@
                             android:id="@+id/etDisAmount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:textSize="14dp"
                             android:hint="@string/discount"
                             android:inputType="number"
                             android:paddingLeft="10dp"
@@ -430,7 +414,7 @@
                 <TextView
                     android:padding="@dimen/dp_8"
                     android:text="@string/contact_detail"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:background="@color/grey_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -440,7 +424,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/imgName"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
@@ -465,7 +449,7 @@
 
                     <ImageView
                         android:id="@+id/imgPhone1"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgName"
                         android:layout_gravity="center_vertical"
@@ -495,7 +479,7 @@
 
                     <ImageView
                         android:id="@+id/imgEmail"
-                        android:layout_width="20dp"
+                        android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgPhone1"
                         android:layout_gravity="center_vertical"
@@ -523,8 +507,8 @@
 
                     <ImageView
                         android:id="@+id/imgAddress"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="15dp"
+                        android:layout_height="45dp"
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgEmail"
                         android:background="#ffff"/>

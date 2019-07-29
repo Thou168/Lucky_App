@@ -82,9 +82,9 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
-            title.text = item.title
-            cost.text = item.cost.toString()
-            count_view.text = "view:"+item.count_view
+//            title.text = item.title
+//            cost.text = item.cost.toString()
+//            count_view.text = "view:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

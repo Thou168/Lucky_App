@@ -12,6 +12,7 @@
     <string name="nav_detail">Detail</string>
     <string name="detail">DETAIL</string>
     <string name="description">DESCRIPTION</string>
+    <string name="Description">Description</string>
     <string name="tax">Tax Type</string>
     <string name="brand">Brand</string>
     <string name="year">Year</string>
@@ -484,10 +485,6 @@
     <string name="no_result">No Result</string>
     <string name="related_poat">Related Post</string>
 
-    <string-array name="photo_upload">
-        <item>Take Photo</item>
-        <item>Choose from Library</item>
-        <item>Cancel</item>
-    </string-array>
+    <string name="english_khmer">English</string>
 
 </resources>

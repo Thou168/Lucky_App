@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/imgType"
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="45dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/icon_null"
@@ -24,7 +24,7 @@
 
     <ImageView
         android:id="@+id/imgUsername"
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="45dp"
         android:layout_below="@+id/imgType"
         android:layout_gravity="center_vertical"
@@ -51,9 +51,8 @@
 
     <ImageView
         android:id="@+id/imgGender"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="45dp"
-        android:paddingRight="10dp"
         android:src="@drawable/icon_null"
         android:layout_below="@id/imgUsername"
         android:background="@drawable/underline_gray"/>
@@ -62,22 +61,20 @@
         android:id="@+id/mp_Gender"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgGender"
         android:layout_below="@+id/imgUsername"
         android:gravity="center_vertical"
         android:hint="@string/hit_gender"
         android:textSize="14dp"
-        android:paddingLeft="7dp"
+        android:paddingLeft="10dp"
         android:drawableRight="@drawable/chevron_down_24"
         android:background="@drawable/underline_gray"
         style="?android:attr/spinnerStyle" />
 
     <ImageView
         android:id="@+id/imgDob"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="45dp"
-        android:paddingRight="10dp"
         android:src="@drawable/icon_null"
         android:layout_below="@id/imgGender"
         android:background="@drawable/underline_gray"/>
@@ -86,7 +83,6 @@
         android:id="@+id/mp_Dob"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgGender"
         android:layout_below="@+id/imgGender"
         android:gravity="center_vertical"
@@ -94,14 +90,13 @@
         android:textSize="14dp"
         android:background="@drawable/underline_gray"
         style="?android:attr/spinnerStyle"
-        android:paddingLeft="7dp"
+        android:paddingLeft="10dp"
         android:drawableRight="@drawable/chevron_down_24"/>
 
     <ImageView
         android:id="@+id/imgPob"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="45dp"
-        android:paddingRight="10dp"
         android:src="@drawable/icon_null"
         android:layout_below="@id/imgDob"
         android:background="@drawable/underline_gray"/>
@@ -110,22 +105,20 @@
         android:id="@+id/mp_Pob"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgPob"
         android:layout_below="@+id/imgDob"
         android:gravity="center_vertical"
         android:hint="@string/place"
         android:textSize="14dp"
         style="?android:attr/spinnerStyle"
-        android:paddingLeft="7dp"
+        android:paddingLeft="10dp"
         android:background="@drawable/underline_gray"
         android:drawableRight="@drawable/chevron_down_24"
         />
     <ImageView
         android:id="@+id/imgMarried"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="45dp"
-        android:paddingRight="10dp"
         android:src="@drawable/icon_null"
         android:layout_below="@id/imgPob"
         android:background="@drawable/underline_gray"/>
@@ -134,20 +127,19 @@
         android:id="@+id/mp_Married"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgMarried"
         android:layout_below="@+id/imgPob"
         android:gravity="center_vertical"
         android:hint="@string/married"
         android:textSize="14dp"
-        android:paddingLeft="7dp"
+        android:paddingLeft="10dp"
         style="?android:attr/spinnerStyle"
         android:background="@drawable/underline_gray"
         android:drawableRight="@drawable/chevron_down_24"/>
 
     <ImageView
         android:id="@+id/imgWingName"
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="45dp"
         android:layout_below="@+id/imgMarried"
         android:layout_gravity="center_vertical"
@@ -174,10 +166,9 @@
 
     <ImageView
         android:id="@+id/imgWingNumber"
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="45dp"
         android:layout_below="@+id/imgWingName"
-        android:layout_gravity="center_vertical"
         android:src="@drawable/icon_null"
         android:background="@drawable/underline_gray"/>
     <com.google.android.material.textfield.TextInputLayout
@@ -201,10 +192,9 @@
 
     <ImageView
         android:id="@+id/imgPhone_account"
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="45dp"
         android:layout_below="@+id/imgWingNumber"
-        android:layout_gravity="center_vertical"
         android:src="@drawable/icon_null"
         android:background="@drawable/underline_gray"/>
     <com.google.android.material.textfield.TextInputLayout
@@ -228,9 +218,8 @@
 
     <ImageView
         android:id="@+id/imgLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="45dp"
-        android:paddingRight="10dp"
         android:src="@drawable/icon_null"
         android:layout_below="@id/imgPhone_account"
         android:background="@drawable/underline_gray"/>
@@ -239,7 +228,6 @@
         android:id="@+id/mp_Location"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="-5dp"
         android:layout_toRightOf="@+id/imgLocation"
         android:layout_below="@+id/imgPhone_account"
         android:gravity="center_vertical"
@@ -247,7 +235,7 @@
         android:textSize="14dp"
         android:background="@drawable/underline_gray"
         style="?android:attr/spinnerStyle"
-        android:paddingLeft="7dp"
+        android:paddingLeft="10dp"
         android:drawableRight="@drawable/chevron_down_24"
         />
 
