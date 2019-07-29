@@ -16,7 +16,6 @@ import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
-import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_loan
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_edit_loan
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
@@ -76,7 +75,7 @@ class FragmentC1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        //getMyLoan()
+        getMyLoan()
         return view
     }
 
@@ -86,7 +85,8 @@ class FragmentC1: Fragment() {
     }
 
     private fun getMyLoan() {
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?loan_status=1"
+        val itemApi = ArrayList<LoanItemAPI>()
         val client= OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)
@@ -108,22 +108,25 @@ class FragmentC1: Fragment() {
                 try {
 
                     activity!!.runOnUiThread {
-                        val itemApi = ArrayList<LoanItemAPI>()
-                        //Log.d("Run GET Loan  :"," la"+jsonObject)
+//                        val itemApi = ArrayList<LoanItemAPI>()
+                        Log.d("Run GET Loan  :"," la"+jsonObject)
 
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
+
                         if (jsonCount == 0 ){
                             progreessbar!!.visibility = View.GONE
                             txtno_found!!.visibility = View.VISIBLE
                         }
+
                         progreessbar!!.visibility = View.GONE
                         for (i in 0 until jsonArray.length()) {
-                        val `object` = jsonArray.getJSONObject(i)
+                            val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
                             Log.d("Loan ID","LaLa"+loanID)
-                        post_id = `object`.getInt("post")
-                        //Log.d("Post id ",post_id.toString())
+
+                            post_id = `object`.getInt("post")
+                            Log.d("Post id ",post_id.toString())
 
                             val url_user = ConsumeAPI.BASE_URL+"allposts/"+post_id+"/"
                             Log.d("Post id ",url_user)
@@ -160,6 +163,8 @@ class FragmentC1: Fragment() {
                                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                                                 ///
                                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
+                                                Log.d("Respone 1",URL_ENDPOINT1)
+
                                                 var MEDIA_TYPE = MediaType.parse("application/json")
                                                 val client1 = OkHttpClient()
                                                 //val auth = "Basic $encode"
@@ -180,7 +185,7 @@ class FragmentC1: Fragment() {
                                                         val mMessage = response.body()!!.string()
                                                         val gson = Gson()
                                                         try {
-                                                            Log.d("FRAGMENT 1", mMessage)
+                                                            Log.d("FRAGMENT 3", mMessage)
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
@@ -196,6 +201,10 @@ class FragmentC1: Fragment() {
                                                     }
                                                 })
                                             }
+                                          //  itemApi.add(Item_API(id,img_user,image,title,cost,condition,ago.toString(),0))
+
+
+
                                         }
 
                                     } catch (e: JsonParseException) {

@@ -113,6 +113,7 @@
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" /> <!-- <activity android:name=".useraccount.UserInformationActivity"/> -->
         <activity android:name=".loan.LoanCreateActivity" />
+        <activity android:name=".AccountTab.MainAccountTabs"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

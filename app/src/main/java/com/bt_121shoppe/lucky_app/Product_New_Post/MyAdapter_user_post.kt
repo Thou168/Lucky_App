@@ -26,6 +26,7 @@ import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import com.bt_121shoppe.lucky_app.Activity.Account
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
+import com.bt_121shoppe.lucky_app.fragments.FragmentC1
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -129,7 +130,9 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 if (sharedPref.contains("token") || sharedPref.contains("id")){
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")
+
                     Encode ="Basic "+ CommonFunction.getEncodedString(name,pass)
+
                     if (sharedPref.contains("token")) {
                         pk = sharedPref.getInt("Pk", 0)
                     } else if (sharedPref.contains("id")) {
@@ -262,7 +265,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 lateinit var sharedPref: SharedPreferences
                 var name=""
                 var pass=""
-                var Encode=""
+                var Encode=""       //pw and user combind to 1 String
                 var pk=0
 
                 sharedPref= it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
