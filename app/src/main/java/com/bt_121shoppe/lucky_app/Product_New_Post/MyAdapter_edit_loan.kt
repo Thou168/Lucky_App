@@ -82,8 +82,8 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
-//            title.text = item.title
-//            cost.text = item.cost.toString()
+            title.text = item.title
+            cost.text = item.cost.toString()
 //            count_view.text = "view:"+item.count_view
 
             if (item.postType.equals("sell")){
@@ -94,14 +94,18 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                 post_type.setImageResource(R.drawable.rent)
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-                val intent = Intent(itemView.context, Detail_New_Post::class.java)
-//                intent.putExtra("Image",decodedByte)
-//                intent.putExtra("Image_user",decodedByte)
-//                intent.putExtra("Title",item.title)
-                  intent.putExtra("Price",item.cost)
-//                intent.putExtra("postt",1)
-////                intent.putExtra("Name",item.name)
-                  intent.putExtra("ID",item.id)
+//                val intent = Intent(itemView.context, Detail_New_Post::class.java)
+////                intent.putExtra("Image",decodedByte)
+////                intent.putExtra("Image_user",decodedByte)
+////                intent.putExtra("Title",item.title)
+//                  intent.putExtra("Price",item.cost)
+////                intent.putExtra("postt",1)
+//////                intent.putExtra("Name",item.name)
+//                  intent.putExtra("ID",item.id)
+//                itemView.context.startActivity(intent)
+                val intent = Intent(itemView.context, LoanCreateActivity::class.java)
+                intent.putExtra("id",item.loanId)
+                intent.putExtra("post",item.id)
                 itemView.context.startActivity(intent)
             }
 

@@ -291,7 +291,7 @@
     //Camera post
     <string name="choose">ជ្រើសរើស</string>
     <string name="choose_language">ជ្រើសរើសភាសា</string>
-    <string name="upload">បញ្ជូល</string>
+    <string name="upload">បញ្ចូល</string>
 
     //post ad
     <string name="post_type">ប្រភេទប្រកាស</string>

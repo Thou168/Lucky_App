@@ -76,7 +76,7 @@ class FragmentB1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        //getMyLike()
+        getMyLike()
 
         return view
     }
@@ -84,7 +84,7 @@ class FragmentB1: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //setUpRecyclerView()
-//        getMyLike()
+        getMyLike()
     }
 
     private fun getMyLike() {
