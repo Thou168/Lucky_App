@@ -37,7 +37,8 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
                     editor.commit()
                     dialog.cancel()
                     FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(this@Setting, Home::class.java))
+
+                    startActivity(Intent(this@Setting, Home::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 }
                                      .setNegativeButton(Html.fromHtml("<font color='#1616FA'>Cancel</font>"), object: DialogInterface.OnClickListener {
 

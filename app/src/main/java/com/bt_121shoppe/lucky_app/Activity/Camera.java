@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -28,7 +27,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
@@ -42,13 +40,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.bt_121shoppe.lucky_app.AccountTab.MainAccountTabs;
-import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity;
+
 import com.bt_121shoppe.lucky_app.models.CreatePostModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -68,7 +64,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.karumi.dexter.listener.PermissionRequest;
@@ -76,21 +71,17 @@ import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.squareup.picasso.Picasso;
-import com.tiper.MaterialSpinner;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import butterknife.ButterKnife;
@@ -210,7 +201,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         break;
                     case R.id.camera:
                         if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), android.graphics.Camera.class));
+                            startActivity(new Intent(getApplicationContext(), Camera.class));
                         }else {
                             startActivity(new Intent(getApplicationContext(), UserAccount.class));
                         }
@@ -245,7 +236,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         Call_Type(Encode);
         Call_years(Encode);
         initialUserInformation(pk,Encode);
-        getData_Post(Encode,edit_id);
+
         TextChange();
 
         bundle = getIntent().getExtras();
@@ -256,6 +247,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 cate=bundle.getInt("category",0);
 
                 if(strPostType.equals("buy")){
+                    relatve_discount.setVisibility(View.GONE);
                     toolbar.setBackgroundColor(getColor(R.color.logo_orange));
                 }else if(strPostType.equals("sell")){
                     toolbar.setBackgroundColor(getColor(R.color.logo_green));
@@ -278,6 +270,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 Log.d("Edit_id:", String.valueOf(edit_id));
             }
         }
+
+        getData_Post(Encode,edit_id);
 
         tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -434,7 +428,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if (bundle!=null) {
+
                     mProgress.show();
+                    //Toast.makeText(getApplicationContext(),"Edit",Toast.LENGTH_SHORT).show();
+                    if(process_type==1){
+                        PostData(Encode);
+                    }else{
+                        EditPost_Approve(Encode, edit_id);
+                    }
+
       //              EditPost_Approve(Encode, edit_id);
                 } else  {
                     mProgress.show();
@@ -500,16 +502,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
 
                                 String addr = object.getString("contact_address");
-
+                                if(!addr.isEmpty()) {
                                     String[] splitAddr = addr.split(",");
                                     latitude = Double.valueOf(splitAddr[0]);
                                     longtitude = Double.valueOf(splitAddr[1]);
-                                    getLocation_edit(latitude,longtitude);
+                                    getLocation_edit(latitude, longtitude);
                                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                                             .findFragmentById(R.id.map_post);
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
-
-
+                                }
                                 String fron = object.getString("front_image_base64");
                                 String back = object.getString("back_image_base64");
                                 String left = object.getString("left_image_base64");
@@ -776,7 +777,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle("Post ads");
-                                        alertDialog.setMessage("This Post ads has been successfully submitted.");
+                                        alertDialog.setMessage("Your post is waiting for approval.");
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
@@ -943,7 +944,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             //Instant.now().toString()
             //post.put("created", "");
             post.put("created_by", pk);
-            post.put("modified", Instant.now().toString());
+            if (android.os.Build.VERSION.SDK_INT >= 26){
+                post.put("modified", Instant.now().toString());
+            } else{
+                String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                post.put("modified", currentDateTimeString);
+                // do something for phones running an SDK before lollipop
+            }
             post.put("modified_by", pk);
             post.put("approved_date", null);
             post.put("approved_by", null);
@@ -973,7 +980,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     sale.put("price", etPrice.getText().toString());
                     sale.put("total_price",etPrice.getText().toString());
                     post.put("sale_post",new JSONArray("["+sale+"]"));
-
+                    //post.put("rent_post",new JSONArray("[]"));
+                    //post.put("buy_post",new JSONArray("[]"));
                     break;
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/"+ edit_id+"/";
@@ -996,6 +1004,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;
             }
+            //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
             Log.d(TAG,post.toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
@@ -1013,6 +1022,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
                     Log.d(TAG, "TTTT" + respon);
+                    //Toast.makeText(Camera.this,respon,Toast.LENGTH_LONG).show();
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{

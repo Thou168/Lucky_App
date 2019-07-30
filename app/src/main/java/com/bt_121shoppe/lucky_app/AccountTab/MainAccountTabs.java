@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Camera;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;

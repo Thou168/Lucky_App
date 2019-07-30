@@ -18,7 +18,6 @@ import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.R
 import java.io.ByteArrayOutputStream
 import android.widget.Toast
-import com.bt_121shoppe.lucky_app.Startup.MainActivity
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Build
@@ -28,10 +27,7 @@ import com.bt_121shoppe.lucky_app.Activity.Account
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.fragments.FragmentC1
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
-import com.google.gson.Gson
-import com.google.gson.JsonParseException
 import okhttp3.*
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -116,6 +112,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 Toast.makeText(it.context,"Edit "+item.title,Toast.LENGTH_SHORT).show()
                 val intent = Intent(itemView.context,Camera::class.java)
                 intent.putExtra("id_product",item.id)
+
                 itemView.context.startActivity(intent)
             }
             btn_delete.setOnClickListener {

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Camera">
+
     <LinearLayout
         android:layout_above="@+id/bnaviga"
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorSubmitButton">
             <TextView
                 android:id="@+id/tv_back"
@@ -125,8 +126,8 @@
                         android:paddingLeft="10dp"
                         android:textSize="14dp"
                         android:background="@drawable/underline_gray"
-                        android:layout_below="@+id/imgTitle"/>
-                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
+                        android:layout_below="@+id/imgTitle"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                     <!--
                     <com.tiper.MaterialSpinner
                         android:id="@+id/tvPostType"
@@ -160,8 +161,9 @@
                         android:hint="@string/category"
                         android:textSize="14dp"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
-                        android:background="@drawable/underline_gray" />
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"
+                        android:paddingLeft="10dp" />
                         <!--android:drawableRight="@drawable/chevron_down_24" />-->
 
                     <ImageView
@@ -181,6 +183,7 @@
                         android:hint="@string/type"
                         android:textSize="14dp"
                         style="?android:attr/spinnerStyle"
+                        android:drawableRight="@drawable/chevron_down_24"
                         android:paddingLeft="10dp"
                         android:background="@drawable/underline_gray" />
                         <!--android:drawableRight="@drawable/chevron_down_24"/>-->
@@ -201,10 +204,10 @@
                         android:gravity="center_vertical"
                         android:hint="@string/brand"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
                         android:textSize="14dp"
-                        android:background="@drawable/underline_gray"/>
-                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
+                        android:background="@drawable/underline_gray"
+                        android:paddingLeft="10dp"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgModel"
@@ -223,8 +226,9 @@
                         android:hint="@string/model"
                         android:textSize="14dp"
                         style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
-                        android:background="@drawable/underline_gray"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"
+                        android:paddingLeft="10dp"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgYear"
@@ -243,8 +247,9 @@
                         android:paddingLeft="10dp"
                         android:gravity="center_vertical"
                         android:hint="@string/year"
-                        android:textSize="14dp"
-                        android:background="@drawable/underline_gray"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"
+                        android:textSize="14dp"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
 
                     <ImageView
@@ -264,6 +269,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/condition"
                         android:textSize="14dp"
+                        android:drawableRight="@drawable/chevron_down_24"
                         android:paddingLeft="10dp"
                         android:background="@drawable/underline_gray"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
@@ -286,7 +292,8 @@
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="10dp"
                         android:textSize="14dp"
-                        android:background="@drawable/underline_gray"/>
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
 
 
@@ -378,7 +385,8 @@
                         style="?android:attr/spinnerStyle"
                         android:paddingLeft="10dp"
                         android:textSize="14dp"
-                        android:background="@drawable/underline_gray" />
+                        android:background="@drawable/underline_gray"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
 
 
@@ -475,8 +483,6 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-
                     <ImageView
                         android:id="@+id/imgEmail"
                         android:layout_width="15dp"
@@ -516,7 +522,7 @@
                     <TextView
                         android:id="@+id/tvAddress_post"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:layout_below="@+id/imgEmail"
                         android:layout_toRightOf="@+id/imgAddress"
                         android:gravity="center_vertical"

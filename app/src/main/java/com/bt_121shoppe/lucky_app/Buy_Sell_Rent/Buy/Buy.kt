@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toolbar
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.New_Main1
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.New_Main2
 import com.bt_121shoppe.lucky_app.R

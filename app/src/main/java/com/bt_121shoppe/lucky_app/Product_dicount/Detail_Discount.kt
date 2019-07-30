@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity

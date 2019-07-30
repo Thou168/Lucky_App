@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_edit_loan
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
@@ -128,7 +127,7 @@ class FragmentC1: Fragment() {
                             post_id = `object`.getInt("post")
                             Log.d("Post id ",post_id.toString())
 
-                            val url_user = ConsumeAPI.BASE_URL+"allposts/"+post_id+"/"
+                            val url_user = ConsumeAPI.BASE_URL+"detailposts/"+post_id+"/"
                             Log.d("Post id ",url_user)
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()

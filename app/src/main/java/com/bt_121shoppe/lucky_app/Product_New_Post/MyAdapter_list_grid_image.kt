@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.R
 import java.io.ByteArrayOutputStream
-import android.R.attr.data
-import java.nio.charset.StandardCharsets
 
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 

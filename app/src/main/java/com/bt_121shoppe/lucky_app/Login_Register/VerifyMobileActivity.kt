@@ -148,6 +148,9 @@ class VerifyMobileActivity : AppCompatActivity() {
                             hashMap["id"] = userId
                             hashMap["username"] = no
                             hashMap["imageURL"] = "default"
+                            hashMap["status"]="offline"
+                            hashMap["search"]=no.toLowerCase()
+                            hashMap["coverURL"]="default"
                             Log.d("TAG", "" + hashMap)
                             reference.child("users").child(userId).setValue(hashMap)
                             registerRequest()

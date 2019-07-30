@@ -6,26 +6,34 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
-import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 import com.bt_121shoppe.lucky_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 
 class Notification : AppCompatActivity() {
-//    internal abstract var items: ArrayList<Item>
-//    val items: ArrayList<Item> = ArrayList()
-//    internal abstract var ap: MyAdapter_notification
 
     private lateinit var back_noti: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //must be called before setContentView(...)
         setContentView(R.layout.activity_notification)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val mTitle = toolbar.findViewById(R.id.toolbar_title) as TextView
+        toolbar.title =getString(R.string.notification)
+        setSupportActionBar(toolbar)
+        mTitle.setText(toolbar.getTitle())
+
+        getSupportActionBar()!!.setDisplayShowTitleEnabled(false)
+        /*
         back_noti=findViewById<TextView>(R.id.back_notification)
         back_noti.setOnClickListener{
             finish()
         }
-
+        */
 //        val recyclerView_notification = findViewById<RecyclerView>(R.id.layout_notification)
 //        val items = ArrayList<Item>()
 //        items.addAll(Item.getList())
@@ -43,6 +51,10 @@ class Notification : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
+//                R.id.notification -> {8
+//                    val intent = Intent(this@Notification,Notification::class.java)
+//                    startActivity(intent)
+//                }
                 R.id.notification -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
                         val intent = Intent(this@Notification, Notification::class.java)

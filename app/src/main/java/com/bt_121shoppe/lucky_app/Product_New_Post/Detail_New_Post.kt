@@ -39,9 +39,11 @@ import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
-import com.google.android.gms.maps.CameraUpdateFactory
 
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.CameraUpdateFactory
+
+//import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
@@ -90,7 +92,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private var p=0
     private var pt=0
     internal lateinit var txt_detail_new: TextView
-
     private lateinit var tvPostTitle:TextView
     private lateinit var tvPrice:TextView
     private lateinit var tvBrand:TextView
@@ -182,7 +183,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
-        Log.d("adfjlsfjsldk",Encode)
+        //Log.d("adfjlsfjsldk",Encode)
         if (sharedPref.contains("token")) {
            pk = sharedPref.getInt("Pk",0)
         } else if (sharedPref.contains("id")) {
@@ -196,7 +197,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         initialProductPostDetail(Encode)
         submitCountView(Encode)
         countPostView(Encode)
-
 
 //        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 //
@@ -761,11 +761,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 Log.d("Phone ",phoneNumber)
                             }
 //SMS
+                            /*
                             val sms = findViewById<ImageView>(R.id.btn_sms)
                             sms.setOnClickListener {
                                 sms(phoneNumber)
                                 Log.d("SMS ",phoneNumber)
                             }
+                            */
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
@@ -831,7 +833,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         if(loanPrice.isNullOrEmpty()) aPrice=0.0 else aPrice=loanPrice.toDouble()
         if(loanInterestRate.isNullOrEmpty()) aInterestRate=1.5 else aInterestRate=loanInterestRate.toDouble()
-        if(loanTerm.isNullOrEmpty()) aLoanTerm=12 else aLoanTerm=loanTerm.toInt()*12
+        if(loanTerm.isNullOrEmpty()) aLoanTerm=1 else aLoanTerm=loanTerm.toInt()
 
         val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aInterestRate,aLoanTerm)
         Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)

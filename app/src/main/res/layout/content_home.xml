@@ -115,5 +115,6 @@
         android:id="@+id/bnaviga"
         app:menu="@menu/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="?android:attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
 </RelativeLayout>

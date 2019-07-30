@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.lucky_app.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class PostsList extends Fragment {

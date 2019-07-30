@@ -5,20 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Notification">
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_notification"
+        android:id="@+id/toolbar"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="?android:attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
         <TextView
-            android:id="@+id/back_notification"
-            android:layout_width="70dp"
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="@string/back"
-            android:gravity="center"
-            android:drawableLeft="@drawable/icon_back"
-            android:layout_height="35dp"/>
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_gravity="center" />
+
     </androidx.appcompat.widget.Toolbar>
+
     <!--<LinearLayout-->
         <!--android:id="@+id/noti_recy"-->
         <!--android:layout_above="@+id/bnaviga"-->
@@ -32,10 +36,11 @@
         <!--</androidx.recyclerview.widget.RecyclerView>-->
 
     <!--</LinearLayout>-->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:menu="@menu/bottom_navigation"
         android:id="@+id/bnaviga"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="?android:attr/actionBarSize" />
 </RelativeLayout>

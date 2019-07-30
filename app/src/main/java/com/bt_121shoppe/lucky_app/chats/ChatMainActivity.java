@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.chats;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bt_121shoppe.lucky_app.Activity.Account;
+import com.bt_121shoppe.lucky_app.Activity.Camera;
+import com.bt_121shoppe.lucky_app.Activity.Home;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount;
@@ -27,6 +32,7 @@ import com.bt_121shoppe.lucky_app.fragments.ProfileFragment;
 import com.bt_121shoppe.lucky_app.fragments.UsersFragment;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +46,7 @@ import com.google.gson.JsonParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -60,6 +67,9 @@ public class ChatMainActivity extends AppCompatActivity {
     private String encodeAuth="";
     private int pk=0;
 
+    SharedPreferences prefer;
+    private String name,pass,Encode;
+
     private CircleImageView profile_image;
     private TextView username;
 
@@ -67,6 +77,59 @@ public class ChatMainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
+
+        prefer = getSharedPreferences("Register",MODE_PRIVATE);
+        name = prefer.getString("name","");
+        pass = prefer.getString("pass","");
+        Encode = CommonFunction.getEncodedString(name,pass);
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk",0);
+        }else if (prefer.contains("id")) {
+            pk = prefer.getInt("id", 0);
+        }
+
+        BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
+        bnavigation.getMenu().getItem(3).setChecked(true);
+        bnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.notification:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Notification.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
+                        break;
+                    case R.id.camera:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Camera.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
+                        break;
+                    case R.id.message:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
+                        break;
+                    case R.id.account :
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Account.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -121,7 +184,7 @@ public class ChatMainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
         viewPagerAdapter.addFragment(new UsersFragment(),"Users");
-        viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
+        //viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -158,6 +221,27 @@ public class ChatMainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
         }
+    }
+
+    private void status(String status){
+        databaseReference=FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("status",status);
+
+        databaseReference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 
     private void getUserProfile() {

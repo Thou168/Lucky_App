@@ -2,7 +2,6 @@ package com.bt_121shoppe.lucky_app.AccountTab;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.lucky_app.Activity.Item_API;
 import com.bt_121shoppe.lucky_app.R;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class LoansList extends Fragment {
     public static final String TAG = "SubLoanFragement";

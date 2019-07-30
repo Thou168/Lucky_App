@@ -23,6 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:layout_gravity="center_horizontal"
             android:text="@string/loan_information"
             android:textSize="@dimen/page_title"
@@ -92,27 +93,20 @@
                         android:layout_below="@id/imgJob"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/etCoBorrower"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgCoBorrower"
                         android:layout_below="@+id/imgJob"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_co_borrower"
-                        android:background="@null"
-                        android:spinnerMode="dropdown"/>
-                        <!--<TextView-->
-                            <!--android:id="@+id/etCoBorrower"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="45dp"-->
-                            <!--android:layout_toRightOf="@+id/imgIDCard"-->
-                            <!--android:hint="Co-Borrower"-->
-                            <!--android:textSize="18dp"-->
-                            <!--android:paddingLeft="10dp"-->
-                            <!--android:gravity="center_vertical"-->
-                            <!--android:background="@drawable/underline"-->
-                            <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
+                        android:layout_marginLeft="-5dp"
+                        android:textSize="18dp"
+                        android:background="@drawable/underline_gray"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgMonthlyIncome"
@@ -294,28 +288,20 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <com.tiper.MaterialSpinner
+
+                    <Button
                         android:id="@+id/tvIDCard"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="-4dp"
                         android:layout_toRightOf="@+id/imgIDCard"
+                        android:background="@drawable/underline_gray"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_state_id"
                         android:textSize="14dp"
-                        android:background="@null"
-                        android:spinnerMode="dropdown"/>
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/tvIDCard"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="45dp"-->
-                        <!--android:layout_toRightOf="@+id/imgIDCard"-->
-                        <!--android:hint="ID Card"-->
-                        <!--android:textSize="18dp"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:background="@drawable/underline"-->
-                        <!--android:drawableRight="@drawable/arrow_right_black_24dp"/>-->
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:drawableRight="@drawable/chevron_down_24"/>
 
                     <ImageView
                         android:id="@+id/imgFamilyBook"
@@ -326,17 +312,20 @@
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
 
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvFamilyBook"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgFamilyBook"
                         android:layout_below="@+id/imgIDCard"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_family_book"
+                        android:layout_marginLeft="-5dp"
                         android:textSize="14dp"
-                        android:background="@null"
-                        android:spinnerMode="dropdown"/>
+                        android:background="@drawable/underline_gray"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                     <!--<TextView-->
                         <!--android:id="@+id/tvFamilyBook"-->
                         <!--android:layout_width="match_parent"-->
@@ -357,17 +346,20 @@
                         android:layout_below="@+id/imgFamilyBook"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvStaffID"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgStaffID"
                         android:layout_below="@+id/imgFamilyBook"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_staffid"
+                        android:layout_marginLeft="-5dp"
                         android:textSize="14dp"
-                        android:background="@null"
-                        android:spinnerMode="dropdown"/>
+                        android:background="@drawable/underline_gray"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                     <!--<TextView-->
                         <!--android:id="@+id/tvStaffID"-->
                         <!--android:layout_width="match_parent"-->
@@ -389,17 +381,20 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline"/>
-                    <com.tiper.MaterialSpinner
+                    <Button
                         android:id="@+id/tvLandTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgLandTitle"
                         android:layout_below="@+id/imgStaffID"
                         android:gravity="center_vertical"
                         android:hint="@string/hit_hourse"
+                        android:layout_marginLeft="-5dp"
                         android:textSize="14dp"
-                        android:background="@null"
-                        android:spinnerMode="dropdown"/>
+                        android:background="@drawable/underline_gray"
+                        style="?android:attr/spinnerStyle"
+                        android:paddingLeft="7dp"
+                        android:drawableRight="@drawable/chevron_down_24"/>
                     <!--<TextView-->
                         <!--android:id="@+id/tvLandTitle"-->
                         <!--android:layout_width="match_parent"-->

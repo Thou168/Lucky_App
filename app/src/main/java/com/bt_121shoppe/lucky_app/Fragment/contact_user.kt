@@ -1,25 +1,12 @@
 package com.bt_121shoppe.lucky_app.Fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
-import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.R
-import com.google.gson.Gson
-import com.google.gson.JsonParseException
-import okhttp3.*
-import java.io.IOException
 
 /**
  * A fragment representing a list of Items.

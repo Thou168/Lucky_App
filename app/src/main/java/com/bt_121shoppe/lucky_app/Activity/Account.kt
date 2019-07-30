@@ -2,7 +2,7 @@ package com.bt_121shoppe.lucky_app.Activity
 
 import android.Manifest
 import android.app.Activity
-import android.app.PendingIntent.getActivity
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,6 +17,7 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -39,8 +40,19 @@ import com.bt_121shoppe.lucky_app.fragments.FragmentB1
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.FileCompressor
 import com.bt_121shoppe.lucky_app.utils.ImageUtil
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.karumi.dexter.Dexter
@@ -59,8 +71,8 @@ import java.util.*
 
 class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
-    private val REQUEST_TAKE_PHOTO=1;
-    private val REQUEST_GALLARY_PHOTO=2;
+    private val REQUEST_TAKE_PHOTO=1
+    private val REQUEST_GALLARY_PHOTO=2
     private val GALLERY = 1
     private val CAMERA = 2
     private var type: String? = null
@@ -68,7 +80,6 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     private var upload: ImageView? = null
     private var uploadprofile: ImageView? = null
     private var tvUsername: TextView?= null
-
     private var PRIVATE_MODE = 0
     var username=""
     var password=""
@@ -80,12 +91,19 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     var mPhotoFile: File?=null
     var mCompressor: FileCompressor?=null
     var bitmapImage:Bitmap?=null
+
     internal lateinit var mainPager: ViewPager
     internal lateinit var tabs: TabLayout
-
     internal lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
     internal lateinit var viewPagerAdapter: ViewPagerAdapter
+
+    private lateinit var storageReference: StorageReference
+    private val IMAGE_REQUEST=1
+    private lateinit var imageUri:Uri
+    //private lateinit var uploadTask
+    internal var fuser: FirebaseUser? = null
+    internal lateinit var reference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,13 +113,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)
-        Log.d("Hello",password)
+        //Log.d("Hello",password)
         if (preferences.contains("token")) {
             pk = preferences.getInt("Pk", 0)
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        Log.d("Account", "User pk "+ username)
+        //Log.d("Account", "User pk "+ username)
         if(pk==0){
             Log.d("Account", "User pk "+ pk)
             val intent= Intent(this@Account,UserAccount::class.java)
@@ -167,6 +185,30 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             true
         }
 
+        /*
+        storageReference=FirebaseStorage.getInstance().getReference("uploads")
+        fuser=FirebaseAuth.getInstance().currentUser
+        reference=FirebaseDatabase.getInstance().getReference("users").child(fuser!!.uid)
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue(com.bt_121shoppe.lucky_app.models.User::class.java)
+                //username.setText(user!!.username)
+                if (user!!.imageURL == "default") {
+                    //image_profile.setImageResource(R.drawable.user)
+                    imgProfile!!.setImageResource(R.drawable.user)
+                } else {
+                    Glide.with(this@Account).load(user.imageURL).into(imgProfile)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+
+        */
+
         //press to show layout sheet_view_upload
         uploadcover = findViewById<Button>(R.id.btnUpload_Cover)
         uploadcover!!.setOnClickListener{
@@ -178,10 +220,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         upload = findViewById<ImageView>(R.id.imgProfile)
         upload!!.setOnClickListener{
             type = "profile"
+            //openImage()
             selectImage()
+
             //val upload = Sheetviewupload()
             //upload.show(supportFragmentManager,upload.tag)
         }
+
         uploadprofile = findViewById<ImageView>(R.id.imgCover)
         uploadprofile!!.setOnClickListener{
             type = "cover"
@@ -236,6 +281,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         tabLayout = findViewById<View>(R.id.tabs) as TabLayout
         tabLayout.setupWithViewPager(viewPager)
            */
+
         setUpPager()
         tvUsername=findViewById<TextView>(R.id.tvUsername)
         getUserProfile()
@@ -408,7 +454,6 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
         }
 
-
         /*
         if(requestCode == CAMERA && resultCode == Activity.RESULT_OK)
         {
@@ -446,6 +491,22 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         }
         */
     }
+
+    /*
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            imageUri = data.data
+
+            if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(this@Account, "Upload in progress.", Toast.LENGTH_LONG).show()
+            } else {
+                uploadImage()
+            }
+        }
+    }
+    */
+
     fun getEncodedString(username: String,password:String):String{
         val userpass = "$username:$password"
         return Base64.encodeToString(userpass.toByteArray(),
@@ -454,8 +515,8 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
     fun getUserProfile(){
         var user1 = User()
-        Log.d("Thou",pk.toString())
-        Log.d("Hello",encodeAuth)
+        //Log.d("Thou",pk.toString())
+        //Log.d("Hello",encodeAuth)
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
         var MEDIA_TYPE=MediaType.parse("application/json")
         var client= OkHttpClient()
@@ -483,14 +544,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         if(user1.profile!=null) {
                             val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
                             val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image
-                            Log.d("TAGGGGG", profilepicture)
-                            Log.d("TAGGGGG", coverpicture)
                             tvUsername!!.setText(user1.username)
                             //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
+                            /*
                             if (profilepicture.isNullOrEmpty()) {
                                 imgProfile!!.setImageResource(R.drawable.user)
-                                Log.d("Profile", "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+                                //Log.d("Profile", "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
                             } else {
                                 val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
@@ -504,6 +564,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 imgCover!!.setImageBitmap(decodedByte)
                             }
+                            */
                         }
                     }
 
@@ -514,6 +575,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             }
         })
     }
+
     fun getMyPosts(){
         var posts=PostViewModel()
         val URL_ENDPOINT=ConsumeAPI.BASE_URL+"postbyuser/"
@@ -525,6 +587,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                 .header("Content-Type","application/json")
                 .header("Authorization",encodeAuth)
                 .build()
+
         client.newCall(request).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
                 val mMessage = e.message.toString()
@@ -576,6 +639,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         }
         builder.show()
     }
+
     private fun requestStoragePermission(isCamera: Boolean) {
         Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .withListener(object : MultiplePermissionsListener {
@@ -720,5 +784,86 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             return mFragments.size
         }
     }
+
+
+    private fun openImage() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, IMAGE_REQUEST)
+    }
+
+    private fun getFileExtenstion(uri: Uri): String? {
+        val contentResolver = this@Account!!.getContentResolver()
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
+    }
+
+    /*
+    private fun uploadImage() {
+        val pd = ProgressDialog(this@Account)
+        pd.setMessage("Uploading")
+        pd.show()
+
+        if (imageUri != null) {
+            val fileReference = storageReference.child(System.currentTimeMillis().toString()
+                    + "." + getFileExtenstion(imageUri))
+
+            uploadTask = fileReference.putFile(imageUri)
+
+            uploadTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                return@Continuation fileReference.downloadUrl
+            }).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    val mUri = downloadUri!!.toString()
+
+                    reference = FirebaseDatabase.getInstance().getReference("users").child(fuser!!.uid)
+                    val map = HashMap<String, Any>()
+                    map["imageURL"] = mUri
+                    reference.updateChildren(map)
+                    pd.dismiss()
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+            /*
+            uploadTask.continueWithTask(Continuation { task ->
+                if (!task.isSuccessful) {
+                    throw task.getException()!!
+                }
+                fileReference.downloadUrl
+            }).addOnCompleteListener(object : OnCompleteListener<Uri> {
+                override fun onComplete(task: Task<Uri>) {
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result as Uri?
+                        val mUri = downloadUri!!.toString()
+
+                        reference = FirebaseDatabase.getInstance().getReference("users").child(fuser!!.uid)
+                        val map = HashMap<String, Any>()
+                        map["imageURL"] = mUri
+                        reference.updateChildren(map)
+                        pd.dismiss()
+                    } else {
+                        Toast.makeText(this@Account, "Failed", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }).addOnFailureListener { e:Exception ->
+                Toast.makeText(this@Account, e.message, Toast.LENGTH_LONG).show()
+                pd.dismiss()
+            }
+            */
+        } else {
+            Toast.makeText(this@Account, "No image selected.", Toast.LENGTH_LONG).show()
+        }
+    }
+    */
 
 }

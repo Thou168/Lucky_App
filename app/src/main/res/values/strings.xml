@@ -43,7 +43,6 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-
     <string name="account_toolbar">My Account</string>
 
     <!-- Login String -->
@@ -83,7 +82,6 @@
 
     <string name="category">Category</string>
 
-
     <!--
      https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=20:0B:71:3B:B2:46:75:A1:87:78:2E:4C:49:3F:E3:B6:FD:2D:76:D3%3Bexample.javatpoint.com.kotlingooglemapcurrentlocation
 
@@ -92,6 +90,9 @@
     -->
     //map
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
+
+    <string name="facebook_app_id">596607940863011</string>
+    <string name="fb_login_protocol_scheme">fb596607940863011</string>
 
     <string-array name="category">
         <item>Category</item>

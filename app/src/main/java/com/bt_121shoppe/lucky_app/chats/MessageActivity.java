@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bt_121shoppe.lucky_app.Activity.Message;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.adapters.MessageAdapter;
 import com.bt_121shoppe.lucky_app.models.Chat;
@@ -50,6 +49,8 @@ public class MessageActivity extends AppCompatActivity {
     List<Chat> mChat;
     RecyclerView recyclerView;
 
+    ValueEventListener seenListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                //startActivity(new Intent(MessageActivity.this,ChatMainActivity.class));
             }
         });
 
@@ -117,6 +119,28 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
+    private void seenMessage(String userId){
+        reference=FirebaseDatabase.getInstance().getReference("chats");
+        seenListener=reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat=snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userId)){
+                        HashMap<String,Object> hashMap=new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void sendMessage(String sender,String receiver,String message){
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
 
@@ -124,7 +148,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
         hashMap.put("message",message);
-
+        hashMap.put("isseen",false);
         reference.child("chats").push().setValue(hashMap);
     }
 
@@ -150,5 +174,27 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void status(String status){
+        reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("status",status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //reference.removeEventListener(seenListener);
+        status("offline");
     }
 }

@@ -18,12 +18,10 @@ import android.widget.Toast;
 import com.bt_121shoppe.lucky_app.Activity.Home;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
-import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity;
 import com.bt_121shoppe.lucky_app.models.ChangepassModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,21 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.models.LoanViewModel;
-
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-import com.tiper.MaterialSpinner;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import okhttp3.Call;
@@ -56,15 +48,18 @@ public class LoanCreateActivity extends AppCompatActivity {
     //loan_information
     private Button btSubmit;
     EditText job_loan_information,monthly_income_loan_information,monthly_expense;
-    MaterialSpinner co_borrower_loan_information;
+    Button co_borrower_loan_information;
     EditText loan_purpose,loan_amount,loan_term;
+//    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
+    Button id_card,family_book,staff_id_or_salary_slip,land_tile;
     //    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
-    MaterialSpinner id_card,family_book,staff_id_or_salary_slip,land_tile;
+    //MaterialSpinner id_card,family_book,staff_id_or_salary_slip,land_tile;
     TextView txtBack;
     boolean estadoCadastro = true;
     SharedPreferences  pre_id;
     Bundle bundle;
 
+    String[] yesNos;
 
     //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
 //    String[] card_id = getResources().getStringArray(R.array.ID_card);
@@ -77,9 +72,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_create);
 
-//        postID = getIntent().getIntExtra("PutIDLoan",postID);
-//        Log.d(TAG,"Loan ID "+postID);
-
         txtBack = (TextView)findViewById(R.id.tvBack_account);
         txtBack.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -89,18 +81,16 @@ public class LoanCreateActivity extends AppCompatActivity {
         });
 
         job_loan_information = (EditText)findViewById(R.id.etJob);
-        co_borrower_loan_information = (MaterialSpinner) findViewById(R.id.etCoBorrower);
+        co_borrower_loan_information = (Button) findViewById(R.id.etCoBorrower);
         monthly_income_loan_information = (EditText)findViewById(R.id.etMonthlyIncome);
         monthly_expense = (EditText)findViewById(R.id.etMonthlyExpense);
-
         loan_purpose = (EditText)findViewById(R.id.etLoanPurpose);
         loan_amount = (EditText)findViewById(R.id.etLoanAmount);
         loan_term = (EditText)findViewById(R.id.etLoanTerm);
-
-        id_card = (MaterialSpinner) findViewById(R.id.tvIDCard);
-        family_book = (MaterialSpinner) findViewById(R.id.tvFamilyBook);
-        staff_id_or_salary_slip = (MaterialSpinner) findViewById(R.id.tvStaffID);
-        land_tile = (MaterialSpinner) findViewById(R.id.tvLandTitle);
+        id_card = (Button) findViewById(R.id.tvIDCard);
+        family_book = (Button) findViewById(R.id.tvFamilyBook);
+        staff_id_or_salary_slip = (Button) findViewById(R.id.tvStaffID);
+        land_tile = (Button) findViewById(R.id.tvLandTitle);
 
 //        price_loancreate = (EditText)findViewById(R.id.ed_loan_price);
 //        interest_rate = (EditText)findViewById(R.id.ed_loan_interest_rate);
@@ -117,6 +107,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             pk = preferences.getInt("id", 0);
         }
         Log.d("Pk",""+pk);
+        yesNos=getResources().getStringArray(R.array.co_borrower);
         ButterKnife.bind(this);
         Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,1.5,12)));
 
@@ -150,131 +141,131 @@ public class LoanCreateActivity extends AppCompatActivity {
         });
 
         String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
-        ArrayAdapter<String> borrower = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,co_borrower);
-        co_borrower_loan_information.setAdapter(borrower);
-        co_borrower_loan_information.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        co_borrower_loan_information.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String item = String.valueOf(borrower.getItem(i));
-                Log.d("Borrower", item);
-                if(!item.equals(null)){
-                    if (item.equals("Yes")){
-                        status_borrower = "Yes";
-                        Log.d("Value borrow ",status_borrower);
-                    }else {
-                        status_borrower = "No";
-                        Log.d("Value borrow ",status_borrower);
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoanCreateActivity.this);
+                //mBuilder.setTitle("Choose Category");
+                mBuilder.setSingleChoiceItems(co_borrower, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        co_borrower_loan_information.setText(co_borrower[i]);
+                        status_borrower=co_borrower[i];
+                        dialogInterface.dismiss();
                     }
+                });
 
-                }
-            }
-
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
+
         String[] card_id = getResources().getStringArray(R.array.ID_card);
-        ArrayAdapter<String> card_state = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,card_id);
-        id_card.setAdapter(card_state);
-        id_card.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        id_card.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String item = String.valueOf(card_state.getItem(i));
-                Log.d("ID", item);
-                if(!item.equals(null)){
-                    if (item.equals("Yes")){
-                        status_card = true;
-                        Log.d("Value card ",status_card.toString());
-                    }else {
-                        status_card = false;
-                        Log.d("Value card ",status_card.toString());
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoanCreateActivity.this);
+                //mBuilder.setTitle("Choose Category");
+                mBuilder.setSingleChoiceItems(card_id, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        id_card.setText(card_id[i]);
+                        switch (i){
+                            case 0:
+                                status_card=true;
+                                break;
+                            case 1:
+                                status_card=false;
+                                break;
+                        }
+                        dialogInterface.dismiss();
                     }
+                });
 
-                }
-            }
-
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
         String[] family = getResources().getStringArray(R.array.Family_book);
-        ArrayAdapter<String> book_family = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,family);
-        family_book.setAdapter(book_family);
-        family_book.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        family_book.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String item = String.valueOf(book_family.getItem(i));
-                Log.d("BOOK", item);
-                if(!item.equals(null)){
-                    if (item.equals("Yes")){
-                        status_family = true;
-                        Log.d("Value family ",status_family.toString());
-                    }else {
-                        status_family = false;
-                        Log.d("Value family ",status_family.toString());
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoanCreateActivity.this);
+                //mBuilder.setTitle("Choose Category");
+                mBuilder.setSingleChoiceItems(family, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        family_book.setText(family[i]);
+                        switch (i){
+                            case 0:
+                                status_family=true;
+                                break;
+                            case 1:
+                                status_family=false;
+                                break;
+                        }
+                        dialogInterface.dismiss();
                     }
+                });
 
-                }
-            }
-
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
         String[] staff_id = getResources().getStringArray(R.array.Staff_id);
-        ArrayAdapter<String> staff_id_loan = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,staff_id);
-        staff_id_or_salary_slip.setAdapter(staff_id_loan);
-        staff_id_or_salary_slip.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        staff_id_or_salary_slip.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String item = String.valueOf(staff_id_loan.getItem(i));
-                Log.d("Staff ID", item);
-                if(!item.equals(null)){
-                    if (item.equals("Yes")){
-                        status_staff = true;
-                        Log.d("Staff id ",status_staff.toString());
-                    }else {
-                        status_staff = false;
-                        Log.d("Staff id ",status_staff.toString());
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoanCreateActivity.this);
+                //mBuilder.setTitle("Choose Category");
+                mBuilder.setSingleChoiceItems(staff_id, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        staff_id_or_salary_slip.setText(staff_id[i]);
+                        switch (i){
+                            case 0:
+                                status_staff=true;
+                                break;
+                            case 1:
+                                status_staff=false;
+                                break;
+                        }
+                        dialogInterface.dismiss();
                     }
-                }
-            }
+                });
 
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
         String[] land_title = getResources().getStringArray(R.array.Land_Tile);
-        ArrayAdapter<String> land_title_loan = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,land_title);
-        land_tile.setAdapter(land_title_loan);
-        land_tile.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+        land_tile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-                String item = String.valueOf(land_title_loan.getItem(i));
-                Log.d("Land Title", item);
-                if(!item.equals(null)){
-                    if (item.equals("Yes")){
-                        status_title = true;
-                        Log.d("Land ",status_title.toString());
-                    }else {
-                        status_title = false;
-                        Log.d("Land ",status_title.toString());
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoanCreateActivity.this);
+                //mBuilder.setTitle("Choose Category");
+                mBuilder.setSingleChoiceItems(land_title, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        land_tile.setText(land_title[i]);
+                        switch (i){
+                            case 0:
+                                status_title=true;
+                                break;
+                            case 1:
+                                status_title=false;
+                                break;
+                        }
+                        dialogInterface.dismiss();
                     }
+                });
 
-                }
-            }
-
-            @Override
-            public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
 
@@ -288,10 +279,10 @@ public class LoanCreateActivity extends AppCompatActivity {
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",0.5);
+            data.put("loan_interest_rate",0);
             data.put("loan_duration",loan_term.getText().toString());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",1);
+            data.put("loan_status",9);
             data.put("record_status",1);
             data.put("username",status_borrower);
             data.put("gender","female");
@@ -442,31 +433,34 @@ public class LoanCreateActivity extends AppCompatActivity {
                                         loan_purpose.setText(purpose);
                                         loan_amount.setText(String.valueOf(amount));
                                         loan_term.setText(String.valueOf(term));
+
                                         if(stateId == true ) {
-                                            id_card.setSelection(1);
+                                            id_card.setText(yesNos[0]);
                                         }else if (stateId == false){
-                                            id_card.setSelection(0);
+                                            id_card.setText(yesNos[1]);
                                         }
                                         if(family == true ) {
-                                            family_book.setSelection(1);
+                                            family_book.setText(yesNos[0]);
                                         }else if (family == false){
-                                            family_book.setSelection(0);
+                                            family_book.setText(yesNos[1]);
                                         }
                                         if(staffId == true ) {
-                                            staff_id_or_salary_slip.setSelection(1);
+                                            staff_id_or_salary_slip.setText(yesNos[0]);
                                         }else if (staffId == false){
-                                            staff_id_or_salary_slip.setSelection(0);
+                                            staff_id_or_salary_slip.setText(yesNos[1]);
                                         }
                                         if(house == true ) {
-                                            land_tile.setSelection(1);
+                                            land_tile.setText(yesNos[0]);
                                         }else if (house == false){
-                                            land_tile.setSelection(0);
+                                            land_tile.setText(yesNos[1]);
                                         }
+
                                         if(coborrow.equals("Yes") ) {
-                                            co_borrower_loan_information.setSelection(1);
+                                            co_borrower_loan_information.setText(yesNos[0]);
                                         }else if (coborrow.equals("No")){
-                                            co_borrower_loan_information.setSelection(0);
+                                            co_borrower_loan_information.setText(yesNos[1]);
                                         }
+
 
                                     }
 
@@ -493,7 +487,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         try{
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
-            data.put("loan_interest_rate",0.5);
+            data.put("loan_interest_rate",0);
             data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
             data.put("loan_status",9);
@@ -511,7 +505,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("staff_id",status_staff);   //staff_id
             data.put("house_plant",status_title);  //land_title
             data.put("post",postid);
-            data.put("created_by",pk_create);
+            data.put("created_by",pk);
 
             Log.d(TAG," d"+data);
             RequestBody body=RequestBody.create(MEDIA_TYPE,data.toString());

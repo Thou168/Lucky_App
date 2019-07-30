@@ -1,7 +1,6 @@
 package com.bt_121shoppe.lucky_app.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.lucky_app.R;
-import com.bt_121shoppe.lucky_app.chats.MessageActivity;
 import com.bt_121shoppe.lucky_app.models.Chat;
-import com.bt_121shoppe.lucky_app.models.User;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

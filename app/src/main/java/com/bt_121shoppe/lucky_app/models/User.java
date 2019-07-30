@@ -5,11 +5,17 @@ public class User {
     private String id;
     private String username;
     private String imageURL;
+    private String status;
+    private String search;
+    private String coverURL;
 
-    public User(String id,String username,String imageURL){
+    public User(String id,String username,String imageURL,String status,String search,String coverURL){
         this.id=id;
         this.username=username;
         this.imageURL=imageURL;
+        this.status=status;
+        this.search=search;
+        this.coverURL=coverURL;
     }
 
     public User(){
@@ -28,6 +34,14 @@ public class User {
         return imageURL;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -38,5 +52,21 @@ public class User {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public void setCoverURL(String coverURL) {
+        this.coverURL = coverURL;
+    }
+
+    public String getCoverURL() {
+        return coverURL;
     }
 }

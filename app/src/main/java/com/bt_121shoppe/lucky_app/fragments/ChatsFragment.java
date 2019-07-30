@@ -1,7 +1,5 @@
 package com.bt_121shoppe.lucky_app.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +16,6 @@ import com.bt_121shoppe.lucky_app.adapters.UserAdapter;
 import com.bt_121shoppe.lucky_app.models.Chat;
 import com.bt_121shoppe.lucky_app.models.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -107,7 +104,7 @@ public class ChatsFragment extends Fragment {
                         }
                     }
                 }
-                userAdapter=new UserAdapter(getContext(),mUsers);
+                userAdapter=new UserAdapter(getContext(),mUsers,true);
                 recyclerView.setAdapter(userAdapter);
             }
 

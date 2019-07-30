@@ -22,4 +22,5 @@ class AboutUsActivity : AppCompatActivity() {
         val txt_about_us_description=findViewById<TextView>(R.id.about_us_description)
         txt_about_us_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)
     }
+
 }

@@ -14,10 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.AccountTab.MainLikeList
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
-import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_like
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
@@ -126,7 +124,7 @@ class FragmentB1: Fragment() {
                                 post_id = `object`.getInt("post")
                                 Log.d("Post id ", post_id.toString())
 
-                                val url_user = "http://103.205.26.103:8000/allposts/" + post_id + "/"
+                                val url_user = "http://103.205.26.103:8000/detailposts/" + post_id + "/"
                                 Log.d("Post id ", url_user)
                                 val client1 = OkHttpClient()
                                 val request1 = Request.Builder()

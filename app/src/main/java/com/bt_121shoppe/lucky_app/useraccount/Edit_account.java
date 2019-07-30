@@ -32,8 +32,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bt_121shoppe.lucky_app.Activity.Account;
-import com.bt_121shoppe.lucky_app.Activity.Camera;
-import com.bt_121shoppe.lucky_app.Activity.Home;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
@@ -48,9 +46,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
-import com.tiper.MaterialSpinner;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +64,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Edit_account extends AppCompatActivity implements OnMapReadyCallback {
-
 
     private static final String TAG = Edit_account.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
@@ -119,7 +114,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         pass = prefer.getString("pass","");
         Encode =getEncodedString(name,pass);
 
-        convertDateofBirth("1996");
+        //convertDateofBirth("1996");
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Updating...");
@@ -381,7 +376,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 tvType.setText("Public User");
                             }
                             imgType.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            etUsername.setText(convertJsonJava.getUsername());
+                            etUsername.setText(convertJsonJava.getFirst_name());
                             imgtilUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             if(convertJsonJava.getProfile()!=null) {
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
@@ -414,6 +409,19 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                  if (addr.isEmpty()) {
                                      get_location(true);
                                  }else {
+                                     String[] splitAddr = addr.split(",");
+                                     latitude = Double.valueOf(splitAddr[0]);
+                                     longtitude = Double.valueOf(splitAddr[1]);
+                                     get_location(false);
+                                     //get_location(false);
+                                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                             .findFragmentById(R.id.map_Account);
+                                     mapFragment.getMapAsync(Edit_account.this::onMapReady);
+                                 }
+                                //Toast.makeText(Edit_account.this,"my addr"+lat +"  "+lon,Toast.LENGTH_LONG).show();
+                                //Log.d(TAG,"my address " +addr+" "+lat+" "+lon);
+                                //mp_Dob.setSelection(0);
+                                /*
                                  String[] splitAddr = addr.split(",");
                                  latitude = Double.valueOf(splitAddr[0]);
                                  longtitude = Double.valueOf(splitAddr[1]);
@@ -422,9 +430,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                  SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                                          .findFragmentById(R.id.map_Account);
                                  mapFragment.getMapAsync(Edit_account.this::onMapReady);
-
-                             }
-
+                                */
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);
                                 imgMarried.setImageResource(R.drawable.ic_check_circle_black_24dp);
@@ -442,6 +448,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                     getProvinceName(l,false);
                                 }
                             }
+
+
+                            //}
                         }
                     });
                 }catch (JsonParseException e){
@@ -470,7 +479,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 String province = field_province.getString("province");
                                 provinceListItems[i]=province;
                                 provinceIdListItems[i]=id;
-
                             }
 
                         } catch (JSONException e) {

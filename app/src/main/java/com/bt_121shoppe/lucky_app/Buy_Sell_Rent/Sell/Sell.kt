@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell_Main1
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell_Main2
 import com.bt_121shoppe.lucky_app.R
-import kotlinx.android.synthetic.main.activity_camera2.*
 
 class Sell : AppCompatActivity() {
 

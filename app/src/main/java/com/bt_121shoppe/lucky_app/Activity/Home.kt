@@ -45,7 +45,6 @@ import com.bt_121shoppe.lucky_app.Setting.Setting
 import com.bt_121shoppe.lucky_app.Setting.TermPrivacyActivity
 import com.bt_121shoppe.lucky_app.Startup.Item
 import com.bt_121shoppe.lucky_app.Startup.Search1
-import com.bt_121shoppe.lucky_app.Startup.Your_Post
 import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 import com.bt_121shoppe.lucky_app.utils.CheckNetwork
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
@@ -116,13 +115,13 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
          val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
          editor.putString("My_Lang", lang)
          editor.apply()
-     }
+    }
+
     fun locale() {
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         Log.d("language",language)
         language(language)
-
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -264,7 +263,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
-
             }
             true
         }
@@ -491,7 +489,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val respon = response.body()!!.string()
                 try {
                     runOnUiThread {
-                        ddBrand.setText("Brand")
+                        //ddBrand.setText("Brand")
                         brandId=""
                         val jsonObject = JSONObject(respon)
                         val jsonArray = jsonObject.getJSONArray("results")
@@ -536,7 +534,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         })
     }
@@ -578,6 +575,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
     }
     fun getUserProfile(){
+        Log.d("HOMMMMMMM", "User ID "+pk);
         var user1 = User()
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
         var MEDIA_TYPE=MediaType.parse("application/json")
@@ -655,7 +653,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     private fun Get(): ArrayList<Item_API>{
         val itemApi = ArrayList<Item_API>()
-        val url = "http://103.205.26.103:8000/allposts/"
+        val url = ConsumeAPI.BASE_URL+"allposts/"
         val client = OkHttpClient()
         val request = Request.Builder()
                 .url(url)
@@ -771,7 +769,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
     private fun getBest(): ArrayList<Item_discount>{
         val itemApi = ArrayList<Item_discount>()
-        val url = "http://103.205.26.103:8000/bestdeal/"
+        val url = ConsumeAPI.BASE_URL+"bestdeal/"
         val client = OkHttpClient()
         val request = Request.Builder()
                 .url(url)

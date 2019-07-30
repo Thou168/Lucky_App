@@ -20,7 +20,6 @@ class Sell_Main1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         content = findViewById(R.id.content) as FrameLayout
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment_sell_vehicle()).commit()
@@ -40,6 +39,9 @@ class Sell_Main1 : AppCompatActivity() {
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
                         val intent = Intent(this@Sell_Main1, Camera::class.java)
+                        intent.putExtra("process_type",1)
+                        intent.putExtra("post_type","sell")
+                        intent.putExtra("category",2) //buy eletronic=1
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

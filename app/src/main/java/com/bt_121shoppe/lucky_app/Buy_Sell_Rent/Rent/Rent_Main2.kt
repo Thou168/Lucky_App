@@ -39,6 +39,9 @@ class Rent_Main2 : AppCompatActivity() {
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
                         val intent = Intent(this@Rent_Main2, Camera::class.java)
+                        intent.putExtra("process_type",1)
+                        intent.putExtra("post_type","rent")
+                        intent.putExtra("category",1) //buy eletronic=1
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

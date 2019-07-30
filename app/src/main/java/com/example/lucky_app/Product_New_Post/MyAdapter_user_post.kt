@@ -1,7 +1,6 @@
 package com.example.lucky_app.Product_New_Post
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -14,10 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
-import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post
-import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.lucky_app.R
-import com.bt_121shoppe.lucky_app.Activity.Camera
 
 import java.io.ByteArrayOutputStream
 
