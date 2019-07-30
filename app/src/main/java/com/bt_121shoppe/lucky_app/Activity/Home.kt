@@ -12,6 +12,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.preference.SwitchPreference
 import android.provider.MediaStore
 import android.text.format.DateUtils
 import android.util.Base64
@@ -29,6 +31,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
@@ -66,8 +69,9 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import java.lang.Runnable as Runnable1
 
-class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     var recyclerView: RecyclerView? = null
     var list_item: ArrayList<Item_API>? = null
@@ -105,6 +109,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var txtno_found: TextView? = null
     var progreessbar1: ProgressBar? = null
     var txtno_found1: TextView? = null
+
+    var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    lateinit var mHandler: Handler
 
     fun language(lang: String) {
          val locale = Locale(lang)
@@ -305,6 +312,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         //best_list!!.adapter = MyAdapter(version)
         getBest()
 
+        mSwipeRefreshLayout = findViewById(R.id.refresh)
+        mSwipeRefreshLayout!!.setOnRefreshListener(this)
+
         val listview = findViewById<RecyclerView>(R.id.list_new_post)
 
         recyclerView = findViewById<RecyclerView>(R.id.list_new_post)
@@ -369,6 +379,13 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             intent.putExtra("year",yearId)
             startActivity(intent)
         }
+
+    }
+    override fun onRefresh() {
+        Handler().postDelayed({
+            recreate()
+            mSwipeRefreshLayout!!.setRefreshing(false)
+        }, 1500)
 
     }
     override fun onBackPressed() {
