@@ -346,7 +346,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:textSize="14dp"
-                            android:hint="@string/Description"
+                            android:hint="@string/description"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />

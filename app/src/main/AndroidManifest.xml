@@ -7,12 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!--<uses-permission android:name="android.permission.SEND_SMS" />-->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- <uses-permission android:name="android.permission.SEND_SMS" /> -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -24,8 +22,7 @@
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:node="replace" />
-    <!-- <uses-feature android:name="android.hardware.camera" /> -->
+        tools:node="replace" /> <!-- <uses-feature android:name="android.hardware.camera" /> -->
     <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
     <dist:module dist:instant="true" />
 
@@ -40,8 +37,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name="com.bt_121shoppe.lucky_app.Login_Register.FacebookLoginActivity"></activity>
+        <activity android:name=".Fragment.contact_user2"></activity>
+        <activity android:name=".Login_Register.FacebookLoginActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -50,13 +47,13 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name="com.bt_121shoppe.lucky_app.Splash_screen">
+        <activity android:name=".Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -73,32 +70,31 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.SpinnerActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.chats.MessageActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.chats.ChatMainActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Login_Register.VerifyMobileActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Login_Register.RegisterPhoneNumberActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Setting.ChangePassword" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Setting.TermPrivacyActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Setting.AboutUsActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Startup.Search" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Startup.Search1" />
-        <activity android:name="com.bt_121shoppe.lucky_app.useraccount.Edit_account" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.Notification" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Setting.Setting" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Login_Register.UserAccount" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Login_Register.Register" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Login_Register.Login" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.Home"></activity>
-        <activity android:name="com.bt_121shoppe.lucky_app.Startup.Your_Post" />
-        <activity android:name="com.bt_121shoppe.lucky_app.post.CameraActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.Camera" /> <!-- <meta-data -->
+        <activity android:name=".Activity.SpinnerActivity" />
+        <activity android:name=".chats.MessageActivity" />
+        <activity android:name=".chats.ChatMainActivity" />
+        <activity android:name=".Login_Register.VerifyMobileActivity" />
+        <activity android:name=".Login_Register.RegisterPhoneNumberActivity" />
+        <activity android:name=".Setting.ChangePassword" />
+        <activity android:name=".Setting.TermPrivacyActivity" />
+        <activity android:name=".Setting.AboutUsActivity" />
+        <activity android:name=".Startup.Search" />
+        <activity android:name=".Startup.Search1" />
+        <activity android:name=".useraccount.Edit_account" />
+        <activity android:name=".Activity.Notification" />
+        <activity android:name=".Setting.Setting" />
+        <activity android:name=".Login_Register.UserAccount" />
+        <activity android:name=".Login_Register.Register" />
+        <activity android:name=".Login_Register.Login" />
+        <activity android:name=".Activity.Home" />
+        <activity android:name=".Startup.Your_Post" />
+        <activity android:name=".post.CameraActivity" />
+        <activity android:name=".Activity.Camera" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.AccountActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.notifications.NotificationActivity" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.Account" />
+        <activity android:name=".Activity.AccountActivity" />
+        <activity android:name=".notifications.NotificationActivity" />
+        <activity android:name=".Activity.Account" />
         <!--
         <activity
             android:name=".Activity.Home"
@@ -112,33 +108,33 @@
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="7f07b09034fb44879e413e1314e73b0b" />
 
-        <activity android:name="com.bt_121shoppe.lucky_app.Activity.Message" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.Sell" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.New_Main1" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.New_Main2" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell_Main1" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell_Main2" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Rent.Rent" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Rent_Main1" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Rent_Main2" />
+        <activity android:name=".Activity.Message" />
+        <activity android:name=".Product_New_Post.Detail_New_Post" />
+        <activity android:name=".Buy_Sell_Rent.Sell.Sell" />
+        <activity android:name=".Buy_Sell_Rent.New_Main1" />
+        <activity android:name=".Buy_Sell_Rent.New_Main2" />
+        <activity android:name=".Buy_Sell_Rent.Sell_Main1" />
+        <activity android:name=".Buy_Sell_Rent.Sell_Main2" />
+        <activity android:name=".Buy_Sell_Rent.Rent.Rent" />
+        <activity android:name=".Buy_Sell_Rent.Rent_Main1" />
+        <activity android:name=".Buy_Sell_Rent.Rent_Main2" />
         <activity
-            android:name="com.bt_121shoppe.lucky_app.Startup.New_Main"
+            android:name=".Startup.New_Main"
             android:label="@string/title_activity_new__main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Buy.Buy" />
-        <activity android:name="com.bt_121shoppe.lucky_app.useraccount.User_post" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Product_dicount.Detail_Discount" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Startup.StartUp" />
-        <activity android:name="com.bt_121shoppe.lucky_app.Startup.MainActivity" /> <!-- <activity android:name=".useraccount.UserInformationActivity"/> -->
-        <activity android:name="com.bt_121shoppe.lucky_app.loan.LoanCreateActivity" />
         <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
         <activity android:name=".useraccount.User_post" />
         <activity android:name=".Product_dicount.Detail_Discount" />
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" /> <!-- <activity android:name=".useraccount.UserInformationActivity"/> -->
         <activity android:name=".loan.LoanCreateActivity" />
-        <activity android:name=".AccountTab.MainAccountTabs"/>
+        <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
+        <activity android:name=".useraccount.User_post" />
+        <activity android:name=".Product_dicount.Detail_Discount" />
+        <activity android:name=".Startup.StartUp" />
+        <activity android:name=".Startup.MainActivity" /> <!-- <activity android:name=".useraccount.UserInformationActivity"/> -->
+        <activity android:name=".loan.LoanCreateActivity" />
+        <activity android:name=".AccountTab.MainAccountTabs" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

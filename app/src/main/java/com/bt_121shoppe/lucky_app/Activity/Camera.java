@@ -40,10 +40,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 
 import com.bt_121shoppe.lucky_app.models.CreatePostModel;
 import com.bumptech.glide.Glide;
@@ -226,6 +228,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
+
+         bundle = getIntent().getExtras();
+         if (bundle!=null) {
+              edit_id = bundle.getInt("id_product", 0);
+              Log.d("Edit_id:", String.valueOf(edit_id));
+         }
         //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
@@ -428,16 +436,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if (bundle!=null) {
-
                     mProgress.show();
-                    //Toast.makeText(getApplicationContext(),"Edit",Toast.LENGTH_SHORT).show();
-                    if(process_type==1){
-                        PostData(Encode);
-                    }else{
-                        EditPost_Approve(Encode, edit_id);
-                    }
-
-      //              EditPost_Approve(Encode, edit_id);
+                    EditPost_Approve(Encode, edit_id);
                 } else  {
                     mProgress.show();
                     PostData(Encode);
@@ -468,7 +468,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
-                    Gson gson = new Gson();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -511,6 +511,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             .findFragmentById(R.id.map_post);
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
                                 }
+
+
                                 String fron = object.getString("front_image_base64");
                                 String back = object.getString("back_image_base64");
                                 String left = object.getString("left_image_base64");
@@ -2244,6 +2246,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         final AlertDialog alert = builder.create();
         alert.show();
     }
+
     private void getLocation_edit(double latitude, double longtitude){
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
@@ -2272,9 +2275,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
+
     private void getLocation(boolean isCurrent) {
-
-
 
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
@@ -2287,7 +2289,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
                 }
-
+                latlng = latitude+","+longtitude;
                 try{
                     Geocoder geocoder = new Geocoder(this);
                     List<Address> addressList = null;
@@ -2313,7 +2315,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
         mMap = googleMap;
         LatLng current_location = new LatLng(latitude, longtitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(old, 10));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 2000, null);
         CameraPosition cameraPosition = new CameraPosition.Builder()

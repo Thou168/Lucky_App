@@ -10,24 +10,24 @@
         android:layout_height="wrap_content">
         <View style="@style/line"/>
         <LinearLayout
-        android:paddingTop="@dimen/dp_8"
-        android:paddingBottom="@dimen/dp_8"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_gravity="center"
-            android:src="@drawable/phone_contact"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-        <TextView
-            android:paddingStart="@dimen/dp_20"
-            android:id="@+id/phone"
-            android:text="077350356"
-            android:textSize="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:src="@drawable/phone_contact"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:paddingStart="@dimen/dp_20"
+                android:id="@+id/phone"
+                android:text="077350356"
+                android:textSize="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <View style="@style/line"/>
         <LinearLayout
             android:paddingTop="@dimen/dp_8"

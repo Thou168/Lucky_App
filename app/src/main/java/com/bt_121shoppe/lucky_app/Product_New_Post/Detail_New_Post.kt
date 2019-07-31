@@ -117,61 +117,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var mprocessBar:ProgressBar
     private lateinit var address_detial:TextView
 
-//        if (ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
-//                ActivityCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-//        } else {
-//
-//        }
-//
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-//        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-//        mMap.clear()
-//        val userLocation = LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
-//        mMap.addMarker(MarkerOptions().position(userLocation).title("I`m here"))
-//        p0.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
-//        mMap.animateCamera(CameraUpdateFactory.zoomBy(12f))
-//        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f))
-//        mMap.isMyLocationEnabled = true
-//        //disable
-//        mMap.uiSettings.isScrollGesturesEnabled = false
-//        //mMap.getUiSettings().setZoomGesturesEnabled(false);
-//        getLocationPermission()
-//
-//        getDeviceLocation()
-//    }
-//
-//    private fun getDeviceLocation() {
-//        try {
-//            if (mLocationPermissionGranted) {
-//                val locationResult = mFusedLocationProviderClient!!.lastLocation
-//                locationResult.addOnCompleteListener(this) { task ->
-//                    if (task.isSuccessful) {
-//                        mLastKnownLocation = task.result
-//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude), 15f))
-//                    } else {
-//                        Log.d(TAG, "Current location is null. Using defaults.")
-//                        Log.e(TAG, "Exception: %s", task.exception)
-//                        mMap.uiSettings.isMyLocationButtonEnabled = false
-//                    }
-//                }
-//            }
-//        } catch (e: SecurityException) {
-//            Log.e("Exception: %s", e.message)
-//        }
-//
-//    }
-//    private fun getLocationPermission() {
-//        if (ContextCompat.checkSelfPermission(this.applicationContext,
-//                        Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
-//            mLocationPermissionGranted = true
-//        } else {
-//            ActivityCompat.requestPermissions(this,
-//                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
-//        }
-//    }
-//    */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
@@ -626,6 +572,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             intent.putExtra("ID",user1.id.toString())
                             intent.putExtra("Phone",user1.profile.telephone)
                             intent.putExtra("Email",user1.profile.email)
+                            intent.putExtra("map",user1.profile.address)
                             //intent.putExtra("Phone",phone.text)
                             startActivity(intent)
                         }
@@ -992,7 +939,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         } else {
             val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             if (location != null) {
-
                 try {
                     val geocoder = Geocoder(this)
                     var addressList: List<Address>? = null
@@ -1001,7 +947,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     //                    String city    = addressList.get(0).getLocality();
                     val road = addressList!![0].getAddressLine(0)
 
-                    address_detial.setText(road)
+                    address_detial!!.text = road
+
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
