@@ -16,6 +16,7 @@ import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
+import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_post_history
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_like
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post
 import com.bt_121shoppe.lucky_app.models.PostViewModel
@@ -217,7 +218,7 @@ class Fragment_history: Fragment() {
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
                                                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
-                                                                recyclerView!!.adapter = MyAdapter_user_like(itemApi, "List")
+                                                                recyclerView!!.adapter = MyAdapter_post_history(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }
 
