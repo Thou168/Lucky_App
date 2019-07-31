@@ -101,9 +101,7 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
 
     private void get_location(double latitude, double longtitude) {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            buildAlertMessageNoGps();
-        }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             getLocation(latitude,longtitude);
         }
     }
@@ -137,26 +135,6 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
         }
     }
 
-    private void buildAlertMessageNoGps(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Please Turn On your PGS Connection")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

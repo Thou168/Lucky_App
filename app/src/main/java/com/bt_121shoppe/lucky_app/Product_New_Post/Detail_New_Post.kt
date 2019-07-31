@@ -916,22 +916,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     private fun get_location(latitude:Double,longtitude:Double) {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps()
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             getLocation(latitude, longtitude)
         }
     }
 
-    private fun buildAlertMessageNoGps() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Please Turn On your PGS Connection")
-                .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, which -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
-                .setNegativeButton("No") { dialog, which -> dialog.cancel() }
-        val alert = builder.create()
-        alert.show()
-    }
 
     private fun getLocation(latitude: Double,longtitude: Double) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

@@ -744,9 +744,10 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     private void get_location(boolean isCurrent) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            buildAlertMessageNoGps();
-        }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+//        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+//            buildAlertMessageNoGps();
+//        }else
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             getLocation(isCurrent);
         }
     }

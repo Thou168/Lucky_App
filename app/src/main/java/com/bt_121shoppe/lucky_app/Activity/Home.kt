@@ -7,14 +7,17 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.preference.SwitchPreference
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.format.DateUtils
 import android.util.Base64
 import android.util.Log
@@ -28,6 +31,7 @@ import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -93,6 +97,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var brandId:String=""
     private var yearId:String=""
 
+    internal lateinit var locationManager: LocationManager
+    private val REQUEST_LOCATION = 1
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
@@ -217,6 +223,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         requestStoragePermission(false)
         requestStoragePermission(true)
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
+
         navView.setNavigationItemSelectedListener(this)
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.setOnNavigationItemSelectedListener { item ->
@@ -329,6 +338,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         initialBrandDropdownList()
         initialYearDropdownList()
 
+
         ddCategory.setOnClickListener(View.OnClickListener {
             val mBuilder = AlertDialog.Builder(this@Home)
             mBuilder.setTitle(R.string.choose_category)
@@ -380,7 +390,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             startActivity(intent)
         }
 
-    }
+    }  // onCreate
     override fun onRefresh() {
         Handler().postDelayed({
             recreate()
@@ -745,6 +755,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                                 txtno_found1!!.visibility = View.VISIBLE
                                             }
                                             progreessbar1!!.visibility = View.GONE
+                                            txtno_found1!!.visibility = View.GONE
 
                                             cc=jsonCount
                                             itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
@@ -860,6 +871,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                                 txtno_found!!.visibility = View.VISIBLE
                                             }
                                             progreessbar!!.visibility = View.GONE
+                                            txtno_found!!.visibility = View.GONE
 
                                             cc=jsonCount
                                             itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString(),cc.toString()))
@@ -936,6 +948,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             // show alert dialog navigating to Settings
                             showSettingsDialog()
                         }
+
+                        if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)
+                                !== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION)
+                                !== PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(this@Home, arrayOf<String>(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+
+                        }
+
                     }
 
                     override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest>, token: PermissionToken) {
@@ -966,5 +986,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     }
 
+    private fun buildAlertMessageNoGps() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Please Turn On your Location Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, which -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+                .setNegativeButton("No") { dialog, which -> dialog.cancel() }
+        val alert = builder.create()
+        alert.show()
+    }
 }
 

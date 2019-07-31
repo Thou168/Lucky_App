@@ -155,20 +155,6 @@ public class Login extends AppCompatActivity {
 //                        mProgress.dismiss();
 //                        startActivity(intent);
 
-                        /*
-                        SharedPreferences.Editor editor = prefer.edit();
-                        editor.putString("token",key);
-                        editor.putString("name",name);
-                        editor.putString("pass",pass);
-                        editor.putInt("Pk",pk);
-                        editor.commit();
-                        mProgress.dismiss();
-                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Login.this, Home.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                        */
 
                         SharedPreferences.Editor editor = prefer.edit();
                         editor.putString("token",key);
