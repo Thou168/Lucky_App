@@ -69,7 +69,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Item_API>, val type: S
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
             title.text = item.title
-            cost.text = item.cost.toString()
+            cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
             show_view.text="View: "+item.count_view
 

@@ -85,7 +85,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
             title.text = item.title
-            cost.text = item.cost.toString()
+            cost.text = "$"+item.cost.toString()
             time.text = item.location_duration
             count_view.text = "View:"+item.count_view
 

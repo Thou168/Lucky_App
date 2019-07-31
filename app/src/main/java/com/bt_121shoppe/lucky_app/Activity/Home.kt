@@ -231,6 +231,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
+                    recreate()
 //                    val intent = Intent(this@Home,Home::class.java)
 //                    startActivity(intent)
 //                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
