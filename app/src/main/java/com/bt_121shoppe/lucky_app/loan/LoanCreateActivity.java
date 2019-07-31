@@ -350,7 +350,7 @@ public class LoanCreateActivity extends AppCompatActivity {
                                 public void run() {
                                     AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
                                     alertDialog.setTitle("Loan");
-                                    alertDialog.setMessage("Loan request has been successfully submitted.");
+                                    alertDialog.setMessage(getString(R.string.loan_message));
                                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -551,7 +551,7 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
                                         alertDialog.setTitle("Edit your loan");
-                                        alertDialog.setMessage("Loan was edit Successfully.");
+                                        alertDialog.setMessage(getString(R.string.loan_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {

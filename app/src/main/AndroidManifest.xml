@@ -37,7 +37,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Fragment.contact_user2"></activity>
+        <activity android:name=".chats.ChatActivity"></activity>
+        <activity android:name=".Fragment.contact_user2" />
         <activity android:name=".Login_Register.FacebookLoginActivity" />
 
         <meta-data

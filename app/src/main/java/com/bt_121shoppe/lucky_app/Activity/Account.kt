@@ -547,7 +547,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                             tvUsername!!.setText(user1.username)
                             //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                            /*
+
                             if (profilepicture.isNullOrEmpty()) {
                                 imgProfile!!.setImageResource(R.drawable.user)
                                 //Log.d("Profile", "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
@@ -558,13 +558,13 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                             }
 
                             if (coverpicture == null) {
-
+                                //9Glide.with(this@Account).load("https://utmsi.utexas.edu/components/com_easyblog/themes/wireframe/images/placeholder-image.png").into(imgProfile)
                             } else {
                                 val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 imgCover!!.setImageBitmap(decodedByte)
                             }
-                            */
+
                         }
                     }
 

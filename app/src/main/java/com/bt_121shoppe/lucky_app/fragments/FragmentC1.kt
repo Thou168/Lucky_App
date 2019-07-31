@@ -84,7 +84,7 @@ class FragmentC1: Fragment() {
     }
 
     private fun getMyLoan() {
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?loan_status=1"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=1"
         val itemApi = ArrayList<LoanItemAPI>()
         val client= OkHttpClient()
         val request= Request.Builder()

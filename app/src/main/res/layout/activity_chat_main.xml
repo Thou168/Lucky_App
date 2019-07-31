@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/gray_light"
     tools:context=".chats.ChatMainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,6 +26,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/profile_image"/>
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/chat_toolbar"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_gravity="center" />
+            <!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,18 +43,19 @@
                 android:layout_marginLeft="25dp"
                 android:text="@string/username"
                 android:textColor="#FFF"
-                android:textStyle="bold"/>
+                android:textStyle="bold"/>-->
 
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
+            app:tabTextAppearance="@style/MineCustomTabText"
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            app:tabSelectedTextColor="#FFF"
-            app:tabIndicatorColor="#FFF"
-            app:tabTextColor="#FFF"/>
+            android:layout_height="35dp"
+            android:background="#FFF"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabTextColor="@color/colorPrimaryDark"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

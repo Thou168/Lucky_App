@@ -120,7 +120,7 @@ class Loan_history: Fragment() {
                             post_id = `object`.getInt("post")
                             //Log.d("Post id ",post_id.toString())
 
-                            val url_user = ConsumeAPI.BASE_URL + "allposts/" + post_id + "/"
+                            val url_user = ConsumeAPI.BASE_URL + "detailposts/" + post_id + "/"
                             Log.d("Post id ", url_user)
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()

@@ -37,4 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<TextItemViewHolder
     public long getItemId(int position) {
         return position;
     }
+
+    public class MyViewHolder {
+    }
 }

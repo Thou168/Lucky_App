@@ -36,7 +36,9 @@ import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.Product_dicount.Detail_Discount
 import com.bt_121shoppe.lucky_app.useraccount.User_post
 import com.bt_121shoppe.lucky_app.R
+import com.bt_121shoppe.lucky_app.chats.ChatActivity
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
+import com.bt_121shoppe.lucky_app.models.Chat
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
 
@@ -69,10 +71,9 @@ import java.util.*
 
 class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
-
     //, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
-//    private lateinit var mMap: GoogleMap
+    //    private lateinit var mMap: GoogleMap
     private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION = 1
     internal lateinit var locationManager: LocationManager
@@ -117,6 +118,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var mprocessBar:ProgressBar
     private lateinit var address_detial:TextView
 
+    private lateinit var postTitle:String
+    private lateinit var postPrice:String
+    private lateinit var postFrontImage:String
+    private lateinit var postUsername:String
+    private lateinit var postUserId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -221,6 +227,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //            startActivity(smsIntent)
 //        }
 //Button Like
+
+        val chat = findViewById<ImageView>(R.id.btn_sms)
+        chat.setOnClickListener {
+            val intent = Intent(this@Detail_New_Post, ChatActivity::class.java)
+            intent.putExtra("postId",postId)
+            intent.putExtra("postTitle",postTitle)
+            intent.putExtra("postPrice",postPrice)
+            intent.putExtra("postImage",postFrontImage)
+            intent.putExtra("postUserPk",pk)
+            intent.putExtra("postUsername",postUsername)
+            intent.putExtra("postUserId",postUserId)
+            startActivity(intent)
+        }
+
         val like = findViewById<ImageView>(R.id.btn_like)
         like.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -296,7 +316,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     fun initialProductPostDetail(encode: String){
         var url:String
         var request:Request
-        Log.d(TAG,"POST type: "+pt)
+        //Log.d(TAG,"POST type: "+pt)
         val auth = "Basic $encode"
         if(pt==1) {
             url = ConsumeAPI.BASE_URL + "postbyuser/" + postId
@@ -432,6 +452,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         })
 
+                        postTitle=postDetail.title.toString()
+                        postPrice=postDetail.cost.toString()
+                        postFrontImage=postDetail.base64_front_image.toString()
+
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+postDetail.cost.toString())
                         tvCondition.setText(postDetail.condition.toString())
@@ -558,11 +582,15 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }else
                         {
                             val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-
                             var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                             img_user.setImageBitmap(decodedByte)
-
                         }
+
+                        if(user1.profile.first_name==null)
+                            postUsername=user1.username
+                        else
+                            postUsername=user1.profile.first_name
+                        postUserId=user1.username
                         user_name.setText(user1.username)
                         user_telephone.setText(user1.profile.telephone)
                         user_email.setText(user1.email)
@@ -708,13 +736,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 Log.d("Phone ",phoneNumber)
                             }
 //SMS
-                            /*
-                            val sms = findViewById<ImageView>(R.id.btn_sms)
-                            sms.setOnClickListener {
-                                sms(phoneNumber)
-                                Log.d("SMS ",phoneNumber)
-                            }
-                            */
+
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))

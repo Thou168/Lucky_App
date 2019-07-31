@@ -53,9 +53,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -398,16 +400,18 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 mp_Gender.setText(s);
                                 imgGender.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
-                                String d = convertJsonJava.getProfile().getDate_of_birth();
-                                String dd[]=d.split("-");
-                                strDob=dd[0];
-                                mp_Dob.setText(strDob);
-                                imgtilDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                                List<String> date = new ArrayList<>();
-                                date.add(0,d);
-
+                                if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
+                                    String d = convertJsonJava.getProfile().getDate_of_birth();
+                                    String dd[] = d.split("-");
+                                    strDob = dd[0];
+                                    mp_Dob.setText(strDob);
+                                    imgtilDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                                    List<String> date = new ArrayList<>();
+                                    date.add(0, d);
+                                }
                                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                                         .findFragmentById(R.id.map_Account);
+
                                  String addr = convertJsonJava.getProfile().getAddress();
                                  if (addr.isEmpty()) {
                                      get_location(true);
@@ -732,6 +736,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     private String convertDateofBirth(String year){
         String dd=Instant.now().toString();
+        //String dd = DateFormat.getDateTimeInstance().format(new Date());
         String d[]=dd.split("-");
         for(int i=0;i<d.length;i++){
             Log.e(TAG,d[i]);
@@ -740,7 +745,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         Log.d(TAG,dob);
         return dob;
     }
-
 
     private void get_location(boolean isCurrent) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

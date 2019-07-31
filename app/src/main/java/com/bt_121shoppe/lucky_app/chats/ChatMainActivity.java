@@ -136,7 +136,7 @@ public class ChatMainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(null);
 
         profile_image=findViewById(R.id.profile_image);
-        username=findViewById(R.id.username);
+        //username=findViewById(R.id.username);
 
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
@@ -157,12 +157,12 @@ public class ChatMainActivity extends AppCompatActivity {
             pk = preferences.getInt("id", 0);
         }
 
-        username.setText(firebaseUser.getPhoneNumber());
+        //username.setText(firebaseUser.getPhoneNumber());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 com.bt_121shoppe.lucky_app.models.User user=dataSnapshot.getValue(com.bt_121shoppe.lucky_app.models.User.class);
-                username.setText(user.getUsername());
+                //username.setText(user.getUsername());
                 if(user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.drawable.user);
                 }else{
@@ -182,12 +182,19 @@ public class ChatMainActivity extends AppCompatActivity {
         ViewPager viewPager=findViewById(R.id.view_pager);
 
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
-        viewPagerAdapter.addFragment(new UsersFragment(),"Users");
+
+        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.all_text));
+        viewPagerAdapter.addFragment(new ChatBuyFragment(),getString(R.string.buy));
+        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.sell));
+        viewPagerAdapter.addFragment(new ChatRentFragment(),getString(R.string.rent));
+
+        //viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
+        //viewPagerAdapter.addFragment(new UsersFragment(),"Users");
         //viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter{

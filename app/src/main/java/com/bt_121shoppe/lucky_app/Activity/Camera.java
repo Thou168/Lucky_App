@@ -97,7 +97,6 @@ import okhttp3.Response;
 
 public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
-
     private static final LatLng old = new LatLng(11.5585741,104.905055);
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
@@ -267,6 +266,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                 tvPostType.setText(strPostType.substring(0,1).toUpperCase() + strPostType.substring(1));
                 getCategegoryName(Encode,cate);
+                Call_Brand(Encode,cate);
                 if(cate==1){
                     icType_elec.setVisibility(View.VISIBLE);
                     tvType_elec.setVisibility(View.VISIBLE);

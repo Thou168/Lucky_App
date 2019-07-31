@@ -87,14 +87,17 @@
                     android:layout_toStartOf="@+id/img_list"
                     android:src="@drawable/ic_grid_on_black_24dp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_new_post"
-                android:background="#7A999999"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_new_post"
+                    android:background="#7A999999"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
                 <ProgressBar
                     android:layout_marginTop="50dp"
                     android:id="@+id/progress_bar1"

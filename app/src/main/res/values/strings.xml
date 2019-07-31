@@ -310,7 +310,7 @@
     <string name="title_loan_price">Price ($)</string>
     <string name="title_loan_interest_rate">Interest Rate (%)</string>
     <string name="title_loan_deposit">Deposit ($)</string>
-    <string name="title_loan_term">Term (Year)</string>
+    <string name="title_loan_term">Term (Month)</string>
     <string name="title_monthly_payment">Monthly Payment</string>
     <string name="hit_co_borrower">Co-Borrower</string>
     <!-- End Loan Information String -->
@@ -324,7 +324,7 @@
     <string name="Price">Price ($)</string>
     <string name="interest_rate">Interest Rate (%)</string>
     <string name="deposit">Deposit ($)</string>
-    <string name="term">Term (Year)</string>
+    <string name="term">Term (Month)</string>
     <string name="Monthly_payment">Monthly Payment</string>
     <string name="contact">CONTACT</string>
     <string name="locaion">Location :</string>
@@ -473,7 +473,7 @@
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
     //message
-    <string name="type_message">Type a message...</string>
+    <string name="type_message">Type message here...</string>
     <string name="username">Username</string>
     <string name="renew">Renew</string>
     //filter
@@ -487,5 +487,11 @@
     <string name="related_poat">Related Post</string>
 
     <string name="english_khmer">English</string>
+
+    <!-- Chats -->
+    <string name="chat_toolbar">Chats</string>
+    <string name="all_text">All</string>
+
+    <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
 
 </resources>
