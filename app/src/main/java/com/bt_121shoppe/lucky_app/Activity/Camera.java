@@ -104,6 +104,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     double latitude,longtitude;
     private GoogleMap mMap;
     private String latlng;
+    SupportMapFragment mapFragment;
     private static final String TAG = Camera.class.getSimpleName();
     static final int REQUEST_TAKE_PHOTO_1=1;
     static final int REQUEST_TAKE_PHOTO_2=2;
@@ -238,7 +239,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-
+         mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_post);
         DropDown();
         Call_category(Encode);
         Call_Type(Encode);
@@ -507,8 +509,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     latitude = Double.valueOf(splitAddr[0]);
                                     longtitude = Double.valueOf(splitAddr[1]);
                                     getLocation_edit(latitude, longtitude);
-                                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                                            .findFragmentById(R.id.map_post);
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
                                 }
 
@@ -605,13 +605,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             String addr = converJsonJava.getProfile().getAddress();
                             if(addr.isEmpty()){
                                     get_location(true);
+                                    mapFragment.getMapAsync(Camera.this::onMapReady);
                             }else {
                                 String[] splitAddr = addr.split(",");
                                 latitude = Double.valueOf(splitAddr[0]);
                                 longtitude = Double.valueOf(splitAddr[1]);
                                 get_location(false);
-                                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                                        .findFragmentById(R.id.map_post);
+
                                 mapFragment.getMapAsync(Camera.this::onMapReady);
 
                             }

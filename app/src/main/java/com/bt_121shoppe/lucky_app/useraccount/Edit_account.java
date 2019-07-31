@@ -406,18 +406,19 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 List<String> date = new ArrayList<>();
                                 date.add(0,d);
 
-
+                                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                        .findFragmentById(R.id.map_Account);
                                  String addr = convertJsonJava.getProfile().getAddress();
                                  if (addr.isEmpty()) {
                                      get_location(true);
+                                     mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                  }else {
                                      String[] splitAddr = addr.split(",");
                                      latitude = Double.valueOf(splitAddr[0]);
                                      longtitude = Double.valueOf(splitAddr[1]);
                                      get_location(false);
                                      //get_location(false);
-                                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                                             .findFragmentById(R.id.map_Account);
+
                                      mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                  }
                                 //Toast.makeText(Edit_account.this,"my addr"+lat +"  "+lon,Toast.LENGTH_LONG).show();
