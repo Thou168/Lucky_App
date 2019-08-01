@@ -655,6 +655,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             User converJsonJava = new User();
                             converJsonJava = gson.fromJson(respon,User.class);
 
+                            etName.setText(converJsonJava.getFirst_name());
                             etPhone1.setText(converJsonJava.getUsername());
                             String addr = converJsonJava.getProfile().getAddress();
                             if(addr.isEmpty()){

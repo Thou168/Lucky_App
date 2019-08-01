@@ -37,33 +37,30 @@
                 android:gravity="center">
                 <TextView
                     android:id="@+id/toolbar_user_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/chat_toolbar"
+                    android:text=""
+                    android:gravity="center"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-
                     android:layout_gravity="center"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/toolbar_user_title"
                     android:id="@+id/tv_active_duration"
                     android:textSize="11sp"
-                    android:text="Active now"
+                    android:text=""
                     android:textColor="@color/white"
                     android:gravity="center" />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/toolbar_user_title"
-                    android:layout_toEndOf="@id/toolbar_user_title"
-                    android:layout_marginLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:drawableRight="@drawable/chevron_right_24"
-                    android:gravity="center"/>
+                    android:id="@+id/text_userid"
+                    android:visibility="gone"
+                    android:layout_below="@id/tv_active_duration"/>
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -92,7 +89,7 @@
             android:layout_marginLeft="16dp"
             android:gravity="center"
             android:textSize="12sp"
-            android:text="Post Title"/>
+            android:text=""/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -106,12 +103,11 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="@color/red"
-            android:text="Post Title"/>
+            android:text=""/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:src="@drawable/chevron_right_black_24"
             android:layout_alignParentEnd="true"/>
 

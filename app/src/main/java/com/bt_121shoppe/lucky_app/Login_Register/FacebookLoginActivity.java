@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bt_121shoppe.lucky_app.R;
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -82,6 +83,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
                     String image=object.getJSONObject("picture").getJSONObject("data").getString("url");
                     displayName.setText(name);
                     emailId.setText(email);
+                    Glide.with(getApplicationContext()).load(image).into(displayImage);
                 }catch (JSONException e){
                     e.printStackTrace();
                 }

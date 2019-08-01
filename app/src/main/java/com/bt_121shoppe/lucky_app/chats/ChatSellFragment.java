@@ -22,7 +22,7 @@ public class ChatSellFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_chat_sell, container, false);
         imageView=(ImageView) view.findViewById(R.id.image_view);
-        Glide.with(getContext()).load("https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/10/22/ST_20181022_NANVEL_4360142.jpg?itok=ZB5zgW7e&timestamp=1540134011").into(imageView);
+        Glide.with(getContext()).load("https://media3.giphy.com/media/3o7btQ0NH6Kl8CxCfK/giphy.gif").into(imageView);
 
         return view;
     }

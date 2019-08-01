@@ -143,7 +143,6 @@ public class MessageActivity extends AppCompatActivity {
 
     private void sendMessage(String sender,String receiver,String message){
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
-
         HashMap<String, Object> hashMap=new HashMap<>();
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);

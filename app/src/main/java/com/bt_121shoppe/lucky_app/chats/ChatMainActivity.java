@@ -184,9 +184,9 @@ public class ChatMainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.all_text));
-        viewPagerAdapter.addFragment(new ChatBuyFragment(),getString(R.string.buy));
+        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.buy));
         viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.sell));
-        viewPagerAdapter.addFragment(new ChatRentFragment(),getString(R.string.rent));
+        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.rent));
 
         //viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
         //viewPagerAdapter.addFragment(new UsersFragment(),"Users");

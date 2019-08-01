@@ -123,6 +123,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var postFrontImage:String
     private lateinit var postUsername:String
     private lateinit var postUserId:String
+    private lateinit var postType:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -230,15 +231,22 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         val chat = findViewById<ImageView>(R.id.btn_sms)
         chat.setOnClickListener {
-            val intent = Intent(this@Detail_New_Post, ChatActivity::class.java)
-            intent.putExtra("postId",postId)
-            intent.putExtra("postTitle",postTitle)
-            intent.putExtra("postPrice",postPrice)
-            intent.putExtra("postImage",postFrontImage)
-            intent.putExtra("postUserPk",pk)
-            intent.putExtra("postUsername",postUsername)
-            intent.putExtra("postUserId",postUserId)
-            startActivity(intent)
+            if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                val intent = Intent(this@Detail_New_Post, ChatActivity::class.java)
+                intent.putExtra("postId",postId)
+                intent.putExtra("postTitle",postTitle)
+                intent.putExtra("postPrice",postPrice)
+                intent.putExtra("postImage",postFrontImage)
+                intent.putExtra("postUserPk",pk)
+                intent.putExtra("postUsername",postUsername)
+                intent.putExtra("postUserId",postUserId)
+                intent.putExtra("postType",postType)
+                startActivity(intent)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                startActivity(intent)
+            }
         }
 
         val like = findViewById<ImageView>(R.id.btn_like)
@@ -455,6 +463,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
                         postFrontImage=postDetail.base64_front_image.toString()
+                        postType=postDetail.post_type
 
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+postDetail.cost.toString())
