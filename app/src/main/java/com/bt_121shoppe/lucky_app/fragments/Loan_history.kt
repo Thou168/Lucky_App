@@ -79,7 +79,7 @@ class Loan_history: Fragment() {
     }
 
     private fun getMyLoan() {
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"api/v1/loan/?record_status=2"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=2"
         val client= OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)

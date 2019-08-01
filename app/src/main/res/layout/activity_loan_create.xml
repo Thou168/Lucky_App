@@ -72,6 +72,7 @@
                         android:id="@+id/tilJob"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgJob"
                         android:background="@drawable/underline">
 
@@ -120,6 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@id/imgCoBorrower"
+                        app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgMonthlyIncome"
                         android:background="@drawable/underline">
 
@@ -147,6 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@id/imgMonthlyIncome"
+                        app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgMonthlyIncome"
                         android:background="@drawable/underline">
 
@@ -192,6 +195,7 @@
                         android:id="@+id/tilLoanPurpose"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgPurpose"
                         android:background="@drawable/underline">
 
@@ -217,6 +221,7 @@
                         android:id="@+id/tilLoanAmount"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        app:errorEnabled="true"
                         android:layout_below="@id/imgPurpose"
                         android:layout_toRightOf="@+id/imgLoanAmount"
                         android:background="@drawable/underline">
@@ -245,6 +250,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@id/imgLoanAmount"
+                        app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgLoanAmount"
                         android:background="@drawable/underline">
 

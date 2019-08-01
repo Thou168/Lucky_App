@@ -3,11 +3,14 @@ package com.bt_121shoppe.lucky_app.loan;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +20,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.models.LoanViewModel;
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator;
+import com.google.firebase.database.core.utilities.Validation;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -39,7 +43,7 @@ public class LoanCreateActivity extends AppCompatActivity {
     private static final String TAG=LoanCreateActivity.class.getSimpleName();
     private SharedPreferences preferences;
     private String username,password,Encode;
-    private int pk = 0, id_edit=0,id_cancel=0,cancelid;
+    private int pk , id_edit=0,id_cancel=0,cancelid;
     private int postid;
     private String pk_create;
     private Boolean status_card,status_family,status_staff,status_title = null;
@@ -48,16 +52,16 @@ public class LoanCreateActivity extends AppCompatActivity {
     //loan_information
     private Button btSubmit;
     EditText job_loan_information,monthly_income_loan_information,monthly_expense;
+
     Button co_borrower_loan_information;
     EditText loan_purpose,loan_amount,loan_term;
-//    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
     Button id_card,family_book,staff_id_or_salary_slip,land_tile;
-    //    EditText price_loancreate,interest_rate,deposit_loancreate,term_loancreate;
-    //MaterialSpinner id_card,family_book,staff_id_or_salary_slip,land_tile;
     TextView txtBack;
     boolean estadoCadastro = true;
     SharedPreferences  pre_id;
     Bundle bundle;
+    ImageView icAddress,icAddress1,icAddress2,icAddress3,icAddress4,icAddress5;
+    ImageView icAddress6,icAddress7,icAddress8,icAddress9,icAddress10;
 
     String[] yesNos;
     //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
@@ -78,6 +82,20 @@ public class LoanCreateActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        icAddress6 = (ImageView) findViewById(R.id.imgCoBorrower);
+        icAddress7 = (ImageView) findViewById(R.id.imgIDCard);
+        icAddress8 = (ImageView) findViewById(R.id.imgFamilyBook);
+        icAddress9 = (ImageView) findViewById(R.id.imgStaffID);
+        icAddress10 = (ImageView) findViewById(R.id.imgLandTitle);
+
+        icAddress = (ImageView)findViewById(R.id.imgJob);
+        icAddress1 = (ImageView)findViewById(R.id.imgMonthlyIncome) ;
+        icAddress2 = (ImageView)findViewById(R.id.imgMonthlyExpense);
+        icAddress3 = (ImageView)findViewById(R.id.imgPurpose);
+        icAddress4 = (ImageView)findViewById(R.id.imgLoanAmount);
+        icAddress5 = (ImageView)findViewById(R.id.imgLoanTerm);
+
 
         job_loan_information = (EditText)findViewById(R.id.etJob);
         co_borrower_loan_information = (Button) findViewById(R.id.etCoBorrower);
@@ -129,12 +147,75 @@ public class LoanCreateActivity extends AppCompatActivity {
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(id_edit!=0)
-                {
-                    Edit_loan(Encode,id_edit);
 
-                }else {
-                    consumeLoanCreateApi(Encode);
+//                final String job = job_loan_information.getText().toString();
+                if (job_loan_information.getText().toString().length()==0){
+                    job_loan_information.requestFocus();
+                    job_loan_information.setError("job can`t be empty");
+                }
+
+                else if (co_borrower_loan_information.getText().toString().length()==0){
+                    co_borrower_loan_information.requestFocus();
+                    co_borrower_loan_information.setFocusable(true);
+                    co_borrower_loan_information.setFocusableInTouchMode(true);
+//                    co_borrower_loan_information.setError("co-borrow can`t be empty");
+
+                }
+
+                else if (monthly_income_loan_information.getText().toString().length()==0){
+                    monthly_income_loan_information.requestFocus();
+                    monthly_income_loan_information.setError("monthly income can`t be empty");
+
+                }
+                else if (monthly_expense.getText().toString().length()==0){
+                    monthly_expense.requestFocus();
+                    monthly_expense.setError("monthly expense can`t be empty");
+                }
+                else if (loan_purpose.getText().toString().length()==0){
+                    loan_purpose.requestFocus();
+                    loan_purpose.setError("purpose can`t be empty");
+                }
+                else if (loan_amount.getText().toString().length()==0){
+                    loan_amount.requestFocus();
+                    loan_amount.setError("amount can`t be empty");
+                }
+                else if (loan_term.getText().toString().length()==0){
+                    loan_term.requestFocus();
+                    loan_term.setError("term can`t be empty");
+                }
+
+                else if (id_card.getText().toString().length()==0){
+                    id_card.requestFocus();
+                    id_card.setFocusable(true);
+//                    id_card.setError("id-card can`t be empty");
+                }
+
+                else if (family_book.getText().toString().length()==0){
+                    family_book.requestFocus();
+                    family_book.setFocusable(true);
+//                    family_book.setError("family-book can`t be empty");
+                }
+
+                else if (staff_id_or_salary_slip.getText().toString().length()==0){
+                    staff_id_or_salary_slip.requestFocus();
+                    staff_id_or_salary_slip.setFocusable(true);
+//                    staff_id_or_salary_slip.setError("staff-id can`t be empty");
+                }
+
+                else if (land_tile.getText().toString().length()==0){
+                    land_tile.requestFocus();
+                    land_tile.setFocusable(true);
+//                    land_tile.setError("title can`t be empty");
+                }
+
+                else {
+                    if(id_edit!=0)
+                    {
+                        Edit_loan(Encode,id_edit);
+
+                    }else {
+                        consumeLoanCreateApi(Encode);
+                    }
                 }
             }
         });
@@ -268,11 +349,247 @@ public class LoanCreateActivity extends AppCompatActivity {
             }
         });
 
+        textChange();
 
     } //oncreate
 
+    private void textChange(){
+
+        job_loan_information.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 2) {
+                    icAddress.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        co_borrower_loan_information.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress6.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress6.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress6.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        monthly_income_loan_information.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress1.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress1.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress1.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        monthly_expense.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress2.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress2.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        loan_purpose.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress3.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 4) {
+                    icAddress3.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress3.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        loan_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress4.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 2) {
+                    icAddress4.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress4.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        loan_term.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress5.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress5.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress5.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        id_card.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress7.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress7.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress7.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        family_book.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress8.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress8.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress8.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        staff_id_or_salary_slip.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress9.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress9.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress9.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        land_tile.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icAddress10.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 1) {
+                    icAddress10.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress10.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+
     private void consumeLoanCreateApi(String encode){
-        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/";
+        String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/?record_status=1";
         OkHttpClient client=new OkHttpClient();
         JSONObject data=new JSONObject();
         try{
