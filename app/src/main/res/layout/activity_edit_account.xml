@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_Account"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorSubmitButton">
         <TextView
             android:id="@+id/tv_Back"

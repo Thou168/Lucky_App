@@ -56,7 +56,7 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
-        val count_view = itemView.findViewById<TextView>(R.id.count_view)
+        val count_view = itemView.findViewById<TextView>(R.id.user_view)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItems(item: LoanItemAPI) {
@@ -68,7 +68,7 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()
-//            count_view.text = "view:"+item.count_view
+            count_view.text = "view:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

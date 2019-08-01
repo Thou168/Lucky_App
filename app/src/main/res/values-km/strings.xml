@@ -205,7 +205,7 @@
         <item>ស្ថានភាព</item>
         <item>នៅលាវ</item>
         <item>រៀបការ</item>
-        <item>Separated</item>
+        <item>បែកបាក់</item>
         <item>លែងលះ</item>
         <item>មេម៉ាយ</item>
     </string-array>
@@ -231,6 +231,9 @@
     <string-array name="marital_status_array">
         <item>នៅលីវ</item>
         <item>រៀបការ</item>
+        <item>បែកបាក់</item>
+        <item>លែងលះគ្នា</item>
+        <item>មេម៉ាយ</item>
     </string-array>
     <string-array name="province_array">
         <item>ភ្នំពេញ</item>
@@ -387,6 +390,8 @@
     <!-- Chats -->
     <string name="chat_toolbar">ការជជែក</string>
     <string name="all_text">ទាំងអស់</string>
-
     <string name="loan_message">ការស្នើសុំឥណទានរបស់លោក-អ្នក ត្រូវបានបញ្ជូនរួចរាល់ ហើយកំពុងត្រួតពិនិត្យដោយក្រុមការងារ។</string>
+    <string name="facebook_app_id">596607940863011</string>
+    <string name="fb_login_protocol_scheme">fb596607940863011</string>
+
 </resources>

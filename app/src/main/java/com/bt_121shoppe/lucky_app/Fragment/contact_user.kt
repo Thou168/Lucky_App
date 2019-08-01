@@ -62,7 +62,7 @@ class contact_user: Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.contact_user, container, false)
 
-        val tvphone = activity!!.intent.getStringExtra("Phone")
+        val tvphone = activity!!.intent.getStringExtra("Name")
         phone = view.findViewById<TextView>(R.id.phone)
         phone!!.text = tvphone
         email = view.findViewById(R.id.email)

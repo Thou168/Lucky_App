@@ -91,6 +91,10 @@
     //map
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
 
+    <!-- Chats -->
+    <string name="chat_toolbar">Chats</string>
+    <string name="all_text">All</string>
+    <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
     <string name="facebook_app_id">596607940863011</string>
     <string name="fb_login_protocol_scheme">fb596607940863011</string>
 
@@ -473,7 +477,7 @@
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
     //message
-    <string name="type_message">Type message here...</string>
+    <string name="type_message">Type a message...</string>
     <string name="username">Username</string>
     <string name="renew">Renew</string>
     //filter
@@ -487,11 +491,5 @@
     <string name="related_poat">Related Post</string>
 
     <string name="english_khmer">English</string>
-
-    <!-- Chats -->
-    <string name="chat_toolbar">Chats</string>
-    <string name="all_text">All</string>
-
-    <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
 
 </resources>

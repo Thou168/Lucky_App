@@ -108,7 +108,7 @@
                     android:visibility="gone"
                     android:layout_marginTop="80dp"
                     android:id="@+id/text1"
-                    android:text="No Result"
+                    android:text="@string/no_result"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>

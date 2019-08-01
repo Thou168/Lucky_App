@@ -544,7 +544,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         if(user1.profile!=null) {
                             val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
                             val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image
-                            tvUsername!!.setText(user1.username)
+                            tvUsername!!.setText(user1.first_name)
                             //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
 

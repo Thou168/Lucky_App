@@ -115,6 +115,6 @@
         android:id="@+id/bnaviga"
         app:menu="@menu/bottom_navigation"
         android:background="@color/white"
-        android:layout_height="40dp"/>
+        android:layout_height="?android:attr/actionBarSize"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

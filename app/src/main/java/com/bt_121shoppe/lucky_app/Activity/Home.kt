@@ -630,7 +630,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
                         val drawer_username=findViewById<TextView>(R.id.drawer_username)
-                        drawer_username.setText(user1.username)
+                        drawer_username.setText(user1.first_name)
                         if(user1.profile!=null) {
                             val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
                             val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image

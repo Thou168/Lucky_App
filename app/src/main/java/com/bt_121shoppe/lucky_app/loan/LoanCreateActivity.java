@@ -113,7 +113,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         if(bundle!=null)
         {
-            postid=bundle.getInt("id",0);
+            postid=bundle.getInt("post",0);
             Log.d("Post id",String.valueOf(postid));
         }
 

@@ -591,7 +591,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         else
                             postUsername=user1.profile.first_name
                         postUserId=user1.username
-                        user_name.setText(user1.username)
+                        user_name.setText(user1.first_name)
                         user_telephone.setText(user1.profile.telephone)
                         user_email.setText(user1.email)
                         findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
@@ -602,6 +602,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             intent.putExtra("Email",user1.profile.email)
                             intent.putExtra("map",user1.profile.address)
                             //intent.putExtra("Phone",phone.text)
+                            intent.putExtra("Name",user1.first_name)
                             startActivity(intent)
                         }
                     }

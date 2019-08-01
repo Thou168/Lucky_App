@@ -70,7 +70,7 @@ class Fragment_history: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        //getMyPosts()
+        getMyPosts()
 
         return view
     }

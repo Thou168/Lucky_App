@@ -53,10 +53,11 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
         tvPhone = view.findViewById(R.id.phone);
         tvEmail = view.findViewById(R.id.email);
         tvAddress = view.findViewById(R.id.address_contact);
-        String phone = getActivity().getIntent().getExtras().getString("Phone");
+//        String phone = getActivity().getIntent().getExtras().getString("Phone");
+        String name = getActivity().getIntent().getExtras().getString("Name");
         String email = getActivity().getIntent().getExtras().getString("Email");
         String addr  = getActivity().getIntent().getExtras().getString("map");
-        tvPhone.setText(phone);
+        tvPhone.setText(name);
         if (getActivity().getIntent().getExtras().getString("Email")==null){
             tvEmail.setText("Null");
         }else {

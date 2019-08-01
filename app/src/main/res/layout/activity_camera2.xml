@@ -362,7 +362,7 @@
                     <TextView
                         android:id="@+id/titl_discount"
                         android:padding="@dimen/dp_8"
-                        android:text="@string/discountt"
+                        android:text="@string/discount"
                         android:textSize="16dp"
                         android:background="@color/grey_light"
                         android:layout_width="match_parent"
@@ -411,7 +411,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:textSize="14dp"
-                            android:hint="@string/discount"
+                            android:hint="@string/discountt"
                             android:inputType="number"
                             android:paddingLeft="10dp"
                             android:background="@null" />
@@ -555,7 +555,6 @@
 
             </LinearLayout>
 
-
         </ScrollView>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -563,7 +562,7 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/bnaviga"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="?android:attr/actionBarSize"/>
 
 
 </RelativeLayout>

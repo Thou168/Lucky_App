@@ -31,6 +31,7 @@ class User_post : AppCompatActivity() {
     var encode=""
 
     private lateinit var img_user:CircleImageView
+    private lateinit var tvUsername:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +101,7 @@ class User_post : AppCompatActivity() {
                         val coverpicture: String= if(user1.profile.cover_photo==null) " " else user1.profile.base64_cover_photo_image
                         Log.d("TAGGGGG",profilepicture)
                         Log.d("TAGGGGG",coverpicture)
-                        //tvUsername!!.setText(user1.username)
+//                        tvUsername!!.setText(user1.username)
                         //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                         //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
                         if(profilepicture==null){
