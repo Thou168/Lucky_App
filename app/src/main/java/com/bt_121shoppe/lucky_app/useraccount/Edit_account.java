@@ -18,6 +18,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +61,9 @@ import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.validation.Validator;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -73,9 +78,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private LinearLayout layout_public_user,layout_121_dealer;
     private TextView tvType, tvType_121,tvAddress_account;
     private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone;
-    private TextInputLayout tilusername,tildob,tiljob,tilwingnumber,tilwingname,tilphone,tilShopName,tilshopAddr,tilresponsible;
-    private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgtilUsername,imgtilDob,imgtilWingNumber,
-            imgtilWingName,imgtilPhone,imgtilShopName,imgtilShopAddr,imgtilResponsible;
+
+    private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgUsername,imgDob,imgWingNumber,
+            imgWingName,imgPhone,imgShopName,imgShopAddr,imgResponsible;
     private Button btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location;
     private String name,pass,Encode,user_id;
     private ArrayAdapter<Integer> ad_id;
@@ -97,6 +102,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private int[] provinceIdListItems,yearIdListItems;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 
+    private Validator validator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +131,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        tvType = (TextView)findViewById(R.id.tvType);
+        tvType      = (TextView)findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
@@ -137,23 +143,17 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_location = (Button) findViewById(R.id.mp_Location);
         tvAddress_account = (TextView) findViewById(R.id.tvAccount_Address);
 
-        imgType=(ImageView) findViewById(R.id.imgType);
-        imgtilUsername=(ImageView) findViewById(R.id.imgUsername);
-        imgGender=(ImageView) findViewById(R.id.imgGender);
-        imgtilDob=(ImageView) findViewById(R.id.imgDob);
-        imgMarried=(ImageView) findViewById(R.id.imgMarried);
-        imgtilDob=(ImageView) findViewById(R.id.imgDob);
-        imgPob=(ImageView) findViewById(R.id.imgPob);
-        imgLocation=(ImageView) findViewById(R.id.imgLocation);
-        imgtilPhone=(ImageView) findViewById(R.id.imgPhone_account);
-        imgtilWingName=(ImageView) findViewById(R.id.imgWingName);
-        imgtilWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
-        imgGender   =(ImageView) findViewById(R.id.imgGender);
-        imgMarried  =(ImageView) findViewById(R.id.imgMarried);
-        imgtilDob   =(ImageView) findViewById(R.id.imgDob);
-        imgPob      =(ImageView) findViewById(R.id.imgPob);
-        imgLocation =(ImageView) findViewById(R.id.imgLocation);
-        imgAddress  = (ImageView) findViewById(R.id.imgAccount_Address);
+        imgType        =(ImageView) findViewById(R.id.imgType);
+        imgUsername =(ImageView) findViewById(R.id.imgUsername);
+        imgWingName =(ImageView) findViewById(R.id.imgWingName);
+        imgWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
+        imgPhone    =(ImageView) findViewById(R.id.imgPhone_account);
+        imgDob      =(ImageView) findViewById(R.id.imgDob);
+        imgPob         =(ImageView) findViewById(R.id.imgPob);
+        imgMarried     =(ImageView) findViewById(R.id.imgMarried);
+        imgGender      =(ImageView) findViewById(R.id.imgGender);
+        imgLocation    =(ImageView) findViewById(R.id.imgLocation);
+        imgAddress     = (ImageView) findViewById(R.id.imgAccount_Address);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -286,7 +286,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialogInterface, int i) {
                         strDob=yearListItems[i];
                         mp_Dob.setText(yearListItems[i]);
-                        imgtilDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        imgDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         //id_location=provinceIdListItems[i];
                         dialogInterface.dismiss();
                     }
@@ -297,18 +297,28 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-
+        Text_Action();
         Button btSubmit=(Button) findViewById(R.id.btn_EditAccount);
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //summitUserInformation();
-                mProgress.show();
-                PutData(url,Encode);
+                if(tvType.getText().toString().length()<3){
+                    tvType.requestFocus();
+                    imgType.setImageResource(R.drawable.ic_error_black_24dp);
+
+                }else if (etUsername.getText().toString().length()<3){
+                    etUsername.requestFocus();
+                    imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
+                }else {
+                    mProgress.show();
+                    PutData(url, Encode);
+                }
             }
         });
 
     } // oncreate
+
 
     private void showDatePickerDialog(){
         final Calendar c = Calendar.getInstance();
@@ -379,33 +389,33 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             }else {
                                 tvType.setText("Public User");
                             }
-                            imgType.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             //               imgType.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             etUsername.setText(convertJsonJava.getFirst_name());
-                            imgtilUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             //               imgtilUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             if(convertJsonJava.getProfile()!=null) {
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
                                     etPhone.setText(convertJsonJava.getProfile().getTelephone());
-                                    imgtilPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             //                       imgtilPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
                                 if(convertJsonJava.getProfile().getWing_account_number()!=null){
                                     etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
-                                    imgtilWingNumber.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            //                        imgtilWingNumber.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
                                 if(convertJsonJava.getProfile().getWing_account_name()!=null){
                                     etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
-                                    imgtilWingName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            //                        imgtilWingName.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
 
                                 String s = convertJsonJava.getProfile().getGender();
                                 mp_Gender.setText(s);
-                                imgGender.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             //                   imgGender.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
                                     String d = convertJsonJava.getProfile().getDate_of_birth();
                                     String dd[] = d.split("-");
                                     strDob = dd[0];
                                     mp_Dob.setText(strDob);
-                                    imgtilDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         //                           imgDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     List<String> date = new ArrayList<>();
                                     date.add(0, d);
                                 }
@@ -440,18 +450,18 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 */
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);
-                                imgMarried.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             //                   imgMarried.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
                                     //Log.d(TAG,"province Id "+p);
                                     getProvinceName(p,true);
-                                    imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            //                        imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
                                 if(convertJsonJava.getProfile().getProvince()!=null) {
                                     int l = Integer.parseInt(convertJsonJava.getProfile().getProvince());
                                     //Log.d(TAG,"Location Id "+l);
-                                    imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            //                        imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     getProvinceName(l,false);
                                 }
                             }
@@ -745,6 +755,238 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         Log.d(TAG,dob);
         return dob;
     }
+
+    private void Text_Action() {
+        tvType.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgType.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgType.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgType.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgUsername.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etWingName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgWingName.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgWingName.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgWingName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etWingNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgWingNumber.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgWingNumber.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgWingNumber.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgPhone.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mp_Dob.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgDob.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgDob.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mp_Pob.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgPob.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgPob.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mp_Married.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgMarried.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgMarried.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgMarried.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mp_Gender.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgGender.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgGender.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgGender.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mp_location.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgLocation.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgLocation.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        tvAddress_account.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgAddress.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgAddress.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    } // text change
 
     private void get_location(boolean isCurrent) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

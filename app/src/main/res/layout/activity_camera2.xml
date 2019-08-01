@@ -512,7 +512,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
-                        android:id="@+id/imgAddress"
+                        android:id="@+id/imgAddress_post"
                         android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"

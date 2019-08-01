@@ -23,6 +23,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -121,7 +122,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
-            icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1;
+            icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icAddress;
     private TextView tvAddress;
     private Button submit_post,tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
@@ -437,7 +438,59 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bundle!=null) {
+
+                if (etTitle.getText().toString().length()<3){
+                    etTitle.requestFocus();
+                    icTitile.setImageResource(R.drawable.ic_error_black_24dp);
+                }else if (tvPostType.getText().toString().length()==0){
+                    tvPostType.setFocusable(true);
+                    tvPostType.setFocusableInTouchMode(true);
+                    tvPostType.requestFocus();
+                    icPostType.setImageResource(R.drawable.ic_error_black_24dp);
+                }else if (tvCategory.getText().toString().length()==0){
+                    tvCategory.setFocusable(true);
+                    tvCategory.setFocusableInTouchMode(true);
+                    tvCategory.requestFocus();
+                    icCategory.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if (type==0){
+                    tvType_elec.setFocusable(true);
+                    tvType_elec.setFocusableInTouchMode(true);
+                    tvType_elec.requestFocus();
+                    icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                 else if (tvBrand.getText().toString().length()==0){
+                    tvBrand.setFocusable(true);
+                    tvBrand.setFocusableInTouchMode(true);
+                    tvBrand.requestFocus();
+                    icBrand.setImageResource(R.drawable.ic_error_black_24dp);
+                }else if (tvModel.getText().toString().length()==0){
+                    tvModel.setFocusable(true);
+                    tvModel.setFocusableInTouchMode(true);
+                    tvModel.requestFocus();
+                    icModel.setImageResource(R.drawable.ic_error_black_24dp);
+                }else if(tvYear.getText().toString().length()==0){
+                    tvYear.setFocusable(true);
+                    tvYear.setFocusableInTouchMode(true);
+                    tvYear.requestFocus();
+                    icYears.setImageResource(R.drawable.ic_error_black_24dp);
+                }else if (etPrice.getText().toString().length()==0){
+                    etPrice.setFocusable(true);
+                    etPrice.setFocusableInTouchMode(true);
+                    etPrice.requestFocus();
+                    icPrice.setImageResource(R.drawable.ic_error_black_24dp);
+                }else if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
+                    AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                    alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+                else if (bundle!=null) {
                     mProgress.show();
                     EditPost_Approve(Encode, edit_id);
                 } else  {
@@ -698,7 +751,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             //Instant.now().toString()
             post.put("created", "");
             post.put("created_by", pk);
-            post.put("modified", Instant.now().toString());
+   //         post.put("modified", Instant.now().toString());
             post.put("modified_by", null);
             post.put("approved_date", null);
             post.put("approved_by", null);
@@ -987,7 +1040,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     //post.put("buy_post",new JSONArray("[]"));
                     break;
                 case "rent":
-                    url = ConsumeAPI.BASE_URL+"postrent/"+ edit_id+"/";
+                    url = ConsumeAPI.BASE_URL+"postrent/"+edit_id+"/";
                     JSONObject rent=new JSONObject();
                     rent.put("rent_status",4);
                     rent.put("record_status",1);
@@ -1715,35 +1768,41 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvPostType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose an item");
-                mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvPostType.setText(postTypeListItems[i]);
-                        //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
-                        icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
 
-                        switch (i){
-                            case 0:
-                                strPostType="sell";
-                                relatve_discount.setVisibility(View.VISIBLE);
-                                break;
-                            case 1:
-                                strPostType="buy";
-                                relatve_discount.setVisibility(View.GONE);
-                                break;
-                            case 2:
-                                strPostType="rent";
-                                relatve_discount.setVisibility(View.VISIBLE);
-                                break;
+                if (bundle != null) {
+
+                } else {
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                    mBuilder.setTitle("Choose an item");
+                    mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvPostType.setText(postTypeListItems[i]);
+                            //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
+                            icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
+                            switch (i) {
+                                case 0:
+                                    strPostType = "sell";
+                                    relatve_discount.setVisibility(View.VISIBLE);
+                                    break;
+                                case 1:
+                                    strPostType = "buy";
+                                    relatve_discount.setVisibility(View.GONE);
+                                    break;
+                                case 2:
+                                    strPostType = "rent";
+                                    relatve_discount.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                            dialogInterface.dismiss();
                         }
-                        dialogInterface.dismiss();
-                    }
-                });
+                    });
 
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
+                    AlertDialog mDialog = mBuilder.create();
+                    mDialog.show();
+                }
+
             }
         });
 
@@ -1887,6 +1946,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         etPhone1          = (EditText)findViewById(R.id.etphone1 );
         etEmail           = (EditText)findViewById(R.id.etEmail );
         //// icon  ////////
+        icTitile     = (ImageView) findViewById(R.id.imgTitle);
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
         icCategory   = (ImageView) findViewById(R.id. imgCategory);
         icType_elec  = (ImageView) findViewById(R.id.imgType_elec );
@@ -1895,8 +1955,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         icYears      = (ImageView) findViewById(R.id. imgYear);
         icCondition  = (ImageView) findViewById(R.id. imgCondition);
         icColor      = (ImageView) findViewById(R.id. imgColor);
-        icTitile     = (ImageView) findViewById(R.id. imgTitle);
         icDescription= (ImageView) findViewById(R.id. imgDescription);
+        icAddress    = (ImageView) findViewById(R.id.imgAddress_post);
         icPrice      = (ImageView) findViewById(R.id. imgPrice);
         icName       = (ImageView) findViewById(R.id. imgName);
         icEmail      = (ImageView) findViewById(R.id. imgEmail);
@@ -1931,8 +1991,337 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        tvPostType.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icPostType.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 3) {
+                    icPostType.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        tvCategory.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icCategory.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 3) {
+                    icCategory.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+     tvType_elec.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icType_elec.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+
+     tvBrand.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icBrand.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icBrand.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+
+     tvModel.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icModel.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icModel.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+
+     tvYear.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icYears.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icYears.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icYears.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+
+     tvCondition.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icCondition.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icCondition.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     tvColor.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icColor.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icColor.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+
+     etPrice.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icPrice.setImageResource(R.drawable.icon_null);
+             } else if (s.length() > 0) {
+                 icPrice.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             }
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     etDescription.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icDescription.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icDescription.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icDescription.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     tvDiscount_type.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icDiscount_type.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icDiscount_type.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     etDiscount_amount.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icDiscount_amount.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icDiscount_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     etName.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icName.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icName.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     etEmail.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icEmail.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icEmail.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icEmail.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     etPhone1.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icPhone1.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 8) {
+                 icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icPhone1.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+     tvAddress.addTextChangedListener(new TextWatcher() {
+         @Override
+         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+         }
+
+         @Override
+         public void onTextChanged(CharSequence s, int start, int before, int count) {
+             if (s.length() == 0) {
+                 icAddress.setImageResource(R.drawable.icon_null);
+             } else if (s.length() < 3) {
+                 icAddress.setImageResource(R.drawable.ic_error_black_24dp);
+             } else icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+         }
+
+         @Override
+         public void afterTextChanged(Editable s) {
+
+         }
+     });
+
+
+
+
+    } // text change
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};

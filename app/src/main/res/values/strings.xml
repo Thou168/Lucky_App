@@ -91,10 +91,6 @@
     //map
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
 
-    <!-- Chats -->
-    <string name="chat_toolbar">Chats</string>
-    <string name="all_text">All</string>
-    <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
     <string name="facebook_app_id">596607940863011</string>
     <string name="fb_login_protocol_scheme">fb596607940863011</string>
 
@@ -492,4 +488,11 @@
 
     <string name="english_khmer">English</string>
 
+    <!-- Chats -->
+    <string name="chat_toolbar">Chats</string>
+    <string name="all_text">All</string>
+
+    <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
+
+    <string name="missing_image">Please select images</string>
 </resources>
