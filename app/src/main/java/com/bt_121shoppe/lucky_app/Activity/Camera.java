@@ -494,6 +494,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     icType_elec.setVisibility(View.VISIBLE);
                                     tvType_elec.setVisibility(View.VISIBLE);
                                 }
+
                                 model = object.getInt("modeling");
                                 mmodel = object.getInt("modeling");
                                 year = object.getInt("year");

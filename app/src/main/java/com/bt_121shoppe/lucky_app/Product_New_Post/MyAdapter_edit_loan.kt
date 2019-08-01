@@ -133,6 +133,8 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")
 
+                    encode ="Basic "+ CommonFunction.getEncodedString(name,pass)
+
                     if (sharedPref.contains("token")) {
                         pk = sharedPref.getInt("Pk", 0)
                     } else if (sharedPref.contains("id")) {
@@ -140,25 +142,22 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                     }
                 }
 
-                encode = getEncodedString(name,pass)
-
                 AlertDialog.Builder(it.context)
                         .setTitle("Cancel loan")
                         .setMessage("Are you sure you want to delete this loan?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
 
-                            val urlAPIEndpoint = ConsumeAPI.BASE_URL + "api/v1/loan/" + item.loanId
+                            val urlAPIEndpoint = ConsumeAPI.BASE_URL + "api/v1/loan/" + item.loanId.toInt()+"/"
                             val media = MediaType.parse("application/json")
                             val client = OkHttpClient()
-
-                            val auth = "Basic $encode"
+//                            val auth = "Basic $encode"
 
                             val request1 = Request.Builder()
                                     .url(urlAPIEndpoint)
                                     .header("Accept", "application/json")
                                     .header("Content-Type", "application/json")
-                                    .header("Authorization", auth)
+                                    .header("Authorization", encode)
                                     .build()
                             client.newCall(request1).enqueue(object : Callback {
                                 override fun onFailure(call: Call, e: IOException) {
@@ -198,7 +197,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                             val house_plant = jsonObject.getBoolean("house_plant")
                                             val mfi = null
                                             val created = null
-                                            val modified = null
+                                            val modified = Instant.now().toString()
                                             val modified_by = jsonObject.getString("modified_by")
                                             val received_date = null
                                             val received_by = jsonObject.getString("received_by")
@@ -208,9 +207,11 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                             val loan_status = jsonObject.getInt("loan_status")
                                             val record_status = jsonObject.getInt("record_status")
 
-
                                             try {
                                                 jsonObject.put("record_status", pk_record)
+                                                Log.d("Record_status", pk_record.toString())
+
+
                                                 jsonObject.put("loan_status", pk_loan)
 
                                                 jsonObject.put("loan_amount", loan_amount)
@@ -218,7 +219,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                                 jsonObject.put("loan_duration", loan_duration)
                                                 jsonObject.put("average_income", average_income)
                                                 jsonObject.put("average_expense", average_expense)
-                                                jsonObject.put("created_by", created_by)
+                                                jsonObject.put("created_by", pk)
                                                 jsonObject.put("post", post)
                                                 jsonObject.put("loan_to",loan_to)
                                                 jsonObject.put("loan_purpose",loan_purpose)
@@ -235,11 +236,11 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                                 jsonObject.put("mfi",mfi)
                                                 jsonObject.put("created",created)
                                                 jsonObject.put("modified",modified)
-                                                jsonObject.put("modified_by",modified_by)
+                                                jsonObject.put("modified_by",pk)
                                                 jsonObject.put("received_date",received_date)
-                                                jsonObject.put("received_by",received_by)
+                                                jsonObject.put("received_by",pk)
                                                 jsonObject.put("rejected_date",rejected_date)
-                                                jsonObject.put("rejected_by",rejected_by)
+                                                jsonObject.put("rejected_by",pk)
                                                 jsonObject.put("rejected_commends",rejected_comments)
 
                                             } catch (e: JSONException) {

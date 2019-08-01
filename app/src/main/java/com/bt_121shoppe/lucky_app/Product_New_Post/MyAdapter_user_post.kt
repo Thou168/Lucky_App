@@ -144,6 +144,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 builder.setItems(items) { dialog, ite ->
                     if (items[ite] == "Cancel") {
                         dialog.dismiss()
+
                     }else{
                         val reason=items[ite].toString()
                         val URL_ENDCODE=ConsumeAPI.BASE_URL+"api/v1/renewaldelete/"+item.id.toInt()+"/"
@@ -295,6 +296,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     data.put("modified", Instant.now().toString())
                                 }
+
                                 data.put("modified_by", pk)
                                 data.put("rejected_comments","")
                             }catch (e: JSONException){

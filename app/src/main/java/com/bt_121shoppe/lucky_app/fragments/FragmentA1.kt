@@ -106,7 +106,7 @@ class FragmentA1: Fragment() {
                 val jsonObject = JSONObject(mMessage)
                 try {
                     activity!!.runOnUiThread {
-                    Log.d("Run  :"," la"+jsonObject)
+                    Log.d("Run Get Post :"," la" +jsonObject)
                         //val detail:String=jsonObject.getString("detail").toString()
                         //if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")

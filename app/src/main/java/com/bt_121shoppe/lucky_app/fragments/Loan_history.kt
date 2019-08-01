@@ -79,7 +79,7 @@ class Loan_history: Fragment() {
     }
 
     private fun getMyLoan() {
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=2"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"api/v1/loan/?record_status=2"
         val client= OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)
@@ -117,6 +117,8 @@ class Loan_history: Fragment() {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
                             Log.d("Loan ID", "LaLa" + loanID)
+
+
                             post_id = `object`.getInt("post")
                             //Log.d("Post id ",post_id.toString())
 

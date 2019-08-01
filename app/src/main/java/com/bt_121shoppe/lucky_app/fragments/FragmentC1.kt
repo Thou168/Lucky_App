@@ -108,7 +108,7 @@ class FragmentC1: Fragment() {
 
                     activity!!.runOnUiThread {
 //                        val itemApi = ArrayList<LoanItemAPI>()
-                        Log.d("Run GET Loan  :"," la"+jsonObject)
+                        Log.d("Run GET Loan  :"," la" + jsonObject)
 
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
@@ -122,13 +122,14 @@ class FragmentC1: Fragment() {
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
-                            Log.d("Loan ID","LaLa"+loanID)
+                            Log.d("Loan ID" , loanID.toString())
 
                             post_id = `object`.getInt("post")
                             Log.d("Post id ",post_id.toString())
 
                             val url_user = ConsumeAPI.BASE_URL+"detailposts/"+post_id+"/"
                             Log.d("Post id ",url_user)
+
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
                                     .url(url_user)
@@ -182,7 +183,7 @@ class FragmentC1: Fragment() {
                                                         val mMessage = response.body()!!.string()
                                                         val gson = Gson()
                                                         try {
-                                                            Log.d("FRAGMENT 1", mMessage)
+                                                            Log.d("FRAGMENT 3", mMessage)
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {

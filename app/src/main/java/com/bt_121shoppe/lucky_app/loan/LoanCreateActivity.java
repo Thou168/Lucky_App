@@ -39,7 +39,7 @@ public class LoanCreateActivity extends AppCompatActivity {
     private static final String TAG=LoanCreateActivity.class.getSimpleName();
     private SharedPreferences preferences;
     private String username,password,Encode;
-    private int pk, id_edit=0,id_cancel=0,cancelid;
+    private int pk = 0, id_edit=0,id_cancel=0,cancelid;
     private int postid;
     private String pk_create;
     private Boolean status_card,status_family,status_staff,status_title = null;
@@ -60,7 +60,6 @@ public class LoanCreateActivity extends AppCompatActivity {
     Bundle bundle;
 
     String[] yesNos;
-
     //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
 //    String[] card_id = getResources().getStringArray(R.array.ID_card);
 //    String[] book_family = getResources().getStringArray(R.array.Family_book);
@@ -282,7 +281,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("loan_interest_rate",0);
             data.put("loan_duration",loan_term.getText().toString());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",9);
+            data.put("loan_status",1);
             data.put("record_status",1);
             data.put("username",status_borrower);
             data.put("gender","female");
@@ -337,7 +336,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String result=response.body().string();
-                Log.d("Response",result);
+                Log.d("Response ",result);
                 Gson gson=new Gson();
                 LoanViewModel loanObj=new LoanViewModel();
                 try{
@@ -490,7 +489,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("loan_interest_rate",0);
             data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",9);
+            data.put("loan_status",1);
             data.put("record_status",1);
             data.put("username",status_borrower);
             data.put("gender","female");
@@ -504,7 +503,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("family_book",status_family);    //family_book
             data.put("staff_id",status_staff);   //staff_id
             data.put("house_plant",status_title);  //land_title
-            data.put("post",postid);
+            data.put("post",pk);
             data.put("created_by",pk);
 
             Log.d(TAG," d"+data);
