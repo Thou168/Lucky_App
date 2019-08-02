@@ -31,7 +31,7 @@ class User_post : AppCompatActivity() {
     var encode=""
 
     private lateinit var img_user:CircleImageView
-    private lateinit var tvUsername:TextView
+    private lateinit var Username:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +45,7 @@ class User_post : AppCompatActivity() {
         encode = "Basic "+com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString(username,password)
 
         Log.d("ENCODE1: ",encode)
+        Username = findViewById(R.id.username)
         img_user = findViewById(R.id.img_user)
 
         findViewById<TextView>(R.id.tv_back).setOnClickListener { finish() }
@@ -102,6 +103,7 @@ class User_post : AppCompatActivity() {
                         Log.d("TAGGGGG",profilepicture)
                         Log.d("TAGGGGG",coverpicture)
 //                        tvUsername!!.setText(user1.username)
+                        Username!!.setText(user1.first_name)
                         //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                         //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
                         if(profilepicture==null){

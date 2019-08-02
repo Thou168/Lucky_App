@@ -27,6 +27,16 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_height="100dp" />
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_user"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab"
