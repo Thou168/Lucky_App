@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -64,9 +65,19 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
             lang.show(supportFragmentManager,lang.tag)
         }
 
+        val verson = findViewById<TextView>(R.id.tvVersion2)
+        try {
+            val pInfo = this.getPackageManager().getPackageInfo(packageName, 0)
+            val version = pInfo.versionName
+            verson.setText(version)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
         var txtBack = findViewById<View>(R.id.tvBack_account) as TextView
         txtBack.setOnClickListener(View.OnClickListener { finish() })
-    }
+
+    }  // onCreate
 
     override fun language(lang : String) {
         val locale = Locale(lang!!)

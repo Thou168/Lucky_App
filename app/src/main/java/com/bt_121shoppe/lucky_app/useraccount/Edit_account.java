@@ -389,33 +389,29 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             }else {
                                 tvType.setText("Public User");
                             }
-             //               imgType.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
                             etUsername.setText(convertJsonJava.getFirst_name());
-             //               imgtilUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
                             if(convertJsonJava.getProfile()!=null) {
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
                                     etPhone.setText(convertJsonJava.getProfile().getTelephone());
-             //                       imgtilPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
                                 if(convertJsonJava.getProfile().getWing_account_number()!=null){
                                     etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
-            //                        imgtilWingNumber.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
                                 if(convertJsonJava.getProfile().getWing_account_name()!=null){
                                     etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
-            //                        imgtilWingName.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                 }
-
                                 String s = convertJsonJava.getProfile().getGender();
                                 mp_Gender.setText(s);
-             //                   imgGender.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
 
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
                                     String d = convertJsonJava.getProfile().getDate_of_birth();
                                     String dd[] = d.split("-");
                                     strDob = dd[0];
                                     mp_Dob.setText(strDob);
-         //                           imgDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
                                     List<String> date = new ArrayList<>();
                                     date.add(0, d);
                                 }
@@ -450,18 +446,18 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 */
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);
-             //                   imgMarried.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
 
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
                                     //Log.d(TAG,"province Id "+p);
                                     getProvinceName(p,true);
-            //                        imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
                                 }
                                 if(convertJsonJava.getProfile().getProvince()!=null) {
                                     int l = Integer.parseInt(convertJsonJava.getProfile().getProvince());
                                     //Log.d(TAG,"Location Id "+l);
-            //                        imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
+
                                     getProvinceName(l,false);
                                 }
                             }
@@ -659,7 +655,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     public void getProvinceName(int id,boolean isPob){
         final String rl = ConsumeAPI.BASE_URL+"api/v1/provinces/"+id+"/";
-        String auth="Basic "+Encode;
+        String auth="Basic "+ Encode;
+        Log.d("URLLLLLLLL", rl);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(rl)
@@ -689,6 +686,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
+
+
             }
             @Override
             public void onFailure(Call call, IOException e) {
@@ -1010,7 +1009,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
                 }
-                latlng = latitude+","+longtitude;
 
                 try{
                     Geocoder geocoder = new Geocoder(this);

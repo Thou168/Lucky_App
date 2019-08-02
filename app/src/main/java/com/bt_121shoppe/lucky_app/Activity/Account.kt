@@ -247,7 +247,6 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
         val account_edit = findViewById<ImageButton>(R.id.btn_edit)
         account_edit.setOnClickListener {
-            Toast.makeText(this@Account,"Home Edit", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@Account, Edit_account::class.java)
             startActivity(intent)
         }
@@ -596,7 +595,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                Log.w("failure Response123", mMessage)
+                Log.w(" Response123", mMessage)
                 val gson = Gson()
                 val jsonObject=JSONObject(mMessage)
                 try {
