@@ -47,9 +47,18 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
 
         fun bindItems(item: Item_discount) {
 
-            val dis = item.dis
+            val dis_type = item.discount_type
+            var dis = item.dis
             val cost1 = item.cost
-            val price = cost1 - dis
+            var price: Double = 0.0
+            var discout1: Double = 0.0
+            if (dis_type == "amount") {
+                price = cost1 - dis
+            }else if (dis_type == "percent"){
+                discout1 = cost1*(dis/100)
+                price = cost1 - discout1
+            }
+
             val st = "$"+cost1.toString()
             val ms = SpannableString(st)
             val mst = StrikethroughSpan()
@@ -60,9 +69,9 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
 //            imageView.setImageResource(item.image)
 //            img_user.setImageResource(item.img_user)
              title.text = item.title
-             cost.text = "$"+price.toString()
+             cost.text = "$"+ price.toString()
              location.text = item.time
-            count_view.text = "View:"+item.countview
+             count_view.text = "View:"+item.countview
 
             val decodedString = Base64.decode(item.image, Base64.DEFAULT)
 
@@ -85,7 +94,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
 //                intent.putExtra("Image",decodedByte)
 //                intent.putExtra("Image_user",decodedByte)
-//                intent.putExtra("Title",item.title)
+                intent.putExtra("Discount",price)
                 intent.putExtra("Price",item.cost)
 ////                intent.putExtra("Name",item.name)
                 intent.putExtra("ID",item.id)

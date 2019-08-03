@@ -854,6 +854,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        val discount_type = `object`.getString("discount_type")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                         val time:Long = sdf.parse(`object`.getString("created")).getTime()
                         val now:Long = System.currentTimeMillis()
@@ -897,7 +898,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString(),cc.toString()))
+                                            itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString(),cc.toString(),discount_type))
 
                                             best_list!!.adapter = MyAdapter(itemApi)
                                             //List Grid and Image

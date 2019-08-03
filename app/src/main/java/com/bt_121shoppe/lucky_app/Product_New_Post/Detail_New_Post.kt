@@ -17,7 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.format.DateUtils
+import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
 import android.view.KeyEvent
@@ -58,6 +61,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -95,6 +99,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     internal lateinit var txt_detail_new: TextView
     private lateinit var tvPostTitle:TextView
     private lateinit var tvPrice:TextView
+    private lateinit var tvPrice1:TextView
+    private lateinit var tvDiscount: TextView
     private lateinit var tvBrand:TextView
     private lateinit var tvModel:TextView
     private lateinit var tvYear:TextView
@@ -124,12 +130,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var postUsername:String
     private lateinit var postUserId:String
     private lateinit var postType:String
+    var discount: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
 
         postId = intent.getIntExtra("ID",0)
+        discount = intent.getDoubleExtra("Discount",0.0)
         Log.d("ID Detail New :",postId.toString())
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -181,6 +189,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //
         tvPostTitle = findViewById<TextView>(R.id.title)
         tvPrice = findViewById<TextView>(R.id.tv_price)
+        tvPrice1 = findViewById<TextView>(R.id.tv_price1)
+        tvDiscount = findViewById<TextView>(R.id.tv_discount)
         tvBrand=findViewById<TextView>(R.id.tvBrand)
         tvModel=findViewById<TextView>(R.id.tv_Model)
         tvYear=findViewById<TextView>(R.id.tv_Year)
@@ -466,7 +476,21 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postType=postDetail.post_type
 
                         tvPostTitle.setText(postDetail.title.toString())
-                        tvPrice.setText("$ "+postDetail.cost.toString())
+                        tvPrice.setText("$ "+ discount)
+                        tvPrice1.setText("$ "+ postDetail.cost.toString())
+                        if (discount == 0.0){
+                            tvDiscount.visibility = View.GONE
+                            tvPrice.visibility = View.GONE
+                        }else{
+                            tvPrice1.visibility = View.GONE
+                        }
+//                        tvDiscount.setText("$ "+postDetail.cost.toString())
+                        val st = "$ "+postDetail.cost.toString()
+                        val ms = SpannableString(st)
+                        val mst = StrikethroughSpan()
+                        ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        tvDiscount.text = ms
+
                         tvCondition.setText(postDetail.condition.toString())
                         tvColor.setText(postDetail.color.toString())
                         tvDescription.setText(postDetail.description.toString())
@@ -896,8 +920,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             return BitmapFactory.decodeFile(filePath, options)
         }
     }
-
-
      class BitmapUtil {
 
          companion object{
@@ -944,16 +966,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val path:String = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
         return Uri.parse(path)
     }
-
-
     private fun get_location(latitude:Double,longtitude:Double) {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             getLocation(latitude, longtitude)
         }
     }
-
-
     private fun getLocation(latitude: Double,longtitude: Double) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
@@ -980,7 +998,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
         }
     }  //
-
     override fun onMapReady(googleMap: GoogleMap?) {
 
         if (googleMap != null) {
@@ -999,6 +1016,5 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(LatLng(latitude, longtitude)))
 
     }
-
 
 }

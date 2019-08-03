@@ -50,12 +50,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textColor="@android:color/holo_red_light"
+                    android:id="@+id/tv_price1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textStyle="bold"
+                    android:text="1200"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="20sp"
                     android:id="@+id/tv_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_alignTop="@+id/tv_price"
+                    android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/tv_price"
-                    android:padding="@dimen/dp_8dp" />
+                    android:gravity="center_vertical" />
                 <TextView
                     android:id="@+id/count_view"
                     android:layout_alignParentRight="true"
@@ -504,7 +519,6 @@
                         <TextView
                             android:paddingStart="@dimen/dp_20"
                             android:id="@+id/tv_phone"
-                            android:text="077350356"
                             android:textSize="@dimen/dp_16"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
