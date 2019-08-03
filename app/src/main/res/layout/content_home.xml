@@ -26,12 +26,13 @@
             </com.custom.sliderimage.logic.SliderImage>
             <include layout="@layout/sell_buy_rent"/>
             <TextView
+                android:gravity="center|left"
                 android:background="#80D3D3D3"
                 android:text="@string/product_discount"
                 android:textSize="@dimen/dp_16"
                 android:paddingStart="@dimen/dp_16"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="30dp" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="220dp">
@@ -58,21 +59,24 @@
             <RelativeLayout
                 android:background="@color/colorLightGray"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="30dp">
                 <TextView
+                    android:gravity="center"
                     android:paddingStart="@dimen/dp_16"
                     android:textSize="@dimen/dp_16"
                     android:text="@string/new_post"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
                 <ImageView
+                    android:layout_centerInParent="true"
                     android:id="@+id/btn_image"
-                    android:src="@drawable/ic_image_black_24dp"
+                    android:src="@drawable/icon_image"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@+id/grid" />
                 <ImageView
+                    android:layout_centerInParent="true"
                     android:id="@+id/img_list"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentRight="true"
@@ -80,12 +84,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
+                    android:layout_centerInParent="true"
                     android:id="@+id/grid"
                     android:layout_marginEnd="10dp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_toStartOf="@+id/img_list"
-                    android:src="@drawable/ic_grid_on_black_24dp" />
+                    android:src="@drawable/icon_grid" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -94,7 +99,6 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_new_post"
-                    android:background="#7A999999"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

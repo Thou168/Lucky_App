@@ -87,7 +87,6 @@ public class Login extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         RequestBody body = RequestBody.create(MEDIA_TYPE, postdata.toString());
         Request request = new Request.Builder()
                 .url(url)
@@ -169,20 +168,6 @@ public class Login extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                         */
-
-//                        SharedPreferences.Editor editor = prefer.edit();
-//                        editor.putString("token",key);
-//                        editor.putString("name",name);
-//                        editor.putString("pass",pass);
-//                        editor.putInt("Pk",pk);
-//                        editor.commit();
-//                        mProgress.dismiss();
-//                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(Login.this, Home.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        startActivity(intent);
-//                        finish();
-
                     }else {
                         mProgress.dismiss();
                         Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
@@ -201,6 +186,4 @@ public class Login extends AppCompatActivity {
             });
         }
     }
-
-
 }

@@ -227,7 +227,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
             //upload.show(supportFragmentManager,upload.tag)
         }
 
-        uploadprofile = findViewById<ImageView>(R.id.imgCover)
+        uploadprofile =   findViewById<ImageView>(R.id.imgCover)
         uploadprofile!!.setOnClickListener{
             type = "cover"
             selectImage()

@@ -38,7 +38,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".chats.ChatActivity"></activity>
+        <activity android:name=".Activity.Account1"></activity>
+        <activity android:name=".chats.ChatActivity" />
         <activity android:name=".Fragment.contact_user2" />
         <activity android:name=".Login_Register.FacebookLoginActivity" />
 
@@ -70,7 +71,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activity.SpinnerActivity" />
         <activity android:name=".chats.MessageActivity" />
         <activity android:name=".chats.ChatMainActivity" />
