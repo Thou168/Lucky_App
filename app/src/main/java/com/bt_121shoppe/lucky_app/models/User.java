@@ -8,14 +8,16 @@ public class User {
     private String status;
     private String search;
     private String coverURL;
+    private String password;
 
-    public User(String id,String username,String imageURL,String status,String search,String coverURL){
+    public User(String id,String username,String imageURL,String status,String search,String coverURL,String password){
         this.id=id;
         this.username=username;
         this.imageURL=imageURL;
         this.status=status;
         this.search=search;
         this.coverURL=coverURL;
+        this.password=password;
     }
 
     public User(){
@@ -68,5 +70,13 @@ public class User {
 
     public String getCoverURL() {
         return coverURL;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

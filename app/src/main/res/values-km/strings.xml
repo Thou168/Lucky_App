@@ -392,4 +392,11 @@
     <string name="fb_login_protocol_scheme">fb596607940863011</string>
 
     <string name="missing_image">សូមជ្រើសរើសរូបភាព</string>
+    <string name="facebook_login_register">ចុះឈ្មោះឬចូលជាមួយ Facebook</string>
+    <string name="confirm_phone_number_title">បញ្ចូលលេខទូរស័ព្ទ</string>
+    <string name="confirm_phone_number_text">សូមបញ្ចូលលេខទូរស័ព្ទរបស់អ្នកនៅក្នុងប្រអប់ខាងក្រោមដើម្បីផ្ទៀងផ្ទាត់លេខទូរស័ព្ទរបស់អ្នក។ យើងនឹងផ្ញើលេខកូដផ្ទៀងផ្ទាត់ទៅទូរស័ព្ទរបស់អ្នក។</string>
+    <string name="confirm_phone_number_hint">លេខទូរស័ព្ទរបស់អ្នក</string>
+    <string name="button_close">បិទ</string>
+    <string name="phone_exist">លេខទូរស័ព្ទនេះត្រូវបានប្រើរួចហើយ។ សូមព្យាយាមផ្សេងទៀត។</string>
+    <string name="progress_waiting">កំពុងដំនើរការ...</string>
 </resources>

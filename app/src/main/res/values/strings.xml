@@ -92,7 +92,7 @@
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
 
     <string name="facebook_app_id">596607940863011</string>
-    <string name="fb_login_protocol_scheme">fb596607940863011</string>
+    <string name="fb_login_protocol_scheme">596607940863011</string>
 
     <string-array name="category">
         <item>Category</item>
@@ -495,4 +495,11 @@
     <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
 
     <string name="missing_image">Please select images</string>
+    <string name="facebook_login_register">Register or Login with Facebook</string>
+    <string name="confirm_phone_number_title">Set Phone</string>
+    <string name="confirm_phone_number_text">Please enter your phone number in the box below to verify your phone number. We will send the verification code to your phone.</string>
+    <string name="confirm_phone_number_hint">Your Phone Number</string>
+    <string name="button_close">Close</string>
+    <string name="phone_exist">This phone number is already used. Please try another.</string>
+    <string name="progress_waiting">In progress...</string>
 </resources>

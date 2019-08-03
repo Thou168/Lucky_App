@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -16,10 +17,10 @@ import com.bt_121shoppe.lucky_app.Activity.Home
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java
 import com.bt_121shoppe.lucky_app.R
+import com.bt_121shoppe.lucky_app.models.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.rengwuxian.materialedittext.MaterialEditText
@@ -28,7 +29,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.util.HashMap
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class VerifyMobileActivity : AppCompatActivity() {
@@ -148,19 +149,50 @@ class VerifyMobileActivity : AppCompatActivity() {
                             hashMap["id"] = userId
                             hashMap["username"] = no
                             hashMap["imageURL"] = "default"
-                            hashMap["status"]="offline"
+                            hashMap["status"]="online"
                             hashMap["search"]=no.toLowerCase()
                             hashMap["coverURL"]="default"
-                            Log.d("TAG", "" + hashMap)
+                            hashMap["password"]=password
+                            //Log.d("TAG", "" + hashMap)
                             reference.child("users").child(userId).setValue(hashMap)
                             registerRequest()
                         }else if(authType==2){ // login
-                            postLoginRequest()
-                        }
+                            setpassword(userId,password)
+                            postLoginRequest(password)
+                        }else if(authType==3){//register with facebook
+                            val facebooktokenkey=intent.getStringExtra("facebooktokenkey")
+                            val facebookid=intent.getStringExtra("facebookid")
+                            val facebookname=intent.getStringExtra("facebookname")
+                            val imageurl=intent.getStringExtra("imageurl")
 
+                            val hashMap = HashMap<String, String>()
+                            hashMap["id"] = userId
+                            hashMap["username"] = no
+                            hashMap["imageURL"] = imageurl
+                            hashMap["status"]="online"
+                            hashMap["search"]=no.toLowerCase()
+                            hashMap["coverURL"]="default"
+                            hashMap["password"]=password
+                            //Log.d("TAG", "" + hashMap)
+                            reference.child("users").child(userId).setValue(hashMap)
+                            registerWithFBRequest(facebookname,facebookid)
+                        }
+                        else if(authType==4){ // login with fb
+                            val reference = FirebaseDatabase.getInstance().getReference("users").child(userId)
+                            reference.addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    val user = dataSnapshot.getValue(User::class.java)
+                                    val firebasePwd=user!!.password
+                                    postLoginRequest(firebasePwd)
+                                }
+
+                                override fun onCancelled(databaseError: DatabaseError) {
+
+                                }
+                            })
+                        }
                     } else {
                         var message = "Someting is wrong, we will fix it soon....."
-
                         if (task.exception is FirebaseAuthInvalidCredentialsException) {
                             message = "Invalide code entered....."
                         }
@@ -209,6 +241,49 @@ class VerifyMobileActivity : AppCompatActivity() {
         })
     }
 
+    private fun registerWithFBRequest(username:String,facebookid:String){
+        val MEDIA_TYPE = MediaType.parse("application/json")
+        val url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/users/")
+        val client = OkHttpClient()
+        val postdata = JSONObject()
+        val post_body = JSONObject()
+        try {
+            postdata.put("username", no)
+            postdata.put("password", password)
+            postdata.put("first_name",username)
+            postdata.put("last_name",facebookid)
+            post_body.put("telephone", no)
+            postdata.put("profile", post_body)
+            postdata.put("groups", JSONArray("[\"1\"]"))
+        } catch (e: JSONException) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        }
+        val body = RequestBody.create(MEDIA_TYPE, postdata.toString())
+        val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                Log.e("Register Verify", mMessage)
+                convertUser(mMessage)
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+                runOnUiThread { Toast.makeText(applicationContext, "failure Response:$mMessage", Toast.LENGTH_SHORT).show() }
+                //call.cancel();
+            }
+        })
+    }
+
     private fun convertUser(mMessage: String) {
         val gson = Gson()
         var convertJsonJava = Convert_Json_Java()
@@ -216,7 +291,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java::class.java)
             val gg = convertJsonJava.groups
             val g = gg[0]
-            Log.d("Register Verify", convertJsonJava.username + "\t" + convertJsonJava.email + "\t" + convertJsonJava.id + "\t" + g + "\t" + convertJsonJava.status)
+            //Log.d("Register Verify", convertJsonJava.username + "\t" + convertJsonJava.email + "\t" + convertJsonJava.id + "\t" + g + "\t" + convertJsonJava.status)
             val id = convertJsonJava.id
 
             runOnUiThread {
@@ -237,7 +312,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                 } else {
                     //Toast.makeText(applicationContext, "register failure", Toast.LENGTH_SHORT).show()
                     val alertDialog = AlertDialog.Builder(this@VerifyMobileActivity).create()
-                    alertDialog.setTitle("Loan")
+                    //alertDialog.setTitle("Loan")
                     alertDialog.setMessage(convertJsonJava.username)
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
                     ) { dialog, which -> dialog.dismiss() }
@@ -260,7 +335,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 
     }
 
-    private fun postLoginRequest() {
+    private fun postLoginRequest(password: String) {
         val MEDIA_TYPE = MediaType.parse("application/json")
         val url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/rest-auth/login/")
         //   String url ="http://192.168.1.239:8000/rest-auth/login/";  // login
@@ -348,4 +423,11 @@ class VerifyMobileActivity : AppCompatActivity() {
 
     }
 
+    private fun setpassword(userid:String, password: String) {
+        reference = FirebaseDatabase.getInstance().getReference("users").child(userid)
+        val hashMap = HashMap<String, Any>()
+        hashMap["password"] = password
+        hashMap["status"] = "online"
+        reference.updateChildren(hashMap)
+    }
 }

@@ -154,17 +154,5 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode== IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data!=null && data.getData() !=null){
-            imageUri=data.getData();
 
-            if(uploadTask !=null && uploadTask.isInProgress()){
-                Toast.makeText(getContext(),"Upload in progress.",Toast.LENGTH_LONG).show();
-            }else{
-                uploadImage();
-            }
-        }
-    }
 }

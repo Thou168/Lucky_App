@@ -9,17 +9,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.preference.SwitchPreference
 import android.provider.MediaStore
 import android.provider.Settings
 import android.text.format.DateUtils
-import android.util.Base64
 import android.util.Log
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -55,7 +51,13 @@ import com.bt_121shoppe.lucky_app.Startup.Search1
 import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 import com.bt_121shoppe.lucky_app.utils.CheckNetwork
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.karumi.dexter.Dexter
@@ -64,7 +66,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.nav_header_home.*
 import net.hockeyapp.android.CrashManager
 
 import okhttp3.*
@@ -73,7 +74,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import java.lang.Runnable as Runnable1
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -102,7 +102,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
-
     internal lateinit var ddBrand:Button
     internal lateinit var listItems1: Array<String?>
     internal lateinit var categoryIdItems: Array<Int?>
@@ -271,7 +270,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Home, Account1::class.java)
+                        val intent = Intent(this@Home, Account::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
@@ -338,7 +337,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         initialCategoryDropdown()
         initialBrandDropdownList()
         initialYearDropdownList()
-
 
         ddCategory.setOnClickListener(View.OnClickListener {
             val mBuilder = AlertDialog.Builder(this@Home)
@@ -603,7 +601,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
     }
     fun getUserProfile(){
-        Log.d("HOMMMMMMM", "User ID "+pk);
         var user1 = User()
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
         var MEDIA_TYPE=MediaType.parse("application/json")
@@ -629,13 +626,36 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
-                        val drawer_username=findViewById<TextView>(R.id.drawer_username)
-                        drawer_username.setText(user1.first_name)
+
+                        val fuser = FirebaseAuth.getInstance().currentUser
+                        val reference = FirebaseDatabase.getInstance().getReference("users").child(fuser!!.uid)
+
+                        reference.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                val ffuser = dataSnapshot.getValue(com.bt_121shoppe.lucky_app.models.User::class.java)
+                                val drawer_username=findViewById<TextView>(R.id.drawer_username)
+                                val imageView = findViewById<CircleImageView>(R.id.imageView)
+                                if(user1.first_name.isNullOrEmpty())
+                                    drawer_username.setText(ffuser!!.username)
+                                else
+                                    drawer_username.setText(user1.first_name)
+
+                                if (ffuser!!.imageURL == "default") {
+                                    imageView.setImageResource(R.drawable.user)
+                                } else {
+                                    Glide.with(this@Home).load(ffuser.imageURL).into(imageView)
+                                }
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+
+                            }
+                        })
+
+                        /*
                         if(user1.profile!=null) {
                             val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
                             val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image
-                            Log.d("TAGGGGG", profilepicture)
-                            Log.d("TAGGGGG", coverpicture)
                             //tvUsername!!.setText(user1.username)
                             //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
@@ -669,6 +689,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                 //imgCover!!.setImageBitmap(decodedByte)
                             }
                         }
+
+                        */
                     }
 
                 } catch (e: JsonParseException) {

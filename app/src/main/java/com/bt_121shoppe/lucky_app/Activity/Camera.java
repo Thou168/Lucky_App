@@ -703,8 +703,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 .header("Authorization",auth)
                 .build();
         client.newCall(request).enqueue(new Callback() {
-
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();

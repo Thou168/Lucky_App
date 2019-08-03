@@ -69,7 +69,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
+class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
     private val REQUEST_TAKE_PHOTO=1
     private val REQUEST_GALLARY_PHOTO=2
@@ -122,7 +122,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         //Log.d("Account", "User pk "+ username)
         if(pk==0){
             Log.d("Account", "User pk "+ pk)
-            val intent= Intent(this@Account,UserAccount::class.java)
+            val intent= Intent(this@Account1,UserAccount::class.java)
             startActivity(intent)
             finish()
         }
@@ -132,50 +132,50 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this@Account,Home::class.java)
+                    val intent = Intent(this@Account1,Home::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
                 R.id.notification -> {
                     if (preferences.contains("token") || preferences.contains("id")) {
-                        val intent = Intent(this@Account, Notification::class.java)
+                        val intent = Intent(this@Account1, Notification::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccount::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
                 R.id.camera ->{
                     if (preferences.contains("token") || preferences.contains("id")) {
-                        val intent = Intent(this@Account, Camera::class.java)
+                        val intent = Intent(this@Account1, Camera::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccount::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
                 R.id.message -> {
                     if (preferences.contains("token") || preferences.contains("id")) {
-                        val intent = Intent(this@Account, ChatMainActivity::class.java)
+                        val intent = Intent(this@Account1, ChatMainActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccount::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
                 R.id.account ->{
                     if (preferences.contains("token") || preferences.contains("id")) {
-                        val intent = Intent(this@Account, Account::class.java)
+                        val intent = Intent(this@Account1, Account::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccount::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -240,14 +240,14 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
         val setting = findViewById<ImageButton>(R.id.btn_setting)
         setting.setOnClickListener {
-            val intent = Intent(this@Account , Setting::class.java)
+            val intent = Intent(this@Account1 , Setting::class.java)
             startActivity(intent)
-            Toast.makeText(this@Account,"Setting", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@Account1,"Setting", Toast.LENGTH_SHORT).show()
         }
 
         val account_edit = findViewById<ImageButton>(R.id.btn_edit)
         account_edit.setOnClickListener {
-            val intent = Intent(this@Account, Edit_account::class.java)
+            val intent = Intent(this@Account1, Edit_account::class.java)
             startActivity(intent)
         }
         /*
@@ -329,7 +329,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             }
                             Log.d("Response", result)
                         }
@@ -363,7 +363,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgCover)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgCover)
                             }
                             Log.d("Response", result)
                         }
@@ -408,7 +408,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             }
                             Log.d("Response", result)
                         }
@@ -442,7 +442,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgCover)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgCover)
                             }
                             Log.d("Response", result)
                         }
@@ -625,7 +625,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
     private fun selectImage() {
         val items = arrayOf<CharSequence>("Take Photo", "Choose from Library", "Cancel")
-        val builder = androidx.appcompat.app.AlertDialog.Builder(this@Account)
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this@Account1)
         builder.setItems(items) {
             dialog, item ->
             if (items[item] == "Take Photo") {
@@ -793,7 +793,7 @@ class Account : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     }
 
     private fun getFileExtenstion(uri: Uri): String? {
-        val contentResolver = this@Account!!.getContentResolver()
+        val contentResolver = this@Account1!!.getContentResolver()
         val mimeTypeMap = MimeTypeMap.getSingleton()
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
     }

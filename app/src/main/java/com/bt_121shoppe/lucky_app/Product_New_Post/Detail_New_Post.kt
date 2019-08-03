@@ -298,7 +298,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             false
         })
 
-        edLoanInterestRate.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+        edLoanTerm.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
                 Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()

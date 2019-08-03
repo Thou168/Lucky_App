@@ -38,9 +38,9 @@ public class ChatAllFragment extends Fragment {
         recyclerView.setAdapter(recyclerViewAdapter);
 
         userList=new ArrayList<>();
-        User user=new User("1","Rith","default","online","rith","default");
+        User user=new User("1","Rith","default","online","rith","default","default");
         userList.add(user);
-        user=new User("2","J Sros so cute","default","online","rith","default");
+        user=new User("2","J Sros so cute","default","online","rith","default","default");
         userList.add(user);
         recyclerViewAdapter.setUserList(userList);
 
@@ -48,7 +48,7 @@ public class ChatAllFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                User user=new User("3","mak ming admin","default","online","rith","default");
+                User user=new User("3","mak ming admin","default","online","rith","default","default");
                 userList.add(user);
                 recyclerViewAdapter.setUserList(userList);
                 swipeRefreshLayout.setRefreshing(false);
