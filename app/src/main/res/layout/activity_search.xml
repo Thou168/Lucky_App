@@ -11,7 +11,7 @@
         app:titleTextColor="#E7E7E7"
         android:background="@color/colorMessage"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="?android:attr/actionBarSize">
         <TextView
             android:id="@+id/back"
             android:gravity="center"

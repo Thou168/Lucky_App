@@ -370,10 +370,16 @@
     <string name="enter_number">បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក</string>
     //message
     <string name="type_message">បញ្ខូលសារនៅទីនេះ...</string>
-    <string name="username">Username</string>
+    <string name="username">ឈ្មោះ​អ្នកប្រើប្រាស់</string>
     <string name="renew">ធ្វើអោយថ្មី</string>
     //filter
+    <string name="choose_type">ជ្រើសរើសប្រភេទ</string>
+    <string name="choose_model">ជ្រើសរើសម៉ូឌែល</string>
+    <string name="choose_color">ជ្រើសរើសពណ៌</string>
+    <string name="choose_discount">ជ្រើសរើសប្រភេទបញ្ចុះតម្លៃ</string>
     <string name="choose_category">ជ្រើសរើសប្រភេទផលិតផល</string>
+    <string name="choose_condition">ជ្រើសរើសលក្ខខណ្</string>
+    <string name="choose_type_post">ជ្រើសរើសប្រភេទប្រកាស</string>
     <string name="choose_brand">ជ្រើសរើសម៉ាកផលិតផល</string>
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
 
@@ -392,6 +398,39 @@
     <string name="fb_login_protocol_scheme">fb596607940863011</string>
 
     <string name="missing_image">សូមជ្រើសរើសរូបភាព</string>
+    <string name="post_message">ប្រកាសរបស់អ្នកកំពុងរង់ចាំការយល់ព្រម</string>
+    <string name="title_edit_loan">កែសម្រួលឥណទានរបស់អ្នក</string>
+    <string name="title_create_loan">បង្កើតឥណទានរបស់អ្នក</string>
+    <string name="loan_feedback">សូមពិនិត្យម្តងទៀត !!</string>
+    <string name="loan_feedback1">ឥណទានរបស់អ្នកមិនត្រូវបានកែសម្រួលទេ</string>
+    <string name="loan_fail_message">សំណើបង្កើតឥណទានរបស់អ្នកមានកំហុសខណៈពេលដាក់ស្នើ</string>
+    <string name="ok">យល់ព្រម</string>
+    <string name="title_post">ការប្រកាស</string>
+    <string name="post_fail_message">ការប្រកាសនេះមានកំហុសនៅពេលបញ្ជូន</string>
+    <string name="post_success_message">ការប្រកាសនេះត្រូវបានដាក់ស្នើដោយជោគជ័យ</string>
+    <string name="please_wait">សូមរង់ចាំ ...</string>
+
+    //validate loan
+    <string name="job">ការងារមិនអាចទទេបានទេ</string>
+    <string name="monthly_expense">ប្រាក់ចំណាយប្រចាំខែមិនអាចទទេបានទេ</string>
+    <string name="monthly_income">ប្រាក់ចំណូលប្រចាំខែមិនអាចទទេបានទេ</string>
+    <string name="co_borrower">អ្នកចូលរួមខ្ចីមិនអាចទទេបានទេ</string>
+    <string name="loan_amount">ចំនួនប្រាក់កម្ចីមិនអាចទទេបានទេ</string>
+    <string name="loan_purpose">គោលបំណងប្រាក់កម្ចីមិនអាចទទេបានទេ</string>
+    <string name="loan_term">រយៈពេលប្រាក់កម្ចីមិនអាចទទេបានទេ</string>
+    <string name="id_card">អត្តសញ្ញាណប័ណ្ណមិនអាចទទេបានទេ</string>
+    <string name="staff_id">ប័ណ្ណសម្គាល់បុគ្គលិកមិនអាចទទេបានទេ</string>
+    <string name="title_land">ប្លង់ផ្ទះមិនអាចទទេបានទេ</string>
+    <string name="book_family">សៀវភៅគ្រួសារមិនអាចទទេបានទេ</string>
+    <string name="delete_loan">តើអ្នកពិតជាចង់លុបឥណទាននេះមែនទេ?</string>
+    <string name="cancel_loan">បោះបង់ឥណទាន</string>
+
+    //permission
+    <string name="permission">ត្រូវការការអនុញ្ញាត</string>
+    <string name="setting_permission">កម្មវិធីនេះត្រូវការការអនុញ្ញាតឱ្យប្រើលក្ខណៈនេះ។ អ្នកអាចផ្តល់ឱ្យពួកគេនៅក្នុងការកំណត់កម្មវិធី</string>
+    <string name="go_setting">ចូលទៅកំណត់</string>
+    <string name="cancel">បោះបង់</string>
+
     <string name="facebook_login_register">ចុះឈ្មោះឬចូលជាមួយ Facebook</string>
     <string name="confirm_phone_number_title">បញ្ចូលលេខទូរស័ព្ទ</string>
     <string name="confirm_phone_number_text">សូមបញ្ចូលលេខទូរស័ព្ទរបស់អ្នកនៅក្នុងប្រអប់ខាងក្រោមដើម្បីផ្ទៀងផ្ទាត់លេខទូរស័ព្ទរបស់អ្នក។ យើងនឹងផ្ញើលេខកូដផ្ទៀងផ្ទាត់ទៅទូរស័ព្ទរបស់អ្នក។</string>

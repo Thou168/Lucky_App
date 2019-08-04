@@ -151,61 +151,61 @@ public class LoanCreateActivity extends AppCompatActivity {
 //                final String job = job_loan_information.getText().toString();
                 if (job_loan_information.getText().toString().length()==0){
                     job_loan_information.requestFocus();
-                    job_loan_information.setError("job can`t be empty");
+                    job_loan_information.setError(getString(R.string.job));
                 }
 
                 else if (co_borrower_loan_information.getText().toString().length()==0){
                     co_borrower_loan_information.requestFocus();
                     co_borrower_loan_information.setFocusable(true);
                     co_borrower_loan_information.setFocusableInTouchMode(true);
-//                    co_borrower_loan_information.setError("co-borrow can`t be empty");
+                    co_borrower_loan_information.setError(getString(R.string.co_borrower));
 
                 }
 
                 else if (monthly_income_loan_information.getText().toString().length()==0){
                     monthly_income_loan_information.requestFocus();
-                    monthly_income_loan_information.setError("monthly income can`t be empty");
+                    monthly_income_loan_information.setError(getString(R.string.monthly_income));
 
                 }
                 else if (monthly_expense.getText().toString().length()==0){
                     monthly_expense.requestFocus();
-                    monthly_expense.setError("monthly expense can`t be empty");
+                    monthly_expense.setError(getString(R.string.monthly_expense));
                 }
                 else if (loan_purpose.getText().toString().length()==0){
                     loan_purpose.requestFocus();
-                    loan_purpose.setError("purpose can`t be empty");
+                    loan_purpose.setError(getString(R.string.loan_purpose));
                 }
                 else if (loan_amount.getText().toString().length()==0){
                     loan_amount.requestFocus();
-                    loan_amount.setError("amount can`t be empty");
+                    loan_amount.setError(getString(R.string.loan_amount));
                 }
                 else if (loan_term.getText().toString().length()==0){
                     loan_term.requestFocus();
-                    loan_term.setError("term can`t be empty");
+                    loan_term.setError(getString(R.string.loan_term));
                 }
 
                 else if (id_card.getText().toString().length()==0){
                     id_card.requestFocus();
                     id_card.setFocusable(true);
-//                    id_card.setError("id-card can`t be empty");
+                    id_card.setError(getString(R.string.id_card));
                 }
 
                 else if (family_book.getText().toString().length()==0){
                     family_book.requestFocus();
                     family_book.setFocusable(true);
-//                    family_book.setError("family-book can`t be empty");
+                    family_book.setError(getString(R.string.book_family));
                 }
 
                 else if (staff_id_or_salary_slip.getText().toString().length()==0){
                     staff_id_or_salary_slip.requestFocus();
                     staff_id_or_salary_slip.setFocusable(true);
-//                    staff_id_or_salary_slip.setError("staff-id can`t be empty");
+                    staff_id_or_salary_slip.setError(getString(R.string.staff_id));
                 }
 
                 else if (land_tile.getText().toString().length()==0){
                     land_tile.requestFocus();
                     land_tile.setFocusable(true);
-//                    land_tile.setError("title can`t be empty");
+                    land_tile.setError(getString(R.string.title_land));
                 }
 
                 else {
@@ -637,9 +637,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                        alertDialog.setTitle("Loan");
-                        alertDialog.setMessage("Loan request has been error while submiting.");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        alertDialog.setTitle(getString(R.string.title_create_loan));
+                        alertDialog.setMessage(getString(R.string.loan_fail_message));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -665,9 +665,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                    alertDialog.setTitle("Loan");
+                                    alertDialog.setTitle(getString(R.string.title_create_loan));
                                     alertDialog.setMessage(getString(R.string.loan_message));
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     finish();
@@ -684,9 +684,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                alertDialog.setTitle("Loan");
-                                alertDialog.setMessage("Loan request has been error while submiting.");
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                alertDialog.setTitle(getString(R.string.title_create_loan));
+                                alertDialog.setMessage(getString(R.string.loan_fail_message));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
@@ -849,9 +849,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                        alertDialog.setTitle("Edit your loan");
-                                        alertDialog.setMessage("Loan wasn't edit");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setTitle(getString(R.string.title_edit_loan));
+                                        alertDialog.setMessage(getString(R.string.loan_feedback1));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         finish();
@@ -866,9 +866,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                        alertDialog.setTitle("Edit your loan");
+                                        alertDialog.setTitle(getString(R.string.title_edit_loan));
                                         alertDialog.setMessage(getString(R.string.loan_message));
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         finish();
@@ -892,9 +892,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                            alertDialog.setTitle("Edit your loan");
-                            alertDialog.setMessage("Please check again!!");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            alertDialog.setTitle(getString(R.string.title_edit_loan));
+                            alertDialog.setMessage(getString(R.string.loan_feedback));
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();

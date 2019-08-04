@@ -181,7 +181,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Please wait...");
+        mProgress.setMessage(getString(R.string.please_wait));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
@@ -288,7 +288,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose Category");
+                mBuilder.setTitle(getString(R.string.choose_category));
                 mBuilder.setSingleChoiceItems(categoryListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -319,7 +319,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose Type");
+                mBuilder.setTitle(getString(R.string.choose_type));
                 mBuilder.setSingleChoiceItems(typeListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -339,7 +339,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose Brand");
+                mBuilder.setTitle(getString(R.string.choose_brand));
                 mBuilder.setSingleChoiceItems(brandListItem, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -360,7 +360,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose Model");
+                mBuilder.setTitle(getString(R.string.choose_model));
                 mBuilder.setSingleChoiceItems(modelListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -380,7 +380,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose an item");
+                mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -541,7 +541,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
@@ -892,9 +892,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                        alertDialog.setTitle("Post ads");
-                                        alertDialog.setMessage("Your post is waiting for approval.");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setMessage(getString(R.string.post_message));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
@@ -912,9 +912,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                        alertDialog.setTitle("Post ads");
-                                        alertDialog.setMessage("This Post ads has been error while submiting.");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setMessage(getString(R.string.post_fail_message));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         dialog.dismiss();
@@ -934,9 +934,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             @Override
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                alertDialog.setTitle("Post ads");
-                                alertDialog.setMessage("This Post ads has been error while submiting.");
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                alertDialog.setTitle(getString(R.string.title_post));
+                                alertDialog.setMessage(getString(R.string.post_fail_message));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
@@ -958,9 +958,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         @Override
                         public void run() {
                             AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                            alertDialog.setTitle("Post ads");
-                            alertDialog.setMessage("This Post ads has been error while submiting.");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            alertDialog.setTitle(getString(R.string.title_post));
+                            alertDialog.setMessage(getString(R.string.post_fail_message));
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
@@ -979,9 +979,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                               @Override
                               public void run() {
                                   AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                  alertDialog.setTitle("Post ads");
-                                  alertDialog.setMessage("This Post ads has been error while submiting.");
-                                  alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                  alertDialog.setTitle(getString(R.string.title_post));
+                                  alertDialog.setMessage(getString(R.string.post_fail_message));
+                                  alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                           new DialogInterface.OnClickListener() {
                                               public void onClick(DialogInterface dialog, int which) {
                                                   dialog.dismiss();
@@ -1150,9 +1150,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                        alertDialog.setTitle("Post ads");
-                                        alertDialog.setMessage("This Post ads has been successfully submitted.");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setMessage(getString(R.string.post_success_message));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
@@ -1170,9 +1170,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                        alertDialog.setTitle("Post ads");
-                                        alertDialog.setMessage("This Post ads has been error while submiting.");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setMessage(getString(R.string.post_fail_message));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         dialog.dismiss();
@@ -1192,9 +1192,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             @Override
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                alertDialog.setTitle("Post ads");
-                                alertDialog.setMessage("This Post ads has been error while submiting.");
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                alertDialog.setTitle(getString(R.string.title_post));
+                                alertDialog.setMessage(getString(R.string.post_fail_message));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
@@ -1216,9 +1216,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         @Override
                         public void run() {
                             AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                            alertDialog.setTitle("Post ads");
-                            alertDialog.setMessage("This Post ads has been error while submiting.");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            alertDialog.setTitle(getString(R.string.title_post));
+                            alertDialog.setMessage(getString(R.string.post_fail_message));
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
@@ -1237,9 +1237,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void run() {
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                    alertDialog.setTitle("Post ads");
-                    alertDialog.setMessage("This Post ads has been error while submiting.");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    alertDialog.setTitle(getString(R.string.title_post));
+                    alertDialog.setMessage(getString(R.string.post_fail_message));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
@@ -1833,7 +1833,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                 } else {
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                    mBuilder.setTitle("Choose an item");
+                    mBuilder.setTitle(getString(R.string.choose_type_post));
                     mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -1871,7 +1871,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose an item");
+                mBuilder.setTitle(getString(R.string.choose_condition));
                 mBuilder.setSingleChoiceItems(conditionListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -1898,7 +1898,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose an item");
+                mBuilder.setTitle(getString(R.string.choose_color));
                 mBuilder.setSingleChoiceItems(colorListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -1950,7 +1950,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle("Choose an item");
+                mBuilder.setTitle(getString(R.string.choose_discount));
                 mBuilder.setSingleChoiceItems(discountTypeListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -2611,13 +2611,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
      */
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Need Permissions");
-        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
-        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
+        builder.setTitle(getString(R.string.permission));
+        builder.setMessage(getString(R.string.setting_permission));
+        builder.setPositiveButton(getString(R.string.go_setting), (dialog, which) -> {
             dialog.cancel();
             openSettings();
         });
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel());
         builder.show();
 
     }

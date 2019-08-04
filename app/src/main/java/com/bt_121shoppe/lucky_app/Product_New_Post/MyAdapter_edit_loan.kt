@@ -409,8 +409,8 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                 }
 
                 AlertDialog.Builder(it.context)
-                        .setTitle("Cancel loan")
-                        .setMessage("Are you sure you want to delete this loan?")
+                        .setTitle(R.string.cancel_loan)
+                        .setMessage(R.string.delete_loan)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
 

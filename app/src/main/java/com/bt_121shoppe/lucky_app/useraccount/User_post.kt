@@ -19,6 +19,7 @@ import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_user_post.pager
 import kotlinx.android.synthetic.main.activity_user_post.tab
+import kotlinx.android.synthetic.main.fragment_acount.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -98,32 +99,40 @@ class User_post : AppCompatActivity() {
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
-                        val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
-                        val coverpicture: String= if(user1.profile.cover_photo==null) " " else user1.profile.base64_cover_photo_image
-                        Log.d("TAGGGGG",profilepicture)
-                        Log.d("TAGGGGG",coverpicture)
+                        if(user1.profile!=null){
+                            val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
+                            val coverpicture: String= if(user1.profile.cover_photo==null) " " else user1.profile.base64_cover_photo_image
+                            Log.d("TAGGGGG",profilepicture)
+                            Log.d("TAGGGGG",coverpicture)
 //                        tvUsername!!.setText(user1.username)
-                        Username!!.setText(user1.first_name)
-                        //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
-                        //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                        if(profilepicture==null){
+                            if(user1.first_name != null)
+                            {
+                                Username!!.setText(user1.first_name)
+                            }else {
+                                Username!!.setText(user1.username)
+                            }
 
-                        }else
-                        {
-                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            img_user!!.setImageBitmap(decodedByte)
+                            //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                            //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
+                            if(profilepicture.isNullOrEmpty()){
+                                img_user!!.setImageResource(R.drawable.user)
+                            }else
+                            {
+                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                img_user!!.setImageBitmap(decodedByte)
+                            }
+
+                            if(coverpicture==null){
+
+                            }else
+                            {
+                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                //imgCover!!.setImageBitmap(decodedByte)
+                            }
+
                         }
-
-                        if(coverpicture==null){
-
-                        }else
-                        {
-                            val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            //imgCover!!.setImageBitmap(decodedByte)
-                        }
-
                     }
 
                 } catch (e: JsonParseException) {

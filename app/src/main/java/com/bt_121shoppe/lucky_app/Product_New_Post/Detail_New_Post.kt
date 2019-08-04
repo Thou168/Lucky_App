@@ -61,6 +61,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_acount.*
 import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import okhttp3.*
 import org.json.JSONException
@@ -608,36 +609,45 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     user1= gson.fromJson(mMessage, User::class.java)
                     Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
+                        if(user1.profile!=null) {
+                            val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
+                            if(profilepicture.isNullOrEmpty()){
+                                img_user.setImageResource(R.drawable.user)
+                            }else
+                            {
+                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                                img_user.setImageBitmap(decodedByte)
+                            }
 
-                        val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
-                        if(profilepicture==null){
+                            if(user1.profile.first_name==null)
+                                postUsername=user1.username
+                            else
+                                postUsername=user1.profile.first_name
+                            postUserId=user1.username
 
-                        }else
-                        {
-                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            img_user.setImageBitmap(decodedByte)
+                            if(user1.first_name !=null){
+                                user_name!!.setText(user1.first_name)
+                            }else{
+                                user_name!!.setText(user1.username)
+                            }
+
+                            user_telephone.setText(user1.profile.telephone)
+                            user_email.setText(user1.email)
+                            findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+                                //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
+                                val intent = Intent(this@Detail_New_Post, User_post::class.java)
+                                intent.putExtra("ID",user1.id.toString())
+                                intent.putExtra("Phone",user1.profile.telephone)
+                                intent.putExtra("Email",user1.profile.email)
+                                intent.putExtra("map",user1.profile.address)
+                                //intent.putExtra("Phone",phone.text)
+                                intent.putExtra("Username",user1.username)
+                                intent.putExtra("Name",user1.first_name)
+                                startActivity(intent)
+                            }
                         }
 
-                        if(user1.profile.first_name==null)
-                            postUsername=user1.username
-                        else
-                            postUsername=user1.profile.first_name
-                        postUserId=user1.username
-                        user_name.setText(user1.first_name)
-                        user_telephone.setText(user1.profile.telephone)
-                        user_email.setText(user1.email)
-                        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-//                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
-                            val intent = Intent(this@Detail_New_Post, User_post::class.java)
-                            intent.putExtra("ID",user1.id.toString())
-                            intent.putExtra("Phone",user1.profile.telephone)
-                            intent.putExtra("Email",user1.profile.email)
-                            intent.putExtra("map",user1.profile.address)
-                            //intent.putExtra("Phone",phone.text)
-                            intent.putExtra("Name",user1.first_name)
-                            startActivity(intent)
-                        }
                     }
 
                 } catch (e: JsonParseException) {

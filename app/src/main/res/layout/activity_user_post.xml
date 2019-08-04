@@ -23,6 +23,7 @@
                 android:layout_height="220dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_user"
+                    android:src="@drawable/user"
                     android:layout_width="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"

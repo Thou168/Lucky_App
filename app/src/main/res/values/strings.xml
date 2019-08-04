@@ -477,6 +477,12 @@
     <string name="username">Username</string>
     <string name="renew">Renew</string>
     //filter
+    <string name="choose_type">Choose Type</string>
+    <string name="choose_model">Choose Model</string>
+    <string name="choose_color">Choose color</string>
+    <string name="choose_discount">Choose type discount</string>
+    <string name="choose_condition">Choose condition</string>
+    <string name="choose_type_post">Choose type post</string>
     <string name="choose_category">Choose Category</string>
     <string name="choose_brand">Choose Brand</string>
     <string name="choose_year">Choose Year</string>
@@ -493,8 +499,39 @@
     <string name="all_text">All</string>
 
     <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
-
+    <string name="loan_fail_message">Loan request has been error while submitting.</string>
     <string name="missing_image">Please select images</string>
+    <string name="post_message">Your post is waiting for approval.</string>
+    <string name="title_edit_loan">Edit your loan</string>
+    <string name="title_create_loan">Create your loan</string>
+    <string name="loan_feedback">Please check again!!</string>
+    <string name="loan_feedback1">Your loan has not been edit</string>
+    <string name="title_post">Post ads</string>
+    <string name="post_fail_message">This Post ads has been error while submitting.</string>
+    <string name="post_success_message">This Post ads has been successfully submitted.</string>
+
+    <string name="ok">OK</string>
+    <string name="please_wait">Please wait...</string>
+    //validate loan
+    <string name="job">Job can`t be empty</string>
+    <string name="monthly_expense">Monthly expense can`t be empty</string>
+    <string name="monthly_income">Monthly income can`t be empty</string>
+    <string name="co_borrower">Co-borrower can`t be empty</string>
+    <string name="loan_amount">Loan amount can`t be empty</string>
+    <string name="loan_purpose">Loan purpose can`t be empty</string>
+    <string name="loan_term">Loan term can`t be empty</string>
+    <string name="id_card">ID card can`t be empty</string>
+    <string name="staff_id">Staff ID can`t be empty</string>
+    <string name="title_land">Land title can`t be empty</string>
+    <string name="book_family">Family book can`t be empty</string>
+    <string name="delete_loan">Are you sure you want to delete this loan?</string>
+    <string name="cancel_loan">Cancel loan</string>
+
+    //permission
+    <string name="permission">Need Permissions</string>
+    <string name="setting_permission">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_setting">GOTO SETTINGS</string>
+    <string name="cancel">Cancel</string>
     <string name="facebook_login_register">Register or Login with Facebook</string>
     <string name="confirm_phone_number_title">Set Phone</string>
     <string name="confirm_phone_number_text">Please enter your phone number in the box below to verify your phone number. We will send the verification code to your phone.</string>
