@@ -9,20 +9,23 @@ import java.util.List;
  * Created by delaroy on 12/07/19.
  */
 public class AllResponse {
-    @SerializedName("profile")
+    @SerializedName("results")
     @Expose
-    private List<User.Profile> items;
-    public List<User.Profile> getItems(){
-        return items;
-    }
-    public void setItems(List<User.Profile> items){
-        this.items = items;
-    }
-
-    @SerializedName("count")
-    @Expose
-    private int count;
-    public int getCount() { return count; }
+    private List<Year> categories;
+    public List getCategory(){ return categories; }
+    public void setCategory(List items){ this.categories = items; }
+//    @SerializedName("results")
+//    @Expose
+//    private List<Breand> breands;
+//    public List<Breand> getBreands(){ return breands; }
+//    public void setCategories(List<Breand> breands){
+//        this.breands = breands;
+//    }
+//
+//    @SerializedName("count")
+//    @Expose
+//    private int count;
+//    public int getCount() { return count; }
 
 //    @SerializedName("username")
 //    @Expose
@@ -30,9 +33,4 @@ public class AllResponse {
 //    public String getUsername() { return username; }
 //    public void setUsername(String username) { this.username = username; }
 //
-    @SerializedName("profile")
-    @Expose
-    private List<User> users;
-    public List<User> getUsers() { return users; }
-    public void setUsers(List<User> users) { this.users = users; }
 }

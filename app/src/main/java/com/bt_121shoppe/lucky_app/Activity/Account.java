@@ -113,6 +113,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     ImageButton edit_account,setting;
     ImageView imgCover,upload,uploadprofile;
     TextView tvUsername;
+    int inttab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         }else if (preferences.contains("id")){
             pk = preferences.getInt("id",0);
         }
-        //Log.d("Account","User pk"+pk);
+        //Log.d("Account","Breand pk"+pk);
         if (pk==0){
             Intent intent = new Intent(Account.this, UserAccount.class);
             startActivity(intent);
@@ -142,6 +143,8 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         tvUsername=findViewById(R.id.tvUsername);
         viewPager = findViewById(R.id.pagerMain);
         tabs = findViewById(R.id.tabs);
+        inttab = getIntent().getIntExtra("Tab",0);
+        tabs.getTabAt(inttab).select();
 
         mCompressor = new FileCompressor(this);
         setUpPager();

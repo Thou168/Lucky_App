@@ -119,9 +119,9 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        //Log.d("Account", "User pk "+ username)
+        //Log.d("Account", "Breand pk "+ username)
         if(pk==0){
-            Log.d("Account", "User pk "+ pk)
+            Log.d("Account", "Breand pk "+ pk)
             val intent= Intent(this@Account1,UserAccount::class.java)
             startActivity(intent)
             finish()
@@ -192,7 +192,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue(com.bt_121shoppe.lucky_app.models.User::class.java)
+                val user = dataSnapshot.getValue(com.bt_121shoppe.lucky_app.models.Breand::class.java)
                 //username.setText(user!!.username)
                 if (user!!.imageURL == "default") {
                     //image_profile.setImageResource(R.drawable.user)
@@ -537,7 +537,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
                 val gson = Gson()
                 try {
-                    Log.d("User",mMessage)
+                    Log.d("Breand",mMessage)
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
                         if(user1.profile!=null) {

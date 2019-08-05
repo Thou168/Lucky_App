@@ -87,13 +87,13 @@ public class ChatsFragment extends Fragment {
                 mUsers.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user=snapshot.getValue(User.class);
-                    Log.d("TAG","User ID="+user.getId());
+                    Log.d("TAG","Breand ID="+user.getId());
                     for(String id: userList){
-                        //Log.d("TAG","User Chat ID="+id);
+                        //Log.d("TAG","Breand Chat ID="+id);
                         if(user.getId().equals(id)){
                             if(mUsers.size()!=0){
                                 for(User user1:mUsers){
-                                    //Log.d("TAG","User"+user1);
+                                    //Log.d("TAG","Breand"+user1);
                                     if(!user.getId().equals(user1.getId())){
                                         mUsers.add(user);
                                     }

@@ -343,7 +343,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             mBuilder.setTitle(R.string.choose_category)
             mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
                 ddCategory.setText(listItems1!!.get(i))
-                categoryId=categoryIdItems!!.get(i).toString()
+                categoryId= categoryIdItems.get(i).toString()
                 //Toast.makeText(this@Home, categoryIdItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
                 initialBrandDropdownList()
                 dialogInterface.dismiss()
@@ -545,7 +545,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             var ccount=0
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
-                                var cat = `object`.getInt("category").toString()
+                                val cat = `object`.getInt("category").toString()
                                 if (categoryId.equals(cat)) {
                                     var id = `object`.getInt("id")
                                     val brand = `object`.getString("brand_name")
@@ -918,7 +918,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
         return itemApi
     }
-
     fun countPostView(encode:String,postId:Int):Int{
         var count=0
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"countview/?post="+postId

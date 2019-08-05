@@ -50,7 +50,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
         loginButton=(LoginButton)findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
 
-        /*
+
         PackageInfo info;
         try {
             info = getPackageManager().getPackageInfo("com.bt_121shoppe.lucky_app", PackageManager.GET_SIGNATURES);
@@ -69,7 +69,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("exception", e.toString());
         }
-        */
+
 
         callbackManager=CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {

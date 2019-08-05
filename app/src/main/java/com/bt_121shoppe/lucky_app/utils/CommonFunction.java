@@ -47,7 +47,7 @@ public class CommonFunction {
                 String mMessage=response.body().toString();
                 Gson gson=new Gson();
                 try{
-                    //User obj=new User();
+                    //Breand obj=new Breand();
                     obj=gson.fromJson(mMessage,User.class);
                     //user=obj;
                 }catch (JsonParseException e){

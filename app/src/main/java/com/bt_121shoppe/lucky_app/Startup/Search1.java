@@ -45,7 +45,7 @@ public class Search1 extends AppCompatActivity {
     RecyclerView rv;
     ArrayList<Item> items;
     String category,model,year;
-    TextView not_found;
+    TextView not_found,tv_filter;
     ProgressBar mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +63,17 @@ public class Search1 extends AppCompatActivity {
 
         mProgress = (ProgressBar) findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
+        tv_filter = findViewById(R.id.tv_filter);
         sv= (SearchView) findViewById(R.id.mSearch);
         rv = (RecyclerView)findViewById(R.id.myRecycler) ;
         sv.setFocusable(true);
         sv.setIconified(false);
         sv.requestFocusFromTouch();
+
+        tv_filter.setOnClickListener(v -> {
+            Intent intent = new Intent(Search1.this,Filter.class);
+            startActivity(intent);
+        });
 
         items = new ArrayList<Item>();
 //        items = (ArrayList<Item>)getIntent().getSerializableExtra("items");
@@ -88,6 +94,7 @@ public class Search1 extends AppCompatActivity {
         @Override
         public boolean onQueryTextSubmit(String query) {
             item_apis.clear();
+            tv_filter.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.VISIBLE);
             String title = sv.getQuery().toString();
             Search_data(title,category,model,year);
@@ -96,6 +103,8 @@ public class Search1 extends AppCompatActivity {
 
         @Override
         public boolean onQueryTextChange(String newText) {
+            if (newText.isEmpty())
+                tv_filter.setVisibility(View.GONE);
             return false;
         }
     });

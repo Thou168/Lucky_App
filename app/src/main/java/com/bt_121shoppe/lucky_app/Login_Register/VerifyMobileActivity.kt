@@ -325,7 +325,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                 //Toast.makeText(applicationContext, "register failure", Toast.LENGTH_SHORT).show()
                 val alertDialog = AlertDialog.Builder(this@VerifyMobileActivity).create()
                 alertDialog.setTitle("Verify Code")
-                alertDialog.setMessage("User with this username already exists.")
+                alertDialog.setMessage("Breand with this username already exists.")
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
                 ) { dialog, which -> dialog.dismiss() }
                 alertDialog.show()

@@ -26,36 +26,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>
-    <androidx.appcompat.widget.SearchView
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal"
         android:layout_below="@+id/toolbar"
-        android:id="@+id/mSearch"
         android:layout_width="match_parent"
-        app:defaultQueryHint="@string/search_here"
         android:layout_height="40dp">
-    </androidx.appcompat.widget.SearchView>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/mSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_toStartOf="@+id/tv_filter"
+            app:defaultQueryHint="@string/search_here">
+
+        </androidx.appcompat.widget.SearchView>
+        <TextView
+            android:id="@+id/tv_filter"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:paddingRight="@dimen/dp_4"
+            android:textSize="@dimen/dp_20"
+            android:text="Filter"
+            android:drawableRight="@drawable/arrow_down_black_24dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mSearch" />
+        android:layout_below="@+id/linearLayout" />
 
     <TextView
+        android:gravity="center"
         android:id="@+id/tvSearch_notFound"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mSearch"
-        android:layout_marginTop="15dp"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_vertical"
-        android:gravity="center_horizontal"
         android:text="No Result Found...!"
-        android:textSize="25dp"
-        android:visibility="gone"/>
-    <ProgressBar
-        android:id="@+id/progress_search"
-        android:layout_below="@+id/tvSearch_notFound"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_gravity="center_vertical"/>
+        android:textSize="25dp" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/progress_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
