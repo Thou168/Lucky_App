@@ -54,8 +54,8 @@ public class MainPostList extends Fragment {
         FragmentA1 n1 = new FragmentA1();
         Fragment_history n2 = new Fragment_history();
 
-        adp.addFrag(n1, "Active ads");
-        adp.addFrag(n2, "History");
+        adp.addFrag(n1, getString(R.string.active));
+        adp.addFrag(n2, getString(R.string.history));
 
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         vpNews.setAdapter(adp);

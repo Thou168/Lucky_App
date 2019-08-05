@@ -55,8 +55,8 @@ public class MainLoanList extends Fragment {
         Loan_history n2 = new Loan_history();
 //        LoansList n2 = new LoansList();
 
-        adp.addFrag(n1, "Active ads");
-        adp.addFrag(n2, "History");
+        adp.addFrag(n1, getString(R.string.active));
+        adp.addFrag(n2, getString(R.string.history));
 
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         vpNews.setAdapter(adp);

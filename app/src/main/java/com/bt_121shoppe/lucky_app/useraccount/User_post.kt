@@ -20,6 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_user_post.pager
 import kotlinx.android.synthetic.main.activity_user_post.tab
 import kotlinx.android.synthetic.main.fragment_acount.*
+import kotlinx.android.synthetic.main.item_grid.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -94,22 +95,21 @@ class User_post : AppCompatActivity() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-
                 val gson = Gson()
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
-                        if(user1.profile!=null){
+                        if(user1.profile !=null) {
                             val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
                             val coverpicture: String= if(user1.profile.cover_photo==null) " " else user1.profile.base64_cover_photo_image
                             Log.d("TAGGGGG",profilepicture)
                             Log.d("TAGGGGG",coverpicture)
 //                        tvUsername!!.setText(user1.username)
-                            if(user1.first_name != null)
+                            if(user1.getFirst_name().isEmpty())
                             {
-                                Username!!.setText(user1.first_name)
+                                Username!!.setText(user1.getUsername())
                             }else {
-                                Username!!.setText(user1.username)
+                                Username!!.setText(user1.getFirst_name())
                             }
 
                             //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
@@ -131,8 +131,8 @@ class User_post : AppCompatActivity() {
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 //imgCover!!.setImageBitmap(decodedByte)
                             }
-
                         }
+
                     }
 
                 } catch (e: JsonParseException) {

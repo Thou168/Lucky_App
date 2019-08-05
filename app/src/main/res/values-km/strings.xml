@@ -23,8 +23,8 @@
     <string name="condition">លក្ខខណ្ឌ</string>
 
     //loan_yes_or_no
-    <string name="yes_loan">ព្រម</string>
-    <string name="no_loan">មិនព្រម</string>
+    <string name="yes_loan">យល់ព្រម</string>
+    <string name="no_loan">មិនយល់ព្រម</string>
 
     //menu
     <string name="menu_profile">គណនីរបស់អ្នក</string>
@@ -384,6 +384,8 @@
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
 
     <string name="public_user">អ្នកប្រើសាធារណៈ</string>
+    <string name="other_dealer">Other dealer</string>
+    <string name="shoppe">121 Shoppe</string>
     <string name="search_here">ស្វែងរក...</string>
     <string name="no_result">គ្មានរកឃើញលទ្ធផលទេ</string>
     <string name="related_poat">ការប្រកាសដែលពាក់ព័ន្ធគ្នា</string>
@@ -440,4 +442,26 @@
     <string name="button_close">បិទ</string>
     <string name="phone_exist">លេខទូរស័ព្ទនេះត្រូវបានប្រើរួចហើយ។ សូមព្យាយាមផ្សេងទៀត។</string>
     <string name="progress_waiting">កំពុងដំនើរការ...</string>
+    <string name="requried_permission">សូមបើកការភ្ជាប់ទីតាំងរបស់អ្នក</string>
+    <string name="gps">សូមបើកការភ្ជាប់ PGS របស់អ្នក</string>
+    //Account
+    <string name="choose_province">ជ្រើសរើសខេត្</string>
+    <string name="choose_location">ជ្រើសរើសទីតាំង</string>
+    <string name="choose_status">ជ្រើសរើសស្ថានភាព</string>
+    <string name="choose_gender">ជ្រើសរើសភេទ</string>
+    <string name="title_edit_account">កែសម្រួលគណនី</string>
+    <string name="edit_success_message">ព័ត៌មានគណនីត្រូវបានដាក់ស្នើដោយជោគជ័យ</string>
+    <string name="edit_fail_message">ព័ត៌មានអំពីគណនីមានកំហុសពេលបញ្ជូន</string>
+    <string name="update">កំពុងធ្វើការកែប្រែ...</string>
+    <string name="logout_message">តើអ្នកពិតជាចង់ចាកចេញឬ?</string>
+    //change password
+    <string name="title_change_password">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
+    <string name="success_change_password">ពាក្យសម្ងាត់របស់អ្នកត្រូវបានផ្លាស់ប្តូរ</string>
+    <string name="fail_change_password">ពាក្យសម្ងាត់របស់អ្នកមានកំហុសខណៈពេលផ្លាស់ប្តូរ</string>
+    //tab account
+    <string name="tab_post">ប្រកាស</string>
+    <string name="tab_like">ចូលចិត្</string>
+    <string name="tab_loan">ឥណទាន</string>
+    <string name="active">សកម្</string>
+    <string name="history">History</string>
 </resources>

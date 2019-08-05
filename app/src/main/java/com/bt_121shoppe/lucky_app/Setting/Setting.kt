@@ -30,7 +30,7 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
 
         Logout.setOnClickListener {
           AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to logout?")
+                .setMessage(getString(R.string.logout_message))
                 .setIcon(R.drawable.logo)
                 .setPositiveButton(Html.fromHtml("<font color='#F30E0E'>Logout</font>")
                 ) { dialog, id ->

@@ -998,23 +998,23 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
     private fun showSettingsDialog() {
         val builder = androidx.appcompat.app.AlertDialog.Builder(this)
-        builder.setTitle("Need Permissions")
-        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.")
-        builder.setPositiveButton("GOTO SETTINGS") { dialog, which ->
+        builder.setTitle(getString(R.string.permission))
+        builder.setMessage(getString(R.string.setting_permission))
+        builder.setPositiveButton(getString(R.string.go_setting)) { dialog, which ->
             dialog.cancel()
             openSettings()
         }
-        builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
         builder.show()
 
     }
 
     private fun buildAlertMessageNoGps() {
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("Please Turn On your Location Connection")
+        builder.setMessage(getString(R.string.requried_permission))
                 .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, which -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
-                .setNegativeButton("No") { dialog, which -> dialog.cancel() }
+                .setPositiveButton(getString(R.string.yes_loan)) { dialog, which -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+                .setNegativeButton(getString(R.string.no_loan)) { dialog, which -> dialog.cancel() }
         val alert = builder.create()
         alert.show()
     }

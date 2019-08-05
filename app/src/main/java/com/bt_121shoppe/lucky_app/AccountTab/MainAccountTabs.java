@@ -171,9 +171,9 @@ public class MainAccountTabs extends AppCompatActivity {
         MainLoanList loans=MainLoanList.newInstance();
         MainPager adapter = new MainPager(getSupportFragmentManager());
 
-        adapter.addFragment(posts, "Post (0)");
-        adapter.addFragment(likes, "Like (0)");
-        adapter.addFragment(loans,"Loan (0)");
+        adapter.addFragment(posts, getString(R.string.tab_post));
+        adapter.addFragment(likes, getString(R.string.tab_like));
+        adapter.addFragment(loans,getString(R.string.tab_loan));
 
         mainPager.setAdapter(adapter);
         tabs.setupWithViewPager(mainPager);

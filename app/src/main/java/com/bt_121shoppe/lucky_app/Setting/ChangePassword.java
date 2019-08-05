@@ -131,9 +131,9 @@ public class ChangePassword extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     AlertDialog alertDialog = new AlertDialog.Builder(ChangePassword.this).create();
-                                    alertDialog.setTitle("Changed Password");
-                                    alertDialog.setMessage("Your password was change.");
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    alertDialog.setTitle(getString(R.string.title_change_password));
+                                    alertDialog.setMessage(getString(R.string.success_change_password));
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     SharedPreferences.Editor editor = prefer.edit();
@@ -160,9 +160,9 @@ public class ChangePassword extends AppCompatActivity {
                             @Override
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(ChangePassword.this).create();
-                                alertDialog.setTitle("Loan");
-                                alertDialog.setMessage("Your password has been error while changing.");
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                alertDialog.setTitle(getString(R.string.title_change_password));
+                                alertDialog.setMessage(getString(R.string.fail_change_password));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();

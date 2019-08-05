@@ -488,6 +488,8 @@
     <string name="choose_year">Choose Year</string>
 
     <string name="public_user">Public User</string>
+    <string name="other_dealer">Other dealer</string>
+    <string name="shoppe">121 Shoppe</string>
     <string name="search_here">Search...</string>
     <string name="no_result">No Result</string>
     <string name="related_poat">Related Post</string>
@@ -539,7 +541,30 @@
     <string name="button_close">Close</string>
     <string name="phone_exist">This phone number is already used. Please try another.</string>
     <string name="progress_waiting">In progress...</string>
+    <string name="requried_permission">Please Turn On your Location Connection</string>
+    <string name="gps">Please Turn On your PGS Connection</string>
+    //Account
+    <string name="choose_province">Choose Province</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="choose_status">Choose Marital Status</string>
+    <string name="choose_gender">Choose Gender</string>
+    <string name="title_edit_account">Edit account</string>
+    <string name="edit_success_message">Account information has been successfully submitted.</string>
+    <string name="edit_fail_message">Account information has been error while submitting.</string>
+    <string name="update">Updating...</string>
     <string name="title_unlike">Remove Save Ad</string>
     <string name="unlike_message">Are you sure to remove this save ad?</string>
     <string name="like_post">You Liked this post</string>
+    //log
+    <string name="logout_message">Are you sure you want to logout?</string>
+    //change password
+    <string name="title_change_password">Changed Password</string>
+    <string name="success_change_password">Your password was changed</string>
+    <string name="fail_change_password">Your password has been error while changing.</string>
+    //tab account
+    <string name="tab_post">Post</string>
+    <string name="tab_like">Like</string>
+    <string name="tab_loan">Loan</string>
+    <string name="active">Active ads</string>
+    <string name="history">History</string>
 </resources>

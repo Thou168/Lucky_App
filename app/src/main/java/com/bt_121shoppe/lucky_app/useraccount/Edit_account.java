@@ -128,7 +128,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         //convertDateofBirth("1996");
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Updating...");
+        mProgress.setMessage(getString(R.string.update));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
@@ -161,7 +161,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
-                mBuilder.setTitle("Choose Gender");
+                mBuilder.setTitle(getString(R.string.choose_gender));
                 mBuilder.setSingleChoiceItems(genderListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -193,7 +193,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
-                mBuilder.setTitle("Choose Marital Status");
+                mBuilder.setTitle(getString(R.string.choose_status));
                 mBuilder.setSingleChoiceItems(maritalStatusListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -241,7 +241,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
-                mBuilder.setTitle("Choose Province");
+                mBuilder.setTitle(getString(R.string.choose_province));
                 mBuilder.setSingleChoiceItems(provinceListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -261,7 +261,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
-                mBuilder.setTitle("Choose Location");
+                mBuilder.setTitle(getString(R.string.choose_location));
                 mBuilder.setSingleChoiceItems(provinceListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -281,7 +281,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
-                mBuilder.setTitle("Choose Year");
+                mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -385,10 +385,11 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             final int g=gg[0];
 
                             if (g==2){
-                                tvType.setText("121 Shoppe");
+                                tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
-                                tvType.setText("Other Dealer");
+                                tvType.setText(getString(R.string.other_dealer));
                             }else {
+                                tvType.setText(getString(R.string.public_user));
                                 tvType.setText("Public Breand");
                             }
 
@@ -566,9 +567,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void run() {
                         AlertDialog alertDialog = new AlertDialog.Builder(Edit_account.this).create();
-                        alertDialog.setTitle("Edit Account");
-                        alertDialog.setMessage("Account information has been error while submiting.");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        alertDialog.setTitle(getString(R.string.title_edit_account));
+                        alertDialog.setMessage(getString(R.string.edit_fail_message));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -591,9 +592,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         mProgress.dismiss();
                         Log.d("Response", message);
                         AlertDialog alertDialog = new AlertDialog.Builder(Edit_account.this).create();
-                        alertDialog.setTitle("Edit Account");
-                        alertDialog.setMessage("Account information has been successfully submitted.");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        alertDialog.setTitle(getString(R.string.title_edit_account));
+                        alertDialog.setMessage(getString(R.string.edit_success_message));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         mProgress.dismiss();
@@ -1034,16 +1035,16 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     private void buildAlertMessageNoGps(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Please Turn On your PGS Connection")
+        builder.setMessage(getString(R.string.gps))
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.yes_loan), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.no_loan), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

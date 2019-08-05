@@ -627,10 +627,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 postUsername=user1.profile.first_name
                             postUserId=user1.username
 
-                            if(user1.first_name !=null){
-                                user_name!!.setText(user1.first_name)
+                            if(user1.getFirst_name().isEmpty()){
+                                user_name!!.setText(user1.getUsername())
                             }else{
-                                user_name!!.setText(user1.username)
+                                user_name!!.setText(user1.getFirst_name())
                             }
 
                             user_telephone.setText(user1.profile.telephone)
