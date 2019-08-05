@@ -500,7 +500,7 @@
     <string name="chat_toolbar">Chats</string>
     <string name="all_text">All</string>
 
-    <string name="loan_message">Your loan request has been successfully submitted and checking by the Team.</string>
+    <string name="loan_message">Your loan request is Under checking</string>
     <string name="loan_fail_message">Loan request has been error while submitting.</string>
     <string name="missing_image">Please select images</string>
     <string name="post_message">Your post is waiting for approval.</string>
