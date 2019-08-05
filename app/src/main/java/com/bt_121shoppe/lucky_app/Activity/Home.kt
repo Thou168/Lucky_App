@@ -343,7 +343,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             mBuilder.setTitle(R.string.choose_category)
             mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
                 ddCategory.setText(listItems1!!.get(i))
-                categoryId= categoryIdItems.get(i).toString()
+                categoryId = categoryIdItems.get(i).toString()
                 //Toast.makeText(this@Home, categoryIdItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
                 initialBrandDropdownList()
                 dialogInterface.dismiss()
@@ -733,6 +733,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val image = `object`.getString("front_image_base64")
                         val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
+                        val discount_type = `object`.getString("discount_type")
+                        val discount = `object`.getDouble("discount")
 
                         var location_duration=""
                         //var count_view=countPostView(Encode,id)
@@ -781,7 +783,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found1!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString()))
+                                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
 
                                             recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
                                             //List Grid and Image

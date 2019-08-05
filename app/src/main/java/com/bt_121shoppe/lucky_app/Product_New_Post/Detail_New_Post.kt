@@ -803,6 +803,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val img_user = obj.getString("right_image_base64")
                             val postType = obj.getString("post_type")
                             val phoneNumber = obj.getString("contact_phone")
+                            val discount_type = obj.getString("discount_type")
+                            val discount = obj.getDouble("discount")
 
                             var location_duration = ""
                             //var count_view=countPostView(Encode,id)
@@ -823,7 +825,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
-                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
+                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
                             list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2)

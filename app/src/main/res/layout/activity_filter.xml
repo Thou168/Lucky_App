@@ -63,14 +63,22 @@
                 android:text="Catgory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <Spinner
+            <Button
                 android:layout_marginStart="@dimen/dp_8"
                 android:id="@+id/category"
-                android:layout_marginTop="@dimen/dp_18"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-            </Spinner>
+                android:layout_height="40dp"
+                android:hint="@string/category"
+                style="?android:attr/spinnerStyle"
+                android:gravity="left|center"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:drawableRight="@drawable/chevron_down_24"
+                android:background="@drawable/underline_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/sp_brand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </LinearLayout>
     </androidx.cardview.widget.CardView>

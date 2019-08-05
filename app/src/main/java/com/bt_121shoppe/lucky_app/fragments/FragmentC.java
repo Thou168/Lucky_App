@@ -123,6 +123,8 @@ public class FragmentC extends Fragment {
                         String image = object.getString("base64_front_image");
                         Double cost = object.getDouble("cost");
                         String postType = object.getString("post_type");
+                        String discount_type = object.getString("discount_type");
+                        Double discount = object.getDouble("discount");
 
                         SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -150,7 +152,7 @@ public class FragmentC extends Fragment {
                                     JSONObject jsonObject = new JSONObject(respon);
                                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                                     String jsonCount=jsonObject.getString("count");
-                                    item_loan.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount));
+                                    item_loan.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount,discount_type,discount));
                                     ad_list = new MyAdapter_list_grid_image(item_loan,"List");
                                     recyclerloan.setAdapter(ad_list);
                                 }catch (JSONException e){

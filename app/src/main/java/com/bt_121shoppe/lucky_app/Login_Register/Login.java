@@ -154,7 +154,6 @@ public class Login extends AppCompatActivity {
                         mProgress.dismiss();
                         startActivity(intent);
 
-
 //                        SharedPreferences.Editor editor = prefer.edit();
 //                        editor.putString("token",key);
 //                        editor.putString("name",name);

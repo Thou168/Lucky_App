@@ -121,6 +121,8 @@ class fragment_sell_eletronics : Fragment() {
                             val now:Long = System.currentTimeMillis()
                             val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 //                            val category = `object`.getInt("category")
+                            val discount_type = `object`.getString("discount_type")
+                            val discount = `object`.getDouble("discount")
 
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
@@ -146,7 +148,7 @@ class fragment_sell_eletronics : Fragment() {
                                         val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                            item.add(Item_API(id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString()))
+                                            item.add(Item_API(id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             Log.d("Item: ", item.size.toString())
                                             recycleeview!!.layoutManager = GridLayoutManager(context,1)
                                             recycleeview!!.adapter = MyAdapter_list_grid_image(item, "List")

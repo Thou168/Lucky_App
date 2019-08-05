@@ -144,6 +144,8 @@ public class FragmentA extends Fragment {
                         Long time = sdf.parse(object.getString("created")).getTime();
                         Long now = System.currentTimeMillis();
                         CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
+                        String discount_type = object.getString("discount_type");
+                        Double discount = object.getDouble("discount");
 
                         String URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id;
                         OkHttpClient client = new OkHttpClient();
@@ -167,7 +169,7 @@ public class FragmentA extends Fragment {
                                     JSONObject jsonObject = new JSONObject(respon);
                                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                                     String jsonCount=jsonObject.getString("count");
-                                    list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount));
+                                    list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount,discount_type,discount));
                                     ad_list = new MyAdapter_list_grid_image(list_item,"List");
                                     recyclerView.setAdapter(ad_list);
                                 }catch (JSONException e){

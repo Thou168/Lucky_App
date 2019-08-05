@@ -143,11 +143,11 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         tvUsername=findViewById(R.id.tvUsername);
         viewPager = findViewById(R.id.pagerMain);
         tabs = findViewById(R.id.tabs);
-        inttab = getIntent().getIntExtra("Tab",0);
-        tabs.getTabAt(inttab).select();
 
         mCompressor = new FileCompressor(this);
         setUpPager();
+        inttab = getIntent().getIntExtra("Tab",0);
+        tabs.getTabAt(inttab).select();
 
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().findItem(R.id.account).setChecked(true);

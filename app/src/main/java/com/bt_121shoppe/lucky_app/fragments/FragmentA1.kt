@@ -125,6 +125,8 @@ class FragmentA1: Fragment() {
                                 val image = `object`.getString("front_image_base64")
                                 val img_user = `object`.getString("right_image_base64")
                                 val postType = `object`.getString("post_type")
+                                val discount_type = `object`.getString("discount_type")
+                                val discount = `object`.getDouble("discount")
 
                                 //var count_view=countPostView(encodeAuth,id)
 
@@ -160,7 +162,7 @@ class FragmentA1: Fragment() {
                                             val jsonCount = jsonObject.getInt("count")
 
                                             activity!!.runOnUiThread {
-                                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
+                                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                             }

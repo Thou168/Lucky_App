@@ -6,6 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,7 +59,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
         val location_duration=itemView.findViewById<TextView>(R.id.location)
-        val show_view=itemView.findViewById<TextView>(R.id.user_view)
+        val show_view= itemView.findViewById<TextView>(R.id.user_view)
+        val tv_discount = itemView.findViewById<TextView>(R.id.tv_discount)
 
 //        var id:Int=0
         fun bindItems(item: Item_API) {
@@ -81,9 +85,30 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 Log.d("IMAGE SIZE", decodedByte.width.toString()+" "+decodedByte.height.toString())
             }
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP)
-//            Log.d("String = ",)
+
+            var price: Double = 0.0
+            var discout1: Double = 0.0
+            if (item.discount != 0.00){
+                tv_discount.visibility = View.VISIBLE
+                val dis_type = item.discount_type
+                if (dis_type == "amount") {
+                    price = item.cost - item.discount!!.toInt()
+                }else if (dis_type == "percent"){
+                    discout1 =  item.cost* (item.discount?.div(100))!!
+                    price = item.cost - discout1
+                }
+                val st = "$"+item.cost.toString()
+                val ms = SpannableString(st)
+                val mst = StrikethroughSpan()
+                ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                cost.text = "$"+price.toString()
+                tv_discount.text = ms
+             }else{
+                tv_discount.text = price.toString()
+                cost.text = "$"+item.cost.toString()
+            }
             title.text = item.title
-            cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
             show_view.text="View: "+item.count_view
 
@@ -99,6 +124,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                intent.putExtra("Image",decodedByte)
 //                intent.putExtra("Image_user",decodedByte)
 //                intent.putExtra("Title",item.title)
+                  intent.putExtra("Discount",price)
                   intent.putExtra("Price",item.cost)
 //                intent.putExtra("Name",item.name)
                     //intent.putExtra("postt",1)

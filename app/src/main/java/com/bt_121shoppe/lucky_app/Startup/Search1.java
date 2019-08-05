@@ -153,6 +153,8 @@ public class Search1 extends AppCompatActivity {
                         String image = object.getString("front_image_base64");
                         String img_user = object.getString("right_image_base64");
                         String post_type = object.getString("post_type");
+                        String discount_type = object.getString("discount_type");
+                        Double discount = object.getDouble("discount");
 
                         /////////////
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -185,7 +187,7 @@ public class Search1 extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            item_apis.add(new Item_API(id, img_user, image, title, cost, condition, post_type, ago.toString(), json_count));
+                                            item_apis.add(new Item_API(id, img_user, image, title, cost, condition, post_type, ago.toString(), json_count,discount_type,discount));
                                             MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List");
                                             rv.setAdapter(adapterUserPost);
                                         }
