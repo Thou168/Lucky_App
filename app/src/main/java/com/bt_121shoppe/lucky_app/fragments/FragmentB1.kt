@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_like
+import com.bt_121shoppe.lucky_app.Startup.Unlike_api
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -36,6 +36,7 @@ class FragmentB1: Fragment() {
 
     val TAG = "LikeFragement"
     var post_id = 0
+    var like_id = 0
     private var username: String? = null
     private var password: String? = null
     private var pk: Int? = null
@@ -107,7 +108,7 @@ class FragmentB1: Fragment() {
                 val jsonObject = JSONObject(mMessage)
                 try {
                     activity!!.runOnUiThread {
-                        val itemApi = ArrayList<Item_API>()
+                        val itemApi = ArrayList<Unlike_api>()
 
                         Log.d("Run  :"," la"+jsonObject)
 //                        val detail:String=jsonObject.getString("detail").toString()
@@ -122,6 +123,7 @@ class FragmentB1: Fragment() {
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
                                 post_id = `object`.getInt("post")
+                                like_id = `object`.getInt("id")
                                 Log.d("Post id ", post_id.toString())
 
                                 val url_user = "http://103.205.26.103:8000/detailposts/" + post_id + "/"
@@ -188,7 +190,7 @@ class FragmentB1: Fragment() {
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
-                                                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString()))
+                                                                itemApi.add(Unlike_api(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),like_id))
                                                                 recyclerView!!.adapter = MyAdapter_user_like(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }

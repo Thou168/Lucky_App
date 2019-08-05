@@ -539,4 +539,7 @@
     <string name="button_close">Close</string>
     <string name="phone_exist">This phone number is already used. Please try another.</string>
     <string name="progress_waiting">In progress...</string>
+    <string name="title_unlike">Remove Save Ad</string>
+    <string name="unlike_message">Are you sure to remove this save ad?</string>
+    <string name="like_post">You Liked this post</string>
 </resources>

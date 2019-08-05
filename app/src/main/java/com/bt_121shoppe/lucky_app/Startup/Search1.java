@@ -119,6 +119,7 @@ public class Search1 extends AppCompatActivity {
                 String respon = response.body().string();
                 Log.d("Search:",respon);
 
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

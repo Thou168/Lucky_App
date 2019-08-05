@@ -38,6 +38,7 @@ import com.bt_121shoppe.lucky_app.Activity.Account;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
+import com.bt_121shoppe.lucky_app.Startup.Unlike_api;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -378,6 +379,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         @Override
                         public void run() {
                             User convertJsonJava = new User();
+
                             convertJsonJava = gson.fromJson(mMessage,User.class);
                             int[] gg = convertJsonJava.getGroups();
                             final int g=gg[0];

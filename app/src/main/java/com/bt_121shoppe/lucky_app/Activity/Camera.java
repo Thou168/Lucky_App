@@ -439,57 +439,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-//                if (etTitle.getText().toString().length()<3){
-//                    etTitle.requestFocus();
-//                    icTitile.setImageResource(R.drawable.ic_error_black_24dp);
-//                }else if (tvPostType.getText().toString().length()==0){
-//                    tvPostType.setFocusable(true);
-//                    tvPostType.setFocusableInTouchMode(true);
-//                    tvPostType.requestFocus();
-//                    icPostType.setImageResource(R.drawable.ic_error_black_24dp);
-//                }else if (tvCategory.getText().toString().length()==0){
-//                    tvCategory.setFocusable(true);
-//                    tvCategory.setFocusableInTouchMode(true);
-//                    tvCategory.requestFocus();
-//                    icCategory.setImageResource(R.drawable.ic_error_black_24dp);
-//                }
-//                else if (type==0){
-//                    tvType_elec.setFocusable(true);
-//                    tvType_elec.setFocusableInTouchMode(true);
-//                    tvType_elec.requestFocus();
-//                    icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
-//                }
-//                 else if (tvBrand.getText().toString().length()==0){
-//                    tvBrand.setFocusable(true);
-//                    tvBrand.setFocusableInTouchMode(true);
-//                    tvBrand.requestFocus();
-//                    icBrand.setImageResource(R.drawable.ic_error_black_24dp);
-//                }else if (tvModel.getText().toString().length()==0){
-//                    tvModel.setFocusable(true);
-//                    tvModel.setFocusableInTouchMode(true);
-//                    tvModel.requestFocus();
-//                    icModel.setImageResource(R.drawable.ic_error_black_24dp);
-//                }else if(tvYear.getText().toString().length()==0){
-//                    tvYear.setFocusable(true);
-//                    tvYear.setFocusableInTouchMode(true);
-//                    tvYear.requestFocus();
-//                    icYears.setImageResource(R.drawable.ic_error_black_24dp);
-//                }else if (etPrice.getText().toString().length()==0){
-//                    etPrice.setFocusable(true);
-//                    etPrice.setFocusableInTouchMode(true);
-//                    etPrice.requestFocus();
-//                    icPrice.setImageResource(R.drawable.ic_error_black_24dp);
-//                }else if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
-//                    AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-//                    alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
-//                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-//                            new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                    alertDialog.show();
-//                }
+
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                    type==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                    || etPrice.getText().toString().length()==0 || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
@@ -2603,6 +2553,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
+
 
     /**
      * Showing Alert Dialog with Settings option

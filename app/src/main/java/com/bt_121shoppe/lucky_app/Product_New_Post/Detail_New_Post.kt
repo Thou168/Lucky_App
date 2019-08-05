@@ -31,6 +31,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.Activity.Account
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
@@ -659,38 +660,77 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     }
 
     fun Like_post(encode: String) {
-        var url=ConsumeAPI.BASE_URL+"like/"
-        val MEDIA_TYPE = MediaType.parse("application/json")
-        val post = JSONObject()
-        try{
-            post.put("post", p)
-            post.put("like_by",pk)
-            post.put("record_status",1)
-
+        val url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk
         val client = OkHttpClient()
-        val body = RequestBody.create(MEDIA_TYPE, post.toString())
-        val auth = "Basic $encode"
         val request = Request.Builder()
-                .url(url)
-                .post(body)
+                .url(url_like)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .header("Authorization", auth)
                 .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onResponse(call: Call, response: Response) {
-                var respon = response.body()!!.string()
-            Log.d("Response",respon)
+        client.newCall(request).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+
             }
 
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d("Error",call.toString())
-            }
+            override fun onResponse(call: Call, response: Response) {
+                var response = response.body()!!.string()
+                Log.d("Response",response)
+
+                    try {
+                        val jsonObject = JSONObject(response)
+                        val count = jsonObject.getInt("count")
+                       if(count==0) {
+
+                            var url = ConsumeAPI.BASE_URL + "like/"
+                            val MEDIA_TYPE = MediaType.parse("application/json")
+                            val post = JSONObject()
+                            try {
+                                post.put("post", p)
+                                post.put("like_by", pk)
+                                post.put("record_status", 1)
+
+                                val client = OkHttpClient()
+                                val body = RequestBody.create(MEDIA_TYPE, post.toString())
+                                val auth = "Basic $encode"
+                                val request = Request.Builder()
+                                        .url(url)
+                                        .post(body)
+                                        .header("Accept", "application/json")
+                                        .header("Content-Type", "application/json")
+                                        .header("Authorization", auth)
+                                        .build()
+                                client.newCall(request).enqueue(object : Callback {
+                                    override fun onResponse(call: Call, response: Response) {
+                                        var respon = response.body()!!.string()
+                                        Log.d("Response", respon)
+                                        val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
+                                        alertDialog.setMessage(R.string.like_post.toString())
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                                        ) { dialog, which -> dialog.dismiss() }
+                                        alertDialog.show()
+                                    }
+
+                                    override fun onFailure(call: Call, e: IOException) {
+                                        Log.d("Error", call.toString())
+                                    }
+                                })
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+
+                        }
+
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+
+                }
+
         })
 
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
+
+
     }
 
     fun submitCountView(encode: String) {
