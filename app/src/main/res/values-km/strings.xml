@@ -385,7 +385,7 @@
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
 
     <string name="public_user">អ្នកប្រើសាធារណៈ</string>
-    <string name="other_dealer">Other dealer</string>
+    <string name="other_dealer">អ្នកចែកបៀផ្សេងទៀត</string>
     <string name="shoppe">121 Shoppe</string>
     <string name="search_here">ស្វែងរក...</string>
     <string name="no_result">គ្មានរកឃើញលទ្ធផលទេ</string>
@@ -464,9 +464,9 @@
     <string name="fail_change_password">ពាក្យសម្ងាត់របស់អ្នកមានកំហុសខណៈពេលផ្លាស់ប្តូរ</string>
     //tab account
     <string name="tab_post">ប្រកាស</string>
-    <string name="tab_like">ចូលចិត្</string>
+    <string name="tab_like">ចូលចិត្ត</string>
     <string name="tab_loan">ឥណទាន</string>
-    <string name="active">សកម្</string>
-    <string name="history">History</string>
+    <string name="active">ប្រកាសថ្មី</string>
+    <string name="history">ចាស់</string>
 
 </resources>
