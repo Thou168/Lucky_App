@@ -524,7 +524,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgEmail"
-                        android:layout_toRightOf="@+id/imgAddress"
+                        android:layout_toRightOf="@+id/imgAddress_post"
                         android:gravity="center_vertical"
                         android:hint="@string/address"
                         android:paddingLeft="10dp"

@@ -439,10 +439,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
+               String stDiscount;
+                double dbDiscount = 0;
+                if (etDiscount_amount.getText().toString().length()== 0){
+                    dbDiscount = 0;
+                }else {
+                    stDiscount = etDiscount_amount.getText().toString();
+                    dbDiscount = Double.parseDouble(stDiscount);
+                }
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                    type==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
-                   || etPrice.getText().toString().length()==0 || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
+                   || etPrice.getText().toString().length()==0 || dbDiscount >=100|| bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
                ){
                    if (etTitle.getText().toString().length()<3) {
                        etTitle.requestFocus();
@@ -452,7 +460,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                        tvPostType.setFocusable(true);
                        tvPostType.setFocusableInTouchMode(true);
                        tvPostType.requestFocus();
-                   icPostType.setImageResource(R.drawable.ic_error_black_24dp);
+                      icPostType.setImageResource(R.drawable.ic_error_black_24dp);
                    }
                    if (tvCategory.getText().toString().length()==0) {
                        tvCategory.setFocusable(true);
@@ -487,6 +495,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                    if (etPrice.getText().toString().length()==0) {
                        etPrice.requestFocus();
                        icPrice.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+
+                   if (dbDiscount >= 100){
+                       etDiscount_amount.requestFocus();
+                       icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
                    }
                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
@@ -2553,7 +2566,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
-
 
     /**
      * Showing Alert Dialog with Settings option

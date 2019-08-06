@@ -102,7 +102,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
-    internal lateinit var ddBrand:Button
+//    internal lateinit var ddBrand:Button
     internal lateinit var listItems1: Array<String?>
     internal lateinit var categoryIdItems: Array<Int?>
     internal lateinit var brandListItems: Array<String?>
@@ -272,6 +272,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             true
         }
+
         //val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
@@ -317,64 +318,62 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         recyclerView = findViewById<RecyclerView>(R.id.list_new_post)
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
+
         Get()
 
-        val ddCategory:Button=findViewById(R.id.sp_category)
-        ddBrand=findViewById(R.id.sp_brand)
-        val ddYear:Button=findViewById(R.id.sp_year)
-
-        initialCategoryDropdown()
-        initialBrandDropdownList()
-        initialYearDropdownList()
-
-        ddCategory.setOnClickListener(View.OnClickListener {
-            val mBuilder = AlertDialog.Builder(this@Home)
-            mBuilder.setTitle(R.string.choose_category)
-            mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
-                ddCategory.setText(listItems1!!.get(i))
-                categoryId = categoryIdItems.get(i).toString()
-                //Toast.makeText(this@Home, categoryIdItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
-                initialBrandDropdownList()
-                dialogInterface.dismiss()
-            })
-
-            val mDialog = mBuilder.create()
-            mDialog.show()
-        })
-
-        ddBrand.setOnClickListener(View.OnClickListener {
-            val mBuilder = AlertDialog.Builder(this@Home)
-            mBuilder.setTitle(R.string.choose_brand)
-            mBuilder.setSingleChoiceItems(brandListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
-                ddBrand.setText(brandListItems!!.get(i))
-                brandId = brandIdListItems!!.get(i).toString()
-                //Toast.makeText(this@Home, brandIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
-                dialogInterface.dismiss()
-            })
-            val mDialog = mBuilder.create()
-            mDialog.show()
-        })
-
-        ddYear.setOnClickListener(View.OnClickListener {
-            val mBuilder = AlertDialog.Builder(this@Home)
-            mBuilder.setTitle(R.string.choose_year)
-            mBuilder.setSingleChoiceItems(yearListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
-                ddYear.setText(yearListItems!!.get(i))
-                yearId=yearIdListItems!!.get(i).toString()
-                //Toast.makeText(this@Home, yearIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
-                dialogInterface.dismiss()
-            })
-
-            val mDialog = mBuilder.create()
-            mDialog.show()
-        })
+//        val ddCategory:Button=findViewById(R.id.sp_category)
+//        ddBrand=findViewById(R.id.sp_brand)
+//        val ddYear:Button=findViewById(R.id.sp_year)
+//
+//        initialCategoryDropdown()
+//        initialBrandDropdownList()
+//        initialYearDropdownList()
+//
+//        ddCategory.setOnClickListener(View.OnClickListener {
+//            val mBuilder = AlertDialog.Builder(this@Home)
+//            mBuilder.setTitle(R.string.choose_category)
+//            mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
+//                ddCategory.setText(listItems1!!.get(i))
+//                categoryId= categoryIdItems.get(i).toString()
+//                //Toast.makeText(this@Home, categoryIdItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+//                initialBrandDropdownList()
+//                dialogInterface.dismiss()
+//            })
+//
+//            val mDialog = mBuilder.create()
+//            mDialog.show()
+//        })
+//
+//        ddBrand.setOnClickListener(View.OnClickListener {
+//            val mBuilder = AlertDialog.Builder(this@Home)
+//            mBuilder.setTitle(R.string.choose_brand)
+//            mBuilder.setSingleChoiceItems(brandListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
+//                ddBrand.setText(brandListItems!!.get(i))
+//                brandId = brandIdListItems!!.get(i).toString()
+//                //Toast.makeText(this@Home, brandIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+//                dialogInterface.dismiss()
+//            })
+//            val mDialog = mBuilder.create()
+//            mDialog.show()
+//        })
+//
+//        ddYear.setOnClickListener(View.OnClickListener {
+//            val mBuilder = AlertDialog.Builder(this@Home)
+//            mBuilder.setTitle(R.string.choose_year)
+//            mBuilder.setSingleChoiceItems(yearListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
+//                ddYear.setText(yearListItems!!.get(i))
+//                yearId=yearIdListItems!!.get(i).toString()
+//                //Toast.makeText(this@Home, yearIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
+//                dialogInterface.dismiss()
+//            })
+//
+//            val mDialog = mBuilder.create()
+//            mDialog.show()
+//        })
 
         val search = findViewById<EditText>(R.id.search)
         search.setOnClickListener{
             val intent = Intent(this@Home, Search1::class.java)
-            intent.putExtra("category",categoryId)
-            intent.putExtra("brand",brandId)
-            intent.putExtra("year",yearId)
             startActivity(intent)
         }
 

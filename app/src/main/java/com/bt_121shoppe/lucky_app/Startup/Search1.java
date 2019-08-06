@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.Startup;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,7 +46,8 @@ public class Search1 extends AppCompatActivity {
     SearchView sv;
     RecyclerView rv;
     ArrayList<Item> items;
-    String category,model,year;
+    Bundle bundle;
+    String category,model,year,title_filter;
     TextView not_found,tv_filter;
     ProgressBar mProgress;
     @Override
@@ -63,6 +66,7 @@ public class Search1 extends AppCompatActivity {
 
         mProgress = (ProgressBar) findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
+        not_found.setVisibility(View.GONE);
         tv_filter = findViewById(R.id.tv_filter);
         sv= (SearchView) findViewById(R.id.mSearch);
         rv = (RecyclerView)findViewById(R.id.myRecycler) ;
@@ -70,10 +74,7 @@ public class Search1 extends AppCompatActivity {
         sv.setIconified(false);
         sv.requestFocusFromTouch();
 
-        tv_filter.setOnClickListener(v -> {
-            Intent intent = new Intent(Search1.this,Filter.class);
-            startActivity(intent);
-        });
+
 
         items = new ArrayList<Item>();
 //        items = (ArrayList<Item>)getIntent().getSerializableExtra("items");
@@ -84,19 +85,28 @@ public class Search1 extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(layoutManager1);
 
-        Intent intent = getIntent();
-        category = intent.getStringExtra("category");
-        model    = intent.getStringExtra("brand");
-        year     = intent.getStringExtra("year");
+//        bundle = getIntent().getExtras();
+//        if (bundle!=null){
+//            title_filter    = bundle.getString("title_search");
+//            category = bundle.getString("category");
+//            model    = bundle.getString("brand");
+//            year     = bundle.getString("year");
+//            sv.setQuery(title_filter,false);
+//            Search_data(title_filter,category,model,year);
+//        }
+
 
         Log.d("SSSeach","Category:"+category+" Brand:"+ model + "Year:"+year);
     sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
             item_apis.clear();
+            category="";
+            model="";
+            year="";
             tv_filter.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.VISIBLE);
-            String title = sv.getQuery().toString();
+             String  title = sv.getQuery().toString();
             Search_data(title,category,model,year);
             return false;
         }
@@ -109,10 +119,19 @@ public class Search1 extends AppCompatActivity {
         }
     });
 
+        tv_filter.setOnClickListener(v -> {
+            Intent intent1 = new Intent(Search1.this,Filter.class);
+            intent1.putExtra("title",sv.getQuery().toString());
+            startActivityForResult(intent1,1);
+
+        });
+
+
     }  // create
 
     private  void Search_data(String title, String category, String model, String year){
-        String url = "http://103.205.26.103:8000/postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
+   //     String url = "http://103.205.26.103:8000/postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
+        String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
         Log.d("Url:",url);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -221,8 +240,29 @@ public class Search1 extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-//    @Override
+        if (requestCode==1) {
+            if (resultCode == 2) {
+                if (data != null) {
+                    item_apis.clear();
+                    title_filter = data.getExtras().getString("title_search");
+                    category = data.getExtras().getString("category");
+                    model = data.getStringExtra("brand");
+                    year = data.getStringExtra("year");
+                    sv.setQuery(title_filter, false);
+                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year);
+                    Search_data(title_filter, category, model, year);
+                }
+            }
+        }
+
+    }
+
+
+    //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getMenuInflater();
 //        // Inflate menu to add items to action bar if it is present.

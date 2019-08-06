@@ -144,6 +144,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         viewPager = findViewById(R.id.pagerMain);
         tabs = findViewById(R.id.tabs);
 
+
         mCompressor = new FileCompressor(this);
         setUpPager();
         inttab = getIntent().getIntExtra("Tab",0);

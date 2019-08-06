@@ -122,6 +122,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 
         override fun onVerificationFailed(e: FirebaseException) {
             Toast.makeText(this@VerifyMobileActivity, e.message, Toast.LENGTH_LONG).show()
+            Log.d("Verify ",e.message)
         }
 
         override fun onCodeSent(s: String?, forceResendingToken: PhoneAuthProvider.ForceResendingToken) {
