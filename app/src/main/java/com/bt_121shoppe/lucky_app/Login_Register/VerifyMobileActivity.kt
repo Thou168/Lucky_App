@@ -65,7 +65,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 
         Log.d("Verify Code",no+" "+password)
         mProgress = ProgressDialog(this)
-        mProgress.setMessage("Please wait...")
+        mProgress.setMessage(getString(R.string.please_wait))
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         mProgress.setCancelable(false)
         mProgress.isIndeterminate = true
@@ -314,7 +314,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     val alertDialog = AlertDialog.Builder(this@VerifyMobileActivity).create()
                     //alertDialog.setTitle("Loan")
                     alertDialog.setMessage(convertJsonJava.username)
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
                     ) { dialog, which -> dialog.dismiss() }
                     alertDialog.show()
                 }
@@ -324,9 +324,9 @@ class VerifyMobileActivity : AppCompatActivity() {
             runOnUiThread {
                 //Toast.makeText(applicationContext, "register failure", Toast.LENGTH_SHORT).show()
                 val alertDialog = AlertDialog.Builder(this@VerifyMobileActivity).create()
-                alertDialog.setTitle("Verify Code")
-                alertDialog.setMessage("Breand with this username already exists.")
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                alertDialog.setTitle(getString(R.string.verify_code))
+                alertDialog.setMessage(getString(R.string.verify_code_message))
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
                 ) { dialog, which -> dialog.dismiss() }
                 alertDialog.show()
             }

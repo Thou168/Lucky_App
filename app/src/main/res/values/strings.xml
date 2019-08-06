@@ -326,7 +326,7 @@
     <string name="deposit">Deposit ($)</string>
     <string name="term">Term (Month)</string>
     <string name="Monthly_payment">Monthly Payment</string>
-    <string name="contact">CONTACT</string>
+    <string name="contact">Contact</string>
     <string name="locaion">Location :</string>
 
     <string-array name="tab_A">
@@ -431,10 +431,6 @@
     <string name="discount">DISCOUNT</string>
     <string name="discount_type">Discount type</string>
 
-    <string name="bt_verify">Verify</string>
-    <string name="verify_code">Verify Code</string>
-    <string name="condittion_verify">We just send the verify code to this number. Enter the code from that message there.</string>
-
     <string name="about_us_heading">About Us</string>
     <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
     <string name="about_us_description">Welcome to 121 online market platform!
@@ -469,9 +465,13 @@
     <string name="shop_address">Shop Address</string>
     <string name="shop_name">Shop Name</string>
     //verify
+    <string name="bt_verify">Verify</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="condittion_verify">We just send the verify code to this number. Enter the code from that message there.</string>
     <string name="dont_receive">Do not Receive the Code?</string>
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
+    <string name="verify_code_message">Brand with this username already exists.</string>
     //message
     <string name="type_message">Type a message...</string>
     <string name="username">Username</string>
@@ -514,6 +514,7 @@
 
     <string name="ok">OK</string>
     <string name="please_wait">Please wait...</string>
+    <string name="uploading">Uploading</string>
     //validate loan
     <string name="job">Job can`t be empty</string>
     <string name="monthly_expense">Monthly expense can`t be empty</string>
@@ -555,7 +556,9 @@
     <string name="title_unlike">Remove Save Ad</string>
     <string name="unlike_message">Are you sure to remove this save ad?</string>
     <string name="like_post">You Liked this post</string>
+    <string name="public_brand">Public Brand</string>
     //log
+    <string name="login_fail">Login Failure</string>
     <string name="logout_message">Are you sure you want to logout?</string>
     //change password
     <string name="title_change_password">Changed Password</string>

@@ -390,7 +390,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 tvType.setText(getString(R.string.other_dealer));
                             }else {
                                 tvType.setText(getString(R.string.public_user));
-                                tvType.setText("Public Breand");
+                                tvType.setText(getString(R.string.public_brand));
                             }
 
                             etUsername.setText(convertJsonJava.getFirst_name());

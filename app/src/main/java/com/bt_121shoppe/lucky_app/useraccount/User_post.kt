@@ -57,8 +57,8 @@ class User_post : AppCompatActivity() {
         getUserPosts()
     }
     private fun configureTabLayout() {
-        tab.addTab(tab.newTab().setText("Post"))
-        tab.addTab(tab.newTab().setText("Contact"))
+        tab.addTab(tab.newTab().setText(getString(R.string.post)))
+        tab.addTab(tab.newTab().setText(getString(R.string.contact)))
 
         val adapter = Tab_Adapter(supportFragmentManager, tab.tabCount)
         pager.adapter = adapter

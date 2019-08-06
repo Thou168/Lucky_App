@@ -105,6 +105,7 @@
     <string name="back">ត្រឡប់</string>
     <string name="bt_verify">ផ្ទៀងផ្ទាត់</string>
     <string name="verify_code">លេខកូដផ្ទៀងផ្ទាត់</string>
+    <string name="verify_code_message">Brand with this username already exists.</string>
 
     <!-- Start Loan Information String -->
     <style name="loan_calculation_title1">ការរគណនាប្រាក់កម្ចី/ Loan Calculation</style>
@@ -413,6 +414,7 @@
     <string name="post_fail_message">ការប្រកាសនេះមានកំហុសនៅពេលបញ្ជូន</string>
     <string name="post_success_message">ការប្រកាសនេះត្រូវបានដាក់ស្នើដោយជោគជ័យ</string>
     <string name="please_wait">សូមរង់ចាំ ...</string>
+    <string name="uploading">កំពុងធ្វើការបញ្ចូល</string>
 
     //validate loan
     <string name="job">ការងារមិនអាចទទេបានទេ</string>
@@ -454,6 +456,8 @@
     <string name="edit_fail_message">ព័ត៌មានអំពីគណនីមានកំហុសពេលបញ្ជូន</string>
     <string name="update">កំពុងធ្វើការកែប្រែ...</string>
     <string name="logout_message">តើអ្នកពិតជាចង់ចាកចេញឬ?</string>
+    <string name="login_fail">ចូលត្រូវបានបរាជ័យ</string>
+    <string name="public_brand">Public Brand</string>
     //change password
     <string name="title_change_password">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
     <string name="success_change_password">ពាក្យសម្ងាត់របស់អ្នកត្រូវបានផ្លាស់ប្តូរ</string>
@@ -464,4 +468,5 @@
     <string name="tab_loan">ឥណទាន</string>
     <string name="active">សកម្</string>
     <string name="history">History</string>
+
 </resources>

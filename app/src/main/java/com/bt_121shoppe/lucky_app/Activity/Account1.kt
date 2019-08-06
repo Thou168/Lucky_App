@@ -712,13 +712,13 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     }
     private fun showSettingsDialog() {
         val builder = androidx.appcompat.app.AlertDialog.Builder(this)
-        builder.setTitle("Need Permissions")
-        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.")
-        builder.setPositiveButton("GOTO SETTINGS") { dialog, which ->
+        builder.setTitle(getString(R.string.permission))
+        builder.setMessage(getString(R.string.setting_permission))
+        builder.setPositiveButton(getString(R.string.go_setting)) { dialog, which ->
             dialog.cancel()
             openSettings()
         }
-        builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
         builder.show()
 
     }
@@ -750,9 +750,9 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         val loans = MainLoanList.newInstance()
         val adapter = MainPager(supportFragmentManager)
 
-        adapter.addFragment(posts, "Post")
-        adapter.addFragment(likes, "Like")
-        adapter.addFragment(loans, "Loan")
+        adapter.addFragment(posts, getString(R.string.tab_post))
+        adapter.addFragment(likes, getString(R.string.tab_like))
+        adapter.addFragment(loans, getString(R.string.tab_loan))
 
         mainPager.setAdapter(adapter)
         tabs.setupWithViewPager(mainPager)

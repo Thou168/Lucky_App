@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         preferences=getSharedPreferences("Register",MODE_PRIVATE);
 
         mProgress=new ProgressDialog(this);
-        mProgress.setMessage("Please wait...");
+        mProgress.setMessage(getString(R.string.please_wait));
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                     else {
-                        txErrorMsg.setText("Login Failure");
+                        txErrorMsg.setText(getString(R.string.login_fail));
                         mProgress.dismiss();
                     }
                 }
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    txErrorMsg.setText("Login Failure");
+                    txErrorMsg.setText(getString(R.string.login_fail));
                     mProgress.dismiss();
                 }
             });

@@ -55,7 +55,7 @@ public class Login extends AppCompatActivity {
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
 
         mProgress = new ProgressDialog(this);
-        mProgress.setMessage("Please wait...");
+        mProgress.setMessage(getString(R.string.please_wait));
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);

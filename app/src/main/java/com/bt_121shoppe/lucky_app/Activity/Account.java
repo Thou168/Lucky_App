@@ -422,9 +422,9 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     };
 
     private void setUpPager(){
-        tabs.addTab(tabs.newTab().setText("Posts"));
-        tabs.addTab(tabs.newTab().setText("Like"));
-        tabs.addTab(tabs.newTab().setText("Loan"));
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_post)));
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_like)));
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_loan)));
         tabs.setOnTabSelectedListener(this);
         Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
         viewPager.setAdapter(adapter);
@@ -499,7 +499,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     private void uploadImage(String type){
 
         final ProgressDialog pd=new ProgressDialog(Account.this);
-        pd.setMessage("Uploading");
+        pd.setMessage(getString(R.string.uploading));
         pd.show();
 
         if(imageUri!=null){
