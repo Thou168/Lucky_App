@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/location"
                         android:layout_alignParentRight="true"
-                        android:text="View: 100" />
+                        android:text="@string/view" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

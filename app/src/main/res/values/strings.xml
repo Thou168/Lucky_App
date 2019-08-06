@@ -570,4 +570,5 @@
     <string name="tab_loan">Loan</string>
     <string name="active">Active ads</string>
     <string name="history">History</string>
+    <string name="view">View: </string>
 </resources>

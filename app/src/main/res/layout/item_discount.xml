@@ -80,7 +80,7 @@
                     android:layout_below="@+id/location"
                     android:textSize="10sp"
                     android:layout_alignParentRight="true"
-                    android:text="View: 100" />
+                    android:text="@string/view" />
             </RelativeLayout>
         </LinearLayout>
 </androidx.cardview.widget.CardView>
