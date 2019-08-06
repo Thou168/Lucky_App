@@ -83,7 +83,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var grid: ImageView? = null
     var list: ImageView? = null
     var image_list: ImageView? = null
-//    var click: String = "Khmer"
+    //    var click: String = "Khmer"
     lateinit var sharedPreferences: SharedPreferences
     val myPreferences = "mypref"
     val namekey = "Khmer"
@@ -119,14 +119,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     lateinit var mHandler: Handler
 
     fun language(lang: String) {
-         val locale = Locale(lang)
-         Locale.setDefault(locale)
-         val confi = Configuration()
-         confi.locale = locale
-         baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
-         val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
-         editor.putString("My_Lang", lang)
-         editor.apply()
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val confi = Configuration()
+        confi.locale = locale
+        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("My_Lang", lang)
+        editor.apply()
     }
 
     fun locale() {
@@ -148,24 +148,19 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }else{
             Toast.makeText(this@Home,"No Internet connection",Toast.LENGTH_LONG).show();
         }
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = " "
         setSupportActionBar(toolbar)
-
         progreessbar =findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
         txtno_found =findViewById(R.id.text)
-
         progreessbar1 =findViewById(R.id.progress_bar1)
         progreessbar1!!.visibility = View.VISIBLE
         txtno_found1 =findViewById(R.id.text1)
-
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
-
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -173,7 +168,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout!!.addDrawerListener(toggle)
         toggle.syncState()
-
         if (sharedPref.contains("token") || sharedPref.contains("id")){
             navView.setVisibility(View.VISIBLE)
             drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -202,7 +196,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }else{
 //            navView.setVisibility(View.GONE)
             drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
             if(language.equals("km")) {
                 english!!.visibility = View.VISIBLE
                 khmer!!.visibility = View.GONE
@@ -216,15 +209,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             khmer!!.setOnClickListener { language("km")
                 recreate()
             }
-
         }
         //Log.d("khmer",language)
-
         requestStoragePermission(false)
         requestStoragePermission(true)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
-
         navView.setNavigationItemSelectedListener(this)
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.setOnNavigationItemSelectedListener { item ->
@@ -282,12 +272,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             true
         }
-
         //val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
-                            "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
+                "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
         sliderImage.setItems(images)
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
@@ -485,9 +474,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val `object` = jsonArray.getJSONObject(i)
                         var cat_id=`object`.getInt("id")
                         val cagory = `object`.getString("cat_name")
-                         runOnUiThread {
-                             listItems1[i]=cagory
-                             categoryIdItems[i]=cat_id
+                        runOnUiThread {
+                            listItems1[i]=cagory
+                            categoryIdItems[i]=cat_id
                         }
                     }
                 } catch (e: Exception) {
@@ -527,8 +516,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                 val `object` = jsonArray.getJSONObject(i)
                                 var id = `object`.getInt("id")
                                 val brand = `object`.getString("brand_name")
-                                    brandListItems[i] = brand
-                                    brandIdListItems[i] = id
+                                brandListItems[i] = brand
+                                brandIdListItems[i] = id
                             }
                         } else {
                             var count=0
@@ -666,30 +655,23 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                 //var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 val imageView = findViewById<CircleImageView>(R.id.imageView)
                                 //imageView!!.setImageBitmap(decodedByte)
-
                                 if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
                                     //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
                                     val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                     imageView.setImageBitmap(decodedByte)
                                 }else {
-
                                     val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                     imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
                                 }
-
                             }
-
                             if (coverpicture == null) {
-
                             } else {
                                 val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 val cover_layout = findViewById<LinearLayout>(R.id.cover_layout)
-
                                 //imgCover!!.setImageBitmap(decodedByte)
                             }
                         }
-
                         */
                     }
 
@@ -757,7 +739,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     .header("Accept","application/json")
                                     .header("Content-Type","application/json")
                                     //.header("Authorization",auth)
-                       //             .header("Authorization",auth)
+                                    //             .header("Authorization",auth)
                                     .build()
                             client1.newCall(request1).enqueue(object : Callback{
                                 override fun onFailure(call: Call, e: IOException) {
@@ -865,7 +847,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 //                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
                         runOnUiThread {
 
-//                            best_list!!.adapter = MyAdapter(itemApi)
+                            //                            best_list!!.adapter = MyAdapter(itemApi)
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
                             val client1= OkHttpClient()
@@ -1021,4 +1003,3 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         alert.show()
     }
 }
-

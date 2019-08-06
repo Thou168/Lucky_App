@@ -2,6 +2,8 @@ package com.bt_121shoppe.lucky_app.loan;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +23,8 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.models.LoanViewModel;
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.database.core.utilities.Validation;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -60,15 +65,12 @@ public class LoanCreateActivity extends AppCompatActivity {
     boolean estadoCadastro = true;
     SharedPreferences  pre_id;
     Bundle bundle;
-    ImageView icAddress,icAddress1,icAddress2,icAddress3,icAddress4,icAddress5;
-    ImageView icAddress6,icAddress7,icAddress8,icAddress9,icAddress10;
+    ImageView icAddress_job,icAddress_co,icAddress_income,icAddress_expense,icAddress_purpose,icAddress_amount,icAddress_term,icAddress_card,icAddress_book,icAddress_staff,icAddress_title;
 
+    private TextInputLayout   input_income, input_expense, input_purpose, input_amount, input_term ;
+    private  TextInputLayout input_job;
+    //    private TextInputLayout input_co,input_card, input_book, input_staff, input_title;
     String[] yesNos;
-    //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
-//    String[] card_id = getResources().getStringArray(R.array.ID_card);
-//    String[] book_family = getResources().getStringArray(R.array.Family_book);
-//    String[] staff_id = getResources().getStringArray(R.array.Staff_id);
-//    String[] land_title = getResources().getStringArray(R.array.Land_Tile);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,21 +84,28 @@ public class LoanCreateActivity extends AppCompatActivity {
                 finish();
             }
         });
+//image
+        icAddress_co = (ImageView) findViewById(R.id.imgCoBorrower);
+        icAddress_card = (ImageView) findViewById(R.id.imgIDCard);
+        icAddress_book = (ImageView) findViewById(R.id.imgFamilyBook);
+        icAddress_staff = (ImageView) findViewById(R.id.imgStaffID);
+        icAddress_title = (ImageView) findViewById(R.id.imgLandTitle);
+        icAddress_job = (ImageView)findViewById(R.id.imgJob);
+        icAddress_income = (ImageView)findViewById(R.id.imgMonthlyIncome) ;
+        icAddress_expense = (ImageView)findViewById(R.id.imgMonthlyExpense);
+        icAddress_purpose = (ImageView)findViewById(R.id.imgPurpose);
+        icAddress_amount = (ImageView)findViewById(R.id.imgLoanAmount);
+        icAddress_term = (ImageView)findViewById(R.id.imgLoanTerm);
 
-        icAddress6 = (ImageView) findViewById(R.id.imgCoBorrower);
-        icAddress7 = (ImageView) findViewById(R.id.imgIDCard);
-        icAddress8 = (ImageView) findViewById(R.id.imgFamilyBook);
-        icAddress9 = (ImageView) findViewById(R.id.imgStaffID);
-        icAddress10 = (ImageView) findViewById(R.id.imgLandTitle);
+//input
+        input_job = (TextInputLayout)findViewById(R.id.tilJob);
+        input_expense = (TextInputLayout)findViewById(R.id.tilMonthlyExpense);
+        input_income = (TextInputLayout)findViewById(R.id.tilMonthlyIncome);
+        input_purpose = (TextInputLayout)findViewById(R.id.tilLoanPurpose);
+        input_amount = (TextInputLayout)findViewById(R.id.tilLoanAmount);
+        input_term = (TextInputLayout)findViewById(R.id.tilLoanTerm);
 
-        icAddress = (ImageView)findViewById(R.id.imgJob);
-        icAddress1 = (ImageView)findViewById(R.id.imgMonthlyIncome) ;
-        icAddress2 = (ImageView)findViewById(R.id.imgMonthlyExpense);
-        icAddress3 = (ImageView)findViewById(R.id.imgPurpose);
-        icAddress4 = (ImageView)findViewById(R.id.imgLoanAmount);
-        icAddress5 = (ImageView)findViewById(R.id.imgLoanTerm);
-
-
+//ID item
         job_loan_information = (EditText)findViewById(R.id.etJob);
         co_borrower_loan_information = (Button) findViewById(R.id.etCoBorrower);
         monthly_income_loan_information = (EditText)findViewById(R.id.etMonthlyIncome);
@@ -109,11 +118,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         staff_id_or_salary_slip = (Button) findViewById(R.id.tvStaffID);
         land_tile = (Button) findViewById(R.id.tvLandTitle);
 
-//        price_loancreate = (EditText)findViewById(R.id.ed_loan_price);
-//        interest_rate = (EditText)findViewById(R.id.ed_loan_interest_rate);
-//        deposit_loancreate = (EditText)findViewById(R.id.ed_loan_deposit);
-//        term_loancreate = (EditText)findViewById(R.id.ed_loan_term);
-
         preferences=getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
@@ -123,7 +127,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
         }
-        Log.d("Pk",""+pk);
+        Log.d("Pk",""+ pk);
         yesNos=getResources().getStringArray(R.array.co_borrower);
         ButterKnife.bind(this);
         Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,1.5,12)));
@@ -147,75 +151,14 @@ public class LoanCreateActivity extends AppCompatActivity {
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id_edit != 0) {
+                    Edit_loan(Encode, id_edit);
 
-//                final String job = job_loan_information.getText().toString();
-                if (job_loan_information.getText().toString().length()==0){
-                    job_loan_information.requestFocus();
-                    job_loan_information.setError(getString(R.string.job));
-                }
+                } else {
+                    consumeLoanCreateApi(Encode);
+//                    textChange();
+                    signUp();
 
-                else if (co_borrower_loan_information.getText().toString().length()==0){
-                    co_borrower_loan_information.requestFocus();
-                    co_borrower_loan_information.setFocusable(true);
-                    co_borrower_loan_information.setFocusableInTouchMode(true);
-                    co_borrower_loan_information.setError(getString(R.string.co_borrower));
-
-                }
-
-                else if (monthly_income_loan_information.getText().toString().length()==0){
-                    monthly_income_loan_information.requestFocus();
-                    monthly_income_loan_information.setError(getString(R.string.monthly_income));
-
-                }
-                else if (monthly_expense.getText().toString().length()==0){
-                    monthly_expense.requestFocus();
-                    monthly_expense.setError(getString(R.string.monthly_expense));
-                }
-                else if (loan_purpose.getText().toString().length()==0){
-                    loan_purpose.requestFocus();
-                    loan_purpose.setError(getString(R.string.loan_purpose));
-                }
-                else if (loan_amount.getText().toString().length()==0){
-                    loan_amount.requestFocus();
-                    loan_amount.setError(getString(R.string.loan_amount));
-                }
-                else if (loan_term.getText().toString().length()==0){
-                    loan_term.requestFocus();
-                    loan_term.setError(getString(R.string.loan_term));
-                }
-
-                else if (id_card.getText().toString().length()==0){
-                    id_card.requestFocus();
-                    id_card.setFocusable(true);
-                    id_card.setError(getString(R.string.id_card));
-                }
-
-                else if (family_book.getText().toString().length()==0){
-                    family_book.requestFocus();
-                    family_book.setFocusable(true);
-                    family_book.setError(getString(R.string.book_family));
-                }
-
-                else if (staff_id_or_salary_slip.getText().toString().length()==0){
-                    staff_id_or_salary_slip.requestFocus();
-                    staff_id_or_salary_slip.setFocusable(true);
-                    staff_id_or_salary_slip.setError(getString(R.string.staff_id));
-                }
-
-                else if (land_tile.getText().toString().length()==0){
-                    land_tile.requestFocus();
-                    land_tile.setFocusable(true);
-                    land_tile.setError(getString(R.string.title_land));
-                }
-
-                else {
-                    if(id_edit!=0)
-                    {
-                        Edit_loan(Encode,id_edit);
-
-                    }else {
-                        consumeLoanCreateApi(Encode);
-                    }
                 }
             }
         });
@@ -348,13 +291,115 @@ public class LoanCreateActivity extends AppCompatActivity {
                 mDialog.show();
             }
         });
-
         textChange();
 
-    } //oncreate
+    }
+
+    private void signUp(){
+        boolean isValid = true;
+
+        if (job_loan_information.getText().toString().isEmpty() || job_loan_information.getText().toString() == null) {
+            icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
+            input_job.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            input_job.setErrorEnabled(true);
+
+            isValid = false;
+        } else {
+            input_job.setErrorEnabled(false);
+        }
+
+        if (co_borrower_loan_information.getText().toString().isEmpty()){
+            icAddress_co.setImageResource(R.drawable.ic_error_black_24dp);
+            co_borrower_loan_information.setHintTextColor(getResources().getColor(R.color.red));
+            isValid = false;
+        }else {
+//            input_co.setErrorEnabled(false);
+        }
+
+        if (monthly_income_loan_information.getText().toString().isEmpty()) {
+            icAddress_income.setImageResource(R.drawable.ic_error_black_24dp);
+            input_income.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            input_income.setErrorEnabled(true);
+            isValid = false;
+        } else {
+            input_income.setErrorEnabled(false);
+        }
+
+        if (monthly_expense.getText().toString().isEmpty()) {
+            icAddress_expense.setImageResource(R.drawable.ic_error_black_24dp);
+            input_expense.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            input_expense.setErrorEnabled(true);
+            isValid = false;
+        } else {
+            input_expense.setErrorEnabled(false);
+        }
+
+        if (loan_purpose.getText().toString().isEmpty()) {
+            icAddress_purpose.setImageResource(R.drawable.ic_error_black_24dp);
+            input_purpose.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            input_purpose.setErrorEnabled(true);
+            isValid = false;
+        } else {
+            input_purpose.setErrorEnabled(false);
+        }
+
+        if (loan_amount.getText().toString().isEmpty()) {
+            icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
+            input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            input_amount.setErrorEnabled(true);
+            isValid = false;
+        } else {
+            input_amount.setErrorEnabled(false);
+        }
+
+        if (loan_term.getText().toString().isEmpty()) {
+            icAddress_term.setImageResource(R.drawable.ic_error_black_24dp);
+            input_term.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            input_term.setErrorEnabled(true);
+            isValid = false;
+        } else {
+            input_term.setErrorEnabled(false);
+        }
+
+        if (id_card.getText().toString().isEmpty()) {
+            icAddress_card.setImageResource(R.drawable.ic_error_black_24dp);
+            id_card.setHintTextColor(getResources().getColor(R.color.red));
+            isValid = false;
+        } else {
+//            input_card.setErrorEnabled(false);
+        }
+
+        if (family_book.getText().toString().isEmpty()){
+            icAddress_book.setImageResource(R.drawable.ic_error_black_24dp);
+            family_book.setHintTextColor(getResources().getColor(R.color.red));
+            isValid = false;
+        }else {
+//            input_book.setErrorEnabled(false);
+        }
+
+        if (staff_id_or_salary_slip.getText().toString().isEmpty()){
+            icAddress_staff.setImageResource(R.drawable.ic_error_black_24dp);
+            staff_id_or_salary_slip.setHintTextColor(getResources().getColor(R.color.red));
+            isValid = false;
+        }else {
+//            input_staff.setErrorEnabled(false);
+        }
+
+        if (land_tile.getText().toString().isEmpty()){
+            icAddress_title.setImageResource(R.drawable.ic_error_black_24dp);
+            land_tile.setHintTextColor(getResources().getColor(R.color.red));
+            isValid = false;
+        }else {
+//            input_title.setErrorEnabled(false);
+        }
+
+        if (isValid) {
+//            Toast.makeText(LoanCreateActivity.this, R.string.signup_success, Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     private void textChange(){
-
         job_loan_information.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -364,10 +409,19 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 2) {
-                    icAddress.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_job.setImageResource(R.drawable.icon_null);
+
+                }
+
+                else if (s.length() < 2) {
+                    icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()>2) {
+                    icAddress_job.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    input_job.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                    input_job.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
             }
 
             @Override
@@ -385,10 +439,11 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress6.setImageResource(R.drawable.icon_null);
+                    icAddress_co.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress6.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress6.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_co.setImageResource(R.drawable.ic_error_black_24dp);
+
+                } else icAddress_co.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override
@@ -406,10 +461,12 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress1.setImageResource(R.drawable.icon_null);
+                    icAddress_income.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress1.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress1.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_income.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_income.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_income.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_income.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -427,10 +484,12 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress2.setImageResource(R.drawable.icon_null);
+                    icAddress_expense.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress2.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_expense.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_expense.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_expense.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_expense.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -448,10 +507,12 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress3.setImageResource(R.drawable.icon_null);
+                    icAddress_purpose.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 4) {
-                    icAddress3.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress3.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_purpose.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_purpose.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_purpose.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_purpose.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -469,10 +530,13 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress4.setImageResource(R.drawable.icon_null);
+                    icAddress_amount.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 2) {
-                    icAddress4.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress4.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
+                } else
+                    icAddress_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_amount.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -490,10 +554,12 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress5.setImageResource(R.drawable.icon_null);
+                    icAddress_term.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress5.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress5.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_term.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_term.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_term.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_term.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -511,10 +577,10 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress7.setImageResource(R.drawable.icon_null);
+                    icAddress_card.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress7.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress7.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_card.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_card.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override
@@ -532,10 +598,10 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress8.setImageResource(R.drawable.icon_null);
+                    icAddress_book.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress8.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress8.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_book.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_book.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override
@@ -553,10 +619,10 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress9.setImageResource(R.drawable.icon_null);
+                    icAddress_staff.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress9.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress9.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_staff.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_staff.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override
@@ -574,10 +640,10 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    icAddress10.setImageResource(R.drawable.icon_null);
+                    icAddress_title.setImageResource(R.drawable.icon_null);
                 } else if (s.length() < 1) {
-                    icAddress10.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress10.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    icAddress_title.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icAddress_title.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override
@@ -587,6 +653,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void consumeLoanCreateApi(String encode){
         String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/?record_status=1";
@@ -637,9 +704,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                        alertDialog.setTitle(getString(R.string.title_create_loan));
-                        alertDialog.setMessage(getString(R.string.loan_fail_message));
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                        alertDialog.setTitle("Loan");
+                        alertDialog.setMessage("Loan request has been error while submiting.");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -665,9 +732,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                    alertDialog.setTitle(getString(R.string.title_create_loan));
+                                    alertDialog.setTitle("Loan");
                                     alertDialog.setMessage(getString(R.string.loan_message));
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     finish();
@@ -684,9 +751,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                alertDialog.setTitle(getString(R.string.title_create_loan));
-                                alertDialog.setMessage(getString(R.string.loan_fail_message));
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                alertDialog.setTitle("Loan");
+                                alertDialog.setMessage("Loan request has been error while submiting.");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
@@ -849,9 +916,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                        alertDialog.setTitle(getString(R.string.title_edit_loan));
-                                        alertDialog.setMessage(getString(R.string.loan_feedback1));
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                        alertDialog.setTitle("Edit your loan");
+                                        alertDialog.setMessage("Loan wasn't edit");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         finish();
@@ -866,9 +933,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                        alertDialog.setTitle(getString(R.string.title_edit_loan));
+                                        alertDialog.setTitle("Edit your loan");
                                         alertDialog.setMessage(getString(R.string.loan_message));
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         finish();
@@ -892,9 +959,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                            alertDialog.setTitle(getString(R.string.title_edit_loan));
-                            alertDialog.setMessage(getString(R.string.loan_feedback));
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                            alertDialog.setTitle("Edit your loan");
+                            alertDialog.setMessage("Please check again!!");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();

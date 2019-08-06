@@ -18,6 +18,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
+import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
