@@ -76,7 +76,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         val btn_renewal = itemView.findViewById<Button>(R.id.btn_renew)
         val time = itemView.findViewById<TextView>(R.id.location)
         val count_view = itemView.findViewById<TextView>(R.id.user_view)
-
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
@@ -87,7 +86,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             time.text = item.location_duration
-            count_view.text = "View:"+item.count_view
+            count_view.text ="View:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

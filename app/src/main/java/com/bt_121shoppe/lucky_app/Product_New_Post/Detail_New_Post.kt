@@ -45,6 +45,7 @@ import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.Chat
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
+import com.bumptech.glide.Glide
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -56,6 +57,11 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 //import com.google.android.gms.location.FusedLocationProviderClient
 //import com.google.android.gms.maps.GoogleMap
 //import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -610,12 +616,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     user1= gson.fromJson(mMessage, User::class.java)
                     Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
-                        if(user1.profile!=null) {
-                            val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
+
+                            val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
                             if(profilepicture.isNullOrEmpty()){
                                 img_user.setImageResource(R.drawable.user)
-                            }else
-                            {
+                            }else {
                                 val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 img_user.setImageBitmap(decodedByte)
@@ -647,7 +652,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 intent.putExtra("Name",user1.first_name)
                                 startActivity(intent)
                             }
-                        }
 
                     }
 

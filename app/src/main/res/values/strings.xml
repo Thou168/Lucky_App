@@ -571,4 +571,13 @@
     <string name="active">Active ads</string>
     <string name="history">History</string>
     <string name="view">View: </string>
+    //edit account
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="marriedd">Married</string>
+    <string name="separated">Separated</string>
+    <string name="single">Single</string>
+    <string name="divorced">Divorced</string>
+    <string name="widowed">Widowed</string>
 </resources>

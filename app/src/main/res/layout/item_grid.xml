@@ -99,15 +99,15 @@
                         android:layout_marginRight="@dimen/dp_8"
                         android:scaleType="centerCrop"
                         android:src="@drawable/sell" />
-                    <TextView
-                        android:id="@+id/user_view"
-                        android:textSize="12dp"
-                        android:layout_marginRight="@dimen/dp_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/location"
-                        android:layout_alignParentRight="true"
-                        android:text="@string/view" />
+                        <TextView
+                            android:id="@+id/user_view"
+                            android:textSize="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:text="@string/view" />
+
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

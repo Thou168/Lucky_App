@@ -71,7 +71,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
              title.text = item.title
              cost.text = "$"+ price.toString()
              location.text = item.time
-             count_view.text = "View:"+item.countview
+             count_view.text ="View:"+item.countview
 
             val decodedString = Base64.decode(item.image, Base64.DEFAULT)
 

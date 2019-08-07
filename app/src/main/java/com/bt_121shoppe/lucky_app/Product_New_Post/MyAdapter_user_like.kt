@@ -84,7 +84,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
-            show_view.text="View: "+item.count_view
+            show_view.text="View:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

@@ -71,7 +71,7 @@ class MyAdapter_post_history(private val itemList: ArrayList<Item_API>, val type
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
-            show_view.text="View: "+item.count_view
+            show_view.text="View:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

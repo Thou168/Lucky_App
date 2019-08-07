@@ -57,7 +57,7 @@
     <string name="buy">ទិញ</string>
 
     //Tab
-    <string name="post">ការប្រកាស</string>
+    <string name="post">ប្រកាស</string>
     <string name="like">ចូលចិត្ត</string>
 
     //user account registration
@@ -206,7 +206,7 @@
         <item>ស្ថានភាព</item>
         <item>នៅលាវ</item>
         <item>រៀបការ</item>
-        <item>Separated</item>
+        <item>បែកបាក់</item>
         <item>លែងលះ</item>
         <item>មេម៉ាយ</item>
     </string-array>
@@ -232,6 +232,9 @@
     <string-array name="marital_status_array">
         <item>នៅលីវ</item>
         <item>រៀបការ</item>
+        <item>បែកបាក់</item>
+        <item>លែងលះ</item>
+        <item>មេម៉ាយ</item>
     </string-array>
     <string-array name="province_array">
         <item>ភ្នំពេញ</item>
@@ -378,7 +381,7 @@
     <string name="choose_model">ជ្រើសរើសម៉ូឌែល</string>
     <string name="choose_color">ជ្រើសរើសពណ៌</string>
     <string name="choose_discount">ជ្រើសរើសប្រភេទបញ្ចុះតម្លៃ</string>
-    <string name="choose_category">ជ្រើសរើសប្រភេទផលិតផល</string>
+    <string name="choose_category">ជ្រើសរើសប្រភេទទំនិញ</string>
     <string name="choose_condition">ជ្រើសរើសលក្ខខណ្</string>
     <string name="choose_type_post">ជ្រើសរើសប្រភេទប្រកាស</string>
     <string name="choose_brand">ជ្រើសរើសម៉ាកផលិតផល</string>
@@ -447,7 +450,7 @@
     <string name="requried_permission">សូមបើកការភ្ជាប់ទីតាំងរបស់អ្នក</string>
     <string name="gps">សូមបើកការភ្ជាប់ PGS របស់អ្នក</string>
     //Account
-    <string name="choose_province">ជ្រើសរើសខេត្</string>
+    <string name="choose_province">ជ្រើសរើសខេត្ត</string>
     <string name="choose_location">ជ្រើសរើសទីតាំង</string>
     <string name="choose_status">ជ្រើសរើសស្ថានភាព</string>
     <string name="choose_gender">ជ្រើសរើសភេទ</string>
@@ -469,5 +472,14 @@
     <string name="active">ប្រកាសថ្មី</string>
     <string name="history">ចាស់</string>
     <string name="view">ចំនួនអ្នកមើលៈ</string>
+    //edit account
+    <string name="male">ប្រុស</string>
+    <string name="female">ស្រី</string>
+    <string name="other">ផ្សេងទៀត</string>
+    <string name="marriedd">រៀបការ</string>
+    <string name="separated">បែកបាក់</string>
+    <string name="single">នៅលីវ</string>
+    <string name="divorced">លែងលះ</string>
+    <string name="widowed">មេម៉ាយ</string>
 
 </resources>

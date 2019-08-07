@@ -704,9 +704,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                        alertDialog.setTitle("Loan");
-                        alertDialog.setMessage("Loan request has been error while submiting.");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        alertDialog.setTitle(getString(R.string.title_create_loan));
+                        alertDialog.setMessage(getString(R.string.loan_fail_message));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -732,9 +732,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                    alertDialog.setTitle("Loan");
+                                    alertDialog.setTitle(getString(R.string.title_create_loan));
                                     alertDialog.setMessage(getString(R.string.loan_message));
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     finish();
@@ -751,9 +751,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                alertDialog.setTitle("Loan");
-                                alertDialog.setMessage("Loan request has been error while submiting.");
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                alertDialog.setTitle(getString(R.string.title_create_loan));
+                                alertDialog.setMessage(getString(R.string.loan_fail_message));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
@@ -838,9 +838,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                             land_tile.setText(yesNos[1]);
                                         }
 
-                                        if(coborrow.equals("Yes") ) {
+                                        if(coborrow.equals("Yes") || coborrow.equals("មាន") ) {
                                             co_borrower_loan_information.setText(yesNos[0]);
-                                        }else if (coborrow.equals("No")){
+                                        }else if (coborrow.equals("No") || coborrow.equals("មិនមាន")){
                                             co_borrower_loan_information.setText(yesNos[1]);
                                         }
 
@@ -916,9 +916,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                        alertDialog.setTitle("Edit your loan");
-                                        alertDialog.setMessage("Loan wasn't edit");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setTitle(getString(R.string.title_edit_loan));
+                                        alertDialog.setMessage(getString(R.string.loan_feedback1));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         finish();
@@ -933,9 +933,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                                        alertDialog.setTitle("Edit your loan");
+                                        alertDialog.setTitle(getString(R.string.title_edit_loan));
                                         alertDialog.setMessage(getString(R.string.loan_message));
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         finish();
@@ -959,9 +959,9 @@ public class LoanCreateActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AlertDialog alertDialog = new AlertDialog.Builder(LoanCreateActivity.this).create();
-                            alertDialog.setTitle("Edit your loan");
-                            alertDialog.setMessage("Please check again!!");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            alertDialog.setTitle(getString(R.string.title_edit_loan));
+                            alertDialog.setMessage(getString(R.string.loan_feedback));
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();

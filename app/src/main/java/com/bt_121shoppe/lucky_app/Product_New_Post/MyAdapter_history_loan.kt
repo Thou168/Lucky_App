@@ -68,7 +68,7 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()
-            count_view.text = "view:"+item.count_view
+            count_view.text ="View:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

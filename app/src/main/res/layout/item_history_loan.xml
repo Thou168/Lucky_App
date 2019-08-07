@@ -47,24 +47,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageView
-                android:id="@+id/post_type"
-                android:layout_width="50dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/buy"
-                android:layout_marginRight="@dimen/dp_4"
-                android:layout_height="20dp"
-                android:layout_above="@+id/user_view"
-                android:layout_alignEnd="@+id/user_view" />
+                <LinearLayout
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/post_type"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/buy" />
+                        <TextView
+                            android:id="@+id/user_view"
+                            android:textSize="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:text="@string/view" />
 
-            <TextView
-                android:id="@+id/user_view"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="@dimen/dp_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/view" />
+                </LinearLayout>
         </RelativeLayout>
         </LinearLayout>
         <!--<RelativeLayout-->

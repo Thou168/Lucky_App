@@ -110,7 +110,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             }
             title.text = item.title
             location_duration.text=item.location_duration
-            show_view.text="View: "+item.count_view
+//            show_view.text= "View :"+item.count_view
+            show_view.text="View:"+item.count_view
 
             if (item.postType.equals("sell")){
                 post_type.setImageResource(R.drawable.sell)

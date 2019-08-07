@@ -170,13 +170,13 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (i){
                             case 0:
-                                strGender="male";
+                                strGender=getString(R.string.male);
                                 break;
                             case 1:
-                                strGender="female";
+                                strGender=getString(R.string.female);
                                 break;
                             case 2:
-                                strGender="other";
+                                strGender=getString(R.string.other);
                                 break;
                         }
                         dialogInterface.dismiss();
@@ -202,19 +202,19 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (i){
                             case 0:
-                                strMaritalStatus="single";
+                                strMaritalStatus=getString(R.string.single);
                                 break;
                             case 1:
-                                strMaritalStatus="married";
+                                strMaritalStatus=getString(R.string.marriedd);
                                 break;
                             case 2:
-                                strMaritalStatus="separated";
+                                strMaritalStatus=getString(R.string.separated);
                                 break;
                             case 3:
-                                strMaritalStatus="divorced";
+                                strMaritalStatus=getString(R.string.divorced);
                                 break;
                             case 4:
-                                strMaritalStatus="windowed";
+                                strMaritalStatus=getString(R.string.widowed);
                                 break;
                         }
                         dialogInterface.dismiss();

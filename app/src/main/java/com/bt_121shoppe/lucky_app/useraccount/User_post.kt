@@ -7,13 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Product_dicount.Tab_Adapter
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.models.PostViewModel
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
@@ -99,9 +106,9 @@ class User_post : AppCompatActivity() {
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
-                        if(user1.profile !=null) {
-                            val profilepicture: String=if(user1.profile.profile_photo==null) " " else user1.profile.base64_profile_image
-                            val coverpicture: String= if(user1.profile.cover_photo==null) " " else user1.profile.base64_cover_photo_image
+
+                            val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
+                            val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
                             Log.d("TAGGGGG",profilepicture)
                             Log.d("TAGGGGG",coverpicture)
 //                        tvUsername!!.setText(user1.username)
@@ -116,22 +123,19 @@ class User_post : AppCompatActivity() {
                             //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
                             if(profilepicture.isNullOrEmpty()){
                                 img_user!!.setImageResource(R.drawable.user)
-                            }else
-                            {
+                            }else {
                                 val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                                 img_user!!.setImageBitmap(decodedByte)
                             }
 
-                            if(coverpicture==null){
+                            if(coverpicture.isNullOrEmpty()){
 
-                            }else
-                            {
+                            }else {
                                 val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
                                 var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                //imgCover!!.setImageBitmap(decodedByte)
+//                                imgCover!!.setImageBitmap(decodedByte)
                             }
-                        }
 
                     }
 
