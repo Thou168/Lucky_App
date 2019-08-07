@@ -349,7 +349,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
             title.text = item.title
-            cost.text = item.cost.toString()
+            cost.text = "$"+item.cost.toString()
             count_view.text ="View:"+item.count_view
 
             if (item.postType.equals("sell")){

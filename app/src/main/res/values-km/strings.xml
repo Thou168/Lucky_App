@@ -231,9 +231,6 @@
     <string-array name="marital_status_array">
         <item>នៅលីវ</item>
         <item>រៀបការ</item>
-        <item>បែកបាក់</item>
-        <item>លែងលះ</item>
-        <item>មេម៉ាយ</item>
     </string-array>
     <string-array name="province_array">
         <item>ភ្នំពេញ</item>
