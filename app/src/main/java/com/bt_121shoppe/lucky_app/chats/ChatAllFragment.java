@@ -16,6 +16,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.adapters.RecyclerViewAdapter;
 import com.bt_121shoppe.lucky_app.models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +31,9 @@ public class ChatAllFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<User> userList;
+
+    FirebaseUser fuser;
+    DatabaseReference reference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,12 +47,26 @@ public class ChatAllFragment extends Fragment {
         RecyclerviewAdapter recyclerViewAdapter=new RecyclerviewAdapter();
         recyclerView.setAdapter(recyclerViewAdapter);
 
+        fuser= FirebaseAuth.getInstance().getCurrentUser();
         userList=new ArrayList<>();
-        User user=new User("1","Rith","default","online","rith","default","default");
-        userList.add(user);
-        user=new User("2","J Sros so cute","default","online","rith","default","default");
-        userList.add(user);
-        recyclerViewAdapter.setUserList(userList);
+        reference= FirebaseDatabase.getInstance().getReference("users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    User user=snapshot.getValue(User.class);
+                    userList.add(user);
+                }
+
+                recyclerViewAdapter.setUserList(userList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

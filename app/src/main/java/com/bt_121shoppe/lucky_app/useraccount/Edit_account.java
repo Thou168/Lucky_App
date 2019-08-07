@@ -16,6 +16,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
@@ -176,6 +177,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 strGender=getString(R.string.female);
                                 break;
                         }
+
                         dialogInterface.dismiss();
                     }
                 });
@@ -274,6 +276,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 mDialog.show();
             }
         });
+
         tvType.setOnClickListener(v -> {
             AlertDialog.Builder mbuilder = new AlertDialog.Builder(Edit_account.this);
             mbuilder.setTitle("User Type");
@@ -387,6 +390,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 String mMessage = response.body().string();
                 Log.e(TAG,mMessage);
                 Gson gson = new Gson();
+
                 try{
                     runOnUiThread(new Runnable() {
                         @Override
@@ -394,20 +398,20 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             User convertJsonJava = new User();
 
                             convertJsonJava = gson.fromJson(mMessage,User.class);
-                            int[] gg = convertJsonJava.getGroups();
-                            final int g=gg[0];
-
+//                            int[] gg = convertJsonJava.getGroups();
+//                            final int g=gg[0];
+                            int g=convertJsonJava.getProfile().getGroup();
+                            Log.d(TAG,"GROUP "+g);
                             if (g==2){
                                 tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
                                 tvType.setText(getString(R.string.other_dealer));
                             }else {
-                                tvType.setText(getString(R.string.public_user));
-//                                tvType.setText("Public Breand");
+                                //tvType.setText(getString(R.string.public_user));
+                                tvType.setText(getString(R.string.public_brand));
                             }
 
                             etUsername.setText(convertJsonJava.getFirst_name());
-
                             if(convertJsonJava.getProfile()!=null) {
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
                                     etPhone.setText(convertJsonJava.getProfile().getTelephone());
@@ -420,7 +424,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 }
                                 String s = convertJsonJava.getProfile().getGender();
                                 mp_Gender.setText(s);
-
 
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
                                     String d = convertJsonJava.getProfile().getDate_of_birth();
@@ -462,23 +465,17 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 */
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);
-
-
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
                                     //Log.d(TAG,"province Id "+p);
                                     getProvinceName(p,true);
-
                                 }
                                 if(convertJsonJava.getProfile().getProvince()!=null) {
                                     int l = Integer.parseInt(convertJsonJava.getProfile().getProvince());
                                     //Log.d(TAG,"Location Id "+l);
-
                                     getProvinceName(l,false);
                                 }
                             }
-
-
                             //}
                         }
                     });
@@ -496,20 +493,17 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-
                             JSONArray jsonArray = response.getJSONArray("results");
                             provinceListItems=new String[jsonArray.length()];
                             provinceIdListItems=new int[jsonArray.length()];
                             for (int i=0;i< jsonArray.length(); i++){
                                 JSONObject  field_province = jsonArray.getJSONObject(i);
                                 //Log.d(TAG,"Result "+field_province);
-
                                 int id = field_province.getInt("id");
                                 String province = field_province.getString("province");
                                 provinceListItems[i]=province;
                                 provinceIdListItems[i]=id;
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -534,7 +528,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             data.put("first_name",etUsername.getText().toString());
             //pro.put("gender",gender);
             if(!strDob.isEmpty() && strDob!=null)
-                pro.put("date_of_birth", convertDateofBirth(strDob));
+                if (Build.VERSION.SDK_INT >= 26) {
+                    pro.put("date_of_birth", convertDateofBirth(strDob));
+                }
             pro.put("address","");
             pro.put("data_of_birth", strDob);
             pro.put("address",latlng);
@@ -554,6 +550,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 pro.put("place_of_birth",id_pob);
             pro.put("user_status",1);
             pro.put("record_status",1);
+            pro.put("group",id_type);
    //         pro.put("modified", Instant.now().toString());
             data.put("profile",pro);
             data.put("groups", new JSONArray("[\"1\"]"));
@@ -672,7 +669,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     public void getProvinceName(int id,boolean isPob){
         final String rl = ConsumeAPI.BASE_URL+"api/v1/provinces/"+id+"/";
         String auth="Basic "+ Encode;
-        Log.d("URLLLLLLLL", rl);
+        //Log.d("URLLLLLLLL", rl);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(rl)
@@ -774,23 +771,27 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 try{
                     JSONObject jsonObject = new JSONObject(userType);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    type_userListItem=new String[jsonArray.length()];
-                    type_userid=new int[jsonArray.length()];
-
+                    type_userListItem=new String[jsonArray.length()-1];
+                    type_userid=new int[jsonArray.length()-1];
+                    int c=0;
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
-                        String year = object.getString("name");
-                        type_userListItem[i]=year;
-                        type_userid[i]=id;
-                        Log.d("wellcome",type_userListItem[i]+type_userid[i]);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //mp_location.setAdapter(ad_name);
-                                //mp_Pob.setAdapter(ad_name);
-                            }
-                        });
+                        String group = object.getString("name");
+                        if(id!=2){
+                            type_userListItem[c]=group;
+                            type_userid[c]=id;
+                            c++;
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //mp_location.setAdapter(ad_name);
+                                    //mp_Pob.setAdapter(ad_name);
+                                }
+                            });
+                        }
+
                     }
                 }catch (JSONException e){
                     e.printStackTrace();

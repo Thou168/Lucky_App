@@ -82,7 +82,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                 otp.error = "Enter valid code"
                 return@OnClickListener
             }
-
+            mProgress.show()
             verifyVerificationCode(code)
         })
 
@@ -142,7 +142,8 @@ class VerifyMobileActivity : AppCompatActivity() {
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         mAuth!!.signInWithCredential(credential)
                 .addOnCompleteListener(this@VerifyMobileActivity) { task ->
-                    if (task.isSuccessful) {
+                    if (task.isSuccessful){
+                        mProgress.dismiss()
                         val firebaseUser = mAuth!!.getCurrentUser()
                         val userId = firebaseUser!!.getUid()
                         if(authType==1){//register
@@ -191,6 +192,24 @@ class VerifyMobileActivity : AppCompatActivity() {
 
                                 }
                             })
+                        }else if(authType==5){ // confirm to reset password
+                            val reference = FirebaseDatabase.getInstance().getReference("users").child(userId)
+                            reference.addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    val user = dataSnapshot.getValue(User::class.java)
+                                    val firebasePwd=user!!.password
+                                    val intent = Intent(this@VerifyMobileActivity, ResetPasswordActivity::class.java)
+                                    intent.putExtra("phonenumber",no)
+                                    intent.putExtra("password",firebasePwd)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    startActivity(intent)
+                                    finish()
+                                }
+
+                                override fun onCancelled(databaseError: DatabaseError) {
+
+                                }
+                            })
                         }
                     } else {
                         var message = "Someting is wrong, we will fix it soon....."
@@ -211,6 +230,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             postdata.put("username", no)
             postdata.put("password", password)
             post_body.put("telephone", no)
+            post_body.put("group",1)
             postdata.put("profile", post_body)
             postdata.put("groups", JSONArray("[\"1\"]"))
         } catch (e: JSONException) {
@@ -254,6 +274,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             postdata.put("first_name",username)
             postdata.put("last_name",facebookid)
             post_body.put("telephone", no)
+            post_body.put("group",1)
             postdata.put("profile", post_body)
             postdata.put("groups", JSONArray("[\"1\"]"))
         } catch (e: JSONException) {
@@ -290,8 +311,9 @@ class VerifyMobileActivity : AppCompatActivity() {
         var convertJsonJava = Convert_Json_Java()
         try {
             convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java::class.java)
-            val gg = convertJsonJava.groups
-            val g = gg[0]
+//            val gg = convertJsonJava.groups
+//            val g = gg[0]
+            val g=convertJsonJava.group
             //Log.d("Register Verify", convertJsonJava.username + "\t" + convertJsonJava.email + "\t" + convertJsonJava.id + "\t" + g + "\t" + convertJsonJava.status)
             val id = convertJsonJava.id
 

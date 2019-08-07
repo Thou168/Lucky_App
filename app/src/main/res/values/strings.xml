@@ -34,7 +34,6 @@
     <string name="rent">RENT</string>
 
     <string name="search">Search here</string>
-
     <string name="back">Back</string>
 
     <string name="menu_home">Home</string>
@@ -487,7 +486,7 @@
     <string name="choose_year">Choose Year</string>
 
     <string name="public_user">Public User</string>
-    <string name="other_dealer">Other dealer</string>
+    <string name="other_dealer">Other Dealers</string>
     <string name="shoppe">121 Shoppe</string>
     <string name="search_here">Search...</string>
     <string name="no_result">No Result</string>
@@ -553,9 +552,16 @@
     <string name="edit_fail_message">Account information has been error while submitting.</string>
     <string name="update">Updating...</string>
     <string name="title_unlike">Remove Save Ad</string>
-    <string name="unlike_message">Are you sure to remove this save ad?</string>
+    <string name="unlike_message">Are you sure to remove this save ad?uploading</string>
     <string name="like_post">You Liked this post</string>
-    <string name="public_brand">Public Brand</string>
+    <string name="forget_pwd">Forget Password?</string>
+    <string name="search_account_title">Search Account</string>
+    <string name="search_account_text">Enter the phone number you have registered to the 121 Shoppe account, and we will send a code to set up a new password.</string>
+    <string name="search_account_phone">Phone Number</string>
+    <string name="invalid_phone">The Phone Number is invalid</string>
+    <string name="reset_password_title">Reset Password</string>
+    <string name="reset_password_text">You\'ll use this Password to access your account.</string>
+    <string name="public_brand">Public User</string>
     //log
     <string name="login_fail">Login Failure</string>
     <string name="logout_message">Are you sure you want to logout?</string>

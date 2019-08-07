@@ -142,7 +142,13 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         uploadprofile=findViewById(R.id.imgCover);
         tvUsername=findViewById(R.id.tvUsername);
         viewPager = findViewById(R.id.pagerMain);
+        inttab=0;
+
         tabs = findViewById(R.id.tabs);
+        //tabs.setupWithViewPager(viewPager);
+        //inttab = getIntent().getIntExtra("Tab",0);
+        Log.d("Acc",inttab+" "+tabs);
+        //tabs.getTabAt(inttab).select();
 
 
         mCompressor = new FileCompressor(this);
@@ -284,7 +290,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         public void run() {
                             com.bt_121shoppe.lucky_app.Api.User converJsonJava = new com.bt_121shoppe.lucky_app.Api.User();
                             converJsonJava = gson.fromJson(respon, com.bt_121shoppe.lucky_app.Api.User.class);
-                            if(converJsonJava.getFirst_name().isEmpty())
+                            if(converJsonJava.getFirst_name()==null)
                                 tvUsername.setText(converJsonJava.getUsername());
                             else
                                 tvUsername.setText(converJsonJava.getFirst_name());

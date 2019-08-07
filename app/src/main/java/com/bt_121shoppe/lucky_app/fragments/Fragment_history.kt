@@ -109,6 +109,7 @@ class Fragment_history: Fragment() {
                 Log.d(TAG, "Laon " + mMessage)
                 val jsonObject = JSONObject(mMessage)
                 try {
+
                     activity!!.runOnUiThread {
                         //val detail:String=jsonObject.getString("detail").toString()
                         //if(detail==null) {
@@ -242,6 +243,7 @@ class Fragment_history: Fragment() {
                             })
                         }
                     }
+
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
                 }

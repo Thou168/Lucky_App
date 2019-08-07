@@ -13,6 +13,7 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.StrictMode
 import android.provider.MediaStore
 import android.provider.Settings
 import android.text.format.DateUtils
@@ -143,11 +144,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
         setContentView(R.layout.activity_home)
 
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
         if(CheckNetwork.isIntenetAvailable(this@Home)){
 
         }else{
             Toast.makeText(this@Home,"No Internet connection",Toast.LENGTH_LONG).show();
         }
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = " "
         setSupportActionBar(toolbar)
@@ -159,6 +164,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         txtno_found1 =findViewById(R.id.text1)
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
+
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -210,12 +216,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 recreate()
             }
         }
+
         //Log.d("khmer",language)
         requestStoragePermission(false)
         requestStoragePermission(true)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
+
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -308,7 +316,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         best_list = findViewById<RecyclerView>(R.id.horizontal)
         best_list!!.layoutManager = LinearLayoutManager(this@Home, LinearLayout.HORIZONTAL, false)
-        //best_list!!.adapter = MyAdapter(version)
         getBest()
 
         mSwipeRefreshLayout = findViewById(R.id.refresh)
@@ -588,6 +595,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         })
     }
+
     fun getUserProfile(){
         var user1 = User()
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
@@ -694,13 +702,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             override fun onFailure(call: Call, e: IOException) {}
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-
                 val respon = response.body()!!.string()
                 Log.d("Response", respon)
                 try {
                     val jsonObject = JSONObject(respon)
                     val jsonArray = jsonObject.getJSONArray("results")
-
                     //Log.d("count",jsonArray.length().toString())
 
                     for (i in 0 until jsonArray.length()) {
@@ -718,13 +724,20 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                         var location_duration=""
                         //var count_view=countPostView(Encode,id)
-
+                        //var time:Long=0
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                        /*
+                        if(`object`.getString("approved_date")==null)
+                            time=sdf.parse(`object`.getString("created")).getTime()
+                        else
+                            time=sdf.parse(`object`.getString("approved_date")).getTime()
+                            */
                         val time:Long = sdf.parse(`object`.getString("created")).getTime()
+                        //val time:Long = sdf.parse(`object`.getString("approved_date")).getTime()
                         val now:Long = System.currentTimeMillis()
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-
+                        Log.d("HOME POST",`object`.getString("created")+" "+`object`.getString("approved_date"))
                         //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),count_view.toString()))
                         runOnUiThread {
                             var cc=0
@@ -752,7 +765,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     //Log.d("HOME",mMessage1)
                                     runOnUiThread {
                                         try {
-                                            Log.d("FFFFFF"," CCOUNT"+jsonObject)
+                                            //Log.d("FFFFFF"," CCOUNT"+jsonObject)
                                             val jsonCount=jsonObject.getInt("count")
 
                                             if (jsonCount == 0 ){
@@ -764,7 +777,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                                             cc=jsonCount
                                             itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
-
                                             recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
                                             //List Grid and Image
                                             list = findViewById(R.id.img_list)

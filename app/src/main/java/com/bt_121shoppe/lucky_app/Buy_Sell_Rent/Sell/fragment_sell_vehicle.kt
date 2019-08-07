@@ -44,7 +44,7 @@ class fragment_sell_vehicle : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_buy, container, false)
-//Slider
+        //Slider
         val sliderImage = view.findViewById(R.id.slider_vehicles) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
                             "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
@@ -54,7 +54,7 @@ class fragment_sell_vehicle : Fragment() {
         sliderImage.getIndicator()
         val toolbar: Toolbar =view.findViewById(R.id.toolbar)
         toolbar.setBackgroundColor(activity!!.getColor(R.color.logo_green))
-//Back
+        //Back
 //        val sell_back = BACK_SELL.intent.getStringExtra("Back")
         val back = view.findViewById<TextView>(R.id.tv_back)
 //        back.text = sell_back.toString()
@@ -85,7 +85,7 @@ class fragment_sell_vehicle : Fragment() {
 
         var item=ArrayList<Item_API>()
         var posts= PostViewModel()
-        val url =  "http://103.205.26.103:8000/relatedpost/?post_type=sell&category=2&modeling=&min_price=&max_price="
+        val url =ConsumeAPI.BASE_URL+"relatedpost/?post_type=sell&category=2&modeling=&min_price=&max_price="
         var MEDIA_TYPE=MediaType.parse("application/json")
         val client = OkHttpClient()
         val request = Request.Builder()

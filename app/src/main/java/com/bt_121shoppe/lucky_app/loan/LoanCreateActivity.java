@@ -71,6 +71,11 @@ public class LoanCreateActivity extends AppCompatActivity {
     private  TextInputLayout input_job;
     //    private TextInputLayout input_co,input_card, input_book, input_staff, input_title;
     String[] yesNos;
+    //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
+//    String[] card_id = getResources().getStringArray(R.array.ID_card);
+//    String[] book_family = getResources().getStringArray(R.array.Family_book);
+//    String[] staff_id = getResources().getStringArray(R.array.Staff_id);
+//    String[] land_title = getResources().getStringArray(R.array.Land_Tile);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,14 +156,56 @@ public class LoanCreateActivity extends AppCompatActivity {
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (id_edit != 0) {
-                    Edit_loan(Encode, id_edit);
+//                final String job = job_loan_information.getText().toString();
+                if (job_loan_information.getText().toString().length() == 0) {
+                    job_loan_information.requestFocus();
+                    job_loan_information.setError(getString(R.string.job));
+                } else if (co_borrower_loan_information.getText().toString().length() == 0) {
+                    co_borrower_loan_information.requestFocus();
+                    co_borrower_loan_information.setFocusable(true);
+                    co_borrower_loan_information.setFocusableInTouchMode(true);
+                    co_borrower_loan_information.setError(getString(R.string.co_borrower));
 
+                } else if (monthly_income_loan_information.getText().toString().length() == 0) {
+                    monthly_income_loan_information.requestFocus();
+                    monthly_income_loan_information.setError(getString(R.string.monthly_income));
+
+                } else if (monthly_expense.getText().toString().length() == 0) {
+                    monthly_expense.requestFocus();
+                    monthly_expense.setError(getString(R.string.monthly_expense));
+                } else if (loan_purpose.getText().toString().length() == 0) {
+                    loan_purpose.requestFocus();
+                    loan_purpose.setError(getString(R.string.loan_purpose));
+                } else if (loan_amount.getText().toString().length() == 0) {
+                    loan_amount.requestFocus();
+                    loan_amount.setError(getString(R.string.loan_amount));
+                } else if (loan_term.getText().toString().length() == 0) {
+                    loan_term.requestFocus();
+                    loan_term.setError(getString(R.string.loan_term));
+                } else if (id_card.getText().toString().length() == 0) {
+                    id_card.requestFocus();
+                    id_card.setFocusable(true);
+                    id_card.setError(getString(R.string.id_card));
+                } else if (family_book.getText().toString().length() == 0) {
+                    family_book.requestFocus();
+                    family_book.setFocusable(true);
+                    family_book.setError(getString(R.string.book_family));
+                } else if (staff_id_or_salary_slip.getText().toString().length() == 0) {
+                    staff_id_or_salary_slip.requestFocus();
+                    staff_id_or_salary_slip.setFocusable(true);
+                    staff_id_or_salary_slip.setError(getString(R.string.staff_id));
+                } else if (land_tile.getText().toString().length() == 0) {
+                    land_tile.requestFocus();
+                    land_tile.setFocusable(true);
+                    land_tile.setError(getString(R.string.title_land));
                 } else {
-                    consumeLoanCreateApi(Encode);
-//                    textChange();
-                    signUp();
-
+                    if (id_edit != 0) {
+                        Edit_loan(Encode, id_edit);
+                    } else {
+                        consumeLoanCreateApi(Encode);
+//                      textChange();
+                        signUp();
+                    }
                 }
             }
         });
@@ -843,10 +890,7 @@ public class LoanCreateActivity extends AppCompatActivity {
                                         }else if (coborrow.equals("No") || coborrow.equals("មិនមាន")){
                                             co_borrower_loan_information.setText(yesNos[1]);
                                         }
-
-
                                     }
-
                                 });
 
                             } catch (JSONException e) {

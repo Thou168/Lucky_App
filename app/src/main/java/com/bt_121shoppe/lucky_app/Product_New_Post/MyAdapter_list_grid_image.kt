@@ -46,12 +46,10 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
             return ViewHolder(layout)
         }
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(itemList[position])
-
     }
 
     override fun getItemCount(): Int {

@@ -105,7 +105,7 @@
     <string name="back">ត្រឡប់</string>
     <string name="bt_verify">ផ្ទៀងផ្ទាត់</string>
     <string name="verify_code">លេខកូដផ្ទៀងផ្ទាត់</string>
-    <string name="verify_code_message">Brand with this username already exists.</string>
+    <string name="verify_code_message">User with this username already exists.</string>
 
     <!-- Start Loan Information String -->
     <style name="loan_calculation_title1">ការរគណនាប្រាក់កម្ចី/ Loan Calculation</style>
@@ -356,7 +356,7 @@
 
     //login
     <string name="connect_facebook">ភ្ជាប់រហ័សជាមួយហ្វេសប៊ុក</string>
-    <string name="login">ចូល</string>
+    <string name="login">ចូលគណនេយ្យ</string>
     <string name="register">ចុះឈ្មោះ</string>
     <string name="log_or_register">ចូលឬចុះឈ្មោះជាមួយលេខទូរស័ព្ទរបស់អ្នក</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -446,6 +446,13 @@
     <string name="button_close">បិទ</string>
     <string name="phone_exist">លេខទូរស័ព្ទនេះត្រូវបានប្រើរួចហើយ។ សូមព្យាយាមផ្សេងទៀត។</string>
     <string name="progress_waiting">កំពុងដំនើរការ...</string>
+    <string name="forget_pwd">ភ្លេចលេខសម្ងាត់?</string>
+    <string name="search_account_title">ស្វែងរកគណនី</string>
+    <string name="search_account_text">បញ្ចូលលេខទូរស័ព្ទរបស់អ្នកដែលអ្នកចុះឈ្មោះនៅលើ 121 Shoppe ហើយយើងនឹងផ្ញើកូដដើម្បីកំណត់ពាក្យសម្ងាត់ថ្មី</string>
+    <string name="search_account_phone">លេខទូរស័ព្ទ</string>
+    <string name="invalid_phone">លេខទូរស័ព្ទ មិនត្រឹមត្រូវ</string>
+    <string name="reset_password_title">កំណត់ពាក្យសម្ងាត់ថ្មី</string>
+    <string name="reset_password_text">អ្នកនឹងប្រើពាក្យសម្ងាត់នេះដើម្បីចូលប្រើគណនីរបស់អ្នក</string>
     <string name="requried_permission">សូមបើកការភ្ជាប់ទីតាំងរបស់អ្នក</string>
     <string name="gps">សូមបើកការភ្ជាប់ PGS របស់អ្នក</string>
     //Account

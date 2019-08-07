@@ -108,7 +108,7 @@ class FragmentC1: Fragment() {
 
                     activity!!.runOnUiThread {
 //                        val itemApi = ArrayList<LoanItemAPI>()
-                        Log.d("Run GET Loan  :"," la" + jsonObject)
+                        //Log.d("Run GET Loan  :"," la" + jsonObject)
 
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
@@ -122,13 +122,11 @@ class FragmentC1: Fragment() {
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
-                            Log.d("Loan ID" , loanID.toString())
-
+                            //Log.d("Loan ID" , loanID.toString())
                             post_id = `object`.getInt("post")
-                            Log.d("Post id ",post_id.toString())
-
+                            //Log.d("Post id ",post_id.toString())
                             val url_user = ConsumeAPI.BASE_URL+"detailposts/"+post_id+"/"
-                            Log.d("Post id ",url_user)
+                            //Log.d("Post id ",url_user)
 
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
@@ -211,6 +209,7 @@ class FragmentC1: Fragment() {
                             })
                         }
                     }
+
                 } catch (e: JsonParseException) {
                     e.printStackTrace() }
 

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.Activity.Item_API
+import com.bt_121shoppe.lucky_app.Api.CommonFunction
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_like
 import com.bt_121shoppe.lucky_app.Startup.Unlike_api
@@ -71,12 +73,14 @@ class FragmentB1: Fragment() {
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
-        encodeAuth="Basic "+ getEncodedString(username,password)
+        encodeAuth="Basic "+ com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString(username,password)
+
         if (preferences.contains("token")) {
             pk = preferences.getInt("Pk", 0)
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
+        Log.d("LIKEEEE ",pk.toString());
         getMyLike()
 
         return view
@@ -85,7 +89,7 @@ class FragmentB1: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //setUpRecyclerView()
-        getMyLike()
+        //getMyLike()
     }
 
     private fun getMyLike() {
@@ -105,6 +109,7 @@ class FragmentB1: Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
+                Log.d("LIKE ",mMessage)
                 val jsonObject = JSONObject(mMessage)
                 try {
                     activity!!.runOnUiThread {
@@ -113,8 +118,8 @@ class FragmentB1: Fragment() {
                         Log.d("Run  :"," la"+jsonObject)
 //                        val detail:String=jsonObject.getString("detail").toString()
 //                        if(detail.isNullOrEmpty()) {
-                            val jsonArray = jsonObject.getJSONArray("results")
-                            val jsonCount = jsonObject.getInt("count")
+                        val jsonArray = jsonObject.getJSONArray("results")
+                        val jsonCount = jsonObject.getInt("count")
                         if (jsonCount == 0 ){
                             progreessbar!!.visibility = View.GONE
                             txtno_found!!.visibility = View.VISIBLE

@@ -38,6 +38,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Login_Register.ResetPasswordActivity"></activity>
+        <activity android:name=".Login_Register.SearchAccountActivity" />
+        <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
         <activity android:name=".Startup.Filter"></activity>
         <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
         <activity android:name=".chats.ChatActivity" />
@@ -56,7 +59,6 @@
         <activity android:name=".Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -69,10 +71,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>

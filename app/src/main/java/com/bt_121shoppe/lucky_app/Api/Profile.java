@@ -29,6 +29,7 @@ public class Profile {
     private String status;
     private String base64_profile_image;
     private String base64_cover_image;
+    private int group;
 
     private int[] groups;
 
@@ -296,5 +297,13 @@ public class Profile {
 
     public void setBase64_profile_image(String base64_profile_image) {
         this.base64_profile_image = base64_profile_image;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 }

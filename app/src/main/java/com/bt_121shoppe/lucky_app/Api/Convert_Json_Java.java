@@ -21,6 +21,7 @@ public class Convert_Json_Java {
     private int id;
     private int pk;
     private int[] groups;
+    private int group;
 
     private Profile profile;
     private User user ;
@@ -145,5 +146,13 @@ public class Convert_Json_Java {
 
     public void setGroups(int[] groups) {
         this.groups = groups;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 }

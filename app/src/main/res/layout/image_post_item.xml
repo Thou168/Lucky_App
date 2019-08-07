@@ -11,7 +11,7 @@
         android:layout_height="130dp"
         android:layout_margin="10dp"
         android:scaleType="fitXY"
-        android:src="@drawable/add_box_black_24dp" />
+        android:src="@drawable/icons8_add_camera_96" />
 
     <ImageView
         android:id="@+id/Picture2"

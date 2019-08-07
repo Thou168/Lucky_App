@@ -68,6 +68,7 @@ class FragmentA1: Fragment() {
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)
+        Log.d("LLLL",encodeAuth)
         if (preferences.contains("token")) {
             pk = preferences.getInt("Pk", 0)    //login
         } else if (preferences.contains("id")) {

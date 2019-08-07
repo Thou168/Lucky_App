@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.lucky_app.Activity.Home;
@@ -66,6 +67,15 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 //mProgress.show();
                 postRequest();
+            }
+        });
+
+        TextView tvForgetPassword=findViewById(R.id.tv_forget_password);
+        tvForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Login.this,SearchAccountActivity.class);
+                startActivity(intent);
             }
         });
 

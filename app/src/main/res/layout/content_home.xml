@@ -100,7 +100,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_new_post"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"/>
 
                 <ProgressBar
                     android:layout_marginTop="50dp"
@@ -108,6 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
                 </ProgressBar>
+
                 <TextView
                     android:visibility="gone"
                     android:layout_marginTop="80dp"
@@ -116,7 +117,16 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
+
+                <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+                    <!--android:id="@+id/swipeRefresh"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent">-->
+                    <!---->
+                <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
             </RelativeLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

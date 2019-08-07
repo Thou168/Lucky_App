@@ -5,21 +5,32 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
+import com.bt_121shoppe.lucky_app.utils.CommonFunction
 
 class Notification : AppCompatActivity() {
 
     private lateinit var back_noti: TextView
+    var pk=0
+    var prefs: SharedPreferences?=null
+    var username=""
+    var password=""
+    var encodeAuth=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //must be called before setContentView(...)
         setContentView(R.layout.activity_notification)
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         val mTitle = toolbar.findViewById(R.id.toolbar_title) as TextView
@@ -28,20 +39,22 @@ class Notification : AppCompatActivity() {
         mTitle.setText(toolbar.getTitle())
 
         getSupportActionBar()!!.setDisplayShowTitleEnabled(false)
-        /*
-        back_noti=findViewById<TextView>(R.id.back_notification)
-        back_noti.setOnClickListener{
-            finish()
-        }
-        */
-//        val recyclerView_notification = findViewById<RecyclerView>(R.id.layout_notification)
-//        val items = ArrayList<Item>()
-//        items.addAll(Item.getList())
-//        //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-//        recyclerView_notification.layoutManager = GridLayoutManager(this@Notification, 1) as RecyclerView.LayoutManager?
-//        recyclerView_notification.adapter = MyAdapter_notification(items,"List")
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val preferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        username=preferences.getString("name","")
+        password=preferences.getString("pass","")
+        encodeAuth="Basic "+ CommonFunction.getEncodedString(username,password)
+
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk", 0)
+        } else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0)
+        }
+        val url= ConsumeAPI.BASE_URL+"api/v1/users/"+pk
+        val result=CommonFunction.doGetRequestwithAuth(url,encodeAuth)
+        Log.d("Hello",result)
+
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.menu.getItem(1).isChecked = true
         bnavigation.setOnNavigationItemSelectedListener { item ->

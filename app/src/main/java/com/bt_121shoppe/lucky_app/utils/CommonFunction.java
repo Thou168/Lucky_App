@@ -71,4 +71,17 @@ public class CommonFunction {
         return response.body().string();
     }
 
+    public static String doGetRequestwithAuth(String url,String encode) throws IOException {
+        com.squareup.okhttp.OkHttpClient client=new com.squareup.okhttp.OkHttpClient();
+        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encode)
+                .url(url)
+                .build();
+
+        com.squareup.okhttp.Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
 }

@@ -31,7 +31,7 @@
     </androidx.appcompat.widget.Toolbar>
     <View style="@style/line"/>
     <TextView
-        android:drawableLeft="@drawable/motorcycle"
+        android:drawableLeft="@drawable/icons8_scooter_32_2"
         android:id="@+id/vehicle"
         android:gravity="center|left"
         android:drawablePadding="@dimen/dp_16"
@@ -43,7 +43,7 @@
         android:textStyle="bold" />
     <View style="@style/line"/>
     <TextView
-        android:drawableLeft="@drawable/eletronic"
+        android:drawableLeft="@drawable/icons8_retro_tv_32_1"
         android:textStyle="bold"
         android:gravity="center|left"
         android:drawablePadding="@dimen/dp_16"

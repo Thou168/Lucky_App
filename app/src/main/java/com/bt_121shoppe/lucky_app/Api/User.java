@@ -18,6 +18,7 @@ public class User {
     private String shop_name;
     private int[] groups;
     private int id;
+    private int group;
 
     public int getId() {
         return id;
@@ -121,5 +122,13 @@ public class User {
 
     public void setMarital_status(String marital_status) {
         this.marital_status = marital_status;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 }
