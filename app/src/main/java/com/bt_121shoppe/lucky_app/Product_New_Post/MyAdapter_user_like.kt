@@ -67,7 +67,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
         val location_duration=itemView.findViewById<TextView>(R.id.location)
         val show_view=itemView.findViewById<TextView>(R.id.user_view)
         val unlike = itemView.findViewById<ImageButton>(R.id.imgbtn_unlike)
-
+        val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
         //        var id:Int=0
 
 
@@ -84,14 +84,25 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
-            show_view.text="View:"+item.count_view
+            show_view.text=""+item.count_view
 
-            if (item.postType.equals("sell")){
-                post_type.setImageResource(R.drawable.sell)
-            }else if (item.postType.equals("buy")){
-                post_type.setImageResource(R.drawable.buy)
-            }else
-                post_type.setImageResource(R.drawable.rent)
+            var lang:String = tv_user_view.text as String
+            if (lang == "View:"){
+                if (item.postType.equals("sell")){
+                    post_type.setImageResource(R.drawable.sell)
+                }else if (item.postType.equals("buy")){
+                    post_type.setImageResource(R.drawable.buy)
+                }else
+                    post_type.setImageResource(R.drawable.rent)
+            }else{
+                if (item.postType.equals("sell")){
+                    post_type.setImageResource(R.drawable.sell_kh)
+                }else if (item.postType.equals("buy")){
+                    post_type.setImageResource(R.drawable.buy_kh)
+                }else
+                    post_type.setImageResource(R.drawable.rent_kh)
+            }
+
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)

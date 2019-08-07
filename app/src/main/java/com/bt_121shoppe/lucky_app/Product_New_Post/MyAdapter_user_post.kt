@@ -76,6 +76,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
         val btn_renewal = itemView.findViewById<Button>(R.id.btn_renew)
         val time = itemView.findViewById<TextView>(R.id.location)
         val count_view = itemView.findViewById<TextView>(R.id.user_view)
+        val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
         fun bindItems(item: Item_API) {
 //            imageView.setImageResource(item.image)
 
@@ -86,14 +87,25 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             time.text = item.location_duration
-            count_view.text ="View:"+item.count_view
+            count_view.text =""+item.count_view
 
-            if (item.postType.equals("sell")){
-                post_type.setImageResource(R.drawable.sell)
-            }else if (item.postType.equals("buy")){
-                post_type.setImageResource(R.drawable.buy)
-            }else
-                post_type.setImageResource(R.drawable.rent)
+            var lang:String = tv_user_view.text as String
+            Log.d("Hello123",lang)
+            if(lang=="View:") {
+                if (item.postType.equals("sell")) {
+                    post_type.setImageResource(R.drawable.sell)
+                } else if (item.postType.equals("buy")) {
+                    post_type.setImageResource(R.drawable.buy)
+                } else
+                    post_type.setImageResource(R.drawable.rent)
+            }else{
+                if (item.postType.equals("sell")) {
+                    post_type.setImageResource(R.drawable.sell_kh)
+                } else if (item.postType.equals("buy")) {
+                    post_type.setImageResource(R.drawable.buy_kh)
+                } else
+                    post_type.setImageResource(R.drawable.rent_kh)
+            }
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
