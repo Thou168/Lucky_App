@@ -279,7 +279,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
         tvType.setOnClickListener(v -> {
             AlertDialog.Builder mbuilder = new AlertDialog.Builder(Edit_account.this);
-            mbuilder.setTitle("User Type");
+            mbuilder.setTitle(getString(R.string.user_type));
             mbuilder.setSingleChoiceItems(type_userListItem, -1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int i) {
@@ -407,8 +407,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             }else if (g==3){
                                 tvType.setText(getString(R.string.other_dealer));
                             }else {
-                                //tvType.setText(getString(R.string.public_user));
-                                tvType.setText(getString(R.string.public_brand));
+                                tvType.setText(getString(R.string.public_user));
+//                                tvType.setText(getString(R.string.public_brand));
                             }
 
                             etUsername.setText(convertJsonJava.getFirst_name());

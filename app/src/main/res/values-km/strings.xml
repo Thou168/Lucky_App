@@ -387,7 +387,7 @@
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
 
     <string name="public_user">អ្នកប្រើសាធារណៈ</string>
-    <string name="other_dealer">អ្នកចែកបៀផ្សេងទៀត</string>
+    <string name="other_dealer">អ្នកចែកចាយផ្សេងទៀត</string>
     <string name="shoppe">121 Shoppe</string>
     <string name="search_here">ស្វែងរក...</string>
     <string name="no_result">គ្មានរកឃើញលទ្ធផលទេ</string>
@@ -466,7 +466,7 @@
     <string name="update">កំពុងធ្វើការកែប្រែ...</string>
     <string name="logout_message">តើអ្នកពិតជាចង់ចាកចេញឬ?</string>
     <string name="login_fail">ចូលត្រូវបានបរាជ័យ</string>
-    <string name="public_brand">Public Brand</string>
+    <string name="public_brand">ម៉ាកសាធារណៈ</string>
     //change password
     <string name="title_change_password">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
     <string name="success_change_password">ពាក្យសម្ងាត់របស់អ្នកត្រូវបានផ្លាស់ប្តូរ</string>
@@ -487,5 +487,6 @@
     <string name="single">នៅលីវ</string>
     <string name="divorced">លែងលះ</string>
     <string name="widowed">មេម៉ាយ</string>
+    <string name="user_type">ប្រភេទអ្នកប្រើប្រាស់</string>
 
 </resources>
