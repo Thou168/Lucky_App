@@ -74,15 +74,25 @@
                     android:layout_marginRight="@dimen/dp_8"
                     android:scaleType="centerCrop"
                     android:src="@drawable/rent" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/user_view"
-                        android:textSize="12dp"
+                        android:id="@+id/user_view1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/view" />
-
+                        android:layout_marginEnd="0dp"
+                        android:layout_toStartOf="@+id/user_view"
+                        android:text="@string/view"
+                        android:textSize="10dp" />
+                    <TextView
+                        android:id="@+id/user_view"
+                        android:textSize="10dp"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

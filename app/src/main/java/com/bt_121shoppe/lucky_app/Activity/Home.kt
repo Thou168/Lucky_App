@@ -605,7 +605,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val mMessage = e.message.toString()
                 Log.w("failure Response", mMessage)
             }
-
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()

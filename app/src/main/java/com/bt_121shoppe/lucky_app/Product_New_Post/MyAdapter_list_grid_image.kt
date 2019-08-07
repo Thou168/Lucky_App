@@ -1,11 +1,15 @@
 package com.bt_121shoppe.lucky_app.Product_New_Post
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import android.provider.Settings.Global.getString
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -27,6 +31,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
     internal var loadMoreListener: OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -61,6 +66,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val location_duration=itemView.findViewById<TextView>(R.id.location)
         val show_view= itemView.findViewById<TextView>(R.id.user_view)
         val tv_discount = itemView.findViewById<TextView>(R.id.tv_discount)
+        val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
 
 //        var id:Int=0
         fun bindItems(item: Item_API) {
@@ -108,18 +114,28 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 tv_discount.text = price.toString()
                 cost.text = "$"+item.cost.toString()
             }
+
             title.text = item.title
             location_duration.text=item.location_duration
-//            show_view.text= "View :"+item.count_view
-            show_view.text="View:"+item.count_view
+            show_view.text=" "+item.count_view
 
-            if (item.postType.equals("sell")){
-                post_type.setImageResource(R.drawable.sell)
-            }else if (item.postType.equals("buy")){
-                post_type.setImageResource(R.drawable.buy)
-            }else
-                post_type.setImageResource(R.drawable.rent)
-
+            var lang:String = tv_user_view.text as String
+    Log.d("Hello123",lang)
+            if(lang == "View:") {
+                if (item.postType.equals("sell")) {
+                    post_type.setImageResource(R.drawable.sell)
+                } else if (item.postType.equals("buy")) {
+                    post_type.setImageResource(R.drawable.buy)
+                } else
+                    post_type.setImageResource(R.drawable.rent)
+            }else{
+                if (item.postType.equals("sell")) {
+                    post_type.setImageResource(R.drawable.sell_kh)
+                } else if (item.postType.equals("buy")) {
+                    post_type.setImageResource(R.drawable.buy_kh)
+                } else
+                    post_type.setImageResource(R.drawable.rent_kh)
+            }
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
 //                intent.putExtra("Image",decodedByte)

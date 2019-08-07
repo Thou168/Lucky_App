@@ -53,30 +53,34 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/tv_price"
                 android:text="$0.0" />
-            <LinearLayout
-                android:gravity="right"
-                android:orientation="vertical"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/post_type"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="@dimen/dp_8"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/rent" />
-                    <TextView
-                        android:id="@+id/user_view"
-                        android:textSize="12dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/view" />
 
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/post_type"
+                android:layout_width="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rent"
+                android:layout_height="20dp"
+                android:layout_above="@+id/user_view"
+                android:layout_alignEnd="@+id/user_view" />
+
+            <TextView
+                android:id="@+id/user_view1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="@dimen/dp_8"
+                android:layout_toStartOf="@+id/user_view"
+                android:text="@string/view"
+                android:textSize="10dp" />
+            <TextView
+                android:layout_marginRight="@dimen/dp_8"
+                android:id="@+id/user_view"
+                android:textSize="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

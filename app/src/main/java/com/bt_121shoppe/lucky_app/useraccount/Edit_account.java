@@ -77,15 +77,15 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String TAG = Edit_account.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
-    private TextView tvType, tvType_121,tvAddress_account;
+    private TextView tvType_121,tvAddress_account;
     private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone;
 
     private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgUsername,imgDob,imgWingNumber,
             imgWingName,imgPhone,imgShopName,imgShopAddr,imgResponsible;
-    private Button btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location;
+    private Button btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location,tvType;
     private String name,pass,Encode,user_id;
     private ArrayAdapter<Integer> ad_id;
-    private int pk, id_pob=0,id_location=0;
+    private int pk, id_pob=0,id_location=0,id_type=0;
     private SharedPreferences prefer;
     private List<Integer> provinceIdArrayList=new ArrayList<>();
     private List<String> provinceNameArrayList=new ArrayList<>();
@@ -99,8 +99,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     String latlng;
     GoogleMap mMap;
     int mMonth,mYear,mDay;
-    private String[] genderListItems,maritalStatusListItems,yearListItems,provinceListItems;
-    private int[] provinceIdListItems,yearIdListItems;
+    private String[] genderListItems,maritalStatusListItems,yearListItems,provinceListItems,type_userListItem;
+    private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 
     private Validator validator;
@@ -132,7 +132,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        tvType      = (TextView)findViewById(R.id.tvType);
+        tvType      = findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
@@ -175,9 +175,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             case 1:
                                 strGender=getString(R.string.female);
                                 break;
-                            case 2:
-                                strGender=getString(R.string.other);
-                                break;
                         }
                         dialogInterface.dismiss();
                     }
@@ -202,19 +199,19 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (i){
                             case 0:
-                                strMaritalStatus=getString(R.string.single);
+                                strMaritalStatus="single";
                                 break;
                             case 1:
-                                strMaritalStatus=getString(R.string.marriedd);
+                                strMaritalStatus="married";
                                 break;
                             case 2:
-                                strMaritalStatus=getString(R.string.separated);
+                                strMaritalStatus="separated";
                                 break;
                             case 3:
-                                strMaritalStatus=getString(R.string.divorced);
+                                strMaritalStatus="divorced";
                                 break;
                             case 4:
-                                strMaritalStatus=getString(R.string.widowed);
+                                strMaritalStatus="windowed";
                                 break;
                         }
                         dialogInterface.dismiss();
@@ -235,6 +232,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
         Province();
         getYears();
+        getUserType();
         initialUserInformation(url,Encode);
 
         mp_Pob.setOnClickListener(new View.OnClickListener() {
@@ -275,6 +273,22 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
+        });
+        tvType.setOnClickListener(v -> {
+            AlertDialog.Builder mbuilder = new AlertDialog.Builder(Edit_account.this);
+            mbuilder.setTitle("User Type");
+            mbuilder.setSingleChoiceItems(type_userListItem, -1, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int i) {
+                    tvType.setText(type_userListItem[i]);
+                    id_type = type_userid[i];
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog mDialog = mbuilder.create();
+            mDialog.show();
+
         });
 
         mp_Dob.setOnClickListener(new View.OnClickListener() {
@@ -373,7 +387,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 String mMessage = response.body().string();
                 Log.e(TAG,mMessage);
                 Gson gson = new Gson();
-
                 try{
                     runOnUiThread(new Runnable() {
                         @Override
@@ -390,7 +403,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 tvType.setText(getString(R.string.other_dealer));
                             }else {
                                 tvType.setText(getString(R.string.public_user));
-//                                tvType.setText(getString(R.string.public_brand));
+//                                tvType.setText("Public Breand");
                             }
 
                             etUsername.setText(convertJsonJava.getFirst_name());
@@ -742,6 +755,51 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
             }
 
+        });
+
+    }
+    public void getUserType(){
+        final String rl = ConsumeAPI.BASE_URL+"api/v1/groups/";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(rl)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String userType = response.body().string();
+                try{
+                    JSONObject jsonObject = new JSONObject(userType);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    type_userListItem=new String[jsonArray.length()];
+                    type_userid=new int[jsonArray.length()];
+
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        int id = object.getInt("id");
+                        String year = object.getString("name");
+                        type_userListItem[i]=year;
+                        type_userid[i]=id;
+                        Log.d("wellcome",type_userListItem[i]+type_userid[i]);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //mp_location.setAdapter(ad_name);
+                                //mp_Pob.setAdapter(ad_name);
+                            }
+                        });
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
         });
 
     }
