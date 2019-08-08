@@ -43,14 +43,14 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list1, parent, false)
-            Log.d("Type ",type.toString())
+            Log.d("Type ", type.toString())
             return ViewHolder(layout)
-        }else if (type.equals("Grid")){
-            Log.d("Type ",type.toString())
+        } else if (type.equals("Grid")) {
+            Log.d("Type ", type.toString())
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_grid, parent, false)
             return ViewHolder(layout)
-        }else{
-            Log.d("Type ",type.toString())
+        } else {
+            Log.d("Type ", type.toString())
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
             return ViewHolder(layout)
         }
@@ -85,20 +85,20 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             imageView.setImageBitmap(decodedByte)
 //            Log.d("String = ",)
             title.text = item.title
-            cost.text = "$"+item.cost.toString()
+            cost.text = "$" + item.cost.toString()
             time.text = item.location_duration
-            count_view.text =""+item.count_view
+            count_view.text = "" + item.count_view
 
-            var lang:String = tv_user_view.text as String
-            Log.d("Hello123",lang)
-            if(lang=="View:") {
+            var lang: String = tv_user_view.text as String
+            Log.d("Hello123", lang)
+            if (lang == "View:") {
                 if (item.postType.equals("sell")) {
                     post_type.setImageResource(R.drawable.sell)
                 } else if (item.postType.equals("buy")) {
                     post_type.setImageResource(R.drawable.buy)
                 } else
                     post_type.setImageResource(R.drawable.rent)
-            }else{
+            } else {
                 if (item.postType.equals("sell")) {
                     post_type.setImageResource(R.drawable.sell_kh)
                 } else if (item.postType.equals("buy")) {
@@ -112,34 +112,34 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
 //                intent.putExtra("Image",decodedByte)
 //                intent.putExtra("Image_user",decodedByte)
 //                intent.putExtra("Title",item.title)
-                  intent.putExtra("Price",item.cost)
-                intent.putExtra("postt",1)
+                intent.putExtra("Price", item.cost)
+                intent.putExtra("postt", 1)
 ////                intent.putExtra("Name",item.name)
-                  intent.putExtra("ID",item.id)
+                intent.putExtra("ID", item.id)
                 itemView.context.startActivity(intent)
             }
 
             btn_edit.setOnClickListener {
-                Toast.makeText(it.context,"Edit "+item.title,Toast.LENGTH_SHORT).show()
-                val intent = Intent(itemView.context,Camera::class.java)
-                intent.putExtra("id_product",item.id)
+                Toast.makeText(it.context, "Edit " + item.title, Toast.LENGTH_SHORT).show()
+                val intent = Intent(itemView.context, Camera::class.java)
+                intent.putExtra("id_product", item.id)
 
                 itemView.context.startActivity(intent)
             }
             btn_delete.setOnClickListener {
                 //Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
                 lateinit var sharedPref: SharedPreferences
-                var name=""
-                var pass=""
-                var Encode=""
-                var pk=0
+                var name = ""
+                var pass = ""
+                var Encode = ""
+                var pk = 0
 
-                sharedPref= it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
-                if (sharedPref.contains("token") || sharedPref.contains("id")){
+                sharedPref = it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
+                if (sharedPref.contains("token") || sharedPref.contains("id")) {
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")
 
-                    Encode ="Basic "+ CommonFunction.getEncodedString(name,pass)
+                    Encode = "Basic " + CommonFunction.getEncodedString(name, pass)
 
                     if (sharedPref.contains("token")) {
                         pk = sharedPref.getInt("Pk", 0)
@@ -156,25 +156,25 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                     if (items[ite] == "Cancel") {
                         dialog.dismiss()
 
-                    }else{
-                        val reason=items[ite].toString()
-                        val URL_ENDCODE=ConsumeAPI.BASE_URL+"api/v1/renewaldelete/"+item.id.toInt()+"/"
+                    } else {
+                        val reason = items[ite].toString()
+                        val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
                         val media = MediaType.parse("application/json")
                         val client = OkHttpClient()
                         val data = JSONObject()
-                        try{
+                        try {
                             //data.put("id",60)
-                            data.put("status",2)
+                            data.put("status", 2)
                             //ata.put("description","Test")
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 data.put("modified", Instant.now().toString())
                             }
                             data.put("modified_by", pk)
-                            data.put("rejected_comments",reason)
-                        }catch (e: JSONException){
+                            data.put("rejected_comments", reason)
+                        } catch (e: JSONException) {
                             e.printStackTrace()
                         }
-                        Log.d("TAG",URL_ENDCODE+" "+data)
+                        Log.d("TAG", URL_ENDCODE + " " + data)
                         val body = RequestBody.create(media, data.toString())
                         val request = Request.Builder()
                                 .url(URL_ENDCODE)
@@ -272,16 +272,16 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
             btn_renewal.setOnClickListener {
 
                 lateinit var sharedPref: SharedPreferences
-                var name=""
-                var pass=""
-                var Encode=""       //pw and user combind to 1 String
-                var pk=0
+                var name = ""
+                var pass = ""
+                var Encode = ""       //pw and user combind to 1 String
+                var pk = 0
 
-                sharedPref= it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
-                if (sharedPref.contains("token") || sharedPref.contains("id")){
+                sharedPref = it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
+                if (sharedPref.contains("token") || sharedPref.contains("id")) {
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")
-                    Encode ="Basic "+ CommonFunction.getEncodedString(name,pass)
+                    Encode = "Basic " + CommonFunction.getEncodedString(name, pass)
                     if (sharedPref.contains("token")) {
                         pk = sharedPref.getInt("Pk", 0)
                     } else if (sharedPref.contains("id")) {
@@ -296,24 +296,24 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
                             //Toast.makeText(it.context, "Yaay", Toast.LENGTH_SHORT).show()
-                            val URL_ENDCODE=ConsumeAPI.BASE_URL+"api/v1/renewaldelete/"+item.id.toInt()+"/"
+                            val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
                             val media = MediaType.parse("application/json")
                             val client = OkHttpClient()
                             val data = JSONObject()
-                            try{
+                            try {
                                 //data.put("id",60)
-                                data.put("status",1)
+                                data.put("status", 1)
                                 //ata.put("description","Test")
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     data.put("modified", Instant.now().toString())
                                 }
 
                                 data.put("modified_by", pk)
-                                data.put("rejected_comments","")
-                            }catch (e: JSONException){
+                                data.put("rejected_comments", "")
+                            } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
-                            Log.d("TAG",URL_ENDCODE+" "+data)
+                            Log.d("TAG", URL_ENDCODE + " " + data)
                             val body = RequestBody.create(media, data.toString())
                             val request = Request.Builder()
                                     .url(URL_ENDCODE)
@@ -350,12 +350,14 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                         .setNegativeButton(android.R.string.no, null).show()
             }
         }
+
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
             val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
             return Uri.parse(path)
         }
+
         fun BitMapToString(bitmap: Bitmap): String {
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
@@ -383,5 +385,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
     fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
         this.loadMoreListener = loadMoreListener
     }
-    //
+
 }
+//

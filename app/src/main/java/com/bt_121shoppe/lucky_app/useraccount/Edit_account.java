@@ -2,6 +2,7 @@ package com.bt_121shoppe.lucky_app.useraccount;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -78,7 +79,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String TAG = Edit_account.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
-    private TextView tvType_121,tvAddress_account;
+    private SearchView tvAddress_account;
     private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone;
 
     private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgUsername,imgDob,imgWingNumber,
@@ -143,7 +144,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_Married  = (Button) findViewById(R.id.mp_Married);
         mp_Gender   = (Button) findViewById(R.id.mp_Gender);
         mp_location = (Button) findViewById(R.id.mp_Location);
-        tvAddress_account = (TextView) findViewById(R.id.tvAccount_Address);
+        tvAddress_account = (SearchView) findViewById(R.id.tvAccount_Address);
 
         imgType        =(ImageView) findViewById(R.id.imgType);
         imgUsername =(ImageView) findViewById(R.id.imgUsername);
@@ -306,6 +307,23 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        tvAddress_account.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Seach_Address();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()){
+                    imgAddress.setImageResource(R.drawable.icon_null);
+                }else {
+                    imgAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+                return false;
+            }
+        });
         Text_Action();
         Button btSubmit=(Button) findViewById(R.id.btn_EditAccount);
         btSubmit.setOnClickListener(new View.OnClickListener() {
@@ -392,6 +410,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                            int[] gg = convertJsonJava.getGroups();
 //                            final int g=gg[0];
                             int g=convertJsonJava.getProfile().getGroup();
+
                             Log.d(TAG,"GROUP "+g);
                             if (g==2){
                                 tvType.setText(getString(R.string.shoppe));
@@ -587,11 +606,12 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String message = response.body().string();
+                Log.d("Response EEEEE", message);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mProgress.dismiss();
-                        Log.d("Response", message);
+                        Log.d("Response EEEEE", message);
                         AlertDialog alertDialog = new AlertDialog.Builder(Edit_account.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
                         alertDialog.setMessage(getString(R.string.edit_success_message));
@@ -1018,27 +1038,53 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        tvAddress_account.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length()==0){
-                    imgAddress.setImageResource(R.drawable.icon_null);
-                }else if (s.length()<3){
-                    imgAddress.setImageResource(R.drawable.ic_error_black_24dp);
-                }else imgAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        tvAddress_account.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (s.length()==0){
+//                    imgAddress.setImageResource(R.drawable.icon_null);
+//                }else if (s.length()<3){
+//                    imgAddress.setImageResource(R.drawable.ic_error_black_24dp);
+//                }else imgAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
     } // text change
+
+    private void Seach_Address(){
+        String loca = tvAddress_account.getQuery().toString();
+        List<Address> address_Search = null;
+        if (loca!=null || !loca.equals("")){
+            Geocoder geocoder = new Geocoder(getApplicationContext());
+            try{
+                address_Search = geocoder.getFromLocationName(loca,1);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            try{
+                LatLng ll = new LatLng(address_Search.get(0).getLatitude(),address_Search.get(0).getLongitude());
+                mMap.addMarker(new MarkerOptions().position(ll));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(ll));
+                List<Address> address_S = address_Search;
+                latitude = address_S.get(0).getLatitude();
+                longtitude = address_S.get(0).getLongitude();
+                latlng = latitude+","+longtitude;
+                Log.d("LATITUDE and LONGTITUDE",latlng);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void get_location(boolean isCurrent) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -1071,7 +1117,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                    String city    = addressList.get(0).getLocality();
                     String road = addressList.get(0).getAddressLine(0);
 
-                    tvAddress_account.setText( road );
+                    tvAddress_account.setQuery( road , false );
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -1140,13 +1186,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(getApplicationContext(),
                                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
+
                     ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                     return;
                 }
@@ -1160,7 +1200,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         String city = addressList.get(0).getLocality();
                         String road = addressList.get(0).getAddressLine(0);
 
-                        tvAddress_account.setText(road);
+                        tvAddress_account.setQuery(road,false);
                         Log.d("LATITUDE",latitude+","+longtitude);
                     } catch (IOException e) {
                         e.printStackTrace();

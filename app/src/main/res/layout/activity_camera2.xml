@@ -519,18 +519,17 @@
                         android:layout_below="@+id/imgEmail"
                         android:background="#ffff"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.SearchView
                         android:id="@+id/tvAddress_post"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgEmail"
                         android:layout_toRightOf="@+id/imgAddress_post"
                         android:gravity="center_vertical"
-                        android:hint="@string/address"
-                        android:paddingLeft="10dp"
                         android:textSize="14dp"
-                        android:background="#fff"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        app:iconifiedByDefault="false"
+                        app:searchIcon="@null"
+                        />
 
                     <fragment
                     android:id="@+id/map_post"

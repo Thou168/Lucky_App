@@ -60,24 +60,25 @@
 
                     android:id="@+id/imgAccount_Address"
                     android:layout_width="15dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_below="@+id/layout_type_public_user"
                     android:background="#ffff"
                     android:src="@drawable/icon_null" />
 
-                <TextView
+                <androidx.appcompat.widget.SearchView
                     android:id="@+id/tvAccount_Address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_type_public_user"
                     android:layout_marginTop="0dp"
                     android:layout_toRightOf="@+id/imgAccount_Address"
-                    android:background="#ffff"
                     android:drawableRight="@drawable/arrow_right_black_24dp"
                     android:gravity="center_vertical"
-                    android:hint="@string/address"
-                    android:paddingLeft="10dp"
-                    android:textSize="14dp" />
+
+                    android:textSize="14dp"
+                    app:iconifiedByDefault="false"
+                    app:searchIcon="@null"
+                    />
 
                 <fragment
                     android:id="@+id/map_Account"

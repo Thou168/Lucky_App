@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.Api;
 
+import com.bt_121shoppe.lucky_app.Api.api.Sales;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
@@ -11,6 +12,7 @@ public class User {
     private Integer post;
     private String last_name;
     private Profile profile;
+    private Sales sales;
     private String Phone;
     private String gender;
     private String marital_status;
@@ -130,5 +132,13 @@ public class User {
 
     public void setGroup(int group) {
         this.group = group;
+    }
+
+    public Sales getSales() {
+        return sales;
+    }
+
+    public void setSales(Sales sales) {
+        this.sales = sales;
     }
 }

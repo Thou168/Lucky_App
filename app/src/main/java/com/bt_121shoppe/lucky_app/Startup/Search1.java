@@ -253,6 +253,7 @@ public class Search1 extends AppCompatActivity {
                     model = data.getStringExtra("brand");
                     year = data.getStringExtra("year");
                     sv.setQuery(title_filter, false);
+                    mProgress.setVisibility(View.VISIBLE);
                     Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year);
                     Search_data(title_filter, category, model, year);
                 }

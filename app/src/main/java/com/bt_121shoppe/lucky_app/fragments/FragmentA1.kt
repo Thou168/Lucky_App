@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -16,11 +17,13 @@ import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
+import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import kotlinx.android.synthetic.main.item_list1.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -38,9 +41,11 @@ class FragmentA1: Fragment() {
     private var username: String? = null
     private var password: String? = null
     private var pk: Int? = null
+    private var ss = 0;
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
     var progreessbar: ProgressBar? = null
+    var btn_renewal: Button? = null
     var txtno_found: TextView? = null
     fun FragmentA1(){}
 
@@ -63,7 +68,7 @@ class FragmentA1: Fragment() {
         progreessbar = view.findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
         txtno_found = view.findViewById(R.id.text)
-
+         btn_renewal = view.findViewById<Button>(R.id.btn_renew)
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
@@ -116,6 +121,7 @@ class FragmentA1: Fragment() {
                             progreessbar!!.visibility = View.GONE
                             txtno_found!!.visibility = View.VISIBLE
                         }
+                        val gson = Gson()
                         progreessbar!!.visibility = View.GONE
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
@@ -130,6 +136,15 @@ class FragmentA1: Fragment() {
                                 val discount = `object`.getDouble("discount")
 
                                 //var count_view=countPostView(encodeAuth,id)
+//                                var convertJsonJava = User()
+//                                convertJsonJava = gson.fromJson(mMessage, User::class.java)
+//                                if (convertJsonJava.sales!=null){
+//                                    if (convertJsonJava.sales.sale_status!=null){
+//                                       ss = convertJsonJava.sales.sale_status
+//
+//                                    }
+//                                }
+
 
                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -156,11 +171,12 @@ class FragmentA1: Fragment() {
                                     @Throws(IOException::class)
                                     override fun onResponse(call: Call, response: Response) {
                                         val mMessage = response.body()!!.string()
-                                        val gson = Gson()
+
                                         try {
                                             Log.d("FRAGMENT 1", mMessage)
                                             val jsonObject = JSONObject(mMessage)
                                             val jsonCount = jsonObject.getInt("count")
+
 
                                             activity!!.runOnUiThread {
                                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))

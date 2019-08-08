@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
@@ -119,11 +120,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     File mPhotoFile;
     FileCompressor mCompressor;
     private RelativeLayout relatve_discount;
-
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icAddress;
-    private TextView tvAddress;
+    private SearchView tvAddress;
     private Button submit_post,tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
@@ -159,6 +159,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
+
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -433,58 +434,64 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        tvAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Seach_Address();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()){
+                    icAddress.setImageResource(R.drawable.icon_null);
+                }else {
+                    icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+                return false;
+            }
+        });
 
         submit_post = (Button) findViewById(R.id.btnSubmitPost);
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               String stDiscount;
-                double dbDiscount = 0;
-                if (etDiscount_amount.getText().toString().length()== 0){
-                    dbDiscount = 0;
+               String stDis_amount,stDis_percent,stPrice;
+                double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
+                    stPrice = etPrice.getText().toString();
+                    if (stPrice == null || stPrice.isEmpty()){
+                        dbPrice = 1;
+                    }else {
+                        dbPrice = Double.parseDouble(stPrice);
+                    }
+
+                if (strDiscountType == "amount"){
+                    stDis_amount = etDiscount_amount.getText().toString();
+                    dbDis_amount = Double.parseDouble(stDis_amount);
                 }else {
-                    stDiscount = etDiscount_amount.getText().toString();
-                    dbDiscount = Double.parseDouble(stDiscount);
+                    dbDis_amount = 0;
                 }
+                 if(strDiscountType == "percent"){
+                    stDis_percent = etDiscount_amount.getText().toString();
+                    dbDis_percent = Double.parseDouble(stDis_percent);
+                }else {
+                     dbDis_percent = 0;
+                 }
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                    type==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
-                   || etPrice.getText().toString().length()==0 || dbDiscount >=100|| bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
+                   || etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
                ){
-                   if (etTitle.getText().toString().length()<3) {
-                       etTitle.requestFocus();
-                       icTitile.setImageResource(R.drawable.ic_error_black_24dp);
+
+
+                   if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
+                       etDiscount_amount.requestFocus();
+                       icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
                    }
-                   if (tvPostType.getText().toString().length()==0){
-                       tvPostType.setFocusable(true);
-                       tvPostType.setFocusableInTouchMode(true);
-                       tvPostType.requestFocus();
-                      icPostType.setImageResource(R.drawable.ic_error_black_24dp);
-                   }
-                   if (tvCategory.getText().toString().length()==0) {
-                       tvCategory.setFocusable(true);
-                       tvCategory.setFocusableInTouchMode(true);
-                       tvCategory.requestFocus();
-                       icCategory.setImageResource(R.drawable.ic_error_black_24dp);
-                   }
-                   if (tvType_elec.getText().toString().length()==0) {
-                       tvType_elec.setFocusable(true);
-                       tvType_elec.setFocusableInTouchMode(true);
-                       tvType_elec.requestFocus();
-                       icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
-                   }
-                   if (tvBrand.getText().toString().length()==0) {
-                       tvBrand.setFocusable(true);
-                       tvBrand.setFocusableInTouchMode(true);
-                       tvBrand.requestFocus();
-                       icBrand.setImageResource(R.drawable.ic_error_black_24dp);
-                   }
-                   if (tvModel.getText().toString().length()==0) {
-                       tvModel.setFocusable(true);
-                       tvModel.setFocusableInTouchMode(true);
-                       tvModel.requestFocus();
-                       icModel.setImageResource(R.drawable.ic_error_black_24dp);
+                   if (etPrice.getText().toString().length()==0) {
+                       etPrice.requestFocus();
+                       icPrice.setImageResource(R.drawable.ic_error_black_24dp);
                    }
                    if (tvYear.getText().toString().length()==0) {
                        tvYear.setFocusable(true);
@@ -492,15 +499,41 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                        tvYear.requestFocus();
                        icYears.setImageResource(R.drawable.ic_error_black_24dp);
                    }
-                   if (etPrice.getText().toString().length()==0) {
-                       etPrice.requestFocus();
-                       icPrice.setImageResource(R.drawable.ic_error_black_24dp);
+                   if (tvModel.getText().toString().length()==0) {
+                       tvModel.setFocusable(true);
+                       tvModel.setFocusableInTouchMode(true);
+                       tvModel.requestFocus();
+                       icModel.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   if (tvBrand.getText().toString().length()==0) {
+                       tvBrand.setFocusable(true);
+                       tvBrand.setFocusableInTouchMode(true);
+                       tvBrand.requestFocus();
+                       icBrand.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   if (tvType_elec.getText().toString().length()==0) {
+                       tvType_elec.setFocusable(true);
+                       tvType_elec.setFocusableInTouchMode(true);
+                       tvType_elec.requestFocus();
+                       icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   if (tvCategory.getText().toString().length()==0) {
+                       tvCategory.setFocusable(true);
+                       tvCategory.setFocusableInTouchMode(true);
+                       tvCategory.requestFocus();
+                       icCategory.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   if (tvPostType.getText().toString().length()==0){
+                       tvPostType.setFocusable(true);
+                       tvPostType.setFocusableInTouchMode(true);
+                       tvPostType.requestFocus();
+                       icPostType.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   if (etTitle.getText().toString().length()<3) {
+                       etTitle.requestFocus();
+                       icTitile.setImageResource(R.drawable.ic_error_black_24dp);
                    }
 
-                   if (dbDiscount >= 100){
-                       etDiscount_amount.requestFocus();
-                       icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
-                   }
                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
@@ -1959,7 +1992,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvCondition= (Button) findViewById(R.id.tvCondition);
         tvColor    = (Button) findViewById(R.id.tvColor);
         tvDiscount_type = (Button) findViewById(R.id.tvDisType);
-        tvAddress  = (TextView) findViewById(R.id.tvAddress_post);
+        tvAddress  = (SearchView) findViewById(R.id.tvAddress_post);
         // edit text ////
         etTitle           = (EditText)findViewById(R.id.etTitle );
         etDescription     = (EditText)findViewById(R.id.etDescription );
@@ -2320,26 +2353,26 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
          }
      });
-     tvAddress.addTextChangedListener(new TextWatcher() {
-         @Override
-         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-         }
-
-         @Override
-         public void onTextChanged(CharSequence s, int start, int before, int count) {
-             if (s.length() == 0) {
-                 icAddress.setImageResource(R.drawable.icon_null);
-             } else if (s.length() < 3) {
-                 icAddress.setImageResource(R.drawable.ic_error_black_24dp);
-             } else icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
-         }
-
-         @Override
-         public void afterTextChanged(Editable s) {
-
-         }
-     });
+//     tvAddress.addTextChangedListener(new TextWatcher() {
+//         @Override
+//         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//         }
+//
+//         @Override
+//         public void onTextChanged(CharSequence s, int start, int before, int count) {
+//             if (s.length() == 0) {
+//                 icAddress.setImageResource(R.drawable.icon_null);
+//             } else if (s.length() < 3) {
+//                 icAddress.setImageResource(R.drawable.ic_error_black_24dp);
+//             } else icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//         }
+//
+//         @Override
+//         public void afterTextChanged(Editable s) {
+//
+//         }
+//     });
 
 
 
@@ -2631,6 +2664,32 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    private void Seach_Address(){
+        String loca = tvAddress.getQuery().toString();
+        List<Address> address_Search = null;
+        if (loca!=null || !loca.equals("")){
+            Geocoder geocoder = new Geocoder(getApplicationContext());
+            try{
+                address_Search = geocoder.getFromLocationName(loca,1);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            try{
+                LatLng ll = new LatLng(address_Search.get(0).getLatitude(),address_Search.get(0).getLongitude());
+                mMap.addMarker(new MarkerOptions().position(ll));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(ll));
+                List<Address> address_S = address_Search;
+                latitude = address_S.get(0).getLatitude();
+                longtitude = address_S.get(0).getLongitude();
+                latlng = latitude+","+longtitude;
+                Log.d("LATITUDE and LONGTITUDE",latlng);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void get_location(boolean isCurrent) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
       if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
@@ -2656,7 +2715,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                    String city    = addressList.get(0).getLocality();
                     String road = addressList.get(0).getAddressLine(0);
 
-                    tvAddress.setText( road );
+                    tvAddress.setQuery( road , false );
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -2689,7 +2748,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                     String road = addressList.get(0).getAddressLine(0);
 
-                    tvAddress.setText( road );
+                    tvAddress.setQuery( road , false );
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -2757,7 +2816,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         String city = addressList.get(0).getLocality();
                         String road = addressList.get(0).getAddressLine(0);
 
-                        tvAddress.setText(road);
+                        tvAddress.setQuery(road,false);
                         Log.d("LATITUDE",latitude+","+longtitude);
                     } catch (IOException e) {
                         e.printStackTrace();

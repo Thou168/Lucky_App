@@ -86,7 +86,12 @@ public class Filter extends AppCompatActivity {
                        btnCategory.setText(cateListItems[i]);
                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                        cate = cateIDlist[i];
-                        stCategory = String.valueOf(cate);
+                       if (cate==0){
+                           stCategory = "";
+                       }else {
+                           stCategory = String.valueOf(cate);
+                       }
+                        Log.d("IDDD", "is:"+stCategory);
                        getBrand();
                        dialog.dismiss();
                    }
@@ -107,8 +112,13 @@ public class Filter extends AppCompatActivity {
                         btnBrand.setText(brandListItems[i]);
                         icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         brand = brandIDlist[i];
-                        stBrand = String.valueOf(brand);
+                        if (brand == 0){
+                            stBrand = "";
+                        }else {
+                            stBrand = String.valueOf(brand);
+                        }
 
+                        Log.d("ID Brand","is"+stBrand);
                         dialog.dismiss();
                     }
                 });
@@ -128,7 +138,13 @@ public class Filter extends AppCompatActivity {
                         btnyear.setText(yearListItems[i]);
                         icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         year = yearIDlist[i];
-                        stYear = String.valueOf(year);
+                        if (year==0){
+                            stYear = "";
+                        }else {
+                            stYear = String.valueOf(year);
+                        }
+
+                        Log.d("ID Year","is"+stYear);
 
                         dialog.dismiss();
                     }
@@ -195,10 +211,13 @@ public class Filter extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    cateListItems = new String[jsonArray.length()];
-                    cateIDlist = new int[jsonArray.length()];
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
+                    cateListItems = new String[jsonArray.length()+1];
+                    cateIDlist = new int[jsonArray.length()+1];
+                    cateListItems[0] = "All";
+
+
+                    for (int i=1;i<=jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i-1);
                         int id = object.getInt("id");
                         String name = object.getString("cat_name");
                         cateListItems[i] = name;
@@ -237,10 +256,11 @@ public class Filter extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
 
                     if (cate==0){
-                        brandListItems = new String[jsonArray.length()];
-                        brandIDlist = new int[jsonArray.length()];
-                        for (int i=0;i<jsonArray.length();i++){
-                            JSONObject object = jsonArray.getJSONObject(i);
+                        brandListItems = new String[jsonArray.length()+1];
+                        brandIDlist = new int[jsonArray.length()+1];
+                        brandListItems[0] = "ALL";
+                        for (int i=1;i<=jsonArray.length();i++){
+                            JSONObject object = jsonArray.getJSONObject(i-1);
                             int id = object.getInt("id");
                             String brand = object.getString("brand_name");
                             brandListItems[i] = brand;
@@ -257,11 +277,11 @@ public class Filter extends AppCompatActivity {
                             }
                         }
 
-                        brandListItems = new String[count];
-                        brandIDlist = new int[count];
+                        brandListItems = new String[count+1];
+                        brandIDlist = new int[count+1];
                         int ccount = 0;
-                        for (int i=0;i<jsonArray.length();i++){
-                            JSONObject object = jsonArray.getJSONObject(i);
+                        for (int i=1;i<=jsonArray.length();i++){
+                            JSONObject object = jsonArray.getJSONObject(i-1);
                             int category = object.getInt("category");
                             if (cate==category) {
                                 int id = object.getInt("id");
@@ -304,10 +324,11 @@ public class Filter extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    yearListItems = new String[jsonArray.length()];
-                    yearIDlist = new int[jsonArray.length()];
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
+                    yearListItems = new String[jsonArray.length()+1];
+                    yearIDlist = new int[jsonArray.length()+1];
+                    yearListItems[0] = "All";
+                    for (int i=1;i<=jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i-1);
                         int id = object.getInt("id");
                         String name = object.getString("year");
                         yearListItems[i] = name;
