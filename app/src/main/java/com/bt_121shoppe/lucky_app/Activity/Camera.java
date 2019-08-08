@@ -128,7 +128,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icAddress;
     private SearchView tvAddress;
-    private Button submit_post,tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
+    private Button submit_post;
+    private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     private String name,pass,Encode;
     private int pk;
@@ -2062,15 +2063,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
         relatve_discount = (RelativeLayout)findViewById(R.id.relative_discount);
         //textview ///////
-        tvPostType = (Button)findViewById(R.id.tvPostType);
-        tvCategory = (Button) findViewById(R.id.tvCategory);
-        tvType_elec= (Button) findViewById(R.id.tvType_elec);
-        tvBrand    = (Button) findViewById(R.id.tvBrand);
-        tvModel    = (Button) findViewById(R.id.tvModel);
-        tvYear     = (Button) findViewById(R.id.tvYears);
-        tvCondition= (Button) findViewById(R.id.tvCondition);
-        tvColor    = (Button) findViewById(R.id.tvColor);
-        tvDiscount_type = (Button) findViewById(R.id.tvDisType);
+        tvPostType = (EditText) findViewById(R.id.tvPostType);
+        tvCategory = (EditText) findViewById(R.id.tvCategory);
+        tvType_elec= (EditText) findViewById(R.id.tvType_elec);
+        tvBrand    = (EditText) findViewById(R.id.tvBrand);
+        tvModel    = (EditText) findViewById(R.id.tvModel);
+        tvYear     = (EditText) findViewById(R.id.tvYears);
+        tvCondition= (EditText) findViewById(R.id.tvCondition);
+        tvColor    = (EditText) findViewById(R.id.tvColor);
+        tvDiscount_type = (EditText) findViewById(R.id.tvDisType);
         tvAddress  = (SearchView) findViewById(R.id.tvAddress_post);
         // edit text ////
         etTitle           = (EditText)findViewById(R.id.etTitle );

@@ -123,6 +123,7 @@ public class Filter extends AppCompatActivity {
                            stCategory = String.valueOf(cate);
                        }
                         Log.d("IDDD", "is:"+stCategory);
+
                        getBrand();
                        dialog.dismiss();
                    }
@@ -343,6 +344,7 @@ public class Filter extends AppCompatActivity {
 
                         brandListItems = new String[count+1];
                         brandIDlist = new int[count+1];
+                        brandListItems[0] = "All";
                         brandListItems = new String[count];
                         brandItemkh=new  String[count];
                         brandIDlist = new int[count];
@@ -353,6 +355,8 @@ public class Filter extends AppCompatActivity {
                             if (cate==category) {
                                 int id = object.getInt("id");
                                 String name = object.getString("brand_name");
+                                brandListItems[ccount+1] = name;
+                                brandIDlist[ccount+1] = id;
                                 String namekh=object.getString("brand_name_as_kh");
                                 brandItemkh[ccount]=namekh;
                                 brandListItems[ccount] = name;
