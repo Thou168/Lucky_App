@@ -131,7 +131,7 @@ class FragmentB1: Fragment() {
                                 like_id = `object`.getInt("id")
                                 Log.d("Post id ", post_id.toString())
 
-                                val url_user = "http://103.205.26.103:8000/detailposts/" + post_id + "/"
+                                val url_user = ConsumeAPI.BASE_URL+"detailposts/" + post_id + "/"
                                 Log.d("Post id ", url_user)
                                 val client1 = OkHttpClient()
                                 val request1 = Request.Builder()

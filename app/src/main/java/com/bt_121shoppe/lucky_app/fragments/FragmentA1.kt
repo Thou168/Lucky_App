@@ -165,7 +165,7 @@ class FragmentA1: Fragment() {
                                 client1.newCall(request1).enqueue(object : Callback {
                                     override fun onFailure(call: Call, e: IOException) {
                                         val mMessage = e.message.toString()
-                                        Log.w("failure Response", mMessage)
+                                        Log.w("failure R    esponse", mMessage)
                                     }
 
                                     @Throws(IOException::class)
