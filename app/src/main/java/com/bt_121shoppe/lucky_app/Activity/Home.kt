@@ -781,16 +781,25 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             //List Grid and Image
                                             list = findViewById(R.id.img_list)
                                             list!!.setOnClickListener {
+                                                list!!.setImageResource(R.drawable.icon_list_c)
+                                                image_list!!.setImageResource(R.drawable.icon_image)
+                                                grid!!.setImageResource(R.drawable.icon_grid)
                                                 recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
                                             }
                                             grid = findViewById(R.id.grid)
                                             grid!!.setOnClickListener {
+                                                grid!!.setImageResource(R.drawable.icon_grid_c)
+                                                image_list!!.setImageResource(R.drawable.icon_image)
+                                                list!!.setImageResource(R.drawable.icon_list)
                                                 recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
                                             }
                                             image_list = findViewById(R.id.btn_image)
                                             image_list!!.setOnClickListener {
+                                                image_list!!.setImageResource(R.drawable.icon_image_c)
+                                                grid!!.setImageResource(R.drawable.icon_grid)
+                                                list!!.setImageResource(R.drawable.icon_list)
                                                 recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image")
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
                                             }

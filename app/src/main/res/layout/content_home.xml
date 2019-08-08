@@ -80,9 +80,9 @@
                     android:id="@+id/img_list"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/icon_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@drawable/icon_list_c"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp" />
                 <ImageView
                     android:layout_centerInParent="true"
                     android:id="@+id/grid"
