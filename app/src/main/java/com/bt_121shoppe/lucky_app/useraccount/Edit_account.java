@@ -101,7 +101,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     String latlng;
     GoogleMap mMap;
     int mMonth,mYear,mDay;
-    private String[] genderListItems,maritalStatusListItems,yearListItems,provinceListItems,type_userListItem;
+    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,type_userListItem;
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 

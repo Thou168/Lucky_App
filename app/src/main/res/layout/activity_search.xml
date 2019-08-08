@@ -41,7 +41,7 @@
             android:gravity="center"
             android:paddingRight="@dimen/dp_4"
             android:textSize="@dimen/dp_20"
-            android:text="Filter"
+            android:text="@string/filter"
             android:drawableRight="@drawable/arrow_down_black_24dp"
             android:layout_height="match_parent">
         </TextView>
@@ -71,7 +71,7 @@
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_vertical"
-        android:text="No Result Found...!"
+        android:text="@string/not_found"
         android:visibility="gone"
         android:textSize="25dp" />
 

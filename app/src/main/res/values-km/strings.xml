@@ -186,7 +186,6 @@
     </string-array>
 
     <string-array name="category">
-        <item>ប្រភេទទំនិញ</item>
         <item>ម៉ូតូ</item>
         <item>អេឡិចត្រូនិច</item>
     </string-array>
@@ -378,7 +377,7 @@
     <string name="choose_color">ជ្រើសរើសពណ៌</string>
     <string name="choose_discount">ជ្រើសរើសប្រភេទបញ្ចុះតម្លៃ</string>
     <string name="choose_category">ជ្រើសរើសប្រភេទទំនិញ</string>
-    <string name="choose_condition">ជ្រើសរើសលក្ខខណ្</string>
+    <string name="choose_condition">ជ្រើសរើសលក្ខខណ្ឌ</string>
     <string name="choose_type_post">ជ្រើសរើសប្រភេទប្រកាស</string>
     <string name="choose_brand">ជ្រើសរើសម៉ាកផលិតផល</string>
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
@@ -485,5 +484,10 @@
     <string name="divorced">លែងលះ</string>
     <string name="widowed">មេម៉ាយ</string>
     <string name="user_type">ប្រភេទអ្នកប្រើប្រាស់</string>
+    //filter
+    <string name="result">លទ្ធផល</string>
+    <string name="filter">ច្រោះ</string>
+    <string name="done">ធ្វើរួច</string>
+    <string name="not_found">រកមិនឃើញលទ្ធផលទេ ... !</string>
 
 </resources>

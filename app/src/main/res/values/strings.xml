@@ -94,8 +94,7 @@
     <string name="fb_login_protocol_scheme">596607940863011</string>
 
     <string-array name="category">
-        <item>Category</item>
-        <item>Motobike</item>
+        <item>Motorbike</item>
         <item>Electronic</item>
     </string-array>
     <string-array name="brand">
@@ -583,4 +582,10 @@
     <string name="divorced">Divorced</string>
     <string name="widowed">Widowed</string>
     <string name="user_type">User Type</string>
+    //filter
+    <string name="result">Result</string>
+    <string name="filter">Filter</string>
+    <string name="done">Done</string>
+    <string name="not_found">No Result Found...!</string>
+
 </resources>

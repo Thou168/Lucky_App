@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +26,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.Image;
+import android.media.VolumeShaper;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -88,6 +90,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -151,7 +155,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     Bundle bundle;
     int mmodel=1;
 
-    private String[] postTypeListItems,conditionListItems,discountTypeListItems,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems;
+    private String[] postTypeListItems,conditionListItems,modelListItemkh,discountTypeListItems,brandListItemkh,typeListItemkh,categoryListItemkh,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems;
     private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems;
     @RequiresApi(api = Build.VERSION_CODES.O)
 
@@ -185,6 +189,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mProgress.setMessage(getString(R.string.please_wait));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang", "");
 
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
@@ -284,32 +291,55 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         getData_Post(Encode,edit_id);
-
         tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
                 mBuilder.setTitle(getString(R.string.choose_category));
-                mBuilder.setSingleChoiceItems(categoryListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvCategory.setText(categoryListItems[i]);
-                        cate = categoryIdListItems[i];
-                        if (cate==1){
-                            icType_elec.setVisibility(View.VISIBLE);
-                            tvType_elec.setVisibility(View.VISIBLE);
-                            Call_Type(Encode);
-                        }else {
-                            icType_elec.setVisibility(View.GONE);
-                            tvType_elec.setVisibility(View.GONE);
-                            type = 3;
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(categoryListItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvCategory.setText(categoryListItemkh[i]);
+                            cate = categoryIdListItems[i];
+                            if (cate==1){
+                                icType_elec.setVisibility(View.VISIBLE);
+                                tvType_elec.setVisibility(View.VISIBLE);
+                                Call_Type(Encode);
+                            }else {
+                                icType_elec.setVisibility(View.GONE);
+                                tvType_elec.setVisibility(View.GONE);
+                                type = 3;
+                            }
+                            icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            icBrand.setImageResource(R.drawable.icon_null);
+                            Call_Brand(Encode,cate);
+                            dialogInterface.dismiss();
                         }
-                        icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        icBrand.setImageResource(R.drawable.icon_null);
-                        Call_Brand(Encode,cate);
-                        dialogInterface.dismiss();
-                    }
-                });
+                    });
+
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(categoryListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvCategory.setText(categoryListItems[i]);
+                            cate = categoryIdListItems[i];
+                            if (cate==1){
+                                icType_elec.setVisibility(View.VISIBLE);
+                                tvType_elec.setVisibility(View.VISIBLE);
+                                Call_Type(Encode);
+                            }else {
+                                icType_elec.setVisibility(View.GONE);
+                                tvType_elec.setVisibility(View.GONE);
+                                type = 3;
+                            }
+                            icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            icBrand.setImageResource(R.drawable.icon_null);
+                            Call_Brand(Encode,cate);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -321,15 +351,27 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
                 mBuilder.setTitle(getString(R.string.choose_type));
-                mBuilder.setSingleChoiceItems(typeListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvType_elec.setText(typeListItems[i]);
-                        type = typeIdListItems[i];
-                        icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        dialogInterface.dismiss();
-                    }
-                });
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(typeListItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvType_elec.setText(typeListItemkh[i]);
+                            type = typeIdListItems[i];
+                            icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(typeListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvType_elec.setText(typeListItems[i]);
+                            type = typeIdListItems[i];
+                            icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -341,16 +383,29 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
                 mBuilder.setTitle(getString(R.string.choose_brand));
-                mBuilder.setSingleChoiceItems(brandListItem, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvBrand.setText(brandListItem[i]);
-                        brand = brandIdListItems[i];
-                        icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        Call_Model(Encode, brand,null);
-                        dialogInterface.dismiss();
-                    }
-                });
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(brandListItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvBrand.setText(brandListItemkh[i]);
+                            brand = brandIdListItems[i];
+                            icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            Call_Model(Encode, brand,null);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(brandListItem, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvBrand.setText(brandListItem[i]);
+                            brand = brandIdListItems[i];
+                            icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            Call_Model(Encode, brand,null);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -362,15 +417,27 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
                 mBuilder.setTitle(getString(R.string.choose_model));
-                mBuilder.setSingleChoiceItems(modelListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvModel.setText(modelListItems[i]);
-                        model = modelIdListItems[i];
-                        icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        dialogInterface.dismiss();
-                    }
-                });
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(modelListItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvModel.setText(modelListItemkh[i]);
+                            model = modelIdListItems[i];
+                            icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(modelListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tvModel.setText(modelListItems[i]);
+                            model = modelIdListItems[i];
+                            icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -1272,11 +1339,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                     categoryListItems=new String[jsonArray.length()];
+                    categoryListItemkh=new String[jsonArray.length()];
                     categoryIdListItems=new int[jsonArray.length()];
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String name = object.getString("cat_name");
+                        String category=object.getString("cat_name_kh");
+                        categoryListItemkh[i]=category;
                         categoryListItems[i]=name;
                         categoryIdListItems[i]=id;
                     }
@@ -1352,11 +1422,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
                             typeListItems=new String[jsonArray.length()];
+                            typeListItemkh=new String[jsonArray.length()];
                             typeIdListItems=new int[jsonArray.length()];
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int id = object.getInt("id");
                                 String name = object.getString("type");
+                                String type=object.getString("type_kh");
+                                typeListItemkh[i]=type;
                                 typeListItems[i]=name;
                                 typeIdListItems[i]=id;
                             }
@@ -1411,6 +1484,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             }
                             brandIdListItems=new int[count];
                             brandListItem=new String[count];
+                            brandListItemkh=new String[count];
 
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
@@ -1418,6 +1492,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 if (cate==id_cate){
                                     int id = object.getInt("id");
                                     String name = object.getString("brand_name");
+                                    String brand =object.getString("brand_name_as_kh");
+                                    brandListItemkh[ccount]=brand;
                                     brandListItem[ccount]=name;
                                     brandIdListItems[ccount]=id;
                                     ccount++;
@@ -1471,12 +1547,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             }
                             modelListItems=new String[count];
                             modelIdListItems=new int[count];
+                            modelListItemkh=new String[count];
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int id = object.getInt("id");
                                 int Brand = object.getInt("brand");
                                 if (Brand==id_bran) {
                                     String name = object.getString("modeling_name");
+                                    String model=object.getString("modeling_name_kh");
+                                    modelListItemkh[ccount]=model;
                                     modelListItems[ccount]=name;
                                     modelIdListItems[ccount]=id;
                                     ccount++;
@@ -1656,7 +1735,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvCategory.setText(catName);
+                                tvCategory.setText(catName);
                         }
                     });
                 }catch (JSONException e){
@@ -2829,6 +2908,23 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+    }
+    public void language(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration confi =new  Configuration();
+        confi.locale = locale;
+        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    public void locale() {
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang", "");
+        Log.d("language",language);
+        language(language);
     }
 }
 
