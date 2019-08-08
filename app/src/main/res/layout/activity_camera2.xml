@@ -114,36 +114,27 @@
                         android:layout_below="@+id/imgTitle"
                         android:background="@drawable/underline_gray"/>
 
-                    <Button
-                        android:id="@+id/tvPostType"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-
                         android:layout_toRightOf="@+id/imgPostType"
-                        android:gravity="center_vertical"
-                        android:hint="@string/post_type"
-                        style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
-                        android:textSize="14dp"
                         android:background="@drawable/underline_gray"
                         android:layout_below="@+id/imgTitle"
-                        android:drawableRight="@drawable/chevron_down_24"/>
-                    <!--
-                    <com.tiper.MaterialSpinner
-                        android:id="@+id/tvPostType"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginLeft="-5dp"
-                        android:layout_toRightOf="@+id/imgPostType"
-                        android:gravity="center_vertical"
-                        android:hint="@string/post_type"
-                        android:textSize="18dp"
-                        android:background="@null"
-                        android:layout_below="@+id/imgTitle"
-                        style="@style/AppTheme.NoActionBar"
-                        app:spinnerMode="dropdown"
-                        />
-                    -->
+                        >
+                        <EditText
+                            android:id="@+id/tvPostType"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/post_type"
+                            android:paddingLeft="10dp"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
                     <ImageView
                         android:id="@+id/imgCategory"
                         android:layout_width="15dp"
@@ -151,20 +142,28 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgPostType"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvCategory"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgCategory"
                         android:layout_below="@+id/imgPostType"
-                        android:gravity="center_vertical"
-                        android:hint="@string/category"
-                        android:textSize="14dp"
-                        style="?android:attr/spinnerStyle"
                         android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"
-                        android:paddingLeft="10dp" />
-                        <!--android:drawableRight="@drawable/chevron_down_24" />-->
+                        >
+
+                        <EditText
+                            android:id="@+id/tvCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/category"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"
+                            android:paddingLeft="10dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
 
                     <ImageView
                         android:id="@+id/imgType_elec"
@@ -173,19 +172,27 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgCategory"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvType_elec"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgType_elec"
                         android:layout_below="@+id/imgCategory"
-                        android:gravity="center_vertical"
+                        android:background="@drawable/underline_gray"
+                        >
+                    <EditText
+                        android:id="@+id/tvType_elec"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
                         android:hint="@string/type"
                         android:textSize="14dp"
-                        style="?android:attr/spinnerStyle"
+                        android:background="@null"
+                        android:focusable="false"
                         android:drawableRight="@drawable/chevron_down_24"
                         android:paddingLeft="10dp"
-                        android:background="@drawable/underline_gray" />
+                        />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                         <!--android:drawableRight="@drawable/chevron_down_24"/>-->
 
                     <ImageView
@@ -195,19 +202,27 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgType_elec"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvBrand"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgType_elec"
                         android:layout_toRightOf="@+id/imgBrand"
-                        android:gravity="center_vertical"
-                        android:hint="@string/brand"
-                        style="?android:attr/spinnerStyle"
-                        android:textSize="14dp"
                         android:background="@drawable/underline_gray"
-                        android:paddingLeft="10dp"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        >
+                        <EditText
+                            android:id="@+id/tvBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/brand"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:paddingLeft="10dp"
+                            android:drawableRight="@drawable/chevron_down_24"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <ImageView
                         android:id="@+id/imgModel"
@@ -216,19 +231,26 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgBrand"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvModel"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgBrand"
                         android:layout_toRightOf="@+id/imgModel"
-                        android:gravity="center_vertical"
-                        android:hint="@string/model"
-                        android:textSize="14dp"
-                        style="?android:attr/spinnerStyle"
                         android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"
-                        android:paddingLeft="10dp"/>
+                        >
+                        <EditText
+                            android:id="@+id/tvModel"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/model"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"
+                            android:paddingLeft="10dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgYear"
@@ -237,19 +259,27 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgModel"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvYears"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgModel"
                         android:layout_toRightOf="@+id/imgModel"
-                        style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:hint="@string/year"
                         android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"
-                        android:textSize="14dp"/>
+                        >
+                        <EditText
+                            android:id="@+id/tvYears"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:paddingLeft="10dp"
+                            android:hint="@string/year"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"
+                            android:textSize="14dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
 
                     <ImageView
@@ -259,19 +289,28 @@
                         android:src="@drawable/icon_null"
                         android:layout_below="@+id/imgYear"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvCondition"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgYear"
-                        style="?android:attr/spinnerStyle"
                         android:layout_toRightOf="@+id/imgCondition"
-                        android:gravity="center_vertical"
-                        android:hint="@string/condition"
-                        android:textSize="14dp"
-                        android:drawableRight="@drawable/chevron_down_24"
-                        android:paddingLeft="10dp"
-                        android:background="@drawable/underline_gray"/>
+                        android:background="@drawable/underline_gray"
+                        >
+
+                        <EditText
+                            android:id="@+id/tvCondition"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/condition"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"
+                            android:paddingLeft="10dp"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
                     <ImageView
                         android:id="@+id/imgColor"
@@ -281,19 +320,26 @@
                         android:layout_below="@+id/imgCondition"
                         android:background="@drawable/underline_gray"/>
 
-                    <Button
-                        android:id="@+id/tvColor"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgCondition"
                         android:layout_toRightOf="@+id/imgColor"
-                        android:gravity="center_vertical"
-                        android:hint="@string/color"
-                        style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
-                        android:textSize="14dp"
                         android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        >
+                        <EditText
+                            android:id="@+id/tvColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/color"
+                            android:paddingLeft="10dp"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
 
 
@@ -374,19 +420,27 @@
                         android:layout_below="@+id/titl_discount"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline_gray"/>
-                    <Button
-                        android:id="@+id/tvDisType"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/titl_discount"
                         android:layout_toRightOf="@+id/imgDisType"
-                        android:gravity="center_vertical"
-                        android:hint="@string/discount_type"
-                        style="?android:attr/spinnerStyle"
-                        android:paddingLeft="10dp"
-                        android:textSize="14dp"
                         android:background="@drawable/underline_gray"
-                        android:drawableRight="@drawable/chevron_down_24"/>
+                        >
+                        <EditText
+                            android:id="@+id/tvDisType"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="@string/discount_type"
+                            android:paddingLeft="10dp"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                         <!--android:drawableRight="@drawable/chevron_down_24"-->
 
 

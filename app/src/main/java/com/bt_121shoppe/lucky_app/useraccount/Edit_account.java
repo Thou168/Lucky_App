@@ -54,7 +54,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
-import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,7 +86,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
     private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgUsername,imgDob,imgWingNumber,
             imgWingName,imgPhone,imgShopName,imgShopAddr,imgResponsible;
-    private Button btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location,tvType;
+    private EditText btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location,tvType;
     private String name,pass,Encode,user_id;
     private ArrayAdapter<Integer> ad_id;
     private int pk, id_pob=0,id_location=0,id_type=0;
@@ -142,11 +141,12 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
         etPhone     =(EditText) findViewById(R.id.etPhone_account);
-        mp_Dob      = (Button) findViewById(R.id.mp_Dob);
-        mp_Pob      = (Button) findViewById(R.id.mp_Pob);
-        mp_Married  = (Button) findViewById(R.id.mp_Married);
-        mp_Gender   = (Button) findViewById(R.id.mp_Gender);
-        mp_location = (Button) findViewById(R.id.mp_Location);
+
+        mp_Dob      = (EditText) findViewById(R.id.mp_Dob);
+        mp_Pob      = (EditText) findViewById(R.id.mp_Pob);
+        mp_Married  = (EditText) findViewById(R.id.mp_Married);
+        mp_Gender   = (EditText) findViewById(R.id.mp_Gender);
+        mp_location = (EditText) findViewById(R.id.mp_Location);
         tvAddress_account = (SearchView) findViewById(R.id.tvAccount_Address);
 
         imgType        =(ImageView) findViewById(R.id.imgType);
@@ -328,6 +328,24 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 yearMonthPickerDialog.show();
             }
         });
+        tvAddress_account.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Seach_Address();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()){
+                    imgAddress.setImageResource(R.drawable.icon_null);
+                }else {
+                    imgAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+                return false;
+            }
+        });
+
         Text_Action();
         Button btSubmit=(Button) findViewById(R.id.btn_EditAccount);
         btSubmit.setOnClickListener(new View.OnClickListener() {
