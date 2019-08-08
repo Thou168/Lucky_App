@@ -41,6 +41,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.Startup.Unlike_api;
+import com.bt_121shoppe.lucky_app.date.YearMonthPickerDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -53,12 +54,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.ArrayList;
@@ -289,39 +292,40 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_Dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
-                mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
+//                mBuilder.setTitle(getString(R.string.choose_year));
+//                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        strDob=yearListItems[i];
+//                        mp_Dob.setText(yearListItems[i]);
+//                        imgDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        //id_location=provinceIdListItems[i];
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+//
+//                AlertDialog mDialog = mBuilder.create();
+//                mDialog.show();
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(2000,01,01);
+                YearMonthPickerDialog yearMonthPickerDialog = new YearMonthPickerDialog(Edit_account.this, calendar, new YearMonthPickerDialog.OnDateSetListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        strDob=yearListItems[i];
-                        mp_Dob.setText(yearListItems[i]);
-                        imgDob.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        //id_location=provinceIdListItems[i];
-                        dialogInterface.dismiss();
+                    public void onYearMonthSet(int year) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, year);
+//                calendar.set(Calendar.MONTH, month);
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+
+                        mp_Dob.setText(dateFormat.format(calendar.getTime()));
+                        strDob = mp_Dob.getText().toString();
+
                     }
                 });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        tvAddress_account.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Seach_Address();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()){
-                    imgAddress.setImageResource(R.drawable.icon_null);
-                }else {
-                    imgAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                return false;
+                yearMonthPickerDialog.setMinYear(1960);
+                yearMonthPickerDialog.setMaxYear(2020);
+                yearMonthPickerDialog.show();
             }
         });
         Text_Action();
@@ -345,7 +349,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     } // oncreate
-
 
     private void showDatePickerDialog(){
         final Calendar c = Calendar.getInstance();
@@ -410,7 +413,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                            int[] gg = convertJsonJava.getGroups();
 //                            final int g=gg[0];
                             int g=convertJsonJava.getProfile().getGroup();
-
                             Log.d(TAG,"GROUP "+g);
                             if (g==2){
                                 tvType.setText(getString(R.string.shoppe));
