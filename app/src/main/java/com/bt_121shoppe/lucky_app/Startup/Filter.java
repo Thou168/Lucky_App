@@ -93,7 +93,12 @@ public class Filter extends AppCompatActivity {
                           btnCategory.setText(categoryItemkg[i]);
                           icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                           cate = cateIDlist[i];
-                          stCategory = String.valueOf(cate);
+                          if (cate==0){
+                              stCategory = "";
+                          }else {
+                              stCategory = String.valueOf(cate);
+                          }
+                          Log.d("IDDD", "is:"+stCategory);
                           getBrand();
                           dialog.dismiss();
                       }
@@ -105,29 +110,17 @@ public class Filter extends AppCompatActivity {
                           btnCategory.setText(cateListItems[i]);
                           icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                           cate = cateIDlist[i];
-                          stCategory = String.valueOf(cate);
+                          if (cate==0){
+                              stCategory = "";
+                          }else {
+                              stCategory = String.valueOf(cate);
+                          }
+                          Log.d("IDDD", "is:"+stCategory);
                           getBrand();
                           dialog.dismiss();
                       }
                   });
               }
-               mBuilder.setSingleChoiceItems(cateListItems, -1, new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialog, int i) {
-                       btnCategory.setText(cateListItems[i]);
-                       icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                       cate = cateIDlist[i];
-                       if (cate==0){
-                           stCategory = "";
-                       }else {
-                           stCategory = String.valueOf(cate);
-                       }
-                        Log.d("IDDD", "is:"+stCategory);
-
-                       getBrand();
-                       dialog.dismiss();
-                   }
-               });
             AlertDialog mDialog = mBuilder.create();
             mDialog.show();
            }
@@ -138,17 +131,6 @@ public class Filter extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
                 mBuilder.setTitle(R.string.choose_brand);
-                mBuilder.setSingleChoiceItems(brandListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        btnBrand.setText(brandListItems[i]);
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        brand = brandIDlist[i];
-                        if (brand == 0){
-                            stBrand = "";
-                        }else {
-                            stBrand = String.valueOf(brand);
-                        }
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(brandItemkh, -1, new DialogInterface.OnClickListener() {
                         @Override
@@ -156,8 +138,11 @@ public class Filter extends AppCompatActivity {
                             btnBrand.setText(brandItemkh[i]);
                             icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             brand = brandIDlist[i];
-                            stBrand = String.valueOf(brand);
-
+                            if (brand == 0){
+                                stBrand = "";
+                            }else {
+                                stBrand = String.valueOf(brand);
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -168,15 +153,15 @@ public class Filter extends AppCompatActivity {
                             btnBrand.setText(brandListItems[i]);
                             icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             brand = brandIDlist[i];
-                            stBrand = String.valueOf(brand);
-
-                        Log.d("ID Brand","is"+stBrand);
-                        dialog.dismiss();
-                    }
-                });
+                            if (brand == 0){
+                                stBrand = "";
+                            }else {
+                                stBrand = String.valueOf(brand);
+                            }
                             dialog.dismiss();
                         }
                     });
+
                 }
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -267,15 +252,11 @@ public class Filter extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    cateListItems = new String[jsonArray.length()];
-                    categoryItemkg=new  String[jsonArray.length()];
-                    cateIDlist = new int[jsonArray.length()];
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
                     cateListItems = new String[jsonArray.length()+1];
+                    categoryItemkg=new String[jsonArray.length()+1];
                     cateIDlist = new int[jsonArray.length()+1];
                     cateListItems[0] = "All";
-
+                    categoryItemkg[0]=getString(R.string.all);
 
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
@@ -319,11 +300,13 @@ public class Filter extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
 
                     if (cate==0){
-                        brandListItems = new String[jsonArray.length()];
-                        brandItemkh=new String[jsonArray.length()];
-                        brandIDlist = new int[jsonArray.length()];
-                        for (int i=0;i<jsonArray.length();i++){
-                            JSONObject object = jsonArray.getJSONObject(i);
+                        brandListItems = new String[jsonArray.length()+1];
+                        brandIDlist = new int[jsonArray.length()+1];
+                        brandItemkh=new String[jsonArray.length()+1];
+                        brandListItems[0] = "ALL";
+                        brandItemkh[0]=getString(R.string.all);
+                        for (int i=1;i<=jsonArray.length();i++){
+                            JSONObject object = jsonArray.getJSONObject(i-1);
                             int id = object.getInt("id");
                             String brand = object.getString("brand_name");
                             String brandkh=object.getString("brand_name_as_kh");
@@ -343,11 +326,10 @@ public class Filter extends AppCompatActivity {
                         }
 
                         brandListItems = new String[count+1];
+                        brandItemkh=new String[count+1];
                         brandIDlist = new int[count+1];
                         brandListItems[0] = "All";
-                        brandListItems = new String[count];
-                        brandItemkh=new  String[count];
-                        brandIDlist = new int[count];
+                        brandItemkh[0]=getString(R.string.all);
                         int ccount = 0;
                         for (int i=1;i<=jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i-1);
@@ -355,12 +337,10 @@ public class Filter extends AppCompatActivity {
                             if (cate==category) {
                                 int id = object.getInt("id");
                                 String name = object.getString("brand_name");
+                                String namekh=object.getString("brand_name_as_kh");
+                                brandItemkh[ccount+1]=namekh;
                                 brandListItems[ccount+1] = name;
                                 brandIDlist[ccount+1] = id;
-                                String namekh=object.getString("brand_name_as_kh");
-                                brandItemkh[ccount]=namekh;
-                                brandListItems[ccount] = name;
-                                brandIDlist[ccount] = id;
                                 ccount++;
                             }
                         }

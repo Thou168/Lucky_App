@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -66,6 +67,7 @@ import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.validation.Validator;
 
@@ -103,7 +105,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     String latlng;
     GoogleMap mMap;
     int mMonth,mYear,mDay;
-    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,type_userListItem;
+    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem;
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 
@@ -135,6 +137,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mProgress.setMessage(getString(R.string.update));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang", "");
 
         tvType      = findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
@@ -237,15 +242,27 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
                 mBuilder.setTitle(getString(R.string.choose_province));
-                mBuilder.setSingleChoiceItems(provinceListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mp_Pob.setText(provinceListItems[i]);
-                        imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        id_pob=provinceIdListItems[i];
-                        dialogInterface.dismiss();
-                    }
-                });
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(provinceItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mp_Pob.setText(provinceItemkh[i]);
+                            imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            id_pob=provinceIdListItems[i];
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(provinceListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mp_Pob.setText(provinceListItems[i]);
+                            imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            id_pob=provinceIdListItems[i];
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -257,15 +274,27 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
                 mBuilder.setTitle(getString(R.string.choose_location));
-                mBuilder.setSingleChoiceItems(provinceListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mp_location.setText(provinceListItems[i]);
-                        imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        id_location=provinceIdListItems[i];
-                        dialogInterface.dismiss();
-                    }
-                });
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(provinceItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mp_location.setText(provinceItemkh[i]);
+                            imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            id_location=provinceIdListItems[i];
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(provinceListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mp_location.setText(provinceListItems[i]);
+                            imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            id_location=provinceIdListItems[i];
+                            dialogInterface.dismiss();
+                        }
+                    });
+                }
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -668,6 +697,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 try{
                     JSONObject jsonObject = new JSONObject(province);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    provinceItemkh=new String[jsonArray.length()];
                     provinceListItems=new String[jsonArray.length()];
                     provinceIdListItems=new int[jsonArray.length()];
 
@@ -675,6 +705,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         String pro = object.getString("province");
+                        String prokh=object.getString("province_kh");
+                        provinceItemkh[i]=prokh;
                         provinceListItems[i]=pro;
                         provinceIdListItems[i]=id;
                         runOnUiThread(new Runnable() {
@@ -721,10 +753,11 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(isPob)
-                                mp_Pob.setText(pro);
-                            else
-                                mp_location.setText(pro);
+
+                                if(isPob)
+                                    mp_Pob.setText(pro);
+                                else
+                                    mp_location.setText(pro);
                         }
                     });
                 }catch (JSONException e){
@@ -1234,4 +1267,22 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     }
+    public void language(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration confi = new Configuration();
+        confi.locale = locale;
+        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    public void locale() {
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang", "");
+        Log.d("language", language);
+        language(language);
+    }
+
 }

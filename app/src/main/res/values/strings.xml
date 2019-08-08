@@ -587,5 +587,6 @@
     <string name="filter">Filter</string>
     <string name="done">Done</string>
     <string name="not_found">No Result Found...!</string>
+    <string name="all">All</string>
 
 </resources>
