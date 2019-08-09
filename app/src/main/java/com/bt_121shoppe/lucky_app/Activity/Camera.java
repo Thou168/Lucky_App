@@ -192,8 +192,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang", "");
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
 
          bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);

@@ -138,8 +138,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang", "");
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
 
         tvType      = findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
