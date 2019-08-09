@@ -463,19 +463,23 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                         val house_plant = jsonObject.getBoolean("house_plant")
                                         val mfi = null
                                         val created = null
-                                        val modified = Instant.now().toString()
+                                        val modified = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            Instant.now().toString()
+                                        } else {
+                                            TODO("VERSION.SDK_INT < O")
+                                        }
                                         val modified_by = jsonObject.getString("modified_by")
                                         val received_date = null
                                         val received_by = jsonObject.getString("received_by")
                                         val rejected_date = null
                                         val rejected_by = jsonObject.getString("rejected_by")
                                         val rejected_comments = jsonObject.getString("rejected_comments")
-                                        val loan_status = jsonObject.getInt("loan_status")
-                                        val record_status = jsonObject.getInt("record_status")
+//                                        val loan_status = jsonObject.getInt("loan_status")
+//                                        val record_status = jsonObject.getInt("record_status")
 
 
                                         try {
-                                            jsonObject.put("record_status", 2)
+                                            jsonObject.put("record_status", pk_record)
                                             jsonObject.put("loan_status", pk_loan)
 
                                             jsonObject.put("loan_amount", loan_amount)
@@ -532,7 +536,6 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                                 Log.d("Response Cancel", message)
                                                 val intent = Intent(it.context, Account::class.java)
                                                 it.context.startActivity(intent)
-
                                             }
                                         })
                                     }

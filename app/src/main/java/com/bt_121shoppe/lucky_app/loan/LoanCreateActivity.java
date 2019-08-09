@@ -69,13 +69,7 @@ public class LoanCreateActivity extends AppCompatActivity {
 
     private TextInputLayout   input_income, input_expense, input_purpose, input_amount, input_term ;
     private  TextInputLayout input_job;
-    //    private TextInputLayout input_co,input_card, input_book, input_staff, input_title;
     String[] yesNos;
-    //   final String[] co_borrower = getResources().getStringArray(R.array.co_borrower);
-//    String[] card_id = getResources().getStringArray(R.array.ID_card);
-//    String[] book_family = getResources().getStringArray(R.array.Family_book);
-//    String[] staff_id = getResources().getStringArray(R.array.Staff_id);
-//    String[] land_title = getResources().getStringArray(R.array.Land_Tile);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,57 +150,12 @@ public class LoanCreateActivity extends AppCompatActivity {
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                final String job = job_loan_information.getText().toString();
-                if (job_loan_information.getText().toString().length() == 0) {
-                    job_loan_information.requestFocus();
-                    job_loan_information.setError(getString(R.string.job));
-                } else if (co_borrower_loan_information.getText().toString().length() == 0) {
-                    co_borrower_loan_information.requestFocus();
-                    co_borrower_loan_information.setFocusable(true);
-                    co_borrower_loan_information.setFocusableInTouchMode(true);
-                    co_borrower_loan_information.setError(getString(R.string.co_borrower));
-
-                } else if (monthly_income_loan_information.getText().toString().length() == 0) {
-                    monthly_income_loan_information.requestFocus();
-                    monthly_income_loan_information.setError(getString(R.string.monthly_income));
-
-                } else if (monthly_expense.getText().toString().length() == 0) {
-                    monthly_expense.requestFocus();
-                    monthly_expense.setError(getString(R.string.monthly_expense));
-                } else if (loan_purpose.getText().toString().length() == 0) {
-                    loan_purpose.requestFocus();
-                    loan_purpose.setError(getString(R.string.loan_purpose));
-                } else if (loan_amount.getText().toString().length() == 0) {
-                    loan_amount.requestFocus();
-                    loan_amount.setError(getString(R.string.loan_amount));
-                } else if (loan_term.getText().toString().length() == 0) {
-                    loan_term.requestFocus();
-                    loan_term.setError(getString(R.string.loan_term));
-                } else if (id_card.getText().toString().length() == 0) {
-                    id_card.requestFocus();
-                    id_card.setFocusable(true);
-                    id_card.setError(getString(R.string.id_card));
-                } else if (family_book.getText().toString().length() == 0) {
-                    family_book.requestFocus();
-                    family_book.setFocusable(true);
-                    family_book.setError(getString(R.string.book_family));
-                } else if (staff_id_or_salary_slip.getText().toString().length() == 0) {
-                    staff_id_or_salary_slip.requestFocus();
-                    staff_id_or_salary_slip.setFocusable(true);
-                    staff_id_or_salary_slip.setError(getString(R.string.staff_id));
-                } else if (land_tile.getText().toString().length() == 0) {
-                    land_tile.requestFocus();
-                    land_tile.setFocusable(true);
-                    land_tile.setError(getString(R.string.title_land));
-                } else {
                     if (id_edit != 0) {
                         Edit_loan(Encode, id_edit);
                     } else {
                         consumeLoanCreateApi(Encode);
-//                      textChange();
                         signUp();
                     }
-                }
             }
         });
 
@@ -215,7 +164,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoanCreateActivity.this);
-                //mBuilder.setTitle("Choose Category");
+
                 mBuilder.setSingleChoiceItems(co_borrower, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -348,8 +297,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         if (job_loan_information.getText().toString().isEmpty() || job_loan_information.getText().toString() == null) {
             icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
             input_job.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-            input_job.setErrorEnabled(true);
-
             isValid = false;
         } else {
             input_job.setErrorEnabled(false);
@@ -360,13 +307,12 @@ public class LoanCreateActivity extends AppCompatActivity {
             co_borrower_loan_information.setHintTextColor(getResources().getColor(R.color.red));
             isValid = false;
         }else {
-//            input_co.setErrorEnabled(false);
+
         }
 
         if (monthly_income_loan_information.getText().toString().isEmpty()) {
             icAddress_income.setImageResource(R.drawable.ic_error_black_24dp);
             input_income.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-            input_income.setErrorEnabled(true);
             isValid = false;
         } else {
             input_income.setErrorEnabled(false);
@@ -375,7 +321,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         if (monthly_expense.getText().toString().isEmpty()) {
             icAddress_expense.setImageResource(R.drawable.ic_error_black_24dp);
             input_expense.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-            input_expense.setErrorEnabled(true);
             isValid = false;
         } else {
             input_expense.setErrorEnabled(false);
@@ -384,7 +329,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         if (loan_purpose.getText().toString().isEmpty()) {
             icAddress_purpose.setImageResource(R.drawable.ic_error_black_24dp);
             input_purpose.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-            input_purpose.setErrorEnabled(true);
             isValid = false;
         } else {
             input_purpose.setErrorEnabled(false);
@@ -393,7 +337,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         if (loan_amount.getText().toString().isEmpty()) {
             icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
             input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-            input_amount.setErrorEnabled(true);
             isValid = false;
         } else {
             input_amount.setErrorEnabled(false);
@@ -402,7 +345,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         if (loan_term.getText().toString().isEmpty()) {
             icAddress_term.setImageResource(R.drawable.ic_error_black_24dp);
             input_term.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-            input_term.setErrorEnabled(true);
             isValid = false;
         } else {
             input_term.setErrorEnabled(false);
@@ -413,7 +355,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             id_card.setHintTextColor(getResources().getColor(R.color.red));
             isValid = false;
         } else {
-//            input_card.setErrorEnabled(false);
+
         }
 
         if (family_book.getText().toString().isEmpty()){
@@ -421,7 +363,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             family_book.setHintTextColor(getResources().getColor(R.color.red));
             isValid = false;
         }else {
-//            input_book.setErrorEnabled(false);
+
         }
 
         if (staff_id_or_salary_slip.getText().toString().isEmpty()){
@@ -429,7 +371,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             staff_id_or_salary_slip.setHintTextColor(getResources().getColor(R.color.red));
             isValid = false;
         }else {
-//            input_staff.setErrorEnabled(false);
+
         }
 
         if (land_tile.getText().toString().isEmpty()){
@@ -437,11 +379,11 @@ public class LoanCreateActivity extends AppCompatActivity {
             land_tile.setHintTextColor(getResources().getColor(R.color.red));
             isValid = false;
         }else {
-//            input_title.setErrorEnabled(false);
+
         }
 
         if (isValid) {
-//            Toast.makeText(LoanCreateActivity.this, R.string.signup_success, Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -710,7 +652,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("loan_to",pk);
             data.put("loan_amount",loan_amount.getText().toString().toLowerCase());
             data.put("loan_interest_rate",0);
-            data.put("loan_duration",loan_term.getText().toString());//loan term
+            data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
             data.put("loan_status",1);
             data.put("record_status",1);

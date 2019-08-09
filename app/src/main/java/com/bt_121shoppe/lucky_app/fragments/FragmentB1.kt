@@ -166,7 +166,7 @@ class FragmentB1: Fragment() {
 
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                                                val time: Long = sdf.parse(`object`.getString("created")).getTime()
+                                                val time: Long = sdf.parse(`object`.getString("approved_date")).getTime()
                                                 val now: Long = System.currentTimeMillis()
                                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 

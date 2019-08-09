@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -70,6 +71,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.karumi.dexter.listener.PermissionRequest;
@@ -127,6 +129,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icAddress;
+    private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_phone, input_email;
     private SearchView tvAddress;
     private Button submit_post;
     private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
@@ -1737,7 +1740,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                                tvCategory.setText(catName);
+                            tvCategory.setText(catName);
                         }
                     });
                 }catch (JSONException e){
@@ -2104,6 +2107,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         imageView2=(ImageView) findViewById(R.id.Picture2);
         imageView3=(ImageView) findViewById(R.id.Picture3);
         imageView4=(ImageView) findViewById(R.id.Picture4);
+
+        input_title = (TextInputLayout)findViewById(R.id.tilTitle);
+        input_price = (TextInputLayout)findViewById(R.id.tilPrice);
+        input_des = (TextInputLayout)findViewById(R.id.tilDescription);
+        input_dis = (TextInputLayout)findViewById(R.id.tilDisAmout);
+        input_name = (TextInputLayout)findViewById(R.id.tilName);
+        input_phone = (TextInputLayout)findViewById(R.id.tilPhone1);
+        input_email = (TextInputLayout)findViewById(R.id.tilEmail);
+
     }
 
     private void TextChange(){
@@ -2120,6 +2132,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } else if (s.length() < 2) {
                     icTitile.setImageResource(R.drawable.ic_error_black_24dp);
                 } else icTitile.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_title.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_title.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -2306,6 +2320,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                  icPrice.setImageResource(R.drawable.icon_null);
              } else if (s.length() > 0) {
                  icPrice.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                 input_price.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                 input_price.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
              }
          }
 
@@ -2327,6 +2343,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
              } else if (s.length() < 3) {
                  icDescription.setImageResource(R.drawable.ic_error_black_24dp);
              } else icDescription.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             input_des.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+             input_des.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
          }
 
          @Override
@@ -2366,6 +2384,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                  icDiscount_amount.setImageResource(R.drawable.icon_null);
              } else if (s.length() >0) {
                  icDiscount_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                 input_dis.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                 input_dis.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
              }
          }
 
@@ -2387,6 +2407,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
              } else if (s.length() < 3) {
                  icName.setImageResource(R.drawable.ic_error_black_24dp);
              } else icName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             input_name.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+             input_name.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
          }
 
          @Override
@@ -2407,6 +2429,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
              } else if (s.length() < 3) {
                  icEmail.setImageResource(R.drawable.ic_error_black_24dp);
              } else icEmail.setImageResource(R.drawable.ic_check_circle_black_24dp);
+             input_email.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+             input_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
          }
 
          @Override
@@ -2910,23 +2934,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-    }
-    public void language(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration confi =new  Configuration();
-        confi.locale = locale;
-        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
-        editor.putString("My_Lang", lang);
-        editor.apply();
-    }
-
-    public void locale() {
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang", "");
-        Log.d("language",language);
-        language(language);
     }
 }
 

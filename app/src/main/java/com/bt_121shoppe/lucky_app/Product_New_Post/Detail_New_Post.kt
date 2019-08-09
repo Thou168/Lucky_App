@@ -515,7 +515,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             get_location(latitude, longtitude)
                             val mapFragment = supportFragmentManager
                                     .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment?
-                            mapFragment!!.getMapAsync(OnMapReadyCallback { this@Detail_New_Post.onMapReady(it) })
+                            mapFragment!!.getMapAsync(OnMapReadyCallback {
+                                this@Detail_New_Post.onMapReady(it)
+                            })
                         }
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")

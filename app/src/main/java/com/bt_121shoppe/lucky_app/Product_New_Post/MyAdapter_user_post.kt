@@ -269,6 +269,10 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                         */
             }
 
+            btn_renewal.text="Pending"
+            btn_renewal.setOnClickListener {
+
+            }
             btn_renewal.setOnClickListener {
 
                 lateinit var sharedPref: SharedPreferences

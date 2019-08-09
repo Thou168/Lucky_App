@@ -199,8 +199,6 @@ class FragmentC1: Fragment() {
                                             }
                                           //  itemApi.add(Item_API(id,img_user,image,title,cost,condition,ago.toString(),0))
 
-
-
                                         }
 
                                     } catch (e: JsonParseException) {

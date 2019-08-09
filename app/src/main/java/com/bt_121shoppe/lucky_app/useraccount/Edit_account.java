@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
@@ -109,6 +110,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 
+    private TextInputLayout input_user, input_wingname,input_wingnum;
+
     private Validator validator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +168,10 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         imgGender      =(ImageView) findViewById(R.id.imgGender);
         imgLocation    =(ImageView) findViewById(R.id.imgLocation);
         imgAddress     = (ImageView) findViewById(R.id.imgAccount_Address);
+
+        input_user = (TextInputLayout)findViewById(R.id.tilUsername);
+        input_wingname = (TextInputLayout)findViewById(R.id.tilWingName);
+        input_wingnum = (TextInputLayout)findViewById(R.id.tilWingNumber);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -357,6 +364,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 yearMonthPickerDialog.show();
             }
         });
+
         tvAddress_account.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -374,7 +382,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 return false;
             }
         });
-
         Text_Action();
         Button btSubmit=(Button) findViewById(R.id.btn_EditAccount);
         btSubmit.setOnClickListener(new View.OnClickListener() {
@@ -396,6 +403,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     } // oncreate
+
 
     private void showDatePickerDialog(){
         final Calendar c = Calendar.getInstance();
@@ -460,6 +468,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                            int[] gg = convertJsonJava.getGroups();
 //                            final int g=gg[0];
                             int g=convertJsonJava.getProfile().getGroup();
+
                             Log.d(TAG,"GROUP "+g);
                             if (g==2){
                                 tvType.setText(getString(R.string.shoppe));
@@ -870,7 +879,10 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private String convertDateofBirth(String year){
-        String dd=Instant.now().toString();
+        String dd= null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dd = Instant.now().toString();
+        }
         //String dd = DateFormat.getDateTimeInstance().format(new Date());
         String d[]=dd.split("-");
         for(int i=0;i<d.length;i++){
@@ -916,6 +928,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 }else if (s.length()<3){
                     imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgUsername.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_user.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_user.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -937,6 +951,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 }else if (s.length()<3){
                     imgWingName.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgWingName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_wingname.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_wingname.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -958,6 +974,8 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 }else if (s.length()<3){
                     imgWingNumber.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgWingNumber.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_wingnum.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_wingnum.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override

@@ -103,7 +103,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
-//    internal lateinit var ddBrand:Button
+    //    internal lateinit var ddBrand:Button
     internal lateinit var listItems1: Array<String?>
     internal lateinit var categoryIdItems: Array<Int?>
     internal lateinit var brandListItems: Array<String?>
@@ -152,7 +152,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }else{
             Toast.makeText(this@Home,"No Internet connection",Toast.LENGTH_LONG).show();
         }
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.title = " "
         setSupportActionBar(toolbar)
@@ -164,7 +163,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         txtno_found1 =findViewById(R.id.text1)
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
-
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -216,14 +214,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 recreate()
             }
         }
-
         //Log.d("khmer",language)
         requestStoragePermission(false)
         requestStoragePermission(true)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
-
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -280,7 +276,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             true
         }
-
         //val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
@@ -821,6 +816,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
         return itemApi
     }
+
     private fun getBest(): ArrayList<Item_discount>{
         val itemApi = ArrayList<Item_discount>()
         val url = ConsumeAPI.BASE_URL+"bestdeal/"
@@ -856,12 +852,18 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val image = `object`.getString("front_image_base64")
                         val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
-                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         val discount_type = `object`.getString("discount_type")
+
+
+                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                        val time:Long = sdf.parse(`object`.getString("created")).getTime()
+//                        val time:Long = sdf.parse(`object`.getString("created")).time
+                        val timeap:Long = sdf.parse(`object`.getString("created")).time
+
                         val now:Long = System.currentTimeMillis()
-                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+                        val nowap:Long = System.currentTimeMillis()
+//                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+                        val agoap:CharSequence = DateUtils.getRelativeTimeSpanString(timeap, nowap, DateUtils.MINUTE_IN_MILLIS)
 
 //                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
                         runOnUiThread {
@@ -901,7 +903,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString(),cc.toString(),discount_type))
+                                            itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,agoap.toString(),cc.toString(),discount_type))
 
                                             best_list!!.adapter = MyAdapter(itemApi)
                                             //List Grid and Image

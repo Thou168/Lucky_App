@@ -73,7 +73,6 @@ class FragmentA1: Fragment() {
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)
-        Log.d("LLLL",encodeAuth)
         if (preferences.contains("token")) {
             pk = preferences.getInt("Pk", 0)    //login
         } else if (preferences.contains("id")) {
@@ -125,6 +124,7 @@ class FragmentA1: Fragment() {
                         progreessbar!!.visibility = View.GONE
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
+//                                val sale_status = `object`.getDouble("sale_status")
                                 val title = `object`.getString("title")
                                 val id = `object`.getInt("id")
                                 val condition = `object`.getString("condition")
@@ -179,7 +179,7 @@ class FragmentA1: Fragment() {
 
 
                                             activity!!.runOnUiThread {
-                                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
+                                                itemApi.add(Item_API( id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                             }
