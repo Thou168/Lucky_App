@@ -58,9 +58,9 @@ public class LoanCreateActivity extends AppCompatActivity {
     private Button btSubmit;
     EditText job_loan_information,monthly_income_loan_information,monthly_expense;
 
-    Button co_borrower_loan_information;
+    EditText co_borrower_loan_information;
     EditText loan_purpose,loan_amount,loan_term;
-    Button id_card,family_book,staff_id_or_salary_slip,land_tile;
+    EditText id_card,family_book,staff_id_or_salary_slip,land_tile;
     TextView txtBack;
     boolean estadoCadastro = true;
     SharedPreferences  pre_id;
@@ -112,16 +112,16 @@ public class LoanCreateActivity extends AppCompatActivity {
 
 //ID item
         job_loan_information = (EditText)findViewById(R.id.etJob);
-        co_borrower_loan_information = (Button) findViewById(R.id.etCoBorrower);
+        co_borrower_loan_information = (EditText) findViewById(R.id.etCoBorrower);
         monthly_income_loan_information = (EditText)findViewById(R.id.etMonthlyIncome);
         monthly_expense = (EditText)findViewById(R.id.etMonthlyExpense);
         loan_purpose = (EditText)findViewById(R.id.etLoanPurpose);
         loan_amount = (EditText)findViewById(R.id.etLoanAmount);
         loan_term = (EditText)findViewById(R.id.etLoanTerm);
-        id_card = (Button) findViewById(R.id.tvIDCard);
-        family_book = (Button) findViewById(R.id.tvFamilyBook);
-        staff_id_or_salary_slip = (Button) findViewById(R.id.tvStaffID);
-        land_tile = (Button) findViewById(R.id.tvLandTitle);
+        id_card = (EditText) findViewById(R.id.tvIDCard);
+        family_book = (EditText) findViewById(R.id.tvFamilyBook);
+        staff_id_or_salary_slip = (EditText) findViewById(R.id.tvStaffID);
+        land_tile = (EditText) findViewById(R.id.tvLandTitle);
 
         preferences=getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");

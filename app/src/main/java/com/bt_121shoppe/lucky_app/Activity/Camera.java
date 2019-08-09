@@ -146,6 +146,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private List<Integer> list_id_model = new ArrayList<>();
     private List<Integer> list_id_year = new ArrayList<>();
     private List<Integer> list_brand_model = new ArrayList<>();
+    private  BottomNavigationView bnavigation;
     String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor;
     int idYear=0,process_type=0,post_type=0,category=0;
     int cate=0,brand=0,model=0,year=0,type=0;
@@ -194,7 +195,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefer.getString("My_Lang", "");
 
-        BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
+         bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
