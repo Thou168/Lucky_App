@@ -523,7 +523,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 return false;
             }
         });
-
         submit_post = (Button) findViewById(R.id.btnSubmitPost);
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1735,12 +1734,19 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
+                    SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                    String language = preferences.getString("My_Lang", "");
                     JSONObject jsonObject = new JSONObject(respon);
                     String catName = jsonObject.getString("cat_name");
+                    String catNamekh=jsonObject.getString("cat_name_kh");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvCategory.setText(catName);
+                            if (language.equals("km")){
+                                tvCategory.setText(catNamekh);
+                            }else if (language.equals("en")) {
+                                tvCategory.setText(catName);
+                            }
                         }
                     });
                 }catch (JSONException e){
@@ -1773,9 +1779,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void run() {
                         try{
+                            SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                            String language = preferences.getString("My_Lang", "");
                             JSONObject jsonObject = new JSONObject(respon);
                             String typename=jsonObject.getString("type");
-                            tvType_elec.setText(typename);
+                            String typenamekh=jsonObject.getString("type_kh");
+                            if (language.equals("km")){
+                                tvType_elec.setText(typenamekh);
+                            }else if (language.equals("en")){
+                                tvType_elec.setText(typename);
+                            }
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -1810,9 +1823,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void run() {
                         try{
+                            SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                            String language = preferences.getString("My_Lang", "");
                             JSONObject jsonObject = new JSONObject(respon);
                             String brandname=jsonObject.getString("brand_name");
-                            tvBrand.setText(brandname);
+                            String brandnamekh=jsonObject.getString("brand_name_as_kh");
+                            if (language.equals("km")){
+                                tvBrand.setText(brandnamekh);
+                            }else if (language.equals("en")){
+                                tvBrand.setText(brandname);
+                            }
                             //Call_Model(Encode,id,);
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -1848,12 +1868,21 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void run() {
                         try{
+                            SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                            String language = preferences.getString("My_Lang", "");
                             JSONObject jsonObject = new JSONObject(respon);
                             int brandId=jsonObject.getInt("brand");
                             String name=jsonObject.getString("modeling_name");
-                            brand=brandId;
-                            getBrandName(Encode,brand);
-                            Call_Model(Encode,brand,name);
+                            String namekh=jsonObject.getString("modeling_name_kh");
+                            if (language.equals("km")){
+                                brand=brandId;
+                                getBrandName(Encode,brand);
+                                Call_Model(Encode,brand,namekh);
+                            }else if (language.equals("en")){
+                                brand=brandId;
+                                getBrandName(Encode,brand);
+                                Call_Model(Encode,brand,name);
+                            }
                             //tvModel.setText(name);
                             Log.d(TAG,"Brand from model "+name);
                         }catch (JSONException e){

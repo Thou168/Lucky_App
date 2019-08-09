@@ -187,10 +187,10 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (i){
                             case 0:
-                                strGender=getString(R.string.male);
+                                strGender="Male";
                                 break;
                             case 1:
-                                strGender=getString(R.string.female);
+                                strGender="Female";
                                 break;
                         }
 
@@ -756,17 +756,25 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 String province = response.body().string();
                 Log.d(TAG,"Province "+province);
                 try{
+                    SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                    String language = preferences.getString("My_Lang", "");
                     JSONObject jsonObject = new JSONObject(province);
                     String pro=jsonObject.getString("province");
-
+                    String prokh=jsonObject.getString("province_kh");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
-                                if(isPob)
-                                    mp_Pob.setText(pro);
-                                else
-                                    mp_location.setText(pro);
+                                if (language.equals("km")){
+                                    if(isPob)
+                                        mp_Pob.setText(prokh);
+                                    else
+                                        mp_location.setText(prokh);
+                                }else if (language.equals("en")){
+                                    if(isPob)
+                                        mp_Pob.setText(pro);
+                                    else
+                                        mp_location.setText(pro);
+                                }
                         }
                     });
                 }catch (JSONException e){
