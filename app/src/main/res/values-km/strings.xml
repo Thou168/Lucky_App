@@ -368,7 +368,7 @@
     <string name="resend">ផ្ញើសារម្តងទៀត</string>
     <string name="enter_number">បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក</string>
     //message
-    <string name="type_message">បញ្ខូលសារនៅទីនេះ...</string>
+    <string name="type_message">បញ្ចូលសារនៅទីនេះ...</string>
     <string name="username">ឈ្មោះ​អ្នកប្រើប្រាស់</string>
     <string name="renew">ធ្វើអោយថ្មី</string>
     //filter
@@ -490,4 +490,9 @@
     <string name="done">ធ្វើរួច</string>
     <string name="not_found">រកមិនឃើញលទ្ធផលទេ ... !</string>
     <string name="all">ទាំងអស់</string>
+    <string name="message">អ្នកមិនអាចផ្ញើសារទទេបានទេ</string>
+    //renew
+    <string name="pending">កំពុងរង់ចាំ</string>
+    <string name="Post_Renewal">ប្រកាសឡើងវិញ</string>
+    <string name="renew_post">តើអ្នកចង់ប្រកាសឡើងវិញដែរទេ?</string>
 </resources>

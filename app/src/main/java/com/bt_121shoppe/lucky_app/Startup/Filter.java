@@ -48,7 +48,7 @@ public class Filter extends AppCompatActivity {
    private  int cate=0,brand=0,model=0,year=0,type=0;
    private  String stTitle="",stCategory="",stBrand="",stYear="",st="";
    private ImageView icCategory_fil,icBrand_fil,icYear_fil;
-   private  String [] cateListItems,brandListItems,yearListItems,categoryItemkg,brandItemkh;
+   private  String [] cateListItems,brandListItems,yearListItems,categoryItemkg,brandItemkh,yearlistItemkh;
    private  int [] cateIDlist,brandIDlist,yearIDlist;
    private LinearLayout rela_cate,rela_brand,rela_year;
 
@@ -173,23 +173,43 @@ public class Filter extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
                 mBuilder.setTitle(R.string.choose_year);
-                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        btnyear.setText(yearListItems[i]);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        year = yearIDlist[i];
-                        if (year==0){
-                            stYear = "";
-                        }else {
-                            stYear = String.valueOf(year);
+                if (language.equals("km")){
+                    mBuilder.setSingleChoiceItems(yearlistItemkh, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            btnyear.setText(yearlistItemkh[i]);
+                            icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            year = yearIDlist[i];
+                            if (year==0){
+                                stYear = "";
+                            }else {
+                                stYear = String.valueOf(year);
+                            }
+
+                            Log.d("ID Year","is"+stYear);
+
+                            dialog.dismiss();
                         }
+                    });
+                }else if (language.equals("en")){
+                    mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            btnyear.setText(yearListItems[i]);
+                            icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            year = yearIDlist[i];
+                            if (year==0){
+                                stYear = "";
+                            }else {
+                                stYear = String.valueOf(year);
+                            }
 
-                        Log.d("ID Year","is"+stYear);
+                            Log.d("ID Year","is"+stYear);
 
-                        dialog.dismiss();
-                    }
-                });
+                            dialog.dismiss();
+                        }
+                    });
+                }
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
@@ -377,13 +397,17 @@ public class Filter extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
+
                     yearListItems = new String[jsonArray.length()+1];
                     yearIDlist = new int[jsonArray.length()+1];
+                    yearlistItemkh=new String[jsonArray.length()+1];
+                    yearlistItemkh[0]=getString(R.string.all);
                     yearListItems[0] = "All";
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
                         int id = object.getInt("id");
                         String name = object.getString("year");
+                        yearlistItemkh[i]=name;
                         yearListItems[i] = name;
                         yearIDlist[i] = id;
 
@@ -394,23 +418,6 @@ public class Filter extends AppCompatActivity {
                 }
             }
         });
-    }
-    public void language(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration confi =new  Configuration();
-        confi.locale = locale;
-        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
-        editor.putString("My_Lang", lang);
-        editor.apply();
-    }
-
-    public void locale() {
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang", "");
-        Log.d("language",language);
-        language(language);
     }
 
 }

@@ -340,6 +340,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
         val btn_cancel = itemView.findViewById<Button>(R.id.btndelete)
         val btn_edit = itemView.findViewById<Button>(R.id.btnedit)
         val count_view = itemView.findViewById<TextView>(R.id.user_view)
+        val view=itemView.findViewById<TextView>(R.id.view)
 
         fun bindItems(item: LoanItemAPI) {
 //            imageView.setImageResource(item.image)
@@ -350,14 +351,24 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
 //            Log.d("String = ",)
             title.text = item.title
             cost.text = "$"+item.cost.toString()
-            count_view.text ="View:"+item.count_view
+            view.text =item.count_view
 
-            if (item.postType.equals("sell")){
-                post_type.setImageResource(R.drawable.sell)
-            }else if (item.postType.equals("buy")){
-                post_type.setImageResource(R.drawable.buy)
-            }else
-                post_type.setImageResource(R.drawable.rent)
+            var lang: String =count_view.text as String
+            if (lang == "View:") {
+                if (item.postType.equals("sell")) {
+                    post_type.setImageResource(R.drawable.sell)
+                } else if (item.postType.equals("buy")) {
+                    post_type.setImageResource(R.drawable.buy)
+                } else
+                    post_type.setImageResource(R.drawable.rent)
+            } else {
+                if (item.postType.equals("sell")) {
+                    post_type.setImageResource(R.drawable.sell_kh)
+                } else if (item.postType.equals("buy")) {
+                    post_type.setImageResource(R.drawable.buy_kh)
+                } else
+                    post_type.setImageResource(R.drawable.rent_kh)
+            }
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 //                val intent = Intent(itemView.context, Detail_New_Post::class.java)

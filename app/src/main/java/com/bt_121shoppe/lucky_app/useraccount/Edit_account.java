@@ -1293,22 +1293,5 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     }
-    public void language(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration confi = new Configuration();
-        confi.locale = locale;
-        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-        editor.putString("My_Lang", lang);
-        editor.apply();
-    }
-
-    public void locale() {
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang", "");
-        Log.d("language", language);
-        language(language);
-    }
 
 }

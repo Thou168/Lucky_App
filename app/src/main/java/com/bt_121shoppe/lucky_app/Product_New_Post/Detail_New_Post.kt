@@ -1,11 +1,13 @@
 package com.bt_121shoppe.lucky_app.Product_New_Post
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Address
@@ -340,6 +342,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     }
 
     fun initialProductPostDetail(encode: String){
+
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
         var url:String
         var request:Request
         //Log.d(TAG,"POST type: "+pt)
@@ -435,7 +440,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     try {
                                         val jsonObject = JSONObject(mMessage)
                                         //Log.d(TAG,"Year "+jsonObject.getString("year"))
-                                        tvModel.setText(jsonObject.getString("modeling_name"))
+                                        if(language.equals("km")){
+                                            tvModel.setText(jsonObject.getString("modeling_name_kh"))
+                                        }else if(language.equals("en")){
+                                            tvModel.setText(jsonObject.getString("modeling_name"))
+                                        }
 
                                         val url3=ConsumeAPI.BASE_URL+"api/v1/brands/"+jsonObject.getString("brand")
                                         val client3=OkHttpClient()
@@ -453,7 +462,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                                     try {
                                                         val jsonObject = JSONObject(mMessage)
                                                         //Log.d(TAG,"Year "+jsonObject.getString("year"))
-                                                        tvBrand.setText(jsonObject.getString("brand_name"))
+                                                        if(language.equals("km")){
+                                                            tvBrand.setText(jsonObject.getString("brand_name_as_kh"))
+                                                        }else if(language.equals("en")){
+                                                            tvBrand.setText(jsonObject.getString("brand_name"))
+                                                        }
+
                                                     } catch (e: JSONException) {
                                                         e.printStackTrace()
                                                     }
@@ -1074,5 +1088,4 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(LatLng(latitude, longtitude)))
 
     }
-
 }

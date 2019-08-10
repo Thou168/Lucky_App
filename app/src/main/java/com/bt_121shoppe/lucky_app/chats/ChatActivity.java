@@ -157,7 +157,7 @@ public class ChatActivity extends AppCompatActivity {
                 if(!msg.equals("")){
                     sendMessage(fuser.getUid(),userId,msg,postId,postType);
                 }else{
-                    Toast.makeText(ChatActivity.this,"You can't send empty message",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChatActivity.this,getString(R.string.message),Toast.LENGTH_LONG).show();
                 }
                 text_send.setText("");
             }

@@ -295,8 +295,8 @@ class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: S
                 //Log.d("Delete Post",name+" "+pass+" "+Encode)
                 //Toast.makeText(it.context,"Click Newal",Toast.LENGTH_SHORT).show()
                 AlertDialog.Builder(it.context)
-                        .setTitle("Post Renewal")
-                        .setMessage("Do you want to renew this post?")
+                        .setTitle(R.string.Post_Renewal)
+                        .setMessage(R.string.renew_post)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
                             //Toast.makeText(it.context, "Yaay", Toast.LENGTH_SHORT).show()
