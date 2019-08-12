@@ -187,10 +187,10 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (i){
                             case 0:
-                                strGender="Male";
+                                strGender="male";
                                 break;
                             case 1:
-                                strGender="Female";
+                                strGender="female";
                                 break;
                         }
 
@@ -270,9 +270,11 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             imgPob.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             id_pob=provinceIdListItems[i];
                             dialogInterface.dismiss();
+                            Log.d("PLACE OF BIRTH", String.valueOf(id_pob));
                         }
                     });
                 }
+
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
@@ -302,6 +304,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             imgLocation.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             id_location=provinceIdListItems[i];
                             dialogInterface.dismiss();
+                            Log.d("LOCATION", String.valueOf(id_location));
                         }
                     });
                 }
@@ -472,11 +475,13 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                            final int g=gg[0];
                             int g=convertJsonJava.getProfile().getGroup();
 
+                            id_type = g;
                             Log.d(TAG,"GROUP "+g);
                             if (g==2){
                                 tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
                                 tvType.setText(getString(R.string.other_dealer));
+
                             }else {
                                 tvType.setText(getString(R.string.public_user));
 //                                tvType.setText(getString(R.string.public_brand));
@@ -602,7 +607,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 if (Build.VERSION.SDK_INT >= 26) {
                     pro.put("date_of_birth", convertDateofBirth(strDob));
                 }
-            pro.put("address","");
+
             pro.put("data_of_birth", strDob);
             pro.put("address",latlng);
             pro.put("shop_name","");
