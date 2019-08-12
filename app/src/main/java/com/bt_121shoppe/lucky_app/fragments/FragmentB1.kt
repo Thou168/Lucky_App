@@ -38,7 +38,7 @@ class FragmentB1: Fragment() {
 
     val TAG = "LikeFragement"
     var post_id = 0
-    var like_id = 0
+
     private var username: String? = null
     private var password: String? = null
     private var pk: Int? = null
@@ -128,9 +128,10 @@ class FragmentB1: Fragment() {
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
                                 post_id = `object`.getInt("post")
-                                like_id = `object`.getInt("id")
+                                val like_id = `object`.getInt("id")
                                 Log.d("Post id ", post_id.toString())
                                 Log.d("Like id ", like_id.toString())
+
 
                                 val url_user = ConsumeAPI.BASE_URL+"detailposts/" + post_id + "/"
                                 Log.d("Post id ", url_user)

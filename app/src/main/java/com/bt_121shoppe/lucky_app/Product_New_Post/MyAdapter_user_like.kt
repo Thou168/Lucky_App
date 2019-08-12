@@ -120,6 +120,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
             // Glide.with(itemView.context).load(version.url).into(imageView)
 
             unlike.setOnClickListener {
+ //               Toast.makeText(it.context,"like:"+item.like_id,Toast.LENGTH_SHORT).show()
                 lateinit var sharedPref: SharedPreferences
                 var name=""
                 var pass=""

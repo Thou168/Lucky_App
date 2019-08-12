@@ -272,7 +272,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val like = findViewById<ImageView>(R.id.btn_like)
         like.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
+
                 Like_post(Encode)
             }else{
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
@@ -726,13 +726,15 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     override fun onResponse(call: Call, response: Response) {
                                         var respon = response.body()!!.string()
                                         Log.d("Response", respon)
-//                                        runOnUiThread {
+
+                                        runOnUiThread {
+                                         Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
 //                                            val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
 //                                            alertDialog.setMessage(R.string.like_post.toString())
 //                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
 //                                            ) { dialog, which -> dialog.dismiss() }
 //                                            alertDialog.show()
-//                                        }
+                                        }
 
                                     }
 
