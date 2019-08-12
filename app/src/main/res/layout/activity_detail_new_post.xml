@@ -71,15 +71,24 @@
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/tv_price"
                     android:gravity="center_vertical" />
-                <TextView
-                    android:id="@+id/count_view"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="view: 100"
-                    android:gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginEnd="10dp">
+                    <TextView
+                        android:id="@+id/count_view"
+                        android:text="@string/view"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/view"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </RelativeLayout>
             <View
                 android:id="@+id/view_line"
