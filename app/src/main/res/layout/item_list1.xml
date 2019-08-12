@@ -97,10 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="#00FFFFFF"
-                android:drawableLeft="@drawable/refresh"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
-                android:text="@string/renew"
+                android:drawableLeft="@drawable/refresh"
                 android:textAllCaps="false" />
 
             <Button

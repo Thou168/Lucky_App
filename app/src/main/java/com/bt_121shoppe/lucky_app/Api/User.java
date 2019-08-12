@@ -12,7 +12,7 @@ public class User {
     private Integer post;
     private String last_name;
     private Profile profile;
-    private Sales sales;
+    private Sales[] sales;
     private String Phone;
     private String gender;
     private String marital_status;
@@ -134,11 +134,11 @@ public class User {
         this.group = group;
     }
 
-    public Sales getSales() {
+    public Sales[] getSales() {
         return sales;
     }
 
-    public void setSales(Sales sales) {
+    public void setSales(Sales[] sales) {
         this.sales = sales;
     }
 }

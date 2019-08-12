@@ -15,14 +15,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
+import com.bt_121shoppe.lucky_app.Api.api.TabA1_api
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post
 import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import kotlinx.android.synthetic.main.activity_loan_create.*
 import kotlinx.android.synthetic.main.item_list1.*
 import okhttp3.*
 import org.json.JSONObject
@@ -42,6 +43,7 @@ class FragmentA1: Fragment() {
     private var password: String? = null
     private var pk: Int? = null
     private var ss = 0;
+    private var status = 0
     var encodeAuth=""
     var recyclerView: RecyclerView? = null
     var progreessbar: ProgressBar? = null
@@ -64,6 +66,7 @@ class FragmentA1: Fragment() {
 //        val tvphone = ACTIVITY.intent.getStringExtra("Phone")
 //        val phone = view.findViewById<TextView>(R.id.phone)
 //        phone.text = tvphone
+
         recyclerView = view.findViewById(R.id.recycler_view)
         progreessbar = view.findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
@@ -89,7 +92,7 @@ class FragmentA1: Fragment() {
         getMyPosts()
     }
     private fun getMyPosts(){
-        val itemApi = ArrayList<Item_API>()
+        val itemApi = ArrayList<TabA1_api>()
         var posts= PostViewModel()
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser/?status=1"
         var MEDIA_TYPE= MediaType.parse("application/json")
@@ -135,15 +138,28 @@ class FragmentA1: Fragment() {
                                 val discount_type = `object`.getString("discount_type")
                                 val discount = `object`.getDouble("discount")
 
-                                //var count_view=countPostView(encodeAuth,id)
-//                                var convertJsonJava = User()
-//                                convertJsonJava = gson.fromJson(mMessage, User::class.java)
-//                                if (convertJsonJava.sales!=null){
-//                                    if (convertJsonJava.sales.sale_status!=null){
-//                                       ss = convertJsonJava.sales.sale_status
-//
-//                                    }
-//                                }
+
+                                if(postType.equals("sell")) {
+                                    val sales = `object`.getJSONArray("sales")
+                                    val sale = sales.getJSONObject(0)
+                                    status = sale.getInt("sale_status")
+                                    Log.d("STATUS_Sell", status.toString())
+
+                                }
+                                if (postType.equals("buy")){
+                                    val buys = `object`.getJSONArray("buys")
+                                    val buy = buys.getJSONObject(0)
+                                    status = buy.getInt("buy_status")
+                                    Log.d("STATUS_buy", status.toString())
+                                }
+                                if (postType.equals("rent")){
+                                    val rents = `object`.getJSONArray("rents")
+                                    val rent = rents.getJSONObject(0)
+                                    status = rent.getInt("rent_status")
+                                    Log.d("STATUS_rent", status.toString())
+                                }
+
+                                val tmp = status.toString()
 
 
                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -179,7 +195,8 @@ class FragmentA1: Fragment() {
 
 
                                             activity!!.runOnUiThread {
-                                                itemApi.add(Item_API( id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
+                                                Log.d("STATUS", tmp)
+                                                itemApi.add(TabA1_api(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount,tmp))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                             }

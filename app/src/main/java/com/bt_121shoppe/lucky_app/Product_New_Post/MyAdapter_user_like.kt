@@ -104,6 +104,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
             }
 
 
+            Log.d("Like by id", item.like_id.toString())
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
 //                intent.putExtra("Image",decodedByte)

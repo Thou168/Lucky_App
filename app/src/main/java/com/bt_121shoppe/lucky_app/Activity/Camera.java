@@ -22,6 +22,8 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -1187,6 +1189,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;
             }
+
             //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
             Log.d(TAG,post.toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());

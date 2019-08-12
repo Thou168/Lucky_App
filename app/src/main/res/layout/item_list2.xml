@@ -45,20 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageButton
-                android:id="@+id/imgbtn_unlike"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_favorite_24dp"
-                android:layout_marginRight="@dimen/dp_8"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                android:layout_alignParentRight="true"
-                android:layout_above="@+id/li_postType"
-                android:background="#ffff"
-                />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/li_postType"
                 android:gravity="right"
                 android:orientation="vertical"
@@ -66,13 +54,26 @@
                 android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
+
+                <ImageButton
+                    android:id="@+id/imgbtn_unlike"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_favorite_24dp"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="40dp"
+                    android:background="#ffff"
+                    />
+
                 <ImageView
                     android:layout_marginTop="80dp"
                     android:id="@+id/post_type"
                     android:layout_width="50dp"
                     android:layout_height="20dp"
-                    android:layout_marginRight="@dimen/dp_8"
                     android:scaleType="centerCrop"
+                    android:layout_alignParentRight="true"
                     android:src="@drawable/buy" />
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                 </RelativeLayout>
 
 
-            </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.Api.api;
 
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
