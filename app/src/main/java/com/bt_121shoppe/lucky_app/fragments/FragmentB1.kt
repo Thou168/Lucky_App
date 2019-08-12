@@ -130,6 +130,7 @@ class FragmentB1: Fragment() {
                                 post_id = `object`.getInt("post")
                                 like_id = `object`.getInt("id")
                                 Log.d("Post id ", post_id.toString())
+                                Log.d("Like id ", like_id.toString())
 
                                 val url_user = ConsumeAPI.BASE_URL+"detailposts/" + post_id + "/"
                                 Log.d("Post id ", url_user)
@@ -166,7 +167,7 @@ class FragmentB1: Fragment() {
 
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                                                val time: Long = sdf.parse(`object`.getString("approved_date")).getTime()
+                                                val time: Long = sdf.parse(`object`.getString("created")).getTime()
                                                 val now: Long = System.currentTimeMillis()
                                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 

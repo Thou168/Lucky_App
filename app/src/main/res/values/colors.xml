@@ -29,6 +29,7 @@
     <color name="logo_green">#089D01</color>
     <color name="logo_red">#DF041D</color>
 
+    <color name="black">#0A0909</color>
     <color name="colorPrimary1">#3eaeae</color>
     <color name="colorPrimaryDark1">#226e6e</color>
     <color name="colorAccent1">#226e6e</color>

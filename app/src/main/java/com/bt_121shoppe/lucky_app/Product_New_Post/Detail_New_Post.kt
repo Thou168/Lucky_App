@@ -723,11 +723,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     override fun onResponse(call: Call, response: Response) {
                                         var respon = response.body()!!.string()
                                         Log.d("Response", respon)
-                                        val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
-                                        alertDialog.setMessage(R.string.like_post.toString())
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
-                                        ) { dialog, which -> dialog.dismiss() }
-                                        alertDialog.show()
+//                                        runOnUiThread {
+//                                            val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
+//                                            alertDialog.setMessage(R.string.like_post.toString())
+//                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+//                                            ) { dialog, which -> dialog.dismiss() }
+//                                            alertDialog.show()
+//                                        }
+
                                     }
 
                                     override fun onFailure(call: Call, e: IOException) {
