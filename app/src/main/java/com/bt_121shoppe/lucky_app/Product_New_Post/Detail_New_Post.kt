@@ -499,7 +499,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
-                        tvPrice1.setText("$ "+ postDetail.cost.toString())
+                        tvPrice1.setText("$ "+ postDetail.cost)
                         if (discount == 0.0){
                             tvDiscount.visibility = View.GONE
                             tvPrice.visibility = View.GONE
@@ -507,11 +507,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             tvPrice1.visibility = View.GONE
                         }
 //                        tvDiscount.setText("$ "+postDetail.cost.toString())
-                        val st = "$ "+postDetail.cost.toString()
+
+                        var st = "$"+postDetail.cost
+                        st = st.substring(0, st.length-1)
                         val ms = SpannableString(st)
                         val mst = StrikethroughSpan()
                         ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         tvDiscount.text = ms
+                        Log.d("Hello90",st)
 
                         tvCondition.setText(postDetail.condition.toString())
                         tvColor.setText(postDetail.color.toString())

@@ -65,7 +65,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
             val mst = StrikethroughSpan()
             ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             discount.text = ms
-//
+
 //            textView.text = item.name
 //            imageView.setImageResource(item.image)
 //            img_user.setImageResource(item.img_user)

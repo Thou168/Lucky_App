@@ -222,6 +222,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             case 1:
                                 strMaritalStatus="married";
                                 break;
+                            case 2:
+                                strMaritalStatus="other";
+                                break;
                         }
                         dialogInterface.dismiss();
                     }

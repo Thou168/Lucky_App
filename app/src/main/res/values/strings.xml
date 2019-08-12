@@ -226,6 +226,7 @@
     <string-array name="marital_status_array">
         <item>Single</item>
         <item>Married</item>
+        <item>other</item>
     </string-array>
     <string-array name="province_array">
         <item>Phnom Penh</item>
