@@ -69,8 +69,8 @@
                 <ImageView
                     android:layout_marginTop="80dp"
                     android:id="@+id/post_type"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="18dp"
                     android:scaleType="centerCrop"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/buy" />

@@ -56,8 +56,8 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/post_type"
-                        android:layout_width="50dp"
-                        android:layout_height="20dp"
+                        android:layout_width="40dp"
+                        android:layout_height="18dp"
                         android:layout_marginRight="@dimen/dp_8"
                         android:scaleType="centerCrop"
                         android:src="@drawable/buy" />
