@@ -475,6 +475,7 @@
     <string name="tab_loan">ឥណទាន</string>
     <string name="active">ប្រកាសថ្មី</string>
     <string name="history">ចាស់</string>
+    <string name="loan_active">ឥណទានថ្មី</string>
     <string name="view">ចំនួនអ្នកមើលៈ</string>
     //edit account
     <string name="male">ប្រុស</string>
@@ -497,4 +498,26 @@
     <string name="pending">កំពុងរង់ចាំ</string>
     <string name="Post_Renewal">ប្រកាសឡើងវិញ</string>
     <string name="renew_post">តើអ្នកចង់ប្រកាសឡើងវិញដែរទេ?</string>
+
+    <string name="new1">ថ្មី</string>
+    <string name="used">ប្រើ</string>
+    <string name="blue">ខៀវ</string>
+    <string name="black">ខ្មៅ</string>
+    <string name="silver">ប្រាក់</string>
+    <string name="red">ក្រហម</string>
+    <string name="gray">ប្រផេះ</string>
+    <string name="yellow">លឿង</string>
+    <string name="pink">ផ្កាឈូក</string>
+    <string name="purple">ស្វាយ</string>
+    <string name="orange">ទឹកក្រូច</string>
+    <string name="green">បៃតង</string>
+    <string name="sel">លក់</string>
+    <string name="ren">ជួល</string>
+    <string name="bu">ទិញ</string>
+    <string name="amount">ចំនួន</string>
+    <string name="percent">ភាគរយ</string>
+    <string-array name="usertype">
+        <item>អ្នកប្រើសាធារណៈ</item>
+        <item>អ្នកចែកចាយផ្សេងទៀត</item>
+    </string-array>
 </resources>

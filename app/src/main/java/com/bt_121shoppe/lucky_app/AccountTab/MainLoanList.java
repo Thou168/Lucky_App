@@ -55,7 +55,7 @@ public class MainLoanList extends Fragment {
         Loan_history n2 = new Loan_history();
 //        LoansList n2 = new LoansList();
 
-        adp.addFrag(n1, getString(R.string.active));
+        adp.addFrag(n1, getString(R.string.loan_active));
         adp.addFrag(n2, getString(R.string.history));
 
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);

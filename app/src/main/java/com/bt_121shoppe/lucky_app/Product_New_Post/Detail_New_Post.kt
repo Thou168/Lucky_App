@@ -140,6 +140,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var postUsername:String
     private lateinit var postUserId:String
     private lateinit var postType:String
+    private lateinit var con:String
+    private lateinit var col:String
     var discount: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -517,8 +519,37 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         tvDiscount.text = ms
                         Log.d("Hello90",st)
 
-                        tvCondition.setText(postDetail.condition.toString())
-                        tvColor.setText(postDetail.color.toString())
+//                        tvCondition.setText(postDetail.condition.toString())
+//                        tvColor.setText(postDetail.color.toString())
+                        con=postDetail.condition.toString()
+                        col=postDetail.color.toString()
+                        if (con == "new") {
+                            tvCondition.setText(R.string.new1)
+                        } else if (con == "used") {
+                            tvCondition.setText(R.string.used)
+                        }
+                        if (col == "blue") {
+                            tvColor.setText(R.string.blue)
+                        } else if (col == "black") {
+                            tvColor.setText(R.string.black)
+                        } else if (col == "silver") {
+                            tvColor.setText(R.string.silver)
+                        } else if (col == "red") {
+                            tvColor.setText(R.string.red)
+                        } else if (col == "gray") {
+                            tvColor.setText(R.string.gray)
+                        } else if (col == "yellow") {
+                            tvColor.setText(R.string.yellow)
+                        } else if (col == "pink") {
+                            tvColor.setText(R.string.pink)
+                        } else if (col == "purple") {
+                            tvColor.setText(R.string.purple)
+                        } else if (col == "orange") {
+                            tvColor.setText(R.string.orange)
+                        } else if (col == "green") {
+                            tvColor.setText(R.string.green)
+                        }
+
                         tvDescription.setText(postDetail.description.toString())
 
                         val addr = postDetail.contact_address.toString()

@@ -712,11 +712,47 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         String condition= strCondition.substring(0,1).toUpperCase() + strCondition.substring(1);
                                         String discountType= strDiscountType.substring(0,1).toUpperCase() + strDiscountType.substring(1);
                                         String color= strColor.substring(0,1).toUpperCase() + strColor.substring(1);
+                                        if (postType.equals("Sell")){
+                                            tvPostType.setText(R.string.sel);
+                                        }else if (postType.equals("Rent")){
+                                            tvPostType.setText(R.string.ren);
+                                        }else if (postType.equals("Buy")){
+                                            tvPostType.setText(R.string.bu);
+                                        }
 
-                                        tvPostType.setText(postType);
-                                        tvCondition.setText(condition);
-                                        tvDiscount_type.setText(discountType);
-                                        tvColor.setText(color);
+                                        if (condition.equals("New")){
+                                            tvCondition.setText(R.string.new1);
+                                        }else if (condition.equals("Used")){
+                                            tvCondition.setText(R.string.used);
+                                        }
+
+                                        if (discountType.equals("Amount")){
+                                            tvDiscount_type.setText(R.string.amount);
+                                        }else if (discountType.equals("Percent")){
+                                            tvDiscount_type.setText(R.string.percent);
+                                        }
+
+                                        if (color.equals("Blue")){
+                                            tvColor.setText(R.string.blue);
+                                        }else if (color.equals("Black")){
+                                            tvColor.setText(R.string.black);
+                                        }else if (color.equals("Silver")){
+                                            tvColor.setText(R.string.silver);
+                                        }else if (color.equals("Red")){
+                                            tvColor.setText(R.string.red);
+                                        }else if (color.equals("Gray")){
+                                            tvColor.setText(R.string.gray);
+                                        }else if (color.equals("Yellow")){
+                                            tvColor.setText(R.string.yellow);
+                                        }else if (color.equals("Pink")){
+                                            tvColor.setText(R.string.pink);
+                                        }else if (color.equals("Purple")){
+                                            tvColor.setText(R.string.purple);
+                                        }else if (color.equals("Orange")){
+                                            tvColor.setText(R.string.orange);
+                                        }else if (color.equals("Green")){
+                                            tvColor.setText(R.string.green);
+                                        }
 
                                         Call_Brand(Encode,cate);
                                         //Call_Model(Encode,brand);
@@ -1932,6 +1968,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private void DropDown() {
 
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
         postTypeListItems=getResources().getStringArray(R.array.posty_type);
         tvPostType.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1991,6 +2029,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 break;
                             case 1:
                                 strCondition="used";
+                                break;
                         }
                         dialogInterface.dismiss();
                     }

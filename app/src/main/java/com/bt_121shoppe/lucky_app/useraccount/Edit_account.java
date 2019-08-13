@@ -106,7 +106,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     String latlng;
     GoogleMap mMap;
     int mMonth,mYear,mDay;
-    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem;
+    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem,usertpyeItem;
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 
@@ -311,19 +311,29 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 mDialog.show();
             }
         });
-
+        usertpyeItem=getResources().getStringArray(R.array.usertype);
         tvType.setOnClickListener(v -> {
             AlertDialog.Builder mbuilder = new AlertDialog.Builder(Edit_account.this);
             mbuilder.setTitle(getString(R.string.user_type));
-            mbuilder.setSingleChoiceItems(type_userListItem, -1, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int i) {
-                    tvType.setText(type_userListItem[i]);
-                    id_type = type_userid[i];
-                    dialog.dismiss();
-                }
-            });
-
+            if (language.equals("km")){
+                mbuilder.setSingleChoiceItems(usertpyeItem, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        tvType.setText(usertpyeItem[i]);
+                        id_type = type_userid[i];
+                        dialog.dismiss();
+                    }
+                });
+            }else if (language.equals("en")){
+                mbuilder.setSingleChoiceItems(type_userListItem, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        tvType.setText(type_userListItem[i]);
+                        id_type = type_userid[i];
+                        dialog.dismiss();
+                    }
+                });
+            }
             AlertDialog mDialog = mbuilder.create();
             mDialog.show();
 
@@ -479,7 +489,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
                                 tvType.setText(getString(R.string.other_dealer));
-
                             }else {
                                 tvType.setText(getString(R.string.public_user));
 //                                tvType.setText(getString(R.string.public_brand));
@@ -497,7 +506,11 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                     etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
                                 }
                                 String s = convertJsonJava.getProfile().getGender();
-                                mp_Gender.setText(s);
+                                if (s.equals("male")){
+                                    mp_Gender.setText(R.string.male);
+                                }else if (s.equals("female")){
+                                    mp_Gender.setText(R.string.female);
+                                }
 
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
                                     String d = convertJsonJava.getProfile().getDate_of_birth();
@@ -538,7 +551,14 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                  mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                 */
                                 String m = convertJsonJava.getProfile().getMarital_status();
-                                mp_Married.setText(m);
+                                if (m.equals("single")){
+                                    mp_Married.setText(R.string.single);
+                                }else if (m.equals("married")){
+                                    mp_Married.setText(R.string.marriedd);
+                                }else if (m.equals("other")){
+                                    mp_Married.setText(R.string.other);
+                                }
+
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
                                     //Log.d(TAG,"province Id "+p);
@@ -605,7 +625,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 if (Build.VERSION.SDK_INT >= 26) {
                     pro.put("date_of_birth", convertDateofBirth(strDob));
                 }
-
+            pro.put("address","");
             pro.put("data_of_birth", strDob);
             pro.put("address",latlng);
             pro.put("shop_name","");
