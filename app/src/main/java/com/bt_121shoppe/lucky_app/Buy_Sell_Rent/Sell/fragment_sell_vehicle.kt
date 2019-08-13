@@ -55,18 +55,9 @@ class fragment_sell_vehicle : Fragment() {
         val toolbar: Toolbar =view.findViewById(R.id.toolbar)
         toolbar.setBackgroundColor(activity!!.getColor(R.color.logo_green))
         //Back
-//        val sell_back = BACK_SELL.intent.getStringExtra("Back")
         val back = view.findViewById<TextView>(R.id.tv_back)
-//        back.text = sell_back.toString()
         back.setOnClickListener { getActivity()?.finish() }
-
         recyclerview = view.findViewById<RecyclerView>(R.id.recyclerView)
-//        val item = ArrayList<Item>()
-//        item.addAll(Item.getPost_Type("Sell","Motobike"))
-//        //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-//        listview!!.layoutManager = GridLayoutManager(context,1)
-//        listview!!.adapter = MyAdapter_list(item,null)
-
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
@@ -77,11 +68,11 @@ class fragment_sell_vehicle : Fragment() {
             pk = preferences.getInt("id", 0)
         }
 
-        Listmoto_sell()
+        Listmoto_sell(container!!.context)
 
         return view
     }
-    private fun Listmoto_sell () {
+    private fun Listmoto_sell (context1:Context) {
 
         var item=ArrayList<Item_API>()
         var posts= PostViewModel()
@@ -112,7 +103,7 @@ class fragment_sell_vehicle : Fragment() {
                             val id = `object`.getInt("id")
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
-                            val image = `object`.getString("front_image_base64")
+                            val image = `object`.getString("front_image_path")
                             val img_user = `object`.getString("right_image_base64")
                             val postType = `object`.getString("post_type")
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -151,7 +142,7 @@ class fragment_sell_vehicle : Fragment() {
                                             item.add(Item_API(id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             Log.d("Item: ", item.size.toString())
                                             recyclerview!!.layoutManager = GridLayoutManager(context, 1)
-                                            recyclerview!!.adapter = MyAdapter_list_grid_image(item, "List")
+                                            recyclerview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)
                                         }
 
                                     } catch (e: JsonParseException) {

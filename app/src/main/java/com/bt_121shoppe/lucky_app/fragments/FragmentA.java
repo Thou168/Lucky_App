@@ -53,7 +53,7 @@ public class FragmentA extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Get();
+        Get(container.getContext());
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -109,9 +109,9 @@ public class FragmentA extends Fragment {
         recyclerView.setAdapter(adapter);
 
     }
-    private void Get() {
+    private void Get(Context cx) {
 
-        String url ="http://103.205.26.103:8000/postbyuser/";
+        String url =ConsumeAPI.BASE_URL+"postbyuser/";
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -170,7 +170,7 @@ public class FragmentA extends Fragment {
                                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                                     String jsonCount=jsonObject.getString("count");
                                     list_item.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount,discount_type,discount));
-                                    ad_list = new MyAdapter_list_grid_image(list_item,"List");
+                                    ad_list = new MyAdapter_list_grid_image(list_item,"List",cx);
                                     recyclerView.setAdapter(ad_list);
                                 }catch (JSONException e){
                                     e.printStackTrace();

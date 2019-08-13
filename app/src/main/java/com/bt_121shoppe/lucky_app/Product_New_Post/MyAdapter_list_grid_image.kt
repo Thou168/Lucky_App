@@ -24,9 +24,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.R
+import com.bumptech.glide.Glide
 import java.io.ByteArrayOutputStream
 
-class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
+class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?,val context: Context) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
     internal var loadMoreListener: OnLoadMoreListener? = null
     internal var isLoading = false
@@ -49,7 +50,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(itemList[position])
+        holder.bindItems(itemList[position],context)
     }
 
     override fun getItemCount(): Int {
@@ -66,30 +67,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val tv_discount = itemView.findViewById<TextView>(R.id.tv_discount)
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
 
-//        var id:Int=0
-        fun bindItems(item: Item_API) {
-//            imageView.setImageResource(item.image)
-
-            val options = BitmapFactory.Options()
-            options.inSampleSize = 8
-            val decodedString = Base64.decode(item.image, Base64.DEFAULT)
-    /*
-            val strPath = String(decodedString, StandardCharsets.UTF_8)
-            Log.d("TAGGGGGGGGGGGGG",strPath)
-            val decodedByte=BitmapFactory.decodeFile(strPath,options)
-            */
-            if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
-                //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
-                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                imageView.setImageBitmap(decodedByte)
-            }else{
-
-                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
-                Log.d("IMAGE SIZE", decodedByte.width.toString()+" "+decodedByte.height.toString())
-            }
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP)
-
+        fun bindItems(item: Item_API,context: Context) {
+            Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             var price: Double = 0.0
             var discout1: Double = 0.0
             if (item.discount != 0.00){
@@ -118,7 +97,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             show_view.text=" "+item.count_view
 
             var lang:String = tv_user_view.text as String
-    Log.d("Hello123",lang)
             if(lang == "View:") {
                 if (item.postType.equals("sell")) {
                     post_type.setImageResource(R.drawable.sell)
@@ -136,18 +114,11 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             }
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
-//                intent.putExtra("Image",decodedByte)
-//                intent.putExtra("Image_user",decodedByte)
-//                intent.putExtra("Title",item.title)
                   intent.putExtra("Discount",price)
                   intent.putExtra("Price",item.cost)
-//                intent.putExtra("Name",item.name)
-                    //intent.putExtra("postt",1)
                   intent.putExtra("ID",item.id)
-                  Log.d("ID  :",item.id.toString())
                 itemView.context.startActivity(intent)
             }
-           // Glide.with(itemView.context).load(version.url).into(imageView)
         }
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()
@@ -183,5 +154,4 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
     fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
         this.loadMoreListener = loadMoreListener
     }
-    //
 }

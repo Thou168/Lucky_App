@@ -29,11 +29,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [fragment_buy_vehicle]interface.
- */
 class fragment_buy_vehicle : Fragment() {
 
     private var username: String? = null
@@ -50,7 +45,6 @@ class fragment_buy_vehicle : Fragment() {
                 "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
         sliderImage.setItems(images)
         sliderImage.addTimerToSlide(3000)
-        //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
         //Back
 
@@ -61,12 +55,6 @@ class fragment_buy_vehicle : Fragment() {
         back.setOnClickListener { getActivity()?.finish() }
 
         reecycleview = view.findViewById(R.id.recyclerView)
-//        val item = ArrayList<Item>()
-//        item.addAll(Item.getPost_Type("Buy","Motobike"))
-//        //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-//        listview.layoutManager = GridLayoutManager(context,1)
-//        listview.adapter = MyAdapter_list(item,null)
-
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
@@ -76,14 +64,14 @@ class fragment_buy_vehicle : Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        Listmoto_buy()
+        Listmoto_buy(container!!.context)
         return view
     }
-    private fun Listmoto_buy () {
+    private fun Listmoto_buy (context1: Context) {
 
         var item=ArrayList<Item_API>()
         var posts= PostViewModel()
-        val url =  "http://103.205.26.103:8000/relatedpost/?post_type=buy&category=2&modeling=&min_price=&max_price="
+        val url = ConsumeAPI.BASE_URL+"relatedpost/?post_type=buy&category=2&modeling=&min_price=&max_price="
         var MEDIA_TYPE=MediaType.parse("application/json")
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -110,7 +98,7 @@ class fragment_buy_vehicle : Fragment() {
                             val id = `object`.getInt("id")
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
-                            val image = `object`.getString("front_image_base64")
+                            val image = `object`.getString("front_image_path")
                             val img_user = `object`.getString("right_image_base64")
                             val postType = `object`.getString("post_type")
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -118,7 +106,6 @@ class fragment_buy_vehicle : Fragment() {
                             val time:Long = sdf.parse(`object`.getString("created")).getTime()
                             val now:Long = System.currentTimeMillis()
                             val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-//                            val category = `object`.getInt("category")
                             val discount_type = `object`.getString("discount_type")
                             val discount = `object`.getDouble("discount")
 
@@ -132,6 +119,7 @@ class fragment_buy_vehicle : Fragment() {
                                     .header("Content-Type","application/json")
 //                                    .header("Authorization",encodeAuth)
                                     .build()
+                            Log.d("Fragment","post id "+id)
                             client1.newCall(request1).enqueue(object : Callback{
                                 override fun onFailure(call: Call, e: IOException) {
                                     val mMessage = e.message.toString()
@@ -149,7 +137,7 @@ class fragment_buy_vehicle : Fragment() {
                                              item.add(Item_API(id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             Log.d("Item: ", item.size.toString())
                                             reecycleview!!.layoutManager = GridLayoutManager(context, 1)
-                                            reecycleview!!.adapter = MyAdapter_list_grid_image(item, "List")
+                                            reecycleview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)
                                         }
 
                                     } catch (e: JsonParseException) {

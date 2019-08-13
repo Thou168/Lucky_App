@@ -8,23 +8,23 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- <uses-permission android:name="android.permission.SEND_SMS" /> -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
+
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:node="replace" /> <!-- <uses-feature android:name="android.hardware.camera" /> -->
-    <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
+        tools:node="replace" />
     <dist:module dist:instant="true" />
 
     <application
@@ -38,16 +38,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Login_Register.ResetPasswordActivity"></activity>
-        <activity android:name=".Login_Register.SearchAccountActivity" />
-        <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
-        <activity android:name=".Startup.Filter"></activity>
-        <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
-        <activity android:name=".chats.ChatActivity" />
-        <activity android:name=".Activity.Account" />
-        <activity android:name=".chats.ChatActivity" />
-        <activity android:name=".Fragment.contact_user2" />
-        <activity android:name=".Login_Register.FacebookLoginActivity" />
+        <activity android:name=".post.PostGallaryActivity"></activity>
+        <activity android:name=".Splash_screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -56,12 +53,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".Splash_screen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -76,6 +67,15 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.HomeActivity" />
+        <activity android:name=".Login_Register.ResetPasswordActivity" />
+        <activity android:name=".Login_Register.SearchAccountActivity" />
+        <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
+        <activity android:name=".Startup.Filter" />
+        <activity android:name=".chats.ChatActivity" />
+        <activity android:name=".Activity.Account" />
+        <!--<activity android:name=".Fragment.contact_user2" />-->
+        <activity android:name=".Login_Register.FacebookLoginActivity" />
         <activity android:name=".Activity.SpinnerActivity" />
         <activity android:name=".chats.MessageActivity" />
         <activity android:name=".chats.ChatMainActivity" />
@@ -83,8 +83,7 @@
         <activity android:name=".Login_Register.RegisterPhoneNumberActivity" />
         <activity android:name=".Setting.ChangePassword" />
         <activity android:name=".Setting.TermPrivacyActivity" />
-        <activity android:name=".Setting.AboutUsActivity" />
-        <activity android:name=".Startup.Search" />
+        <activity android:name=".Setting.AboutUsActivity" /> <!-- <activity android:name=".Splash_screen" /> -->
         <activity android:name=".Startup.Search1" />
         <activity android:name=".useraccount.Edit_account" />
         <activity android:name=".Activity.Notification" />
@@ -100,16 +99,6 @@
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".notifications.NotificationActivity" />
-        <activity android:name=".Activity.Account" />
-        <!--
-        <activity
-            android:name=".Activity.Home"
-            android:icon="@drawable/logo"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        -->
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="7f07b09034fb44879e413e1314e73b0b" />
@@ -132,13 +121,7 @@
         <activity android:name=".useraccount.User_post" />
         <activity android:name=".Product_dicount.Detail_Discount" />
         <activity android:name=".Startup.StartUp" />
-        <activity android:name=".Startup.MainActivity" /> <!-- <activity android:name=".useraccount.UserInformationActivity"/> -->
-        <activity android:name=".loan.LoanCreateActivity" />
-        <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
-        <activity android:name=".useraccount.User_post" />
-        <activity android:name=".Product_dicount.Detail_Discount" />
-        <activity android:name=".Startup.StartUp" />
-        <activity android:name=".Startup.MainActivity" /> <!-- <activity android:name=".useraccount.UserInformationActivity"/> -->
+        <activity android:name=".Startup.MainActivity" />
         <activity android:name=".loan.LoanCreateActivity" />
         <activity android:name=".AccountTab.MainAccountTabs" />
 

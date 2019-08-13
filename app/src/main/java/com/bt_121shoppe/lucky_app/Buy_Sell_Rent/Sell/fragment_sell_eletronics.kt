@@ -61,11 +61,6 @@ class fragment_sell_eletronics : Fragment() {
         back.setOnClickListener { getActivity()?.finish() }
 
         recycleeview = view.findViewById<RecyclerView>(R.id.recyclerView)
-//        val item = ArrayList<Item>()
-//        item.addAll(Item.getPost_Type("Sell","Electronic"))
-//        //  listview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-//        listview!!.layoutManager = GridLayoutManager(context,1)
-//        listview!!.adapter = MyAdapter_list(item,null)
 
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
@@ -77,15 +72,15 @@ class fragment_sell_eletronics : Fragment() {
             pk = preferences.getInt("id", 0)
         }
 
-        Listelectronic_sell()
+        Listelectronic_sell(container!!.context)
 
         return view
     }
-    private fun Listelectronic_sell () {
+    private fun Listelectronic_sell (context1:Context) {
 
         var item=ArrayList<Item_API>()
         var posts= PostViewModel()
-        val url =  "http://103.205.26.103:8000/relatedpost/?post_type=sell&category=1&modeling=&min_price=&max_price="
+        val url =  ConsumeAPI.BASE_URL+ "relatedpost/?post_type=sell&category=1&modeling=&min_price=&max_price="
         var MEDIA_TYPE=MediaType.parse("application/json")
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -112,7 +107,7 @@ class fragment_sell_eletronics : Fragment() {
                             val id = `object`.getInt("id")
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
-                            val image = `object`.getString("front_image_base64")
+                            val image = `object`.getString("front_image_path")
                             val img_user = `object`.getString("right_image_base64")
                             val postType = `object`.getString("post_type")
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -151,7 +146,7 @@ class fragment_sell_eletronics : Fragment() {
                                             item.add(Item_API(id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             Log.d("Item: ", item.size.toString())
                                             recycleeview!!.layoutManager = GridLayoutManager(context,1)
-                                            recycleeview!!.adapter = MyAdapter_list_grid_image(item, "List")
+                                            recycleeview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)
 
 
                                         }

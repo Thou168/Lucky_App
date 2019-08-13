@@ -33,11 +33,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [FragmentA1]interface.
- */
 class FragmentA1: Fragment() {
     val TAG = "SubPostFragement"
     private var username: String? = null
@@ -64,9 +59,6 @@ class FragmentA1: Fragment() {
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment, container, false)
-//        val tvphone = ACTIVITY.intent.getStringExtra("Phone")
-//        val phone = view.findViewById<TextView>(R.id.phone)
-//        phone.text = tvphone
 
         recyclerView = view.findViewById(R.id.recycler_view)
         progreessbar = view.findViewById(R.id.progress_bar)
@@ -82,14 +74,12 @@ class FragmentA1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)    //register
         }
-        //getMyPosts()
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setUpRecyclerView()
         getMyPosts()
     }
     private fun getMyPosts(){
@@ -115,9 +105,6 @@ class FragmentA1: Fragment() {
                 val jsonObject = JSONObject(mMessage)
                 try {
                     activity!!.runOnUiThread {
-                    Log.d("Run Get Post :"," la" +jsonObject)
-                        //val detail:String=jsonObject.getString("detail").toString()
-                        //if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount = jsonObject.getInt("count")
                         if (jsonCount == 0 ){
@@ -128,7 +115,6 @@ class FragmentA1: Fragment() {
                         progreessbar!!.visibility = View.GONE
                             for (i in 0 until jsonArray.length()) {
                                 val `object` = jsonArray.getJSONObject(i)
-//                                val sale_status = `object`.getDouble("sale_status")
                                 val title = `object`.getString("title")
                                 val id = `object`.getInt("id")
                                 val condition = `object`.getString("condition")
@@ -138,7 +124,7 @@ class FragmentA1: Fragment() {
                                 val postType = `object`.getString("post_type")
                                 val discount_type = `object`.getString("discount_type")
                                 val discount = `object`.getDouble("discount")
-
+                                val frontImagePart=`object`.getString("front_image_path")
 
                                 if(postType.equals("sell")) {
                                     val sales = `object`.getJSONArray("sales")
@@ -161,14 +147,11 @@ class FragmentA1: Fragment() {
                                 }
 
                                 val tmp = status.toString()
-
-
                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                                 val time: Long = sdf.parse(`object`.getString("created")).getTime()
                                 val now: Long = System.currentTimeMillis()
                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-
                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
                                 var MEDIA_TYPE = MediaType.parse("application/json")
                                 val client1 = OkHttpClient()
@@ -197,7 +180,7 @@ class FragmentA1: Fragment() {
 
                                             activity!!.runOnUiThread {
                                                 Log.d("STATUS", tmp)
-                                                itemApi.add(TabA1_api(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount,tmp))
+                                                itemApi.add(TabA1_api(id, img_user, frontImagePart, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount,tmp))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                             }
@@ -208,23 +191,8 @@ class FragmentA1: Fragment() {
 
                                     }
                                 })
-
-                                //Log.d("Item: ",itemApi.size.toString())
-//                        activity!!.runOnUiThread {
-
                             }
-                        //}
                     }
-//                    activity!!.runOnUiThread {
-//                        if(jsonCount>0){
-//                            for (i in 0 until jsonArray.length()) {
-//                                val obj=jsonArray.getJSONObject(i)
-//                                Log.e("TAG","T"+obj)
-//                            }
-//
-//                        }
-//
-//                    }
 
                 } catch (e: JsonParseException) {
                     e.printStackTrace()

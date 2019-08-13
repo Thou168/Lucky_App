@@ -23,6 +23,7 @@ class TermPrivacyActivity : AppCompatActivity() {
         val txt_suspend_description=findViewById<TextView>(R.id.txt_suspend_description)
         val txt_general_term_description=findViewById<TextView>(R.id.txt_general_term_description)
 
+
         txt_term_privacy_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)
         txt_suspend_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)
         txt_general_term_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)

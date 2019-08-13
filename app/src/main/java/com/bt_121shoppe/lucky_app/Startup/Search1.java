@@ -2,6 +2,7 @@ package com.bt_121shoppe.lucky_app.Startup;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -63,7 +64,6 @@ public class Search1 extends AppCompatActivity {
             }
         });
 
-
         mProgress = (ProgressBar) findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
         not_found.setVisibility(View.GONE);
@@ -73,51 +73,34 @@ public class Search1 extends AppCompatActivity {
         sv.setFocusable(true);
         sv.setIconified(false);
         sv.requestFocusFromTouch();
-
-
-
         items = new ArrayList<Item>();
-//        items = (ArrayList<Item>)getIntent().getSerializableExtra("items");
         items.addAll(Item.Companion.getList());
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getBaseContext(), RecyclerView.VERTICAL, false);
         final MyAdapter adapter1 = new MyAdapter(getBaseContext(),items);
 //        RecyclerView recy_horizontal1 = (RecyclerView) view.findViewById(R.id.list_new_post);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(layoutManager1);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                item_apis.clear();
+                category="";
+                model="";
+                year="";
+                tv_filter.setVisibility(View.VISIBLE);
+                mProgress.setVisibility(View.VISIBLE);
+                 String  title = sv.getQuery().toString();
+                Search_data(title,category,model,year);
+                return false;
+            }
 
-//        bundle = getIntent().getExtras();
-//        if (bundle!=null){
-//            title_filter    = bundle.getString("title_search");
-//            category = bundle.getString("category");
-//            model    = bundle.getString("brand");
-//            year     = bundle.getString("year");
-//            sv.setQuery(title_filter,false);
-//            Search_data(title_filter,category,model,year);
-//        }
-
-
-        Log.d("SSSeach","Category:"+category+" Brand:"+ model + "Year:"+year);
-    sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            item_apis.clear();
-            category="";
-            model="";
-            year="";
-            tv_filter.setVisibility(View.VISIBLE);
-            mProgress.setVisibility(View.VISIBLE);
-             String  title = sv.getQuery().toString();
-            Search_data(title,category,model,year);
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            if (newText.isEmpty())
-                tv_filter.setVisibility(View.GONE);
-            return false;
-        }
-    });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty())
+                    tv_filter.setVisibility(View.GONE);
+                return false;
+            }
+        });
 
         tv_filter.setOnClickListener(v -> {
             Intent intent1 = new Intent(Search1.this,Filter.class);
@@ -125,12 +108,9 @@ public class Search1 extends AppCompatActivity {
             startActivityForResult(intent1,1);
 
         });
-
-
     }  // create
 
     private  void Search_data(String title, String category, String model, String year){
-   //     String url = "http://103.205.26.103:8000/postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
         String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
         Log.d("Url:",url);
         OkHttpClient client = new OkHttpClient();
@@ -140,13 +120,10 @@ public class Search1 extends AppCompatActivity {
                 .header("Content-Type","application/json")
                 .build();
         client.newCall(request).enqueue(new Callback() {
-
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 Log.d("Search:",respon);
-
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -156,7 +133,6 @@ public class Search1 extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(respon);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                     int count = jsonObject.getInt("count");
-                    Log.d("CCCCCCCC", String.valueOf(count));
                     if (count == 0) {
                         mProgress.setVisibility(View.GONE);
                         not_found.setVisibility(View.VISIBLE);
@@ -207,7 +183,7 @@ public class Search1 extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             item_apis.add(new Item_API(id, img_user, image, title, cost, condition, post_type, ago.toString(), json_count,discount_type,discount));
-                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List");
+                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                             rv.setAdapter(adapterUserPost);
                                         }
                                     });
@@ -261,34 +237,4 @@ public class Search1 extends AppCompatActivity {
         }
 
     }
-
-
-    //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        // Inflate menu to add items to action bar if it is present.
-//        inflater.inflate(R.menu.search_menu, menu);
-//        MenuItem search_item = menu.findItem(R.id.action_search);
-//
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        searchView.setFocusable(true);
-//        searchView.setQueryHint("Search for Products, Brands and More");
-//        search_item.expandActionView();
-//
-//        return true;
-//    }
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        handleIntent(intent);
-//    }
-//
-//    private void handleIntent(Intent intent) {
-//
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            //use the query to search your data somehow
-//        }
-//    }
 }

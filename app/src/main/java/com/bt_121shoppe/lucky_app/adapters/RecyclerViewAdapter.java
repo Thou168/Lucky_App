@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.lucky_app.R;
-import com.bt_121shoppe.lucky_app.holders.TextItemViewHolder;
+import com.bt_121shoppe.lucky_app.viewholders.TextItemViewHolder;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<TextItemViewHolder> {
 

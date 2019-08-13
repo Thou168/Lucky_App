@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layout_margin="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:padding="4dp"
+        card_view:cardCornerRadius="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:id="@+id/thumbnail"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:id="@+id/thumbnailType"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/sell"
+                android:layout_alignBottom="@id/thumbnail"/>
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/thumbnail"
+                android:layout_marginLeft="8dp"
+                android:maxLines="1"
+                android:text="@string/title"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/postLocationDT"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:textSize="10sp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/postPrice"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/postLocationDT"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/red"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/postOrinalPrice"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/postLocationDT"
+                android:layout_toRightOf="@id/postPrice"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:layout_marginLeft="8dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/postView"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/postPrice"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="right"
+                android:textSize="10sp"
+                android:text="" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

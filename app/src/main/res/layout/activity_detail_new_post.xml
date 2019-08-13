@@ -642,27 +642,28 @@
     </androidx.core.widget.NestedScrollView>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="#46999999"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="?attr/actionBarSize">
         <TextView
             android:gravity="center"
             android:text="@string/back"
             android:id="@+id/tv_back"
-            android:textColor="@android:color/black"
-            android:drawableLeft="@drawable/icon_back"
+            android:textColor="@android:color/white"
+            android:drawableLeft="@drawable/chevron_left_36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:text="@string/nav_detail"
             android:textSize="@dimen/dp_18"
             android:layout_gravity="center"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageButton
             android:id="@+id/btn_share"
             android:background="#00FFFFFF"
-            android:src="@drawable/ic_share_black_24dp"
+            android:src="@drawable/share_variant_36"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_gravity="right"
             android:layout_width="wrap_content"

@@ -14,6 +14,7 @@ import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Product_dicount.Tab_Adapter
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.models.PostViewModel
+import com.bt_121shoppe.lucky_app.utils.CommomAPIFunction
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -52,16 +53,13 @@ class User_post : AppCompatActivity() {
         username = sharedPref.getString("name", "")
         password = sharedPref.getString("pass", "")
         encode = "Basic "+com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString(username,password)
-
-        Log.d("ENCODE1: ",encode)
         Username = findViewById(R.id.username)
         img_user = findViewById(R.id.img_user)
 
         findViewById<TextView>(R.id.tv_back).setOnClickListener { finish() }
-
         configureTabLayout()
         getUserProfile()
-        getUserPosts()
+        //getUserPosts()
     }
     private fun configureTabLayout() {
         tab.addTab(tab.newTab().setText(getString(R.string.post)))
@@ -109,9 +107,6 @@ class User_post : AppCompatActivity() {
 
                             val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
                             val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
-                            Log.d("TAGGGGG",profilepicture)
-                            Log.d("TAGGGGG",coverpicture)
-//                        tvUsername!!.setText(user1.username)
                             if(user1.getFirst_name().isEmpty())
                             {
                                 Username!!.setText(user1.getUsername())
@@ -119,15 +114,7 @@ class User_post : AppCompatActivity() {
                                 Username!!.setText(user1.getFirst_name())
                             }
 
-                            //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
-                            //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                            if(profilepicture.isNullOrEmpty()){
-                                img_user!!.setImageResource(R.drawable.user)
-                            }else {
-                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                img_user!!.setImageBitmap(decodedByte)
-                            }
+                        CommomAPIFunction.getUserProfileFB(this@User_post,img_user,user1.username)
 
                             if(coverpicture.isNullOrEmpty()){
 

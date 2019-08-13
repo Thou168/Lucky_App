@@ -243,12 +243,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
-
+        /*
          bundle = getIntent().getExtras();
          if (bundle!=null) {
               edit_id = bundle.getInt("id_product", 0);
               Log.d("Edit_id:", String.valueOf(edit_id));
          }
+         */
         //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
@@ -553,9 +554,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                    type==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
-                   || etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
-               ){
+                   || etPrice.getText().toString().length()==0 || dbDis_percent >=100|| bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
 
+                   if (etTitle.getText().toString().length()<3) {
+                       etTitle.requestFocus();
+                       icTitile.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
 
                    if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
                        etDiscount_amount.requestFocus();
@@ -606,6 +611,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                        icTitile.setImageResource(R.drawable.ic_error_black_24dp);
                    }
 
+                   if (dbDis_percent >= 100){
+                       etDiscount_amount.requestFocus();
+                       icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
@@ -616,12 +625,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 }
                             });
                     alertDialog.show();
-                }
-
+                   }
                }
                 else if (bundle!=null) {
                     mProgress.show();
-                    EditPost_Approve(Encode, edit_id);
+                    if(process_type==1)
+                        PostData(Encode);
+                    else
+                        EditPost_Approve(Encode, edit_id);
                 } else  {
                     mProgress.show();
                     PostData(Encode);

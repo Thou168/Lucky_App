@@ -29,11 +29,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [FragmentB1]interface.
- */
 class FragmentB1: Fragment() {
 
     val TAG = "LikeFragement"
@@ -61,10 +56,6 @@ class FragmentB1: Fragment() {
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment, container, false)
-
-//        val tvphone = ACTIVITY.intent.getStringExtra("Phone")
-//        val phone = view.findViewById<TextView>(R.id.phone)
-//        phone.text = tvphone
         recyclerView = view.findViewById(R.id.recycler_view)
         progreessbar = view.findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
@@ -80,7 +71,6 @@ class FragmentB1: Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-        Log.d("LIKEEEE ",pk.toString());
         getMyLike()
 
         return view
@@ -88,8 +78,6 @@ class FragmentB1: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setUpRecyclerView()
-        //getMyLike()
     }
 
     private fun getMyLike() {
@@ -114,10 +102,6 @@ class FragmentB1: Fragment() {
                 try {
                     activity!!.runOnUiThread {
                         val itemApi = ArrayList<Unlike_api>()
-
-                        Log.d("Run  :"," la"+jsonObject)
-//                        val detail:String=jsonObject.getString("detail").toString()
-//                        if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount = jsonObject.getInt("count")
                         if (jsonCount == 0 ){
@@ -132,8 +116,7 @@ class FragmentB1: Fragment() {
                                 Log.d("Post id ", post_id.toString())
                                 Log.d("Like id ", like_id.toString())
 
-
-                                val url_user = ConsumeAPI.BASE_URL+"detailposts/" + post_id + "/"
+                                val url_user = ConsumeAPI.BASE_URL +"detailposts/" + post_id + "/"
                                 Log.d("Post id ", url_user)
                                 val client1 = OkHttpClient()
                                 val request1 = Request.Builder()
@@ -163,8 +146,7 @@ class FragmentB1: Fragment() {
                                                 val image = jsonObject1.getString("front_image_base64")
                                                 val img_user = jsonObject1.getString("right_image_base64")
                                                 val postType = jsonObject1.getString("post_type")
-
-                                                //var count_view=countPostView(encodeAuth,id)
+                                                val frontImage=jsonObject1.getString("front_image_path")
 
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -192,12 +174,11 @@ class FragmentB1: Fragment() {
                                                     override fun onResponse(call: Call, response: Response) {
                                                         val mMessage = response.body()!!.string()
                                                         val gson = Gson()
-                                                        Log.d("FRAGMENT 2", mMessage)
                                                         try {
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
-                                                                itemApi.add(Unlike_api(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),like_id))
+                                                                itemApi.add(Unlike_api(id, img_user, frontImage, title, cost, condition, postType, ago.toString(), jsonCount.toString(),like_id))
                                                                 recyclerView!!.adapter = MyAdapter_user_like(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }
@@ -208,9 +189,6 @@ class FragmentB1: Fragment() {
 
                                                     }
                                                 })
-
-                                                //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),count_view.toString()))
-
                                             }
 
                                         } catch (e: JsonParseException) {
@@ -219,16 +197,9 @@ class FragmentB1: Fragment() {
                                     }
                                 })
                             }
-//                        }
-//                    else{
-//                            progreessbar!!.visibility = View.GONE
-//                            txtno_found!!.visibility = View.VISIBLE
-//                            progreessbar!!.visibility = View.GONE
-//                        }
                     }
                 } catch (e: JsonParseException) {
                     e.printStackTrace() }
-
             }
         })
     }

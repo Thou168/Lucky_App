@@ -46,6 +46,7 @@ import com.bt_121shoppe.lucky_app.chats.ChatActivity
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.Chat
 import com.bt_121shoppe.lucky_app.models.PostViewModel
+import com.bt_121shoppe.lucky_app.utils.CommomAPIFunction
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
 import com.bumptech.glide.Glide
 
@@ -72,6 +73,7 @@ import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_acount.*
 import kotlinx.android.synthetic.main.activity_detail_new_post.*
+import kotlinx.android.synthetic.main.contact_seller.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -84,21 +86,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
-
-    //, OnMapReadyCallback{
     private val TAG = Detail_Discount::class.java.simpleName
-    //    private lateinit var mMap: GoogleMap
     private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION = 1
     internal lateinit var locationManager: LocationManager
     internal var latitude: Double = 0.toDouble()
     internal var longtitude:Double = 0.toDouble()
     private var list_rela: RecyclerView? = null
-
-//    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
-//    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-//    private var mLocationPermissionGranted: Boolean = false
-//    private var mLastKnownLocation: Location? = null
     private var postId:Int=0
     private var pk=0
     private var name=""
@@ -133,7 +127,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var tex_noresult:TextView
     private lateinit var mprocessBar:ProgressBar
     private lateinit var address_detial:TextView
-
     private lateinit var postTitle:String
     private lateinit var postPrice:String
     private lateinit var postFrontImage:String
@@ -146,15 +139,15 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
 
+        checkPermission()
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
-        Log.d("ID Detail New :",postId.toString())
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
-        //Log.d("adfjlsfjsldk",Encode)
+
         if (sharedPref.contains("token")) {
            pk = sharedPref.getInt("Pk",0)
         } else if (sharedPref.contains("id")) {
@@ -168,35 +161,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         initialProductPostDetail(Encode)
         submitCountView(Encode)
         countPostView(Encode)
-
-//        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-//
-//        txt_detail_new = findViewById(R.id.txt_show_place_detail_new_post) as TextView
-//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-//        val mapFragment = supportFragmentManager
-//                .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment
-//        mapFragment.getMapAsync(this)
-        /*
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-
-        txt_detail_new = findViewById(R.id.txt_show_place_detail_new_post) as TextView
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        */
-
         list_rela = findViewById(R.id.list_rela)
-
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }
         //Slider
         sliderImage = findViewById<SliderImage>(R.id.slider)
-
-//        val id = intent.getIntExtra("ID",0)
-//        val phone = findViewById<TextView>(R.id.tv_phone)
-//
         tvPostTitle = findViewById<TextView>(R.id.title)
         tvPrice = findViewById<TextView>(R.id.tv_price)
         tvPrice1 = findViewById<TextView>(R.id.tv_price1)
@@ -212,7 +182,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         edLoanInterestRate=findViewById<EditText>(R.id.ed_loan_interest_rate)
         edLoanDeposit=findViewById<EditText>(R.id.ed_loan_deposit)
         edLoanTerm=findViewById<EditText>(R.id.ed_loan_term)
-
         user_name = findViewById<TextView>(R.id.tv_name)
         img_user = findViewById<CircleImageView>(R.id.cr_img)
         user_telephone=findViewById<TextView>(R.id.tv_phone)
@@ -221,8 +190,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
         address_detial = findViewById<TextView>(R.id.address)
 
-
-//Button Share
+        //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
         share.setOnClickListener{
             val shareIntent = Intent()
@@ -231,24 +199,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
             startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
         }
-//Button Call
-
-////Button SMS
-//        val sms = findViewById<Button>(R.id.btn_sms)
-//        sms.setOnClickListener {
-////                val phoneNumber = "0962363929"
-////                val uri = Uri.parse("smsto:0962363929")
-////                intent.putExtra("sms_body", "Here goes your message...")
-////                val smsManager = SmsManager.getDefault() as SmsManager
-//
-//            val smsIntent = Intent(Intent.ACTION_VIEW)
-//            smsIntent.type = "vnd.android-dir/mms-sms"
-//            smsIntent.putExtra("address", "0962363929")
-////            smsIntent.putExtra("sms_body", "Body of Message")
-//            startActivity(smsIntent)
-//        }
-//Button Like
-
         val chat = findViewById<ImageView>(R.id.btn_sms)
         chat.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -262,7 +212,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 intent.putExtra("postUserId",postUserId)
                 intent.putExtra("postType",postType)
                 startActivity(intent)
-                startActivity(intent)
             }else{
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
                 startActivity(intent)
@@ -272,7 +221,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val like = findViewById<ImageView>(R.id.btn_like)
         like.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
-
                 Like_post(Encode)
             }else{
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
@@ -282,10 +230,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         val loan= findViewById<ImageView>(R.id.btn_loan)
         loan.setOnClickListener{
-
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
                 val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-                //put extra id from detail new post to loancreate activity
                 intent.putExtra("PutIDLoan",postId)
                 startActivity(intent)
             }else{
@@ -333,7 +279,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
     }
     fun sms(phoneNumber:String) {
-//        startActivity( Intent(Intent.ACTION_SEND, Uri.fromParts("tel", phoneNumber, null)))
         val sendIntent =  Intent(Intent.ACTION_VIEW)
         sendIntent.putExtra("address"  ,phoneNumber)
         sendIntent.putExtra("sms_body", "")
@@ -347,7 +292,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val language = prefer.getString("My_Lang", "")
         var url:String
         var request:Request
-        //Log.d(TAG,"POST type: "+pt)
         val auth = "Basic $encode"
         if(pt==1) {
             url = ConsumeAPI.BASE_URL + "postbyuser/" + postId
@@ -368,16 +312,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     .build()
         }
 
-        //val url=ConsumeAPI.BASE_URL+"allposts/"+postId
         val client=OkHttpClient()
-        /*
-        val request = Request.Builder()
-                .url(url)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                //.header("Authorization", auth)
-                .build()
-                */
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 val mMessage = e.message.toString()
@@ -410,7 +345,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 runOnUiThread {
                                     try {
                                         val jsonObject = JSONObject(mMessage)
-                                        //Log.d(TAG,"Year "+jsonObject.getString("year"))
                                         tvYear.setText(jsonObject.getString("year"))
                                     } catch (e: JSONException) {
                                         e.printStackTrace()
@@ -439,7 +373,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 runOnUiThread {
                                     try {
                                         val jsonObject = JSONObject(mMessage)
-                                        //Log.d(TAG,"Year "+jsonObject.getString("year"))
                                         if(language.equals("km")){
                                             tvModel.setText(jsonObject.getString("modeling_name_kh"))
                                         }else if(language.equals("en")){
@@ -489,14 +422,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             override fun onFailure(call: Call, e: IOException) {
 
                             }
-
                         })
 
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
                         postFrontImage=postDetail.base64_front_image.toString()
                         postType=postDetail.post_type
-
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
                         edLoanPrice.setText(""+discount)
@@ -507,22 +438,16 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }else{
                             tvPrice1.visibility = View.GONE
                         }
-//                        tvDiscount.setText("$ "+postDetail.cost.toString())
-
                         var st = "$"+postDetail.cost
                         st = st.substring(0, st.length-1)
                         val ms = SpannableString(st)
                         val mst = StrikethroughSpan()
                         ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         tvDiscount.text = ms
-                        Log.d("Hello90",st)
-
                         tvCondition.setText(postDetail.condition.toString())
                         tvColor.setText(postDetail.color.toString())
                         tvDescription.setText(postDetail.description.toString())
-
                         val addr = postDetail.contact_address.toString()
-                        Log.d("LAAAAA",addr)
                         if(addr.isEmpty()) {
 
                         }else{
@@ -555,28 +480,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         var back_image:String=""
                         var left_image:String=""
 
-                        if(!base64_front_image.isNullOrEmpty()){
-                            val decodedFrontImageString = Base64.decode(base64_front_image, Base64.DEFAULT)
-                            val decodedFrontByte = BitmapFactory.decodeByteArray(decodedFrontImageString, 0, decodedFrontImageString.size)
-                            front_image=getImageUri(this@Detail_New_Post,decodedFrontByte).toString()
-                        }
-
-                        if(!base64_right_image.isNullOrEmpty()){
-                            val decodedRightImageString = Base64.decode(base64_right_image, Base64.DEFAULT)
-                            val decodedRightByte = BitmapFactory.decodeByteArray(decodedRightImageString, 0, decodedRightImageString.size)
-                            right_image=getImageUri(this@Detail_New_Post,decodedRightByte).toString()
-                        }
-                        if(!base64_left_image.isNullOrEmpty()){
-                            val decodedLeftImageString = Base64.decode(base64_left_image, Base64.DEFAULT)
-                            val decodedLeftByte = BitmapFactory.decodeByteArray(decodedLeftImageString, 0, decodedLeftImageString.size)
-                            left_image=getImageUri(this@Detail_New_Post,decodedLeftByte).toString()
-                        }
-                        if(!base64_back_image.isNullOrEmpty()){
-                            val decodedBackImageString = Base64.decode(base64_back_image, Base64.DEFAULT)
-                            val decodedBackByte = BitmapFactory.decodeByteArray(decodedBackImageString, 0, decodedBackImageString.size)
-                            back_image=getImageUri(this@Detail_New_Post,decodedBackByte).toString()
-                        }
-
+                        front_image=postDetail.front_image_path
+                        right_image=postDetail.right_image_path
+                        left_image=postDetail.left_image_path
+                        back_image=postDetail.back_image_path
                         val images = listOf(front_image,
                                 right_image,
                                 left_image,
@@ -600,7 +507,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             postType="sell"
                         if(buy.count()>0)
                             postType="buy"
-                        Log.d(TAG,"credfafa"+ postType)
+
                         initialRelatedPost(encode,postType,postDetail.category,postDetail.modeling,postDetail.cost.toFloat())
 
                     }
@@ -634,18 +541,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 val gson = Gson()
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
-                    Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
-
-                        val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
-                        if(profilepicture.isNullOrEmpty()){
-                            img_user.setImageResource(R.drawable.user)
-                        }else {
-                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            img_user.setImageBitmap(decodedByte)
-                        }
-
+                        CommomAPIFunction.getUserProfileFB(this@Detail_New_Post,img_user,user1.username)
                         if(user1.profile.first_name==null)
                             postUsername=user1.username
                         else
@@ -657,22 +554,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }else{
                             user_name!!.setText(user1.getFirst_name())
                         }
-
                         user_telephone.setText(user1.profile.telephone)
                         user_email.setText(user1.email)
-                        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-                            //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
-                            val intent = Intent(this@Detail_New_Post, User_post::class.java)
-                            intent.putExtra("ID",user1.id.toString())
-                            intent.putExtra("Phone",user1.profile.telephone)
-                            intent.putExtra("Email",user1.profile.email)
-                            intent.putExtra("map",user1.profile.address)
-                            //intent.putExtra("Phone",phone.text)
-                            intent.putExtra("Username",user1.username)
-                            intent.putExtra("Name",user1.first_name)
-                            startActivity(intent)
-                        }
-
+                            findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+                                val intent = Intent(this@Detail_New_Post, User_post::class.java)
+                                intent.putExtra("ID",user1.id.toString())
+                                intent.putExtra("Phone",user1.profile.telephone)
+                                intent.putExtra("Email",user1.profile.email)
+                                intent.putExtra("map",user1.profile.address)
+                                intent.putExtra("Username",user1.username)
+                                intent.putExtra("Name",user1.first_name)
+                                startActivity(intent)
+                            }
                     }
 
                 } catch (e: JsonParseException) {
@@ -727,6 +620,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     override fun onResponse(call: Call, response: Response) {
                                         var respon = response.body()!!.string()
                                         Log.d("Response", respon)
+
+                                        runOnUiThread {
+                                         Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
+                                        }
+
                                         val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
                                         alertDialog.setMessage(R.string.like_post.toString())
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
@@ -752,9 +650,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
 
         })
-
-
-
     }
 
     fun submitCountView(encode: String) {
@@ -812,52 +707,38 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 val gson = Gson()
                 runOnUiThread {
                     try {
-                        Log.d(TAG, "Related post " + mMessage)
                         val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
-                    val jsonCount=jsonObject.getInt("count")
+                        val jsonCount=jsonObject.getInt("count")
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
-
                             val title = obj.getString("title")
                             val id = obj.getInt("id")
                             val condition = obj.getString("condition")
                             val cost = obj.getDouble("cost")
-                            val image = obj.getString("front_image_base64")
+                            val image = obj.getString("front_image_path")
                             val img_user = obj.getString("right_image_base64")
                             val postType = obj.getString("post_type")
                             val phoneNumber = obj.getString("contact_phone")
                             val discount_type = obj.getString("discount_type")
                             val discount = obj.getDouble("discount")
-
                             var location_duration = ""
-                            //var count_view=countPostView(Encode,id)
-
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                             val time: Long = sdf.parse(obj.getString("created")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-//Call
                             val call = findViewById<ImageView>(R.id.btn_call)
                             call.setOnClickListener{
-                                //   makePhoneCall("0962363929")
                                 dialContactPhone(phoneNumber)
-                                Log.d("Phone ",phoneNumber)
                             }
-//SMS
-
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                             }
-                            list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
+                            list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)
                             list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2)
                         }
-
-                        //tv_count_view.setText("View: "+jsonCount)
-
-
                     } catch (e: JsonParseException) {
                         e.printStackTrace()
                     }
@@ -952,7 +833,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
         } else {
             // Permission has already been granted
-            callPhone()
+            //callPhone()
         }
     }
 
@@ -1009,17 +890,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 val width:Int = options.outWidth
                 var inSampleSize:Int = 1
 
-                if (height > reqHeight || width > reqWidth) {
-                    // Calculate ratios of height and width to requested height and
-                    // width
-                    val heightRatio:Int = Math.round(height.toFloat() /reqHeight.toFloat())
-                    val widthRatio:Int = Math.round(width.toFloat() / reqWidth.toFloat())
-
-                     // Choose the smallest ratio as inSampleSize value, this will
-                     // guarantee
-                     // a final image with both dimensions larger than or equal to
-                     // the
-                     // requested height and width.
+                 if (height > reqHeight || width > reqWidth) {
+                     val heightRatio:Int = Math.round(height.toFloat() /reqHeight.toFloat())
+                     val widthRatio:Int = Math.round(width.toFloat() / reqWidth.toFloat())
 
                      if(heightRatio<widthRatio)
                          inSampleSize=heightRatio
@@ -1058,10 +931,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     val geocoder = Geocoder(this)
                     var addressList: List<Address>? = null
                     addressList = geocoder.getFromLocation(latitude, longtitude, 1)
-                    //                    String country = addressList.get(0).getCountryName();
-                    //                    String city    = addressList.get(0).getLocality();
                     val road = addressList!![0].getAddressLine(0)
-
                     address_detial!!.text = road
 
                 } catch (e: IOException) {
@@ -1090,6 +960,5 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 .build()
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         mMap.addMarker(MarkerOptions().position(LatLng(latitude, longtitude)))
-
     }
 }

@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.R
+import com.bumptech.glide.Glide
 import java.io.ByteArrayOutputStream
 
 class MyAdapter_post_history(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_post_history.ViewHolder>() {
@@ -59,16 +60,8 @@ class MyAdapter_post_history(private val itemList: ArrayList<Item_API>, val type
         val unlike = itemView.findViewById<ImageButton>(R.id.imgbtn_unlike)
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
 
-        //        var id:Int=0
         fun bindItems(item: Item_API) {
-//            imageView.setImageResource(item.image)
-
-            val options = BitmapFactory.Options()
-            options.inSampleSize = 8
-            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            imageView.setImageBitmap(decodedByte)
-//            Log.d("String = ",)
+            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
@@ -91,18 +84,10 @@ class MyAdapter_post_history(private val itemList: ArrayList<Item_API>, val type
             }
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
-//                intent.putExtra("Image",decodedByte)
-//                intent.putExtra("Image_user",decodedByte)
-//                intent.putExtra("Title",item.title)
                 intent.putExtra("Price",item.cost)
-//                intent.putExtra("Name",item.name)
-                //intent.putExtra("postt",1)
                 intent.putExtra("ID",item.id)
-                Log.d("ID  :",item.id.toString())
                 itemView.context.startActivity(intent)
             }
-            // Glide.with(itemView.context).load(version.url).into(imageView)
-
             unlike.visibility = View.GONE
         }
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {

@@ -133,9 +133,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode =getEncodedString(name,pass);
-
-        //convertDateofBirth("1996");
-
         mProgress = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.update));
         mProgress.setCancelable(false);
@@ -471,8 +468,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             User convertJsonJava = new User();
 
                             convertJsonJava = gson.fromJson(mMessage,User.class);
-//                            int[] gg = convertJsonJava.getGroups();
-//                            final int g=gg[0];
                             int g=convertJsonJava.getProfile().getGroup();
 
                             id_type = g;
@@ -484,11 +479,11 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                             }else {
                                 tvType.setText(getString(R.string.public_user));
-//                                tvType.setText(getString(R.string.public_brand));
                             }
 
                             etUsername.setText(convertJsonJava.getFirst_name());
                             if(convertJsonJava.getProfile()!=null) {
+
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
                                     etPhone.setText(convertJsonJava.getProfile().getTelephone());
                                 }
@@ -526,24 +521,10 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
                                      mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                  }
-                                //Toast.makeText(Edit_account.this,"my addr"+lat +"  "+lon,Toast.LENGTH_LONG).show();
-                                //Log.d(TAG,"my address " +addr+" "+lat+" "+lon);
-                                //mp_Dob.setSelection(0);
-                                /*
-                                 String[] splitAddr = addr.split(",");
-                                 latitude = Double.valueOf(splitAddr[0]);
-                                 longtitude = Double.valueOf(splitAddr[1]);
-                                 get_location(false);
-                                 //get_location(false);
-                                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                                         .findFragmentById(R.id.map_Account);
-                                 mapFragment.getMapAsync(Edit_account.this::onMapReady);
-                                */
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                 mp_Married.setText(m);
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
-                                    //Log.d(TAG,"province Id "+p);
                                     getProvinceName(p,true);
                                 }
                                 if(convertJsonJava.getProfile().getProvince()!=null) {
@@ -1301,5 +1282,4 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     }
-
 }

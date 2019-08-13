@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:scaleType="fitCenter"
-        android:src="@drawable/flash_screen"
+        android:src="@drawable/flash_screen1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

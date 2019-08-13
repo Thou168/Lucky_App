@@ -20,7 +20,7 @@
                 android:gravity="center"
                 android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
-                android:layout_height="220dp">
+                android:layout_height="250dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_user"
                     android:src="@drawable/user"
@@ -53,13 +53,13 @@
     <androidx.appcompat.widget.Toolbar
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="?attr/actionBarSize">
         <TextView
             android:id="@+id/tv_back"
             android:textSize="@dimen/dp_18"
-            android:drawableLeft="@drawable/icon_back"
+            android:drawableLeft="@drawable/chevron_left_36"
             android:gravity="center"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="@string/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -54,7 +54,6 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
         tvEmail = view.findViewById(R.id.email);
         tvAddress = view.findViewById(R.id.address_contact);
         String phone = getActivity().getIntent().getExtras().getString("Phone");
-//        String name = getActivity().getIntent().getExtras().getString("Name");
         String email = getActivity().getIntent().getExtras().getString("Email");
         String addr  = getActivity().getIntent().getExtras().getString("map");
         tvPhone.setText(phone);
@@ -71,31 +70,9 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
             latitude = Double.valueOf(splitAddr[0]);
             longtitude = Double.valueOf(splitAddr[1]);
             get_location(latitude,longtitude);
-//            mapView = (MapView)view.findViewById(R.id.map_contact);
-//            mapView.onCreate(savedInstanceState);
             SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_contact);
             mapFragment.getMapAsync(this);
 
-//            mapFragment.getMapAsync(new OnMapReadyCallback() {
-//                @Override
-//                public void onMapReady(GoogleMap googleMap) {
-//                    if (googleMap!=null){
-//                        mMap = googleMap;
-//                    }
-//                    LatLng current_location = new LatLng(latitude, longtitude);
-//                    //      mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(old,10));
-//                    mMap.animateCamera(CameraUpdateFactory.zoomIn());
-//                    mMap.animateCamera(CameraUpdateFactory.zoomTo(5),2000,null);
-//                    CameraPosition cameraPosition = new CameraPosition.Builder()
-//                            .target(current_location)
-//                            .zoom(18)
-//                            .bearing(90)
-//                            .tilt(30)
-//                            .build();
-//                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//                    mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longtitude)));
-//                }
-//            });
         }
         return view;
     }
@@ -120,8 +97,6 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
                     Geocoder geocoder = new Geocoder(getActivity());
                     List<Address> addressList = null;
                     addressList = geocoder.getFromLocation(latitude, longtitude,1);
-//                    String country = addressList.get(0).getCountryName();
-//                    String city    = addressList.get(0).getLocality();
                     String road = addressList.get(0).getAddressLine(0);
 
                     tvAddress.setText( road );

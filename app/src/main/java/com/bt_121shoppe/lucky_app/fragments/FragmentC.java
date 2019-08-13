@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -43,7 +44,7 @@ public class FragmentC extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);
-        Get_Loan();
+        Get_Loan(container.getContext());
         return view;
         /*
         list = (ListView) view.findViewById(R.id.list);
@@ -95,8 +96,8 @@ public class FragmentC extends Fragment {
         recyclerloan.setAdapter(adapter);
     }
 
-    private void Get_Loan(){
-        String url ="http://103.205.26.103:8000/api/v1/loan/";
+    private void Get_Loan(Context cx){
+        String url =ConsumeAPI.BASE_URL+"api/v1/loan/";
         OkHttpClient client_loan = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -153,7 +154,7 @@ public class FragmentC extends Fragment {
                                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                                     String jsonCount=jsonObject.getString("count");
                                     item_loan.add(new Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount,discount_type,discount));
-                                    ad_list = new MyAdapter_list_grid_image(item_loan,"List");
+                                    ad_list = new MyAdapter_list_grid_image(item_loan,"List",cx);
                                     recyclerloan.setAdapter(ad_list);
                                 }catch (JSONException e){
                                     e.printStackTrace();

@@ -26,11 +26,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [FragmentC1]interface.
- */
 class Loan_history: Fragment() {
     val TAG = "SubLoanFragement"
     var post_id = 0
@@ -102,10 +97,6 @@ class Loan_history: Fragment() {
                 try {
                     activity!!.runOnUiThread {
                         val itemApi = ArrayList<LoanItemAPI>()
-                        //Log.d("Run GET Loan  :"," la"+jsonObject)
-
-//                        val detail:String=jsonObject.getString("detail").toString()
-//                        if(detail.isNullOrEmpty()) {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
                         if (jsonCount == 0 ){
@@ -116,11 +107,8 @@ class Loan_history: Fragment() {
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
-                            Log.d("Loan ID", "LaLa" + loanID)
                             post_id = `object`.getInt("post")
-                            //Log.d("Post id ",post_id.toString())
-
-                            val url_user = ConsumeAPI.BASE_URL + "detailposts/" +post_id+ "/"
+                            val url_user = ConsumeAPI.BASE_URL + "detailposts/" + post_id + "/"
                             Log.d("Post id ", url_user)
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
@@ -146,7 +134,7 @@ class Loan_history: Fragment() {
                                                 val id = jsonObject1.getInt("id")
                                                 val condition = jsonObject1.getString("condition")
                                                 val cost = jsonObject1.getDouble("cost")
-                                                val image = jsonObject1.getString("front_image_base64")
+                                                val image = jsonObject1.getString("front_image_path")
                                                 val img_user = jsonObject1.getString("right_image_base64")
                                                 val postType = jsonObject1.getString("post_type")
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -200,11 +188,6 @@ class Loan_history: Fragment() {
                                 }
                             })
                         }
-//                        }else{
-//                            progreessbar!!.visibility = View.GONE
-//                            txtno_found!!.visibility = View.VISIBLE
-//                            progreessbar!!.visibility = View.GONE
-//                        }
                     }
                 } catch (e: JsonParseException) {
                     e.printStackTrace() }

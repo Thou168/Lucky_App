@@ -54,7 +54,6 @@ public class ChatRentFragment extends Fragment implements SwipeRefreshLayout.OnR
     private TextView tvEmptyView;
     private DataAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-
     private List<Student> studentList;
     protected Handler handler;
     private String url;
@@ -130,6 +129,7 @@ public class ChatRentFragment extends Fragment implements SwipeRefreshLayout.OnR
         }
         else{
             try {
+                tvEmptyView.setVisibility(View.VISIBLE);
                 Log.d(TAG, "RUN URL" + url);
                 String response = CommonFunction.doGetRequest(url);
                 try {
@@ -157,6 +157,7 @@ public class ChatRentFragment extends Fragment implements SwipeRefreshLayout.OnR
                     ej.printStackTrace();
                 }
                 Log.d(TAG, "AFTER RUN URL" + url);
+                tvEmptyView.setVisibility(View.GONE);
             } catch (IOException eo) {
                 eo.printStackTrace();
             }

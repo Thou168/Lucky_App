@@ -21,6 +21,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.Startup.Unlike_api
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
+import com.bumptech.glide.Glide
 import okhttp3.*
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -51,8 +52,6 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(itemList[position])
-
-
     }
 
     override fun getItemCount(): Int {
@@ -68,19 +67,9 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
         val show_view=itemView.findViewById<TextView>(R.id.user_view)
         val unlike = itemView.findViewById<ImageButton>(R.id.imgbtn_unlike)
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
-        //        var id:Int=0
-
-
 
         fun bindItems(item: Unlike_api) {
-//            imageView.setImageResource(item.image)
-
-            val options = BitmapFactory.Options()
-            options.inSampleSize = 8
-            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            imageView.setImageBitmap(decodedByte)
-//            Log.d("String = ",)
+            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             location_duration.text=item.location_duration
@@ -103,24 +92,15 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
                     post_type.setImageResource(R.drawable.rent_kh)
             }
 
-
             Log.d("Like by id", item.like_id.toString())
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
-//                intent.putExtra("Image",decodedByte)
-//                intent.putExtra("Image_user",decodedByte)
-//                intent.putExtra("Title",item.title)
                 intent.putExtra("Price",item.cost)
-//                intent.putExtra("Name",item.name)
-                //intent.putExtra("postt",1)
                 intent.putExtra("ID",item.id)
-                Log.d("ID  :",item.id.toString())
                 itemView.context.startActivity(intent)
             }
-            // Glide.with(itemView.context).load(version.url).into(imageView)
 
             unlike.setOnClickListener {
- //               Toast.makeText(it.context,"like:"+item.like_id,Toast.LENGTH_SHORT).show()
                 lateinit var sharedPref: SharedPreferences
                 var name=""
                 var pass=""
@@ -131,11 +111,8 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
                 if (sharedPref.contains("token") || sharedPref.contains("id")){
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")
-
                     Encode ="Basic "+ CommonFunction.getEncodedString(name,pass)
-
                 }
-   //             Toast.makeText(it.context,"Unlike: "+item.title, Toast.LENGTH_SHORT).show()
 
                 val builder = AlertDialog.Builder(it.context)
                 builder.setTitle(R.string.title_unlike)
@@ -150,7 +127,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
                             val data = JSONObject()
                             try{
                                 data.put("record_status",2)
-                            }catch (e:Exception){
+                            }catch (e:IOException){
                                 e.printStackTrace()
                             }
 

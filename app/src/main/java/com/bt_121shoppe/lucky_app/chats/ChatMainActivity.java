@@ -183,9 +183,9 @@ public class ChatMainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addFragment(new ChatAllFragment(),getString(R.string.all_text));
-        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.buy));
-        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.sell));
-        viewPagerAdapter.addFragment(new ChatRentFragment(),getString(R.string.rent));
+//        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.buy));
+//        viewPagerAdapter.addFragment(new ChatSellFragment(),getString(R.string.sell));
+//        viewPagerAdapter.addFragment(new ChatRentFragment(),getString(R.string.rent));
 
         //viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
         //viewPagerAdapter.addFragment(new UsersFragment(),"Users");
@@ -262,6 +262,7 @@ public class ChatMainActivity extends AppCompatActivity {
                 .header("Content-Type","application/json")
                 .header("Authorization",encodeAuth)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {

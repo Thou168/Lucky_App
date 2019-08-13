@@ -26,11 +26,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [FragmentC1]interface.
- */
 class FragmentC1: Fragment() {
     val TAG = "SubLoanFragement"
     var post_id = 0
@@ -57,9 +52,6 @@ class FragmentC1: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment, container, false)
 
-//        val tvphone = ACTIVITY.intent.getStringExtra("Phone")
-//        val phone = view.findViewById<TextView>(R.id.phone)
-//        phone.text = tvphone
         recyclerView = view.findViewById(R.id.recycler_view)
         progreessbar = view.findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
@@ -103,12 +95,8 @@ class FragmentC1: Fragment() {
                 val mMessage = response.body()!!.string()
                 Log.d(TAG,"Laon "+mMessage)
                 val jsonObject = JSONObject(mMessage)
-
                 try {
-
                     activity!!.runOnUiThread {
-                        //                        val itemApi = ArrayList<LoanItemAPI>()
-                        //Log.d("Run GET Loan  :"," la" + jsonObject)
 
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount= jsonObject.getInt("count")
@@ -122,12 +110,8 @@ class FragmentC1: Fragment() {
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
-                            //Log.d("Loan ID" , loanID.toString())
                             post_id = `object`.getInt("post")
-                            //Log.d("Post id ",post_id.toString())
                             val url_user = ConsumeAPI.BASE_URL+"detailposts/"+post_id+"/"
-                            Log.d("Post id ",url_user)
-
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
                                     .url(url_user)
@@ -151,7 +135,7 @@ class FragmentC1: Fragment() {
                                                 val id = jsonObject1.getInt("id")
                                                 val condition = jsonObject1.getString("condition")
                                                 val cost = jsonObject1.getDouble("cost")
-                                                val image = jsonObject1.getString("front_image_base64")
+                                                val image = jsonObject1.getString("front_image_path")
                                                 val img_user = jsonObject1.getString("right_image_base64")
                                                 val postType = jsonObject1.getString("post_type")
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -197,8 +181,6 @@ class FragmentC1: Fragment() {
                                                     }
                                                 })
                                             }
-                                            //  itemApi.add(Item_API(id,img_user,image,title,cost,condition,ago.toString(),0))
-
                                         }
 
                                     } catch (e: JsonParseException) {

@@ -38,7 +38,6 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
             return ViewHolder(layout)
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -61,12 +60,9 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItems(item: LoanItemAPI) {
-//            imageView.setImageResource(item.image)
-
             val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)
-//            Log.d("String = ",)
             title.text = item.title
             cost.text = item.cost.toString()
             view.text =item.count_view
@@ -88,15 +84,6 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
             }
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-//                val intent = Intent(itemView.context, Detail_New_Post::class.java)
-////                intent.putExtra("Image",decodedByte)
-////                intent.putExtra("Image_user",decodedByte)
-////                intent.putExtra("Title",item.title)
-//                  intent.putExtra("Price",item.cost)
-////                intent.putExtra("postt",1)
-//////                intent.putExtra("Name",item.name)
-//                  intent.putExtra("ID",item.id)
-//                itemView.context.startActivity(intent)
                 val intent = Intent(itemView.context, LoanCreateActivity::class.java)
                 intent.putExtra("id",item.loanId)
                 intent.putExtra("post",item.id)

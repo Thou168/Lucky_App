@@ -53,7 +53,6 @@ public class MainLoanList extends Fragment {
         NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
         FragmentC1 n1 = new FragmentC1();
         Loan_history n2 = new Loan_history();
-//        LoansList n2 = new LoansList();
 
         adp.addFrag(n1, getString(R.string.active));
         adp.addFrag(n2, getString(R.string.history));

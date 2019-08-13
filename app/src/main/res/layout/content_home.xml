@@ -5,136 +5,147 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/refresh"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.Home"
     tools:showIn="@layout/app_bar_home">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <androidx.core.widget.NestedScrollView
-        android:layout_above="@+id/bnaviga"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.custom.sliderimage.logic.SliderImage
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="160dp">
-            </com.custom.sliderimage.logic.SliderImage>
-            <include layout="@layout/sell_buy_rent"/>
-            <TextView
-                android:gravity="center|left"
-                android:background="#80D3D3D3"
-                android:text="@string/product_discount"
-                android:textSize="@dimen/dp_16"
-                android:paddingStart="@dimen/dp_16"
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="220dp">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-                <ProgressBar
-                    android:visibility="gone"
-                    android:layout_marginTop="80dp"
-                    android:id="@+id/progress_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                </ProgressBar>
-                <TextView
-                    android:visibility="gone"
-                    android:layout_marginTop="80dp"
-                    android:id="@+id/text"
-                    android:text="No Result"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:background="@color/colorLightGray"
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-                <TextView
-                    android:gravity="center"
-                    android:paddingStart="@dimen/dp_16"
-                    android:textSize="@dimen/dp_16"
-                    android:text="@string/new_post"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <ImageView
-                    android:layout_centerInParent="true"
-                    android:id="@+id/btn_image"
-                    android:src="@drawable/icon_image"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toStartOf="@+id/grid" />
-                <ImageView
-                    android:layout_centerInParent="true"
-                    android:id="@+id/img_list"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/icon_list_c"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp" />
-                <ImageView
-                    android:layout_centerInParent="true"
-                    android:id="@+id/grid"
-                    android:layout_marginEnd="10dp"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_toStartOf="@+id/img_list"
-                    android:src="@drawable/icon_grid" />
-            </RelativeLayout>
 
-            <RelativeLayout
+        <androidx.core.widget.NestedScrollView
+            android:layout_above="@+id/bnaviga"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_new_post"
+                <com.custom.sliderimage.logic.SliderImage
+                    android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-                <ProgressBar
-                    android:layout_marginTop="50dp"
-                    android:id="@+id/progress_bar1"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                </ProgressBar>
-
+                    android:layout_height="200dp">
+                </com.custom.sliderimage.logic.SliderImage>
+                <include layout="@layout/sell_buy_rent"/>
                 <TextView
-                    android:visibility="gone"
-                    android:layout_marginTop="80dp"
-                    android:id="@+id/text1"
-                    android:text="@string/no_result"
-                    android:gravity="center"
+                    android:gravity="center|left"
+                    android:background="#80D3D3D3"
+                    android:text="@string/product_discount"
+                    android:textSize="@dimen/dp_16"
+                    android:paddingStart="@dimen/dp_16"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                    android:layout_height="30dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:id="@+id/horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:layout_marginTop="80dp"
+                        android:id="@+id/progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+                    </ProgressBar>
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginTop="80dp"
+                        android:id="@+id/text"
+                        android:text="No Result"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:background="@color/colorLightGray"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:gravity="center"
+                        android:paddingStart="@dimen/dp_16"
+                        android:textSize="@dimen/dp_16"
+                        android:text="@string/new_post"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/btn_image"
+                        android:src="@drawable/icon_image"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/grid" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_list"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/icon_list_c"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/grid"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_toStartOf="@+id/img_list"
+                        android:src="@drawable/icon_grid" />
+                </RelativeLayout>
 
-                <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-                    <!--android:id="@+id/swipeRefresh"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent">-->
-                    <!---->
-                <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:id="@+id/list_new_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="MissingConstraints" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bnaviga"
-        app:menu="@menu/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/list_new_post"
+                        android:padding="@dimen/dp_8dp"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:text="@string/load_more_text"
+                        tools:ignore="MissingConstraints" />
+
+                    <ProgressBar
+                        android:layout_marginTop="50dp"
+                        android:id="@+id/progress_bar1"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="50dp"
+                        tools:ignore="MissingConstraints">
+                    </ProgressBar>
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginTop="80dp"
+                        android:id="@+id/text1"
+                        android:text="@string/no_result"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bnaviga"
+            app:menu="@menu/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
     </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

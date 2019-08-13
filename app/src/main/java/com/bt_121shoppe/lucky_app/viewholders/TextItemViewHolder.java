@@ -1,4 +1,4 @@
-package com.bt_121shoppe.lucky_app.holders;
+package com.bt_121shoppe.lucky_app.viewholders;
 
 import android.view.View;
 import android.widget.TextView;

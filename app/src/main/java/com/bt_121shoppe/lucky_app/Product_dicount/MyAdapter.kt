@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.lucky_app.Activity.Item_discount
 import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post
 import com.bt_121shoppe.lucky_app.R
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
@@ -65,44 +66,32 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
             val mst = StrikethroughSpan()
             ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             discount.text = ms
-
-//            textView.text = item.name
-//            imageView.setImageResource(item.image)
-//            img_user.setImageResource(item.img_user)
              title.text = item.title
              cost.text = "$"+ price.toString()
              location.text = item.time
-//             count_view.text ="View:"+item.countview
             count_view.text =item.countview
 
-            val decodedString = Base64.decode(item.image, Base64.DEFAULT)
+//            val decodedString = Base64.decode(item.image, Base64.DEFAULT)
+//
+//            if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
+//                //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
+//                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+//                imageView.setImageBitmap(decodedByte)
+//            }else {
+//
+//                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+//                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
+//            }
 
-            if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
-                //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
-                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                imageView.setImageBitmap(decodedByte)
-            }else {
+            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
 
-                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
-            }
-            itemView.findViewById<LinearLayout>(R.id.user).setOnClickListener {
-//                val intent = Intent(imageView.context,User_post::class.java)
-//                intent.putExtra("Image_user",item.img_user)
-//                intent.putExtra("ID",item.id)
-//                imageView.context.startActivity(intent)
-            }
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
-//                intent.putExtra("Image",decodedByte)
-//                intent.putExtra("Image_user",decodedByte)
                 intent.putExtra("Discount",price)
                 intent.putExtra("Price",item.cost)
-////                intent.putExtra("Name",item.name)
                 intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)
             }
-           // Glide.with(itemView.context).load(version.url).into(imageView)
         }
     }
 }

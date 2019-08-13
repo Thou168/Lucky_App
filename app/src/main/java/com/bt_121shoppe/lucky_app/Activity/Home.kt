@@ -49,7 +49,11 @@ import com.bt_121shoppe.lucky_app.Setting.Setting
 import com.bt_121shoppe.lucky_app.Setting.TermPrivacyActivity
 import com.bt_121shoppe.lucky_app.Startup.Item
 import com.bt_121shoppe.lucky_app.Startup.Search1
+import com.bt_121shoppe.lucky_app.adapters.PostDataAdapter
 import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
+import com.bt_121shoppe.lucky_app.interfaces.OnLoadMoreListener
+import com.bt_121shoppe.lucky_app.models.PostProduct
+import com.bt_121shoppe.lucky_app.models.Student
 import com.bt_121shoppe.lucky_app.utils.CheckNetwork
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
 import com.bumptech.glide.Glide
@@ -70,6 +74,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import net.hockeyapp.android.CrashManager
 
 import okhttp3.*
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -97,13 +102,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var categoryId:String=""
     private var brandId:String=""
     private var yearId:String=""
+    private var allpostUrl=""
 
     internal lateinit var locationManager: LocationManager
     private val REQUEST_LOCATION = 1
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
-    //    internal lateinit var ddBrand:Button
+//    internal lateinit var ddBrand:Button
     internal lateinit var listItems1: Array<String?>
     internal lateinit var categoryIdItems: Array<Int?>
     internal lateinit var brandListItems: Array<String?>
@@ -118,6 +124,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     lateinit var mHandler: Handler
+    private var allPostsList: MutableList<PostProduct>? = null
+    private var itemCount = 0
+    private var mAdapter: PostDataAdapter? = null
+    private var tvEmptyView: TextView?=null
 
     fun language(lang: String) {
         val locale = Locale(lang)
@@ -163,6 +173,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         txtno_found1 =findViewById(R.id.text1)
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
+        tvEmptyView=findViewById(R.id.text1)
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -322,56 +333,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
 
         Get()
-
-//        val ddCategory:Button=findViewById(R.id.sp_category)
-//        ddBrand=findViewById(R.id.sp_brand)
-//        val ddYear:Button=findViewById(R.id.sp_year)
-//
-//        initialCategoryDropdown()
-//        initialBrandDropdownList()
-//        initialYearDropdownList()
-//
-//        ddCategory.setOnClickListener(View.OnClickListener {
-//            val mBuilder = AlertDialog.Builder(this@Home)
-//            mBuilder.setTitle(R.string.choose_category)
-//            mBuilder.setSingleChoiceItems(listItems1, -1, DialogInterface.OnClickListener { dialogInterface, i ->
-//                ddCategory.setText(listItems1!!.get(i))
-//                categoryId= categoryIdItems.get(i).toString()
-//                //Toast.makeText(this@Home, categoryIdItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
-//                initialBrandDropdownList()
-//                dialogInterface.dismiss()
-//            })
-//
-//            val mDialog = mBuilder.create()
-//            mDialog.show()
-//        })
-//
-//        ddBrand.setOnClickListener(View.OnClickListener {
-//            val mBuilder = AlertDialog.Builder(this@Home)
-//            mBuilder.setTitle(R.string.choose_brand)
-//            mBuilder.setSingleChoiceItems(brandListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
-//                ddBrand.setText(brandListItems!!.get(i))
-//                brandId = brandIdListItems!!.get(i).toString()
-//                //Toast.makeText(this@Home, brandIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
-//                dialogInterface.dismiss()
-//            })
-//            val mDialog = mBuilder.create()
-//            mDialog.show()
-//        })
-//
-//        ddYear.setOnClickListener(View.OnClickListener {
-//            val mBuilder = AlertDialog.Builder(this@Home)
-//            mBuilder.setTitle(R.string.choose_year)
-//            mBuilder.setSingleChoiceItems(yearListItems, -1, DialogInterface.OnClickListener { dialogInterface, i ->
-//                ddYear.setText(yearListItems!!.get(i))
-//                yearId=yearIdListItems!!.get(i).toString()
-//                //Toast.makeText(this@Home, yearIdListItems!!.get(i).toString(), Toast.LENGTH_LONG).show()
-//                dialogInterface.dismiss()
-//            })
-//
-//            val mDialog = mBuilder.create()
-//            mDialog.show()
-//        })
 
         val search = findViewById<EditText>(R.id.search)
         search.setOnClickListener{
@@ -641,39 +602,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                             }
                         })
-
-                        /*
-                        if(user1.profile!=null) {
-                            val profilepicture: String = if (user1.profile.profile_photo == null) "" else user1.profile.base64_profile_image
-                            val coverpicture: String = if (user1.profile.cover_photo == null) "" else user1.profile.base64_cover_photo_image
-                            //tvUsername!!.setText(user1.username)
-                            //Glide.with(this@Account).load(profilepicture).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
-                            //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
-                            if (profilepicture.isNullOrEmpty()) {
-                                imageView!!.setImageResource(R.drawable.user)
-                            } else {
-                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                                //var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                val imageView = findViewById<CircleImageView>(R.id.imageView)
-                                //imageView!!.setImageBitmap(decodedByte)
-                                if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
-                                    //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
-                                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                    imageView.setImageBitmap(decodedByte)
-                                }else {
-                                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                    imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
-                                }
-                            }
-                            if (coverpicture == null) {
-                            } else {
-                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
-                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                val cover_layout = findViewById<LinearLayout>(R.id.cover_layout)
-                                //imgCover!!.setImageBitmap(decodedByte)
-                            }
-                        }
-                        */
                     }
 
                 } catch (e: JsonParseException) {
@@ -716,12 +644,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val postType = `object`.getString("post_type")
                         val discount_type = `object`.getString("discount_type")
                         val discount = `object`.getDouble("discount")
-
+                        val frontImage=`object`.getString("front_image_path")
+                        val frontImagePath=CommonFunction.getFrontImageURL(frontImage)
                         var location_duration=""
                         //var count_view=countPostView(Encode,id)
                         //var time:Long=0
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+//                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+//                        sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
                         /*
                         if(`object`.getString("approved_date")==null)
                             time=sdf.parse(`object`.getString("created")).getTime()
@@ -771,31 +702,35 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found1!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
-                                            recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                            //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                            itemApi.add(Item_API(id,img_user,frontImagePath,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                            recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List",this@Home)
                                             //List Grid and Image
                                             list = findViewById(R.id.img_list)
                                             list!!.setOnClickListener {
                                                 list!!.setImageResource(R.drawable.icon_list_c)
                                                 image_list!!.setImageResource(R.drawable.icon_image)
                                                 grid!!.setImageResource(R.drawable.icon_grid)
-                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                                //recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List",this@Home)
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
                                             }
                                             grid = findViewById(R.id.grid)
                                             grid!!.setOnClickListener {
+                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Home)
                                                 grid!!.setImageResource(R.drawable.icon_grid_c)
                                                 image_list!!.setImageResource(R.drawable.icon_image)
                                                 list!!.setImageResource(R.drawable.icon_list)
-                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
+                                                //recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
                                             }
                                             image_list = findViewById(R.id.btn_image)
                                             image_list!!.setOnClickListener {
+                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image",this@Home)
                                                 image_list!!.setImageResource(R.drawable.icon_image_c)
                                                 grid!!.setImageResource(R.drawable.icon_grid)
                                                 list!!.setImageResource(R.drawable.icon_list)
-                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image")
+                                                //recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image")
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
                                             }
                                         } catch (e: JsonParseException) {
@@ -816,7 +751,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
         return itemApi
     }
-
     private fun getBest(): ArrayList<Item_discount>{
         val itemApi = ArrayList<Item_discount>()
         val url = ConsumeAPI.BASE_URL+"bestdeal/"
@@ -853,7 +787,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
                         val discount_type = `object`.getString("discount_type")
-
+                        val frontImagePart=`object`.getString("front_image_path")
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -903,7 +837,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,agoap.toString(),cc.toString(),discount_type))
+                                            itemApi.add(Item_discount(id,img_user,frontImagePart,title,cost,discount,condition,postType,agoap.toString(),cc.toString(),discount_type))
 
                                             best_list!!.adapter = MyAdapter(itemApi)
                                             //List Grid and Image

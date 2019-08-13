@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,6 +87,7 @@ public class PostDataAdapter extends RecyclerView.Adapter {
         if(holder instanceof PostProductViewHolder){
             PostProduct singlePost=(PostProduct) postProductList.get(position);
             Glide.with(mRecyclerView.getContext()).load("https://media.kmall24.com/media/catalog/product/cache/12/image/9df78eab33525d08d6e5fb8d27136e95/0/_/0_1e5v5bvgemjckn9g.jpg").into(((PostProductViewHolder)holder).postImage);
+
             ((PostProductViewHolder)holder).postProduct=singlePost;
         }
         else{

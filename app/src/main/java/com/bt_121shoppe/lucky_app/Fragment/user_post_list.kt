@@ -24,11 +24,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [user_post_list]interface.
- */
 class user_post_list: Passdata() {
     var user_id:Int=0
     var username:String=""
@@ -39,18 +34,7 @@ class user_post_list: Passdata() {
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.user_post_list, container, false)
-
         recyclrview = view.findViewById(R.id.recyclerView)
-
-//        val id = ACTIVITY.intent.getIntExtra("ID",0)
-//        Log.d("ID in User_Post",id.toString())
-//
-//        val item = ArrayList<Item>()
-//        item.clear()
-//        item.addAll(Item.getUser_Post(id))
-//
-//        recyclrview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-//        recyclrview.adapter = MyAdapter_list(item,null)
 
         var bundle :Bundle ?= activity!!.intent.extras
         user_id = activity!!.intent.getStringExtra("ID").toInt()
@@ -59,10 +43,10 @@ class user_post_list: Passdata() {
         password = sharedPref.getString("pass", "")
         encode = "Basic "+com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString(username,password)
 
-        getUserPosts()
+        getUserPosts(container!!.context)
         return view
     }
-    fun getUserPosts(){
+    fun getUserPosts(context1:Context){
         val itemApi = ArrayList<Item_API>()
         var posts= PostViewModel()
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuserfilter/?created_by="+user_id+"&approved_by=&rejected_by=&modified_by="
@@ -97,12 +81,9 @@ class user_post_list: Passdata() {
                                 val id = obj.getInt("id")
                                 val condition = obj.getString("condition")
                                 val cost = obj.getDouble("cost")
-                                val image = obj.getString("front_image_base64")
+                                val image = obj.getString("front_image_path")
                                 val img_user = obj.getString("right_image_base64")
                                 val postType = obj.getString("post_type")
-
-                                //var count_view=countPostView(encodeAuth,id)
-
                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                                 val time:Long = sdf.parse(obj.getString("created")).getTime()
@@ -131,12 +112,11 @@ class user_post_list: Passdata() {
                                         val mMessage = response.body()!!.string()
                                         val gson = Gson()
                                         try {
-                                            Log.d("FRAGMENT 1",mMessage)
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             activity!!.runOnUiThread {
                                                 itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
-                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
+                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
                                             }
 

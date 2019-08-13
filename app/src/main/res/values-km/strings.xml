@@ -486,6 +486,9 @@
     <string name="divorced">លែងលះ</string>
     <string name="widowed">មេម៉ាយ</string>
     <string name="user_type">ប្រភេទអ្នកប្រើប្រាស់</string>
+
+    <string name="load_more_text">មើលបន្ថែមទៀត</string>
+
     //filter
     <string name="result">លទ្ធផល</string>
     <string name="filter">ច្រោះ</string>

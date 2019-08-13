@@ -474,7 +474,6 @@
     <string name="type_message">Type a message...</string>
     <string name="username">Username</string>
     <string name="renew">Renew</string>
-
     //filter
     <string name="choose_type">Choose Type</string>
     <string name="choose_model">Choose Model</string>
@@ -587,6 +586,7 @@
     <string name="divorced">Divorced</string>
     <string name="widowed">Widowed</string>
     <string name="user_type">User Type</string>
+    <string name="load_more_text">View more</string>
     //filter
     <string name="result">Result</string>
     <string name="filter">Filter</string>

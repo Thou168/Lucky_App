@@ -30,6 +30,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.api.TabA1_api
 import com.bt_121shoppe.lucky_app.fragments.FragmentC1
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
+import com.bumptech.glide.Glide
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -59,7 +60,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
         }
 
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(itemList[position])
     }
@@ -68,8 +68,8 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
         return itemList.size
     }
 
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val post_type = itemView.findViewById<ImageView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
@@ -82,25 +82,18 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
 
         fun bindItems(item: TabA1_api) {
-//            imageView.setImageResource(item.image)
-
-            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            imageView.setImageBitmap(decodedByte)
-//            Log.d("String = ",)
+            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             title.text = item.title
             cost.text = "$" + item.cost.toString()
             time.text = item.location_duration
             count_view.text = "" + item.count_view
 
             var lang: String = tv_user_view.text as String
-            Log.d("Hello123", lang)
             if (lang == "View:") {
                 if (item.postType.equals("sell")) {
                     post_type.setImageResource(R.drawable.sell)
                 } else if (item.postType.equals("buy")) {
                     post_type.setImageResource(R.drawable.buy)
-                    Log.d("SATUS::::",item.id.toString() + ","+ item.status_id.toString())
                 } else
                     post_type.setImageResource(R.drawable.rent)
             } else {
@@ -114,25 +107,18 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
-//                intent.putExtra("Image",decodedByte)
-//                intent.putExtra("Image_user",decodedByte)
-//                intent.putExtra("Title",item.title)
                 intent.putExtra("Price", item.cost)
                 intent.putExtra("postt", 1)
-////                intent.putExtra("Name",item.name)
                 intent.putExtra("ID", item.id)
                 itemView.context.startActivity(intent)
             }
 
             btn_edit.setOnClickListener {
-//                Toast.makeText(it.context, "Edit " + item.title, Toast.LENGTH_SHORT).show()
                 val intent = Intent(itemView.context, Camera::class.java)
                 intent.putExtra("id_product", item.id)
-
                 itemView.context.startActivity(intent)
             }
             btn_delete.setOnClickListener {
-                //Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
                 lateinit var sharedPref: SharedPreferences
                 var name = ""
                 var pass = ""
@@ -152,8 +138,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                         pk = sharedPref.getInt("id", 0)
                     }
                 }
-                //Log.d("Delete Post",name+" "+pass+" "+Encode)
-                //Toast.makeText(it.context,"Click Newal",Toast.LENGTH_SHORT).show()
 
                 val items = arrayOf<CharSequence>("This product has been sold", "Suspend this ads", "Delete to post new ads", "Cancel")
                 val builder = AlertDialog.Builder(it.context)
@@ -201,15 +185,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                 Log.d("Response Renewal", message)
                                 val intent = Intent(it.context, Account::class.java)
                                 it.context.startActivity(intent)
-                                /*
-                                runOnUiThread {
-                                    //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
-
-                                    Log.d("Response Renewal", message)
-                                    //startActivity(Intent(applicationContext, Account::class.java))
-                                }
-                                */
-                                //finish();
                             }
                         })
                     }
@@ -274,7 +249,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                         */
             }
 
-
             if (item.status_id == "3"){
 
                 btn_renewal.setCompoundDrawablesWithIntrinsicBounds( null, null, null, null );
@@ -284,8 +258,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
 
             }
             if(item.status_id == "4"){
-
-
                 btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.refresh,0,0,0)
                 btn_renewal.setTextColor(Color.parseColor("#0A0909"))
                  btn_renewal.setText(R.string.renew)
@@ -294,7 +266,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                     lateinit var sharedPref: SharedPreferences
                     var name = ""
                     var pass = ""
-                    var Encode = ""       //pw and user combind to 1 String
+                    var Encode = ""
                     var pk = 0
 
                     sharedPref = it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -308,20 +280,16 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                             pk = sharedPref.getInt("id", 0)
                         }
                     }
-                    //Log.d("Delete Post",name+" "+pass+" "+Encode)
-                    //Toast.makeText(it.context,"Click Newal",Toast.LENGTH_SHORT).show()
                     AlertDialog.Builder(it.context)
                             .setTitle("Post Renewal")
                             .setMessage("Do you want to renew this post?")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
-                                //Toast.makeText(it.context, "Yaay", Toast.LENGTH_SHORT).show()
                                 val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
                                 val media = MediaType.parse("application/json")
                                 val client = OkHttpClient()
                                 val data = JSONObject()
                                 try {
-                                    //data.put("id",60)
                                     data.put("status", 1)
                                     //ata.put("description","Test")
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -355,23 +323,12 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                         Log.d("Response Renewal", message)
                                         val intent = Intent(it.context, Account::class.java)
                                         it.context.startActivity(intent)
-                                        /*
-                                        runOnUiThread {
-                                            //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
-
-                                            Log.d("Response Renewal", message)
-                                            //startActivity(Intent(applicationContext, Account::class.java))
-                                        }
-                                        */
-                                        //finish();
                                     }
                                 })
                             })
                             .setNegativeButton(android.R.string.no, null).show()
                 }
             } //status id
-
-
         }
 
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
@@ -410,4 +367,3 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
     }
 
 }
-//
