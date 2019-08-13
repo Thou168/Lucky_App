@@ -46,10 +46,10 @@
 
             <ImageView
                 android:id="@+id/post_type"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/buy"
-                android:layout_height="20dp"
+                android:layout_height="18dp"
                 android:layout_above="@+id/user_view"
                 android:layout_alignEnd="@+id/user_view" />
 
