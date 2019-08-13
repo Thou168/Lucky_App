@@ -199,47 +199,44 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
 
-         bnavigation = findViewById(R.id.bnaviga);
+        bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(2).setChecked(true);
-        bnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.home:
-                        Intent intent = new Intent(getApplicationContext(),Home.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.notification:
-                        if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Notification.class));
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
-                        }
-                        break;
-                    case R.id.camera:
-                        if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Camera.class));
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
-                        }
-                        break;
-                    case R.id.message:
-                        if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
-                        }
-                        break;
-                    case R.id.account :
-                        if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Account.class));
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
-                        }
-                        break;
-                }
-                return false;
+        bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()){
+                case R.id.home:
+                    Intent intent = new Intent(getApplicationContext(),Home.class);
+                    startActivity(intent);
+                    break;
+                case R.id.notification:
+                    if (prefer.contains("token")||prefer.contains("id")) {
+                        startActivity(new Intent(getApplicationContext(), Notification.class));
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                    }
+                    break;
+                case R.id.camera:
+                    if (prefer.contains("token")||prefer.contains("id")) {
+                        startActivity(new Intent(getApplicationContext(), Camera.class));
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                    }
+                    break;
+                case R.id.message:
+                    if (prefer.contains("token")||prefer.contains("id")) {
+                        startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                    }
+                    break;
+                case R.id.account :
+                    if (prefer.contains("token")||prefer.contains("id")) {
+                        startActivity(new Intent(getApplicationContext(), Account.class));
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                    }
+                    break;
             }
+            return false;
         });
 
         Toolbar toolbar=findViewById(R.id.toolbar);

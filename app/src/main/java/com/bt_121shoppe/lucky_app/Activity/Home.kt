@@ -221,6 +221,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
         val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        bnavigation.menu.getItem(0).isChecked = true
         bnavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -629,7 +630,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     drawer_username.setText(ffuser!!.username)
                                 else
                                     drawer_username.setText(user1.first_name)
-
                                 if (ffuser!!.imageURL == "default") {
                                     imageView.setImageResource(R.drawable.user)
                                 } else {

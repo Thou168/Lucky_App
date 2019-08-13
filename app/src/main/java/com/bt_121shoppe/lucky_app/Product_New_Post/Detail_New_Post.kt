@@ -217,7 +217,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         img_user = findViewById<CircleImageView>(R.id.cr_img)
         user_telephone=findViewById<TextView>(R.id.tv_phone)
         user_email=findViewById<TextView>(R.id.tv_email)
-        tv_count_view=findViewById<TextView>(R.id.count_view)
+        tv_count_view=findViewById(R.id.view)
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
         address_detial = findViewById<TextView>(R.id.address)
 

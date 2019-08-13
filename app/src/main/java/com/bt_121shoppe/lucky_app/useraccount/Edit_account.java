@@ -274,8 +274,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     });
                 }
-
-
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
@@ -871,7 +869,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             type_userListItem[c]=group;
                             type_userid[c]=id;
                             c++;
-
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
