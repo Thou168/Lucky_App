@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
 import com.bt_121shoppe.lucky_app.Api.api.TabA1_api

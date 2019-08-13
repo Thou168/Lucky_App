@@ -217,7 +217,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         img_user = findViewById<CircleImageView>(R.id.cr_img)
         user_telephone=findViewById<TextView>(R.id.tv_phone)
         user_email=findViewById<TextView>(R.id.tv_email)
-        tv_count_view=findViewById<TextView>(R.id.view)
+        tv_count_view=findViewById<TextView>(R.id.count_view)
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
         address_detial = findViewById<TextView>(R.id.address)
 
@@ -330,7 +330,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     }  // oncreate
     fun dialContactPhone(phoneNumber:String) {
-    startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
+        startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
     }
     fun sms(phoneNumber:String) {
 //        startActivity( Intent(Intent.ACTION_SEND, Uri.fromParts("tel", phoneNumber, null)))
@@ -499,7 +499,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
-                        tvPrice1.setText("$ "+ postDetail.cost)
+                        edLoanPrice.setText(""+discount)
+                        tvPrice1.setText("$ "+ postDetail.cost.toString())
                         if (discount == 0.0){
                             tvDiscount.visibility = View.GONE
                             tvPrice.visibility = View.GONE
@@ -526,8 +527,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         }else{
                             val splitAddr = addr.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                             latitude = java.lang.Double.valueOf(splitAddr[0])
-                             longtitude = java.lang.Double.valueOf(splitAddr[1])
+                            latitude = java.lang.Double.valueOf(splitAddr[0])
+                            longtitude = java.lang.Double.valueOf(splitAddr[1])
 
                             get_location(latitude, longtitude)
                             val mapFragment = supportFragmentManager
@@ -636,41 +637,41 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
 
-                            val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
-                            if(profilepicture.isNullOrEmpty()){
-                                img_user.setImageResource(R.drawable.user)
-                            }else {
-                                val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                img_user.setImageBitmap(decodedByte)
-                            }
+                        val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
+                        if(profilepicture.isNullOrEmpty()){
+                            img_user.setImageResource(R.drawable.user)
+                        }else {
+                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                            img_user.setImageBitmap(decodedByte)
+                        }
 
-                            if(user1.profile.first_name==null)
-                                postUsername=user1.username
-                            else
-                                postUsername=user1.profile.first_name
-                            postUserId=user1.username
+                        if(user1.profile.first_name==null)
+                            postUsername=user1.username
+                        else
+                            postUsername=user1.profile.first_name
+                        postUserId=user1.username
 
-                            if(user1.getFirst_name().isEmpty()){
-                                user_name!!.setText(user1.getUsername())
-                            }else{
-                                user_name!!.setText(user1.getFirst_name())
-                            }
+                        if(user1.getFirst_name().isEmpty()){
+                            user_name!!.setText(user1.getUsername())
+                        }else{
+                            user_name!!.setText(user1.getFirst_name())
+                        }
 
-                            user_telephone.setText(user1.profile.telephone)
-                            user_email.setText(user1.email)
-                            findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-                                //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
-                                val intent = Intent(this@Detail_New_Post, User_post::class.java)
-                                intent.putExtra("ID",user1.id.toString())
-                                intent.putExtra("Phone",user1.profile.telephone)
-                                intent.putExtra("Email",user1.profile.email)
-                                intent.putExtra("map",user1.profile.address)
-                                //intent.putExtra("Phone",phone.text)
-                                intent.putExtra("Username",user1.username)
-                                intent.putExtra("Name",user1.first_name)
-                                startActivity(intent)
-                            }
+                        user_telephone.setText(user1.profile.telephone)
+                        user_email.setText(user1.email)
+                        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+                            //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
+                            val intent = Intent(this@Detail_New_Post, User_post::class.java)
+                            intent.putExtra("ID",user1.id.toString())
+                            intent.putExtra("Phone",user1.profile.telephone)
+                            intent.putExtra("Email",user1.profile.email)
+                            intent.putExtra("map",user1.profile.address)
+                            //intent.putExtra("Phone",phone.text)
+                            intent.putExtra("Username",user1.username)
+                            intent.putExtra("Name",user1.first_name)
+                            startActivity(intent)
+                        }
 
                     }
 
@@ -699,18 +700,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 var response = response.body()!!.string()
                 Log.d("Response",response)
 
-                    try {
-                        val jsonObject = JSONObject(response)
-                        val count = jsonObject.getInt("count")
-                       if(count==0) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    val count = jsonObject.getInt("count")
+                    if(count==0) {
 
-                            var url = ConsumeAPI.BASE_URL + "like/"
-                            val MEDIA_TYPE = MediaType.parse("application/json")
-                            val post = JSONObject()
-                            try {
-                                post.put("post", p)
-                                post.put("like_by", pk)
-                                post.put("record_status", 1)
+                        var url = ConsumeAPI.BASE_URL + "like/"
+                        val MEDIA_TYPE = MediaType.parse("application/json")
+                        val post = JSONObject()
+                        try {
+                            post.put("post", p)
+                            post.put("like_by", pk)
+                            post.put("record_status", 1)
 
                                 val client = OkHttpClient()
                                 val body = RequestBody.create(MEDIA_TYPE, post.toString())
@@ -726,34 +727,29 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     override fun onResponse(call: Call, response: Response) {
                                         var respon = response.body()!!.string()
                                         Log.d("Response", respon)
-
-                                        runOnUiThread {
-                                         Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
-//                                            val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
-//                                            alertDialog.setMessage(R.string.like_post.toString())
-//                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
-//                                            ) { dialog, which -> dialog.dismiss() }
-//                                            alertDialog.show()
-                                        }
-
+                                        val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
+                                        alertDialog.setMessage(R.string.like_post.toString())
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                                        ) { dialog, which -> dialog.dismiss() }
+                                        alertDialog.show()
                                     }
 
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        Log.d("Error", call.toString())
-                                    }
-                                })
+                                override fun onFailure(call: Call, e: IOException) {
+                                    Log.d("Error", call.toString())
+                                }
+                            })
 
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
 
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
                     }
 
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
+
+            }
 
         })
 
@@ -1000,24 +996,24 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             return BitmapFactory.decodeFile(filePath, options)
         }
     }
-     class BitmapUtil {
+    class BitmapUtil {
 
-         companion object{
-             val REQUEST_WIDTH:Int = 100
-             val REQUEST_HEIGHT:Int = 100
+        companion object{
+            val REQUEST_WIDTH:Int = 100
+            val REQUEST_HEIGHT:Int = 100
 
-             fun calculateInSampleSize(options:BitmapFactory.Options,reqWidth:Int,reqHeight:Int):Int{
+            fun calculateInSampleSize(options:BitmapFactory.Options,reqWidth:Int,reqHeight:Int):Int{
 
-                 // Raw height and width of image
-                 val height:Int = options.outHeight
-                 val width:Int = options.outWidth
-                 var inSampleSize:Int = 1
+                // Raw height and width of image
+                val height:Int = options.outHeight
+                val width:Int = options.outWidth
+                var inSampleSize:Int = 1
 
-                 if (height > reqHeight || width > reqWidth) {
-                     // Calculate ratios of height and width to requested height and
-                     // width
-                     val heightRatio:Int = Math.round(height.toFloat() /reqHeight.toFloat())
-                     val widthRatio:Int = Math.round(width.toFloat() / reqWidth.toFloat())
+                if (height > reqHeight || width > reqWidth) {
+                    // Calculate ratios of height and width to requested height and
+                    // width
+                    val heightRatio:Int = Math.round(height.toFloat() /reqHeight.toFloat())
+                    val widthRatio:Int = Math.round(width.toFloat() / reqWidth.toFloat())
 
                      // Choose the smallest ratio as inSampleSize value, this will
                      // guarantee
@@ -1031,12 +1027,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                          inSampleSize=widthRatio
                  }
 
-                 return inSampleSize
-             }
-             fun calculateInSampleSize(options:BitmapFactory.Options):Int{
-                 return calculateInSampleSize(options, REQUEST_WIDTH, REQUEST_HEIGHT)
-             }
-         }
+                return inSampleSize
+            }
+            fun calculateInSampleSize(options:BitmapFactory.Options):Int{
+                return calculateInSampleSize(options, REQUEST_WIDTH, REQUEST_HEIGHT)
+            }
+        }
 
     }
 

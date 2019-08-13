@@ -4,14 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
@@ -149,6 +147,10 @@ class Detail_Discount : AppCompatActivity()/*, OnMapReadyCallback*/ {
         title.text = intent.getStringExtra("Title")
         val price = findViewById<TextView>(R.id.tv_price)
         price.text = intent.getStringExtra("Price")
+        val edLoanPrice = findViewById<EditText>(R.id.ed_loan_price)
+//        edLoanPrice.text = Editable.Factory.getInstance().newEditable(intent.getStringExtra("Price"))
+//        edprice.text = intent.getDoubleExtra("Price", 0.0)
+
 
         val discount = findViewById<TextView>(R.id.tv_discount)
         val st = intent.getStringExtra("Discount")

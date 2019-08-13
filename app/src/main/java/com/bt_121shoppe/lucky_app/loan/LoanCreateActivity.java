@@ -1,9 +1,10 @@
 package com.bt_121shoppe.lucky_app.loan;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,10 +12,10 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +25,6 @@ import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.models.LoanViewModel;
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.collection.LLRBNode;
-import com.google.firebase.database.core.utilities.Validation;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -33,6 +32,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import okhttp3.Call;
@@ -71,6 +76,8 @@ public class LoanCreateActivity extends AppCompatActivity {
     private  TextInputLayout input_job;
     String[] yesNos;
 
+    final Calendar myCalendar = Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +90,8 @@ public class LoanCreateActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
 //image
         icAddress_co = (ImageView) findViewById(R.id.imgCoBorrower);
         icAddress_card = (ImageView) findViewById(R.id.imgIDCard);
@@ -289,6 +298,8 @@ public class LoanCreateActivity extends AppCompatActivity {
         });
         textChange();
 
+
+//        loan_term =
     }
 
     private void signUp(){
@@ -643,8 +654,8 @@ public class LoanCreateActivity extends AppCompatActivity {
 
     }
 
-
     private void consumeLoanCreateApi(String encode){
+
         String urlAPIEndpoint=ConsumeAPI.BASE_URL+"api/v1/loan/?record_status=1";
         OkHttpClient client=new OkHttpClient();
         JSONObject data=new JSONObject();

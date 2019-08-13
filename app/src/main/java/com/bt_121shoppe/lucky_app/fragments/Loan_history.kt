@@ -117,12 +117,10 @@ class Loan_history: Fragment() {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
                             Log.d("Loan ID", "LaLa" + loanID)
-
-
                             post_id = `object`.getInt("post")
                             //Log.d("Post id ",post_id.toString())
 
-                            val url_user = ConsumeAPI.BASE_URL + "detailposts/" + post_id + "/"
+                            val url_user = ConsumeAPI.BASE_URL + "detailposts/" +post_id+ "/"
                             Log.d("Post id ", url_user)
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
@@ -178,7 +176,7 @@ class Loan_history: Fragment() {
                                                         val mMessage = response.body()!!.string()
                                                         val gson = Gson()
                                                         try {
-                                                            Log.d("FRAGMENT 1", mMessage)
+                                                            Log.d("FRAGMENT 3", mMessage)
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {

@@ -107,7 +107,7 @@ class FragmentC1: Fragment() {
                 try {
 
                     activity!!.runOnUiThread {
-//                        val itemApi = ArrayList<LoanItemAPI>()
+                        //                        val itemApi = ArrayList<LoanItemAPI>()
                         //Log.d("Run GET Loan  :"," la" + jsonObject)
 
                         val jsonArray = jsonObject.getJSONArray("results")
@@ -126,7 +126,7 @@ class FragmentC1: Fragment() {
                             post_id = `object`.getInt("post")
                             //Log.d("Post id ",post_id.toString())
                             val url_user = ConsumeAPI.BASE_URL+"detailposts/"+post_id+"/"
-                            //Log.d("Post id ",url_user)
+                            Log.d("Post id ",url_user)
 
                             val client1 = OkHttpClient()
                             val request1 = Request.Builder()
@@ -197,7 +197,7 @@ class FragmentC1: Fragment() {
                                                     }
                                                 })
                                             }
-                                          //  itemApi.add(Item_API(id,img_user,image,title,cost,condition,ago.toString(),0))
+                                            //  itemApi.add(Item_API(id,img_user,image,title,cost,condition,ago.toString(),0))
 
                                         }
 

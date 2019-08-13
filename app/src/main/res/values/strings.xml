@@ -305,7 +305,7 @@
     <string name="title_loan_price">Price ($)</string>
     <string name="title_loan_interest_rate">Interest Rate (%)</string>
     <string name="title_loan_deposit">Deposit ($)</string>
-    <string name="title_loan_term">Term (Month)</string>
+    <string name="title_loan_term">Loan Term(Month)</string>
     <string name="title_monthly_payment">Monthly Payment</string>
     <string name="hit_co_borrower">Co-Borrower</string>
     <!-- End Loan Information String -->

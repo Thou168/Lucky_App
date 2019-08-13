@@ -134,7 +134,7 @@
     <string name="title_loan_price">តម្លៃ ($)</string>
     <string name="title_loan_interest_rate">អត្រាការប្រាក់ (%)</string>
     <string name="title_loan_deposit">ដកប្រាក់ ($)</string>
-    <string name="title_loan_term">រយៈពេល(ឆ្នាំ)</string>
+    <string name="title_loan_term">រយៈពេល(គិតជាខែ)</string>
     <string name="title_monthly_payment">ទូរទាត់ប្រចាំខែ</string>
     <string name="hit_co_borrower">អ្នកចូលរួមខ្ចី</string>
 

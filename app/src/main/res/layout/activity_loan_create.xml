@@ -267,6 +267,7 @@
                             android:layout_height="fill_parent"
                             android:textSize="14dp"
                             android:hint="@string/title_loan_term"
+
                             android:paddingLeft="10dp"
                             android:inputType="number"
                             android:background="@null" />

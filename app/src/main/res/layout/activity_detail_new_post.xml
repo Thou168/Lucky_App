@@ -549,7 +549,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/email_contact"
+                            android:src="@drawable/facebook123"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
                         <TextView

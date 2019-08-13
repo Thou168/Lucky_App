@@ -185,7 +185,7 @@ class Fragment_history: Fragment() {
                                                         val mMessage = e.message.toString()
                                                         Log.w("failure Response", mMessage)
                                                     }
-                                                    */
+                                                */
                                                 //var count_view=countPostView(encodeAuth,id)
 
                                                 //val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
