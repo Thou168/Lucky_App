@@ -281,8 +281,8 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                         }
                     }
                     AlertDialog.Builder(it.context)
-                            .setTitle("Post Renewal")
-                            .setMessage("Do you want to renew this post?")
+                            .setTitle(R.string.Post_Renewal)
+                            .setMessage(R.string.renew_post)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
                                 val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
