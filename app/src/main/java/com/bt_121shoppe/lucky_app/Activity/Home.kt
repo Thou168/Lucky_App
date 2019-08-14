@@ -836,6 +836,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val respon = response.body()!!.string()
                 Log.d("Response", respon)
                 val jsonObject = JSONObject(respon)
+                val objectCount = jsonObject.getInt("count")
                 try {
 
                     val jsonArray = jsonObject.getJSONArray("results")
@@ -854,7 +855,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val postType = `object`.getString("post_type")
                         val discount_type = `object`.getString("discount_type")
 
-
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
 //                        val time:Long = sdf.parse(`object`.getString("created")).time
@@ -867,8 +867,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
 //                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
                         runOnUiThread {
+                            //   best_list!!.adapter = MyAdapter(itemApi)
+                            if (objectCount == 0 ){
+                                progreessbar!!.visibility = View.GONE
+                                txtno_found!!.visibility = View.VISIBLE
+                            }else{
+                                progreessbar!!.visibility = View.GONE
+                                txtno_found!!.visibility = View.GONE
+                            }
 
-                            //                            best_list!!.adapter = MyAdapter(itemApi)
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
                             val client1= OkHttpClient()
@@ -895,13 +902,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             val jsonObject= JSONObject(mMessage1)
                                             Log.d("FFFFFF"," CCOUNT"+jsonObject)
                                             val jsonCount=jsonObject.getInt("count")
-                                            if (jsonCount == 0 ){
-                                                progreessbar!!.visibility = View.GONE
-                                                txtno_found!!.visibility = View.VISIBLE
-                                            }
-                                            progreessbar!!.visibility = View.GONE
-                                            txtno_found!!.visibility = View.GONE
-
+                                            Log.d("Item count view ",jsonCount.toString())
                                             cc=jsonCount
                                             itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,agoap.toString(),cc.toString(),discount_type))
 
