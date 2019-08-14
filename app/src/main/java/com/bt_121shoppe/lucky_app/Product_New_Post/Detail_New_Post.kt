@@ -524,7 +524,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         con=postDetail.condition.toString()
                         col=postDetail.color.toString()
                         if (con == "new") {
-                            tvCondition.setText(R.string.new1)
+                            tvCondition.setText(R.string.newl)
                         } else if (con == "used") {
                             tvCondition.setText(R.string.used)
                         }

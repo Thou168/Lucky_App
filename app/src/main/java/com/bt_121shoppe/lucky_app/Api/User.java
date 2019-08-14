@@ -18,6 +18,7 @@ public class User {
     private String marital_status;
     private String date_of_birth;
     private String shop_name;
+    private String responsible_officer;
     private int[] groups;
     private int id;
     private int group;
@@ -100,6 +101,14 @@ public class User {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public String getResponsible_officer() {
+        return responsible_officer;
+    }
+
+    public void setResponsible_officer(String responsible_officer) {
+        this.responsible_officer = responsible_officer;
     }
 
     public void setGroups(int[] groups) {

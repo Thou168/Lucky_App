@@ -535,13 +535,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         dbPrice = Double.parseDouble(stPrice);
                     }
 
-                if (strDiscountType == "amount"){
+                if (tvDiscount_type.getText().toString().toLowerCase() == "amount"){
                     stDis_amount = etDiscount_amount.getText().toString();
                     dbDis_amount = Double.parseDouble(stDis_amount);
                 }else {
                     dbDis_amount = 0;
                 }
-                 if(strDiscountType == "percent"){
+                 if(tvDiscount_type.getText().toString().toLowerCase() == "percent"){
                     stDis_percent = etDiscount_amount.getText().toString();
                     dbDis_percent = Double.parseDouble(stDis_percent);
                 }else {
@@ -658,6 +658,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 String title = object.getString("title");
                                 String description = object.getString("description");
                                 int price = object.getInt("cost");
+                                String search_title = object.getString("vin_code");
+                                String name = object.getString("machine_code");
                                 String discount = object.getString("discount");
                                 String phone = object.getString("contact_phone");
                                 String email = object.getString("contact_email");
@@ -685,10 +687,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                 String addr = object.getString("contact_address");
                                 if(!addr.isEmpty()) {
+
                                     String[] splitAddr = addr.split(",");
                                     latitude = Double.valueOf(splitAddr[0]);
                                     longtitude = Double.valueOf(splitAddr[1]);
                                     getLocation_edit(latitude, longtitude);
+                                    tvAddress.setQuery(search_title,false);
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
                                 }
 
@@ -705,8 +709,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         etDescription.setText(description);
                                         etPrice.setText(String.valueOf(price));
                                         etDiscount_amount.setText(discount);
+                                        etName.setText(name);
                                         etPhone1.setText(phone);
                                         etEmail.setText(email);
+
 
                                         String postType = strPostType.substring(0,1).toUpperCase() + strPostType.substring(1);
                                         String condition= strCondition.substring(0,1).toUpperCase() + strCondition.substring(1);
@@ -721,7 +727,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         }
 
                                         if (condition.equals("New")){
-                                            tvCondition.setText(R.string.new1);
+                                            tvCondition.setText(R.string.newl);
                                         }else if (condition.equals("Used")){
                                             tvCondition.setText(R.string.used);
                                         }
@@ -791,60 +797,68 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void initialUserInformation(int pk, String encode) {
-        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
-        MediaType MEDIA_TYPE=MediaType.parse("application/json");
-        //Log.d(TAG,"tt"+url);
-        OkHttpClient client = new OkHttpClient();
+        if (bundle==null) {
+            final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "api/v1/users/", pk);
+            MediaType MEDIA_TYPE = MediaType.parse("application/json");
+            //Log.d(TAG,"tt"+url);
+            OkHttpClient client = new OkHttpClient();
 
-        String auth = "Basic "+ encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",auth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                Gson gson = new Gson();
-                try{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            User converJsonJava = new User();
-                            converJsonJava = gson.fromJson(respon,User.class);
+            String auth = "Basic " + encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", auth)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String respon = response.body().string();
+                    Gson gson = new Gson();
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                User converJsonJava = new User();
+                                converJsonJava = gson.fromJson(respon, User.class);
 
-                            etName.setText(converJsonJava.getFirst_name());
-                            etPhone1.setText(converJsonJava.getUsername());
-                            String addr = converJsonJava.getProfile().getAddress();
-                            if(addr.isEmpty()){
+                                etName.setText(converJsonJava.getFirst_name());
+                                etPhone1.setText(converJsonJava.getUsername());
+                                String addr = converJsonJava.getProfile().getAddress();
+                                if (addr.isEmpty()) {
                                     get_location(true);
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
-                            }else {
-                                String[] splitAddr = addr.split(",");
-                                latitude = Double.valueOf(splitAddr[0]);
-                                longtitude = Double.valueOf(splitAddr[1]);
-                                get_location(false);
+                                } else {
+                                    String[] splitAddr = addr.split(",");
+                                    latitude = Double.valueOf(splitAddr[0]);
+                                    longtitude = Double.valueOf(splitAddr[1]);
+                                    get_location(false);
 
-                                mapFragment.getMapAsync(Camera.this::onMapReady);
+                                    if (converJsonJava.getProfile().getResponsible_officer()!=null){
+                                        String search_title = converJsonJava.getProfile().getResponsible_officer();
+                                        tvAddress.setQuery(search_title,false);
+                                    }
+                                    mapFragment.getMapAsync(Camera.this::onMapReady);
 
+                                }
                             }
-                        }
-                    });
-                }catch (JsonParseException e){
-                    e.printStackTrace();
+                        });
+                    } catch (JsonParseException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call call, IOException e) {
+                @Override
+                public void onFailure(Call call, IOException e) {
 
-            }
-        });
+                }
+            });
+
+        } // end if
     }
 
     private void PostData(String encode) {
+        strPostType = tvPostType.getText().toString().toLowerCase();
         if(strDiscountType==null || strDiscountType.isEmpty())
             strDiscountType="amount";
         if(strCondition==null || strCondition.isEmpty())
@@ -924,8 +938,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("description", etDescription.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
-            post.put("vin_code", "");
-            post.put("machine_code", "");
+            post.put("vin_code", tvAddress.getQuery().toString());
+            post.put("machine_code", etName.getText().toString().toLowerCase());
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
@@ -981,7 +995,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                    String respon = response.body().string();
-                    Log.d(TAG, "TTTT" + respon);
+                    Log.d(TAG, "Post TTTT" + respon);
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
@@ -1097,6 +1111,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     } //postdata
 
     private void EditPost_Approve(String encode,int edit_id) {
+
+        strPostType = tvPostType.getText().toString().toLowerCase();
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
         OkHttpClient client = new OkHttpClient();
@@ -1179,8 +1195,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("description", etDescription.getText().toString().toLowerCase());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
-            post.put("vin_code", "");
-            post.put("machine_code", "");
+            post.put("vin_code", tvAddress.getQuery().toString().toLowerCase());
+            post.put("machine_code", etName.getText().toString().toLowerCase());
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
@@ -1223,7 +1239,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
 
             //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
-            Log.d(TAG,post.toString());
+            Log.d(TAG,tvAddress.getQuery().toString()+","+etName.getText().toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
             Request request = new Request.Builder()
@@ -1239,15 +1255,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
-                    Log.d(TAG, "TTTT" + respon);
-                    //Toast.makeText(Camera.this,respon,Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "Edit TTTT" + respon);
+                    Toast.makeText(Camera.this,"Respone:"+respon,Toast.LENGTH_LONG).show();
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
                         createPostModel = gson.fromJson(respon,CreatePostModel.class);
                         if (createPostModel!=null){
                             int id = createPostModel.getId();
-                            if (id!=0){
+                            String title = createPostModel.getTitle();
+                            if (title!=null || !title.isEmpty()){
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -1313,6 +1330,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     String mMessage = e.getMessage().toString();
+                    Toast.makeText(Camera.this,"Failure:"+mMessage,Toast.LENGTH_LONG).show();
                     Log.d("Failure:",mMessage );
                     runOnUiThread(new Runnable() {
                         @Override
@@ -1335,6 +1353,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             });
         }catch (Exception e){
             e.printStackTrace();
+            Toast.makeText(Camera.this,"Failure:"+e,Toast.LENGTH_LONG).show();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -2891,26 +2910,31 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         }else {
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location!=null){
+            try{
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (location!=null){
 
-                try{
-                    Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList = null;
-                    addressList = geocoder.getFromLocation(latitude, longtitude,1);
+                    try{
+                        Geocoder geocoder = new Geocoder(this);
+                        List<Address> addressList = null;
+                        addressList = geocoder.getFromLocation(latitude, longtitude,1);
 //                    String country = addressList.get(0).getCountryName();
 //                    String city    = addressList.get(0).getLocality();
-                    String road = addressList.get(0).getAddressLine(0);
+                        String road = addressList.get(0).getAddressLine(0);
 
-                    tvAddress.setQuery( road , false );
-                }catch (IOException e){
-                    e.printStackTrace();
+                        tvAddress.setQuery( road , false );
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+
+                }else {
+                    Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
                 }
-
-
-            }else {
-                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }
     }
 
@@ -2921,29 +2945,34 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         }else {
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location!=null){
-                if(isCurrent) {
-                    latitude = location.getLatitude();
-                    longtitude = location.getLongitude();
+            try{
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (location!=null){
+                    if(isCurrent) {
+                        latitude = location.getLatitude();
+                        longtitude = location.getLongitude();
+                    }
+                    latlng = latitude+","+longtitude;
+                    try{
+                        Geocoder geocoder = new Geocoder(this);
+                        List<Address> addressList = null;
+                        addressList = geocoder.getFromLocation(latitude,longtitude,1);
+
+                        String road = addressList.get(0).getAddressLine(0);
+
+                        tvAddress.setQuery( road , false );
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+
+                }else {
+                    Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
                 }
-                latlng = latitude+","+longtitude;
-                try{
-                    Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList = null;
-                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
-
-                    String road = addressList.get(0).getAddressLine(0);
-
-                    tvAddress.setQuery( road , false );
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-
-
-            }else {
-                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }
     }  //
 
@@ -2974,7 +3003,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 latitude = latLng.latitude;
                 longtitude = latLng.longitude;
-                latlng = latitude+","+longtitude;
+
                 mMap.clear();
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
@@ -2983,13 +3012,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(getApplicationContext(),
                                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
+
+
                     ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                     return;
                 }
@@ -3004,6 +3028,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         String road = addressList.get(0).getAddressLine(0);
 
                         tvAddress.setQuery(road,false);
+                        latlng = latitude+","+longtitude;
                         Log.d("LATITUDE",latitude+","+longtitude);
                     } catch (IOException e) {
                         e.printStackTrace();

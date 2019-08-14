@@ -157,7 +157,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         tabs.getTabAt(inttab).select();
 
         BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
-        bnavigation.getMenu().findItem(R.id.account).setChecked(true);
+        bnavigation.getMenu().getItem(4).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(mlistener);
 
         storageReference= FirebaseStorage.getInstance().getReference("uploads");
