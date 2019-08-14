@@ -2552,17 +2552,32 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     } // text change
 
     private void selectImage() {
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
         final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};
+        final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
         AlertDialog.Builder builder = new AlertDialog.Builder(Camera.this);
-        builder.setItems(items, (dialog, item) -> {
-            if (items[item].equals("Take Photo")) {
-                requestStoragePermission(true);
-            } else if (items[item].equals("Choose from Library")) {
-                requestStoragePermission(false);
-            } else if (items[item].equals("Cancel")) {
-                dialog.dismiss();
-            }
-        });
+        if (language.equals("km")){
+            builder.setItems(itemkh, (dialog, item) -> {
+                if (itemkh[item].equals("ថតរូប")) {
+                    requestStoragePermission(true);
+                } else if (itemkh[item].equals("វិចិត្រសាល")) {
+                    requestStoragePermission(false);
+                } else if (itemkh[item].equals("បោះបង់")) {
+                    dialog.dismiss();
+                }
+            });
+        }else if (language.equals("en")){
+            builder.setItems(items, (dialog, item) -> {
+                if (items[item].equals("Take Photo")) {
+                    requestStoragePermission(true);
+                } else if (items[item].equals("Choose from Library")) {
+                    requestStoragePermission(false);
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            });
+        }
         builder.show();
     }
 

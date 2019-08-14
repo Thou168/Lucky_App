@@ -760,7 +760,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         Log.d("Response", respon)
                                         val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
                                         alertDialog.setMessage(R.string.like_post.toString())
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
                                         ) { dialog, which -> dialog.dismiss() }
                                         alertDialog.show()
                                     }

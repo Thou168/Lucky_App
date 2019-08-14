@@ -141,7 +141,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
                 builder.setTitle(R.string.title_unlike)
                         .setMessage(R.string.unlike_message)
                         .setCancelable(false)
-                        .setPositiveButton("Yes") {
+                        .setPositiveButton(R.string.yes_loan) {
                             dialog, which ->
                             val URL_ENDCODE= ConsumeAPI.BASE_URL+"like/"+item.like_id+"/"
                             Log.d("Url", URL_ENDCODE)
@@ -179,7 +179,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
 
                             })
                         }
-                        .setNegativeButton("No") { dialog, which -> dialog.cancel() }
+                        .setNegativeButton(R.string.cancel) { dialog, which -> dialog.cancel() }
                 val alert = builder.create()
                 alert.show()
 

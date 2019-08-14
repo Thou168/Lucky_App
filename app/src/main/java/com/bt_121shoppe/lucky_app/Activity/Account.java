@@ -309,23 +309,44 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     }
 
     private void selectImage(){
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
         final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
+        final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Account.this);
-        dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case 0:
-                        requestStoragePermission(true);
-                        break;
-                    case 1:
-                        requestStoragePermission(false);
-                        break;
+        if (language.equals("km")){
+            dialogBuilder.setItems(itemkh, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case 0:
+                            requestStoragePermission(true);
+                            break;
+                        case 1:
+                            requestStoragePermission(false);
+                            break;
                         case 2:
-                        Toast.makeText(Account.this,""+items[which].toString(),Toast.LENGTH_SHORT).show();
-                        break;
+                            Toast.makeText(Account.this,""+itemkh[which].toString(),Toast.LENGTH_SHORT).show();
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        }else if (language.equals("en")){
+            dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case 0:
+                            requestStoragePermission(true);
+                            break;
+                        case 1:
+                            requestStoragePermission(false);
+                            break;
+                        case 2:
+                            Toast.makeText(Account.this,""+items[which].toString(),Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
+        }
         dialogBuilder.create().show();
 
     }
