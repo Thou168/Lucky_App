@@ -99,7 +99,7 @@ class fragment_buy_vehicle : Fragment() {
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
                             val image = `object`.getString("front_image_path")
-                            val img_user = `object`.getString("right_image_base64")
+                            val img_user = `object`.getString("right_image_path")
                             val postType = `object`.getString("post_type")
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"))

@@ -709,10 +709,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 }
 
 
-                                String fron = object.getString("front_image_base64");
-                                String back = object.getString("back_image_base64");
-                                String left = object.getString("left_image_base64");
-                                String right = object.getString("right_image_base64");
+                                String fron = object.getString("front_image_path");
+                                String back = object.getString("back_image_path");
+                                String left = object.getString("left_image_path");
+                                String right = object.getString("right_image_path");
                                 List<String> list = new ArrayList<>();
                                 runOnUiThread(new Runnable() {
                                     @Override

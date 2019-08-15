@@ -39,5 +39,9 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <include
+        android:layout_marginTop="?android:attr/actionBarSize"
+        layout="@layout/content_home"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

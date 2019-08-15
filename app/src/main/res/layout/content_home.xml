@@ -23,7 +23,7 @@
                 <com.custom.sliderimage.logic.SliderImage
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="180dp">
                 </com.custom.sliderimage.logic.SliderImage>
                 <include layout="@layout/sell_buy_rent"/>
                 <TextView

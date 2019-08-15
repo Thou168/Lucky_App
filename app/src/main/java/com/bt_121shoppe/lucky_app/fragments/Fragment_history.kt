@@ -118,8 +118,8 @@ class Fragment_history: Fragment() {
                             val id = `object`.getInt("id")
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
-                            val image = `object`.getString("front_image_base64")
-                            val img_user = `object`.getString("right_image_base64")
+                            val image = `object`.getString("front_image_path")
+                            val img_user = `object`.getString("right_image_path")
                             val postType = `object`.getString("post_type")
 
                             val url_user = ConsumeAPI.BASE_URL + "detailposts/" + id + "/"
@@ -150,9 +150,9 @@ class Fragment_history: Fragment() {
                                                 val id = jsonObject1.getInt("id")
                                                 val condition = jsonObject1.getString("condition")
                                                 val cost = jsonObject1.getDouble("cost")
-                                                val image = jsonObject1.getString("front_image_base64")
+                                                val image = jsonObject1.getString("front_image_path")
                                                 val frontImagePart=jsonObject1.getString("front_image_path")
-                                                val img_user = jsonObject1.getString("right_image_base64")
+                                                val img_user = jsonObject1.getString("right_image_path")
                                                 val postType = jsonObject1.getString("post_type")
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))

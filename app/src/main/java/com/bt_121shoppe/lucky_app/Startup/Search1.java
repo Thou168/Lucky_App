@@ -145,8 +145,8 @@ public class Search1 extends AppCompatActivity {
                         String title = object.getString("title");
                         double cost = object.getDouble("cost");
                         String condition = object.getString("condition");
-                        String image = object.getString("front_image_base64");
-                        String img_user = object.getString("right_image_base64");
+                        String image = object.getString("front_image_path");
+                        String img_user = object.getString("right_image_path");
                         String post_type = object.getString("post_type");
                         String discount_type = object.getString("discount_type");
                         Double discount = object.getDouble("discount");
