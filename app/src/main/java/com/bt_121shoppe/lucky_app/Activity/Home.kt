@@ -49,11 +49,7 @@ import com.bt_121shoppe.lucky_app.Setting.Setting
 import com.bt_121shoppe.lucky_app.Setting.TermPrivacyActivity
 import com.bt_121shoppe.lucky_app.Startup.Item
 import com.bt_121shoppe.lucky_app.Startup.Search1
-import com.bt_121shoppe.lucky_app.adapters.PostDataAdapter
 import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
-import com.bt_121shoppe.lucky_app.interfaces.OnLoadMoreListener
-import com.bt_121shoppe.lucky_app.models.PostProduct
-import com.bt_121shoppe.lucky_app.models.Student
 import com.bt_121shoppe.lucky_app.utils.CheckNetwork
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
 import com.bumptech.glide.Glide
@@ -74,7 +70,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import net.hockeyapp.android.CrashManager
 
 import okhttp3.*
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -102,14 +97,13 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var categoryId:String=""
     private var brandId:String=""
     private var yearId:String=""
-    private var allpostUrl=""
 
     internal lateinit var locationManager: LocationManager
     private val REQUEST_LOCATION = 1
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
-//    internal lateinit var ddBrand:Button
+    //    internal lateinit var ddBrand:Button
     internal lateinit var listItems1: Array<String?>
     internal lateinit var categoryIdItems: Array<Int?>
     internal lateinit var brandListItems: Array<String?>
@@ -124,10 +118,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     lateinit var mHandler: Handler
-    private var allPostsList: MutableList<PostProduct>? = null
-    private var itemCount = 0
-    private var mAdapter: PostDataAdapter? = null
-    private var tvEmptyView: TextView?=null
 
     fun language(lang: String) {
         val locale = Locale(lang)
@@ -173,7 +163,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         txtno_found1 =findViewById(R.id.text1)
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
-        tvEmptyView=findViewById(R.id.text1)
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -644,15 +633,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val postType = `object`.getString("post_type")
                         val discount_type = `object`.getString("discount_type")
                         val discount = `object`.getDouble("discount")
-                        val frontImage=`object`.getString("front_image_path")
-                        val frontImagePath=CommonFunction.getFrontImageURL(frontImage)
+
                         var location_duration=""
                         //var count_view=countPostView(Encode,id)
                         //var time:Long=0
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-//                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-//                        sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
                         /*
                         if(`object`.getString("approved_date")==null)
                             time=sdf.parse(`object`.getString("created")).getTime()
@@ -702,8 +688,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found1!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            //itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
-                                            itemApi.add(Item_API(id,img_user,frontImagePath,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                            itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List",this@Home)
                                             //List Grid and Image
                                             list = findViewById(R.id.img_list)
@@ -711,26 +696,24 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                                 list!!.setImageResource(R.drawable.icon_list_c)
                                                 image_list!!.setImageResource(R.drawable.icon_image)
                                                 grid!!.setImageResource(R.drawable.icon_grid)
-                                                //recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List")
                                                 recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List",this@Home)
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
                                             }
                                             grid = findViewById(R.id.grid)
                                             grid!!.setOnClickListener {
-                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Home)
                                                 grid!!.setImageResource(R.drawable.icon_grid_c)
                                                 image_list!!.setImageResource(R.drawable.icon_image)
                                                 list!!.setImageResource(R.drawable.icon_list)
-                                                //recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid")
+                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Home)
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,2)
                                             }
                                             image_list = findViewById(R.id.btn_image)
                                             image_list!!.setOnClickListener {
-                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image",this@Home)
+//                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image",this@Home)
                                                 image_list!!.setImageResource(R.drawable.icon_image_c)
                                                 grid!!.setImageResource(R.drawable.icon_grid)
                                                 list!!.setImageResource(R.drawable.icon_list)
-                                                //recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image")
+                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image",this@Home)
                                                 recyclerView!!.layoutManager = GridLayoutManager(this@Home,1)
                                             }
                                         } catch (e: JsonParseException) {
@@ -772,61 +755,56 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val jsonObject = JSONObject(respon)
                 val objectCount = jsonObject.getInt("count")
                 try {
+                    runOnUiThread {
+                        val jsonArray = jsonObject.getJSONArray("results")
+                        Log.d("count best", jsonArray.length().toString())
+                        Log.d("Object count ", objectCount.toString())
+                        if (objectCount == 0) {
+                            progreessbar!!.visibility = View.GONE
+                            txtno_found!!.visibility = View.VISIBLE
+                        }
+                        progreessbar!!.visibility = View.GONE
+                        for (i in 0 until jsonArray.length()) {
+                            var cc = 0
+                            val `object` = jsonArray.getJSONObject(i)
+                            val title = `object`.getString("title")
+                            val id = `object`.getInt("id")
+                            val condition = `object`.getString("condition")
+                            val cost = `object`.getDouble("cost")
+                            val discount = `object`.getDouble("discount")
+                            val image = `object`.getString("front_image_base64")
+                            val img_user = `object`.getString("right_image_base64")
+                            val postType = `object`.getString("post_type")
+                            val discount_type = `object`.getString("discount_type")
 
-                    val jsonArray = jsonObject.getJSONArray("results")
-                    Log.d("count best",jsonArray.length().toString())
-
-                    for (i in 0 until jsonArray.length()) {
-                        var cc = 0
-                        val `object` = jsonArray.getJSONObject(i)
-                        val title = `object`.getString("title")
-                        val id = `object`.getInt("id")
-                        val condition = `object`.getString("condition")
-                        val cost = `object`.getDouble("cost")
-                        val discount = `object`.getDouble("discount")
-                        val image = `object`.getString("front_image_base64")
-                        val img_user = `object`.getString("right_image_base64")
-                        val postType = `object`.getString("post_type")
-                        val discount_type = `object`.getString("discount_type")
-                        val frontImagePart=`object`.getString("front_image_path")
-
-                        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
 //                        val time:Long = sdf.parse(`object`.getString("created")).time
-                        val timeap:Long = sdf.parse(`object`.getString("created")).time
+                            val timeap: Long = sdf.parse(`object`.getString("created")).time
 
-                        val now:Long = System.currentTimeMillis()
-                        val nowap:Long = System.currentTimeMillis()
+                            val now: Long = System.currentTimeMillis()
+                            val nowap: Long = System.currentTimeMillis()
 //                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-                        val agoap:CharSequence = DateUtils.getRelativeTimeSpanString(timeap, nowap, DateUtils.MINUTE_IN_MILLIS)
-
+                            val agoap: CharSequence = DateUtils.getRelativeTimeSpanString(timeap, nowap, DateUtils.MINUTE_IN_MILLIS)
 //                        itemApi.add(Item_discount(id,img_user,image,title,cost,discount,condition,postType,ago.toString()))
-                        runOnUiThread {
                             //   best_list!!.adapter = MyAdapter(itemApi)
-                            if (objectCount == 0 ){
-                                progreessbar!!.visibility = View.GONE
-                                txtno_found!!.visibility = View.VISIBLE
-                            }else{
-                                progreessbar!!.visibility = View.GONE
-                                txtno_found!!.visibility = View.GONE
-                            }
-
-                            val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
-                            var MEDIA_TYPE=MediaType.parse("application/json")
-                            val client1= OkHttpClient()
+                            val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
+                            var MEDIA_TYPE = MediaType.parse("application/json")
+                            val client1 = OkHttpClient()
                             val auth = "Basic $Encode"
-                            val request1=Request.Builder()
+                            val request1 = Request.Builder()
                                     .url(URL_ENDPOINT1)
-                                    .header("Accept","application/json")
-                                    .header("Content-Type","application/json")
+                                    .header("Accept", "application/json")
+                                    .header("Content-Type", "application/json")
                                     //.header("Authorization",auth)
-                                    //             .header("Authorization",auth)
+                                    //.header("Authorization",auth)
                                     .build()
-                            client1.newCall(request1).enqueue(object : Callback{
+                            client1.newCall(request1).enqueue(object : Callback {
                                 override fun onFailure(call: Call, e: IOException) {
                                     val mMessage1 = e.message.toString()
                                     Log.w("failure Response", mMessage1)
                                 }
+
                                 @Throws(IOException::class)
                                 override fun onResponse(call: Call, response: Response) {
                                     val mMessage1 = response.body()!!.string()
@@ -834,12 +812,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     //Log.d("HOME",mMessage1)
                                     runOnUiThread {
                                         try {
-                                            val jsonObject= JSONObject(mMessage1)
-                                            Log.d("FFFFFF"," CCOUNT"+jsonObject)
-                                            val jsonCount=jsonObject.getInt("count")
-                                            Log.d("Item count view ",jsonCount.toString())
-                                            cc=jsonCount
-                                            itemApi.add(Item_discount(id,img_user,frontImagePart,title,cost,discount,condition,postType,agoap.toString(),cc.toString(),discount_type))
+                                            val jsonObject = JSONObject(mMessage1)
+                                            Log.d("FFFFFF", " CCOUNT" + jsonObject)
+                                            val jsonCount = jsonObject.getInt("count")
+                                            Log.d("Item count view ", jsonCount.toString())
+                                            cc = jsonCount
+                                            itemApi.add(Item_discount(id, img_user, image, title, cost, discount, condition, postType, agoap.toString(), cc.toString(), discount_type))
 
                                             best_list!!.adapter = MyAdapter(itemApi)
                                             //List Grid and Image
@@ -849,9 +827,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                     }
                                 }
                             })
-
                         }
                     }
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

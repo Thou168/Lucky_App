@@ -180,7 +180,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                     Glide.with(Account.this).load(user.getCoverURL()).into(imgCover);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

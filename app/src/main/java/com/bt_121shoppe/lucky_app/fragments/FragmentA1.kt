@@ -131,7 +131,6 @@ class FragmentA1: Fragment() {
                                     val sale = sales.getJSONObject(0)
                                     status = sale.getInt("sale_status")
                                     Log.d("STATUS_Sell", status.toString())
-
                                 }
                                 if (postType.equals("buy")){
                                     val buys = `object`.getJSONArray("buys")
@@ -165,24 +164,22 @@ class FragmentA1: Fragment() {
                                 client1.newCall(request1).enqueue(object : Callback {
                                     override fun onFailure(call: Call, e: IOException) {
                                         val mMessage = e.message.toString()
-                                        Log.w("failure R    esponse", mMessage)
+                                        Log.w("failure Response", mMessage)
                                     }
 
                                     @Throws(IOException::class)
                                     override fun onResponse(call: Call, response: Response) {
                                         val mMessage = response.body()!!.string()
-
                                         try {
                                             Log.d("FRAGMENT 1", mMessage)
                                             val jsonObject = JSONObject(mMessage)
                                             val jsonCount = jsonObject.getInt("count")
 
-
                                             activity!!.runOnUiThread {
                                                 Log.d("STATUS", tmp)
                                                 itemApi.add(TabA1_api(id, img_user, frontImagePart, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount,tmp))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
-                                                recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
+                                                recyclerView!!.layoutManager = GridLayoutManager(context, 1)
                                             }
 
                                         } catch (e: JsonParseException) {
