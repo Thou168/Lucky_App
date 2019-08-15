@@ -32,7 +32,8 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
           AlertDialog.Builder(this)
                 .setMessage(getString(R.string.logout_message))
                 .setIcon(R.drawable.logo)
-                .setPositiveButton(Html.fromHtml("<font color='#F30E0E'>Logout</font>")
+//                .setPositiveButton(Html.fromHtml("<font color='#F30E0E'>Logout</font>")
+                .setPositiveButton(R.string.logout
                 ) { dialog, id ->
                     val editor = prefer.edit()
                     editor.clear()
@@ -42,8 +43,8 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
                     LoginManager.getInstance().logOut()
                     startActivity(Intent(this@Setting, Home::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 }
-                                     .setNegativeButton(Html.fromHtml("<font color='#1616FA'>Cancel</font>"), object: DialogInterface.OnClickListener {
-
+//                  .setNegativeButton(Html.fromHtml("<font color='#1616FA'>Cancel</font>"), object: DialogInterface.OnClickListener {
+                  .setNegativeButton(R.string.cancel, object: DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, id:Int) {
                 dialog.cancel()
                 }

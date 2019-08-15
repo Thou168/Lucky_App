@@ -451,7 +451,7 @@
     <string name="invalid_phone">លេខទូរស័ព្ទ មិនត្រឹមត្រូវ</string>
     <string name="reset_password_title">កំណត់ពាក្យសម្ងាត់ថ្មី</string>
     <string name="reset_password_text">អ្នកនឹងប្រើពាក្យសម្ងាត់នេះដើម្បីចូលប្រើគណនីរបស់អ្នក</string>
-    <string name="requried_permission">សូមបើកការភ្ជាប់ទីតាំងរបស់អ្នក</string>
+    <string name="requried_permission">សូមបើកការភ្ជាប់ទីតាំងរបស់លោក-អ្នក</string>
     <string name="gps">សូមបើកការភ្ជាប់ PGS របស់អ្នក</string>
     //Account
     <string name="choose_province">ជ្រើសរើសខេត្ត</string>
@@ -502,7 +502,7 @@
     <string name="Post_Renewal">ប្រកាសឡើងវិញ</string>
     <string name="renew_post">តើអ្នកចង់ប្រកាសឡើងវិញដែរទេ?</string>
 
-    <string name="new1">ថ្មី</string>
+    <string name="newl">ថ្មី</string>
     <string name="used">ប្រើ</string>
     <string name="blue">ខៀវ</string>
     <string name="black">ខ្មៅ</string>

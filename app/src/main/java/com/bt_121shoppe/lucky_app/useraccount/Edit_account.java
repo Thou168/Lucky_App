@@ -516,6 +516,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                     List<String> date = new ArrayList<>();
                                     date.add(0, d);
                                 }
+
                                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                                         .findFragmentById(R.id.map_Account);
 
@@ -527,9 +528,12 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                      String[] splitAddr = addr.split(",");
                                      latitude = Double.valueOf(splitAddr[0]);
                                      longtitude = Double.valueOf(splitAddr[1]);
-                                     get_location(false);
-                                     //get_location(false);
 
+                                     get_location(false);
+                                     if (convertJsonJava.getProfile().getResponsible_officer()!=null){
+                                         String search_title = convertJsonJava.getProfile().getResponsible_officer().toString();
+                                         tvAddress_account.setQuery(search_title,false);
+                                     }
                                      mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                  }
                                 String m = convertJsonJava.getProfile().getMarital_status();
@@ -610,7 +614,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             pro.put("data_of_birth", strDob);
             pro.put("address",latlng);
             pro.put("shop_name","");
-            pro.put("responsible_officer","");
+            pro.put("responsible_officer",tvAddress_account.getQuery().toString());
             pro.put("job","");
 
             pro.put("gender",strGender);
@@ -1262,7 +1266,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 latitude = latLng.latitude;
                 longtitude = latLng.longitude;
-                latlng = latitude+","+longtitude;
+
                 mMap.clear();
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
@@ -1286,6 +1290,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                         String road = addressList.get(0).getAddressLine(0);
 
                         tvAddress_account.setQuery(road,false);
+                        latlng = latitude+","+longtitude;
                         Log.d("LATITUDE",latitude+","+longtitude);
                     } catch (IOException e) {
                         e.printStackTrace();

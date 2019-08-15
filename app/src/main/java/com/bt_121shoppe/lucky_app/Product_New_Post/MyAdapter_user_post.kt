@@ -69,7 +69,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val post_type = itemView.findViewById<ImageView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
@@ -119,6 +118,9 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 itemView.context.startActivity(intent)
             }
             btn_delete.setOnClickListener {
+                //Toast.makeText(it.context,"Hello"+item.title,Toast.LENGTH_SHORT).show()
+                val prefer = it.context.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+                val language = prefer.getString("My_Lang", "")
                 lateinit var sharedPref: SharedPreferences
                 var name = ""
                 var pass = ""
@@ -140,44 +142,96 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 }
 
                 val items = arrayOf<CharSequence>("This product has been sold", "Suspend this ads", "Delete to post new ads", "Cancel")
+                val itemkh = arrayOf<CharSequence>("ផលិតផលនេះត្រូវបានលក់ចេញ", "ផ្អាកការប្រកាសនេះ", "លុបដើម្បីប្រកាសជាថ្មី", "បោះបង់")
                 val builder = AlertDialog.Builder(it.context)
-                builder.setItems(items) { dialog, ite ->
-                    if (items[ite] == "Cancel") {
-                        dialog.dismiss()
+                if (language.equals("km")){
+                    builder.setItems(itemkh) { dialog, ite ->
+                        if (itemkh[ite] == "បោះបង់") {
+                            dialog.dismiss()
 
-                    } else {
-                        val reason = items[ite].toString()
-                        val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
-                        val media = MediaType.parse("application/json")
-                        val client = OkHttpClient()
-                        val data = JSONObject()
-                        try {
-                            //data.put("id",60)
-                            data.put("status", 2)
-                            //ata.put("description","Test")
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                data.put("modified", Instant.now().toString())
+                        } else {
+                            val reason = itemkh[ite].toString()
+                            val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
+                            val media = MediaType.parse("application/json")
+                            val client = OkHttpClient()
+                            val data = JSONObject()
+                            try {
+                                //data.put("id",60)
+                                data.put("status", 2)
+                                //ata.put("description","Test")
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    data.put("modified", Instant.now().toString())
+                                }
+                                data.put("modified_by", pk)
+                                data.put("rejected_comments", reason)
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
                             }
-                            data.put("modified_by", pk)
-                            data.put("rejected_comments", reason)
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
+                            Log.d("TAG", URL_ENDCODE + " " + data)
+                            val body = RequestBody.create(media, data.toString())
+                            val request = Request.Builder()
+                                    .url(URL_ENDCODE)
+                                    .put(body)
+                                    .header("Accept", "application/json")
+                                    .header("Content-Type", "application/json")
+                                    .header("Authorization", Encode)
+                                    .build()
+
+                            client.newCall(request).enqueue(object : Callback {
+                                override fun onFailure(call: Call, e: IOException) {
+                                    val message = e.message.toString()
+                                    Log.d("failure Response", message)
+                                }
+
+                                @Throws(IOException::class)
+                                override fun onResponse(call: Call, response: Response) {
+                                    val message = response.body()!!.string()
+                                    Log.d("Response Renewal", message)
+                                    val intent = Intent(it.context, Account::class.java)
+                                    it.context.startActivity(intent)
+                                }
+                            })
                         }
-                        Log.d("TAG", URL_ENDCODE + " " + data)
-                        val body = RequestBody.create(media, data.toString())
-                        val request = Request.Builder()
-                                .url(URL_ENDCODE)
-                                .put(body)
-                                .header("Accept", "application/json")
-                                .header("Content-Type", "application/json")
-                                .header("Authorization", Encode)
-                                .build()
+                    }
 
-                        client.newCall(request).enqueue(object : Callback {
-                            override fun onFailure(call: Call, e: IOException) {
-                                val message = e.message.toString()
-                                Log.d("failure Response", message)
+                }else if (language.equals("en")){
+                    builder.setItems(items) { dialog, ite ->
+                        if (items[ite] == "Cancel") {
+                            dialog.dismiss()
+
+                        } else {
+                            val reason = items[ite].toString()
+                            val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
+                            val media = MediaType.parse("application/json")
+                            val client = OkHttpClient()
+                            val data = JSONObject()
+                            try {
+                                //data.put("id",60)
+                                data.put("status", 2)
+                                //ata.put("description","Test")
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    data.put("modified", Instant.now().toString())
+                                }
+                                data.put("modified_by", pk)
+                                data.put("rejected_comments", reason)
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
                             }
+                            Log.d("TAG", URL_ENDCODE + " " + data)
+                            val body = RequestBody.create(media, data.toString())
+                            val request = Request.Builder()
+                                    .url(URL_ENDCODE)
+                                    .put(body)
+                                    .header("Accept", "application/json")
+                                    .header("Content-Type", "application/json")
+                                    .header("Authorization", Encode)
+                                    .build()
+
+                            client.newCall(request).enqueue(object : Callback {
+                                override fun onFailure(call: Call, e: IOException) {
+                                    val message = e.message.toString()
+                                    Log.d("failure Response", message)
+                                }
 
                             @Throws(IOException::class)
                             override fun onResponse(call: Call, response: Response) {
