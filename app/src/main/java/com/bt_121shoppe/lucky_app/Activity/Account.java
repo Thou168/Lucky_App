@@ -105,7 +105,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     private Uri imageUri;
     private StorageReference storageReference;
     private StorageTask uploadTask;
-
+    private  BottomNavigationView bnavigation;
     String username,password,encodeAuth,type,API_ENDPOINT="";
     int pk=0,PICK_IMAGE=1;
 
@@ -156,7 +156,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         inttab = getIntent().getIntExtra("Tab",0);
         tabs.getTabAt(inttab).select();
 
-        BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
+         bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(4).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(mlistener);
 
@@ -563,6 +563,13 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         else {
             Toast.makeText(Account.this,"No image selected.",Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bnavigation.getMenu().getItem(4).setChecked(true);
     }
 }
 

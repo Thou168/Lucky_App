@@ -1285,7 +1285,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
                     Log.d(TAG, "Edit TTTT" + respon);
-                    Toast.makeText(Camera.this,"Respone:"+respon,Toast.LENGTH_LONG).show();
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
@@ -1309,7 +1308,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                     }
                                                 });
                                         alertDialog.show();
-                                        //Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+
                                     }
                                 });
 
@@ -1328,7 +1327,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 });
                                         alertDialog.show();
                                         mProgress.dismiss();
-                                        //Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
+
                                     }
                                 });
 
@@ -1359,7 +1358,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     String mMessage = e.getMessage().toString();
-                    Toast.makeText(Camera.this,"Failure:"+mMessage,Toast.LENGTH_LONG).show();
                     Log.d("Failure:",mMessage );
                     runOnUiThread(new Runnable() {
                         @Override
@@ -1382,7 +1380,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             });
         }catch (Exception e){
             e.printStackTrace();
-            Toast.makeText(Camera.this,"Failure:"+e,Toast.LENGTH_LONG).show();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -3070,6 +3067,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bnavigation.getMenu().getItem(2).setChecked(true);
     }
 }
 

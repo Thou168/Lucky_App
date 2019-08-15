@@ -145,7 +145,10 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 val items = arrayOf<CharSequence>("This product has been sold", "Suspend this ads", "Delete to post new ads", "Cancel")
                 val itemkh = arrayOf<CharSequence>("ផលិតផលនេះត្រូវបានលក់ចេញ", "ផ្អាកការប្រកាសនេះ", "លុបដើម្បីប្រកាសជាថ្មី", "បោះបង់")
                 val builder = AlertDialog.Builder(it.context)
+                Log.d("Language",language.toString())
                 if (language.equals("km")) {
+
+                    Log.d("Language11111",language.toString())
                     builder.setItems(itemkh) { dialog, ite ->
                         if (itemkh[ite] == "បោះបង់") {
                             dialog.dismiss()
@@ -195,7 +198,8 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                         }
                     }
 
-                } else if (language.equals("en")) {
+                    builder.show()
+                } else  {
                     builder.setItems(items) { dialog, ite ->
                         if (items[ite] == "Cancel") {
                             dialog.dismiss()
@@ -246,6 +250,9 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                     }
                     builder.show()
                 }
+
+       } // delete
+
 
                 if (item.status_id == "3") {
 
@@ -327,7 +334,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                 .setNegativeButton(android.R.string.no, null).show()
                     }
                 } //status id
-            }
+
 
             fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
                 val bytes = ByteArrayOutputStream()

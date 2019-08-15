@@ -428,7 +428,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
-                        postFrontImage=postDetail.base64_front_image.toString()
+                        postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
@@ -503,10 +503,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                         tv_location_duration.setText(ago)
 
-                        val base64_front_image=postDetail.base64_front_image.toString()
-                        val base64_right_image=postDetail.base64_right_image.toString()
-                        val base64_left_image=postDetail.base64_left_image.toString()
-                        val base64_back_image=postDetail.base64_back_image.toString()
+//                        val base64_front_image=postDetail.base64_front_image.toString()
+//                        val base64_right_image=postDetail.base64_right_image.toString()
+//                        val base64_left_image=postDetail.base64_left_image.toString()
+//                        val base64_back_image=postDetail.base64_back_image.toString()
 
                         var front_image:String=""
                         var right_image:String=""
@@ -655,14 +655,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         Log.d("Response", respon)
 
                                         runOnUiThread {
-                                         Toast.makeText(this@Detail_New_Post,"This Product add to Your Liked",Toast.LENGTH_SHORT).show()
+                                    //        Toast.makeText(applicationContext,R.string.like_post,Toast.LENGTH_SHORT).show()
+                                            val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
+                                            alertDialog.setMessage(getString(R.string.like_post))
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
+                                            ) { dialog, which -> dialog.dismiss() }
+                                            alertDialog.show()
                                         }
-
-                                        val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
-                                        alertDialog.setMessage(R.string.like_post.toString())
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
-                                        ) { dialog, which -> dialog.dismiss() }
-                                        alertDialog.show()
                                     }
 
                                 override fun onFailure(call: Call, e: IOException) {
@@ -750,7 +749,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val condition = obj.getString("condition")
                             val cost = obj.getDouble("cost")
                             val image = obj.getString("front_image_path")
-                            val img_user = obj.getString("right_image_base64")
+                            val img_user = obj.getString("right_image_path")
                             val postType = obj.getString("post_type")
                             val phoneNumber = obj.getString("contact_phone")
                             val discount_type = obj.getString("discount_type")

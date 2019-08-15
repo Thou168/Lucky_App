@@ -82,7 +82,7 @@ class user_post_list: Passdata() {
                                 val condition = obj.getString("condition")
                                 val cost = obj.getDouble("cost")
                                 val image = obj.getString("front_image_path")
-                                val img_user = obj.getString("right_image_base64")
+                                val img_user = obj.getString("right_image_path")
                                 val postType = obj.getString("post_type")
                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))

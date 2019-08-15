@@ -24,7 +24,7 @@ class Notification : AppCompatActivity() {
     var username=""
     var password=""
     var encodeAuth=""
-
+    private var bnavigation: BottomNavigationView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //must be called before setContentView(...)
@@ -55,9 +55,9 @@ class Notification : AppCompatActivity() {
         val result=CommonFunction.doGetRequestwithAuth(url,encodeAuth)
         Log.d("Hello",result)
 
-        val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
-        bnavigation.menu.getItem(1).isChecked = true
-        bnavigation.setOnNavigationItemSelectedListener { item ->
+         bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        bnavigation!!.menu.getItem(1).isChecked = true
+        bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     val intent = Intent(this@Notification,Home::class.java)
@@ -117,5 +117,11 @@ class Notification : AppCompatActivity() {
             true
         }
 
+    } // onCreate
+
+
+    override fun onStart() {
+        super.onStart()
+        bnavigation!!.menu.getItem(1).isChecked = true
     }
 }

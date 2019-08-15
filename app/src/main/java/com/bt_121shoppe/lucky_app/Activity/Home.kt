@@ -110,6 +110,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     internal lateinit var brandIdListItems: Array<Int?>
     internal lateinit var yearListItems: Array<String?>
     internal lateinit var yearIdListItems: Array<Int?>
+    private var bnavigation: BottomNavigationView? = null
 
     var progreessbar: ProgressBar? = null
     var txtno_found: TextView? = null
@@ -220,9 +221,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
-        val bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
-        bnavigation.menu.getItem(0).isChecked = true
-        bnavigation.setOnNavigationItemSelectedListener { item ->
+
+         bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        bnavigation!!.menu.getItem(0).isChecked = true
+        bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     recreate()
@@ -628,8 +630,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val id = `object`.getInt("id")
                         val condition = `object`.getString("condition")
                         val cost = `object`.getDouble("cost")
-                        val image = `object`.getString("front_image_base64")
-                        val img_user = `object`.getString("right_image_base64")
+                        val image = `object`.getString("front_image_path")
+                        val img_user = `object`.getString("right_image_path")
                         val postType = `object`.getString("post_type")
                         val discount_type = `object`.getString("discount_type")
                         val discount = `object`.getDouble("discount")
@@ -772,8 +774,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
                             val discount = `object`.getDouble("discount")
-                            val image = `object`.getString("front_image_base64")
-                            val img_user = `object`.getString("right_image_base64")
+                            val image = `object`.getString("front_image_path")
+                            val img_user = `object`.getString("right_image_path")
                             val postType = `object`.getString("post_type")
                             val discount_type = `object`.getString("discount_type")
 
@@ -936,5 +938,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 .setNegativeButton(getString(R.string.no_loan)) { dialog, which -> dialog.cancel() }
         val alert = builder.create()
         alert.show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        bnavigation!!.menu.getItem(0).isChecked = true
     }
 }

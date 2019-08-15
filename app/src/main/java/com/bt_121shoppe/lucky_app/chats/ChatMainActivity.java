@@ -72,7 +72,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
     private CircleImageView profile_image;
     private TextView username;
-
+    private  BottomNavigationView bnavigation;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +88,7 @@ public class ChatMainActivity extends AppCompatActivity {
             pk = prefer.getInt("id", 0);
         }
 
-        BottomNavigationView bnavigation = findViewById(R.id.bnaviga);
+         bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(3).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
@@ -191,7 +191,7 @@ public class ChatMainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-    }
+    }  // onCreate
 
     class ViewPagerAdapter extends FragmentPagerAdapter{
 
@@ -245,6 +245,12 @@ public class ChatMainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         status("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bnavigation.getMenu().getItem(3).setChecked(true);
     }
 
     private void getUserProfile() {

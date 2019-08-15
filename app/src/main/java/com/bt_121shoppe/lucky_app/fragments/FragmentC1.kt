@@ -136,7 +136,7 @@ class FragmentC1: Fragment() {
                                                 val condition = jsonObject1.getString("condition")
                                                 val cost = jsonObject1.getDouble("cost")
                                                 val image = jsonObject1.getString("front_image_path")
-                                                val img_user = jsonObject1.getString("right_image_base64")
+                                                val img_user = jsonObject1.getString("right_image_path")
                                                 val postType = jsonObject1.getString("post_type")
                                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
