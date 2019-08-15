@@ -53,6 +53,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
+import com.bt_121shoppe.lucky_app.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.lucky_app.models.CreatePostModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -1017,6 +1018,23 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        try {
+                                            JSONObject obj = new JSONObject(respon);
+                                            int pID=obj.getInt("id");
+                                            String pTitle=obj.getString("title");
+                                            String pType=obj.getString("post_type");
+                                            String pCoverURL=obj.getString("front_image_path");
+                                            String price=obj.getString("cost");
+                                            String dicountPrice=obj.getString("discount");
+                                            String dicountType=obj.getString("discount_type");
+                                            String location=obj.getString("contact_address");
+                                            String createdAt=obj.getString("created");
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt);
+                                        }catch (JSONException e){
+                                            e.printStackTrace();
+                                        }
+
+
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.post_message));

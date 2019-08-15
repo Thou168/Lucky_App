@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.Product_New_Post
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -40,7 +41,7 @@ import java.time.Instant
 
 class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: String?) : RecyclerView.Adapter<MyAdapter_user_post.ViewHolder>() {
 
-    internal var loadMoreListener: OnLoadMoreListener? = null
+    //internal var loadMoreListener: ViewHolder.OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true
 
@@ -144,7 +145,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 val items = arrayOf<CharSequence>("This product has been sold", "Suspend this ads", "Delete to post new ads", "Cancel")
                 val itemkh = arrayOf<CharSequence>("ផលិតផលនេះត្រូវបានលក់ចេញ", "ផ្អាកការប្រកាសនេះ", "លុបដើម្បីប្រកាសជាថ្មី", "បោះបង់")
                 val builder = AlertDialog.Builder(it.context)
-                if (language.equals("km")){
+                if (language.equals("km")) {
                     builder.setItems(itemkh) { dialog, ite ->
                         if (itemkh[ite] == "បោះបង់") {
                             dialog.dismiss()
@@ -194,7 +195,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                         }
                     }
 
-                }else if (language.equals("en")){
+                } else if (language.equals("en")) {
                     builder.setItems(items) { dialog, ite ->
                         if (items[ite] == "Cancel") {
                             dialog.dismiss()
@@ -233,176 +234,120 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                     Log.d("failure Response", message)
                                 }
 
-                            @Throws(IOException::class)
-                            override fun onResponse(call: Call, response: Response) {
-                                val message = response.body()!!.string()
-                                Log.d("Response Renewal", message)
-                                val intent = Intent(it.context, Account::class.java)
-                                it.context.startActivity(intent)
-                            }
-                        })
-                    }
-                }
-                builder.show()
-
-                /*
-                AlertDialog.Builder(it.context)
-                        .setTitle("Post Delete")
-                        .setMessage("Do you want to delete this post?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
-                            //Toast.makeText(it.context, "Yaay", Toast.LENGTH_SHORT).show()
-                            val URL_ENDCODE=ConsumeAPI.BASE_URL+"api/v1/renewaldelete/"+item.id.toInt()+"/"
-                            val media = MediaType.parse("application/json")
-                            val client = OkHttpClient()
-                            val data = JSONObject()
-                            try{
-                                //data.put("id",60)
-                                data.put("status",2)
-                                //ata.put("description","Test")
-                                data.put("modified", Instant.now().toString())
-                                data.put("modified_by", pk)
-                            }catch (e: JSONException){
-                                e.printStackTrace()
-                            }
-                            Log.d("TAG",URL_ENDCODE+" "+data)
-                            val body = RequestBody.create(media, data.toString())
-                            val request = Request.Builder()
-                                    .url(URL_ENDCODE)
-                                    .put(body)
-                                    .header("Accept", "application/json")
-                                    .header("Content-Type", "application/json")
-                                    .header("Authorization", Encode)
-                                    .build()
-
-                            client.newCall(request).enqueue(object : Callback {
-                                override fun onFailure(call: Call, e: IOException) {
-                                    val message = e.message.toString()
-                                    Log.d("failure Response", message)
-                                }
-
                                 @Throws(IOException::class)
                                 override fun onResponse(call: Call, response: Response) {
                                     val message = response.body()!!.string()
                                     Log.d("Response Renewal", message)
                                     val intent = Intent(it.context, Account::class.java)
                                     it.context.startActivity(intent)
-                                    /*
-                                    runOnUiThread {
-                                        // btn_renewal.setCompoundDrawablesWithIntrinsicBounds( null, null, null, null );
-
-                                        Log.d("Response Renewal", message)
-                                        //startActivity(Intent(applicationContext, Account::class.java))
-                                    }
-                                    */
-                                    //finish();
                                 }
                             })
-                        })
-                        .setNegativeButton(android.R.string.no, null).show()
-                        */
-            }
-
-            if (item.status_id == "3"){
-
-                btn_renewal.setCompoundDrawablesWithIntrinsicBounds( null, null, null, null );
-                btn_renewal.setTextColor(Color.parseColor("#FF9400"))
-                btn_renewal.setText(R.string.pending)
-                btn_renewal.setOnClickListener {  }
-
-            }
-            if(item.status_id == "4"){
-                btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.refresh,0,0,0)
-                btn_renewal.setTextColor(Color.parseColor("#0A0909"))
-                 btn_renewal.setText(R.string.renew)
-
-                btn_renewal.setOnClickListener {
-                    lateinit var sharedPref: SharedPreferences
-                    var name = ""
-                    var pass = ""
-                    var Encode = ""
-                    var pk = 0
-
-                    sharedPref = it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
-                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        name = sharedPref.getString("name", "")
-                        pass = sharedPref.getString("pass", "")
-                        Encode = "Basic " + CommonFunction.getEncodedString(name, pass)
-                        if (sharedPref.contains("token")) {
-                            pk = sharedPref.getInt("Pk", 0)
-                        } else if (sharedPref.contains("id")) {
-                            pk = sharedPref.getInt("id", 0)
                         }
                     }
-                    AlertDialog.Builder(it.context)
-                            .setTitle(R.string.Post_Renewal)
-                            .setMessage(R.string.renew_post)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
-                                val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
-                                val media = MediaType.parse("application/json")
-                                val client = OkHttpClient()
-                                val data = JSONObject()
-                                try {
-                                    data.put("status", 1)
-                                    //ata.put("description","Test")
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        data.put("modified", Instant.now().toString())
-                                    }
-
-                                    data.put("modified_by", pk)
-                                    data.put("rejected_comments", "")
-                                } catch (e: JSONException) {
-                                    e.printStackTrace()
-                                }
-                                Log.d("TAG", URL_ENDCODE + " " + data)
-                                val body = RequestBody.create(media, data.toString())
-                                val request = Request.Builder()
-                                        .url(URL_ENDCODE)
-                                        .put(body)
-                                        .header("Accept", "application/json")
-                                        .header("Content-Type", "application/json")
-                                        .header("Authorization", Encode)
-                                        .build()
-
-                                client.newCall(request).enqueue(object : Callback {
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        val message = e.message.toString()
-                                        Log.d("failure Response", message)
-                                    }
-
-                                    @Throws(IOException::class)
-                                    override fun onResponse(call: Call, response: Response) {
-                                        val message = response.body()!!.string()
-                                        Log.d("Response Renewal", message)
-                                        val intent = Intent(it.context, Account::class.java)
-                                        it.context.startActivity(intent)
-                                    }
-                                })
-                            })
-                            .setNegativeButton(android.R.string.no, null).show()
+                    builder.show()
                 }
-            } //status id
+
+                if (item.status_id == "3") {
+
+                    btn_renewal.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    btn_renewal.setTextColor(Color.parseColor("#FF9400"))
+                    btn_renewal.setText(R.string.pending)
+                    btn_renewal.setOnClickListener { }
+
+                }
+                if (item.status_id == "4") {
+                    btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.refresh, 0, 0, 0)
+                    btn_renewal.setTextColor(Color.parseColor("#0A0909"))
+                    btn_renewal.setText(R.string.renew)
+
+                    btn_renewal.setOnClickListener {
+                        lateinit var sharedPref: SharedPreferences
+                        var name = ""
+                        var pass = ""
+                        var Encode = ""
+                        var pk = 0
+
+                        sharedPref = it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
+                        if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                            name = sharedPref.getString("name", "")
+                            pass = sharedPref.getString("pass", "")
+                            Encode = "Basic " + CommonFunction.getEncodedString(name, pass)
+                            if (sharedPref.contains("token")) {
+                                pk = sharedPref.getInt("Pk", 0)
+                            } else if (sharedPref.contains("id")) {
+                                pk = sharedPref.getInt("id", 0)
+                            }
+                        }
+                        AlertDialog.Builder(it.context)
+                                .setTitle(R.string.Post_Renewal)
+                                .setMessage(R.string.renew_post)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, whichButton ->
+                                    val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
+                                    val media = MediaType.parse("application/json")
+                                    val client = OkHttpClient()
+                                    val data = JSONObject()
+                                    try {
+                                        data.put("status", 1)
+                                        //ata.put("description","Test")
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            data.put("modified", Instant.now().toString())
+                                        }
+
+                                        data.put("modified_by", pk)
+                                        data.put("rejected_comments", "")
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                    }
+                                    Log.d("TAG", URL_ENDCODE + " " + data)
+                                    val body = RequestBody.create(media, data.toString())
+                                    val request = Request.Builder()
+                                            .url(URL_ENDCODE)
+                                            .put(body)
+                                            .header("Accept", "application/json")
+                                            .header("Content-Type", "application/json")
+                                            .header("Authorization", Encode)
+                                            .build()
+
+                                    client.newCall(request).enqueue(object : Callback {
+                                        override fun onFailure(call: Call, e: IOException) {
+                                            val message = e.message.toString()
+                                            Log.d("failure Response", message)
+                                        }
+
+                                        @Throws(IOException::class)
+                                        override fun onResponse(call: Call, response: Response) {
+                                            val message = response.body()!!.string()
+                                            Log.d("Response Renewal", message)
+                                            val intent = Intent(it.context, Account::class.java)
+                                            it.context.startActivity(intent)
+                                        }
+                                    })
+                                })
+                                .setNegativeButton(android.R.string.no, null).show()
+                    }
+                } //status id
+            }
+
+            fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
+                val bytes = ByteArrayOutputStream()
+                inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
+                return Uri.parse(path)
+            }
+
+            fun BitMapToString(bitmap: Bitmap): String {
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+                val arr = baos.toByteArray()
+                return Base64.encodeToString(arr, Base64.DEFAULT)
+            }
         }
 
-        fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
-            val bytes = ByteArrayOutputStream()
-            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
-            return Uri.parse(path)
-        }
+        //
+        internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-        fun BitMapToString(bitmap: Bitmap): String {
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-            val arr = baos.toByteArray()
-            return Base64.encodeToString(arr, Base64.DEFAULT)
-        }
-    }
-
-    //
-    internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
+        /*
     fun setMoreDataAvailable(moreDataAvailable: Boolean) {
         isMoreDataAvailable = moreDataAvailable
     }
@@ -419,5 +364,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
     fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
         this.loadMoreListener = loadMoreListener
     }
-
+*/
+    }
 }

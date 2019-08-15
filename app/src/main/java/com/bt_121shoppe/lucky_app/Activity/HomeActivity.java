@@ -10,14 +10,12 @@ import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.adapters.AllPostAdapter;

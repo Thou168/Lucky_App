@@ -39,7 +39,7 @@ class fragment_rent_eletronics : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_eletronic, container, false)
-//Slider
+        //Slider
         val sliderImage = view.findViewById(R.id.slider_vehicles) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
                             "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
@@ -47,10 +47,9 @@ class fragment_rent_eletronics : Fragment() {
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
-
         val toolbar: Toolbar =view.findViewById(R.id.toolbar)
         toolbar.setBackgroundColor(activity!!.getColor(R.color.logo_red))
-//Back
+        //Back
         val back = view.findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { getActivity()?.finish() }
         recycleView = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -63,13 +62,10 @@ class fragment_rent_eletronics : Fragment() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
-
         Listelectronic_rent(container!!.context)
-
         return view
     }
     private fun Listelectronic_rent (context1:Context) {
-
         var item=ArrayList<Item_API>()
         var posts= PostViewModel()
         val url =  ConsumeAPI.BASE_URL+"relatedpost/?post_type=rent&category=1&modeling=&min_price=&max_price="
