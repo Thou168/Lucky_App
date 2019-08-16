@@ -268,9 +268,12 @@
         <item>Month</item>
     </string-array>
     //Discount type
+
+    <string name="clear_all_label">Clear</string>
     <string-array name="discount_type">
         <item> $</item>
         <item> %</item>
+        <!--<item> clear</item>-->
     </string-array>
     <string-array name="boolean_option">
         <item>Yes</item>

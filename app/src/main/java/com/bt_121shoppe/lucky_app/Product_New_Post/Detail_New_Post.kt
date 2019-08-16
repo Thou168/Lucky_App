@@ -15,12 +15,12 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.text.SpannableString
-import android.text.Spanned
+import android.text.*
 import android.text.format.DateUtils
 import android.text.style.StrikethroughSpan
 import android.util.Base64
@@ -93,6 +93,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     internal var latitude: Double = 0.toDouble()
     internal var longtitude:Double = 0.toDouble()
     private var list_rela: RecyclerView? = null
+    private var relativecal: RelativeLayout? = null
+    private lateinit var txtundercal:TextView
+
+//    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+//    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+//    private var mLocationPermissionGranted: Boolean = false
+//    private var mLastKnownLocation: Location? = null
     private var postId:Int=0
     private var pk=0
     private var name=""
@@ -141,9 +148,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
 
+        relativecal = findViewById(R.id.rlLoanCalculation)
+        txtundercal = findViewById(R.id.text)
+
         checkPermission()
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
+        Log.d("ID Detail New :",postId.toString())
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
@@ -244,13 +255,43 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         edLoanInterestRate.setText("1.5")
         edLoanTerm.setText("1")
+
         tvMonthlyPayment.setText("$ 0.00")
 
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
-                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
+                return@OnKeyListener true
+            }
+            false
+        })
+        edLoanPrice.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed before making any change over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed while making any change over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed after change made over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+        })
+
+        edLoanDeposit.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                //Perform Code
+//                Toast.makeText(this@Detail_New_Post, calculateLoanMonthlyPayment().toString(), Toast.LENGTH_SHORT).show()
+//                calculateLoanMonthlyPayment()
+
                 return@OnKeyListener true
             }
             false
@@ -259,24 +300,67 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         edLoanInterestRate.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
-                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
-                calculateLoanMonthlyPayment()
+//                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
+//                calculateLoanMonthlyPayment()
                 return@OnKeyListener true
             }
             false
         })
+
+        edLoanInterestRate.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed before making any change over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed while making any change over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed after change made over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+        })
+
 
         edLoanTerm.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 //Perform Code
-                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@Detail_New_Post, calculateLoanMonthlyPayment().toString(), Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
+
                 return@OnKeyListener true
             }
             false
         })
 
+        edLoanTerm.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed before making any change over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed while making any change over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                Toast.makeText(applicationContext,"executed after change made over EditText",Toast.LENGTH_SHORT).show()
+                calculateLoanMonthlyPayment()
+            }
+        })
+
+
     }  // oncreate
+
+
     fun dialContactPhone(phoneNumber:String) {
         startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
     }
@@ -424,22 +508,30 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             override fun onFailure(call: Call, e: IOException) {
 
                             }
+
                         })
 
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
+
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
+//                        edLoanPrice.setText(""+discount.toString())
                         edLoanPrice.setText(""+discount)
-                        tvPrice1.setText("$ "+ postDetail.cost.toString())
-                        if (discount == 0.0){
+
+//                        tvPrice1.setText("$ "+ postDetail.cost.toString())
+
+
+                        if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
                             tvPrice.visibility = View.GONE
                         }else{
                             tvPrice1.visibility = View.GONE
                         }
+//                        tvDiscount.setText("$ "+postDetail.cost.toString())
+
                         var st = "$"+postDetail.cost
                         st = st.substring(0, st.length-1)
                         val ms = SpannableString(st)
@@ -480,7 +572,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }
 
                         tvDescription.setText(postDetail.description.toString())
+
                         val addr = postDetail.contact_address.toString()
+                        Log.d("LAAAAA",addr)
                         if(addr.isEmpty()) {
 
                         }else{
@@ -503,10 +597,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                         tv_location_duration.setText(ago)
 
-//                        val base64_front_image=postDetail.base64_front_image.toString()
-//                        val base64_right_image=postDetail.base64_right_image.toString()
-//                        val base64_left_image=postDetail.base64_left_image.toString()
-//                        val base64_back_image=postDetail.base64_back_image.toString()
+                        val base64_front_image=postDetail.front_image_path.toString()
+                        val base64_right_image=postDetail.right_image_path.toString()
+                        val base64_left_image=postDetail.left_image_path.toString()
+                        val base64_back_image=postDetail.back_image_path.toString()
 
                         var front_image:String=""
                         var right_image:String=""
@@ -534,13 +628,22 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val rent=postDetail.rents
                         val sale=postDetail.sales
                         val buy=postDetail.buys
-                        if(rent.count()>0)
-                            postType="rent"
-                        if(sale.count()>0)
-                            postType="sell"
-                        if(buy.count()>0)
-                            postType="buy"
-
+                        if(rent.count()>0) {
+                            postType = "rent"
+                            txtundercal.visibility = View.GONE
+                            relativecal!!.visibility = View.GONE
+                        }
+                        if(sale.count()>0) {
+                            postType = "sell"
+                            txtundercal.visibility = View.VISIBLE
+                            relativecal!!.visibility = View.VISIBLE
+                        }
+                        if(buy.count()>0) {
+                            postType = "buy"
+                            txtundercal.visibility = View.GONE
+                            relativecal!!.visibility = View.GONE
+                        }
+                        Log.d(TAG,"credfafa"+ postType)
                         initialRelatedPost(encode,postType,postDetail.category,postDetail.modeling,postDetail.cost.toFloat())
 
                     }
@@ -574,8 +677,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 val gson = Gson()
                 try {
                     user1= gson.fromJson(mMessage, User::class.java)
+                    Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
-                        CommomAPIFunction.getUserProfileFB(this@Detail_New_Post,img_user,user1.username)
+
+                        val profilepicture: String=if(user1.profile.base64_profile_image==null) "" else user1.profile.base64_profile_image
+                        if(profilepicture.isNullOrEmpty()){
+                            img_user.setImageResource(R.drawable.user)
+                        }else {
+                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                            img_user.setImageBitmap(decodedByte)
+                        }
+
                         if(user1.profile.first_name==null)
                             postUsername=user1.username
                         else
@@ -587,18 +700,22 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }else{
                             user_name!!.setText(user1.getFirst_name())
                         }
+
                         user_telephone.setText(user1.profile.telephone)
                         user_email.setText(user1.email)
-                            findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-                                val intent = Intent(this@Detail_New_Post, User_post::class.java)
-                                intent.putExtra("ID",user1.id.toString())
-                                intent.putExtra("Phone",user1.profile.telephone)
-                                intent.putExtra("Email",user1.profile.email)
-                                intent.putExtra("map",user1.profile.address)
-                                intent.putExtra("Username",user1.username)
-                                intent.putExtra("Name",user1.first_name)
-                                startActivity(intent)
-                            }
+                        findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+                            //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
+                            val intent = Intent(this@Detail_New_Post, User_post::class.java)
+                            intent.putExtra("ID",user1.id.toString())
+                            intent.putExtra("Phone",user1.profile.telephone)
+                            intent.putExtra("Email",user1.profile.email)
+                            intent.putExtra("map",user1.profile.address)
+                            //intent.putExtra("Phone",phone.text)
+                            intent.putExtra("Username",user1.username)
+                            intent.putExtra("Name",user1.first_name)
+                            startActivity(intent)
+                        }
+
                     }
 
                 } catch (e: JsonParseException) {
@@ -653,15 +770,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     override fun onResponse(call: Call, response: Response) {
                                         var respon = response.body()!!.string()
                                         Log.d("Response", respon)
-
-                                        runOnUiThread {
-                                    //        Toast.makeText(applicationContext,R.string.like_post,Toast.LENGTH_SHORT).show()
-                                            val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
-                                            alertDialog.setMessage(getString(R.string.like_post))
-                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
-                                            ) { dialog, which -> dialog.dismiss() }
-                                            alertDialog.show()
-                                        }
+                                        val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
+                                        alertDialog.setMessage(R.string.like_post.toString())
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                                        ) { dialog, which -> dialog.dismiss() }
+                                        alertDialog.show()
                                     }
 
                                 override fun onFailure(call: Call, e: IOException) {
@@ -829,9 +942,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aInterestRate,aLoanTerm)
         Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)
-        val df = DecimalFormat("#.####")
+        val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
-        tvMonthlyPayment.setText("$ "+ df.format(monthlyPayment).toString())
+
+        tvMonthlyPayment.setText("$" + df.format(monthlyPayment)).toString()
+
     }
 
     private fun getEncodedString(username: String, password: String): String {
@@ -865,7 +980,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
         } else {
             // Permission has already been granted
-            //callPhone()
+            callPhone()
         }
     }
 
@@ -964,6 +1079,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     var addressList: List<Address>? = null
                     addressList = geocoder.getFromLocation(latitude, longtitude, 1)
                     val road = addressList!![0].getAddressLine(0)
+
                     address_detial!!.text = road
 
                 } catch (e: IOException) {

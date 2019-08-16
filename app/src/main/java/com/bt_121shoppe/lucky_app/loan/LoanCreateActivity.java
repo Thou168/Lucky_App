@@ -412,12 +412,11 @@ public class LoanCreateActivity extends AppCompatActivity {
                     icAddress_job.setImageResource(R.drawable.icon_null);
 
                 }
-
-                else if (s.length() < 2) {
-                    icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
-                }
+//                else if (s.length() < 2) {
+//                    icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
+//                }
                 else if
-                (s.length()>2) {
+                (s.length()>0) {
                     icAddress_job.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     input_job.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                     input_job.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
@@ -508,9 +507,8 @@ public class LoanCreateActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icAddress_purpose.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 4) {
-                    icAddress_purpose.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icAddress_purpose.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+                else icAddress_purpose.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 input_purpose.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 input_purpose.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
@@ -531,9 +529,11 @@ public class LoanCreateActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icAddress_amount.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 2) {
-                    icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
-                } else
+                }
+//                } else if (s.length() < 2) {
+//                    icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
+//                }
+                else
                     icAddress_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 input_amount.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));

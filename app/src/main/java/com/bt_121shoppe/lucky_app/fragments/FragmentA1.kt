@@ -82,6 +82,7 @@ class FragmentA1: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getMyPosts()
     }
+
     private fun getMyPosts(){
         val itemApi = ArrayList<TabA1_api>()
         var posts= PostViewModel()
@@ -119,7 +120,7 @@ class FragmentA1: Fragment() {
                                 val id = `object`.getInt("id")
                                 val condition = `object`.getString("condition")
                                 val cost = `object`.getDouble("cost")
-//                                val image = `object`.getString("front_image_path")
+                                val image = `object`.getString("front_image_path")
                                 val img_user = `object`.getString("right_image_path")
                                 val postType = `object`.getString("post_type")
                                 val discount_type = `object`.getString("discount_type")

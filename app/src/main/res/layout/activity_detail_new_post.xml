@@ -289,7 +289,6 @@
                     android:id="@+id/rlLoanCalculation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_below="@+id/text">
 
                     <TextView
@@ -323,6 +322,7 @@
                                 android:layout_marginTop="8dp"
                                 android:text="@string/Price" />
                             <TextView
+                                android:id="@+id/value1"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
@@ -453,14 +453,14 @@
                         android:paddingLeft="16dp"
                         android:text="@string/Monthly_payment"/>
                     <TextView
+                        android:id="@+id/tvMonthlyPayment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/monthlyPaymenttitle"
-                        android:id="@+id/tvMonthlyPayment"
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
                         android:textSize="24sp"
-                        android:text="$ 10000"
+                        android:text="$ 0.00"
                         android:textColor="#007ABE"
                         android:paddingLeft="16dp"
                         android:layout_marginBottom="@dimen/dp_16"

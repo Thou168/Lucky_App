@@ -222,7 +222,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
 
-         bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation!!.menu.getItem(0).isChecked = true
         bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -711,7 +711,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             }
                                             image_list = findViewById(R.id.btn_image)
                                             image_list!!.setOnClickListener {
-//                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image",this@Home)
+                                                //                                                recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "Image",this@Home)
                                                 image_list!!.setImageResource(R.drawable.icon_image_c)
                                                 grid!!.setImageResource(R.drawable.icon_grid)
                                                 list!!.setImageResource(R.drawable.icon_list)

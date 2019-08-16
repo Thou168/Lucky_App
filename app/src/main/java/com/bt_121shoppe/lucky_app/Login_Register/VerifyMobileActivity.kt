@@ -1,5 +1,6 @@
 package com.bt_121shoppe.lucky_app.Login_Register
 
+import android.app.Notification
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -330,6 +331,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     val intent = Intent(this@VerifyMobileActivity, Home::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+
                     finish()
 
                 } else {
