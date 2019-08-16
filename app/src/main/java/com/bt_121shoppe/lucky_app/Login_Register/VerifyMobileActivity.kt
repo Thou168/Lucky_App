@@ -428,7 +428,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     editor.commit()
 
                     //Toast.makeText(applicationContext, "Register Success", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@VerifyMobileActivity, Home::class.java)
+
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                     finish()

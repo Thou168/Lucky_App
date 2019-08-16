@@ -585,7 +585,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             get_location(latitude, longtitude)
                             val mapFragment = supportFragmentManager
                                     .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment?
-                            mapFragment!!.getMapAsync(OnMapReadyCallback {
+                            mapFragment?.getMapAsync(OnMapReadyCallback {
                                 this@Detail_New_Post.onMapReady(it)
                             })
                         }
@@ -1024,6 +1024,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             return BitmapFactory.decodeFile(filePath, options)
         }
     }
+
     class BitmapUtil {
 
         companion object{

@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -107,7 +108,7 @@ import okhttp3.Response;
 
 public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
-    private static final LatLng old = new LatLng(11.5585741,104.905055);
+
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     double latitude,longtitude;
@@ -158,6 +159,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     SharedPreferences prefer,pre_id;
     ProgressDialog mProgress;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
+    private  BitmapDrawable drawable1,drawable2,drawable3,drawable4;
     int edit_id,status;
     Bundle bundle;
     int mmodel=1;
@@ -609,6 +611,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         icTitile.setImageResource(R.drawable.ic_error_black_24dp);
                     }
 
+                   if (dbDis_percent >= 100){
+                       etDiscount_amount.requestFocus();
+                       icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
@@ -658,7 +664,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
-
+                    Log.d("Edit Response:", respon);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -777,18 +783,29 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         getModelName(Encode,model);
                                         //Log.d(TAG,"Brand_id"+ brand);
 
-                                        byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
-                                        bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
-                                        imageView1.setImageBitmap(bitmapImage1);
-                                        byte[] decodedString2 = Base64.decode(back, Base64.DEFAULT);
-                                        bitmapImage2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
-                                        imageView2.setImageBitmap(bitmapImage2);
-                                        byte[] decodedString3 = Base64.decode(left, Base64.DEFAULT);
-                                        bitmapImage3 = BitmapFactory.decodeByteArray(decodedString3, 0, decodedString3.length);
-                                        imageView3.setImageBitmap(bitmapImage3);
-                                        byte[] decodedString4 = Base64.decode(right, Base64.DEFAULT);
-                                        bitmapImage4 = BitmapFactory.decodeByteArray(decodedString4, 0, decodedString4.length);
-                                        imageView4.setImageBitmap(bitmapImage4);
+                                        Glide.with(Camera.this).load(fron).into(imageView1);
+                                        Glide.with(Camera.this).load(back).into(imageView2);
+                                        Glide.with(Camera.this).load(left).into(imageView3);
+                                        Glide.with(Camera.this).load(right).into(imageView4);
+
+
+
+//                                        bitmapImage1 = ((BitmapDrawable) imageView1.getDrawable()).getBitmap();
+//                                        Log.d("sfasdfasf","TTTTTTT"+bitmapImage1);
+
+
+//                                        byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
+//                                        bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+//                                        imageView1.setImageBitmap(bitmapImage1);
+//                                        byte[] decodedString2 = Base64.decode(back, Base64.DEFAULT);
+//                                        bitmapImage2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+//                                        imageView2.setImageBitmap(bitmapImage2);
+//                                        byte[] decodedString3 = Base64.decode(left, Base64.DEFAULT);
+//                                        bitmapImage3 = BitmapFactory.decodeByteArray(decodedString3, 0, decodedString3.length);
+//                                        imageView3.setImageBitmap(bitmapImage3);
+//                                        byte[] decodedString4 = Base64.decode(right, Base64.DEFAULT);
+//                                        bitmapImage4 = BitmapFactory.decodeByteArray(decodedString4, 0, decodedString4.length);
+//                                        imageView4.setImageBitmap(bitmapImage4);
 
                                     }
                                 });
@@ -867,7 +884,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void PostData(String encode) {
-        strPostType = tvPostType.getText().toString().toLowerCase();
+
         if(strDiscountType==null || strDiscountType.isEmpty())
             strDiscountType="amount";
         if(strCondition==null || strCondition.isEmpty())
@@ -956,31 +973,33 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("color", strColor);
 
             switch (strPostType){
+                case "លក់":
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/";
-                    //Log.d("URL","URL"+url);
                     sale.put("sale_status", 3);
                     sale.put("record_status",1);
                     sale.put("sold_date", null);
-                    //sale.put("price", etPrice.getText().toString().toLowerCase());
-                    //sale.put("total_price", etPrice.getText().toString().toLowerCase());
                     sale.put("price", etPrice.getText().toString());
                     sale.put("total_price",etPrice.getText().toString());
                     post.put("sale_post",new JSONArray("["+sale+"]"));
                     break;
+
+                case "ជួល":
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/";
                     JSONObject rent=new JSONObject();
                     rent.put("rent_status",3);
                     rent.put("record_status",1);
                     rent.put("rent_type","month");
-                    rent.put("price",etPrice.getText().toString().toLowerCase());
-                    rent.put("total_price",etPrice.getText().toString().toLowerCase());
+                    rent.put("price",etPrice.getText().toString());
+                    rent.put("total_price",etPrice.getText().toString());
                     rent.put("rent_date",null);
                     rent.put("return_date",null);
                     rent.put("rent_count_number",0);
                     post.put("rent_post",new JSONArray("["+rent+"]"));
                     break;
+
+                case "ទិញ":
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/";
                     JSONObject buy=new JSONObject();
@@ -990,6 +1009,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
             }
             Log.d(TAG,post.toString());
+            Log.d("URLLLLLLL",url);
+
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
             Request request = new Request.Builder()
@@ -1098,6 +1119,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Log.d("Failure:",mMessage );
                             AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                             alertDialog.setTitle(getString(R.string.title_post));
                             alertDialog.setMessage(getString(R.string.post_fail_message));
@@ -1138,7 +1160,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private void EditPost_Approve(String encode,int edit_id) {
 
-        strPostType = tvPostType.getText().toString().toLowerCase();
+
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
         OkHttpClient client = new OkHttpClient();
@@ -1230,6 +1252,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("color", strColor);
 
             switch (strPostType){
+                case "លក់":
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/"+edit_id+"/";
                     //Log.d("URL","URL"+url);
@@ -1242,6 +1265,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     //post.put("rent_post",new JSONArray("[]"));
                     //post.put("buy_post",new JSONArray("[]"));
                     break;
+
+                case "ជួល":
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/"+edit_id+"/";
                     JSONObject rent=new JSONObject();
@@ -1255,6 +1280,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     rent.put("rent_count_number",0);
                     post.put("rent_post",new JSONArray("["+rent+"]"));
                     break;
+
+                case "ទិញ":
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/"+ edit_id + "/";
                     JSONObject buy=new JSONObject();
@@ -1264,6 +1291,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
             }
 
+            Log.d("URLLLLLLL",url);
             //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
             Log.d(TAG,tvAddress.getQuery().toString()+","+etName.getText().toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
@@ -1288,8 +1316,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         createPostModel = gson.fromJson(respon,CreatePostModel.class);
                         if (createPostModel!=null){
                             int id = createPostModel.getId();
-                            String title = createPostModel.getTitle();
-                            if (title!=null || !title.isEmpty()){
+
+                            if (id!=0 ){
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -2044,6 +2072,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     break;
                             }
                             dialogInterface.dismiss();
+                            Log.d("Post_type:",strPostType);
                         }
                     });
 
@@ -2157,23 +2186,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         }
                         icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-//                        for (int init = 0; init<checkedItems.length;init++){
-//                            checkedItems[init] = false;
-//                            strDiscountType.isEmpty();
-//                            tvDiscount_type.setText("");
-//                            etDiscount_amount.setText("");
-//
-//                        }
-                        tvDiscount_type.setText("");
-                        etDiscount_amount.setText("");
-                        dialog.cancel();
-
                     }
                 });
 
@@ -2944,7 +2956,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-
     private void getLocation_edit(double latitude, double longtitude){
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
@@ -3051,13 +3062,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(getApplicationContext(),
                                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
+
+
                     ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                     return;
                 }
