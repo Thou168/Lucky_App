@@ -44,7 +44,7 @@
                 android:id="@+id/title"
                 android:text="title"
                 android:lines="1"
-                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_4"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -56,15 +56,15 @@
                         android:textSize="10dp"
                         android:id="@+id/location"
                         android:text="Phonm Penh - 2h ago"
-                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_below="@+id/location"
                     android:textColor="@android:color/holo_red_light"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:text="$0.0"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    android:text="$0.00"
                     android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -74,20 +74,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/location"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_toEndOf="@+id/tv_price"
                     android:layout_marginTop="4dp"
-                    android:text="$0.0"
+                    android:text="$0.00"
                     android:visibility="gone" />
 
                 <LinearLayout
-                    android:gravity="right"
                     android:orientation="vertical"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:layout_gravity="right"
                         android:id="@+id/post_type"
                         android:layout_width="40dp"
                         android:layout_height="18dp"
@@ -102,7 +102,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
-                            android:layout_marginEnd="0dp"
                             android:text="@string/view"
                             android:textSize="10dp" />
                         <TextView

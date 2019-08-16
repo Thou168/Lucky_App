@@ -199,7 +199,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                     }
 
                     builder.show()
-                } else  {
+                } else if (language.equals("en")) {
                     builder.setItems(items) { dialog, ite ->
                         if (items[ite] == "Cancel") {
                             dialog.dismiss()

@@ -75,11 +75,13 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
         val btn_edit = itemView.findViewById<Button>(R.id.btnedit)
         val count_view = itemView.findViewById<TextView>(R.id.user_view)
         val view=itemView.findViewById<TextView>(R.id.view)
+        val time = itemView.findViewById<TextView>(R.id.location)
 
         fun bindItems(item: LoanItemAPI) {
             Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             title.text = item.title
             cost.text = "$"+item.cost.toString()
+            time.text = item.location_duration
             view.text =item.count_view
 
             var lang: String =count_view.text as String

@@ -105,7 +105,7 @@
     <string name="back">ត្រឡប់</string>
     <string name="bt_verify">ផ្ទៀងផ្ទាត់</string>
     <string name="verify_code">លេខកូដផ្ទៀងផ្ទាត់</string>
-    <string name="verify_code_message">User with this username already exists.</string>
+    <string name="verify_code_message">អ្នកប្រើប្រាស់ដែលមានឈ្មោះនេះមានរួចហើយ</string>
 
     <!-- Start Loan Information String -->
     <style name="loan_calculation_title1">ការរគណនាប្រាក់កម្ចី/ Loan Calculation</style>

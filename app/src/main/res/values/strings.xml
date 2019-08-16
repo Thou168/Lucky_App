@@ -220,13 +220,13 @@
         <item>Other Dealer</item>
     </string-array>
     <string-array name="genders_array">
-        <item>male</item>
-        <item>female</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
     <string-array name="marital_status_array">
         <item>Single</item>
         <item>Married</item>
-        <item>other</item>
+        <item>Other</item>
     </string-array>
     <string-array name="province_array">
         <item>Phnom Penh</item>

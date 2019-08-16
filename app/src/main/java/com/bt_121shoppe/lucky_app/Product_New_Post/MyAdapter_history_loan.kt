@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi
 //import javax.swing.text.StyleConstants.setIcon
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.fragments.LoanItemAPI
+import com.bumptech.glide.Glide
 import kotlin.collections.ArrayList
 
 class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val type: String?) : RecyclerView.Adapter<MyAdapter_history_loan.ViewHolder>() {
@@ -56,15 +57,18 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
         val count_view = itemView.findViewById<TextView>(R.id.user_view)
+        val time = itemView.findViewById<TextView>(R.id.location)
         val view =itemView.findViewById<TextView>(R.id.view)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItems(item: LoanItemAPI) {
-            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            imageView.setImageBitmap(decodedByte)
+//            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
+//            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+//            imageView.setImageBitmap(decodedByte)
+            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             title.text = item.title
             cost.text = item.cost.toString()
+            time.text = item.location_duration
             view.text =item.count_view
             var lang: String =count_view.text as String
             if (lang == "View:") {
