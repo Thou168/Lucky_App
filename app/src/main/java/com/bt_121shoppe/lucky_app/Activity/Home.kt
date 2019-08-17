@@ -92,6 +92,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var grid: ImageView? = null
     var list: ImageView? = null
     var image_list: ImageView? = null
+    //    var click: String = "Khmer"
     lateinit var sharedPreferences: SharedPreferences
     val myPreferences = "mypref"
     val namekey = "Khmer"
@@ -248,6 +249,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
+                        intent.putExtra("noti","notifi")
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -259,6 +261,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
+//                        intent.putExtra("came",0)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -270,6 +273,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
+//                        intent.putExtra("mess",0)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -281,6 +285,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
+//                        intent.putExtra("acc",0)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }

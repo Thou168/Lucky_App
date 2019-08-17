@@ -2161,6 +2161,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 });
 
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+
+                            tvDiscount_type.setText("");
+                            etDiscount_amount.setText("");
+
+                    }
+                });
+
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }

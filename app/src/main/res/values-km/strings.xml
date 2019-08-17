@@ -273,6 +273,7 @@
         <item>ខែ</item>
     </string-array>
     //Discount type
+    <string name="clear_all_label">មិនព្រម</string>
     <string-array name="discount_type">
         <item> $</item>
         <item> %</item>

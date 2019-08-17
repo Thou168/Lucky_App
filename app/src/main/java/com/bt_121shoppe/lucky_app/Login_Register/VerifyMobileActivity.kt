@@ -14,7 +14,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bt_121shoppe.lucky_app.Activity.Account
+import com.bt_121shoppe.lucky_app.Activity.Camera
 import com.bt_121shoppe.lucky_app.Activity.Home
+import com.bt_121shoppe.lucky_app.Activity.Message
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java
 import com.bt_121shoppe.lucky_app.R
@@ -429,8 +432,35 @@ class VerifyMobileActivity : AppCompatActivity() {
 
                     //Toast.makeText(applicationContext, "Register Success", Toast.LENGTH_SHORT).show()
 
+                    val intent = Intent(this@VerifyMobileActivity, Home::class.java)
+
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+
+//                    val noti = intent.getStringExtra("noti")
+//                    if (noti.equals("notifi")){
+//                        val intent = Intent(this@VerifyMobileActivity, Notification::class.java)
+//                        startActivity(intent)
+//                    }
+//
+//                    val came:String = intent.getStringExtra("came")
+//                    if (came=="camera"){
+//                        val intent = Intent(this@VerifyMobileActivity, Camera::class.java)
+//                        startActivity(intent)
+//                    }
+//
+//                    val mess:String = intent.getStringExtra("mess")
+//                    if (mess=="message"){
+//                        val intent = Intent(this@VerifyMobileActivity, Message::class.java)
+//                        startActivity(intent)
+//                    }
+//
+//                    val acc:String = intent.getStringExtra("acc")
+//                    if (acc=="account"){
+//                        val intent = Intent(this@VerifyMobileActivity, Account::class.java)
+//                        startActivity(intent)
+//                    }
+
                     finish()
                 } else {
                     mProgress.dismiss()
