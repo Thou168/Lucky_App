@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">121 Shoppe</string>
+    <string name="app_name">121 Motorbike</string>
     <string name="title_activity_new__main">New_Main</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -624,4 +624,6 @@
         <item>Public User</item>
         <item>Other Dealers</item>
     </string-array>
+    <string name="no_more_result">No more result</string>
+
 </resources>

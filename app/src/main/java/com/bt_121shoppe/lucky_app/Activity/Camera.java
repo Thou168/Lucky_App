@@ -244,11 +244,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
         Toolbar toolbar=findViewById(R.id.toolbar);
 
-         bundle = getIntent().getExtras();
-         if (bundle!=null) {
-              edit_id = bundle.getInt("id_product", 0);
-              Log.d("Edit_id:", String.valueOf(edit_id));
-         }
         //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
@@ -1025,7 +1020,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                    String respon = response.body().string();
-                    Log.d(TAG, "TTTT" + respon);
+                    //Log.d(TAG, "Post TTTT" + respon);
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
@@ -1047,11 +1042,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String dicountType=obj.getString("discount_type");
                                             String location=obj.getString("contact_address");
                                             String createdAt=obj.getString("created");
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt);
+                                            int pStatus=obj.getInt("status");
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
-
 
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
@@ -1181,7 +1176,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         try {
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate );
-            post.put("status", 1);
+            post.put("status", 3);
             post.put("condition",strCondition);
 
             if (strPostType.equals("buy")) {
@@ -1321,6 +1316,21 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        //update to firebase
+                                        try {
+                                            JSONObject obj = new JSONObject(respon);
+                                            int pID = obj.getInt("id");
+                                            String pTitle = obj.getString("title");
+                                            String pCoverURL = obj.getString("front_image_path");
+                                            String price = obj.getString("cost");
+                                            String dicountPrice = obj.getString("discount");
+                                            String dicountType = obj.getString("discount_type");
+                                            String location = obj.getString("contact_address");
+                                            String createdAt = obj.getString("created");
+                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt);
+                                        }catch (JSONException e){
+                                            e.printStackTrace();
+                                        }
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.post_success_message));
@@ -1333,7 +1343,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                     }
                                                 });
                                         alertDialog.show();
-
                                     }
                                 });
 
@@ -1352,10 +1361,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 });
                                         alertDialog.show();
                                         mProgress.dismiss();
-
                                     }
                                 });
-
                             }
                         }
                     }catch (JsonParseException e){
@@ -1377,7 +1384,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         });
                         mProgress.dismiss();
                     }
-
                 }
 
                 @Override
@@ -1459,40 +1465,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         categoryListItems[i]=name;
                         categoryIdListItems[i]=id;
                     }
-
-                    /*
-                    tvCategory.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(@NotNull MaterialSpinner materialSpinner, @Nullable View view, int i, long l) {
-
-
-                                id_cate = String.valueOf(ID_category.getItem(i));
-                                Log.d("ID", id_cate);
-
-                                cate = Integer.parseInt(id_cate);
-
-                            if (cate==1){
-                                icType_elec.setVisibility(View.VISIBLE);
-                                tvType_elec.setVisibility(View.VISIBLE);
-                            }else {
-                                icType_elec.setVisibility(View.GONE);
-                                tvType_elec.setVisibility(View.GONE);
-                                type = 3;
-                                Log.d("Typd id", String.valueOf(type));
-                            }
-                            icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            tvBrand.setSelection(-1);
-                            icBrand.setImageResource(R.drawable.icon_null);
-                           Call_Brand(Encode,id_cate);
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(@NotNull MaterialSpinner materialSpinner) {
-
-                        }
-                    });
-                    */
                 }catch (JSONException e){
                     e.printStackTrace();
                 }

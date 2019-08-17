@@ -17,7 +17,6 @@
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -25,6 +24,7 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:node="replace" />
+
     <dist:module dist:instant="true" />
 
     <application
@@ -38,8 +38,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".post.PostGallaryActivity"></activity>
+        <activity android:name=".firebases.activities.PostListActivity"></activity>
+        <activity android:name=".post.PostGallaryActivity" />
         <activity android:name=".Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,8 +63,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
@@ -74,8 +76,7 @@
         <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
         <activity android:name=".Startup.Filter" />
         <activity android:name=".chats.ChatActivity" />
-        <activity android:name=".Activity.Account" />
-        <!--<activity android:name=".Fragment.contact_user2" />-->
+        <activity android:name=".Activity.Account" /> <!-- <activity android:name=".Fragment.contact_user2" /> -->
         <activity android:name=".Login_Register.FacebookLoginActivity" />
         <activity android:name=".Activity.SpinnerActivity" />
         <activity android:name=".chats.MessageActivity" />
@@ -98,7 +99,6 @@
         <activity android:name=".Activity.Camera" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
-
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".notifications.NotificationActivity" />
 

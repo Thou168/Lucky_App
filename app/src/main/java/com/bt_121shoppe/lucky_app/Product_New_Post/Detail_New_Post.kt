@@ -43,6 +43,7 @@ import com.bt_121shoppe.lucky_app.Product_dicount.Detail_Discount
 import com.bt_121shoppe.lucky_app.useraccount.User_post
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.chats.ChatActivity
+import com.bt_121shoppe.lucky_app.firebases.FBPostCommonFunction
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.Chat
 import com.bt_121shoppe.lucky_app.models.PostViewModel
@@ -917,6 +918,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     val jsonCount=jsonObject.getInt("count")
                     runOnUiThread {
                         tv_count_view.setText(""+jsonCount)
+                        //submit count view to firebase
+                        FBPostCommonFunction.addCountView(postId.toString(),jsonCount)
                     }
 
                 } catch (e: JsonParseException) {

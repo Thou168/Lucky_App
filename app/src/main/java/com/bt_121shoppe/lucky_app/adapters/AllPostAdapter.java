@@ -148,6 +148,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {
+                postOriginalPrice.setVisibility(View.VISIBLE);
                 postOriginalPrice.setText("$ "+mPost.getPostPrice());
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 Double cost=Double.parseDouble(mPost.getPostPrice());
@@ -160,6 +161,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 mPrice=cost;
                 postPrice.setText("$ "+cost.toString());
             }else{
+                postPrice.setText("$ "+mPost.getPostPrice());
                 postOriginalPrice.setVisibility(View.GONE);
             }
 

@@ -523,4 +523,5 @@
         <item>អ្នកប្រើសាធារណៈ</item>
         <item>អ្នកចែកចាយផ្សេងទៀត</item>
     </string-array>
+    <string name="no_more_result">គ្មានទិន្នន័យទៀតទេ</string>
 </resources>

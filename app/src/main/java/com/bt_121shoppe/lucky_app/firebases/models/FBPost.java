@@ -1,20 +1,23 @@
 package com.bt_121shoppe.lucky_app.firebases.models;
 
+import android.util.Log;
+
 public class FBPost {
-    private String isProduction;
+    private boolean isProduction;
     private String id;
     private String title;
     private String type;
     private String coverUrl;
-    private String price;
+    private Long price;
     private String discountAmount;
     private String discountType;
     private String location;
     private String createdAt;
-    private String viewCount;
+    private int viewCount;
+    private int status;
 
     public FBPost(){}
-    public FBPost(String isProduction,String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,String viewCount){
+    public FBPost(boolean isProduction, String id, String title, String type, String coverUrl, Long price, String discountAmount, String discountType, String location, String createdAt, int viewCount,int status){
         this.isProduction=isProduction;
         this.id=id;
         this.title=title;
@@ -26,6 +29,7 @@ public class FBPost {
         this.location=location;
         this.createdAt=createdAt;
         this.viewCount=viewCount;
+        this.status=status;
     }
 
     public String getDiscountType() {
@@ -48,7 +52,7 @@ public class FBPost {
         return title;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
@@ -60,7 +64,7 @@ public class FBPost {
         return createdAt;
     }
 
-    public String getIsProduction() {
+    public boolean getIsProduction() {
         return isProduction;
     }
 
@@ -68,8 +72,12 @@ public class FBPost {
         return location;
     }
 
-    public String getViewCount() {
+    public int getViewCount() {
         return viewCount;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public void setDiscountType(String discountType) {
@@ -92,7 +100,7 @@ public class FBPost {
         this.title = title;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -104,7 +112,7 @@ public class FBPost {
         this.createdAt = createdAt;
     }
 
-    public void setIsProduction(String isProduction) {
+    public void setIsProduction(boolean isProduction) {
         this.isProduction = isProduction;
     }
 
@@ -112,7 +120,11 @@ public class FBPost {
         this.location = location;
     }
 
-    public void setViewCount(String viewCount) {
+    public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

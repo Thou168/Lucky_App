@@ -110,10 +110,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/list_new_post"
-                        android:padding="@dimen/dp_8dp"
+                        android:padding="@dimen/dp_16"
                         android:gravity="center"
-                        android:visibility="gone"
-                        android:text="@string/load_more_text"
+                        android:text="@string/no_more_result"
+                        app:layout_constraintTop_toBottomOf="@id/list_new_post"
                         tools:ignore="MissingConstraints" />
 
                     <ProgressBar

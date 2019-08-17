@@ -29,6 +29,7 @@ import androidx.appcompat.app.AlertDialog
 import com.bt_121shoppe.lucky_app.Activity.Account
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.api.TabA1_api
+import com.bt_121shoppe.lucky_app.firebases.FBPostCommonFunction
 import com.bt_121shoppe.lucky_app.fragments.FragmentC1
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
 import com.bumptech.glide.Glide
@@ -59,7 +60,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
             return ViewHolder(layout)
         }
-
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(itemList[position])
@@ -132,9 +132,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 if (sharedPref.contains("token") || sharedPref.contains("id")) {
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")
-
                     Encode = "Basic " + CommonFunction.getEncodedString(name, pass)
-
                     if (sharedPref.contains("token")) {
                         pk = sharedPref.getInt("Pk", 0)
                     } else if (sharedPref.contains("id")) {
@@ -145,14 +143,10 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 val items = arrayOf<CharSequence>("This product has been sold", "Suspend this ads", "Delete to post new ads", "Cancel")
                 val itemkh = arrayOf<CharSequence>("ផលិតផលនេះត្រូវបានលក់ចេញ", "ផ្អាកការប្រកាសនេះ", "លុបដើម្បីប្រកាសជាថ្មី", "បោះបង់")
                 val builder = AlertDialog.Builder(it.context)
-                Log.d("Language",language.toString())
                 if (language.equals("km")) {
-
-                    Log.d("Language11111",language.toString())
                     builder.setItems(itemkh) { dialog, ite ->
                         if (itemkh[ite] == "បោះបង់") {
                             dialog.dismiss()
-
                         } else {
                             val reason = itemkh[ite].toString()
                             val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
@@ -160,9 +154,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                             val client = OkHttpClient()
                             val data = JSONObject()
                             try {
-                                //data.put("id",60)
                                 data.put("status", 2)
-                                //ata.put("description","Test")
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     data.put("modified", Instant.now().toString())
                                 }
@@ -171,7 +163,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
-                            Log.d("TAG", URL_ENDCODE + " " + data)
                             val body = RequestBody.create(media, data.toString())
                             val request = Request.Builder()
                                     .url(URL_ENDCODE)
@@ -190,14 +181,13 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                 @Throws(IOException::class)
                                 override fun onResponse(call: Call, response: Response) {
                                     val message = response.body()!!.string()
-                                    Log.d("Response Renewal", message)
+                                    FBPostCommonFunction.deletePost(item.id.toString())
                                     val intent = Intent(it.context, Account::class.java)
                                     it.context.startActivity(intent)
                                 }
                             })
                         }
                     }
-
                     builder.show()
                 } else if (language.equals("en")) {
                     builder.setItems(items) { dialog, ite ->
@@ -252,8 +242,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 }
 
        } // delete
-
-
                 if (item.status_id == "3") {
 
                     btn_renewal.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
@@ -295,18 +283,17 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                     val client = OkHttpClient()
                                     val data = JSONObject()
                                     try {
-                                        data.put("status", 1)
+                                        data.put("status", 4)
                                         //ata.put("description","Test")
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                             data.put("modified", Instant.now().toString())
                                         }
-
                                         data.put("modified_by", pk)
                                         data.put("rejected_comments", "")
                                     } catch (e: JSONException) {
                                         e.printStackTrace()
                                     }
-                                    Log.d("TAG", URL_ENDCODE + " " + data)
+                                    //Log.d("TAG", URL_ENDCODE + " " + data)
                                     val body = RequestBody.create(media, data.toString())
                                     val request = Request.Builder()
                                             .url(URL_ENDCODE)
@@ -325,7 +312,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                         @Throws(IOException::class)
                                         override fun onResponse(call: Call, response: Response) {
                                             val message = response.body()!!.string()
-                                            Log.d("Response Renewal", message)
+                                            FBPostCommonFunction.renewalPost(item.id.toString())
                                             val intent = Intent(it.context, Account::class.java)
                                             it.context.startActivity(intent)
                                         }
@@ -334,8 +321,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                                 .setNegativeButton(android.R.string.no, null).show()
                     }
                 } //status id
-
-
             fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
                 val bytes = ByteArrayOutputStream()
                 inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
@@ -350,27 +335,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                 return Base64.encodeToString(arr, Base64.DEFAULT)
             }
         }
-
-        //
         internal class LoadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-        /*
-    fun setMoreDataAvailable(moreDataAvailable: Boolean) {
-        isMoreDataAvailable = moreDataAvailable
-    }
-
-    fun notifyDataChanged() {
-        notifyDataSetChanged()
-        isLoading = false
-    }
-
-    interface OnLoadMoreListener {
-        fun onLoadMore()
-    }
-
-    fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
-        this.loadMoreListener = loadMoreListener
-    }
-*/
     }
 }

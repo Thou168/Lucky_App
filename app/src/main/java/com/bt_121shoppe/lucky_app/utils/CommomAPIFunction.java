@@ -3,9 +3,7 @@ package com.bt_121shoppe.lucky_app.utils;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
-
 import com.bt_121shoppe.lucky_app.Activity.Account;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
@@ -16,10 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 
 public class CommomAPIFunction {
