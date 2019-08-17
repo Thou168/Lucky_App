@@ -41,7 +41,7 @@
                 android:textColor="@android:color/holo_red_light"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:text="$0.00"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
