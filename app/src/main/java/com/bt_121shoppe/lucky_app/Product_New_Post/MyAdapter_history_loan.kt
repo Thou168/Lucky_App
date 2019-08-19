@@ -87,12 +87,12 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
                     post_type.setImageResource(R.drawable.rent_kh)
             }
 
-            itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-                val intent = Intent(itemView.context, LoanCreateActivity::class.java)
-                intent.putExtra("id",item.loanId)
-                intent.putExtra("post",item.id)
-                itemView.context.startActivity(intent)
-            }
+//            itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
+//                val intent = Intent(itemView.context, LoanCreateActivity::class.java)
+//                intent.putExtra("id",item.loanId)
+//                intent.putExtra("post",item.id)
+//                itemView.context.startActivity(intent)
+//            }
         }
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()
