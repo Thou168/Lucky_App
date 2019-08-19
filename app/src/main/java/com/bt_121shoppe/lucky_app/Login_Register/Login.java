@@ -45,6 +45,8 @@ public class Login extends AppCompatActivity {
     private Context context;
     ProgressDialog mProgress;
     SharedPreferences prefer;
+    private String login_verify;
+    private int product_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,10 @@ public class Login extends AppCompatActivity {
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+
+        Intent intent = getIntent();
+        login_verify = intent.getStringExtra("Login_verify");
+        product_id   = intent.getIntExtra("product_id",0);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,9 +167,12 @@ public class Login extends AppCompatActivity {
                         intent.putExtra("authType",2);
                         intent.putExtra("phoneNumber",name);
                         intent.putExtra("password",pass);
+                        intent.putExtra("Login_verify",login_verify);
+                        intent.putExtra("product_id",product_id);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         mProgress.dismiss();
                         startActivity(intent);
+                        finish();
 
 //                        SharedPreferences.Editor editor = prefer.edit();
 //                        editor.putString("token",key);

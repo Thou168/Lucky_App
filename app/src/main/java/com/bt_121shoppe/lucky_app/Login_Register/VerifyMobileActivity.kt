@@ -1,6 +1,6 @@
 package com.bt_121shoppe.lucky_app.Login_Register
 
-import android.app.Notification
+
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -17,10 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bt_121shoppe.lucky_app.Activity.Account
 import com.bt_121shoppe.lucky_app.Activity.Camera
 import com.bt_121shoppe.lucky_app.Activity.Home
-import com.bt_121shoppe.lucky_app.Activity.Message
+import com.bt_121shoppe.lucky_app.Activity.Notification
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java
+import com.bt_121shoppe.lucky_app.Product_New_Post.Detail_New_Post
 import com.bt_121shoppe.lucky_app.R
+import com.bt_121shoppe.lucky_app.chats.ChatMainActivity
 import com.bt_121shoppe.lucky_app.models.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -52,6 +54,8 @@ class VerifyMobileActivity : AppCompatActivity() {
     internal lateinit var mProgress: ProgressDialog
     internal lateinit var mResendToken:PhoneAuthProvider.ForceResendingToken
     internal lateinit var reference: DatabaseReference
+    private var verify = ""
+    private var product_id = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +78,7 @@ class VerifyMobileActivity : AppCompatActivity() {
         mProgress.setCancelable(false)
         mProgress.isIndeterminate = true
 
+
         reference = FirebaseDatabase.getInstance().reference
 
         sendVerificationCode(no)
@@ -94,7 +99,7 @@ class VerifyMobileActivity : AppCompatActivity() {
         resend.setOnClickListener(View.OnClickListener {
             resendVerificationCode("+855"+no,mResendToken)
         })
-    }
+    }  //OnCreate
 
     private fun sendVerificationCode(no: String) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -331,11 +336,43 @@ class VerifyMobileActivity : AppCompatActivity() {
                     editor.commit()
 
                     Toast.makeText(applicationContext, "Register Success", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@VerifyMobileActivity, Home::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
+                    verify = intent.getStringExtra("Register_verify")
+                    product_id = intent.getIntExtra("product_id",0)
 
-                    finish()
+                    Log.d("VeriFy",":"+verify);
+
+                    if (verify.equals("notification")){
+                        val intent = Intent(this@VerifyMobileActivity, Notification::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("camera")){
+                        val intent = Intent(this@VerifyMobileActivity, Camera::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("message")){
+                        val intent = Intent(this@VerifyMobileActivity, ChatMainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("account")){
+                        val intent = Intent(this@VerifyMobileActivity, Account::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("detail")){
+                        val intent = Intent(this@VerifyMobileActivity, Detail_New_Post::class.java)
+                        intent.putExtra("ID",product_id)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else {
+                        val intent = Intent(this@VerifyMobileActivity, Home::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }
 
                 } else {
                     //Toast.makeText(applicationContext, "register failure", Toast.LENGTH_SHORT).show()
@@ -431,11 +468,43 @@ class VerifyMobileActivity : AppCompatActivity() {
                     editor.commit()
 
                     //Toast.makeText(applicationContext, "Register Success", Toast.LENGTH_SHORT).show()
+                    verify = intent.getStringExtra("Login_verify")
+                    product_id = intent.getIntExtra("product_id",0)
+                    Log.d("VeriFy TTTTT",":"+verify)
 
-                    val intent = Intent(this@VerifyMobileActivity, Home::class.java)
+                    if (verify.equals("notification")){
+                        val intent = Intent(this@VerifyMobileActivity, Notification::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("camera")){
+                        val intent = Intent(this@VerifyMobileActivity, Camera::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("message")){
+                        val intent = Intent(this@VerifyMobileActivity, ChatMainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("account")){
+                        val intent = Intent(this@VerifyMobileActivity, Account::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else if (verify.equals("detail")){
+                        val intent = Intent(this@VerifyMobileActivity, Detail_New_Post::class.java)
+                        intent.putExtra("ID",product_id)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }else {
+                        val intent = Intent(this@VerifyMobileActivity, Home::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }
 
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
 
 //                    val noti = intent.getStringExtra("noti")
 //                    if (noti.equals("notifi")){
@@ -461,7 +530,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 //                        startActivity(intent)
 //                    }
 
-                    finish()
+
                 } else {
                     mProgress.dismiss()
                     Toast.makeText(applicationContext, "Login failure", Toast.LENGTH_SHORT).show()

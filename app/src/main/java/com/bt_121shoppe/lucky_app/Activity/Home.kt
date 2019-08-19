@@ -249,7 +249,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
-                        intent.putExtra("noti","notifi")
+                        intent.putExtra("verify","notification")
+                        Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -261,7 +262,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
-//                        intent.putExtra("came",0)
+                        intent.putExtra("verify","camera")
+                        Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -273,7 +275,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
-//                        intent.putExtra("mess",0)
+                        intent.putExtra("verify","message")
+                        Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -285,7 +288,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
-//                        intent.putExtra("acc",0)
+                        intent.putExtra("verify","account")
+                        Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }

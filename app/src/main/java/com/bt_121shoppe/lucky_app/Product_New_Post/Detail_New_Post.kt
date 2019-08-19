@@ -228,7 +228,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 startActivity(intent)
             }else{
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                intent.putExtra("verify","detail")
+                intent.putExtra("product_id",postId)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                finish()
             }
         }
 
@@ -238,7 +242,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 Like_post(Encode)
             }else{
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                intent.putExtra("verify","detail")
+                intent.putExtra("product_id",postId)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                finish()
             }
         }
 
@@ -250,6 +258,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 startActivity(intent)
             }else{
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                intent.putExtra("verify","detail")
+                intent.putExtra("product_id",postId)
                 startActivity(intent)
             }
         }

@@ -49,6 +49,8 @@ public class Register extends AppCompatActivity {
     String phone;
     String comfirm;
     String pass;
+    private String register_verify;
+    private int product_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,10 @@ public class Register extends AppCompatActivity {
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
 
+        Intent intent = getIntent();
+        register_verify = intent.getStringExtra("Register_verify");
+        product_id      = intent.getIntExtra("product_id",0);
+
         btnSubmit = (Button)findViewById(R.id.btnSub);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +81,8 @@ public class Register extends AppCompatActivity {
                     intent.putExtra("authType",1);
                     intent.putExtra("phoneNumber",editPhone.getText().toString());
                     intent.putExtra("password",comfirm = editPassword.getText().toString());
+                    intent.putExtra("Register_verify",register_verify);
+                    intent.putExtra("product_id",product_id);
                     //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     //finish();

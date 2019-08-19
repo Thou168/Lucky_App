@@ -137,10 +137,12 @@ public class ChangePassword extends AppCompatActivity {
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     SharedPreferences.Editor editor = prefer.edit();
-                                                    editor.clear();
+                                                    editor.putString("name",name);
+                                                    editor.putString("pass",etComfirm.getText().toString());
                                                     editor.commit();
-                                                    startActivity(new Intent(ChangePassword.this, Home.class));
+//                                                    startActivity(new Intent(ChangePassword.this, Home.class));
                                                     dialog.dismiss();
+                                                    finish();
                                                 }
                                             });
                                     alertDialog.show();

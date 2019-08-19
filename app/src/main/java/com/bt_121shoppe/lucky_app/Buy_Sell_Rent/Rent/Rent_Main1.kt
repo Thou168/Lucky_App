@@ -19,6 +19,7 @@ import java.util.*
 class Rent_Main1 : AppCompatActivity() {
 
     private var content: FrameLayout? = null
+    private var bnavigation: BottomNavigationView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +28,9 @@ class Rent_Main1 : AppCompatActivity() {
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         content = findViewById(R.id.content) as FrameLayout
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment_rent_vehicle()).commit()
-        val bnavigation = findViewById<BottomNavigationView>(R.id.navigation)
-        bnavigation.setOnNavigationItemSelectedListener { item ->
+         bnavigation = findViewById<BottomNavigationView>(R.id.navigation)
+        bnavigation!!.menu.getItem(0).isChecked = true
+        bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     val intent = Intent(this@Rent_Main1,Home::class.java)
@@ -75,6 +77,12 @@ class Rent_Main1 : AppCompatActivity() {
         }
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        bnavigation!!.menu.getItem(0).isChecked = true
+    }
+
     fun language(lang: String) {
         val locale = Locale(lang)
         Locale.setDefault(locale)
@@ -92,4 +100,6 @@ class Rent_Main1 : AppCompatActivity() {
         Log.d("language",language)
         language(language)
     }
+
+
 }

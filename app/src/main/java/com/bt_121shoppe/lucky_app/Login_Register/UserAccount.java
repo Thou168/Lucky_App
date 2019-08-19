@@ -39,6 +39,8 @@ public class UserAccount extends AppCompatActivity {
     private Button Login,Register;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+    private String verify;
+    private int product_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,11 @@ public class UserAccount extends AppCompatActivity {
 
         LoginManager.getInstance().logOut();
 
+        Intent intent = getIntent();
+        verify = intent.getStringExtra("verify");
+        product_id = intent.getIntExtra("product_id",0);
+
+
         Login = (Button)findViewById(R.id.btnLogin);
         Register =(Button)findViewById(R.id.btnRegister);
         loginButton=(LoginButton) findViewById(R.id.login_button);
@@ -57,14 +64,26 @@ public class UserAccount extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), Login.class));
+                Intent intent = new Intent(v.getContext(),Login.class);
+                intent.putExtra("Login_verify",verify);
+                intent.putExtra("product_id",product_id);
+                startActivity(intent);
+
+                Log.d("Login Verify",verify);
+            //    startActivity(new Intent(v.getContext(), Login.class));
             }
         });
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(),Register.class));
+                Intent intent = new Intent(v.getContext(), Register.class);
+                intent.putExtra("Register_verify",verify);
+                intent.putExtra("product_id",product_id);
+                startActivity(intent);
+
+                Log.d("Register Verify",verify);
+   //             startActivity(new Intent(v.getContext(),Register.class));
             }
         });
 

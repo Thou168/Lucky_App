@@ -175,20 +175,26 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             if (model!=null){
                                 int statusCode = model.getStatus();
                                 if (statusCode==201){
-                                    AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
-                                    alertDialog.setTitle(getString(R.string.reset_password_title));
-                                    alertDialog.setMessage("Your password has been reset.");
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    SharedPreferences.Editor editor = prefer.edit();
-                                                    editor.clear();
-                                                    editor.commit();
-                                                    startActivity(new Intent(ResetPasswordActivity.this, Home.class));
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    alertDialog.show();
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
+                                            alertDialog.setTitle(getString(R.string.reset_password_title));
+                                            alertDialog.setMessage("Your password has been reset.");
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            SharedPreferences.Editor editor = prefer.edit();
+                                                            editor.clear();
+                                                            editor.commit();
+                                                            startActivity(new Intent(ResetPasswordActivity.this, Home.class));
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
+                                        }
+                                    });
+
                                 }else {
                                     runOnUiThread(new Runnable() {
                                         @Override
