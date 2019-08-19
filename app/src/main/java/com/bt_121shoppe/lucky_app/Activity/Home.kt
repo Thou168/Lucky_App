@@ -724,9 +724,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
                             if (isCamera) {
-                                //dispatchTakePictureIntent()
+//                                dispatchTakePictureIntent()
                             } else {
-                                //dispatchGalleryIntent()
+//                                dispatchGalleryIntent()
                             }
                         }
                         // check for permanent denial of any permission
@@ -734,9 +734,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             // show alert dialog navigating to Settings
                             showSettingsDialog()
                         }
-                        if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)
-                                !== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION)
-                                !== PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)!== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(this@Home, arrayOf<String>(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 
                         }
@@ -746,7 +744,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest>, token: PermissionToken) {
                         token.continuePermissionRequest()
                     }
-                }).withErrorListener { error -> Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show() }
+                }).withErrorListener { error  ->Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show() }
                 .onSameThread()
                 .check()
     }
