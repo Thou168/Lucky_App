@@ -578,6 +578,7 @@
     <string name="tab_loan">Loan</string>
     <string name="active">Active ads</string>
     <string name="history">History</string>
+    <string name="history_loan">History</string>
     <string name="loan_active">Active Loan</string>
     <string name="view">View: </string>
     //edit account

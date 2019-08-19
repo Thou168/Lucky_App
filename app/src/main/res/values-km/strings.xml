@@ -475,8 +475,9 @@
     <string name="tab_like">ចូលចិត្ត</string>
     <string name="tab_loan">ឥណទាន</string>
     <string name="active">ប្រកាសថ្មី</string>
-    <string name="history">ចាស់</string>
-    <string name="loan_active">ឥណទានថ្មី</string>
+    <string name="history">ប្រវត្តិការប្រកាស</string>
+    <string name="history_loan">ប្រវត្តិស្នើសុំឥណទាន</string>
+    <string name="loan_active">ឥណទានស្នើសុំថ្មី</string>
     <string name="view">ចំនួនអ្នកមើលៈ</string>
     //edit account
     <string name="male">ប្រុស</string>
