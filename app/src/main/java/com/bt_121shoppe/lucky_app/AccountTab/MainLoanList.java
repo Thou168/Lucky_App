@@ -92,4 +92,5 @@ public class MainLoanList extends Fragment {
             return titleList.get(position);
         }
     }
+
 }

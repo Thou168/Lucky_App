@@ -57,7 +57,7 @@ public class Filter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
-
+        locale();
         tv_result = findViewById(R.id.tv_result);
         tv_result.setOnClickListener(v -> finish());
         tv_done  = findViewById(R.id.tv_done);
@@ -419,5 +419,21 @@ public class Filter extends AppCompatActivity {
             }
         });
     }
+    private void language(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration confi =new  Configuration();
+        confi.locale = locale;
+        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
 
+    private void locale() {
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang","");
+        Log.d("language",language);
+        language(language);
+    }
 }

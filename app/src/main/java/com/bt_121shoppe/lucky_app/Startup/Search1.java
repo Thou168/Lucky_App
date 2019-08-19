@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.media.VolumeShaper;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -23,6 +26,7 @@ import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.lucky_app.R;
+import com.facebook.common.references.SharedReference;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
@@ -33,6 +37,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import okhttp3.Call;
@@ -55,7 +60,7 @@ public class Search1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        locale();
         TextView back = (TextView)findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,5 +242,22 @@ public class Search1 extends AppCompatActivity {
             }
         }
 
+    }
+    private void language(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration confi =new  Configuration();
+        confi.locale = locale;
+        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    private void locale() {
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang","");
+        Log.d("language",language);
+        language(language);
     }
 }

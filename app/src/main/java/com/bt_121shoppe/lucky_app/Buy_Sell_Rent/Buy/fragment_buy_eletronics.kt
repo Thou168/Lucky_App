@@ -1,6 +1,8 @@
 package com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Buy
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bt_121shoppe.lucky_app.R
 import androidx.fragment.app.Fragment

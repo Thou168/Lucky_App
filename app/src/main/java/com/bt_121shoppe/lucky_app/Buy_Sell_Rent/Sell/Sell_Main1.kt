@@ -1,16 +1,20 @@
 package com.bt_121shoppe.lucky_app.Buy_Sell_Rent
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import com.bt_121shoppe.lucky_app.Activity.*
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.fragment_sell_vehicle
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 class Sell_Main1 : AppCompatActivity() {
 
@@ -19,7 +23,7 @@ class Sell_Main1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        locale()
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         content = findViewById(R.id.content) as FrameLayout
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment_sell_vehicle()).commit()
@@ -69,5 +73,22 @@ class Sell_Main1 : AppCompatActivity() {
             }
             true
         }
+    }
+    fun language(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val confi = Configuration()
+        confi.locale = locale
+        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("My_Lang", lang)
+        editor.apply()
+    }
+
+    fun locale() {
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+        Log.d("language",language)
+        language(language)
     }
 }

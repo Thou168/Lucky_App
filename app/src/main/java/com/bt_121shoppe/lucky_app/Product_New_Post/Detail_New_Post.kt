@@ -148,7 +148,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
-
+        locale()
         relativecal = findViewById(R.id.rlLoanCalculation)
         txtundercal = findViewById(R.id.text)
 
@@ -1111,5 +1111,22 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 .build()
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         mMap.addMarker(MarkerOptions().position(LatLng(latitude, longtitude)))
+    }
+    fun language(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val confi = Configuration()
+        confi.locale = locale
+        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("My_Lang", lang)
+        editor.apply()
+    }
+
+    fun locale() {
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+        Log.d("language",language)
+        language(language)
     }
 }

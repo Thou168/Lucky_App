@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -76,6 +77,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -119,7 +121,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tab_layout);
-
+        locale();
         preferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
         username = preferences.getString("name","");
         password = preferences.getString("pass","");
@@ -570,6 +572,23 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     protected void onStart() {
         super.onStart();
         bnavigation.getMenu().getItem(4).setChecked(true);
+    }
+    private void language(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration confi =new  Configuration();
+        confi.locale = locale;
+        getBaseContext().getResources().updateConfiguration(confi, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    private void locale() {
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang","");
+        Log.d("language",language);
+        language(language);
     }
 }
 
