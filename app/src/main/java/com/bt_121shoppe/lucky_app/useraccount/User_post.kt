@@ -1,7 +1,9 @@
 package com.bt_121shoppe.lucky_app.useraccount
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,6 +34,7 @@ import kotlinx.android.synthetic.main.item_grid.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import java.util.*
 
 class User_post : AppCompatActivity() {
 
@@ -46,7 +49,7 @@ class User_post : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
-
+        locale()
         var bundle :Bundle ?=intent.extras
         user_id = intent.getStringExtra("ID").toInt()
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -176,5 +179,22 @@ class User_post : AppCompatActivity() {
 
             }
         })
+    }
+    fun language(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val confi = Configuration()
+        confi.locale = locale
+        baseContext.resources.updateConfiguration(confi, baseContext.resources.displayMetrics)
+        val editor = getSharedPreferences("Settings", MODE_PRIVATE).edit()
+        editor.putString("My_Lang", lang)
+        editor.apply()
+    }
+
+    fun locale() {
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+        Log.d("language",language)
+        language(language)
     }
 }
