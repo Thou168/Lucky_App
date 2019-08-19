@@ -512,6 +512,7 @@
     <string name="title_post">Post ads</string>
     <string name="post_fail_message">This Post ads has been error while submitting.</string>
     <string name="post_success_message">This Post ads has been successfully submitted.</string>
+    <string name="waiting_approval">Waiting approval</string>
 
     <string name="ok">OK</string>
     <string name="please_wait">Please wait...</string>

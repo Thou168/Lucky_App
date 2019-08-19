@@ -1,6 +1,7 @@
 package com.bt_121shoppe.lucky_app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,8 @@ import com.bt_121shoppe.lucky_app.chats.ChatMainActivity;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.utils.FileCompressor;
 import com.bt_121shoppe.lucky_app.utils.ImageUtil;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -778,15 +781,60 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         getModelName(Encode,model);
                                         //Log.d(TAG,"Brand_id"+ brand);
 
-                                        Glide.with(Camera.this).load(fron).into(imageView1);
-                                        Glide.with(Camera.this).load(back).into(imageView2);
-                                        Glide.with(Camera.this).load(left).into(imageView3);
-                                        Glide.with(Camera.this).load(right).into(imageView4);
+                                        Glide.with(Camera.this).asBitmap().load(fron).into(new CustomTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                imageView1.setImageBitmap(resource);
+                                                bitmapImage1 = resource;
+                                            }
+
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                            }
+                                        });
+                                        Glide.with(Camera.this).asBitmap().load(back).into(new CustomTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                imageView2.setImageBitmap(resource);
+                                                bitmapImage2 = resource;
+                                                Log.d("BITMAP","2:"+bitmapImage2);
+                                            }
+
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                            }
+                                        });
+                                        Glide.with(Camera.this).asBitmap().load(left).into(new CustomTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                imageView3.setImageBitmap(resource);
+                                                bitmapImage3 = resource;
+                                            }
+
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                            }
+                                        });
+                                        Glide.with(Camera.this).asBitmap().load(right).into(new CustomTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                imageView4.setImageBitmap(resource);
+                                                bitmapImage4 = resource;
+                                            }
+
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                            }
+                                        });
 
 
 
 //                                        bitmapImage1 = ((BitmapDrawable) imageView1.getDrawable()).getBitmap();
-//                                        Log.d("sfasdfasf","TTTTTTT"+bitmapImage1);
+                                        Log.d("sfasdfasf","1:"+bitmapImage1+"2:"+bitmapImage2+"3:"+bitmapImage3+"4:"+bitmapImage4);
 
 
 //                                        byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
@@ -1333,7 +1381,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         }
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
-                                        alertDialog.setMessage(getString(R.string.post_success_message));
+                                        alertDialog.setMessage(getString(R.string.waiting_approval));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {

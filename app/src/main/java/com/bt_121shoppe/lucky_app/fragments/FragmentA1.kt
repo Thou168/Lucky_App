@@ -86,7 +86,7 @@ class FragmentA1: Fragment() {
     private fun getMyPosts(){
         val itemApi = ArrayList<TabA1_api>()
         var posts= PostViewModel()
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"postbyuser/"
         var MEDIA_TYPE= MediaType.parse("application/json")
         val client = OkHttpClient()
         val request= Request.Builder()

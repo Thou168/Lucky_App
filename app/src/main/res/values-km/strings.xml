@@ -414,6 +414,7 @@
     <string name="title_post">ការប្រកាស</string>
     <string name="post_fail_message">ការប្រកាសនេះមានកំហុសនៅពេលបញ្ជូន</string>
     <string name="post_success_message">ការប្រកាសនេះត្រូវបានដាក់ស្នើដោយជោគជ័យ</string>
+    <string name="waiting_approval">កំពុងរង់ចាំការយល់ព្រម</string>
     <string name="please_wait">សូមរង់ចាំ ...</string>
     <string name="uploading">កំពុងធ្វើការបញ្ចូល</string>
 
