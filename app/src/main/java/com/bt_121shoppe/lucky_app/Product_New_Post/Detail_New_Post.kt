@@ -135,6 +135,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var tex_noresult:TextView
     private lateinit var mprocessBar:ProgressBar
     private lateinit var address_detial:TextView
+    private lateinit var call_phone:ImageView
     private lateinit var postTitle:String
     private lateinit var postPrice:String
     private lateinit var postFrontImage:String
@@ -152,7 +153,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         relativecal = findViewById(R.id.rlLoanCalculation)
         txtundercal = findViewById(R.id.text)
 
-        checkPermission()
+//        checkPermission()
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
         Log.d("ID Detail New :",postId.toString())
@@ -203,7 +204,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         tv_count_view=findViewById(R.id.view)
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
         address_detial = findViewById<TextView>(R.id.address)
-
+        call_phone = findViewById(R.id.btn_call)
         //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
         share.setOnClickListener{
@@ -459,7 +460,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 runOnUiThread {
                                     try {
                                         val jsonObject = JSONObject(mMessage)
-                                        Log.d("modeling_name",mMessage)
+                                        Log.d("modeling_name",jsonObject.getString("modeling_name"))
+                                        Log.d("Language",language)
                                         if(language.equals("km")){
                                             tvModel.setText(jsonObject.getString("modeling_name_kh"))
                                         }else if(language.equals("en")){
@@ -873,10 +875,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val time: Long = sdf.parse(obj.getString("created")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-                            val call = findViewById<ImageView>(R.id.btn_call)
-                            call.setOnClickListener{
-                                dialContactPhone(phoneNumber)
+
+                            call_phone.setOnClickListener {
+                                val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null))
+                                startActivity(intent)
                             }
+
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
@@ -955,54 +959,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val userpass = "$username:$password"
         return Base64.encodeToString(userpass.toByteArray(),
                 Base64.NO_WRAP)
-    }
-    fun makePhoneCall(number: String) : Boolean {
-        try {
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.setData(Uri.parse("tel:$number"))
-            startActivity(intent)
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-    }
-    fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE),
-                        42)
-            }
-        } else {
-            // Permission has already been granted
-            callPhone()
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == 42) {
-            // If request is cancelled, the result arrays are empty.
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // permission was granted, yay!
-                callPhone()
-            } else {
-                // permission denied, boo! Disable the
-                // functionality
-            }
-            return
-        }
-    }
-
-    fun callPhone(){
-        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0962363929"))
-        startActivity(intent)
     }
 
     fun getImageLocal(filePath:String):Bitmap{
