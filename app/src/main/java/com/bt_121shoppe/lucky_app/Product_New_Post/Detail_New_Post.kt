@@ -386,7 +386,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     .url(url)
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
-                    .header("Authorization", auth)
+//                    .header("Authorization", auth)
                     .build()
         }
         else {
@@ -423,7 +423,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 .url(url1)
                                 .header("Accept", "application/json")
                                 .header("Content-Type", "application/json")
-                                .header("Authorization", auth)
+//                                .header("Authorization", auth)
                                 .build()
                         client1.newCall(request1).enqueue(object : Callback {
                             @Throws(IOException::class)
@@ -444,14 +444,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         })
-
                         val url2=ConsumeAPI.BASE_URL+"api/v1/models/"+postDetail.modeling
                         val client2=OkHttpClient()
                         val request2 = Request.Builder()
                                 .url(url2)
                                 .header("Accept", "application/json")
                                 .header("Content-Type", "application/json")
-                                .header("Authorization", auth)
+//                                .header("Authorization", auth)
                                 .build()
                         client2.newCall(request2).enqueue(object : Callback {
                             @Throws(IOException::class)
@@ -460,6 +459,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 runOnUiThread {
                                     try {
                                         val jsonObject = JSONObject(mMessage)
+                                        Log.d("modeling_name",mMessage)
                                         if(language.equals("km")){
                                             tvModel.setText(jsonObject.getString("modeling_name_kh"))
                                         }else if(language.equals("en")){
@@ -472,7 +472,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                                 .url(url3)
                                                 .header("Accept", "application/json")
                                                 .header("Content-Type", "application/json")
-                                                .header("Authorization", auth)
+//                                                .header("Authorization", auth)
                                                 .build()
                                         client3.newCall(request3).enqueue(object : Callback {
                                             @Throws(IOException::class)
@@ -522,8 +522,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                        edLoanPrice.setText(""+discount.toString())
                         edLoanPrice.setText(""+discount)
 
-//                        tvPrice1.setText("$ "+ postDetail.cost.toString())
-
+                        tvPrice1.setText("$ "+ postDetail.cost.toString())
 
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
