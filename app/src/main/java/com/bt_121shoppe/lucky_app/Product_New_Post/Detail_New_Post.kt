@@ -38,6 +38,7 @@ import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
+import com.bt_121shoppe.lucky_app.Api.api.TabA1_api
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.Product_dicount.Detail_Discount
 import com.bt_121shoppe.lucky_app.useraccount.User_post
@@ -86,6 +87,7 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private val TAG = Detail_Discount::class.java.simpleName
@@ -172,7 +174,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         } else if (sharedPref.contains("id")) {
            pk = sharedPref.getInt("id", 0)
         }
-        encodeAuth = "Basic "+ getEncodedString(name,pass)
+//        if (pk!=0) {
+//            getMyLoan()
+//            encodeAuth = "Basic "+ getEncodedString(name,pass)
+//        }
+
 
         Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
@@ -220,6 +226,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
         }
         loan = findViewById(R.id.btn_loan)
+        loan.setOnClickListener{
+            if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+                intent.putExtra("PutIDLoan",postId)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                intent.putExtra("verify","detail")
+                intent.putExtra("product_id",postId)
+                startActivity(intent)
+            }
+        }
         val chat = findViewById<ImageView>(R.id.btn_sms)
         chat.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -256,9 +274,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 finish()
             }
         }
-
-        getMyLoan()
-
 
         edLoanInterestRate.setText("1.5")
         edLoanTerm.setText("1")
@@ -1091,8 +1106,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         language(language)
     }
     private fun getMyLoan() {
+        val IDPOST = ArrayList<Int>()
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=1"
-        val itemApi = ArrayList<LoanItemAPI>()
         val client= OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)
@@ -1117,24 +1132,32 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val obj = jsonArray.getJSONObject(i)
                             val post_id = obj.getInt("post")
                             Log.d("Status Id123",post_id.toString())
-                                loan.setOnClickListener{
-                                    if (post_id == postId){
-                                        Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
-                                    }else{
+                            Log.d("Status 123",postId.toString())
+                            IDPOST.add(post_id)
 
+                        }
+                        Log.d("ARRayList",IDPOST.size.toString())
+                        loan.setOnClickListener{
+                            for (i in 0 until IDPOST.size){
+                                if (IDPOST.get(i) == postId){
+                                    Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+                                }
+                                else {
                                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
                                         val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
                                         intent.putExtra("PutIDLoan",postId)
                                         startActivity(intent)
-                                    }else{
+                                    }else {
                                         val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
                                         intent.putExtra("verify","detail")
                                         intent.putExtra("product_id",postId)
                                         startActivity(intent)
                                     }
-                                    }
                                 }
+                                Log.d("PostID For",IDPOST.get(i).toString())
                             }
+
+                        }
                     }
 
                 } catch (e: JsonParseException) {
