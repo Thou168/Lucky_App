@@ -488,7 +488,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val respon = response.body()!!.string()
-                Log.d("Response", respon)
+                Log.d("Response123", respon)
                 try {
                     val jsonObject = JSONObject(respon)
                     val jsonArray = jsonObject.getJSONArray("results")
@@ -499,6 +499,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val condition = `object`.getString("condition")
                         val cost = `object`.getDouble("cost")
                         val image = `object`.getString("front_image_path")
+                        Log.d("Detail123",image)
                         //val img_user = `object`.getString("right_image_base64")
                         val postType = `object`.getString("post_type")
                         val discount_type = `object`.getString("discount_type")
@@ -744,7 +745,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest>, token: PermissionToken) {
                         token.continuePermissionRequest()
                     }
-                }).withErrorListener { error  ->Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show() }
+                }).withErrorListener { error  ->
+//                    Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show()
+                }
                 .onSameThread()
                 .check()
     }

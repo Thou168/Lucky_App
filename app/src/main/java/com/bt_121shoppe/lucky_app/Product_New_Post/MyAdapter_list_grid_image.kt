@@ -68,6 +68,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
 
         fun bindItems(item: Item_API,context: Context) {
+
             Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             var price: Double = 0.0
             var discout1: Double = 0.0

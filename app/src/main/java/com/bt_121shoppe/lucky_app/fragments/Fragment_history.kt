@@ -81,7 +81,7 @@ class Fragment_history: Fragment() {
     private fun getMyPosts() {
         val itemApi = ArrayList<Item_API>()
         var posts = PostViewModel()
-        val URL_ENDPOINT = ConsumeAPI.BASE_URL + "postbyuser/?status=2"
+        val URL_ENDPOINT = ConsumeAPI.BASE_URL + "posybyuserhistory/?status=2"
         var MEDIA_TYPE = MediaType.parse("application/json")
         val client = OkHttpClient()
         val request = Request.Builder()

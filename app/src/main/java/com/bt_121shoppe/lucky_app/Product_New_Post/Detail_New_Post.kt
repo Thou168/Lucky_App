@@ -254,6 +254,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val loan= findViewById<ImageView>(R.id.btn_loan)
         loan.setOnClickListener{
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
+
                 val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
                 intent.putExtra("PutIDLoan",postId)
                 startActivity(intent)
@@ -604,7 +605,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.timeZone = TimeZone.getTimeZone("GMT")
-                        val time:Long = sdf.parse(postDetail.created).time
+                        val time:Long = sdf.parse(postDetail.approved_date).time
                         val now:Long = System.currentTimeMillis()
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                         tv_location_duration.setText(ago)
@@ -846,6 +847,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     fun initialRelatedPost(encode:String,postType:String,category:Int,modeling:Int,cost:Float){
         val itemApi = ArrayList<Item_API>()
         val URL_ENDPOINT=ConsumeAPI.BASE_URL+"relatedpost/?post_type="+postType+"&category="+category+"&modeling="+modeling+"&min_price="+(cost-500)+"&max_price="+(cost+500)
+                Log.d("URL123",URL_ENDPOINT)
         val client= OkHttpClient()
         val request=Request.Builder()
                 .url(URL_ENDPOINT)
@@ -882,7 +884,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             var location_duration = ""
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                            val time: Long = sdf.parse(obj.getString("created")).getTime()
+                            val time: Long = sdf.parse(obj.getString("approved_date")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 
