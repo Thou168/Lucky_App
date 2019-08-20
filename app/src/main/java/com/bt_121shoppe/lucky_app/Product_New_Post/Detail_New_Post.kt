@@ -44,6 +44,7 @@ import com.bt_121shoppe.lucky_app.useraccount.User_post
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.chats.ChatActivity
 import com.bt_121shoppe.lucky_app.firebases.FBPostCommonFunction
+import com.bt_121shoppe.lucky_app.fragments.LoanItemAPI
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
 import com.bt_121shoppe.lucky_app.models.Chat
 import com.bt_121shoppe.lucky_app.models.PostViewModel
@@ -145,6 +146,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var con:String
     private lateinit var col:String
     var discount: Double = 0.0
+    var encodeAuth:String = ""
+    lateinit var sharedPref: SharedPreferences
+    lateinit var loan:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,7 +162,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         discount = intent.getDoubleExtra("Discount",0.0)
         Log.d("ID Detail New :",postId.toString())
 
-        val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
@@ -168,6 +172,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         } else if (sharedPref.contains("id")) {
            pk = sharedPref.getInt("id", 0)
         }
+        encodeAuth = "Basic "+ getEncodedString(name,pass)
 
         Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
@@ -214,6 +219,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
             startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
         }
+        loan = findViewById(R.id.btn_loan)
         val chat = findViewById<ImageView>(R.id.btn_sms)
         chat.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -251,20 +257,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
         }
 
-        val loan= findViewById<ImageView>(R.id.btn_loan)
-        loan.setOnClickListener{
-            if (sharedPref.contains("token") || sharedPref.contains("id")) {
+        getMyLoan()
 
-                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-                intent.putExtra("PutIDLoan",postId)
-                startActivity(intent)
-            }else{
-                val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
-                intent.putExtra("verify","detail")
-                intent.putExtra("product_id",postId)
-                startActivity(intent)
-            }
-        }
 
         edLoanInterestRate.setText("1.5")
         edLoanTerm.setText("1")
@@ -372,7 +366,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
 
     }  // oncreate
-
 
     fun dialContactPhone(phoneNumber:String) {
         startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
@@ -1096,5 +1089,58 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val language = prefer.getString("My_Lang", "")
         Log.d("language",language)
         language(language)
+    }
+    private fun getMyLoan() {
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=1"
+        val itemApi = ArrayList<LoanItemAPI>()
+        val client= OkHttpClient()
+        val request= Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encodeAuth)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                Log.d(TAG,"Laon_status "+mMessage)
+                val jsonObject = JSONObject(mMessage)
+                val jsonArray = jsonObject.getJSONArray("results")
+                try {
+                    runOnUiThread {
+                        for (i in 0 until jsonArray.length()) {
+                            val obj = jsonArray.getJSONObject(i)
+                            val post_id = obj.getInt("post")
+                            Log.d("Status Id123",post_id.toString())
+                                loan.setOnClickListener{
+                                    if (post_id == postId){
+                                        Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+                                    }else{
+
+                                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                                        val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+                                        intent.putExtra("PutIDLoan",postId)
+                                        startActivity(intent)
+                                    }else{
+                                        val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                                        intent.putExtra("verify","detail")
+                                        intent.putExtra("product_id",postId)
+                                        startActivity(intent)
+                                    }
+                                    }
+                                }
+                            }
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace() }
+
+            }
+        })
     }
 }

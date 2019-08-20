@@ -105,7 +105,6 @@ class FragmentC1: Fragment() {
                             progreessbar!!.visibility = View.GONE
                             txtno_found!!.visibility = View.VISIBLE
                         }
-
                         progreessbar!!.visibility = View.GONE
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
