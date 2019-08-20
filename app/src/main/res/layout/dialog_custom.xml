@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/a"
+        android:gravity="center"
+        android:background="@drawable/underline_gray"
+        android:text="Information"
+        android:textColor="#918787"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:scaleType="fitCenter"
+
+        />
+
+    <TextView
+        android:id="@+id/text_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="This app is in pilot test."
+        android:textColor="#ff000000"
+        android:textSize="18dp"
+        android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:id="@+id/log_info"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/a"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_info_black_24dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="OK"
+        android:id="@+id/btn_dialog"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/text_dialog"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border_bottom"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>

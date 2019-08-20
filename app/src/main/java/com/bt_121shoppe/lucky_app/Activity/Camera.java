@@ -951,7 +951,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
             post.put("title",etTitle.getText().toString().toLowerCase());
             post.put("category", cate);
-            post.put("status", 1);
+            post.put("status", 3);
             post.put("condition",strCondition);
 
             if (strPostType.equals("buy")) {
@@ -1299,7 +1299,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 case "sell":
                     url=ConsumeAPI.BASE_URL+"postsale/"+edit_id+"/";
                     //Log.d("URL","URL"+url);
-                    sale.put("sale_status", 4);
+                    sale.put("sale_status", 3);
                     sale.put("record_status",1);
                     sale.put("sold_date", null);
                     sale.put("price", etPrice.getText().toString());
@@ -1313,7 +1313,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 case "rent":
                     url = ConsumeAPI.BASE_URL+"postrent/"+edit_id+"/";
                     JSONObject rent=new JSONObject();
-                    rent.put("rent_status",4);
+                    rent.put("rent_status",3);
                     rent.put("record_status",1);
                     rent.put("rent_type","month");
                     rent.put("price",etPrice.getText().toString().toLowerCase());
@@ -1328,7 +1328,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 case "buy":
                     url = ConsumeAPI.BASE_URL+"api/v1/postbuys/"+ edit_id + "/";
                     JSONObject buy=new JSONObject();
-                    buy.put("buy_status",4);
+                    buy.put("buy_status",3);
                     buy.put("record_status",1);
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;

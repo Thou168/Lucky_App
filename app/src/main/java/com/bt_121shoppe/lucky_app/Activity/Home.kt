@@ -3,6 +3,7 @@ package com.bt_121shoppe.lucky_app.Activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -229,8 +230,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 recreate()
             }
         }
+
         requestStoragePermission(false)
         requestStoragePermission(true)
+
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
@@ -726,18 +729,22 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         if (report.areAllPermissionsGranted()) {
                             if (isCamera) {
 //                                dispatchTakePictureIntent()
+
                             } else {
 //                                dispatchGalleryIntent()
                             }
                         }
+
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied) {
                             // show alert dialog navigating to Settings
                             showSettingsDialog()
+
                         }
                         if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)!== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(this@Home, arrayOf<String>(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 
+                            ShowTestMessage()
                         }
 
                     }
@@ -782,6 +789,16 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         alert.show()
     }
 
+    private fun ShowTestMessage(){
+       val  builder =  Dialog(this)
+        builder.setContentView(R.layout.dialog_custom)
+        builder.setCancelable(true)
+        val btn_dialog = builder.findViewById<Button>(R.id.btn_dialog)
+        btn_dialog.setOnClickListener {
+            builder.dismiss()
+        }
+        builder.show()
+    }
     override fun onStart() {
         super.onStart()
         bnavigation!!.menu.getItem(0).isChecked = true
