@@ -174,10 +174,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         } else if (sharedPref.contains("id")) {
            pk = sharedPref.getInt("id", 0)
         }
-//        if (pk!=0) {
-//            encodeAuth = "Basic "+ getEncodedString(name,pass)
-//            getMyLoan()
-//        }
+        if (pk!=0) {
+            encodeAuth = "Basic "+ getEncodedString(name,pass)
+            getMyLoan()
+        }
 
         Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
@@ -226,11 +226,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         }
         loan = findViewById(R.id.btn_loan)
         loan.setOnClickListener{
-            if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-                intent.putExtra("PutIDLoan",postId)
-                startActivity(intent)
-            }else{
+            if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
                 val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
                 intent.putExtra("verify","detail")
                 intent.putExtra("product_id",postId)
@@ -1149,7 +1145,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             if (loaned){
                                 Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
                             }else{
-                                Toast.makeText(this@Detail_New_Post,"Not Created",Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+                                intent.putExtra("PutIDLoan",postId)
+                                startActivity(intent)
                             }
                         }
 //                        loan.setOnClickListener{
