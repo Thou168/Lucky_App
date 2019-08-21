@@ -84,7 +84,7 @@
             android:textStyle="italic"
             android:imeOptions="actionSearch"
             android:singleLine="true"
-            android:drawableLeft="@drawable/icon_search"
+            android:drawableRight="@drawable/icon_search"
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

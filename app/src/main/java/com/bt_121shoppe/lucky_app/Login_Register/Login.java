@@ -1,9 +1,11 @@
 package com.bt_121shoppe.lucky_app.Login_Register;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java;
 import com.bt_121shoppe.lucky_app.Api.User;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity;
+import com.bt_121shoppe.lucky_app.models.LoanViewModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -47,6 +50,10 @@ public class Login extends AppCompatActivity {
     SharedPreferences prefer;
     private String login_verify;
     private int product_id;
+
+    private String phone;
+    private String password;
+    String encode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,10 +193,10 @@ public class Login extends AppCompatActivity {
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
 //                        finish();
-
                     }else {
-                        mProgress.dismiss();
+
                         Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
+                        mProgress.dismiss();
                     }
                 }
             });
@@ -205,4 +212,52 @@ public class Login extends AppCompatActivity {
             });
         }
     }
+
+//    private void wrongUserPass(String mMessage) {
+//        Gson gson = new Gson();
+//        Convert_Json_Java convertJsonJava = new Convert_Json_Java();
+//        try {
+//            convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java.class);
+//            Log.d(TAG, convertJsonJava.getUsername() + "\t" + convertJsonJava.getToken() + "\t" + convertJsonJava.getStatus());
+//            final String key = convertJsonJava.getToken();
+//            User user = convertJsonJava.getUser();
+//            final int pk = user.getPk();
+//
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (key != null) {
+//
+//                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
+//                        intent.putExtra("authType", 2);
+//                        intent.putExtra("phoneNumber", name);
+//                        intent.putExtra("password", pass);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        mProgress.dismiss();
+//                        startActivity(intent);
+//                        finish();
+//
+////                        SharedPreferences.Editor editor = prefer.edit();
+////                        editor.putString("token",key);
+////                        editor.putString("name",name);
+////                        editor.putString("pass",pass);
+////                        editor.putInt("Pk",pk);
+////                        editor.commit();
+////                        mProgress.dismiss();
+////                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
+////                        Intent intent = new Intent(Login.this, Home.class);
+////                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+////                        startActivity(intent);
+////                        finish();
+//                    } else {
+//
+//                        Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_SHORT).show();
+//                        mProgress.dismiss();
+//                    }
+//                }
+//            });
+//        } catch (JsonParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

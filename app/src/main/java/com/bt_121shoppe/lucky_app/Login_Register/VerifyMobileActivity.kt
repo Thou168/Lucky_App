@@ -513,7 +513,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 //                    }
 //
 //                    val came:String = intent.getStringExtra("came")
-//                    if (came=="camera"){
+//                    if (came.equals("camera")){
 //                        val intent = Intent(this@VerifyMobileActivity, Camera::class.java)
 //                        startActivity(intent)
 //                    }

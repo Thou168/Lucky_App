@@ -267,6 +267,10 @@
 
     </string-array>
 
+    <!--    message for loan created-->
+    <string name="create_loan">ការបង្កើត</string>
+    <string name="already_created">អ្នកធ្លាប់បានបង្កើតម្តងហើយ!</string>
+
     //Rent type
     <string-array name="rent_type">
         <item>សប្តាហ៍</item>

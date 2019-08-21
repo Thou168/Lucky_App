@@ -154,7 +154,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         language(language)
     }
 
-    @SuppressLint("CommitPrefEdits")
+    @SuppressLint("CommitPrefEdits", "WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locale()

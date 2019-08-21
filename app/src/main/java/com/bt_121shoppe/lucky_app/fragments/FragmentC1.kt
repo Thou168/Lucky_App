@@ -176,7 +176,6 @@ class FragmentC1: Fragment() {
                                                         } catch (e: JsonParseException) {
                                                             e.printStackTrace()
                                                         }
-
                                                     }
                                                 })
                                             }

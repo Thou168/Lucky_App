@@ -2,6 +2,7 @@ package com.bt_121shoppe.lucky_app.loan;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +55,7 @@ public class LoanCreateActivity extends AppCompatActivity {
     private static final String TAG=LoanCreateActivity.class.getSimpleName();
     private SharedPreferences preferences;
     private String username,password,Encode;
+    private int encode = 0;
     private int pk , id_edit=0,id_cancel=0,cancelid;
     private int postid;
     private String pk_create;
@@ -75,6 +78,8 @@ public class LoanCreateActivity extends AppCompatActivity {
     private TextInputLayout   input_income, input_expense, input_purpose, input_amount, input_term ;
     private  TextInputLayout input_job;
     String[] yesNos;
+
+    int st;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -156,12 +161,15 @@ public class LoanCreateActivity extends AppCompatActivity {
 
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         btSubmit=(Button) findViewById(R.id.btSubmit);
-        btSubmit.setOnClickListener(new View.OnClickListener() {
+        btSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                     if (id_edit != 0) {
                         Edit_loan(Encode, id_edit);
-                    } else {
+                    }
+                    else {
+                        st = getIntent().getIntExtra("PutIDLoan",0);
+                        Log.d("Log", String.valueOf(st));
                         consumeLoanCreateApi(Encode);
                         signUp();
                     }
@@ -298,7 +306,6 @@ public class LoanCreateActivity extends AppCompatActivity {
         });
         textChange();
 
-
 //        loan_term =
     }
 
@@ -307,7 +314,6 @@ public class LoanCreateActivity extends AppCompatActivity {
 
         if (job_loan_information.getText().toString().isEmpty() || job_loan_information.getText().toString() == null) {
             icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
-            input_job.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
             isValid = false;
         } else {
             input_job.setErrorEnabled(false);
@@ -339,7 +345,6 @@ public class LoanCreateActivity extends AppCompatActivity {
 
         if (loan_purpose.getText().toString().isEmpty()) {
             icAddress_purpose.setImageResource(R.drawable.ic_error_black_24dp);
-            input_purpose.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
             isValid = false;
         } else {
             input_purpose.setErrorEnabled(false);
@@ -769,6 +774,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             }
         });
     }
+
     private void getLoan_user(String encode){
 
         if(id_edit !=0){

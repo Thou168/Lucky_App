@@ -25,6 +25,8 @@ import android.text.format.DateUtils
 import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
+import android.util.TypedValue
+import android.view.ContextThemeWrapper
 import android.view.KeyEvent
 import android.view.View
 import android.widget.*
@@ -52,6 +54,7 @@ import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.CommomAPIFunction
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
 import com.bumptech.glide.Glide
+import com.facebook.share.widget.MessageDialog
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -77,6 +80,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_acount.*
 import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import kotlinx.android.synthetic.main.contact_seller.*
+import kotlinx.android.synthetic.main.content_home.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -151,6 +155,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     var encodeAuth:String = ""
     lateinit var sharedPref: SharedPreferences
     lateinit var loan:ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -789,7 +794,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
                                         alertDialog.setMessage(R.string.like_post.toString())
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
-                                        ) { dialog, which -> dialog.dismiss() }
+                                        ) { dialog, which ->
+                                            dialog.dismiss()
+                                        }
                                         alertDialog.show()
                                     }
 
@@ -1143,7 +1150,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             Log.d("IDFOR","Loanded"+loaned.toString())
                             Log.d("IDPOST","HeyPro"+postId.toString())
                             if (loaned){
-                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+//                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+                                withStyle()
+
                             }else{
                                 val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
                                 intent.putExtra("PutIDLoan",postId)
@@ -1179,5 +1188,19 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
             }
         })
+    }
+
+    fun withStyle() {
+
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, android.R.style.Widget_ActionBar_TabBar))
+        with(builder)
+        {
+            setMessage(R.string.already_created)
+            setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                refresh
+                dialog.dismiss()
+            })
+            show()
+        }
     }
 }
