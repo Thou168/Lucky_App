@@ -136,6 +136,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     internal val isAPLoading = false
 
     fun language(lang: String) {
+        Log.d("55555","YaYa"+lang)
         val locale = Locale(lang)
         Locale.setDefault(locale)
         val confi = Configuration()
@@ -160,6 +161,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
         setContentView(R.layout.activity_home)
 
+        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = prefer.getString("My_Lang", "")
+
+        if(language.isEmpty()){
+            Log.d("7777","YaYa"+language)
+            language("km")
+            recreate()
+        }
+
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -180,8 +190,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         txtno_found1 =findViewById(R.id.text1)
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
-        val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = prefer.getString("My_Lang", "")
+
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)

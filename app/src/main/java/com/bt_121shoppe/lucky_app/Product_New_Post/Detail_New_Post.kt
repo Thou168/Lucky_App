@@ -175,10 +175,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
            pk = sharedPref.getInt("id", 0)
         }
 //        if (pk!=0) {
-//            getMyLoan()
 //            encodeAuth = "Basic "+ getEncodedString(name,pass)
+//            getMyLoan()
 //        }
-
 
         Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
@@ -1105,8 +1104,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         Log.d("language",language)
         language(language)
     }
+
     private fun getMyLoan() {
         val IDPOST = ArrayList<Int>()
+        var loaned: Boolean = false
+        Log.d("12345","Hello90"+encodeAuth)
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=1"
         val client= OkHttpClient()
         val request= Request.Builder()
@@ -1137,27 +1139,41 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         }
                         Log.d("ARRayList",IDPOST.size.toString())
-                        loan.setOnClickListener{
-                            for (i in 0 until IDPOST.size){
-                                if (IDPOST.get(i) == postId){
-                                    Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
-                                }
-                                else {
-                                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                                        val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-                                        intent.putExtra("PutIDLoan",postId)
-                                        startActivity(intent)
-                                    }else {
-                                        val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
-                                        intent.putExtra("verify","detail")
-                                        intent.putExtra("product_id",postId)
-                                        startActivity(intent)
-                                    }
-                                }
-                                Log.d("PostID For",IDPOST.get(i).toString())
+                        for (i in 0 until IDPOST.size)
+                            if(IDPOST.get(i) == postId){
+                               loaned = true
                             }
-
+                        loan.setOnClickListener {
+                            Log.d("IDFOR","Loanded"+loaned.toString())
+                            Log.d("IDPOST","HeyPro"+postId.toString())
+                            if (loaned){
+                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(this@Detail_New_Post,"Not Created",Toast.LENGTH_SHORT).show()
+                            }
                         }
+//                        loan.setOnClickListener{
+//                            for (i in 0 until IDPOST.size){
+//                                Log.d("PostID For","For120"+IDPOST.get(i).toString())
+//                                if (IDPOST.get(i) == postId){
+//                                    Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+//
+//                                }
+//                                else {
+//                                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+//                                        val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+//                                        intent.putExtra("PutIDLoan",postId)
+//                                        startActivity(intent)
+//                                    }else {
+//                                        val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+//                                        intent.putExtra("verify","detail")
+//                                        intent.putExtra("product_id",postId)
+//                                        startActivity(intent)
+//                                    }
+//                                }
+//                            }
+//
+//                        }
                     }
 
                 } catch (e: JsonParseException) {
