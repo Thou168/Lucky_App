@@ -187,6 +187,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
         pt=intent.getIntExtra("postt",0)
+        Log.d("55555",pt.toString())
 
         initialProductPostDetail(Encode)
         submitCountView(Encode)
@@ -406,7 +407,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     .url(url)
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
-//                    .header("Authorization", auth)
+                    .header("Authorization", auth)
                     .build()
         }
         else {
@@ -429,7 +430,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                Log.d(TAG,mMessage)
+                Log.d(TAG+"3333",mMessage)
                 val gson = Gson()
                 try {
                     runOnUiThread {
@@ -596,6 +597,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val addr = postDetail.contact_address.toString()
                         Log.d("LAAAAA",addr)
+                        var time:Long
                         if(addr.isEmpty()) {
 
                         }else{
@@ -613,7 +615,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.timeZone = TimeZone.getTimeZone("GMT")
-                        val time:Long = sdf.parse(postDetail.approved_date).time
+                        if (pt == 1){
+                            time = sdf.parse(postDetail.created).time
+                        }else{
+                            time = sdf.parse(postDetail.approved_date).time
+                        }
+
                         val now:Long = System.currentTimeMillis()
                         val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                         tv_location_duration.setText(ago)

@@ -118,6 +118,7 @@ class FragmentA1: Fragment() {
                                 val `object` = jsonArray.getJSONObject(i)
                                 val title = `object`.getString("title")
                                 val id = `object`.getInt("id")
+                                Log.d("tttt",id.toString())
                                 val condition = `object`.getString("condition")
                                 val cost = `object`.getDouble("cost")
                                 val image = `object`.getString("front_image_path")
@@ -152,8 +153,13 @@ class FragmentA1: Fragment() {
                                 val time: Long = sdf.parse(`object`.getString("created")).getTime()
                                 val now: Long = System.currentTimeMillis()
                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+
+
+//                                itemApi.add(TabA1_api(id, img_user, frontImagePart, title, cost, condition, postType, ago.toString(), countPostView(encodeAuth,id).toString(),discount_type,discount,tmp))
+//                                recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
+//                                recyclerView!!.layoutManager = GridLayoutManager(context, 1)
+
                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
-                                var MEDIA_TYPE = MediaType.parse("application/json")
                                 val client1 = OkHttpClient()
                                 //val auth = "Basic $encode"
                                 val request1 = Request.Builder()
@@ -171,13 +177,13 @@ class FragmentA1: Fragment() {
                                     @Throws(IOException::class)
                                     override fun onResponse(call: Call, response: Response) {
                                         val mMessage = response.body()!!.string()
+                                        val gson = Gson()
                                         try {
                                             Log.d("FRAGMENT 1", mMessage)
                                             val jsonObject = JSONObject(mMessage)
                                             val jsonCount = jsonObject.getInt("count")
-
                                             activity!!.runOnUiThread {
-                                                Log.d("STATUS", tmp)
+
                                                 itemApi.add(TabA1_api(id, img_user, frontImagePart, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount,tmp))
                                                 recyclerView!!.adapter = MyAdapter_user_post(itemApi, "List")
                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1)
@@ -189,6 +195,7 @@ class FragmentA1: Fragment() {
 
                                     }
                                 })
+
                             }
                     }
 
@@ -223,6 +230,7 @@ class FragmentA1: Fragment() {
                 try {
                     val jsonObject= JSONObject(mMessage)
                     val jsonCount=jsonObject.getInt("count")
+                    Log.d("yyyyy","123"+jsonCount)
                     activity!!.runOnUiThread {
                         count=jsonCount
                     }

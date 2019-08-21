@@ -34,10 +34,6 @@ public class PostViewModel {
     private String contact_email;
     private String contact_address;
     private String color;
-    private String front_image_base64;
-    private String right_image_base64;
-    private String left_image_base64;
-    private String back_image_base64;
     private SaleViewModel[] sales;
     private BuyViewModel[] buys;
     private RentViewModel[] rents;
@@ -172,22 +168,6 @@ public class PostViewModel {
 
     public SaleViewModel[] getSales() {
         return sales;
-    }
-
-    public String getBase64_back_image() {
-        return back_image_base64;
-    }
-
-    public String getBase64_front_image() {
-        return front_image_base64;
-    }
-
-    public String getBase64_left_image() {
-        return left_image_base64;
-    }
-
-    public String getBase64_right_image() {
-        return right_image_base64;
     }
 
     public String getColor() {
@@ -327,22 +307,6 @@ public class PostViewModel {
 
     public void setRejected_date(String rejected_date) {
         this.rejected_date = rejected_date;
-    }
-
-    public void setBase64_back_image(String base64_back_image) {
-        this.back_image_base64 = base64_back_image;
-    }
-
-    public void setBase64_front_image(String base64_front_image) {
-        this.front_image_base64 = base64_front_image;
-    }
-
-    public void setBase64_left_image(String base64_left_image) {
-        this.left_image_base64 = base64_left_image;
-    }
-
-    public void setBase64_right_image(String base64_right_image) {
-        this.right_image_base64 = base64_right_image;
     }
 
     public void setBuys(BuyViewModel[] buys) {
