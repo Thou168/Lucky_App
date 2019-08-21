@@ -533,7 +533,7 @@
     <string name="staff_id">Staff ID can`t be empty</string>
     <string name="title_land">Land title can`t be empty</string>
     <string name="book_family">Family book can`t be empty</string>
-    <string name="delete_loan">Are you sure you want to delete this loan?</string>
+    <string name="delete_loan">Are you sure you want to cancel this loan?</string>
     <string name="cancel_loan">Cancel loan</string>
 
     //permission

@@ -82,23 +82,39 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
             title.text = item.title
             cost.text = "$"+item.cost.toString()
             time.text = item.location_duration
-            view.text =item.count_view
+            view.text = item.count_view
 
             var lang: String =count_view.text as String
             if (lang == "View:") {
                 if (item.postType.equals("sell")) {
-                    post_type.setImageResource(R.drawable.sell)
+                    post_type.visibility = View.GONE
+                    count_view.visibility = View.GONE
+                    view.visibility = View.GONE
+
                 } else if (item.postType.equals("buy")) {
-                    post_type.setImageResource(R.drawable.buy)
-                } else
-                    post_type.setImageResource(R.drawable.rent)
-            } else {
+                    post_type.visibility = View.GONE
+                    count_view.visibility = View.GONE
+                    view.visibility = View.GONE
+                } else {
+                    post_type.visibility = View.GONE
+                    count_view.visibility = View.GONE
+                    view.visibility = View.GONE
+                }
+            }
+            else {
                 if (item.postType.equals("sell")) {
-                    post_type.setImageResource(R.drawable.sell_kh)
+                    post_type.visibility = View.GONE
+                    count_view.visibility = View.GONE
+                    view.visibility = View.GONE
                 } else if (item.postType.equals("buy")) {
-                    post_type.setImageResource(R.drawable.buy_kh)
-                } else
-                    post_type.setImageResource(R.drawable.rent_kh)
+                    post_type.visibility = View.GONE
+                    count_view.visibility = View.GONE
+                    view.visibility = View.GONE
+                } else {
+                    post_type.visibility = View.GONE
+                    count_view.visibility = View.GONE
+                    view.visibility = View.GONE
+                }
             }
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {

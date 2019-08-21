@@ -133,6 +133,10 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
+//                            String user = getIntent().getStringExtra("username");
+//                            if (user != "username"){
+//                                Log.d("Username is wrong",user.toString());
+//                            }
                         }
                     });
 
@@ -169,7 +173,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void run() {
                     if (key!=null){
-
+                        Log.d("Get Key",key.toString());
                         Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
                         intent.putExtra("authType",2);
                         intent.putExtra("phoneNumber",name);

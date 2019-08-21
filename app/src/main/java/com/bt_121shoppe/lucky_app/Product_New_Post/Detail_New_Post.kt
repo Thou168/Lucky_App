@@ -1166,28 +1166,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 startActivity(intent)
                             }
                         }
-//                        loan.setOnClickListener{
-//                            for (i in 0 until IDPOST.size){
-//                                Log.d("PostID For","For120"+IDPOST.get(i).toString())
-//                                if (IDPOST.get(i) == postId){
-//                                    Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
-//
-//                                }
-//                                else {
-//                                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
-//                                        val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
-//                                        intent.putExtra("PutIDLoan",postId)
-//                                        startActivity(intent)
-//                                    }else {
-//                                        val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
-//                                        intent.putExtra("verify","detail")
-//                                        intent.putExtra("product_id",postId)
-//                                        startActivity(intent)
-//                                    }
-//                                }
-//                            }
-//
-//                        }
                     }
 
                 } catch (e: JsonParseException) {
