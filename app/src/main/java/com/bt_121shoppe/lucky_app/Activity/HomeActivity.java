@@ -218,7 +218,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                             String frontImage=object.getString("front_image_path");
                             String[] splitPath=frontImage.split("/");
                             String imageUrl=ConsumeAPI.IMAGE_STRING_PATH+splitPath[splitPath.length-1];
-//                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby);
+                            //FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby);
                             if(!address.isEmpty()){
                                 String[] lateLong=address.split(",");
                                 address=CommonFunction.getAddressFromMap(this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));

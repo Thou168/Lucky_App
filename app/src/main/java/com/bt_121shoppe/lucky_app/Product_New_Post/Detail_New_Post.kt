@@ -463,7 +463,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             override fun onFailure(call: Call, e: IOException) {
 
                             }
-
                         })
                         val url2=ConsumeAPI.BASE_URL+"api/v1/models/"+postDetail.modeling
                         val client2=OkHttpClient()
@@ -976,7 +975,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         if(loanTerm.isNullOrEmpty()) aLoanTerm=1 else aLoanTerm=loanTerm.toInt()
 
         val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aInterestRate,aLoanTerm)
-        Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)
+        //Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
 

@@ -34,8 +34,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
+
 
 public class ChatBuyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -60,7 +61,7 @@ public class ChatBuyFragment extends Fragment implements SwipeRefreshLayout.OnRe
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        ButterKnife.bind(this.getActivity());
+        //ButterKnife.bind(this.getActivity());
 
         mRecyclerView=view.findViewById(R.id.myRecyclerView);
         swipeRefresh=view.findViewById(R.id.swipeRefresh);
@@ -292,17 +293,18 @@ public class ChatBuyFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         public class ViewHolder extends ChatBuyFragment.BaseViewHolder {
 
-            @BindView(R.id.textViewTitle)
+//            @BindView(R.id.textViewTitle)
             TextView textViewTitle;
-            @BindView(R.id.textViewDescription)
+//            @BindView(R.id.textViewDescription)
             TextView textViewDescription;
             //@BindView(R.id.image)
             //ImageView imageView;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-
-                ButterKnife.bind(this, itemView);
+                textViewTitle=itemView.findViewById(R.id.textViewTitle);
+                textViewDescription=itemView.findViewById(R.id.textViewDescription);
+//                ButterKnife.bind(this, itemView);
             }
 
             @Override
@@ -326,7 +328,7 @@ public class ChatBuyFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             FooterHolder(View itemView) {
                 super(itemView);
-                ButterKnife.bind(this, itemView);
+//                ButterKnife.bind(this, itemView);
             }
 
             @Override

@@ -16,8 +16,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SportAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
@@ -81,13 +79,13 @@ public class SportAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public class ViewHolder extends BaseViewHolder{
 
-        @BindView(R.id.thumbnail)
+//        @BindView(R.id.thumbnail)
         ImageView coverImageView;
-        @BindView(R.id.title)
+//        @BindView(R.id.title)
         TextView titleTextView;
-        @BindView(R.id.newsTitle)
+//        @BindView(R.id.newsTitle)
         TextView newsTextView;
-        @BindView(R.id.newsInfo)
+//        @BindView(R.id.newsInfo)
         TextView infoTextView;
 
         public ViewHolder(View itemView) {
@@ -150,7 +148,7 @@ public class SportAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(itemView);
             //messageTextView=itemView.findViewById(R.id.tv_message);
             //buttonRetry=itemView.findViewById(R.id.buttonRetry);
-            ButterKnife.bind(this, itemView);
+//            ButterKnife.bind(this, itemView);
             buttonRetry.setOnClickListener(v -> mCallback.onEmptyViewRetryClick());
         }
 

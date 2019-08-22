@@ -1,13 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: com.michaelgarnerdev.materialsearchview:materialsearchview:0.1.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c6ae050ce006395377d47e3d87180330/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/def10d9ff86f3a06c42e5d637ba26664/jetified-materialsearchview-0.1.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c6ae050ce006395377d47e3d87180330/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c6ae050ce006395377d47e3d87180330/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/def10d9ff86f3a06c42e5d637ba26664/jetified-materialsearchview-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/def10d9ff86f3a06c42e5d637ba26664/jetified-materialsearchview-0.1.0/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.michaelgarnerdev.materialsearchview/materialsearchview/0.1.0/de8a103542c12a79e50630035eb5ad2050f21c0c/materialsearchview-0.1.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.michaelgarnerdev.materialsearchview/materialsearchview/0.1.0/d1711dcf9cfdd5fde16e08a3e4d6de8965a03b51/materialsearchview-0.1.0-sources.jar!/" />
     </SOURCES>

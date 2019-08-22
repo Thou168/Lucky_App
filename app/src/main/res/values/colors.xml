@@ -33,4 +33,5 @@
     <color name="colorPrimary1">#3eaeae</color>
     <color name="colorPrimaryDark1">#226e6e</color>
     <color name="colorAccent1">#226e6e</color>
+    <color name="colorLightGray">	#FFB6C1</color>
 </resources>

@@ -42,8 +42,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
 public class ChatRentFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -63,7 +63,7 @@ public class ChatRentFragment extends Fragment implements SwipeRefreshLayout.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_chat_rent, container, false);
-        ButterKnife.bind(this.getActivity());
+//        ButterKnife.bind(this.getActivity());
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

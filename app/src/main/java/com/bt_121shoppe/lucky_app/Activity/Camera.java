@@ -100,7 +100,7 @@ import java.util.Date;
 import java.util.List;
 
 
-import butterknife.ButterKnife;
+//import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -186,7 +186,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             pk = prefer.getInt("id", 0);
         }
         Log.d("Pk",""+pk);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
    //     Log.d(TAG,"time"+Instant.now().toString());
         TextView back = (TextView)findViewById(R.id.tv_back);

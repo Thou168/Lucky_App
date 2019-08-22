@@ -41,7 +41,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import butterknife.ButterKnife;
+//import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -142,7 +142,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         }
         Log.d("Pk",""+ pk);
         yesNos=getResources().getStringArray(R.array.co_borrower);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,1.5,12)));
 
         bundle = getIntent().getExtras();
