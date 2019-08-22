@@ -27,6 +27,7 @@ import com.bt_121shoppe.lucky_app.adapters.RecyclerViewAdapter;
 import com.bt_121shoppe.lucky_app.models.Chat;
 import com.bt_121shoppe.lucky_app.models.User;
 import com.bt_121shoppe.lucky_app.models.UserChat;
+import com.bt_121shoppe.lucky_app.notifications.Token;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -76,7 +78,7 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         userChatList=new ArrayList<>();
-        reference= FirebaseDatabase.getInstance().getReference("chats");
+        reference= FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
         reference.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -94,16 +96,15 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 }
 
                 userList=new ArrayList<>();
-                //Map<String,List<UserChat>> chatList=userChatList.stream().collect(Collectors.groupingBy(w->w.getUserId()));
                 Map<String, Map<String,List<UserChat>>> map=userChatList.stream().collect(Collectors.groupingBy(UserChat::getUserId,Collectors.groupingBy(UserChat::getPostId)));
-                Log.d("CHAT","Map "+map.toString());
+                //Log.d("CHAT","Map "+map.toString());
 
                 Set keys=map.keySet();
                 for(Object key:keys){
                     Map<String,List<UserChat>>keys1= map.get(key);
                     Set keyss=keys1.keySet();
                     for(Object key1:keyss){
-                        Log.d("Chat value ","User "+key+" Post: "+key1);
+                        //Log.d("Chat value ","User "+key+" Post: "+key1);
                         userList.add(new UserChat(key.toString(),key1.toString()));
                     }
                     //Log.d("Chat value ","C "+map.get(key));
@@ -118,7 +119,15 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
             }
         });
 
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
         return view;
+    }
+
+    private void updateToken(String token){
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1=new Token(token);
+        reference.child(fuser.getUid()).setValue(token1);
     }
 
     @Override
@@ -135,6 +144,8 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         private List<UserChat> userList;
         private Context context;
+        private String theLastMessage;
+
 
         public void setUserList(List<UserChat> userList) {
             this.userList = userList;
@@ -219,7 +230,34 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
             });
 
             holder.tvTitle.setText(userList.get(position).getUserId());
-            Glide.with(context).load("http://www.sclance.com/pngs/image-placeholder-png/image_placeholder_png_698951.png").into(holder.postImage);
+            //get post image from firebase
+            DatabaseReference reference1=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_POST).child(user.getPostId());
+            reference1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getValue()!=null) {
+                        try {
+                            JSONObject obj = new JSONObject((Map) dataSnapshot.getValue());
+                            String coverUrl = obj.getString("coverUrl");
+                            if(coverUrl.equals("default")){
+                                Glide.with(context).load(R.drawable.no_image_available).thumbnail(0.1f).into(holder.postImage);
+                            }else{
+                                Glide.with(context).load(coverUrl).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(holder.postImage);
+                            }
+                            Log.d(TAG, obj.toString());
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            lastMessage(user.getUserId(),user.getPostId(),holder.tvLastChat);
         }
 
         @Override
@@ -266,6 +304,40 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             }
         }
+
+        private void lastMessage(String userid,String postid,TextView last_msg){
+            theLastMessage="default";
+            FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference reference=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
+
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        Chat chat=snapshot.getValue(Chat.class);
+                        if((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
+                                chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) && chat.getPost().equals(postid)){
+                            theLastMessage=chat.getMessage();
+                        }
+                    }
+                    switch (theLastMessage){
+                        case "default":
+                            last_msg.setText("No message");
+                            break;
+                            default:
+                                last_msg.setText(theLastMessage);
+                                break;
+                    }
+                    theLastMessage="default";
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
     }
 
 }

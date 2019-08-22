@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TimeZone;
 
-import butterknife.ButterKnife;
+//import butterknife.ButterKnife;
 
 public class PostListActivity extends AppCompatActivity implements SportAdapter.Callback {
 
@@ -76,7 +76,7 @@ public class PostListActivity extends AppCompatActivity implements SportAdapter.
         mGridView=findViewById(R.id.mGridView);
         mListView=findViewById(R.id.mListView);
         mNoResult=findViewById(R.id.text_no_result);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         mNestedScroll=findViewById(R.id.nestedScrollView);
 
         Glide.with(this).load(R.drawable.icon_grid).into(mGridView);

@@ -24,10 +24,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.adapters.MessageAdapter;
+import com.bt_121shoppe.lucky_app.interfaces.APIService;
 import com.bt_121shoppe.lucky_app.models.Chat;
 import com.bt_121shoppe.lucky_app.models.User;
+import com.bt_121shoppe.lucky_app.notifications.Client;
+import com.bt_121shoppe.lucky_app.notifications.Data;
+import com.bt_121shoppe.lucky_app.notifications.MyResponse;
+import com.bt_121shoppe.lucky_app.notifications.Sender;
+import com.bt_121shoppe.lucky_app.notifications.Token;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +42,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
@@ -48,6 +56,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ChatActivity extends AppCompatActivity {
 
     private static final String TAG=ChatActivity.class.getSimpleName();
@@ -58,7 +70,6 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton btn_send;
     private EditText text_send;
     private Bundle bundle;
-
     private int userPk;
     private String postUsername,postTitle,postPrice,postImage,postUserId,postId,postType,userId;
 
@@ -69,6 +80,9 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseUser fuser;
     DatabaseReference databaseReference;
     User chatUser;
+
+    APIService apiService;
+    boolean notify=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +100,8 @@ public class ChatActivity extends AppCompatActivity {
         toolbar=(Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -121,22 +137,19 @@ public class ChatActivity extends AppCompatActivity {
             tvposttitle.setText(postTitle);
             tvpostprice.setText("$ "+postPrice);
 
-            if(postImage.isEmpty()){
+            if(postImage==null|| postImage.isEmpty()){
                 Glide.with(this).load("https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/10/22/ST_20181022_NANVEL_4360142.jpg?itok=ZB5zgW7e&timestamp=1540134011").into(imageView);
             }
             else{
 //                byte[] decodedString1 = Base64.decode(postImage, Base64.DEFAULT);
 //                Bitmap bitmapImage = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
 //                imageView.setImageBitmap(bitmapImage);
-                Glide.with(this).load(postImage).into(imageView);
             }
         }
 
         fuser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("users");
-
         //Log.d(TAG,"UusER "+userId+ " From clastt ");
-
         rlUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +167,7 @@ public class ChatActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify=true;
                 String msg=text_send.getText().toString();
                 if(!msg.equals("")){
                     sendMessage(fuser.getUid(),userId,msg,postId,postType);
@@ -199,16 +213,13 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User uuser=snapshot.getValue(User.class);
-                    //Log.d(TAG,"RUN "+uuser.getUsername()+" "+postUserId);
 
                     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                     cal.setTimeInMillis(fuser.getMetadata().getLastSignInTimestamp());
                     String date = DateFormat.format("dd-MM-yyyy hh:mm:ss", cal).toString();
-
-                    //Log.d(TAG,"RUN GET USER "+fuser.getMetadata().getLastSignInTimestamp()+" "+date);
                     if(uuser.getUsername().equals(postUserId)){
                         //tvreceiver.setText(uuser.getId());
-                        readMessage(fuser.getUid(),uuser.getId(),postId);
+                        readMessage(fuser.getUid(),uuser.getId(),postId,uuser.getImageURL());
                         setUserId(uuser.getId());
                     }
 
@@ -234,27 +245,82 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("post",postId);
         hashMap.put("type",chatType);
         hashMap.put("isseen",false);
-        reference.child("chats").push().setValue(hashMap);
+        reference.child(ConsumeAPI.FB_CHAT).push().setValue(hashMap);
+
+        //add user to chat fragment
+
+        //send notification
+        final String msg=message;
+        reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user=dataSnapshot.getValue(User.class);
+                if(notify) {
+                    sendNotification(receiver, user.getUsername(), msg);
+                }
+                notify=false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    private void readMessage(String myid,String userid,String postid){
+    private void sendNotification(String receiver,String username,String message){
+        DatabaseReference tokens=FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query=tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Token token=snapshot.getValue(Token.class);
+                    Data data=new Data(fuser.getUid(),R.mipmap.ic_launcher,username+" : "+message,"New Message",userId);
+
+                    Sender sender=new Sender(data,token.getToken());
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    Log.d(TAG,"Response "+response);
+                                    if(response.code()==200){
+                                        if(response.body().success!=1){
+                                            Toast.makeText(ChatActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void readMessage(String myid,String userid,String postid,String imageUrl){
         CharSequence usedrId=tvreceiver.getText();
-        Log.d(TAG,"I get from read message function "+usedrId);
         mChat=new ArrayList<>();
-        databaseReference=FirebaseDatabase.getInstance().getReference("chats");
+        databaseReference=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Chat chat=snapshot.getValue(Chat.class);
-                    Log.d(TAG,"RUN CHAT Master"+postId+" "+myid+" "+userid);
-                    Log.d(TAG,"RUN CHAT "+chat.getPost()+" "+chat.getSender()+" "+chat.getReceiver());
                     if(chat.getPost().equals(postid) && (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(myid))){
                         mChat.add(chat);
-                        Log.d(TAG,"DAMN TRUE");
                     }
-                    messageAdapter=new MessageAdapter(ChatActivity.this,mChat,"default");
+                    messageAdapter=new MessageAdapter(ChatActivity.this,mChat,imageUrl);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }

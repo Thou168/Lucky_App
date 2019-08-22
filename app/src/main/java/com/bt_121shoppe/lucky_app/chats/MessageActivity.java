@@ -2,6 +2,7 @@ package com.bt_121shoppe.lucky_app.chats;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -90,6 +91,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user=dataSnapshot.getValue(User.class);
+                Log.d("Message",user.toString());
                 username.setText(user.getUsername());
                 if(user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.drawable.user);

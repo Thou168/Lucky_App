@@ -76,6 +76,7 @@
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="@dimen/dp_8dp"
+                android:maxLines="1"
                 android:text=""/>
 
 

@@ -50,7 +50,7 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.ButterKnife;
+//import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -97,7 +97,7 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_post);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         mCompressor = new FileCompressor(this);
 
         preferences=getSharedPreferences("Register",MODE_PRIVATE);

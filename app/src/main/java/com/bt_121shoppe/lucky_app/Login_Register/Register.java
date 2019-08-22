@@ -51,6 +51,7 @@ public class Register extends AppCompatActivity {
     String pass;
     private String register_verify;
     private int product_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -19,7 +19,7 @@
         android:layout_marginLeft="5dp"
         android:text="bello"
         android:id="@+id/show_message"
-        android:textSize="10sp"
+        android:textSize="11sp"
         android:padding="8dp"
         android:background="@drawable/background_left"/>
     <TextView
