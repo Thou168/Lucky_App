@@ -180,17 +180,16 @@
                         android:layout_below="@+id/imgCategory"
                         android:background="@drawable/underline_gray"
                         >
-                    <EditText
-                        android:id="@+id/tvType_elec"
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:hint="@string/type"
-                        android:textSize="14dp"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:drawableRight="@drawable/chevron_down_24"
-                        android:paddingLeft="10dp"
-                        />
+                        <EditText
+                            android:id="@+id/tvType_elec"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:hint="@string/type"
+                            android:textSize="14dp"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/chevron_down_24"
+                            android:paddingLeft="10dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                         <!--android:drawableRight="@drawable/chevron_down_24"/>-->
@@ -518,12 +517,23 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline_gray"/>
+
+                    <ImageButton
+                        android:id="@+id/btnPhone1_post"
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/ic_add_phone_24dp"
+                        android:layout_below="@id/imgName"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/underline_gray"
+                        />
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPhone1"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgName"
                         android:layout_toRightOf="@+id/imgPhone1"
+                        android:layout_toLeftOf="@+id/btnPhone1_post"
                         android:background="@drawable/underline_gray">
 
                         <EditText
@@ -538,11 +548,88 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+
+                    <ImageView
+                        android:id="@+id/imgPhone2"
+                        android:layout_width="15dp"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/imgPhone1"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_null"
+                        android:visibility="gone"
+                        android:background="@drawable/underline_gray"/>
+
+                    <ImageButton
+                        android:id="@+id/btnPhone2_post"
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/ic_add_phone_24dp"
+                        android:layout_below="@id/imgPhone1"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"
+                        android:background="@drawable/underline_gray"
+                        />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPhone2"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/imgPhone1"
+                        android:layout_toRightOf="@+id/imgPhone2"
+                        android:layout_toLeftOf="@+id/btnPhone2_post"
+                        android:visibility="gone"
+                        android:background="@drawable/underline_gray">
+
+                        <EditText
+                            android:id="@+id/etphone2"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:textSize="14dp"
+                            android:hint="@string/phone_number"
+                            android:inputType="phone"
+                            android:paddingLeft="10dp"
+                            android:background="@null"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <ImageView
+                        android:id="@+id/imgPhone3"
+                        android:layout_width="15dp"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/imgPhone2"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/icon_null"
+                        android:visibility="gone"
+                        android:background="@drawable/underline_gray"/>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPhone3"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/imgPhone2"
+                        android:layout_toRightOf="@+id/imgPhone1"
+                        android:visibility="gone"
+                        android:background="@drawable/underline_gray">
+
+                        <EditText
+                            android:id="@+id/etphone3"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:textSize="14dp"
+                            android:hint="@string/phone_number"
+                            android:inputType="phone"
+                            android:paddingLeft="10dp"
+                            android:background="@null"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <ImageView
                         android:id="@+id/imgEmail"
                         android:layout_width="15dp"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone1"
+                        android:layout_below="@+id/imgPhone3"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_null"
                         android:background="@drawable/underline_gray"/>
@@ -550,8 +637,8 @@
                         android:id="@+id/tilEmail"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone1"
-                        android:layout_toRightOf="@+id/imgPhone1"
+                        android:layout_below="@+id/imgPhone3"
+                        android:layout_toRightOf="@+id/imgEmail"
                         android:background="@drawable/underline_gray">
 
                         <EditText

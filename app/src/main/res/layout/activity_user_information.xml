@@ -163,7 +163,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edPhoneNumber"
-        android:hint="@string/hit_phone"
+        android:hint="@string/hit_phone1"
         android:layout_marginLeft="16dp"
         android:layout_below="@id/edWingAccountName"
         android:drawableLeft="@drawable/ic_check_circle_black_24dp"

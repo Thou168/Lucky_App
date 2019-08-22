@@ -290,12 +290,16 @@
     <string name="title_fill_information">Fill in Information</string>
     <string name="txt_clr_detail">DETAIL</string>
     <string name="hit_username">Username</string>
+    <string name="hit_shop_name">Shop Name</string>
     <string name="hit_gender">Gender</string>
     <string name="hit_age">Age</string>
     <string name="hit_job">Job</string>
     <string name="hit_mon_income">Monthy Average Income</string>
     <string name="hit_mon_expense">Monthy Average Expense</string>
-    <string name="hit_phone">Phone</string>
+    <string name="hit_phone1">Phone 1</string>
+    <string name="hit_phone2">Phone 2</string>
+    <string name="hit_phone3">Phone 3</string>
+    <string name="hit_email">Email</string>
     <string name="txt_clr_information">LOAN INFORMATION</string>
     <string name="loan_information">Loan Information</string>
     <string name="hit_loan_amount">Loan Amount</string>

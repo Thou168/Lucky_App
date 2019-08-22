@@ -112,12 +112,16 @@
     <string name="title_fill_information">បំពេញព័ត៌មាន</string>
     <string name="txt_clr_detail">ព័ត៌មានលំអិត</string>
     <string name="hit_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="hit_shop_name">ឈ្មោះហាង</string>
     <string name="hit_gender">ភេទ</string>
     <string name="hit_age">អាយុ</string>
     <string name="hit_job">មុខរបរ</string>
     <string name="hit_mon_income">ប្រាក់ចំណូលប្រចាំខែ</string>
     <string name="hit_mon_expense">ប្រាក់ចំណាយប្រចាំខែ</string>
-    <string name="hit_phone">លេខទូរស័ព្ទ</string>
+    <string name="hit_phone1">លេខទូរស័ព្ទទី១</string>
+    <string name="hit_phone2">លេខទូរស័ព្ទទី២</string>
+    <string name="hit_phone3">លេខទូរស័ព្ទទី៣</string>
+    <string name="hit_email">អ៊ីមែល</string>
     <string name="txt_clr_information">ព័ត៌មានឥណទាន</string>
     <string name="loan_information">ព័ត៌មានឥណទាន</string>
     <string name="hit_loan_amount">ចំនួនប្រាក់កម្ចី</string>

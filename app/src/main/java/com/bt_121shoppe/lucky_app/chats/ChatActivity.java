@@ -125,9 +125,10 @@ public class ChatActivity extends AppCompatActivity {
                 Glide.with(this).load("https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/10/22/ST_20181022_NANVEL_4360142.jpg?itok=ZB5zgW7e&timestamp=1540134011").into(imageView);
             }
             else{
-                byte[] decodedString1 = Base64.decode(postImage, Base64.DEFAULT);
-                Bitmap bitmapImage = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
-                imageView.setImageBitmap(bitmapImage);
+//                byte[] decodedString1 = Base64.decode(postImage, Base64.DEFAULT);
+//                Bitmap bitmapImage = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+//                imageView.setImageBitmap(bitmapImage);
+                Glide.with(this).load(postImage).into(imageView);
             }
         }
 

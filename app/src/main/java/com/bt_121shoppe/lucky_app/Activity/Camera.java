@@ -89,6 +89,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -134,8 +135,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private RelativeLayout relatve_discount;
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
-            icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icAddress;
-    private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_phone, input_email;
+            icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3,icAddress;
+    private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_email,input_phone, tilPhone2,tilphone3;
+    private ImageButton btnImagePhone1,btnImagePhone2;
     private SearchView tvAddress;
     private Button submit_post;
     private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
@@ -162,7 +164,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     SharedPreferences prefer,pre_id;
     ProgressDialog mProgress;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
-    private  BitmapDrawable drawable1,drawable2,drawable3,drawable4;
+
     int edit_id,status;
     Bundle bundle;
     int mmodel=1;
@@ -260,7 +262,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         initialUserInformation(pk,Encode);
 
         TextChange();
-
+        add_Phone();
         bundle = getIntent().getExtras();
         if (bundle!=null) {
             process_type=bundle.getInt("process_type",0);
@@ -527,7 +529,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-               String stDis_amount,stDis_percent,stPrice;
+
+
+               String stDis_amount ,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
                     stPrice = etPrice.getText().toString();
                     if (stPrice == null || stPrice.isEmpty()){
@@ -535,31 +539,36 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     }else {
                         dbPrice = Double.parseDouble(stPrice);
                     }
+                stDis_amount = etDiscount_amount.getText().toString();
+                    if (stDis_amount == null || stDis_amount.isEmpty()){
+                        dbDis_percent = 0;
+                        dbDis_amount = 0;
+                    }else {
+                        if (strDiscountType.equals("amount") ){
+                            dbDis_amount = Double.parseDouble(stDis_amount);
+                        }else {
+                            dbDis_amount = 0;
+                        }
+                        if(strDiscountType.equals("percent")){
+                            dbDis_percent = Double.parseDouble(stDis_amount);
+                        }else {
+                            dbDis_percent = 0;
+                        }
+                    }
 
-                if (strDiscountType == "amount"){
-                    stDis_amount = etDiscount_amount.getText().toString();
-                    dbDis_amount = Double.parseDouble(stDis_amount);
-                }else {
-                    dbDis_amount = 0;
-                }
-                 if(strDiscountType == "percent"){
-                    stDis_percent = etDiscount_amount.getText().toString();
-                    dbDis_percent = Double.parseDouble(stDis_percent);
-                }else {
-                     dbDis_percent = 0;
-                 }
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                    type==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
-                   || etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
+                   || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
                ){
 
-                   if (etTitle.getText().toString().length()<3) {
-                       etTitle.requestFocus();
-                       icTitile.setImageResource(R.drawable.ic_error_black_24dp);
-                   }
+
                    //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
 
+                    if (etPhone1.getText().toString().length()<8){
+                        etPhone1.requestFocus();
+                        icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
                     if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
                         etDiscount_amount.requestFocus();
                         icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
@@ -625,13 +634,17 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     alertDialog.show();
                 }
 
-               }
-                else if (bundle!=null) {
+               }else if (bundle!=null) {
                     mProgress.show();
-                    if(process_type==1)
+                    if(process_type==1){
+
                         PostData(Encode);
-                    else
-                        EditPost_Approve(Encode, edit_id);
+                    }
+                    else{
+                    Toast.makeText(v.getContext(),"Edit",Toast.LENGTH_SHORT).show();
+                       EditPost_Approve(Encode, edit_id);
+                   }
+
                 } else  {
                     mProgress.show();
                     PostData(Encode);
@@ -674,11 +687,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 String search_title = object.getString("vin_code");
                                 String name = object.getString("machine_code");
                                 String discount = object.getString("discount");
-                                String phone = object.getString("contact_phone");
                                 String email = object.getString("contact_email");
                                 strPostType = object.getString("post_type");
                                 cate = object.getInt("category");
                                 type = object.getInt("type");
+
+                                String phone = object.getString("contact_phone");
+
 
                                 if (cate == 2) {
                                     type = 3;
@@ -723,9 +738,33 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         etPrice.setText(String.valueOf(price));
                                         etDiscount_amount.setText(discount);
                                         etName.setText(name);
-                                        etPhone1.setText(phone);
+//                                        etPhone1.setText(phone);
                                         etEmail.setText(email);
 
+
+                                        String[] splitPhone = phone.split(",");
+                                        if (splitPhone.length == 1){
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            btnImagePhone1.setVisibility(View.VISIBLE);
+                                        }else if (splitPhone.length == 2){
+                                            icPhone2.setVisibility(View.VISIBLE);
+                                            tilPhone2.setVisibility(View.VISIBLE);
+                                            btnImagePhone2.setVisibility(View.VISIBLE);
+                                            btnImagePhone1.setVisibility(View.GONE);
+
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                                        }else if (splitPhone.length == 3){
+                                            icPhone2.setVisibility(View.VISIBLE);
+                                            tilPhone2.setVisibility(View.VISIBLE);
+                                            icPhone3.setVisibility(View.VISIBLE);
+                                            tilphone3.setVisibility(View.VISIBLE);
+                                            btnImagePhone2.setVisibility(View.GONE);
+                                            btnImagePhone1.setVisibility(View.GONE);
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                                            etPhone3.setText(String.valueOf(splitPhone[2]));
+                                        }
 
                                         String postType = strPostType.substring(0,1).toUpperCase() + strPostType.substring(1);
                                         String condition= strCondition.substring(0,1).toUpperCase() + strCondition.substring(1);
@@ -892,7 +931,34 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 converJsonJava = gson.fromJson(respon, User.class);
 
                             etName.setText(converJsonJava.getFirst_name());
-                            etPhone1.setText(converJsonJava.getUsername());
+                            etEmail.setText(converJsonJava.getEmail());
+
+                            if (converJsonJava.getProfile().getTelephone()!=null){
+                                String telePhone = converJsonJava.getProfile().getTelephone();
+                                String[] splitPhone = telePhone.split(",");
+                                if (splitPhone.length == 1){
+                                    etPhone1.setText(String.valueOf(splitPhone[0]));
+                                    btnImagePhone1.setVisibility(View.VISIBLE);
+                                }else if (splitPhone.length == 2){
+                                    icPhone2.setVisibility(View.VISIBLE);
+                                    tilPhone2.setVisibility(View.VISIBLE);
+                                    btnImagePhone2.setVisibility(View.VISIBLE);
+                                    btnImagePhone1.setVisibility(View.GONE);
+
+                                    etPhone1.setText(String.valueOf(splitPhone[0]));
+                                    etPhone2.setText(String.valueOf(splitPhone[1]));
+                                }else if (splitPhone.length == 3){
+                                    icPhone2.setVisibility(View.VISIBLE);
+                                    tilPhone2.setVisibility(View.VISIBLE);
+                                    icPhone3.setVisibility(View.VISIBLE);
+                                    tilphone3.setVisibility(View.VISIBLE);
+                                    btnImagePhone2.setVisibility(View.GONE);
+                                    btnImagePhone1.setVisibility(View.GONE);
+                                    etPhone1.setText(String.valueOf(splitPhone[0]));
+                                    etPhone2.setText(String.valueOf(splitPhone[1]));
+                                    etPhone3.setText(String.valueOf(splitPhone[2]));
+                                }
+                            }
                             String addr = converJsonJava.getProfile().getAddress();
                             if(addr.isEmpty()){
                                     get_location(true);
@@ -1010,7 +1076,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("vin_code", tvAddress.getQuery().toString());
             post.put("machine_code", etName.getText().toString().toLowerCase());
             post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString());
+            post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", latlng);
             post.put("color", strColor);
@@ -1052,7 +1118,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
             }
             Log.d(TAG,post.toString());
-            Log.d("URLLLLLLL",url);
+
+            Log.d(TAG,"URl:"+url);
+
 
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
@@ -1068,7 +1136,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                    String respon = response.body().string();
-                    //Log.d(TAG, "Post TTTT" + respon);
+                    Log.d(TAG, "Post TTTT" + respon);
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
@@ -1289,7 +1357,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("vin_code", tvAddress.getQuery().toString().toLowerCase());
             post.put("machine_code", etName.getText().toString().toLowerCase());
             post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString());
+            post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
             post.put("contact_email", etEmail.getText().toString().toLowerCase() );
             post.put("contact_address", latlng);
             post.put("color", strColor);
@@ -1334,7 +1402,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
             }
 
-            Log.d("URLLLLLLL",url);
+            Log.d("URLLLLLLL Edit",url);
             //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
             Log.d(TAG,tvAddress.getQuery().toString()+","+etName.getText().toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
@@ -1544,9 +1612,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void run() {
                         try{
-                            tvType_elec.setHint(getString(R.string.type));
-                            tvType_elec.setText("");
-                            icType_elec.setImageResource(R.drawable.icon_null);
+
                             type=0;
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
@@ -1599,9 +1665,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void run() {
                         try{
                             brand=0;
-                            tvBrand.setText("");
-                            tvBrand.setHint(getString(R.string.brand));
-                            icBrand.setImageResource(R.drawable.icon_null);
+
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
                             int count=0,ccount=0;
@@ -1663,8 +1727,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void run() {
                         try{
                             model=0;
-                            tvModel.setText("");
-                            tvModel.setHint(getString(R.string.model));
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
                             int count=0,ccount=0;
@@ -2253,7 +2315,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         etDiscount_amount = (EditText)findViewById(R.id.etDisAmount );
         etName            = (EditText)findViewById(R.id.etName );
         etPhone1          = (EditText)findViewById(R.id.etphone1 );
+        etPhone2          = (EditText)findViewById(R.id.etphone2);
+        etPhone3          = (EditText)findViewById(R.id.etphone3);
         etEmail           = (EditText)findViewById(R.id.etEmail );
+        btnImagePhone1    = (ImageButton)findViewById(R.id.btnPhone1_post);
+        btnImagePhone2    = (ImageButton)findViewById(R.id.btnPhone2_post);
         //// icon  ////////
         icTitile     = (ImageView) findViewById(R.id.imgTitle);
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
@@ -2270,6 +2336,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         icName       = (ImageView) findViewById(R.id. imgName);
         icEmail      = (ImageView) findViewById(R.id. imgEmail);
         icPhone1     = (ImageView) findViewById(R.id. imgPhone1);
+        icPhone2     = (ImageView) findViewById(R.id. imgPhone2);
+        icPhone3     = (ImageView) findViewById(R.id. imgPhone3);
         icDiscount_amount = (ImageView) findViewById(R.id. imgDisAmount);
         icDiscount_type   = (ImageView) findViewById(R.id.imgDisType );
         imageView1=(ImageView) findViewById(R.id.Picture1);
@@ -2284,6 +2352,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         input_name = (TextInputLayout)findViewById(R.id.tilName);
         input_phone = (TextInputLayout)findViewById(R.id.tilPhone1);
         input_email = (TextInputLayout)findViewById(R.id.tilEmail);
+        tilPhone2  = (TextInputLayout)findViewById(R.id.tilPhone2);
+        tilphone3  = (TextInputLayout)findViewById(R.id.tilPhone3);
 
     }
 
@@ -2627,31 +2697,70 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
             }
         });
-//     tvAddress.addTextChangedListener(new TextWatcher() {
-//         @Override
-//         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//         }
-//
-//         @Override
-//         public void onTextChanged(CharSequence s, int start, int before, int count) {
-//             if (s.length() == 0) {
-//                 icAddress.setImageResource(R.drawable.icon_null);
-//             } else if (s.length() < 3) {
-//                 icAddress.setImageResource(R.drawable.ic_error_black_24dp);
-//             } else icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//         }
-//
-//         @Override
-//         public void afterTextChanged(Editable s) {
-//
-//         }
-//     });
 
+        etPhone2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icPhone2.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 8) {
+                    icPhone2.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icPhone2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etPhone3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    icPhone3.setImageResource(R.drawable.icon_null);
+                } else if (s.length() < 8) {
+                    icPhone3.setImageResource(R.drawable.ic_error_black_24dp);
+                } else icPhone3.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     } // text change
+
+    private void add_Phone(){
+        btnImagePhone1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icPhone2.setVisibility(View.VISIBLE);
+                tilPhone2.setVisibility(View.VISIBLE);
+                btnImagePhone2.setVisibility(View.VISIBLE);
+                btnImagePhone1.setVisibility(View.GONE);
+            }
+        });
+
+        btnImagePhone2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icPhone3.setVisibility(View.VISIBLE);
+                tilphone3.setVisibility(View.VISIBLE);
+                btnImagePhone2.setVisibility(View.GONE);
+            }
+        });
+    }
 
     private void selectImage() {
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);

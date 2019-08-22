@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call to the Seller"
+        android:textSize="15dp"
+        android:padding="@dimen/dp_16"
+        />
+    <TextView
+        android:id="@+id/call_phone1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="@dimen/dp_16"
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        />
+
+    <TextView
+        android:id="@+id/call_phone2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="@dimen/dp_16"
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+
+        />
+
+    <TextView
+        android:id="@+id/call_phone3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="@dimen/dp_16"
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

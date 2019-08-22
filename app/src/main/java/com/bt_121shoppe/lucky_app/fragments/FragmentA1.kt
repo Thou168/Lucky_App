@@ -160,8 +160,10 @@ class FragmentA1: Fragment() {
 //                                recyclerView!!.layoutManager = GridLayoutManager(context, 1)
 
                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
+                                Log.d("IDDDDD",URL_ENDPOINT1);
+                                var MEDIA_TYPE = MediaType.parse("application/json")
                                 val client1 = OkHttpClient()
-                                //val auth = "Basic $encode"
+//                                val auth = "Basic $encode"
                                 val request1 = Request.Builder()
                                         .url(URL_ENDPOINT1)
                                         .header("Accept", "application/json")

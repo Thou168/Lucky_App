@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +61,8 @@ import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -85,10 +88,11 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = Edit_account.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
     private SearchView tvAddress_account;
-    private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone;
-
+    private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone,etPhone2,etPhone3,etEmail;
+    private TextInputLayout tilShop_name,tilPhone2,tilPhone3;
+    private ImageButton btnImagePhone1,btnImagePhone2;
     private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgUsername,imgDob,imgWingNumber,
-            imgWingName,imgPhone,imgShopName,imgShopAddr,imgResponsible;
+            imgWingName,imgPhone,imgPhone2,imgPhone3,imgEmail,imgShopName,imgShopAddr,imgResponsible;
     private EditText btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location,tvType;
     private String name,pass,Encode,user_id;
     private ArrayAdapter<Integer> ad_id;
@@ -143,9 +147,16 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
         tvType      = findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
+        etShop_name =(EditText) findViewById(R.id.etShop_name);
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
         etPhone     =(EditText) findViewById(R.id.etPhone_account);
+        etPhone2    =(EditText) findViewById(R.id.etPhone_account2);
+        etPhone3    =(EditText) findViewById(R.id.etPhone_account3);
+        etEmail     =(EditText) findViewById(R.id.etEmail_account);
+
+        btnImagePhone1 = (ImageButton)findViewById(R.id.btnPhone_account);
+        btnImagePhone2 = (ImageButton)findViewById(R.id.btnPhone_account2);
 
         mp_Dob      = (EditText) findViewById(R.id.mp_Dob);
         mp_Pob      = (EditText) findViewById(R.id.mp_Pob);
@@ -156,9 +167,13 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 
         imgType        =(ImageView) findViewById(R.id.imgType);
         imgUsername =(ImageView) findViewById(R.id.imgUsername);
+        imgShopName =(ImageView) findViewById(R.id.imgShop_name);
         imgWingName =(ImageView) findViewById(R.id.imgWingName);
         imgWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
         imgPhone    =(ImageView) findViewById(R.id.imgPhone_account);
+        imgPhone2   =(ImageView) findViewById(R.id.imgPhone_account2);
+        imgPhone3   =(ImageView) findViewById(R.id.imgPhone_account3);
+        imgEmail    =(ImageView) findViewById(R.id.imgEmail_account);
         imgDob      =(ImageView) findViewById(R.id.imgDob);
         imgPob         =(ImageView) findViewById(R.id.imgPob);
         imgMarried     =(ImageView) findViewById(R.id.imgMarried);
@@ -169,6 +184,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         input_user = (TextInputLayout)findViewById(R.id.tilUsername);
         input_wingname = (TextInputLayout)findViewById(R.id.tilWingName);
         input_wingnum = (TextInputLayout)findViewById(R.id.tilWingNumber);
+        tilShop_name  = (TextInputLayout)findViewById(R.id.tilShop_name);
+        tilPhone2     = (TextInputLayout)findViewById(R.id.tilPhone_account2);
+        tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -318,6 +336,14 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int i) {
                         tvType.setText(usertpyeItem[i]);
                         id_type = type_userid[i];
+                        if (id_type == 1){
+                            imgShopName.setVisibility(View.GONE);
+                            tilShop_name.setVisibility(View.GONE);
+                        }else {
+                            imgShopName.setVisibility(View.VISIBLE);
+                            tilShop_name.setVisibility(View.VISIBLE);
+                        }
+
                         dialog.dismiss();
                     }
                 });
@@ -327,6 +353,14 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int i) {
                         tvType.setText(type_userListItem[i]);
                         id_type = type_userid[i];
+                        if (id_type == 1){
+                            imgShopName.setVisibility(View.GONE);
+                            tilShop_name.setVisibility(View.GONE);
+                        }else {
+                            imgShopName.setVisibility(View.VISIBLE);
+                            tilShop_name.setVisibility(View.VISIBLE);
+                        }
+
                         dialog.dismiss();
                     }
                 });
@@ -393,6 +427,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 return false;
             }
         });
+        addPhone_number();
         Text_Action();
         Button btSubmit=(Button) findViewById(R.id.btn_EditAccount);
         btSubmit.setOnClickListener(new View.OnClickListener() {
@@ -414,6 +449,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     } // oncreate
+
 
 
     private void showDatePickerDialog(){
@@ -484,15 +520,51 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
                                 tvType.setText(getString(R.string.other_dealer));
+                                imgShopName.setVisibility(View.VISIBLE);
+                                tilShop_name.setVisibility(View.VISIBLE);
+                                etShop_name.setText(convertJsonJava.getProfile().getShop_name());
                             }else {
                                 tvType.setText(getString(R.string.public_user));
+                                imgShopName.setVisibility(View.GONE);
+                                tilShop_name.setVisibility(View.GONE);
                             }
 
                             etUsername.setText(convertJsonJava.getFirst_name());
+                            etEmail.setText(convertJsonJava.getEmail());
+
                             if(convertJsonJava.getProfile()!=null) {
 
+
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
-                                    etPhone.setText(convertJsonJava.getProfile().getTelephone());
+                                    String phone = convertJsonJava.getProfile().getTelephone();
+                                    String[] splitPhone = phone.split(",");
+
+                                    Log.d("SPLIT:::", String.valueOf(splitPhone.length));
+                                    if (splitPhone.length == 1){
+                                        etPhone.setText(String.valueOf(splitPhone[0]));
+                                        btnImagePhone1.setVisibility(View.VISIBLE);
+
+                                    }else if(splitPhone.length == 2){
+                                        imgPhone2.setVisibility(View.VISIBLE);
+                                        tilPhone2.setVisibility(View.VISIBLE);
+                                        btnImagePhone2.setVisibility(View.VISIBLE);
+                                        btnImagePhone1.setVisibility(View.GONE);
+
+                                        etPhone.setText(String.valueOf(splitPhone[0]));
+                                        etPhone2.setText(String.valueOf(splitPhone[1]));
+                                    }else if (splitPhone.length == 3){
+                                        imgPhone2.setVisibility(View.VISIBLE);
+                                        tilPhone2.setVisibility(View.VISIBLE);
+                                        imgPhone3.setVisibility(View.VISIBLE);
+                                        tilPhone3.setVisibility(View.VISIBLE);
+                                        btnImagePhone2.setVisibility(View.GONE);
+                                        btnImagePhone1.setVisibility(View.GONE);
+
+                                        etPhone.setText(String.valueOf(splitPhone[0]));
+                                        etPhone2.setText(String.valueOf(splitPhone[1]));
+                                        etPhone3.setText(String.valueOf(splitPhone[2]));
+                                    }
+
                                 }
                                 if(convertJsonJava.getProfile().getWing_account_number()!=null){
                                     etWingNumber.setText(convertJsonJava.getProfile().getWing_account_number());
@@ -526,6 +598,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                      mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                  }else {
                                      String[] splitAddr = addr.split(",");
+                                     Log.d("Split Location::", String.valueOf(splitAddr.length));
                                      latitude = Double.valueOf(splitAddr[0]);
                                      longtitude = Double.valueOf(splitAddr[1]);
 
@@ -604,23 +677,25 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         try{
             data.put("username",name);
             data.put("password",pass);
+            data.put("email",etEmail.getText().toString());
             data.put("first_name",etUsername.getText().toString());
+
             //pro.put("gender",gender);
             if(!strDob.isEmpty() && strDob!=null)
                 if (Build.VERSION.SDK_INT >= 26) {
                     pro.put("date_of_birth", convertDateofBirth(strDob));
                 }
-            pro.put("address","");
+
             pro.put("data_of_birth", strDob);
             pro.put("address",latlng);
-            pro.put("shop_name","");
+            pro.put("shop_name",etShop_name.getText().toString());
             pro.put("responsible_officer",tvAddress_account.getQuery().toString());
             pro.put("job","");
 
             pro.put("gender",strGender);
             pro.put("marital_status",strMaritalStatus);
             pro.put("shop_address","");
-            pro.put("telephone",etPhone.getText().toString().toLowerCase());
+            pro.put("telephone",etPhone.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
             pro.put("wing_account_number",etWingNumber.getText().toString());
             pro.put("wing_account_name",etWingName.getText().toString());
             if(id_location>0)
@@ -637,7 +712,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         }catch (JSONException e){
             e.printStackTrace();
         }
-        //Log.d(TAG,data.toString());
+        Log.d(TAG,data.toString());
         String auth = "Basic " + encode;
         RequestBody body = RequestBody.create(media, data.toString());
         Request request = new Request.Builder()
@@ -847,6 +922,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     }
+
     public void getUserType(){
         final String rl = ConsumeAPI.BASE_URL+"api/v1/groups/";
         OkHttpClient client = new OkHttpClient();
@@ -911,6 +987,27 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         return dob;
     }
 
+    private void addPhone_number() {
+        btnImagePhone1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imgPhone2.setVisibility(View.VISIBLE);
+                tilPhone2.setVisibility(View.VISIBLE);
+                btnImagePhone2.setVisibility(View.VISIBLE);
+                btnImagePhone1.setVisibility(View.GONE);
+            }
+        });
+
+        btnImagePhone2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imgPhone3.setVisibility(View.VISIBLE);
+                tilPhone3.setVisibility(View.VISIBLE);
+                btnImagePhone2.setVisibility(View.GONE);
+            }
+        });
+    }
+
     private void Text_Action() {
         tvType.addTextChangedListener(new TextWatcher() {
             @Override
@@ -956,6 +1053,28 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        etShop_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgShopName.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgShopName.setImageResource(R.drawable.ic_error_black_24dp);
+                }else {
+                    imgShopName.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         etWingName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1012,9 +1131,72 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()==0){
                     imgPhone.setImageResource(R.drawable.icon_null);
-                }else if (s.length()<3){
+                }else if (s.length()<8){
                     imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etPhone2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgPhone2.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<8){
+                    imgPhone2.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgPhone2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etPhone3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgPhone3.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<8){
+                    imgPhone3.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgPhone3.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgEmail.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgEmail.setImageResource(R.drawable.ic_error_black_24dp);
+                }else imgEmail.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
 
             @Override

@@ -48,13 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     layout="@layout/type_public_user1"/>
-                <include
-                    android:id="@+id/layout_type_121_dealer"
-                    android:layout_below="@+id/layout_type_public_user"
-                    layout="@layout/type_121_dealer"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+
 
                 <ImageView
 

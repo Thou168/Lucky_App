@@ -12,49 +12,37 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
-import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.Settings
 import android.text.*
 import android.text.format.DateUtils
 import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
-import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.Activity.Account
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.lucky_app.Activity.Item_API
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Api.User
-import com.bt_121shoppe.lucky_app.Api.api.TabA1_api
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.Product_dicount.Detail_Discount
 import com.bt_121shoppe.lucky_app.useraccount.User_post
 import com.bt_121shoppe.lucky_app.R
 import com.bt_121shoppe.lucky_app.chats.ChatActivity
 import com.bt_121shoppe.lucky_app.firebases.FBPostCommonFunction
-import com.bt_121shoppe.lucky_app.fragments.LoanItemAPI
 import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity
-import com.bt_121shoppe.lucky_app.models.Chat
 import com.bt_121shoppe.lucky_app.models.PostViewModel
-import com.bt_121shoppe.lucky_app.utils.CommomAPIFunction
 import com.bt_121shoppe.lucky_app.utils.LoanCalculator
-import com.bumptech.glide.Glide
-import com.facebook.share.widget.MessageDialog
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -65,26 +53,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import com.google.android.material.bottomsheet.BottomSheetDialog
 //import com.google.android.gms.location.FusedLocationProviderClient
 //import com.google.android.gms.maps.GoogleMap
 //import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_acount.*
-import kotlinx.android.synthetic.main.activity_detail_new_post.*
-import kotlinx.android.synthetic.main.contact_seller.*
 import kotlinx.android.synthetic.main.content_home.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
-import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.math.RoundingMode
@@ -444,7 +423,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 .url(url1)
                                 .header("Accept", "application/json")
                                 .header("Content-Type", "application/json")
-//                                .header("Authorization", auth)
+                                .header("Authorization", auth)
                                 .build()
                         client1.newCall(request1).enqueue(object : Callback {
                             @Throws(IOException::class)
@@ -595,6 +574,21 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         tvDescription.setText(postDetail.description.toString())
 
+
+                        user_email.setText(postDetail.contact_email.toString())
+
+
+                        val contact_phone = postDetail.contact_phone.toString()
+                            Phone_call(contact_phone)
+                        val splitPhone = contact_phone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                            if(splitPhone.size == 1){
+                                user_telephone.text = splitPhone[0]
+                            }else if (splitPhone.size == 2){
+                                user_telephone.text = splitPhone[0]+" / "+splitPhone[1]
+                            }else if (splitPhone.size == 3){
+                                user_telephone.text = splitPhone[0]+" / "+splitPhone[1]+" / "+splitPhone[2]
+                            }
+
                         val addr = postDetail.contact_address.toString()
                         Log.d("LAAAAA",addr)
                         var time:Long
@@ -682,6 +676,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
     }
 
+
     fun getUserProfile(id:Int,encode: String){
         var user1 = User()
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+id
@@ -729,8 +724,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             user_name!!.setText(user1.getFirst_name())
                         }
 
-                        user_telephone.setText(user1.profile.telephone)
-                        user_email.setText(user1.email)
+//                        user_telephone.setText(user1.profile.telephone)
+//                        user_email.setText(user1.email)
                         findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
                             //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
                             val intent = Intent(this@Detail_New_Post, User_post::class.java)
@@ -752,6 +747,68 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
             }
         })
+    }
+
+    fun Phone_call(contactPhone: String) {
+        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+
+        call_phone.setOnClickListener {
+
+            val dialog = BottomSheetDialog(it.context)
+            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
+            dialog.setContentView(view)
+            dialog.show()
+
+            val phone1= view.findViewById<TextView>(R.id.call_phone1)
+            val phone2= view.findViewById<TextView>(R.id.call_phone2)
+            val phone3= view.findViewById<TextView>(R.id.call_phone3)
+            if (splitPhone.size == 1){
+                phone1.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 2){
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 3){
+
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone3.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone3.text = "  "+splitPhone[2]
+
+                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+                    startActivity(intent)
+                }
+                phone3.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
+                    startActivity(intent)
+                }
+            }
+
+
+
+        }  // call
     }
 
     fun Like_post(encode: String) {
@@ -798,13 +855,16 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     override fun onResponse(call: Call, response: Response) {
                                         var respon = response.body()!!.string()
                                         Log.d("Response", respon)
-                                        val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
-                                        alertDialog.setMessage(R.string.like_post.toString())
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
-                                        ) { dialog, which ->
-                                            dialog.dismiss()
+                                        runOnUiThread {
+                                            val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
+                                            alertDialog.setMessage(R.string.like_post.toString())
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                                            ) { dialog, which ->
+                                                dialog.dismiss()
+                                            }
+                                            alertDialog.show()
                                         }
-                                        alertDialog.show()
+
                                     }
 
                                 override fun onFailure(call: Call, e: IOException) {
@@ -905,10 +965,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
 
-                            call_phone.setOnClickListener {
-                                val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null))
-                                startActivity(intent)
-                            }
+
 
                             if(postId != id) {
                                 Log.d("PostId ",postId.toString())
