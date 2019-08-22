@@ -51,10 +51,6 @@ public class Login extends AppCompatActivity {
     private String login_verify;
     private int product_id;
 
-    private String phone;
-    private String password;
-    String encode;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,8 +91,9 @@ public class Login extends AppCompatActivity {
     } //create
 
     private void postRequest() {
+
         name = Username.getText().toString();
-        pass= Password.getText().toString();
+        pass = Password.getText().toString();
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/rest-auth/login/");
         //   String url ="http://192.168.1.239:8000/rest-auth/login/";  // login
@@ -130,13 +127,10 @@ public class Login extends AppCompatActivity {
                 }else {
                     mProgress.dismiss();
                     runOnUiThread(new Runnable() {
+
                         @Override
                         public void run() {
-                            Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
-//                            String user = getIntent().getStringExtra("username");
-//                            if (user != "username"){
-//                                Log.d("Username is wrong",user.toString());
-//                            }
+                            Toast.makeText(getApplicationContext(),"Login 1failure",Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -216,52 +210,4 @@ public class Login extends AppCompatActivity {
             });
         }
     }
-
-//    private void wrongUserPass(String mMessage) {
-//        Gson gson = new Gson();
-//        Convert_Json_Java convertJsonJava = new Convert_Json_Java();
-//        try {
-//            convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java.class);
-//            Log.d(TAG, convertJsonJava.getUsername() + "\t" + convertJsonJava.getToken() + "\t" + convertJsonJava.getStatus());
-//            final String key = convertJsonJava.getToken();
-//            User user = convertJsonJava.getUser();
-//            final int pk = user.getPk();
-//
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (key != null) {
-//
-//                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
-//                        intent.putExtra("authType", 2);
-//                        intent.putExtra("phoneNumber", name);
-//                        intent.putExtra("password", pass);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        mProgress.dismiss();
-//                        startActivity(intent);
-//                        finish();
-//
-////                        SharedPreferences.Editor editor = prefer.edit();
-////                        editor.putString("token",key);
-////                        editor.putString("name",name);
-////                        editor.putString("pass",pass);
-////                        editor.putInt("Pk",pk);
-////                        editor.commit();
-////                        mProgress.dismiss();
-////                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
-////                        Intent intent = new Intent(Login.this, Home.class);
-////                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////                        startActivity(intent);
-////                        finish();
-//                    } else {
-//
-//                        Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_SHORT).show();
-//                        mProgress.dismiss();
-//                    }
-//                }
-//            });
-//        } catch (JsonParseException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

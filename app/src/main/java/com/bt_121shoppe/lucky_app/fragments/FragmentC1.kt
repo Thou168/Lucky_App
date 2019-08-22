@@ -20,6 +20,7 @@ import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import okhttp3.*
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -130,6 +131,7 @@ class FragmentC1: Fragment() {
                                         activity!!.runOnUiThread{
                                             val jsonObject1 = JSONObject(mmessage)
                                             if(jsonObject1 != null) {
+//                                                val amount = jsonObject.getString("loan_amount")
                                                 val title = jsonObject1.getString("title")
                                                 val id = jsonObject1.getInt("id")
                                                 val condition = jsonObject1.getString("condition")
@@ -142,11 +144,21 @@ class FragmentC1: Fragment() {
                                                 val time: Long = sdf.parse(`object`.getString("created")).getTime()
                                                 val now: Long = System.currentTimeMillis()
                                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+//                                                try {
+//                                                    jsonObject.put("loan_amount",amount)
+//                                                    Log.d("Amountloan",amount)
+//                                                }
+//                                                catch (e: JSONException) {
+//                                                    e.printStackTrace()
+//                                                }
                                                 ///
                                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
                                                 var MEDIA_TYPE = MediaType.parse("application/json")
                                                 val client1 = OkHttpClient()
-                                                //val auth = "Basic $encode"
+
+//                                                val auth = "Basic $encodeAuth"
+//                                                Log.d("Show",auth)
+
                                                 val request1 = Request.Builder()
                                                         .url(URL_ENDPOINT1)
                                                         .header("Accept", "application/json")

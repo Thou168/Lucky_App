@@ -522,10 +522,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                        edLoanPrice.setText(""+discount.toString())
                         edLoanPrice.setText(""+discount)
 
-                        tvPrice1.setText("$ "+ postDetail.cost.toString())
+                        tvPrice1.setText("$"+ postDetail.cost.toString())
 
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
+                            edLoanPrice.setText(""+postDetail.cost)
                             tvPrice.visibility = View.GONE
                         }else{
                             tvPrice1.visibility = View.GONE

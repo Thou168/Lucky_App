@@ -802,6 +802,7 @@ public class LoanCreateActivity extends AppCompatActivity {
                             try {
                                 JSONObject object = new JSONObject(respone);
                                 String job = object.getString("job");
+                                String coborrow= object.getString("username");
                                 Double income = object.getDouble("average_income");
                                 Double expense = object.getDouble("average_expense");
                                 String purpose = object.getString("loan_purpose");
@@ -811,7 +812,6 @@ public class LoanCreateActivity extends AppCompatActivity {
                                 Boolean family = object.getBoolean("family_book");
                                 Boolean staffId = object.getBoolean("staff_id");
                                 Boolean house = object.getBoolean("house_plant");
-                                String coborrow= object.getString("username");
 
                                 runOnUiThread(new Runnable() {
                                     @Override
