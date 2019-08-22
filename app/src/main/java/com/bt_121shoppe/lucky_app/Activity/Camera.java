@@ -528,8 +528,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                Toast.makeText(v.getContext(),"Click",Toast.LENGTH_SHORT).show();
 
                String stDis_amount ,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
@@ -558,11 +557,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
-                   type==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
+                   tvType_elec.getText().toString().length()==0 || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
                ){
 
-
+                   Toast.makeText(v.getContext(),"Click 2",Toast.LENGTH_SHORT).show();
                    //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
 
                     if (etPhone1.getText().toString().length()<8){
@@ -635,9 +634,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
 
                }else if (bundle!=null) {
+                   Toast.makeText(v.getContext(),"Click 3",Toast.LENGTH_SHORT).show();
                     mProgress.show();
                     if(process_type==1){
-
+                        Toast.makeText(v.getContext(),"Click 4",Toast.LENGTH_SHORT).show();
                         PostData(Encode);
                     }
                     else{
@@ -646,6 +646,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                    }
 
                 } else  {
+                   Toast.makeText(v.getContext(),"Post",Toast.LENGTH_SHORT).show();
                     mProgress.show();
                     PostData(Encode);
                 }

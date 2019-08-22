@@ -573,10 +573,15 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                     etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
                                 }
                                 String s = convertJsonJava.getProfile().getGender();
-                                if (s.equals("male")){
-                                    mp_Gender.setText(R.string.male);
-                                }else if (s.equals("female")){
-                                    mp_Gender.setText(R.string.female);
+                                Log.d(TAG,"Gender:"+s);
+                                if (s!=null ){
+                                    if (s.equals("male")){
+                                        mp_Gender.setText(R.string.male);
+                                    }else if (s.equals("female")){
+                                        mp_Gender.setText(R.string.female);
+                                    }else {
+                                        Log.d(TAG,s);
+                                    }
                                 }
 
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
@@ -610,13 +615,16 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                      mapFragment.getMapAsync(Edit_account.this::onMapReady);
                                  }
                                 String m = convertJsonJava.getProfile().getMarital_status();
-                                if (m.equals("single")){
-                                    mp_Married.setText(R.string.single);
-                                }else if (m.equals("married")){
-                                    mp_Married.setText(R.string.marriedd);
-                                }else if (m.equals("other")){
-                                    mp_Married.setText(R.string.other);
-                                }
+                                 if (m!=null){
+                                     if (m.equals("single")){
+                                         mp_Married.setText(R.string.single);
+                                     }else if (m.equals("married")){
+                                         mp_Married.setText(R.string.marriedd);
+                                     }else if (m.equals("other")){
+                                         mp_Married.setText(R.string.other);
+                                     }
+                                 }
+
 
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
