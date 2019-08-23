@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bt_121shoppe.lucky_app.Activity.Account
@@ -30,11 +32,16 @@ import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.rengwuxian.materialedittext.MaterialEditText
+import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -57,6 +64,7 @@ class VerifyMobileActivity : AppCompatActivity() {
     private var verify = ""
     private var product_id = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_mobile)
@@ -121,6 +129,7 @@ class VerifyMobileActivity : AppCompatActivity() {
     }
 
     private val mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
             val code = phoneAuthCredential.smsCode
             if (code != null) {
@@ -143,11 +152,13 @@ class VerifyMobileActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun verifyVerificationCode(code: String?) {
         val credential = PhoneAuthProvider.getCredential(mVerificationId.toString(), code!!)
         signInWithPhoneAuthCredential(credential)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         mAuth!!.signInWithCredential(credential)
                 .addOnCompleteListener(this@VerifyMobileActivity) { task ->
@@ -175,6 +186,8 @@ class VerifyMobileActivity : AppCompatActivity() {
                             val facebookid=intent.getStringExtra("facebookid")
                             val facebookname=intent.getStringExtra("facebookname")
                             val imageurl=intent.getStringExtra("imageurl")
+                            val gender=intent.getStringExtra("gender")
+                            val birth=intent.getStringExtra("birthday")
 
                             val hashMap = HashMap<String, String>()
                             hashMap["id"] = userId
@@ -184,9 +197,9 @@ class VerifyMobileActivity : AppCompatActivity() {
                             hashMap["search"]=no.toLowerCase()
                             hashMap["coverURL"]="default"
                             hashMap["password"]=password
-                            //Log.d("TAG", "" + hashMap)
+                            Log.d("TAG", "" + hashMap)
                             reference.child("users").child(userId).setValue(hashMap)
-                            registerWithFBRequest(facebookname,facebookid)
+                            registerWithFBRequest(facebookname,facebookid,gender,birth)
                         }
                         else if(authType==4){ // login with fb
                             val reference = FirebaseDatabase.getInstance().getReference("users").child(userId)
@@ -270,8 +283,31 @@ class VerifyMobileActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun registerWithFBRequest(username:String,facebookid:String){
+    private fun convertDateofBirth(birthday: String): String {
+        var dd: String? = null
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dd = Instant.now().toString()
+        }
+        //String dd = DateFormat.getDateTimeInstance().format(new Date());
+        val d = dd!!.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        for (i in d.indices) {
+            Log.e("jjjj", d[i])
+        }
+        val datetime=birthday!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        for (i in datetime.indices){
+            Log.e("ddddd",datetime[i])
+        }
+        val dg = d[2]
+        for (i in dg.indices){
+            Log.e("hhhh",dg[i].toString())
+        }
+        val dob = String.format("%s-%s-%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", datetime[2], datetime[0], datetime[1],
+                dg[2],dg[3],dg[4],dg[5],dg[6],dg[7],dg[8],dg[9],dg[10],dg[11],dg[12],dg[13],dg[14],dg[15])
+        Log.d("jhh", dob)
+        return dob
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun registerWithFBRequest(username:String, facebookid:String, gender:String, birth:String){
         val MEDIA_TYPE = MediaType.parse("application/json")
         val url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/users/")
         val client = OkHttpClient()
@@ -282,6 +318,11 @@ class VerifyMobileActivity : AppCompatActivity() {
             postdata.put("password", password)
             postdata.put("first_name",username)
             postdata.put("last_name",facebookid)
+            post_body.put("gender",gender)
+            if (!birth.isEmpty() && birth != null)
+                if (Build.VERSION.SDK_INT >= 26) {
+                    post_body.put("date_of_birth",convertDateofBirth(birth))
+                }
             post_body.put("telephone", no)
             post_body.put("group",1)
             postdata.put("profile", post_body)

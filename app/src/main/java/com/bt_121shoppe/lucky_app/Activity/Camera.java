@@ -271,15 +271,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 cate=bundle.getInt("category",0);
 
                 if(strPostType.equals("buy")){
+                    tvPostType.setText(R.string.bu);
                     relatve_discount.setVisibility(View.GONE);
                     toolbar.setBackgroundColor(getColor(R.color.logo_orange));
                 }else if(strPostType.equals("sell")){
+                    tvPostType.setText(R.string.sel);
                     toolbar.setBackgroundColor(getColor(R.color.logo_green));
                 }else if(strPostType.equals("rent")){
+                    tvPostType.setText(R.string.ren);
                     toolbar.setBackgroundColor(getColor(R.color.logo_red));
                 }
 
-                tvPostType.setText(strPostType.substring(0,1).toUpperCase() + strPostType.substring(1));
+//                tvPostType.setText(strPostType.substring(0,1).toUpperCase() + strPostType.substring(1));
                 getCategegoryName(Encode,cate);
                 Call_Brand(Encode,cate);
                 if(cate==1){

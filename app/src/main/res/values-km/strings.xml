@@ -273,7 +273,7 @@
 
     <!--    message for loan created-->
     <string name="create_loan">ការបង្កើត</string>
-    <string name="already_created">អ្នកធ្លាប់បានបង្កើតម្តងហើយ!</string>
+    <string name="already_created">អ្នកមិនអាចស្នើរសុំឥណទានស្ទួនគ្នាបានទេ</string>
 
     //Rent type
     <string-array name="rent_type">
@@ -397,7 +397,7 @@
     <string name="other_dealer">អ្នកចែកចាយផ្សេងទៀត</string>
     <string name="shoppe">121 Shoppe</string>
     <string name="search_here">ស្វែងរក...</string>
-    <string name="no_result">គ្មានរកឃើញលទ្ធផលទេ</string>
+    <string name="no_result">រកមិនឃើញលទ្ធផលទេ</string>
     <string name="related_poat">ការប្រកាសដែលពាក់ព័ន្ធគ្នា</string>
 
     <string name="english_khmer">ខ្មែរ</string>

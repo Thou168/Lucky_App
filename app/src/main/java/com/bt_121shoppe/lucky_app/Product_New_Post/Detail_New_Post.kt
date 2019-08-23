@@ -858,7 +858,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         runOnUiThread {
                                             val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
                                             alertDialog.setMessage(R.string.like_post.toString())
-                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
                                             ) { dialog, which ->
                                                 dialog.dismiss()
                                             }
@@ -1238,7 +1238,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         with(builder)
         {
             setMessage(R.string.already_created)
-            setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            setPositiveButton(getString(R.string.ok), DialogInterface.OnClickListener { dialog, which ->
                 refresh
                 dialog.dismiss()
             })

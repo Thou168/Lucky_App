@@ -28,6 +28,7 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -48,7 +49,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
         emailId=findViewById(R.id.email);
         displayImage=findViewById(R.id.image_view);
         loginButton=(LoginButton)findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
+        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday","user_gender","user_location"));
 
 
         PackageInfo info;
@@ -95,8 +96,8 @@ public class FacebookLoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        callbackManager.onActivityResult(requestCode,resultCode,data);
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
     private void userLoginInformation(AccessToken accessToken){
@@ -104,9 +105,13 @@ public class FacebookLoginActivity extends AppCompatActivity {
         GraphRequest request=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
+
                 try{
                     String name=object.getString("name");
                     String email=object.getString("id");
+                    String gender=object.getString("gender");
+                    String birth=object.getString("birthday");
+                    String location=object.getString("location");
                     String image=object.getJSONObject("picture").getJSONObject("data").getString("url");
                     displayName.setText(name);
                     emailId.setText(email);
@@ -118,7 +123,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
         });
         // We set parameters to the GraphRequest using a Bundle.
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,picture.width(200)");
+        parameters.putString("fields", "id,name,gender,location,birthday,email,picture.width(200)");
         request.setParameters(parameters);
         // Initiate the GraphRequest
         request.executeAsync();

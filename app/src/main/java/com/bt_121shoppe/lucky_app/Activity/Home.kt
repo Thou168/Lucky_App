@@ -158,6 +158,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locale()
+        language("km")
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
         setContentView(R.layout.activity_home)
 

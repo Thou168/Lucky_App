@@ -59,7 +59,7 @@ public class UserAccount extends AppCompatActivity {
         Login = (Button)findViewById(R.id.btnLogin);
         Register =(Button)findViewById(R.id.btnRegister);
         loginButton=(LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
+        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday","user_gender","user_location"));
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,9 +120,12 @@ public class UserAccount extends AppCompatActivity {
         GraphRequest request=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
+                Log.d("bjfjfjfjjfjjj",response.toString());
                 try{
                     String name=object.getString("name");
                     String facebookid=object.getString("id");
+                    String gender=object.getString("gender");
+                    String birth=object.getString("birthday");
                     String image=object.getJSONObject("picture").getJSONObject("data").getString("url");
 //                    displayName.setText(name);
 //                    emailId.setText(email);
@@ -142,6 +145,8 @@ public class UserAccount extends AppCompatActivity {
                             Intent intent=new Intent(UserAccount.this,ConfirmMobileNumberActivity.class);
                             intent.putExtra("facebooktokenkey",accessToken.toString());
                             intent.putExtra("facebookid",facebookid);
+                            intent.putExtra("gender",gender);
+                            intent.putExtra("birthday",birth);
                             intent.putExtra("facebookname",name);
                             intent.putExtra("imageurl",image);
                             startActivity(intent);
@@ -154,10 +159,14 @@ public class UserAccount extends AppCompatActivity {
                             int apiUserId=obj1.getInt("id");
                             String apiUsername=obj1.getString("username");
                             Intent intent=new Intent(UserAccount.this,VerifyMobileActivity.class);
+                            intent.putExtra("Register_verify",verify);
+                            intent.putExtra("Login_verify",verify);
                             intent.putExtra("authType",4);
                             intent.putExtra("phoneNumber",apiUsername);
                             intent.putExtra("password",apiUsername);
                             intent.putExtra("facebooktokenkey",accessToken.toString());
+                            intent.putExtra("gender",gender);
+                            intent.putExtra("birthday",birth);
                             intent.putExtra("facebookid",facebookid);
                             intent.putExtra("facebookname",name);
                             intent.putExtra("imageurl",image);
@@ -175,7 +184,7 @@ public class UserAccount extends AppCompatActivity {
         });
         // We set parameters to the GraphRequest using a Bundle.
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,picture.width(200)");
+        parameters.putString("fields", "id,name,gender,birthday,email,picture.width(200)");
         request.setParameters(parameters);
         // Initiate the GraphRequest
         request.executeAsync();

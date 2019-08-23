@@ -90,8 +90,9 @@
     //map
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
 
-    <string name="facebook_app_id">596607940863011</string>
-    <string name="fb_login_protocol_scheme">596607940863011</string>
+<!--    <string name="facebook_app_id">596607940863011</string>-->
+    <string name="facebook_app_id">2638303279534710</string>
+    <string name="fb_login_protocol_scheme">fb2638303279534710</string>
 
     <string-array name="category">
         <item>Motorbike</item>
@@ -282,7 +283,7 @@
 
     <!--    message for loan created-->
     <string name="create_loan">Your create</string>
-    <string name="already_created">You already created!</string>
+    <string name="already_created">You cannot request duplicate loan.</string>
 
 
     <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>

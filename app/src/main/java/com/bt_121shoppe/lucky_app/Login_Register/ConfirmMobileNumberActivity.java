@@ -28,7 +28,7 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
     private MaterialEditText edphonenumber;
     private Button button_sumit;
 
-    private String facebooktokenkey,facebookid,facebookname,imageurl;
+    private String facebooktokenkey,facebookid,facebookname,imageurl,gender,birth;
     private Intent intent;
     private ProgressDialog mProgress;
 
@@ -50,6 +50,8 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
         facebookid=intent.getStringExtra("facebookid");
         facebookname=intent.getStringExtra("facebookname");
         imageurl=intent.getStringExtra("imageurl");
+        gender=intent.getStringExtra("gender");
+        birth=intent.getStringExtra("birthday");
 
         back=findViewById(R.id.tvBack_account);
         edphonenumber=findViewById(R.id.phone_number);
@@ -101,6 +103,8 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
                 intent.putExtra("facebookid",facebookid);
                 intent.putExtra("facebookname",facebookname);
                 intent.putExtra("imageurl",imageurl);
+                intent.putExtra("gender",gender);
+                intent.putExtra("birthday",birth);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }else{
