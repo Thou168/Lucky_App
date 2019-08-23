@@ -158,7 +158,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locale()
-        language("km")
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
         setContentView(R.layout.activity_home)
 
@@ -486,7 +485,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
     }
 
-
     private fun Get(): ArrayList<Item_API>{
         val itemApi = ArrayList<Item_API>()
         val url = ConsumeAPI.BASE_URL+"allposts/"
@@ -763,7 +761,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         token.continuePermissionRequest()
                     }
                 }).withErrorListener { error  ->
-//                    Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show()
+                    //                    Toast.makeText(applicationContext, "Error occurred! ", Toast.LENGTH_SHORT).show()
                 }
                 .onSameThread()
                 .check()
@@ -800,7 +798,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     private fun ShowTestMessage(){
-       val  builder =  Dialog(this)
+        val  builder =  Dialog(this)
         builder.setContentView(R.layout.dialog_custom)
         builder.setCancelable(true)
         val btn_dialog = builder.findViewById<Button>(R.id.btn_dialog)

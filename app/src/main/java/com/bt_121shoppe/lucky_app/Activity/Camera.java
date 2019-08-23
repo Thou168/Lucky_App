@@ -575,7 +575,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
                ){
 
-                   Toast.makeText(v.getContext(),"Click 2",Toast.LENGTH_SHORT).show();
                    //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
 
                     if (etPhone1.getText().toString().length()<8){
@@ -635,12 +634,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                } else if (cate == 1 && tvType_elec.getText().toString().length()==0){
                    tvType_elec.requestFocus();
                    icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
-               }
-               else if (bundle!=null) {
-                   Toast.makeText(v.getContext(),"Click 3",Toast.LENGTH_SHORT).show();
+               } else if (bundle!=null) {
+
                     mProgress.show();
                     if(process_type==1){
-                        Toast.makeText(v.getContext(),"Click 4",Toast.LENGTH_SHORT).show();
+
                         if (cate == 2){
                             type = Integer.parseInt(tvType_elec.getText().toString());
                         }
@@ -649,7 +647,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     }
                     else{
                     Toast.makeText(v.getContext(),"Edit",Toast.LENGTH_SHORT).show();
-
                         Log.d("Type id  edit ", String.valueOf(type));
                        EditPost_Approve(Encode, edit_id);
                    }
@@ -1349,8 +1346,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             if (android.os.Build.VERSION.SDK_INT >= 26){
                 post.put("modified", Instant.now().toString());
             } else{
-                String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                post.put("modified", currentDateTimeString);
+                if (android.os.Build.VERSION.SDK_INT >= 26) {
+                    String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                    post.put("modified", currentDateTimeString);
+                }
                 // do something for phones running an SDK before lollipop
             }
             post.put("modified_by", pk);
