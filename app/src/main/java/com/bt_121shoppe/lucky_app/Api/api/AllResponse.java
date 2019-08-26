@@ -1,5 +1,8 @@
 package com.bt_121shoppe.lucky_app.Api.api;
 
+import com.bt_121shoppe.lucky_app.Api.api.model.Item;
+import com.bt_121shoppe.lucky_app.Api.api.model.Item_loan;
+import com.bt_121shoppe.lucky_app.Api.api.model.LikebyUser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,21 +14,14 @@ import java.util.List;
 public class AllResponse {
     @SerializedName("results")
     @Expose
-    private List<Year> categories;
-    public List getCategory(){ return categories; }
-    public void setCategory(List items){ this.categories = items; }
-//    @SerializedName("results")
-//    @Expose
-//    private List<Breand> breands;
-//    public List<Breand> getBreands(){ return breands; }
-//    public void setCategories(List<Breand> breands){
-//        this.breands = breands;
-//    }
-//
-//    @SerializedName("count")
-//    @Expose
-//    private int count;
-//    public int getCount() { return count; }
+    private List<Item_loan> results;
+    public List getresults(){ return results; }
+    public void setresults(List items){ this.results = items; }
+
+    @SerializedName("count")
+    @Expose
+    private int count;
+    public int getCount() { return count; }
 
 //    @SerializedName("username")
 //    @Expose

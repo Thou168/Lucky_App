@@ -30,7 +30,7 @@
                 android:text="title"
                 android:textSize="14dp" />
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
@@ -73,13 +73,15 @@
                     android:layout_marginRight="@dimen/dp_4"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true">
-                    <ImageView
+                    <TextView
                         android:layout_gravity="right"
-                        android:id="@+id/post_type"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:id="@+id/item_type"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
                         android:layout_width="40dp"
-                        android:layout_height="18dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/buy" />
+                        android:layout_height="wrap_content" />
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"

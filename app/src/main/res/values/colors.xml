@@ -33,5 +33,9 @@
     <color name="colorPrimary1">#3eaeae</color>
     <color name="colorPrimaryDark1">#226e6e</color>
     <color name="colorAccent1">#226e6e</color>
+
+    <color name="color_buy">#E08502</color>
+    <color name="color_sell">#089D01</color>
+    <color name="color_rent">#DF041D</color>
     <color name="colorLightGray">	#FFB6C1</color>
 </resources>

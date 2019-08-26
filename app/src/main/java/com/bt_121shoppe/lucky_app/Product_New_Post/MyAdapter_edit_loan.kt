@@ -226,7 +226,6 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                         try {
                                             jsonObject.put("record_status", pk_record)
                                             jsonObject.put("loan_status", pk_loan)
-
                                             jsonObject.put("loan_amount", loan_amount)
                                             jsonObject.put("loan_interest_rate", loan_interest_rate)
                                             jsonObject.put("loan_duration", loan_duration)
@@ -291,8 +290,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                                 }
 
                             })
-                        })
-                        .setNegativeButton(android.R.string.no, null).show()
+                        }).setNegativeButton(android.R.string.no, null).show()
             }
             fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
                 val bytes = ByteArrayOutputStream()

@@ -26,65 +26,64 @@
                 android:id="@+id/title"
                 android:text="title"
                 android:lines="2"
-                android:layout_marginLeft="@dimen/dp_8"
                 android:textSize="14dp"
+                android:layout_marginLeft="@dimen/dp_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/date"
+                android:layout_marginLeft="@dimen/dp_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_8"
                 android:layout_below="@+id/title"
                 android:text="Phonm Penh - 2h ago"
                 android:textSize="10dp" />
             <TextView
                 android:id="@+id/tv_price"
-                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_8"
+                android:layout_alignParentBottom="true"
                 android:textColor="@android:color/holo_red_light"
                 android:text="$0.00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_4"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true">
+                <TextView
+                    android:layout_gravity="right"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:id="@+id/item_type"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_4">
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:layout_gravity="right"
-                        android:textColor="@android:color/white"
-                        android:gravity="center"
-                        android:id="@+id/item_type"
-                        android:textStyle="bold"
-                        android:layout_width="40dp"
-                        android:textSize="12dp"
-                        android:layout_height="wrap_content" />
-                    <LinearLayout
-                        android:orientation="horizontal"
+                        android:id="@+id/user_view1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/user_view"
-                            android:textSize="12dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/view" />
-                        <TextView
-                            android:id="@+id/view"
-                            android:textSize="12dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
+                        android:layout_height="wrap_content"
+                        android:textSize="10dp"
+                        android:text="@string/view" />
+                    <TextView
+                        android:id="@+id/user_view"
+                        android:textSize="10dp"
+                        android:text="0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
+            </LinearLayout>
+
         </RelativeLayout>
         </LinearLayout>
         <RelativeLayout
-            android:id="@+id/relative"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="40dp">
@@ -100,22 +99,21 @@
                 <!--android:background="#00FFFFFF"-->
                 <!--android:drawableLeft="@drawable/refresh"-->
                 <!--android:text="Pending" />-->
-            <!--<Button-->
-                <!--android:layout_marginStart="@dimen/dp_24"-->
-                <!--android:id="@+id/btn_renew"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:background="#00FFFFFF"-->
-                <!--android:drawableLeft="@drawable/refresh"-->
-                <!--android:gravity="center"-->
-                <!--android:paddingLeft="@dimen/dp_20"-->
-                <!--android:text="Renew"-->
-                <!--android:textAllCaps="false" />-->
+            <Button
+                android:layout_marginStart="@dimen/dp_24"
+                android:id="@+id/btn_renew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="#00FFFFFF"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_20"
+                android:drawableLeft="@drawable/refresh"
+                android:textAllCaps="false" />
 
             <Button
                 android:layout_centerInParent="true"
-                android:id="@+id/btnedit"
+                android:id="@+id/btnedit_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -137,7 +135,7 @@
                 android:background="#00FFFFFF"
                 android:paddingLeft="@dimen/dp_16"
                 android:drawableLeft="@drawable/delete"
-                android:text="@string/cancel" />
+                android:text="@string/button_delete" />
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

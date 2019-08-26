@@ -1,6 +1,6 @@
 package com.bt_121shoppe.lucky_app.Api;
 
-import com.bt_121shoppe.lucky_app.Api.api.Sales;
+import com.bt_121shoppe.lucky_app.Api.api.model.Sales;
 import com.google.gson.annotations.SerializedName;
 
 public class User {

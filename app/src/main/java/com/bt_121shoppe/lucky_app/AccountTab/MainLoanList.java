@@ -13,8 +13,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bt_121shoppe.lucky_app.Api.api.adapter.Adapter_Loanbyuser;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.fragments.FragmentC1;
+import com.bt_121shoppe.lucky_app.fragments.Loadbyuser;
+import com.bt_121shoppe.lucky_app.fragments.Loadbyuser_history;
 import com.bt_121shoppe.lucky_app.fragments.Loan_history;
 import com.google.android.material.tabs.TabLayout;
 
@@ -51,8 +54,8 @@ public class MainLoanList extends Fragment {
 
     private void setUpPager() {
         NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
-        FragmentC1 n1 = new FragmentC1();
-        Loan_history n2 = new Loan_history();
+        Loadbyuser n1 = new Loadbyuser();
+        Loadbyuser_history n2 = new Loadbyuser_history();
 
         adp.addFrag(n1, getString(R.string.loan_active));
         adp.addFrag(n2, getString(R.string.history_loan));

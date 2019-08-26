@@ -11,19 +11,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
-import com.bt_121shoppe.lucky_app.Api.api.AllResponse;
-import com.bt_121shoppe.lucky_app.Api.api.Breand;
-import com.bt_121shoppe.lucky_app.Api.api.Category;
-import com.bt_121shoppe.lucky_app.Api.api.Client;
-import com.bt_121shoppe.lucky_app.Api.api.Service;
-import com.bt_121shoppe.lucky_app.Api.api.Year;
 import com.bt_121shoppe.lucky_app.R;
 
 import org.json.JSONArray;
@@ -31,7 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import okhttp3.Call;

@@ -124,5 +124,4 @@ class MyAdapter_post_history(private val itemList: ArrayList<Item_API>, val type
     fun setLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
         this.loadMoreListener = loadMoreListener
     }
-    //
 }

@@ -1,4 +1,4 @@
-package com.bt_121shoppe.lucky_app.Api.api;
+package com.bt_121shoppe.lucky_app.Api.api.model;
 
 public class Sales {
     private int sale_status;

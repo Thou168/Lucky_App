@@ -56,6 +56,9 @@
     <string name="sell">លក់</string>
     <string name="buy">ទិញ</string>
 
+    <string name="sell_t">លក់</string>
+    <string name="buy_t">លក់</string>
+
     //Tab
     <string name="post">ប្រកាស</string>
     <string name="like">ចូលចិត្ត</string>
@@ -535,4 +538,11 @@
         <item>អ្នកចែកចាយផ្សេងទៀត</item>
     </string-array>
     <string name="no_more_result">គ្មានទិន្នន័យទៀតទេ</string>
+
+    <string-array name="dailog_delete">
+        <item>ផលិតផលនេះត្រូវបានលក់ចេញ</item>
+        <item>ផ្អាកការប្រកាសនេះ</item>
+        <item>លុបដើម្បីប្រកាសជាថ្មី</item>
+        <item>បោះបង់</item>
+    </string-array>
 </resources>

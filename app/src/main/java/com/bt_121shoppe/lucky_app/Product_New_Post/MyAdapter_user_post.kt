@@ -194,7 +194,8 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
                         if (items[ite] == "Cancel") {
                             dialog.dismiss()
 
-                        } else {
+                        }
+                        else {
                             val reason = items[ite].toString()
                             val URL_ENDCODE = ConsumeAPI.BASE_URL + "api/v1/renewaldelete/" + item.id.toInt() + "/"
                             val media = MediaType.parse("application/json")
@@ -243,7 +244,6 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
 
        } // delete
                 if (item.status_id == "3") {
-
                     btn_renewal.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                     btn_renewal.setTextColor(Color.parseColor("#FF9400"))
                     btn_renewal.setText(R.string.pending)

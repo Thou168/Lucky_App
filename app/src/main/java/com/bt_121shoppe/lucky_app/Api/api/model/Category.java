@@ -1,8 +1,4 @@
-package com.bt_121shoppe.lucky_app.Api.api;
-
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
+package com.bt_121shoppe.lucky_app.Api.api.model;
 
 public class Category extends Breand {
         private String cat_name;

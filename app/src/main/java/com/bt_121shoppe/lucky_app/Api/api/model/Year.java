@@ -1,8 +1,7 @@
-package com.bt_121shoppe.lucky_app.Api.api;
+package com.bt_121shoppe.lucky_app.Api.api.model;
 
 public class Year extends Category{
         private String year;
-        private String modified = null;
 
         // Getter Methods
 
@@ -10,9 +9,7 @@ public class Year extends Category{
             return year;
         }
 
-        public String getModified() {
-            return modified;
-        }
+
 
         // Setter Methods
 
@@ -20,7 +17,4 @@ public class Year extends Category{
             this.year = year;
         }
 
-        public void setModified( String modified ) {
-            this.modified = modified;
-        }
 }

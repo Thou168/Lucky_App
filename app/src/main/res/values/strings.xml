@@ -191,6 +191,9 @@
     <string name="sell">Sell</string>
     <string name="buy">Buy</string>
 
+    <string name="sell_t">SELL</string>
+    <string name="buy_t">BUY</string>
+
     //Tab
     <string name="post">Post</string>
     <string name="like">Like</string>
@@ -636,5 +639,12 @@
         <item>Other Dealers</item>
     </string-array>
     <string name="no_more_result">No more result</string>
+
+    <string-array name="dailog_delete">
+        <item>This product has been sold</item>
+        <item>Suspend this ads</item>
+        <item>Delete to post new ads</item>
+        <item>Cancel</item>
+    </string-array>
 
 </resources>
