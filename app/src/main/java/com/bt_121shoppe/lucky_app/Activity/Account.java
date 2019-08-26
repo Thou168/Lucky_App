@@ -45,6 +45,7 @@ import com.bt_121shoppe.lucky_app.fragments.Like_byuser;
 import com.bt_121shoppe.lucky_app.models.User;
 import com.bt_121shoppe.lucky_app.useraccount.Edit_account;
 import com.bt_121shoppe.lucky_app.utils.FileCompressor;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -170,16 +171,16 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user=dataSnapshot.getValue(User.class);
 
-//                if(user.getImageURL().equals("default")){
-//                    Glide.with(Account.this).load("http://www.seedcoworking.com/wp-content/uploads/2018/06/placeholder.jpg").into(upload);
-//                }else{
-//                    Glide.with(Account.this).load(user.getImageURL()).into(upload);
-//                }
-//                if(user.getCoverURL().equals("default")){
-//                    Glide.with(Account.this).load("https://www.templaza.com/blog/components/com_easyblog/themes/wireframe/images/placeholder-image.png").into(imgCover);
-//                }else{
-//                    Glide.with(Account.this).load(user.getCoverURL()).into(imgCover);
-//                }
+                if(user.getImageURL().equals("default")){
+                    Glide.with(Account.this).load("http://www.seedcoworking.com/wp-content/uploads/2018/06/placeholder.jpg").into(upload);
+                }else{
+                    Glide.with(Account.this).load(user.getImageURL()).into(upload);
+                }
+                if(user.getCoverURL().equals("default")){
+                    Glide.with(Account.this).load("https://www.templaza.com/blog/components/com_easyblog/themes/wireframe/images/placeholder-image.png").into(imgCover);
+                }else{
+                    Glide.with(Account.this).load(user.getCoverURL()).into(imgCover);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
