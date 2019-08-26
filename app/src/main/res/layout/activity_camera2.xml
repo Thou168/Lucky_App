@@ -668,6 +668,7 @@
                         android:layout_below="@+id/imgEmail"
                         android:layout_toRightOf="@+id/imgAddress_post"
                         android:gravity="center_vertical"
+                        app:theme="@style/AddressSearchView"
                         android:textSize="14dp"
                         app:iconifiedByDefault="false"
                         app:searchIcon="@null"

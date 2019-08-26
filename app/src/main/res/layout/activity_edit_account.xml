@@ -68,7 +68,7 @@
                     android:layout_toRightOf="@+id/imgAccount_Address"
                     android:drawableRight="@drawable/arrow_right_black_24dp"
                     android:gravity="center_vertical"
-
+                    app:theme="@style/AddressSearchView"
                     android:textSize="14dp"
                     app:iconifiedByDefault="false"
                     app:searchIcon="@null"
