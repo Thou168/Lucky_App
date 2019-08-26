@@ -22,7 +22,7 @@
             android:id="@+id/tvType"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:hint="@string/public_user"
+            android:hint="@string/user_type"
             android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/imgType"
             android:textSize="14dp"

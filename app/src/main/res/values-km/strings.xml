@@ -90,8 +90,8 @@
     <string name="hit_lastname">នាមត្រកួល</string>
     <string name="hit_store">ឈ្មោះហាង/ក្រុមហ៊ុន</string>
     <string name="hit_about_shop">អំពីហាង/ក្រុមហ៊ុន</string>
-    <string name="hit_wingnumber">លេខ/គណនីវីង</string>
-    <string name="hit_wingaccount">ឈ្មោះ/គណនីវីង</string>s
+    <string name="hit_wingnumber">លេខគណនីវីង</string>
+    <string name="hit_wingaccount">ឈ្មោះគណនីវីង</string>s
     <string name="hit_dealer">អ្នកចែកចាយ</string>
 
     //delete and edit
@@ -294,7 +294,7 @@
         <item>ទេ</item>
     </string-array>
 
-    <string name="birth">ថ្ងៃខែឆ្នាំកំណើត</string>
+    <string name="birth">ឆ្នាំកំណើត</string>
     <string name="place">ទីកន្លែងកំណើត</string>
     <string name="married">ស្ថានភាព</string>
     <string name="location">ទីតាំង</string>

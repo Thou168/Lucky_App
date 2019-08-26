@@ -167,8 +167,8 @@
     <string name="hit_lastname">Last Name</string>
     <string name="hit_store">Store/Company Name</string>
     <string name="hit_about_shop">About Shop/Company</string>
-    <string name="hit_wingnumber">Wing Account / Number</string>
-    <string name="hit_wingaccount">Wing Account / Name</string>
+    <string name="hit_wingnumber">Wing Account Number</string>
+    <string name="hit_wingaccount">Wing Account Name</string>
     <string name="hit_dealer">Dealer</string>
 
     //Home
@@ -414,7 +414,7 @@
         <item>Item 3Z</item>
     </string-array>
 
-    <string name="birth">Date of birth</string>
+    <string name="birth">Year of birth</string>
     <string name="place">Place of birth</string>
     <string name="married">Marital Status</string>
     <string name="location">Location</string>
