@@ -1,6 +1,7 @@
 package com.bt_121shoppe.lucky_app.Api.api.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.lucky_app.Activity.Account;
 import com.bt_121shoppe.lucky_app.Api.api.AllResponse;
 import com.bt_121shoppe.lucky_app.Api.api.Client;
 import com.bt_121shoppe.lucky_app.Api.api.Service;
@@ -134,25 +136,24 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         dialog.setTitle(R.string.title_unlike)
                                 .setMessage(R.string.unlike_message)
                                 .setCancelable(false)
-                                .setPositiveButton(R.string.yes_loan, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                .setPositiveButton(R.string.yes_loan, (dialog1, which) -> {
 
-                                        Service api1 = Client.getClient().create(Service.class);
-                                        change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
+                                    Service api1 = Client.getClient().create(Service.class);
+                                    change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
 //
-                                        Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.parseInt(itemid_like),unlike,basic_Encode);
-                                        call_unlike.enqueue(new Callback<change_status_unlike>() {
-                                            @Override
-                                            public void onResponse(Call<change_status_unlike> call1, Response<change_status_unlike> response1) {
+                                    Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.parseInt(itemid_like),unlike,basic_Encode);
+                                    call_unlike.enqueue(new Callback<change_status_unlike>() {
+                                        @Override
+                                        public void onResponse(Call<change_status_unlike> call1, Response<change_status_unlike> response1) {
+                                            Intent intent = new Intent(mContext, Account.class);
+                                            mContext.startActivity(intent);
+                                            ((Activity)mContext).finish();
+                                        }
 
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<change_status_unlike> call1, Throwable t) {
-                                            }
-                                        });
-                                    }
+                                        @Override
+                                        public void onFailure(Call<change_status_unlike> call1, Throwable t) {
+                                        }
+                                    });
                                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {

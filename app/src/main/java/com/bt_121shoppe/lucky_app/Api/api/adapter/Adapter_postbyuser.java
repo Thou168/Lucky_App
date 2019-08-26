@@ -1,12 +1,14 @@
 package com.bt_121shoppe.lucky_app.Api.api.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.lucky_app.Activity.Account;
 import com.bt_121shoppe.lucky_app.Activity.Camera;
@@ -42,13 +45,14 @@ import retrofit2.Response;
 /**
  * Created by jianghejie on 23/08/2019.
  */
-public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.ViewHolder> {
+public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.ViewHolder> implements View.OnClickListener{
 
     private List<Item> datas;
     private Context mContext;
     SharedPreferences prefer;
     String name,pass,basic_Encode;
     private int pk=0;
+    private OnItemClickListener onItemClickListener;
 
     public Adapter_postbyuser(List<Item> datas, Context mContext) {
         this.datas = datas;
@@ -119,7 +123,6 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
                        call.enqueue(new Callback<change_status_delete>() {
                            @Override
                            public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-//
                                if (!response.isSuccessful()){
                                    Log.d("10101", String.valueOf(response.code()));
                                    return;
@@ -171,10 +174,10 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
                     call.enqueue(new Callback<change_status_delete>() {
                         @Override
                         public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-                            if (!response.isSuccessful()){
-                                Intent intent = new Intent(mContext, Account.class);
-                                mContext.startActivity(intent);
-                            }
+
+                            Intent intent = new Intent(mContext, Account.class);
+                            mContext.startActivity(intent);
+                            ((Activity)mContext).finish();
                         }
 
                         @Override
@@ -224,7 +227,15 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             });
         }catch (Exception e){Log.d("Error e",e.getMessage());}
     }
-
+    public void updateData(List<Item> viewModels) {
+        datas.clear();
+        datas.addAll(viewModels);
+        notifyDataSetChanged();
+    }
+    public void removeItem(int position) {
+        datas.remove(position);
+        notifyItemRemoved(position);
+    }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         super.onBindViewHolder(holder, position, payloads);
@@ -238,6 +249,23 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         return Base64.encodeToString(userpass.trim().getBytes(), Base64.NO_WRAP);
     }
 
+    @Override
+    public void onClick(View v) {
+        if (onItemClickListener != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
+                }
+            }, 0);
+        }
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(View view, ViewModel viewModel);
+
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title,cost,date,item_type,txtview;
         ImageView imageView;
