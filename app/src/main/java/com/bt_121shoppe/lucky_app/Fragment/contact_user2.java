@@ -56,12 +56,24 @@ public class contact_user2 extends Intent_data implements OnMapReadyCallback {
         String phone = getActivity().getIntent().getExtras().getString("Phone");
         String email = getActivity().getIntent().getExtras().getString("Email");
         String addr  = getActivity().getIntent().getExtras().getString("map");
-        tvPhone.setText(phone);
-        if (getActivity().getIntent().getExtras().getString("Email")==null){
+
+ // add " / " between phone number and fix email by samang (26/08/2019)
+                String[] splitPhone = phone.split(",");
+        if (splitPhone.length==1){
+            tvPhone.setText(String.valueOf(splitPhone[0]));
+        }else if (splitPhone.length==2){
+            tvPhone.setText(String.valueOf(splitPhone[0]) +" / "+ String.valueOf(splitPhone[1]));
+        }else if (splitPhone.length==3){
+            tvPhone.setText(String.valueOf(splitPhone[0]) +" / "+ String.valueOf(splitPhone[1]) +" / "+ String.valueOf(splitPhone[2]));
+        }
+
+        if (email == null || email.isEmpty()){
             tvEmail.setText("Null");
         }else {
-            tvEmail.setText(getActivity().getIntent().getExtras().getString("Email"));
+            tvEmail.setText(email);
         }
+// end code
+
 
         if (addr.isEmpty()){
             Toast.makeText(getContext(), "Unble to Trace your location", Toast.LENGTH_SHORT).show();

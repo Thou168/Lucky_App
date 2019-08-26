@@ -574,7 +574,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         tvDescription.setText(postDetail.description.toString())
 
-
                         user_email.setText(postDetail.contact_email.toString())
 
 
@@ -731,7 +730,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val intent = Intent(this@Detail_New_Post, User_post::class.java)
                             intent.putExtra("ID",user1.id.toString())
                             intent.putExtra("Phone",user1.profile.telephone)
-                            intent.putExtra("Email",user1.profile.email)
+                            intent.putExtra("Email",user1.email)
                             intent.putExtra("map",user1.profile.address)
                             //intent.putExtra("Phone",phone.text)
                             intent.putExtra("Username",user1.username)

@@ -612,7 +612,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                          String search_title = convertJsonJava.getProfile().getResponsible_officer().toString();
                                          tvAddress_account.setQuery(search_title,false);
                                      }
-                                     mapFragment.getMapAsync(Edit_account.this::onMapReady);
+                                     mapFragment.getMapAsync(Edit_account.this);
                                  }
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                  if (m!=null){

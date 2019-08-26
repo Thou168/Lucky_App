@@ -97,6 +97,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -537,12 +538,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         });
         submit_post = (Button) findViewById(R.id.btnSubmitPost);
 
-        Log.d("Type ler buttom", String.valueOf(type));
+
 
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Click",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(v.getContext(),"Click",Toast.LENGTH_SHORT).show();
 
                String stDis_amount ,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
@@ -646,13 +647,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         PostData(Encode);
                     }
                     else{
-                    Toast.makeText(v.getContext(),"Edit",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(v.getContext(),"Edit",Toast.LENGTH_SHORT).show();
                         Log.d("Type id  edit ", String.valueOf(type));
                        EditPost_Approve(Encode, edit_id);
                    }
 
                 } else  {
-                   Toast.makeText(v.getContext(),"Post",Toast.LENGTH_SHORT).show();
+//                   Toast.makeText(v.getContext(),"Post",Toast.LENGTH_SHORT).show();
                     mProgress.show();
                     PostData(Encode);
                 }
@@ -940,7 +941,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             etName.setText(converJsonJava.getFirst_name());
                             etEmail.setText(converJsonJava.getEmail());
 
-                            if (converJsonJava.getProfile().getTelephone()!=null){
+
+                                if (converJsonJava.getProfile().getTelephone()!=null){
                                 String telePhone = converJsonJava.getProfile().getTelephone();
                                 String[] splitPhone = telePhone.split(",");
                                 if (splitPhone.length == 1){
@@ -1022,7 +1024,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         JSONObject sale = new JSONObject();
         try {
             //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-            post.put("title",etTitle.getText().toString().toLowerCase());
+            post.put("title",etTitle.getText().toString());
             post.put("category", cate);
             post.put("status", 3);
             post.put("condition",strCondition);
@@ -1077,14 +1079,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("rejected_comments", "");
             post.put("year", year); //year
             post.put("modeling", model);
-            post.put("description", etDescription.getText().toString().toLowerCase());
+            post.put("description", etDescription.getText().toString());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
             post.put("vin_code", tvAddress.getQuery().toString());
-            post.put("machine_code", etName.getText().toString().toLowerCase());
+            post.put("machine_code", etName.getText().toString());
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
-            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
+            post.put("contact_email", etEmail.getText().toString());
             post.put("contact_address", latlng);
             post.put("color", strColor);
 
@@ -1297,7 +1299,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         if(model==0)
             model=mmodel;
         try {
-            post.put("title",etTitle.getText().toString().toLowerCase());
+            post.put("title",etTitle.getText().toString());
             post.put("category", cate );
             post.put("status", 3);
             post.put("condition",strCondition);
@@ -1346,10 +1348,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             if (android.os.Build.VERSION.SDK_INT >= 26){
                 post.put("modified", Instant.now().toString());
             } else{
-                if (android.os.Build.VERSION.SDK_INT >= 26) {
-                    String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+//                fix DateTime with sdk < 26 by samang (26/08/2019)
+//                  String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                    Date date = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    String currentDateTimeString = formatter.format(date);
                     post.put("modified", currentDateTimeString);
-                }
                 // do something for phones running an SDK before lollipop
             }
             post.put("modified_by", pk);
@@ -1360,14 +1364,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("rejected_comments", "");
             post.put("year", year); //year
             post.put("modeling", model);
-            post.put("description", etDescription.getText().toString().toLowerCase());
+            post.put("description", etDescription.getText().toString());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
-            post.put("vin_code", tvAddress.getQuery().toString().toLowerCase());
-            post.put("machine_code", etName.getText().toString().toLowerCase());
+            post.put("vin_code", tvAddress.getQuery().toString());
+            post.put("machine_code", etName.getText().toString());
             post.put("type", type);
             post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
-            post.put("contact_email", etEmail.getText().toString().toLowerCase() );
+            post.put("contact_email", etEmail.getText().toString());
             post.put("contact_address", latlng);
             post.put("color", strColor);
 
@@ -1430,6 +1434,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
                     Log.d(TAG, "Edit TTTT" + respon);
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(getApplicationContext(),respon,Toast.LENGTH_LONG).show();
+//                        }
+//                    });
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
