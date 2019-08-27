@@ -16,16 +16,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bt_121shoppe.lucky_app.Activity.Home;
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI;
 import com.bt_121shoppe.lucky_app.Api.Convert_Json_Java;
 import com.bt_121shoppe.lucky_app.Api.User;
+import com.bt_121shoppe.lucky_app.Api.api.AllResponse;
+import com.bt_121shoppe.lucky_app.Api.api.Client;
+import com.bt_121shoppe.lucky_app.Api.api.Service;
 import com.bt_121shoppe.lucky_app.R;
-import com.bt_121shoppe.lucky_app.loan.LoanCreateActivity;
-import com.bt_121shoppe.lucky_app.models.LoanViewModel;
+import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,10 +54,24 @@ public class Login extends AppCompatActivity {
     private String login_verify;
     private int product_id;
 
+    private String username_message;
+    private String password_message;
+
+    private TextView alert_phone;
+    private TextView alert_password;
+
+    int error = 0;
+    String encode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        encode = "Basic "+com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString(username_message,password_message);
+
+        alert_phone = (TextView)findViewById(R.id.phone_alert);
+        alert_password = (TextView)findViewById(R.id.password_alert);
 
         Username = (EditText)findViewById(R.id.editPhoneLogin);
         Password = (EditText)findViewById(R.id.editPasswordLogin);
@@ -76,15 +93,59 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 //mProgress.show();
                 postRequest();
-            }
-        });
+                String tpm = Username.getText().toString();
+                Service api = Client.getClient().create(Service.class);
+                retrofit2.Call<AllResponse> call = api.getUsername(tpm);
+                call.enqueue(new retrofit2.Callback<AllResponse>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                        Log.d("33333",String.valueOf(response.body().getCount()));
 
-        TextView tvForgetPassword=findViewById(R.id.tv_forget_password);
-        tvForgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Login.this,SearchAccountActivity.class);
-                startActivity(intent);
+                        String empty_user = Username.getText().toString();
+                        String empty_pass = Password.getText().toString();
+                        
+                        //phone
+                        if (empty_user.isEmpty()){
+                            alert_phone.setText(R.string.alert_phone1);
+                            alert_phone.setTextColor(getResources().getColor(R.color.red));
+                        }else if(response.body().getCount()==1){
+                            alert_phone.setText("");
+                        }else {
+                            alert_phone.setText(R.string.alert_phone);
+                            alert_phone.setTextColor(getResources().getColor(R.color.red));
+                        }
+
+                        //password
+                        if (empty_pass.isEmpty()){
+                            alert_password.setText(R.string.secret_number1);
+                            alert_password.setTextColor(getResources().getColor(R.color.red));
+                        }else if (!empty_pass.isEmpty()){
+                            if (error == 1){
+                                alert_password.setText(R.string.secret_number);
+                                alert_password.setTextColor(getResources().getColor(R.color.red));
+                            }
+                            else {
+                                alert_password.setText("");
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+
+
+                    }
+                });
+
+                TextView tvForgetPassword=findViewById(R.id.tv_forget_password);
+                tvForgetPassword.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(Login.this,SearchAccountActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -94,8 +155,9 @@ public class Login extends AppCompatActivity {
 
         name = Username.getText().toString();
         pass = Password.getText().toString();
-        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+
         String url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/rest-auth/login/");
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
         //   String url ="http://192.168.1.239:8000/rest-auth/login/";  // login
 
         OkHttpClient client = new OkHttpClient();
@@ -130,7 +192,7 @@ public class Login extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            Toast.makeText(getApplicationContext(),"Login 1failure",Toast.LENGTH_SHORT).show();
+                            error = 1;
                         }
                     });
 

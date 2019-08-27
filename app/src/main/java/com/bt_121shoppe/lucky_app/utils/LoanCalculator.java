@@ -1,9 +1,12 @@
 package com.bt_121shoppe.lucky_app.utils;
 
+import android.util.Log;
+
 public class LoanCalculator {
-    public static double getLoanMonthPayment(double salePrice,double rate,int month){
-        //Monthly Payment=SalePrice/((1-(1+r)^-n)/r)
+    public static double getLoanMonthPayment(double salePrice,double deposit_loan, double rate, int month){
+        //Monthly Payment=(SalePrice-deposit)/((1-(1+r)^-n)/r)
         double convertRate=rate/100;
-        return salePrice/((1-Math.pow(1+convertRate,-month))/convertRate);
+        return (salePrice-deposit_loan)/((1-Math.pow(1+convertRate,-month))/convertRate);
+
     }
 }

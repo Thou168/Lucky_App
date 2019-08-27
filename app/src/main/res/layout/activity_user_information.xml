@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btSubmit"
         android:layout_below="@id/edJob"
-        android:background="@color/logo_orange"
+        android:background="@drawable/mybutton"
         android:textColor="@color/white"
         android:layout_marginTop="@dimen/dp_24"
         android:textSize="@dimen/button_tab"

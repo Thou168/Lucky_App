@@ -83,6 +83,7 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
     private void checkExistUser(String phonenumber){
         String url= ConsumeAPI.BASE_URL+"api/v1/userfilter/?last_name=&username="+phonenumber;
         String result="";
+//        final String username;
         try {
             result = CommonFunction.doGetRequest(url);
         }catch (IOException e){
@@ -92,6 +93,7 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
         try{
             JSONObject obj=new JSONObject(result);
             int count=obj.getInt("count");
+            String user = obj.getString("username");
             if(count==0){
                 //user not exist
                 mProgress.dismiss();

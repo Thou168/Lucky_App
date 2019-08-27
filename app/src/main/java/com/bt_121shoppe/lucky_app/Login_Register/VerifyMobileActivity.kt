@@ -75,6 +75,7 @@ class VerifyMobileActivity : AppCompatActivity() {
         authType=intent.getIntExtra("authType",0)
         no = intent.getStringExtra("phoneNumber")
         password=intent.getStringExtra("password")
+
         login = findViewById<View>(R.id.login) as Button
         back=findViewById<TextView>(R.id.tvBack_account)
         tvphonenumber=findViewById<TextView>(R.id.tv_phone_number)

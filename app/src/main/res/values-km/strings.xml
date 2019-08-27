@@ -69,6 +69,10 @@
     <string name="phone_number">លេខទូរស័ព្ទ</string>
     <string name="email" translatable="false">អ៊ីម៉ែល</string>
     <string name="Password">លេខសម្ងាត់</string>
+    <string name="alert_phone">លេខទូរស័ព្ទរបស់អ្នកមិនត្រឹមត្រូវ</string>
+    <string name="alert_phone1">អ្នកមិនទាន់បញ្ចូលលេខទូរស័ព្ទ</string>
+    <string name="secret_number">លេខសម្ងាត់របស់អ្នកមិនត្រឹមត្រូវ</string>
+    <string name="secret_number1">អ្នកមិនទាន់បញ្ចូលលេខសម្ងាត់</string>
     <string name="confirm">បញ្ជាក់លេខសម្ងាត់</string>
     <string name="or">ឬ</string>
     <string name="register_by_facebook">ចុះឈ្មោះដោយប្រើ​​គណនីហ្វេសប៊ុក</string>

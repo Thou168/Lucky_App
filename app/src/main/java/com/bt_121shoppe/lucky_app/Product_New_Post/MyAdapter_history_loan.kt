@@ -68,7 +68,7 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
             Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
 
             title.text = item.title
-            cost.text = "$"+item.cost.toString()
+            cost.text = "$"+item.cost
             time.text = item.location_duration
             view.text =item.count_view
             var lang: String =count_view.text as String

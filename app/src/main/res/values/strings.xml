@@ -147,6 +147,10 @@
     <string name="phone_number">Phone Number</string>
     <string name="email" translatable="false">Email</string>
     <string name="Password">Password</string>
+    <string name="alert_phone">Wrong phone number</string>
+    <string name="alert_phone1">Username is empty</string>
+    <string name="secret_number">Wrong password</string>
+    <string name="secret_number1">Password is empty</string>
     <string name="confirm">Confirm Password</string>
     <string name="or">Or</string>
     <string name="register_by_facebook">Register by using your facebook account</string>

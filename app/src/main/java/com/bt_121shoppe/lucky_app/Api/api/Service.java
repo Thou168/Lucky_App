@@ -53,6 +53,9 @@ public interface Service {
     @GET("/loanbyuser/?record_status=12")
     Call<AllResponse> getloanhistory(@Header("Authorization") String authorization);
 
+    @GET("/api/v1/userfilter/?last_name=&username=")
+    Call<AllResponse> getUsername(@Query("username") String username);
+
     @GET("/api/v1/categories/")
     Call<AllResponse> getCategories();
     @GET("/api/v1/brands/")

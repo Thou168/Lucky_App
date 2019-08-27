@@ -1,11 +1,8 @@
 package com.bt_121shoppe.lucky_app.loan;
 
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,11 +10,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,12 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 //import butterknife.ButterKnife;
 import okhttp3.Call;
@@ -96,7 +86,6 @@ public class LoanCreateActivity extends AppCompatActivity {
             }
         });
 
-
 //image
         icAddress_co = (ImageView) findViewById(R.id.imgCoBorrower);
         icAddress_card = (ImageView) findViewById(R.id.imgIDCard);
@@ -143,7 +132,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         Log.d("Pk",""+ pk);
         yesNos=getResources().getStringArray(R.array.co_borrower);
 //        ButterKnife.bind(this);
-        Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,1.5,12)));
+        Log.d(TAG,String.valueOf(LoanCalculator.getLoanMonthPayment(2340,0.0,1.5,12)));
 
         bundle = getIntent().getExtras();
         if(bundle!=null)
