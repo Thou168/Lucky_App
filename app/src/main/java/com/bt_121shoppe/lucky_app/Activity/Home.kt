@@ -108,6 +108,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var yearId:String=""
     internal lateinit var locationManager: LocationManager
     private val REQUEST_LOCATION = 1
+    private val REQUEST_PHONE_CALL =1
     var category: Spinner? = null
     var drawerLayout: DrawerLayout? = null
     private var listItems: ArrayList<String>?=null
@@ -748,6 +749,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             showSettingsDialog()
 
                         }
+        // add call requestpermission by samang 27/08
+                        if (ContextCompat.checkSelfPermission(this@Home, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(this@Home, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
+                        }
+               //
                         if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)!== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(this@Home, arrayOf<String>(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
 

@@ -263,6 +263,12 @@
         <item>ប្រើ</item>
     </string-array>
 
+    //Filter condition
+    <string-array name="filter_condition">
+        <item>ទាំងអស់</item>
+        <item>ថ្មី</item>
+        <item>ប្រើ</item>
+    </string-array>
     // Color
     <string-array name="color">
         <item>ខៀវ</item>

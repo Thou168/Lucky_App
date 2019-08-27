@@ -58,7 +58,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/about_us_description"
         android:padding="@dimen/dp_16"
-        android:gravity="center_vertical"
         android:textSize="14sp"
+        android:justificationMode="inter_word"
         android:text="@string/about_us_description"/>
+
+
 </LinearLayout>

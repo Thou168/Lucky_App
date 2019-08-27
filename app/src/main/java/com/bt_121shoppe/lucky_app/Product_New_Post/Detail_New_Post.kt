@@ -28,7 +28,10 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Constraints
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.sliderimage.logic.SliderImage
@@ -99,6 +102,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 //    private var mLocationPermissionGranted: Boolean = false
 //    private var mLastKnownLocation: Location? = null
+    private var REQUEST_PHONE_CALL =1;
     private var postId:Int=0
     private var pk=0
     private var name=""
@@ -106,6 +110,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private var Encode=""
     private var p=0
     private var pt=0
+    internal lateinit var Layout_call_chat_like_loan: ConstraintLayout
     internal lateinit var txt_detail_new: TextView
     private lateinit var tvPostTitle:TextView
     private lateinit var tvPrice:TextView
@@ -151,6 +156,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
         locale()
+
+        if (ContextCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
+        }
+
         relativecal = findViewById(R.id.rlLoanCalculation)
         txtundercal = findViewById(R.id.text)
 //        checkPermission()
@@ -181,6 +191,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }
         //Slider
+
+        Layout_call_chat_like_loan = findViewById<ConstraintLayout>(R.id.Constrainlayout_call_chat_like_loan)
+
         sliderImage = findViewById<SliderImage>(R.id.slider)
         tvPostTitle = findViewById<TextView>(R.id.title)
         tvPrice = findViewById<TextView>(R.id.tv_price)
@@ -510,6 +523,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         })
+                        var create_by =  postDetail.created_by.toInt()
+                        if (create_by == pk){
+                           Layout_call_chat_like_loan.visibility = View.GONE
+                        }
 
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
@@ -567,7 +584,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         user_email.setText(postDetail.contact_email.toString())
 
                         val contact_phone = postDetail.contact_phone.toString()
-//                            Phone_call(contact_phone)
+                            Phone_call(contact_phone)
                         val splitPhone = contact_phone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                             if(splitPhone.size == 1){
                                 user_telephone.text = splitPhone[0]
@@ -735,67 +752,67 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
     }
 
-//    fun Phone_call(contactPhone: String) {
-//        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-//
-//        call_phone.setOnClickListener {
-//
-//            val dialog = BottomSheetDialog(it.context)
-//            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
-//            dialog.setContentView(view)
-//            dialog.show()
-//
-//            val phone1= view.findViewById<TextView>(R.id.call_phone1)
-//            val phone2= view.findViewById<TextView>(R.id.call_phone2)
-//            val phone3= view.findViewById<TextView>(R.id.call_phone3)
-//            if (splitPhone.size == 1){
-//                phone1.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone1.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-//                    startActivity(intent)
-//                }
-//            }else if (splitPhone.size == 2){
-//                phone1.visibility = View.VISIBLE
-//                phone2.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone2.text = "  "+splitPhone[1]
-//                phone1.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-//                    startActivity(intent)
-//                }
-//                phone2.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-//                    startActivity(intent)
-//                }
-//            }else if (splitPhone.size == 3){
-//
-//                phone1.visibility = View.VISIBLE
-//                phone2.visibility = View.VISIBLE
-//                phone3.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone2.text = "  "+splitPhone[1]
-//                phone3.text = "  "+splitPhone[2]
-//
-//                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
-//                phone1.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-//                    startActivity(intent)
-//                }
-//                phone2.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-//                    startActivity(intent)
-//                }
-//                phone3.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
-//                    startActivity(intent)
-//                }
-//            }
-//
-//
-//
-//        }  // call
-//    }
+    fun Phone_call(contactPhone: String) {
+        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+
+        call_phone.setOnClickListener {
+
+            val dialog = BottomSheetDialog(it.context)
+            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
+            dialog.setContentView(view)
+            dialog.show()
+
+            val phone1= view.findViewById<TextView>(R.id.call_phone1)
+            val phone2= view.findViewById<TextView>(R.id.call_phone2)
+            val phone3= view.findViewById<TextView>(R.id.call_phone3)
+            if (splitPhone.size == 1){
+                phone1.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 2){
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 3){
+
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone3.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone3.text = "  "+splitPhone[2]
+
+                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+                    startActivity(intent)
+                }
+                phone3.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
+                    startActivity(intent)
+                }
+            }
+
+
+
+        }  // call
+    }
 
     fun Like_post(encode: String) {
         val url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk

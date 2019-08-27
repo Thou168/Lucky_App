@@ -256,6 +256,13 @@
         <item>Used</item>
     </string-array>
 
+    //Condition filter search
+    <string-array name="filter_condition">
+        <item>All</item>
+        <item>New</item>
+        <item>Used</item>
+    </string-array>
+
     // Color
     <string-array name="color">
         <item>Blue</item>

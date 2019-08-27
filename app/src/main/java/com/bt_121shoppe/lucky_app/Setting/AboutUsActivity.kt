@@ -19,8 +19,12 @@ class AboutUsActivity : AppCompatActivity() {
         var txtBack = findViewById<View>(R.id.tvBack_account) as TextView
         txtBack.setOnClickListener(View.OnClickListener { finish() })
 
-        val txt_about_us_description=findViewById<TextView>(R.id.about_us_description)
-        txt_about_us_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)
+        var txt_about_us_description=findViewById<View>(R.id.about_us_description) as TextView
+      //  txt_about_us_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)
+// check version if < 8.0 no crash by samang 27/08/2019
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        txt_about_us_description.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
     }
+}
 
 }
