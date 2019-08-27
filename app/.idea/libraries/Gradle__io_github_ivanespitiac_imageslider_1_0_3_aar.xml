@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: io.github.ivanespitiac:imageslider:1.0.3@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/645bbf27f0eddf889a8a8d1b499d8e75/jetified-imageslider-1.0.3/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7ae14f2ec1b4563f4bee1968b883c61c/jetified-imageslider-1.0.3/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/645bbf27f0eddf889a8a8d1b499d8e75/jetified-imageslider-1.0.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/645bbf27f0eddf889a8a8d1b499d8e75/jetified-imageslider-1.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7ae14f2ec1b4563f4bee1968b883c61c/jetified-imageslider-1.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7ae14f2ec1b4563f4bee1968b883c61c/jetified-imageslider-1.0.3/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.ivanespitiac/imageslider/1.0.3/39568a296d521f65217abe8410ade8e6735ab8b0/imageslider-1.0.3-javadoc.jar!/" />

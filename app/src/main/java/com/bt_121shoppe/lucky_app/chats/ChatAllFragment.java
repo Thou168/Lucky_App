@@ -146,7 +146,6 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
         private Context context;
         private String theLastMessage;
 
-
         public void setUserList(List<UserChat> userList) {
             this.userList = userList;
             notifyDataSetChanged();
@@ -269,7 +268,6 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-
             CircleImageView profileImage;
             ImageView postImage;
             TextView tvUsername;

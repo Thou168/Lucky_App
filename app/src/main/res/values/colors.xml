@@ -37,5 +37,5 @@
     <color name="color_buy">#E08502</color>
     <color name="color_sell">#089D01</color>
     <color name="color_rent">#DF041D</color>
-    <color name="colorLightGray">	#FFB6C1</color>
+    <color name="colorLightGray">#cecece</color>
 </resources>

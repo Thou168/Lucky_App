@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.shagi:material-datepicker:1.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6d2eb8a12204b29feef654f034852d62/jetified-material-datepicker-1.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6d2eb8a12204b29feef654f034852d62/jetified-material-datepicker-1.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bec0124d85b28c9d392f0455cb06cb46/jetified-material-datepicker-1.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bec0124d85b28c9d392f0455cb06cb46/jetified-material-datepicker-1.3/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shagi/material-datepicker/1.3/73beb8d689a683d347843274196f45fb0078f238/material-datepicker-1.3-javadoc.jar!/" />

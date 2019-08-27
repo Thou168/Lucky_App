@@ -89,7 +89,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -112,8 +111,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Camera extends AppCompatActivity implements OnMapReadyCallback {
-
-
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     double latitude,longtitude;
@@ -247,10 +244,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
             return false;
         });
-
         Toolbar toolbar=findViewById(R.id.toolbar);
-
-        //Log.d("Edit_id:", String.valueOf(edit_id));
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
@@ -292,6 +286,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     tvType_elec.setVisibility(View.VISIBLE);
                     Log.d("Category", String.valueOf(cate));
                 }else{
+
                     type=3;
                     icType_elec.setVisibility(View.GONE);
                     tvType_elec.setVisibility(View.GONE);
@@ -545,14 +540,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
 //                Toast.makeText(v.getContext(),"Click",Toast.LENGTH_SHORT).show();
 
-               String stDis_amount ,stDis_percent,stPrice;
+                String stDis_amount,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
-                    stPrice = etPrice.getText().toString();
-                    if (stPrice == null || stPrice.isEmpty()){
-                        dbPrice = 1;
-                    }else {
-                        dbPrice = Double.parseDouble(stPrice);
-                    }
+                stPrice = etPrice.getText().toString();
+                if (stPrice == null || stPrice.isEmpty()){
+                    dbPrice = 1;
+                }else {
+                    dbPrice = Double.parseDouble(stPrice);
+                }
                 stDis_amount = etDiscount_amount.getText().toString();
                     if (stDis_amount == null || stDis_amount.isEmpty()){
                         dbDis_percent = 0;
@@ -576,7 +571,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
                ){
 
+                   //Toast.makeText(v.getContext(),"Click 2",Toast.LENGTH_SHORT).show();
                    //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
+
 
                     if (etPhone1.getText().toString().length()<8){
                         etPhone1.requestFocus();
@@ -707,7 +704,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     type = 3;
                                     icType_elec.setVisibility(View.GONE);
                                     tvType_elec.setVisibility(View.GONE);
-                                    Log.d("Type id  edit ", String.valueOf(tvType_elec));
                                 } else {
                                     icType_elec.setVisibility(View.VISIBLE);
                                     tvType_elec.setVisibility(View.VISIBLE);
@@ -878,6 +874,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
+
 
 
 //                                        bitmapImage1 = ((BitmapDrawable) imageView1.getDrawable()).getBitmap();
@@ -1415,9 +1412,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
             }
 
-            Log.d("URLLLLLLL Edit",url);
+            //Log.d("URLLLLLLL Edit",url);
             //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
-            Log.d(TAG,tvAddress.getQuery().toString()+","+etName.getText().toString());
+            //Log.d(TAG,tvAddress.getQuery().toString()+","+etName.getText().toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
             Request request = new Request.Builder()

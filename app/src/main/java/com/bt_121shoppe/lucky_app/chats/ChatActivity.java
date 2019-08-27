@@ -102,7 +102,6 @@ public class ChatActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
@@ -138,9 +137,10 @@ public class ChatActivity extends AppCompatActivity {
             tvpostprice.setText("$ "+postPrice);
 
             if(postImage==null|| postImage.isEmpty()){
-                Glide.with(this).load("https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/10/22/ST_20181022_NANVEL_4360142.jpg?itok=ZB5zgW7e&timestamp=1540134011").into(imageView);
+                Glide.with(this).load(R.drawable.no_image_available).thumbnail(0.1f).into(imageView);
             }
             else{
+                Glide.with(this).load(postImage).placeholder(R.drawable.no_image_available).centerCrop().thumbnail(0.1f).into(imageView);
 //                byte[] decodedString1 = Base64.decode(postImage, Base64.DEFAULT);
 //                Bitmap bitmapImage = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
 //                imageView.setImageBitmap(bitmapImage);
@@ -149,7 +149,6 @@ public class ChatActivity extends AppCompatActivity {
 
         fuser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("users");
-        //Log.d(TAG,"UusER "+userId+ " From clastt ");
         rlUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

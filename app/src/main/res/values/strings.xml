@@ -90,8 +90,8 @@
     //map
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
 
-<!--    <string name="facebook_app_id">596607940863011</string>-->
-    <string name="facebook_app_id">2638303279534710</string>
+    <string name="facebook_app_id">596607940863011</string>
+<!--    <string name="facebook_app_id">2638303279534710</string>-->
     <string name="fb_login_protocol_scheme">fb2638303279534710</string>
 
     <string-array name="category">

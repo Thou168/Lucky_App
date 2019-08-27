@@ -34,6 +34,7 @@ import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +63,7 @@ public class ChatMainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
+    private FirebaseAnalytics firebaseAnalytics;
     private String uusername="";
     private String password="";
     private String encodeAuth="";
@@ -88,7 +90,7 @@ public class ChatMainActivity extends AppCompatActivity {
             pk = prefer.getInt("id", 0);
         }
 
-         bnavigation = findViewById(R.id.bnaviga);
+        bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(3).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
@@ -134,6 +136,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
         profile_image=findViewById(R.id.profile_image);
         //username=findViewById(R.id.username);
+        firebaseAnalytics=FirebaseAnalytics.getInstance(this);
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser==null){

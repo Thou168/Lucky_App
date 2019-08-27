@@ -28,7 +28,6 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(itemList[position])
-
     }
 
     override fun getItemCount(): Int {
@@ -48,7 +47,6 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
         val count_view = itemView.findViewById<TextView>(R.id.view)
 
         fun bindItems(item: Item_discount) {
-
             val dis_type = item.discount_type
             var dis = item.dis
             val cost1 = item.cost
@@ -60,29 +58,15 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
                 discout1 = cost1*(dis/100)
                 price = cost1 - discout1
             }
-
             val st = "$"+cost1.toString()
             val ms = SpannableString(st)
             val mst = StrikethroughSpan()
             ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             discount.text = ms
-             title.text = item.title
-             cost.text = "$"+ price.toString()
-             location.text = item.time
+            title.text = item.title
+            cost.text = "$"+ price.toString()
+            location.text = item.time
             count_view.text =item.countview
-
-//            val decodedString = Base64.decode(item.image, Base64.DEFAULT)
-//
-//            if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= android.os.Build.VERSION_CODES.O_MR1) {
-//                //imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 150, 150, false))
-//                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-//                imageView.setImageBitmap(decodedByte)
-//            }else {
-//
-//                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-//                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 500, 500, false))
-//            }
-
             Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {

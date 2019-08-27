@@ -26,14 +26,16 @@
                     android:layout_height="180dp">
                 </com.custom.sliderimage.logic.SliderImage>
                 <include layout="@layout/sell_buy_rent"/>
+
                 <TextView
-                    android:gravity="center|left"
-                    android:background="#80D3D3D3"
-                    android:text="@string/product_discount"
-                    android:textSize="@dimen/dp_16"
-                    android:paddingStart="@dimen/dp_16"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:background="@color/colorLightGray"
+                    android:gravity="center|left"
+                    android:paddingStart="@dimen/dp_16"
+                    android:text="@string/product_discount"
+                    android:textSize="@dimen/dp_16" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="220dp">

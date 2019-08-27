@@ -53,17 +53,27 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 //import com.google.android.gms.location.FusedLocationProviderClient
 //import com.google.android.gms.maps.GoogleMap
 //import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_acount.*
+import kotlinx.android.synthetic.main.activity_detail_new_post.*
+import kotlinx.android.synthetic.main.contact_seller.*
 import kotlinx.android.synthetic.main.content_home.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.math.RoundingMode
@@ -135,19 +145,16 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     lateinit var sharedPref: SharedPreferences
     lateinit var loan:ImageView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
         locale()
         relativecal = findViewById(R.id.rlLoanCalculation)
         txtundercal = findViewById(R.id.text)
-
 //        checkPermission()
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
-        Log.d("ID Detail New :",postId.toString())
-
+//        Log.d("ID Detail New :",postId.toString())
         sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
@@ -162,12 +169,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             encodeAuth = "Basic "+ getEncodedString(name,pass)
             getMyLoan()
         }
-
-        Log.d("Response pk:",pk.toString())
         p = intent.getIntExtra("ID",0)
         pt=intent.getIntExtra("postt",0)
-        Log.d("55555",pt.toString())
-
         initialProductPostDetail(Encode)
         submitCountView(Encode)
         countPostView(Encode)
@@ -257,13 +260,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         edLoanInterestRate.setText("1.5")
         edLoanTerm.setText("1")
-
         tvMonthlyPayment.setText("$ 0.00")
 
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
-//                Toast.makeText(this@Detail_New_Post, edLoanPrice.getText(), Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
                 return@OnKeyListener true
             }
@@ -374,7 +375,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     }
 
     fun initialProductPostDetail(encode: String){
-
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
         var url:String
@@ -516,22 +516,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postPrice=postDetail.cost.toString()
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
-
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
 //                        edLoanPrice.setText(""+discount.toString())
                         edLoanPrice.setText(""+discount)
+                        tvPrice1.setText("$ "+ postDetail.cost.toString())
 
-                        tvPrice1.setText("$"+ postDetail.cost.toString())
+                        //tvPrice1.setText("$"+ postDetail.cost.toString())
 
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
-                            edLoanPrice.setText(""+postDetail.cost)
                             tvPrice.visibility = View.GONE
                         }else{
                             tvPrice1.visibility = View.GONE
                         }
-//                        tvDiscount.setText("$ "+postDetail.cost.toString())
 
                         var st = "$"+postDetail.cost
                         st = st.substring(0, st.length-1)
@@ -539,10 +537,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val mst = StrikethroughSpan()
                         ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         tvDiscount.text = ms
-                        Log.d("Hello90",st)
-
-//                        tvCondition.setText(postDetail.condition.toString())
-//                        tvColor.setText(postDetail.color.toString())
                         con=postDetail.condition.toString()
                         col=postDetail.color.toString()
                         if (con == "new") {
@@ -571,14 +565,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         } else if (col == "green") {
                             tvColor.setText(R.string.green)
                         }
-
                         tvDescription.setText(postDetail.description.toString())
-
                         user_email.setText(postDetail.contact_email.toString())
 
-
                         val contact_phone = postDetail.contact_phone.toString()
-                            Phone_call(contact_phone)
+//                            Phone_call(contact_phone)
                         val splitPhone = contact_phone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                             if(splitPhone.size == 1){
                                 user_telephone.text = splitPhone[0]
@@ -589,7 +580,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         val addr = postDetail.contact_address.toString()
-                        Log.d("LAAAAA",addr)
+//                        Log.d("LAAAAA",addr)
                         var time:Long
                         if(addr.isEmpty()) {
 
@@ -622,7 +613,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val base64_right_image=postDetail.right_image_path.toString()
                         val base64_left_image=postDetail.left_image_path.toString()
                         val base64_back_image=postDetail.back_image_path.toString()
-
                         var front_image:String=""
                         var right_image:String=""
                         var back_image:String=""
@@ -664,7 +654,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             txtundercal.visibility = View.GONE
                             relativecal!!.visibility = View.GONE
                         }
-                        Log.d(TAG,"credfafa"+ postType)
                         initialRelatedPost(encode,postType,postDetail.category,postDetail.modeling,postDetail.cost.toFloat())
 
                     }
@@ -748,67 +737,67 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
     }
 
-    fun Phone_call(contactPhone: String) {
-        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-
-        call_phone.setOnClickListener {
-
-            val dialog = BottomSheetDialog(it.context)
-            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
-            dialog.setContentView(view)
-            dialog.show()
-
-            val phone1= view.findViewById<TextView>(R.id.call_phone1)
-            val phone2= view.findViewById<TextView>(R.id.call_phone2)
-            val phone3= view.findViewById<TextView>(R.id.call_phone3)
-            if (splitPhone.size == 1){
-                phone1.visibility = View.VISIBLE
-                phone1.text = "  "+splitPhone[0]
-                phone1.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-                    startActivity(intent)
-                }
-            }else if (splitPhone.size == 2){
-                phone1.visibility = View.VISIBLE
-                phone2.visibility = View.VISIBLE
-                phone1.text = "  "+splitPhone[0]
-                phone2.text = "  "+splitPhone[1]
-                phone1.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-                    startActivity(intent)
-                }
-                phone2.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-                    startActivity(intent)
-                }
-            }else if (splitPhone.size == 3){
-
-                phone1.visibility = View.VISIBLE
-                phone2.visibility = View.VISIBLE
-                phone3.visibility = View.VISIBLE
-                phone1.text = "  "+splitPhone[0]
-                phone2.text = "  "+splitPhone[1]
-                phone3.text = "  "+splitPhone[2]
-
-                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
-                phone1.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-                    startActivity(intent)
-                }
-                phone2.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-                    startActivity(intent)
-                }
-                phone3.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
-                    startActivity(intent)
-                }
-            }
-
-
-
-        }  // call
-    }
+//    fun Phone_call(contactPhone: String) {
+//        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+//
+//        call_phone.setOnClickListener {
+//
+//            val dialog = BottomSheetDialog(it.context)
+//            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
+//            dialog.setContentView(view)
+//            dialog.show()
+//
+//            val phone1= view.findViewById<TextView>(R.id.call_phone1)
+//            val phone2= view.findViewById<TextView>(R.id.call_phone2)
+//            val phone3= view.findViewById<TextView>(R.id.call_phone3)
+//            if (splitPhone.size == 1){
+//                phone1.visibility = View.VISIBLE
+//                phone1.text = "  "+splitPhone[0]
+//                phone1.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    startActivity(intent)
+//                }
+//            }else if (splitPhone.size == 2){
+//                phone1.visibility = View.VISIBLE
+//                phone2.visibility = View.VISIBLE
+//                phone1.text = "  "+splitPhone[0]
+//                phone2.text = "  "+splitPhone[1]
+//                phone1.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    startActivity(intent)
+//                }
+//                phone2.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+//                    startActivity(intent)
+//                }
+//            }else if (splitPhone.size == 3){
+//
+//                phone1.visibility = View.VISIBLE
+//                phone2.visibility = View.VISIBLE
+//                phone3.visibility = View.VISIBLE
+//                phone1.text = "  "+splitPhone[0]
+//                phone2.text = "  "+splitPhone[1]
+//                phone3.text = "  "+splitPhone[2]
+//
+//                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
+//                phone1.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    startActivity(intent)
+//                }
+//                phone2.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+//                    startActivity(intent)
+//                }
+//                phone3.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
+//                    startActivity(intent)
+//                }
+//            }
+//
+//
+//
+//        }  // call
+//    }
 
     fun Like_post(encode: String) {
         val url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk
@@ -967,7 +956,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
 
                             if(postId != id) {
-                                Log.d("PostId ",postId.toString())
+                                //Log.d("PostId ",postId.toString())
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)
@@ -1210,8 +1199,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                loaned = true
                             }
                         loan.setOnClickListener {
-                            Log.d("IDFOR","Loanded"+loaned.toString())
-                            Log.d("IDPOST","HeyPro"+postId.toString())
+//                            Log.d("IDFOR","Loanded"+loaned.toString())
+//                            Log.d("IDPOST","HeyPro"+postId.toString())
                             if (loaned){
 //                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
                                 withStyle()
@@ -1232,7 +1221,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     }
 
     fun withStyle() {
-
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, android.R.style.Widget_ActionBar_TabBar))
         with(builder)
         {
@@ -1244,4 +1232,15 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             show()
         }
     }
+
+    /*------------------ check call permission -------------------*/
+//    fun isPermissionGrandted():Boolean{
+//        if(Build.VERSION.SDK_INT>=23){
+//            if(checkSelfPermission(android.Manifest.permission.CALL_PHONE)==PackageManager.PERMISSION_GRANTED){
+//                Log.d(TAG,"Permission is granted.")
+//                //return true
+//            }
+//        }
+//    }
+
 }

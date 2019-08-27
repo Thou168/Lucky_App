@@ -124,8 +124,8 @@ public class UserAccount extends AppCompatActivity {
                 try{
                     String name=object.getString("name");
                     String facebookid=object.getString("id");
-                    String gender=object.getString("gender");
-                    String birth=object.getString("birthday");
+//                    String gender=object.getString("gender");
+//                    String birth=object.getString("birthday");
                     String image=object.getJSONObject("picture").getJSONObject("data").getString("url");
 //                    displayName.setText(name);
 //                    emailId.setText(email);
@@ -145,8 +145,8 @@ public class UserAccount extends AppCompatActivity {
                             Intent intent=new Intent(UserAccount.this,ConfirmMobileNumberActivity.class);
                             intent.putExtra("facebooktokenkey",accessToken.toString());
                             intent.putExtra("facebookid",facebookid);
-                            intent.putExtra("gender",gender);
-                            intent.putExtra("birthday",birth);
+//                            intent.putExtra("gender",gender);
+//                            intent.putExtra("birthday",birth);
                             intent.putExtra("facebookname",name);
                             intent.putExtra("imageurl",image);
                             startActivity(intent);
@@ -165,8 +165,8 @@ public class UserAccount extends AppCompatActivity {
                             intent.putExtra("phoneNumber",apiUsername);
                             intent.putExtra("password",apiUsername);
                             intent.putExtra("facebooktokenkey",accessToken.toString());
-                            intent.putExtra("gender",gender);
-                            intent.putExtra("birthday",birth);
+//                            intent.putExtra("gender",gender);
+//                            intent.putExtra("birthday",birth);
                             intent.putExtra("facebookid",facebookid);
                             intent.putExtra("facebookname",name);
                             intent.putExtra("imageurl",image);

@@ -29,7 +29,6 @@ import java.io.IOException
 
 class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type: String?) : RecyclerView.Adapter<MyAdapter_user_like.ViewHolder>() {
 
-
     internal var loadMoreListener: OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true

@@ -160,11 +160,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         locale()
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
         setContentView(R.layout.activity_home)
-
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
 
         if(language.isEmpty()){
+            Log.d("7777","YaYa"+language)
             language("km")
             recreate()
         }
@@ -810,7 +810,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onStart()
         bnavigation!!.menu.getItem(0).isChecked = true
     }
-
 
     private fun setUpAllPost() {
         mAllPosts = java.util.ArrayList()

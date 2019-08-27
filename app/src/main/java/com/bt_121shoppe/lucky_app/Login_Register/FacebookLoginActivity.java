@@ -51,26 +51,25 @@ public class FacebookLoginActivity extends AppCompatActivity {
         loginButton=(LoginButton)findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday","user_gender","user_location"));
 
-
-        PackageInfo info;
-        try {
-            info = getPackageManager().getPackageInfo("com.bt_121shoppe.lucky_app", PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md;
-                md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String something = new String(Base64.encode(md.digest(), 0));
-                //String something = new String(Base64.encodeBytes(md.digest()));
-                Log.e("hash key", something);
-            }
-        } catch (PackageManager.NameNotFoundException e1) {
-            Log.e("name not found", e1.toString());
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("no such an algorithm", e.toString());
-        } catch (Exception e) {
-            Log.e("exception", e.toString());
-        }
-
+        //generate project hash key
+//        PackageInfo info;
+//        try {
+//            info = getPackageManager().getPackageInfo("com.bt_121shoppe.lucky_app", PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md;
+//                md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                String something = new String(Base64.encode(md.digest(), 0));
+//                //String something = new String(Base64.encodeBytes(md.digest()));
+//                Log.e("hash key", something);
+//            }
+//        } catch (PackageManager.NameNotFoundException e1) {
+//            Log.e("name not found", e1.toString());
+//        } catch (NoSuchAlgorithmException e) {
+//            Log.e("no such an algorithm", e.toString());
+//        } catch (Exception e) {
+//            Log.e("exception", e.toString());
+//        }
 
         callbackManager=CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -105,13 +104,12 @@ public class FacebookLoginActivity extends AppCompatActivity {
         GraphRequest request=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
-
                 try{
                     String name=object.getString("name");
                     String email=object.getString("id");
-                    String gender=object.getString("gender");
-                    String birth=object.getString("birthday");
-                    String location=object.getString("location");
+//                    String gender=object.getString("gender");
+//                    String birth=object.getString("birthday");
+//                    String location=object.getString("location");
                     String image=object.getJSONObject("picture").getJSONObject("data").getString("url");
                     displayName.setText(name);
                     emailId.setText(email);
