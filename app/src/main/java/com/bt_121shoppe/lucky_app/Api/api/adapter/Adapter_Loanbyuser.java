@@ -116,6 +116,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     view.title.setText(response.body().getTitle());
                     view.cost.setText("$"+model.getLoan_amount());
 
+                    view.item_type.setVisibility(View.GONE);
                     if (response.body().getPost_type().equals("sell")){
                         view.item_type.setText(R.string.sell_t);
                         view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
