@@ -191,15 +191,17 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         });
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        sdf.setTimeZone(TimeZone.getTimeZone("GMP+7"));
         long date = 0;
         try {
             date = sdf.parse(model.getCreated()).getTime();
             Long now = System.currentTimeMillis();
             CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
+            Log.d("131312", String.valueOf(ago));
+            Log.d("131312", model.getCreated());
             view.date.setText(ago);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        } catch (ParseException e) { e.printStackTrace(); }
         view.title.setText(model.getTitle());
         view.cost.setText("$"+model.getCost());
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);

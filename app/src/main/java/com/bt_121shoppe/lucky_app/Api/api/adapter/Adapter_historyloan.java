@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -108,6 +109,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     }
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    sdf.setTimeZone(TimeZone.getTimeZone("GMP+7"));
                     long date = 0;
                     try {
                         date = sdf.parse(response.body().getCreated()).getTime();

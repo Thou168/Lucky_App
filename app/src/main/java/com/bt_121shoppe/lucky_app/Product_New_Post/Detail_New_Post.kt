@@ -152,6 +152,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     lateinit var sharedPref: SharedPreferences
     lateinit var loan:ImageView
 
+    lateinit var mprgressbar: ProgressBar
+    lateinit var mtext_onresult: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
@@ -218,6 +221,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
         address_detial = findViewById<TextView>(R.id.address)
         call_phone = findViewById(R.id.btn_call)
+
+        mprocessBar = findViewById(R.id.mprogressbar)
+        mprocessBar.visibility = View.VISIBLE
+        tex_noresult = findViewById(R.id.txt_noresult)
+
         //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
         share.setOnClickListener{
@@ -951,6 +959,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount=jsonObject.getInt("count")
+                        Log.d("444444",jsonCount.toString())
+                        if (jsonCount == 1){
+                            mprocessBar.visibility = View.GONE
+                            tex_noresult.visibility = View.VISIBLE
+                        }
+                        mprocessBar.visibility = View.GONE
+
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
                             val title = obj.getString("title")
