@@ -109,7 +109,8 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                     }
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    sdf.setTimeZone(TimeZone.getTimeZone("GMP+7"));
+                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                    Log.d("545445",response.body().getCreated());
                     long date = 0;
                     try {
                         date = sdf.parse(response.body().getCreated()).getTime();

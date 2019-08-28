@@ -86,7 +86,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         view.btn_unlike.setVisibility(View.GONE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMP+7"));
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         long date = 0;
         try {
             date = sdf.parse(model.getCreated()).getTime();
