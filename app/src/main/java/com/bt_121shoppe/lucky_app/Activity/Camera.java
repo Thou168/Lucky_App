@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.Constraints;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import android.Manifest;
@@ -117,15 +118,20 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private String latlng;
     SupportMapFragment mapFragment;
+    Constraints Layout_call_chat_like_loan;
     private static final String TAG = Camera.class.getSimpleName();
     static final int REQUEST_TAKE_PHOTO_1=1;
     static final int REQUEST_TAKE_PHOTO_2=2;
     static final int REQUEST_TAKE_PHOTO_3=3;
     static final int REQUEST_TAKE_PHOTO_4=4;
+    static final int REQUEST_TAKE_PHOTO_5=9;
+    static final int REQUEST_TAKE_PHOTO_6=10;
     static final int REQUEST_GALLERY_PHOTO_1=5;
     static final int REQUEST_GALLERY_PHOTO_2=6;
     static final int REQUEST_GALLERY_PHOTO_3=7;
     static final int REQUEST_GALLERY_PHOTO_4=8;
+    static final int REQUEST_GALLERY_PHOTO_5=11;
+    static final int REQUEST_GALLERY_PHOTO_6=12;
     private int REQUEST_TAKE_PHOTO_NUM=0;
     private int REQUEST_CHOOSE_PHOTO_NUM=0;
     File mPhotoFile;
@@ -139,7 +145,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private SearchView tvAddress;
     private Button submit_post;
     private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
-    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
+    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
     private String name,pass,Encode;
     private int pk;
     private ArrayAdapter<String> brands,models;
@@ -161,7 +167,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
     ProgressDialog mProgress;
-    private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4;
+    private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
 
     int edit_id,status;
     Bundle bundle;
@@ -175,6 +181,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
+
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -514,6 +521,25 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        imageView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
+                REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_5;
+            }
+        });
+
+        imageView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_6;
+                REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_6;
+            }
+        });
+
+
         tvAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -734,6 +760,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 String back = object.getString("back_image_path");
                                 String left = object.getString("left_image_path");
                                 String right = object.getString("right_image_path");
+                                String extra1 = object.getString("extra_image1");
+                                String extra2 = object.getString("extra_image2");
+
                                 List<String> list = new ArrayList<>();
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -874,10 +903,30 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
+                                        Glide.with(Camera.this).asBitmap().load(extra1).into(new CustomTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                imageView5.setImageBitmap(resource);
+                                                bitmapImage5 = resource;
+                                            }
 
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
 
+                                            }
+                                        });
+                                        Glide.with(Camera.this).asBitmap().load(extra2).into(new CustomTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                imageView6.setImageBitmap(resource);
+                                                bitmapImage6 = resource;
+                                            }
 
-//                                        bitmapImage1 = ((BitmapDrawable) imageView1.getDrawable()).getBitmap();
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                            }
+                                        });
                                         Log.d("sfasdfasf","1:"+bitmapImage1+"2:"+bitmapImage2+"3:"+bitmapImage3+"4:"+bitmapImage4);
 
 
@@ -1064,6 +1113,22 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
                 post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
             }
+// add 2 image by samang 26/08
+            if(bitmapImage5==null){
+                post.put("extra_image1", "");
+//                post.put("back_image_base64", "");
+            }else{
+                post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
+//                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
+            }
+            if(bitmapImage6==null){
+                post.put("extra_image2", "");
+//                post.put("other_image_base64", "");
+            }else{
+                post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
+//                post.put("others_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
+            }
+ //end add image
             //Instant.now().toString()
             post.put("created", "");
             post.put("created_by", pk);
@@ -1339,6 +1404,22 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
                 post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
             }
+// add 2 image by samang 26/08
+            if(bitmapImage5==null){
+                post.put("extra_image1", "");
+//                post.put("other_image_base64", "");
+            }else{
+                post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
+//                post.put("other_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
+            }
+            if(bitmapImage6==null){
+                post.put("extra_image2", "");
+//                post.put("others_image_base64", "");
+            }else{
+                post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
+//                post.put("others_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
+            }
+  // end add image
             //Instant.now().toString()
             //post.put("created", "");
             post.put("created_by", pk);
@@ -2360,6 +2441,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         imageView2=(ImageView) findViewById(R.id.Picture2);
         imageView3=(ImageView) findViewById(R.id.Picture3);
         imageView4=(ImageView) findViewById(R.id.Picture4);
+        imageView5=(ImageView) findViewById(R.id.Picture5);
+        imageView6=(ImageView) findViewById(R.id.Picture6);
 
         input_title = (TextInputLayout)findViewById(R.id.tilTitle);
         input_price = (TextInputLayout)findViewById(R.id.tilPrice);
@@ -2842,7 +2925,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 .check();
     }
 
-
     /**
      * Capture image from camera
      */
@@ -2885,6 +2967,27 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 messageTextView3.setTextSize(25);
                 toast3.show();
                 break;
+// add 2 image by samang 26/08
+            case REQUEST_TAKE_PHOTO_5:
+                Toast toast4= Toast.makeText(getApplicationContext(),"ផ្នែកផ្សេងទៀត",Toast.LENGTH_SHORT);
+                toast4.setGravity(Gravity.TOP, 100,80);
+                //toast.show();
+                ViewGroup group4 = (ViewGroup) toast4.getView();
+                TextView messageTextView4 = (TextView) group4.getChildAt(0);
+                messageTextView4.setTextSize(25);
+                toast4.show();
+                break;
+
+            case REQUEST_TAKE_PHOTO_6:
+                Toast toast5= Toast.makeText(getApplicationContext(),"ផ្នែកផ្សេងទៀត",Toast.LENGTH_SHORT);
+                toast5.setGravity(Gravity.TOP, 100,80);
+                //toast.show();
+                ViewGroup group5 = (ViewGroup) toast5.getView();
+                TextView messageTextView5 = (TextView) group5.getChildAt(0);
+                messageTextView5.setTextSize(25);
+                toast5.show();
+                break;
+  // end
         }
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -2968,7 +3071,31 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
+                requestStoragePermission(true);
             }
+// add 2 image by samang 26/08
+            else if (requestCode == REQUEST_TAKE_PHOTO_5){
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapImage5= BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView5);
+                REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_6;
+                requestStoragePermission(true);
+            }
+            else if (requestCode == REQUEST_TAKE_PHOTO_6){
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapImage6= BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView6);
+            }
+//
             else if (requestCode == REQUEST_GALLERY_PHOTO_1) {
                 Uri selectedImage = data.getData();
                 try {
@@ -3010,7 +3137,31 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
 
+           }
+ // add 2 image by samang
+            else if (requestCode == REQUEST_GALLERY_PHOTO_5){
+                Uri selectedImage = data.getData();
+                try {
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                    bitmapImage5=BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView5);
+
             }
+           else if (requestCode == REQUEST_GALLERY_PHOTO_6){
+                Uri selectedImage = data.getData();
+                try {
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(selectedImage)));
+                    bitmapImage6=BitmapFactory.decodeFile(mPhotoFile.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView6);
+
+            }
+ // end
         }
     }
 

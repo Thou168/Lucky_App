@@ -25,6 +25,14 @@
             android:text="@string/search_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:background="#00999999"
+            android:id="@+id/viewlist"
+            android:layout_marginEnd="@dimen/dp_8dp"
+            android:src="@drawable/icon_list"
+            android:layout_gravity="right"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:id="@+id/linearLayout"

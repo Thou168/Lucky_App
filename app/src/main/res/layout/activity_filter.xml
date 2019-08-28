@@ -190,6 +190,53 @@
         </RelativeLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linea_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rela_Condition"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rela_Brand"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_null"
+                    android:id="@+id/icCondition_sr"
+                    android:layout_marginTop="5dp"
+                    />
+                <TextView
+                    android:id="@+id/title_condition"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:textSize="@dimen/dp_20"
+                    android:text="@string/condition"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/icCondition_sr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:id="@+id/search_condition"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:text="@string/choose_condition"
+                    android:textAllCaps="false"
+                    android:layout_toRightOf="@+id/icCondition_sr"
+                    android:layout_below="@+id/title_condition"
+                    android:gravity="left|center_vertical"
+                    android:drawableRight="@drawable/ic_arrow_drop_down"
+                    >
+                </TextView>
+            </RelativeLayout>
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnSubmit_filter"
             android:layout_width="match_parent"

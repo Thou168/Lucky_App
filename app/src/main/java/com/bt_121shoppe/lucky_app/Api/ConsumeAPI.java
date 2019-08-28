@@ -16,5 +16,6 @@ public class ConsumeAPI {
     public static final boolean IS_PRODUCTION=true;
     public static final String FB_POST="posts";
     public static final String FB_CHAT="chats";
+
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
 }

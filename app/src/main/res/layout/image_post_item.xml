@@ -35,5 +35,19 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/add_box_black_24dp" />
+    <ImageView
+        android:id="@+id/Picture5"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/add_box_black_24dp" />
+    <ImageView
+        android:id="@+id/Picture6"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/add_box_black_24dp" />
 
 </LinearLayout>

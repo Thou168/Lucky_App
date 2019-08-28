@@ -17,6 +17,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.renderscript.Sampler
 import android.text.*
 import android.text.format.DateUtils
 import android.text.style.StrikethroughSpan
@@ -27,7 +28,10 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Constraints
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.sliderimage.logic.SliderImage
@@ -76,6 +80,7 @@ import org.json.JSONObject
 import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.lang.Float.parseFloat
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -97,6 +102,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 //    private var mLocationPermissionGranted: Boolean = false
 //    private var mLastKnownLocation: Location? = null
+    private var REQUEST_PHONE_CALL =1;
     private var postId:Int=0
     private var pk=0
     private var name=""
@@ -104,6 +110,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private var Encode=""
     private var p=0
     private var pt=0
+    internal lateinit var Layout_call_chat_like_loan: ConstraintLayout
     internal lateinit var txt_detail_new: TextView
     private lateinit var tvPostTitle:TextView
     private lateinit var tvPrice:TextView
@@ -149,6 +156,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_new_post)
         locale()
+
+        if (ContextCompat.checkSelfPermission(this@Detail_New_Post, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
+        }
+
         relativecal = findViewById(R.id.rlLoanCalculation)
         txtundercal = findViewById(R.id.text)
 //        checkPermission()
@@ -179,6 +191,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener { finish() }
         //Slider
+
+        Layout_call_chat_like_loan = findViewById<ConstraintLayout>(R.id.Constrainlayout_call_chat_like_loan)
+
         sliderImage = findViewById<SliderImage>(R.id.slider)
         tvPostTitle = findViewById<TextView>(R.id.title)
         tvPrice = findViewById<TextView>(R.id.tv_price)
@@ -258,9 +273,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
         }
 
+        edLoanDeposit.setHint("0.0")
         edLoanInterestRate.setText("1.5")
-        edLoanTerm.setText("1")
-        tvMonthlyPayment.setText("$ 0.00")
+        edLoanTerm.setText("12")
+
+        tvMonthlyPayment.setText("$ 0.0")
 
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
@@ -272,19 +289,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
         edLoanPrice.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed before making any change over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed while making any change over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
             override fun afterTextChanged(p0: Editable?) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed after change made over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
         })
@@ -300,6 +311,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             false
         })
 
+        edLoanDeposit.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                calculateLoanMonthlyPayment()
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                calculateLoanMonthlyPayment()
+
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                calculateLoanMonthlyPayment()
+            }
+        })
+
         edLoanInterestRate.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
@@ -312,19 +337,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         edLoanInterestRate.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed before making any change over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed while making any change over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
             override fun afterTextChanged(p0: Editable?) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed after change made over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
         })
@@ -343,23 +362,16 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         edLoanTerm.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed before making any change over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed while making any change over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
             override fun afterTextChanged(p0: Editable?) {
-                //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                Toast.makeText(applicationContext,"executed after change made over EditText",Toast.LENGTH_SHORT).show()
                 calculateLoanMonthlyPayment()
             }
         })
-
 
     }  // oncreate
 
@@ -511,6 +523,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         })
+                        var create_by =  postDetail.created_by.toInt()
+                        if (create_by == pk){
+                           Layout_call_chat_like_loan.visibility = View.GONE
+                        }
 
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
@@ -520,9 +536,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         tvPrice.setText("$ "+ discount)
 //                        edLoanPrice.setText(""+discount.toString())
                         edLoanPrice.setText(""+discount)
-                        tvPrice1.setText("$ "+ postDetail.cost.toString())
 
-                        //tvPrice1.setText("$"+ postDetail.cost.toString())
+                        tvPrice1.setText("$"+ postDetail.cost)
 
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
@@ -569,7 +584,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         user_email.setText(postDetail.contact_email.toString())
 
                         val contact_phone = postDetail.contact_phone.toString()
-//                            Phone_call(contact_phone)
+                            Phone_call(contact_phone)
                         val splitPhone = contact_phone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                             if(splitPhone.size == 1){
                                 user_telephone.text = splitPhone[0]
@@ -737,67 +752,67 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
     }
 
-//    fun Phone_call(contactPhone: String) {
-//        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-//
-//        call_phone.setOnClickListener {
-//
-//            val dialog = BottomSheetDialog(it.context)
-//            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
-//            dialog.setContentView(view)
-//            dialog.show()
-//
-//            val phone1= view.findViewById<TextView>(R.id.call_phone1)
-//            val phone2= view.findViewById<TextView>(R.id.call_phone2)
-//            val phone3= view.findViewById<TextView>(R.id.call_phone3)
-//            if (splitPhone.size == 1){
-//                phone1.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone1.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-//                    startActivity(intent)
-//                }
-//            }else if (splitPhone.size == 2){
-//                phone1.visibility = View.VISIBLE
-//                phone2.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone2.text = "  "+splitPhone[1]
-//                phone1.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-//                    startActivity(intent)
-//                }
-//                phone2.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-//                    startActivity(intent)
-//                }
-//            }else if (splitPhone.size == 3){
-//
-//                phone1.visibility = View.VISIBLE
-//                phone2.visibility = View.VISIBLE
-//                phone3.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone2.text = "  "+splitPhone[1]
-//                phone3.text = "  "+splitPhone[2]
-//
-//                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
-//                phone1.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-//                    startActivity(intent)
-//                }
-//                phone2.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-//                    startActivity(intent)
-//                }
-//                phone3.setOnClickListener {
-//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
-//                    startActivity(intent)
-//                }
-//            }
-//
-//
-//
-//        }  // call
-//    }
+    fun Phone_call(contactPhone: String) {
+        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+
+        call_phone.setOnClickListener {
+
+            val dialog = BottomSheetDialog(it.context)
+            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
+            dialog.setContentView(view)
+            dialog.show()
+
+            val phone1= view.findViewById<TextView>(R.id.call_phone1)
+            val phone2= view.findViewById<TextView>(R.id.call_phone2)
+            val phone3= view.findViewById<TextView>(R.id.call_phone3)
+            if (splitPhone.size == 1){
+                phone1.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 2){
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 3){
+
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone3.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone3.text = "  "+splitPhone[2]
+
+                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
+                phone1.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+                    startActivity(intent)
+                }
+                phone3.setOnClickListener {
+                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
+                    startActivity(intent)
+                }
+            }
+
+
+
+        }  // call
+    }
 
     fun Like_post(encode: String) {
         val url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk
@@ -1009,18 +1024,21 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     fun calculateLoanMonthlyPayment(){
         var loanPrice:String=edLoanPrice.text.toString()
+        var loanDeposit:String=edLoanDeposit.text.toString()
         var loanInterestRate:String=edLoanInterestRate.text.toString()
         var loanTerm:String=edLoanTerm.text.toString()
 
         var aPrice: Double=0.0
+        var aDeposit: Double=0.0
         var aInterestRate:Double=0.0
         var aLoanTerm:Int=0
 
         if(loanPrice.isNullOrEmpty()) aPrice=0.0 else aPrice=loanPrice.toDouble()
+        if(loanDeposit.isNullOrEmpty()) aDeposit=0.0 else aDeposit=loanDeposit.toDouble()
         if(loanInterestRate.isNullOrEmpty()) aInterestRate=1.5 else aInterestRate=loanInterestRate.toDouble()
-        if(loanTerm.isNullOrEmpty()) aLoanTerm=1 else aLoanTerm=loanTerm.toInt()
+        if(loanTerm.isNullOrEmpty()) aLoanTerm=12 else aLoanTerm=loanTerm.toInt()
 
-        val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aInterestRate,aLoanTerm)
+        val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aDeposit,aInterestRate,aLoanTerm)
         //Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
@@ -1162,7 +1180,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     private fun getMyLoan() {
         val IDPOST = ArrayList<Int>()
-        var loaned: Boolean = false
+        var loaned = false
         Log.d("12345","Hello90"+encodeAuth)
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=1"
         val client= OkHttpClient()
@@ -1188,6 +1206,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
                             val post_id = obj.getInt("post")
+
                             Log.d("Status Id123",post_id.toString())
                             Log.d("Status 123",postId.toString())
                             IDPOST.add(post_id)

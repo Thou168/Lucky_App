@@ -35,13 +35,13 @@ import okhttp3.Response;
 public class Filter extends AppCompatActivity {
 
 
-   private  TextView btnCategory,btnBrand,btnyear,submit_filter,tv_result,tv_done;
+   private  TextView btnCategory,btnBrand,btnyear ,btnCondition,submit_filter,tv_result,tv_done;
    private  int cate=0,brand=0,model=0,year=0,type=0;
-   private  String stTitle="",stCategory="",stBrand="",stYear="",st="";
-   private ImageView icCategory_fil,icBrand_fil,icYear_fil;
-   private  String [] cateListItems,brandListItems,yearListItems,categoryItemkg,brandItemkh,yearlistItemkh;
+   private  String stTitle="",stCategory="",stBrand="",stYear="",stCondition,st="";
+   private ImageView icCategory_fil,icBrand_fil,icYear_fil,icCondition_fil;
+   private  String [] cateListItems,brandListItems,yearListItems,conditionListItems,categoryItemkg,brandItemkh,yearlistItemkh;
    private  int [] cateIDlist,brandIDlist,yearIDlist;
-   private LinearLayout rela_cate,rela_brand,rela_year;
+   private LinearLayout rela_cate,rela_brand,rela_year,rela_condition;
 
 
     @Override
@@ -55,13 +55,16 @@ public class Filter extends AppCompatActivity {
         rela_cate  = findViewById(R.id.linea_cate);
         rela_brand = findViewById(R.id.linea_brand);
         rela_year  = findViewById(R.id.linea_year);
+        rela_condition = findViewById(R.id.linea_condition);
         btnCategory = findViewById(R.id.search_category);
         btnBrand = findViewById(R.id.search_brand);
         btnyear = findViewById(R.id.search_year);
+        btnCondition = findViewById(R.id.search_condition);
         submit_filter = findViewById(R.id.btnSubmit_filter);
         icCategory_fil = findViewById(R.id.icCategory_sr);
         icBrand_fil    = findViewById(R.id.icBrand_sr);
         icYear_fil     = findViewById(R.id.icYear_sr);
+        icCondition_fil = findViewById(R.id.icCondition_sr);
 
         Intent getTitle = getIntent();
         stTitle = getTitle.getStringExtra("title");
@@ -201,6 +204,39 @@ public class Filter extends AppCompatActivity {
                         }
                     });
                 }
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+// add filter condition by samang 27/08
+        conditionListItems = getResources().getStringArray(R.array.filter_condition);
+        rela_condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
+                mBuilder.setTitle(R.string.choose_condition);
+                mBuilder.setSingleChoiceItems(conditionListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        btnCondition.setText(conditionListItems[i]);
+                        icCondition_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        switch (i){
+                            case 0:
+                                stCondition = "";
+                                break;
+                            case 1:
+                                stCondition = "new";
+                                break;
+                            case 2:
+                                stCondition = "used";
+                                break;
+
+                        }
+                        dialog.dismiss();
+                        Log.d("Filter condition","is:"+stCondition);
+                    }
+                });
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }

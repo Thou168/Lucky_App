@@ -2,6 +2,8 @@ package com.bt_121shoppe.lucky_app.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.util.Log
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bt_121shoppe.lucky_app.R
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.lucky_app.Activity.Account
 import com.bt_121shoppe.lucky_app.Api.ConsumeAPI
 import com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_edit_loan
 import com.bt_121shoppe.lucky_app.utils.CommonFunction.getEncodedString
@@ -24,8 +27,10 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.cos
 
 class FragmentC1: Fragment() {
     val TAG = "SubLoanFragement"
@@ -37,6 +42,7 @@ class FragmentC1: Fragment() {
     var recyclerView: RecyclerView? = null
     var progreessbar: ProgressBar? = null
     var txtno_found: TextView? = null
+    var amount: TextView? = null
 
     fun FragmentC1(){}
 
@@ -57,6 +63,7 @@ class FragmentC1: Fragment() {
         progreessbar = view.findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
         txtno_found = view.findViewById(R.id.text)
+        amount = view.findViewById<TextView>(R.id.tv_price)
 
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
@@ -107,6 +114,8 @@ class FragmentC1: Fragment() {
                             txtno_found!!.visibility = View.VISIBLE
                         }
                         progreessbar!!.visibility = View.GONE
+//                        amount!!.visibility = View.VISIBLE
+
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
                             val loanID = `object`.getInt("id")
@@ -130,8 +139,9 @@ class FragmentC1: Fragment() {
                                     try {
                                         activity!!.runOnUiThread{
                                             val jsonObject1 = JSONObject(mmessage)
+//
                                             if(jsonObject1 != null) {
-//                                                val amount = jsonObject.getString("loan_amount")
+
                                                 val title = jsonObject1.getString("title")
                                                 val id = jsonObject1.getInt("id")
                                                 val condition = jsonObject1.getString("condition")
@@ -144,13 +154,7 @@ class FragmentC1: Fragment() {
                                                 val time: Long = sdf.parse(`object`.getString("created")).getTime()
                                                 val now: Long = System.currentTimeMillis()
                                                 val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-//                                                try {
-//                                                    jsonObject.put("loan_amount",amount)
-//                                                    Log.d("Amountloan",amount)
-//                                                }
-//                                                catch (e: JSONException) {
-//                                                    e.printStackTrace()
-//                                                }
+
                                                 ///
                                                 val URL_ENDPOINT1 = ConsumeAPI.BASE_URL + "countview/?post=" + id
                                                 var MEDIA_TYPE = MediaType.parse("application/json")
@@ -180,7 +184,7 @@ class FragmentC1: Fragment() {
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
-                                                                itemApi.add(LoanItemAPI(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),loanID))
+                                                                itemApi.add(LoanItemAPI(id, img_user, image, title,cost, condition, postType, ago.toString(), jsonCount.toString(),loanID))
                                                                 recyclerView!!.adapter = MyAdapter_edit_loan(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }

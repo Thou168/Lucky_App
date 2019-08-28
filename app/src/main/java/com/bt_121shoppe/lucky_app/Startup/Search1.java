@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,20 +58,24 @@ public class Search1 extends AppCompatActivity {
     String category,model,year,title_filter;
     TextView not_found,tv_filter;
     ProgressBar mProgress;
+    ImageView viewlist;
+    LinearLayoutManager manager;
+    String view = "list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         locale();
-        TextView back = (TextView)findViewById(R.id.back);
+        TextView back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        viewlist = findViewById(R.id.viewlist);
 
-        mProgress = (ProgressBar) findViewById(R.id.progress_search);
+        mProgress = findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
         not_found.setVisibility(View.GONE);
         tv_filter = findViewById(R.id.tv_filter);
@@ -190,6 +196,32 @@ public class Search1 extends AppCompatActivity {
                                             item_apis.add(new Item_API(id, img_user, image, title, cost, condition, post_type, ago.toString(), json_count,discount_type,discount));
                                             MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                             rv.setAdapter(adapterUserPost);
+                                            rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+                                            viewlist.setImageResource(R.drawable.icon_list);
+                                            viewlist.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    if(view.equals("list")){
+                                                        viewlist.setImageResource(R.drawable.icon_grid);
+                                                        view = "grid";
+                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Grid",Search1.this);
+                                                        rv.setAdapter(adapterUserPost);
+                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 2));
+                                                    }else if (view.equals("grid")){
+                                                        viewlist.setImageResource(R.drawable.icon_image);
+                                                        view = "image";
+                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Image",Search1.this);
+                                                        rv.setAdapter(adapterUserPost);
+                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+                                                    }else {
+                                                        viewlist.setImageResource(R.drawable.icon_list);
+                                                        view = "list";
+                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
+                                                        rv.setAdapter(adapterUserPost);
+                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+                                                    }
+                                                }
+                                            });
                                         }
                                     });
 

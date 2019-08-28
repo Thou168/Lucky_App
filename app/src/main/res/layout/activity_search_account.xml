@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:id="@+id/submit"
-            android:background="@color/logo_orange"
+            android:background="@drawable/mybutton"
             android:textColor="#FFF"
             android:text="@string/submit_button"/>
 
