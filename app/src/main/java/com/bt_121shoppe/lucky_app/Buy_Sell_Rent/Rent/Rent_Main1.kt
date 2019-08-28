@@ -38,9 +38,15 @@ class Rent_Main1 : AppCompatActivity() {
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
                 }
                 R.id.notification -> {
-                    val intent = Intent(this@Rent_Main1,Notification::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Rent_Main1,Notification::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Rent_Main1, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -57,9 +63,15 @@ class Rent_Main1 : AppCompatActivity() {
                     }
                 }
                 R.id.message -> {
-                    val intent = Intent(this@Rent_Main1,Message::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        val intent = Intent(this@Rent_Main1,Message::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                    }else{
+                        val intent = Intent(this@Rent_Main1, UserAccount::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {

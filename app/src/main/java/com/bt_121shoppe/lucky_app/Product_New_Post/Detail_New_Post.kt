@@ -378,13 +378,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     fun dialContactPhone(phoneNumber:String) {
         startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
     }
-    fun sms(phoneNumber:String) {
-        val sendIntent =  Intent(Intent.ACTION_VIEW)
-        sendIntent.putExtra("address"  ,phoneNumber)
-        sendIntent.putExtra("sms_body", "")
-        sendIntent.setType("vnd.android-dir/mms-sms")
-        startActivity(sendIntent)
-    }
+//    fun sms(phoneNumber:String) {
+//        val sendIntent =  Intent(Intent.ACTION_VIEW)
+//        sendIntent.putExtra("address"  ,phoneNumber)
+//        sendIntent.putExtra("sms_body", "")
+//        sendIntent.setType("vnd.android-dir/mms-sms")
+//        startActivity(sendIntent)
+//    }
 
     fun initialProductPostDetail(encode: String){
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
@@ -428,7 +428,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         var postDetail = PostViewModel()
                         postDetail = gson.fromJson(mMessage, PostViewModel::class.java)
                         Log.e(TAG,"D"+ mMessage)
-
+ // hide button call chat like loan by samang 27/08/19
+                        var create_by =  postDetail.created_by.toInt()
+                        if (create_by == pk){
+                            Layout_call_chat_like_loan.visibility = View.GONE
+                        }
+ //
                         val url1=ConsumeAPI.BASE_URL+"api/v1/years/"+postDetail.year
                         var client1=OkHttpClient()
                         val request1 = Request.Builder()
@@ -523,10 +528,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         })
-                        var create_by =  postDetail.created_by.toInt()
-                        if (create_by == pk){
-                           Layout_call_chat_like_loan.visibility = View.GONE
-                        }
+
 
                         postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
@@ -860,7 +862,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         Log.d("Response", respon)
                                         runOnUiThread {
                                             val alertDialog = AlertDialog.Builder(this@Detail_New_Post).create()
-                                            alertDialog.setMessage(R.string.like_post.toString())
+                                            alertDialog.setMessage(getString(R.string.like_post))
                                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok)
                                             ) { dialog, which ->
                                                 dialog.dismiss()
@@ -975,7 +977,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)
-                            list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2)
+                            list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2) as RecyclerView.LayoutManager?
                         }
                     } catch (e: JsonParseException) {
                         e.printStackTrace()
