@@ -71,6 +71,7 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
+
         </activity>
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Login_Register.ResetPasswordActivity" />
