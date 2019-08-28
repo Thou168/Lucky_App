@@ -13,6 +13,8 @@ public class PostViewModel {
     private String right_image_path;
     private String left_image_path;
     private String back_image_path;
+    private String extra_image1;
+    private String extra_image2;
     private String created;
     private String created_by;
     private String modified;
@@ -112,6 +114,22 @@ public class PostViewModel {
 
     public String getLeft_image_path() {
         return left_image_path;
+    }
+
+    public String getExtra_image1() {
+        return extra_image1;
+    }
+
+    public void setExtra_image1(String extra_image1) {
+        this.extra_image1 = extra_image1;
+    }
+
+    public String getExtra_image2() {
+        return extra_image2;
+    }
+
+    public void setExtra_image2(String extra_image2) {
+        this.extra_image2 = extra_image2;
     }
 
     public String getMachine_code() {

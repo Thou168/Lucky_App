@@ -383,9 +383,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     }  // oncreate
 
-    fun dialContactPhone(phoneNumber:String) {
-        startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
-    }
+//    fun dialContactPhone(phoneNumber:String) {
+//        startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
+//    }
 //    fun sms(phoneNumber:String) {
 //        val sendIntent =  Intent(Intent.ACTION_VIEW)
 //        sendIntent.putExtra("address"  ,phoneNumber)
@@ -642,7 +642,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         var right_image:String=""
                         var back_image:String=""
                         var left_image:String=""
-
                         front_image=postDetail.front_image_path
                         right_image=postDetail.right_image_path
                         left_image=postDetail.left_image_path
@@ -650,7 +649,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val images = listOf(front_image,
                                 right_image,
                                 left_image,
-                                back_image)
+                                back_image
+                        )
                         sliderImage.setItems(images)
                         sliderImage.addTimerToSlide(3000)
                         sliderImage.removeTimerSlide()
@@ -779,7 +779,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 phone1.visibility = View.VISIBLE
                 phone1.text = "  "+splitPhone[0]
                 phone1.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    startActivity(intent)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[0])
+                    }
                     startActivity(intent)
                 }
             }else if (splitPhone.size == 2){
@@ -788,11 +793,21 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 phone1.text = "  "+splitPhone[0]
                 phone2.text = "  "+splitPhone[1]
                 phone1.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    startActivity(intent)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+ splitPhone[0])
+                    }
                     startActivity(intent)
                 }
                 phone2.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+//                    startActivity(intent)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[1])
+                    }
                     startActivity(intent)
                 }
             }else if (splitPhone.size == 3){
@@ -806,15 +821,30 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                 Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
                 phone1.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
+//                    startActivity(intent)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[0])
+                    }
                     startActivity(intent)
                 }
                 phone2.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
+//                    startActivity(intent)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[1])
+                    }
                     startActivity(intent)
                 }
                 phone3.setOnClickListener {
-                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
+//                    startActivity(intent)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[2])
+                    }
                     startActivity(intent)
                 }
             }
