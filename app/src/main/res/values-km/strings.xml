@@ -57,7 +57,7 @@
     <string name="buy">ទិញ</string>
 
     <string name="sell_t">លក់</string>
-    <string name="buy_t">លក់</string>
+    <string name="buy_t">ទិញ</string>
 
     //Tab
     <string name="post">ប្រកាស</string>
@@ -135,7 +135,7 @@
     <string name="hit_loan_duration">រយៈពេលខ្ចី(ខែ)</string>
     <string name="hit_purpos">គោលបំណងប្រាក់កម្ចី</string>
     <string name="hit_status">ស្ថានភាព</string>
-    <string name="txt_clr_supporting">ឯកសារគាំទ្រការខ្ចីប្រាក់</string>
+    <string name="txt_clr_supporting">ឯកសារពាក់ព័ន្ធការខ្ចីប្រាក់</string>
     <string name="hit_state_id">អត្តសញ្ញាណប័ណ្ណ</string>
     <string name="hit_family_book">សៀវភៅគ្រួសារ</string>
     <string name="hit_staffid">ប័ណ្ណបុគ្គលិក/ប័ណ្ណប្រាក់ខែ</string>
@@ -358,7 +358,7 @@
     <string name="loan_description">ព័ត៌មានលម្អិតឥណទាន</string>
     <string name="Price">តម្លៃ($)</string>
     <string name="interest_rate">អត្រាការប្រាក់(%)</string>
-    <string name="deposit">ដកប្រាក់($)</string>
+    <string name="deposit">ដាក់ប្រាក់($)</string>
     <string name="term">រយៈពេល​(ខែ)</string>
     <string name="Monthly_payment">ការចំណាយប្រចាំខែ</string>
     <string name="contact">ទំនាក់ទំនង</string>
@@ -482,7 +482,7 @@
     <string name="choose_status">ជ្រើសរើសស្ថានភាព</string>
     <string name="choose_gender">ជ្រើសរើសភេទ</string>
     <string name="title_edit_account">កែសម្រួលគណនី</string>
-    <string name="edit_success_message">ព័ត៌មានគណនីត្រូវបានដាក់ស្នើដោយជោគជ័យ</string>
+    <string name="edit_success_message">ព័ត៌មានគណនីត្រូវបានកែប្រែដោយជោគជ័យ</string>
     <string name="edit_fail_message">ព័ត៌មានអំពីគណនីមានកំហុសពេលបញ្ជូន</string>
     <string name="update">កំពុងធ្វើការកែប្រែ...</string>
     <string name="logout_message">តើអ្នកពិតជាចង់ចាកចេញឬ?</string>

@@ -314,48 +314,52 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (process_type == 1) {
+
+                } else {
+
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
                 mBuilder.setTitle(getString(R.string.choose_category));
-                if (language.equals("km")){
+                if (language.equals("km")) {
                     mBuilder.setSingleChoiceItems(categoryListItemkh, -1, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             tvCategory.setText(categoryListItemkh[i]);
                             cate = categoryIdListItems[i];
-                            if (cate==1){
+                            if (cate == 1) {
                                 icType_elec.setVisibility(View.VISIBLE);
                                 tvType_elec.setVisibility(View.VISIBLE);
                                 Call_Type(Encode);
-                            }else {
+                            } else {
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
                                 type = 3;
                             }
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             icBrand.setImageResource(R.drawable.icon_null);
-                            Call_Brand(Encode,cate);
+                            Call_Brand(Encode, cate);
                             dialogInterface.dismiss();
                         }
                     });
 
-                }else if (language.equals("en")){
+                } else if (language.equals("en")) {
                     mBuilder.setSingleChoiceItems(categoryListItems, -1, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             tvCategory.setText(categoryListItems[i]);
                             cate = categoryIdListItems[i];
-                            if (cate==1){
+                            if (cate == 1) {
                                 icType_elec.setVisibility(View.VISIBLE);
                                 tvType_elec.setVisibility(View.VISIBLE);
                                 Call_Type(Encode);
-                            }else {
+                            } else {
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
                                 type = 3;
                             }
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             icBrand.setImageResource(R.drawable.icon_null);
-                            Call_Brand(Encode,cate);
+                            Call_Brand(Encode, cate);
                             dialogInterface.dismiss();
                         }
                     });
@@ -363,6 +367,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
+            }
             }
         });
 
@@ -539,7 +544,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-
         tvAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -557,10 +561,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 return false;
             }
         });
+
         submit_post = (Button) findViewById(R.id.btnSubmitPost);
-
-
-
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -599,7 +601,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                    //Toast.makeText(v.getContext(),"Click 2",Toast.LENGTH_SHORT).show();
                    //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
-
 
                     if (etPhone1.getText().toString().length()<8){
                         etPhone1.requestFocus();
@@ -810,6 +811,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             tvPostType.setText(R.string.ren);
                                         }else if (postType.equals("Buy")){
                                             tvPostType.setText(R.string.bu);
+                                            relatve_discount.setVisibility(View.GONE);
                                         }
 
                                         if (condition.equals("New")){

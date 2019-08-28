@@ -30,6 +30,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,6 +86,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         view.btn_unlike.setVisibility(View.GONE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         long date = 0;
         try {
             date = sdf.parse(model.getCreated()).getTime();

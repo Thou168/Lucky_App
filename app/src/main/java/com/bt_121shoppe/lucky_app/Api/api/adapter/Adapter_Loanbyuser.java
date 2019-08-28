@@ -1,6 +1,7 @@
 package com.bt_121shoppe.lucky_app.Api.api.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,6 +117,30 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     view.title.setText(response.body().getTitle());
                     view.cost.setText("$"+model.getLoan_amount());
 
+                    String create,approved_date,date_time;
+                    create = model.getCreated();
+                    approved_date = model.getApproved_date();
+                    Log.d("131313",create+"44444"+approved_date);
+                    if (approved_date == null){
+                        date_time = create;
+                    }else {
+                        date_time = approved_date;
+                    }
+                    Log.d("5050505",date_time);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+                    long date = 0;
+                    try {
+                        date = sdf.parse(date_time).getTime();
+                        Long now = System.currentTimeMillis();
+                        CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
+                        view.date.setText(ago);
+                    } catch (ParseException e) { e.printStackTrace(); }
+
+                    view.txtview.setVisibility(View.GONE);
+                    view.item_type.setVisibility(View.GONE);
+                    view.textview1.setVisibility(View.GONE);
                     if (response.body().getPost_type().equals("sell")){
                         view.item_type.setText(R.string.sell_t);
                         view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
@@ -150,6 +176,9 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                                                         if (!response.isSuccessful()){
                                                             Log.d("444444", String.valueOf(response.code()));
                                                         }
+                                                        Intent intent = new Intent(mContext, Account.class);
+                                                        mContext.startActivity(intent);
+                                                        ((Activity)mContext).finish();
                                                         if (response.code() == 400) {
                                                             try {
                                                                 Log.v("Error code 400",response.errorBody().string());
@@ -170,28 +199,20 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         }
                     });
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    long date = 0;
-                    try {
-                        date = sdf.parse(response.body().getCreated()).getTime();
-                        Long now = System.currentTimeMillis();
-                        CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-                        view.date.setText(ago);
-                    } catch (ParseException e) { e.printStackTrace(); }
 //count View
-                    try{
-                        Service apiServiece = Client.getClient().create(Service.class);
-                        Call<AllResponse> call_view = apiServiece.getCount(postid,basic_Encode);
-                        call_view.enqueue(new Callback<AllResponse>() {
-                            @Override
-                            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                                view.txtview.setText(String.valueOf(response.body().getCount()));
-                            }
-
-                            @Override
-                            public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
-                        });
-                    }catch (Exception e){Log.d("Error e",e.getMessage());}
+//                    try{
+//                        Service apiServiece = Client.getClient().create(Service.class);
+//                        Call<AllResponse> call_view = apiServiece.getCount(postid,basic_Encode);
+//                        call_view.enqueue(new Callback<AllResponse>() {
+//                            @Override
+//                            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+//                                view.txtview.setText(String.valueOf(response.body().getCount()));
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
+//                        });
+//                    }catch (Exception e){Log.d("Error e",e.getMessage());}
 
                 }
 
@@ -217,7 +238,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,date,item_type,txtview;
+        TextView title,cost,date,item_type,txtview,textview1;
         ImageView imageView;
         Button btn_edit,btn_cancel;
         LinearLayout linearLayout;
@@ -232,6 +253,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
             btn_edit = view.findViewById(R.id.btnedit);
             btn_cancel = view.findViewById(R.id.btndelete);
             linearLayout = view.findViewById(R.id.linearLayout);
+            textview1 = view.findViewById(R.id.user_view);
         }
     }
 }

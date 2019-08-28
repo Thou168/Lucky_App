@@ -162,7 +162,7 @@ public class Search1 extends AppCompatActivity {
                         String discount_type = object.getString("discount_type");
                         Double discount = object.getDouble("discount");
 
-                        /////////////
+                        //
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                         long time = sdf.parse(object.getString("created")).getTime();
@@ -186,7 +186,6 @@ public class Search1 extends AppCompatActivity {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 String mMessage = response.body().string();
-
                                 try {
                                     JSONObject object_count = new JSONObject(mMessage);
                                     String json_count = object_count.getString("count");
@@ -233,9 +232,7 @@ public class Search1 extends AppCompatActivity {
                             }
                         });
 
-
                     }
-
                 }
                 }catch (JSONException e){
                     e.printStackTrace();
