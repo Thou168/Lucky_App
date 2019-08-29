@@ -659,7 +659,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("loan_interest_rate",0);
             data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",1);
+            data.put("loan_status",9);
             data.put("record_status",1);
             data.put("username",status_borrower);
             data.put("gender","female");
@@ -865,7 +865,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             data.put("loan_interest_rate",0);
             data.put("loan_duration",loan_term.getText().toString().toLowerCase());//loan term
             data.put("loan_purpose",loan_purpose.getText().toString().toLowerCase());
-            data.put("loan_status",1);
+            data.put("loan_status",9);
             data.put("record_status",1);
             data.put("username",status_borrower);
             data.put("gender","female");

@@ -165,7 +165,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val language = prefer.getString("My_Lang", "")
 
         if(language.isEmpty()){
-            Log.d("7777","YaYa"+language)
             language("km")
             recreate()
         }

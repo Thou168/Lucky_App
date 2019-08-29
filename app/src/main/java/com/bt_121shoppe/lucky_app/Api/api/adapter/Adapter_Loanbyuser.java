@@ -117,19 +117,22 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     view.title.setText(response.body().getTitle());
                     view.cost.setText("$"+model.getLoan_amount());
 
+                    SimpleDateFormat sdf;
                     String create,approved_date,date_time;
                     create = model.getCreated();
                     approved_date = model.getApproved_date();
                     Log.d("131313",create+"44444"+approved_date);
                     if (approved_date == null){
                         date_time = create;
+                        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                     }else {
                         date_time = approved_date;
+                        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     }
                     Log.d("5050505",date_time);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                     long date = 0;
                     try {
                         date = sdf.parse(date_time).getTime();

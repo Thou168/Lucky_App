@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import com.bt_121shoppe.lucky_app.Activity.*
+import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.Sell_vehicle
 import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.fragment_sell_vehicle
 import com.bt_121shoppe.lucky_app.Login_Register.UserAccount
 import com.bt_121shoppe.lucky_app.R
@@ -27,7 +28,7 @@ class Sell_Main1 : AppCompatActivity() {
         locale()
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         content = findViewById(R.id.content) as FrameLayout
-        supportFragmentManager.beginTransaction().replace(R.id.content, fragment_sell_vehicle()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content, Sell_vehicle()).commit()
          bnavigation = findViewById<BottomNavigationView>(R.id.navigation)
         bnavigation!!.menu.getItem(0).isChecked = true
         bnavigation!!.setOnNavigationItemSelectedListener { item ->

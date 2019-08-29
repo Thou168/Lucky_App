@@ -40,7 +40,7 @@ public interface Service {
     Call<AllResponse> getpostbyhistory(@Header("Authorization") String authorization);
     @GET("/likebyuser/")
     Call<AllResponse> getLikebyuser(@Header("Authorization") String authorization);
-    @GET("/loanbyuser/?record_status=1")
+    @GET("/loanbyuser/?loan_status=9")
     Call<AllResponse> getLoanbyuser(@Header("Authorization") String authorization);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
@@ -50,11 +50,26 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("/api/v1/loan/{id}/")
     Call<Item_loan> getputcancelloan(@Path("id") int id, @Body Item_loan item_loan, @Header("Authorization") String authorization);
-    @GET("/loanbyuser/?record_status=12")
+    @GET("/loanbyuserhistory/")
     Call<AllResponse> getloanhistory(@Header("Authorization") String authorization);
 
     @GET("/api/v1/userfilter/?last_name=&username=")
     Call<AllResponse> getUsername(@Query("username") String username);
+//Buy_Rent_Sell
+    @GET("/relatedpost/?post_type=rent&category=2&modeling=&min_price=&max_price=")
+    Call<AllResponse> getRent_vehicle();
+    @GET("/relatedpost/?post_type=rent&category=1&modeling=&min_price=&max_price=")
+    Call<AllResponse> getRent_eletronic();
+
+    @GET("/relatedpost/?post_type=sell&category=2&modeling=&min_price=&max_price=")
+    Call<AllResponse> getSell_vihicle();
+    @GET("/relatedpost/?post_type=sell&category=1&modeling=&min_price=&max_price=")
+    Call<AllResponse> getSell_eletronic();
+
+    @GET("/relatedpost/?post_type=buy&category=2&modeling=&min_price=&max_price=")
+    Call<AllResponse> getBuy_vihicle();
+    @GET("/relatedpost/?post_type=buy&category=1&modeling=&min_price=&max_price=")
+    Call<AllResponse> getBuy_eletronic();
 
     @GET("/api/v1/categories/")
     Call<AllResponse> getCategories();
