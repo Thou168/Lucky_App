@@ -29,7 +29,7 @@ class Rent_Main1 : AppCompatActivity() {
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         content = findViewById(R.id.content) as FrameLayout
         supportFragmentManager.beginTransaction().replace(R.id.content, Rent_vehicle()).commit()
-         bnavigation = findViewById<BottomNavigationView>(R.id.navigation)
+         bnavigation = findViewById(R.id.navigation)
         bnavigation!!.menu.getItem(0).isChecked = true
         bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

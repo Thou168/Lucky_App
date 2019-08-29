@@ -30,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Sell_eletronic extends Fragment {
+public class Sell_eletronic extends PassSell2 {
     RecyclerView recyclerView;
     SharedPreferences prefer;
     private String name,pass;
@@ -52,6 +52,9 @@ public class Sell_eletronic extends Fragment {
         toolbar.setBackgroundResource(R.color.color_sell);
         TextView back = view.findViewById(R.id.tv_back);
         back.setOnClickListener(v -> getActivity().finish());
+
+        TextView title = view.findViewById(R.id.title);
+        title.setText(BACK_SELL.getIntent().getStringExtra("Title"));
 
         sliderImage = view.findViewById(R.id.slider_vehicles);
         sliderImage.setItems(Arrays.asList(images));

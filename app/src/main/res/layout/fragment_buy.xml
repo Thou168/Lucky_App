@@ -20,7 +20,6 @@
         <TextView
             android:id="@+id/title"
             android:layout_gravity="center"
-            android:text="@string/motor"
             android:textSize="16sp"
             android:textColor="#fff"
             android:layout_width="wrap_content"

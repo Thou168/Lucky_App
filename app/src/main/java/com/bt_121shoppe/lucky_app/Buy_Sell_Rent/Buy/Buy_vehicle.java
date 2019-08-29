@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Buy_vehicle extends Fragment {
+public class Buy_vehicle extends PassBuy {
     RecyclerView recyclerView;
     SharedPreferences prefer;
     private String name,pass;
@@ -52,6 +51,9 @@ public class Buy_vehicle extends Fragment {
         toolbar.setBackgroundResource(R.color.color_buy);
         TextView back = view.findViewById(R.id.tv_back);
         back.setOnClickListener(v -> getActivity().finish());
+
+        TextView title = view.findViewById(R.id.title);
+        title.setText(BACK_BUY.getIntent().getStringExtra("Title"));
 
         sliderImage = view.findViewById(R.id.slider_vehicles);
         sliderImage.setItems(Arrays.asList(images));

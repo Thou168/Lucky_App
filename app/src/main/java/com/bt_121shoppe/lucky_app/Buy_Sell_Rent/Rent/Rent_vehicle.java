@@ -23,6 +23,7 @@ import com.bt_121shoppe.lucky_app.Api.api.adapter.Adapter_Likebyuser;
 import com.bt_121shoppe.lucky_app.Api.api.adapter.Adapter_Rent_vehicle;
 import com.bt_121shoppe.lucky_app.Api.api.model.Item;
 import com.bt_121shoppe.lucky_app.Api.api.model.LikebyUser;
+import com.bt_121shoppe.lucky_app.Buy_Sell_Rent.Sell.PassRent1;
 import com.bt_121shoppe.lucky_app.R;
 import com.bt_121shoppe.lucky_app.utils.CommonFunction;
 import com.custom.sliderimage.logic.SliderImage;
@@ -34,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Rent_vehicle extends Fragment {
+public class Rent_vehicle extends PassRent1 {
     RecyclerView recyclerView;
     SharedPreferences prefer;
     private String name,pass;
@@ -56,6 +57,9 @@ public class Rent_vehicle extends Fragment {
         toolbar.setBackgroundResource(R.color.logo_red);
         TextView back = view.findViewById(R.id.tv_back);
         back.setOnClickListener(v -> getActivity().finish());
+
+        TextView title = view.findViewById(R.id.title);
+        title.setText(BACK_SELL.getIntent().getStringExtra("Title"));
 
         sliderImage = view.findViewById(R.id.slider_vehicles);
         sliderImage.setItems(Arrays.asList(images));
