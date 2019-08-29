@@ -1229,7 +1229,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val IDPOST = ArrayList<Int>()
         var loaned = false
         Log.d("12345","Hello90"+encodeAuth)
-        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/?record_status=1"
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/"
         val client= OkHttpClient()
         val request= Request.Builder()
                 .url(URL_ENDPOINT)

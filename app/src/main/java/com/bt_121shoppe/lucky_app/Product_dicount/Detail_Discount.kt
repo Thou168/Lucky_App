@@ -68,14 +68,14 @@ class Detail_Discount : AppCompatActivity(){
 //            startActivity(smsIntent)
 //        }
         //Button Share
-        val share = findViewById<ImageButton>(R.id.btn_share)
-        share.setOnClickListener {
-            val shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.title_activity_account)))
-        }
+//        val share = findViewById<ImageButton>(R.id.btn_share)
+//        share.setOnClickListener {
+//            val shareIntent = Intent()
+//            shareIntent.action = Intent.ACTION_SEND
+//            shareIntent.type = "text/plain"
+//            shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//            startActivity(Intent.createChooser(shareIntent, getString(R.string.title_activity_account)))
+//        }
         //Button Call
         val call = findViewById<Button>(R.id.btn_call)
         call.setOnClickListener {

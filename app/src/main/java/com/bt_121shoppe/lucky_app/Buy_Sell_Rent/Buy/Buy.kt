@@ -28,15 +28,18 @@ class Buy : AppCompatActivity() {
         back.setOnClickListener { finish() }
 
         val vehicle = findViewById<TextView>(R.id.vehicle)
+//        val string: String = getString(R.string.hello)
         vehicle.setOnClickListener {
             val intent = Intent(this@Buy, New_Main1::class.java)
             intent.putExtra("Back","Buy")
+            intent.putExtra("Title",getString(R.string.motor))
             startActivity(intent)
         }
         val eletronic = findViewById<TextView>(R.id.eletronic)
         eletronic.setOnClickListener {
             val intent = Intent(this@Buy, New_Main2::class.java)
             intent.putExtra("Back","Buy")
+            intent.putExtra("Title",getString(R.string.electronic))
             startActivity(intent)
         }
 

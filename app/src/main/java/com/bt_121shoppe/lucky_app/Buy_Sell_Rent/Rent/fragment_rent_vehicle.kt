@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.bt_121shoppe.lucky_app.models.PostViewModel
 import com.bt_121shoppe.lucky_app.utils.CommonFunction
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import kotlinx.android.synthetic.main.activity_detail_new_post.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -42,12 +44,15 @@ class fragment_rent_vehicle : Fragment() {
     var encodeAuth=""
     var recyclerView:RecyclerView?= null
 
+    lateinit var progreessbar: ProgressBar
+    lateinit var txtno_found: TextView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_buy, container, false)
 //Slider
         val sliderImage = view.findViewById(R.id.slider_vehicles) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
-                            "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
+                               "https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg")
         sliderImage.setItems(images)
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
@@ -60,6 +65,10 @@ class fragment_rent_vehicle : Fragment() {
         val back = view.findViewById<TextView>(R.id.tv_back)
 //        back.text = sell_back.toString()
         back.setOnClickListener { getActivity()?.finish() }
+
+        progreessbar = view.findViewById(R.id.progress_bar)
+        progreessbar.visibility = View.VISIBLE
+        txtno_found = view.findViewById(R.id.text)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
@@ -101,6 +110,13 @@ class fragment_rent_vehicle : Fragment() {
                     activity!!.runOnUiThread{
                         val jsonObject = JSONObject(respon)
                         val jsonArray = jsonObject.getJSONArray("results")
+                        val objectCount = jsonObject.getInt("count")
+                        if (objectCount == 0){
+                            txtno_found.visibility = View.VISIBLE
+                            progreessbar.visibility = View.GONE
+                        }
+                        progreessbar.visibility = View.GONE
+
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
                             val title = `object`.getString("title")
