@@ -137,6 +137,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private Button submit_post;
     private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
+    private String user_name,user_email,user_phone,user_address,user_address_name,edit_name,edit_email,edit_phone,edit_address,edit_address_name;
     private String name,pass,Encode;
     private int pk;
     private ArrayAdapter<String> brands,models;
@@ -977,49 +978,50 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 User converJsonJava = new User();
                                 converJsonJava = gson.fromJson(respon, User.class);
 
-                            etName.setText(converJsonJava.getFirst_name());
-                            etEmail.setText(converJsonJava.getEmail());
-
+                                user_name = converJsonJava.getFirst_name();
+                                user_email= converJsonJava.getEmail();
+                            etName.setText(user_name);
+                            etEmail.setText(user_email);
 
                                 if (converJsonJava.getProfile().getTelephone()!=null){
-                                String telePhone = converJsonJava.getProfile().getTelephone();
-                                String[] splitPhone = telePhone.split(",");
-                                if (splitPhone.length == 1){
-                                    etPhone1.setText(String.valueOf(splitPhone[0]));
-                                    btnImagePhone1.setVisibility(View.VISIBLE);
-                                }else if (splitPhone.length == 2){
-                                    icPhone2.setVisibility(View.VISIBLE);
-                                    tilPhone2.setVisibility(View.VISIBLE);
-                                    btnImagePhone2.setVisibility(View.VISIBLE);
-                                    btnImagePhone1.setVisibility(View.GONE);
+                                    user_phone= converJsonJava.getProfile().getTelephone();
+                                    String[] splitPhone = user_phone.split(",");
+                                    if (splitPhone.length == 1){
+                                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                                        btnImagePhone1.setVisibility(View.VISIBLE);
+                                    }else if (splitPhone.length == 2){
+                                        icPhone2.setVisibility(View.VISIBLE);
+                                        tilPhone2.setVisibility(View.VISIBLE);
+                                        btnImagePhone2.setVisibility(View.VISIBLE);
+                                        btnImagePhone1.setVisibility(View.GONE);
 
-                                    etPhone1.setText(String.valueOf(splitPhone[0]));
-                                    etPhone2.setText(String.valueOf(splitPhone[1]));
-                                }else if (splitPhone.length == 3){
-                                    icPhone2.setVisibility(View.VISIBLE);
-                                    tilPhone2.setVisibility(View.VISIBLE);
-                                    icPhone3.setVisibility(View.VISIBLE);
-                                    tilphone3.setVisibility(View.VISIBLE);
-                                    btnImagePhone2.setVisibility(View.GONE);
-                                    btnImagePhone1.setVisibility(View.GONE);
-                                    etPhone1.setText(String.valueOf(splitPhone[0]));
-                                    etPhone2.setText(String.valueOf(splitPhone[1]));
-                                    etPhone3.setText(String.valueOf(splitPhone[2]));
+                                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                                        etPhone2.setText(String.valueOf(splitPhone[1]));
+                                    }else if (splitPhone.length == 3){
+                                        icPhone2.setVisibility(View.VISIBLE);
+                                        tilPhone2.setVisibility(View.VISIBLE);
+                                        icPhone3.setVisibility(View.VISIBLE);
+                                        tilphone3.setVisibility(View.VISIBLE);
+                                        btnImagePhone2.setVisibility(View.GONE);
+                                        btnImagePhone1.setVisibility(View.GONE);
+                                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                                        etPhone2.setText(String.valueOf(splitPhone[1]));
+                                        etPhone3.setText(String.valueOf(splitPhone[2]));
+                                    }
                                 }
-                            }
-                            String addr = converJsonJava.getProfile().getAddress();
-                            if(addr.isEmpty()){
+                                user_address = converJsonJava.getProfile().getAddress();
+                                if(user_address.isEmpty()){
                                     get_location(true);
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
-                            }else {
-                                String[] splitAddr = addr.split(",");
-                                latitude = Double.valueOf(splitAddr[0]);
-                                longtitude = Double.valueOf(splitAddr[1]);
-                                get_location(false);
+                                }else {
+                                    String[] splitAddr = user_address.split(",");
+                                    latitude = Double.valueOf(splitAddr[0]);
+                                    longtitude = Double.valueOf(splitAddr[1]);
+                                    get_location(false);
 
                                     if (converJsonJava.getProfile().getResponsible_officer()!=null){
-                                        String search_title = converJsonJava.getProfile().getResponsible_officer();
-                                        tvAddress.setQuery(search_title,false);
+                                        user_address_name = converJsonJava.getProfile().getResponsible_officer();
+                                        tvAddress.setQuery(user_address_name,false);
                                     }
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
 
@@ -1137,12 +1139,35 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("description", etDescription.getText().toString());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
-            post.put("vin_code", tvAddress.getQuery().toString());
-            post.put("machine_code", etName.getText().toString());
             post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
-            post.put("contact_email", etEmail.getText().toString());
-            post.put("contact_address", latlng);
+//check empty field user for detail by samang 28/08
+            if (tvAddress.getQuery().toString().isEmpty() || tvAddress.getQuery().toString() == null){
+                post.put("vin_code", user_address_name);
+            }else {
+                post.put("vin_code", tvAddress.getQuery().toString());
+            }
+            if (etName.getText().toString().isEmpty() || etName.getText().toString() == null){
+                post.put("machine_code", user_name);
+            }else {
+                post.put("machine_code", etName.getText().toString());
+            }
+            if (etPhone1.getText().toString().isEmpty() || etPhone1.getText().toString() == null){
+                post.put("contact_phone",user_phone);
+            }else {
+                post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
+            }
+            if (etEmail.getText().toString().isEmpty() || etEmail.getText().toString() == null){
+                post.put("contact_email", user_email);
+            }else {
+                post.put("contact_email", etEmail.getText().toString());
+            }
+
+            if (latlng.isEmpty() || latlng == null){
+                post.put("contact_address", user_address);
+            }else {
+                post.put("contact_address", latlng);
+            }
+// end check
             post.put("color", strColor);
 
             switch (strPostType){
@@ -1441,9 +1466,34 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("vin_code", tvAddress.getQuery().toString());
             post.put("machine_code", etName.getText().toString());
             post.put("type", type);
-            post.put("contact_phone", etPhone1.getText().toString()+","+etPhone2.getText().toString()+","+etPhone3.getText().toString());
-            post.put("contact_email", etEmail.getText().toString());
-            post.put("contact_address", latlng);
+//check empty field user for detail by samang 28/08
+            if (tvAddress.getQuery().toString().isEmpty() || tvAddress.getQuery().toString() == null){
+                post.put("vin_code", edit_address_name);
+            }else {
+                post.put("vin_code", tvAddress.getQuery().toString());
+            }
+            if (etName.getText().toString().isEmpty() || etName.getText().toString() == null){
+                post.put("machine_code", edit_name);
+            }else {
+                post.put("machine_code", etName.getText().toString());
+            }
+            if (etPhone1.getText().toString().isEmpty() || etPhone1.getText().toString() == null){
+                post.put("contact_phone",edit_phone);
+            }else {
+                post.put("contact_phone", etPhone1.getText().toString() + "," + etPhone2.getText().toString() + "," + etPhone3.getText().toString());
+            }
+            if (etEmail.getText().toString().isEmpty() || etEmail.getText().toString() ==null){
+                post.put("contact_email", edit_email);
+            }else {
+                post.put("contact_email", etEmail.getText().toString());
+            }
+            if (latlng.isEmpty() || latlng == null){
+                post.put("contact_address", edit_address);
+            }else {
+                post.put("contact_address", latlng);
+            }
+            //end check
+
             post.put("color", strColor);
 
             switch (strPostType){

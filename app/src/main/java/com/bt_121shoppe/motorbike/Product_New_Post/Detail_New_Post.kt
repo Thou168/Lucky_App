@@ -628,14 +628,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         var right_image:String=""
                         var back_image:String=""
                         var left_image:String=""
+                        var extra_image1:String=""
+                        var extra_image2:String=""
                         front_image=postDetail.front_image_path
                         right_image=postDetail.right_image_path
                         left_image=postDetail.left_image_path
                         back_image=postDetail.back_image_path
+                        extra_image1=postDetail.extra_image1
+                        extra_image2=postDetail.extra_image2
                         val images = listOf(front_image,
                                 right_image,
                                 left_image,
-                                back_image
+                                back_image,
+                                extra_image1,
+                                extra_image2
                         )
                         sliderImage.setItems(images)
                         sliderImage.addTimerToSlide(3000)
