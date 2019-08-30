@@ -976,7 +976,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount=jsonObject.getInt("count")
                         Log.d("444444",jsonCount.toString())
-                        if (jsonCount == 1){
+                        if (jsonCount == 1 || jsonCount == 0){
                             mprocessBar.visibility = View.GONE
                             tex_noresult.visibility = View.VISIBLE
                         }
