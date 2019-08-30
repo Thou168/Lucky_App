@@ -127,7 +127,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     lateinit var mHandler: Handler
-    private val activeUser: Active_user? = null
+    private var activeUser: Active_user? = null
     internal lateinit var mAllPostAdapter:AllPostAdapter
     internal lateinit var maLayoutManager:LinearLayoutManager
     internal lateinit var mAllPosts:ArrayList<PostProduct>
@@ -246,6 +246,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
 
+
+
         bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation!!.menu.getItem(0).isChecked = true
         bnavigation!!.setOnNavigationItemSelectedListener { item ->
@@ -255,6 +257,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.notification -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
+
                         val intent = Intent(this@Home, Notification::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -268,9 +271,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Home, Camera::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        if (activeUser?.isUserActive(pk,this)==false) {
+
+                        }else{
+                            Log.d("Active!!!!","is:"+activeUser?.isUserActive(pk,this))
+                            val intent = Intent(this@Home, Camera::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
                         intent.putExtra("verify","camera")

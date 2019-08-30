@@ -19,12 +19,13 @@ import java.io.IOException;
 public class Active_user extends Application {
     static SharedPreferences prefer;
     String st;
+    boolean isActive;
     protected void onCreate(Bundle savedInstanceState) {
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
 
     }
 
-    public static void isUserActive(int userId, Context context){
+    public  boolean isUserActive(int userId, Context context){
         String result="";
         try{
             result= CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/users/"+userId);
@@ -34,7 +35,7 @@ public class Active_user extends Application {
         try{
             //Log.d("Active","User "+result);
             JSONObject obj=new JSONObject(result);
-            boolean isActive=obj.getBoolean("is_active");
+             isActive=obj.getBoolean("is_active");
             if(!isActive){
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("This Account is Deactive")
@@ -51,5 +52,6 @@ public class Active_user extends Application {
         }catch (JSONException e){
             e.printStackTrace();
         }
+        return isActive;
     }
 }

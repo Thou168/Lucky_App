@@ -254,7 +254,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         Call_Type(Encode);
         Call_years(Encode);
         initialUserInformation(pk,Encode);
-
+Log.d("User information",user_name+","+user_email+","+user_phone+","+user_address+","+user_address_name);
         TextChange();
         add_Phone();
         bundle = getIntent().getExtras();
@@ -1162,11 +1162,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 post.put("contact_email", etEmail.getText().toString());
             }
 
-            if (latlng.isEmpty() || latlng == null){
-                post.put("contact_address", user_address);
-            }else {
+//            if (latlng.isEmpty() || latlng == null){
+//                post.put("contact_address", user_address);
+//            }else {
                 post.put("contact_address", latlng);
-            }
+//            }
 // end check
             post.put("color", strColor);
 
@@ -3367,7 +3367,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
 
                 }else {
-                    Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
                 e.printStackTrace();
