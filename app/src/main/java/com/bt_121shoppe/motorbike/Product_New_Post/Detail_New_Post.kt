@@ -609,7 +609,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                        sdf.timeZone = TimeZone.getTimeZone("GMT")
+                        sdf.timeZone = TimeZone.getTimeZone("GMT+7")
                         if (pt == 1){
                             time = sdf.parse(postDetail.created).time
                         }else{
@@ -1006,8 +1006,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val time: Long = sdf.parse(obj.getString("approved_date")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-
-
 
                             if(postId != id) {
                                 //Log.d("PostId ",postId.toString())
