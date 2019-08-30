@@ -634,8 +634,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         right_image=postDetail.right_image_path
                         left_image=postDetail.left_image_path
                         back_image=postDetail.back_image_path
-                        extra_image1=postDetail.extra_image1
-                        extra_image2=postDetail.extra_image2
+                        if (postDetail.extra_image1!=null || !postDetail.extra_image1.isEmpty())
+                             extra_image1=postDetail.extra_image1
+                        if (postDetail.extra_image2!=null || !postDetail.extra_image2.isEmpty())
+                            extra_image2=postDetail.extra_image2
+
+                        if (extra_image1==null || extra_image1.isEmpty()){
+                            extra_image1 = ""
+                        }
+                        if (extra_image2==null || extra_image2.isEmpty()){
+                            extra_image2=""
+                        }
+
                         val images = listOf(front_image,
                                 right_image,
                                 left_image,

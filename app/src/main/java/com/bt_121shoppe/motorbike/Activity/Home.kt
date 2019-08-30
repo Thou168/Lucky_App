@@ -39,6 +39,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
+import com.bt_121shoppe.motorbike.Api.api.Active_user
 import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Buy.Buy
 import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Rent.Rent
 import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Sell.Sell
@@ -126,7 +127,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     lateinit var mHandler: Handler
-
+    private val activeUser: Active_user? = null
     internal lateinit var mAllPostAdapter:AllPostAdapter
     internal lateinit var maLayoutManager:LinearLayoutManager
     internal lateinit var mAllPosts:ArrayList<PostProduct>
