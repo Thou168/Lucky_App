@@ -79,7 +79,7 @@ public class Buy_eletronic extends PassBuy1 {
     }
     private void getRent_vihicle(){
         Service api = Client.getClient().create(Service.class);
-        Call<AllResponse> call = api.getBuy_vihicle();
+        Call<AllResponse> call = api.getBuy_eletronic();
         call.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
