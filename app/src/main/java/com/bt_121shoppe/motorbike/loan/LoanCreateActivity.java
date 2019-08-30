@@ -513,6 +513,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             }
         });
 
+        loan_amount.setHint(getIntent().getStringExtra("Show_amount"));
         loan_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

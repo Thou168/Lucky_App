@@ -8,6 +8,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    //Message on deposit
+    <string name="deposit_message">should lower than price!</string>
+
     //Detail
     <string name="nav_detail">Detail</string>
     <string name="detail">DETAIL</string>

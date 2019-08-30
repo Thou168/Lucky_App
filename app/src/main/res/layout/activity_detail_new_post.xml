@@ -411,6 +411,7 @@
                         android:id="@+id/loanRow4"
                         android:layout_below="@id/loanRow3">
                         <LinearLayout
+                            android:id="@+id/linear_newpost"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:weightSum="1"
@@ -440,6 +441,16 @@
                                 android:background="@drawable/rounded_border_edittext"
                                 android:textSize="12sp"/>
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/view_deposit"
+                            android:layout_width="match_parent"
+                            android:hint=""
+                            android:layout_marginLeft="@dimen/dp_20"
+                            android:layout_marginRight="100dp"
+                            android:textSize="10dp"
+                            android:layout_height="14dp"
+                            android:layout_below="@+id/linear_newpost"/>
                     </RelativeLayout>
                     <TextView
                         android:layout_width="match_parent"

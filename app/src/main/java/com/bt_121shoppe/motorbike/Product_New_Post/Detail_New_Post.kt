@@ -67,6 +67,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -83,7 +84,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private var list_rela: RecyclerView? = null
     private var relativecal: RelativeLayout? = null
     private lateinit var txtundercal:TextView
-
+    private lateinit var show_amount_loan:String
 //    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
 //    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 //    private var mLocationPermissionGranted: Boolean = false
@@ -140,6 +141,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     lateinit var mprgressbar: ProgressBar
     lateinit var mtext_onresult: TextView
+    private lateinit var show_deposit:TextView
+    var st:String = "0"
+    var st2: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,6 +154,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             ActivityCompat.requestPermissions(this@Detail_New_Post, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
         }
 
+        show_deposit = findViewById(R.id.view_deposit)
         relativecal = findViewById(R.id.rlLoanCalculation)
         txtundercal = findViewById(R.id.text)
 //        checkPermission()
@@ -269,7 +274,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         edLoanDeposit.setHint("0.0")
         edLoanInterestRate.setText("1.5")
-        edLoanTerm.setText("12")
+        edLoanTerm.setText("24")
 
         tvMonthlyPayment.setText("$ 0.0")
 
@@ -305,19 +310,19 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             false
         })
 
-        edLoanDeposit.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                calculateLoanMonthlyPayment()
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                calculateLoanMonthlyPayment()
-
-            }
-            override fun afterTextChanged(p0: Editable?) {
-                calculateLoanMonthlyPayment()
-            }
-        })
+//        edLoanDeposit.addTextChangedListener(object: TextWatcher {
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                calculateLoanMonthlyPayment()
+//            }
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                calculateLoanMonthlyPayment()
+//
+//            }
+//            override fun afterTextChanged(p0: Editable?) {
+//                calculateLoanMonthlyPayment()
+//            }
+//        })
 
         edLoanInterestRate.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
@@ -530,14 +535,94 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postType=postDetail.post_type
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
-//                        edLoanPrice.setText(""+discount.toString())
                         edLoanPrice.setText(""+discount)
 
+                        show_amount_loan = discount.toString()
+
                         tvPrice1.setText("$"+ postDetail.cost)
+
+                        edLoanDeposit.addTextChangedListener(object: TextWatcher {
+                            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                                calculateLoanMonthlyPayment()
+                            }
+
+                            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                                calculateLoanMonthlyPayment()
+                                var ds:Double = discount.toDouble()
+                                var jk:String = "$0.0"
+                                st = p0.toString()
+                                if (st.isEmpty()){
+                                    st = "0"
+                                    st2  = st.toDouble()
+                                }else{
+                                    st2  = st.toDouble()
+                                }
+
+                                Log.d("jakata",ds.toString())
+                                Log.d("jakata","212121"+st2)
+                                if(st2 > ds){
+                                    show_deposit.setTextColor(resources.getColor(R.color.red))
+                                    show_deposit.setText(R.string.deposit_message)
+//                                    tvMonthlyPayment.visibility = View.INVISIBLE
+                                    tvMonthlyPayment.text = "$0.0"
+                                    tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
+
+
+                                }
+                                else if (st2 <= ds){
+                                    show_deposit.setText("")
+                                    tvMonthlyPayment.setTextColor(resources.getColor(R.color.colorSubmitButton))
+                                    tvMonthlyPayment.visibility = View.VISIBLE
+                                }
+                            }
+                            override fun afterTextChanged(p0: Editable?) {
+//                                calculateLoanMonthlyPayment()
+                            }
+                        })
 
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
                             tvPrice.visibility = View.GONE
+                            show_amount_loan = postDetail.cost.toString()
+                            edLoanPrice.setText(""+postDetail.cost)
+
+                            edLoanDeposit.addTextChangedListener(object: TextWatcher {
+                                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                                    calculateLoanMonthlyPayment()
+                                }
+                                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                                    calculateLoanMonthlyPayment()
+                                    var ds:Double = postDetail.cost.toDouble()
+
+                                    st = p0.toString()
+                                    if (st.isEmpty()){
+                                        st = "0"
+                                        st2  = st.toDouble()
+                                    }else{
+                                        st2  = st.toDouble()
+                                    }
+
+                                    Log.d("jakata",ds.toString())
+                                    Log.d("jakata","212121"+st2)
+                                    if(st2 > ds){
+                                        show_deposit.setTextColor(resources.getColor(R.color.red))
+                                        show_deposit.setText(R.string.deposit_message)
+//                                    tvMonthlyPayment.visibility = View.INVISIBLE
+                                        tvMonthlyPayment.text = "$0.0"
+                                        tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
+
+
+                                    }
+                                    else if (st2 <= ds){
+                                        show_deposit.setText("")
+                                        tvMonthlyPayment.setTextColor(resources.getColor(R.color.colorSubmitButton))
+                                        tvMonthlyPayment.visibility = View.VISIBLE
+                                    }
+                                }
+                                override fun afterTextChanged(p0: Editable?) {
+//                                    calculateLoanMonthlyPayment()
+                                }
+                            })
                         }else{
                             tvPrice1.visibility = View.GONE
                         }
@@ -1081,16 +1166,16 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         var aLoanTerm:Int=0
 
         if(loanPrice.isNullOrEmpty()) aPrice=0.0 else aPrice=loanPrice.toDouble()
-        if(loanDeposit.isNullOrEmpty()) aDeposit=0.0 else aDeposit=loanDeposit.toDouble()
+        if(loanDeposit.isNullOrEmpty()) aDeposit= 0.0 else aDeposit=loanDeposit.toDouble()
         if(loanInterestRate.isNullOrEmpty()) aInterestRate=1.5 else aInterestRate=loanInterestRate.toDouble()
-        if(loanTerm.isNullOrEmpty()) aLoanTerm=12 else aLoanTerm=loanTerm.toInt()
+        if(loanTerm.isNullOrEmpty()) aLoanTerm=24 else aLoanTerm=loanTerm.toInt()
 
         val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aDeposit,aInterestRate,aLoanTerm)
         //Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
+        val df:String
+        df = BigDecimal(monthlyPayment).setScale(2,RoundingMode.CEILING).toString()
 
-        tvMonthlyPayment.setText("$" + df.format(monthlyPayment)).toString()
+        tvMonthlyPayment.text = "$" + df
 
     }
 
@@ -1273,6 +1358,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                             }else{
                                 val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+                                intent.putExtra("Show_amount",show_amount_loan)
                                 intent.putExtra("PutIDLoan",postId)
                                 startActivity(intent)
                             }
