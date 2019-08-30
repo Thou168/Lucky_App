@@ -15,6 +15,62 @@
       },
       "oauth_client": [
         {
+          "client_id": "497739639802-ekgalqv6ov06eh2sc61t40te193pl9jl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "81684a1a27b1490880e9bf269f1cded0df045bef"
+          }
+        },
+        {
+          "client_id": "497739639802-lkc13g37n12p3qdidq8ivf6f7cvjq95q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "b805a8863fbb851c5e25bf12fd8e282e407e5e25"
+          }
+        },
+        {
+          "client_id": "497739639802-v3d863q12rnobvqbf32scc3jkklmuqib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "ffe14fa809fce7800a9e09bde494be64b951fb27"
+          }
+        },
+        {
+          "client_id": "497739639802-fejfirr57sgn2cd68jlgf1orqe4eecg1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "3ae13c62b9c51c57688657ab5e5b7af1c12107d8"
+          }
+        },
+        {
+          "client_id": "497739639802-c4n2fosi40vf3qajoanu0kc3cn3i960n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "157f53ad00d4bf540901c571f4385c34979a49bf"
+          }
+        },
+        {
+          "client_id": "497739639802-oukddtj7ihbre6p936gg78njvi1csnaf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "f38bb7e1443c04bfd62d829c10e1b4cac173f90f"
+          }
+        },
+        {
+          "client_id": "497739639802-jp5id7uan64ss3mgf40tjvihgq6g1k1o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bt_121shoppe.lucky_app",
+            "certificate_hash": "b1ae480e542d323a5d5c4306584c7c426b20f2cf"
+          }
+        },
+        {
           "client_id": "497739639802-qqagp38phps2tn6v8eig4d9b37bngoi7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +94,49 @@
             {
               "client_id": "497739639802-96sqml66hb0orsa0mbp25eaddcrglbge.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "497739639802-ekj558jvrtleunnsn0vtmth1dmff08l3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.121.VSMS"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497739639802:android:08fda81c6486b753",
+        "android_client_info": {
+          "package_name": "com.bt_121shoppe.motorbike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497739639802-96sqml66hb0orsa0mbp25eaddcrglbge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_CoN3YGphZCjSNdfyXA65-NcP4FXcUKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497739639802-96sqml66hb0orsa0mbp25eaddcrglbge.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "497739639802-ekj558jvrtleunnsn0vtmth1dmff08l3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.121.VSMS"
+              }
             }
           ]
         }

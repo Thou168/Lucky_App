@@ -657,5 +657,6 @@
         <item>Delete to post new ads</item>
         <item>Cancel</item>
     </string-array>
+    <string name="no_conversation">No Conversation!</string>
 
 </resources>

@@ -12,8 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.lucky_app.Activity.Item_API
-import com.bt_121shoppe.lucky_app.R
+import com.bt_121shoppe.motorbike.Activity.Item_API
+import com.bt_121shoppe.motorbike.R
 
 import java.io.ByteArrayOutputStream
 
@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream
 class MyAdapter_user_post(private val itemList: ArrayList<Item_API>, val type: String?) : RecyclerView.Adapter<MyAdapter_user_post.ViewHolder>() {
 
 //    internal var loadMoreListener: OnLoadMoreListener? = null
- //   internal var loadMoreListener: com.bt_121shoppe.lucky_app.Product_New_Post.MyAdapter_user_post.OnLoadMoreListener? = null
+ //   internal var loadMoreListener: com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_user_post.OnLoadMoreListener? = null
 //    internal var loadMoreListener: MyAdapter_list_grid_image.OnLoadMoreListener? = null
     internal var isLoading = false
     internal var isMoreDataAvailable = true
