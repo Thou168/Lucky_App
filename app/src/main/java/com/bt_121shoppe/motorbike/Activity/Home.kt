@@ -432,7 +432,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         CrashManager.register(this)
     }
 
-
     fun getUserProfile(){
         var user1 = User()
         var URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+pk
@@ -649,8 +648,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             val postType = `object`.getString("post_type")
                             val discount_type = `object`.getString("discount_type")
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                            val timeap: Long = sdf.parse(`object`.getString("created")).time
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"))
+                            val timeap: Long = sdf.parse(`object`.getString("approved_date")).time
 
                             val now: Long = System.currentTimeMillis()
                             val nowap: Long = System.currentTimeMillis()

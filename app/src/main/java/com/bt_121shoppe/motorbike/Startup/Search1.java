@@ -160,8 +160,8 @@ public class Search1 extends AppCompatActivity {
 
                         //
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-                        long time = sdf.parse(object.getString("created")).getTime();
+                        sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+                        long time = sdf.parse(object.getString("approved_date")).getTime();
                         long now = System.currentTimeMillis();
                         CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
 
