@@ -367,7 +367,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val version = ArrayList<Item>()
         version.addAll(Item.getType("Discount"))
 
-        best_list = findViewById<RecyclerView>(R.id.horizontal)
+        best_list = findViewById(R.id.horizontal)
         best_list!!.layoutManager = LinearLayoutManager(this@Home, LinearLayout.HORIZONTAL, false)
         getBest()
 

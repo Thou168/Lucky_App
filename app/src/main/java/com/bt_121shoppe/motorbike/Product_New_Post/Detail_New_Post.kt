@@ -721,27 +721,38 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         left_image=postDetail.left_image_path
                         back_image=postDetail.back_image_path
 
-                        if (postDetail.extra_image1==null || postDetail.extra_image1.isEmpty()){
-
-                        }else{
-                            extra_image1=postDetail.extra_image1
+//                        if (postDetail.extra_image1==null || postDetail.extra_image1.isEmpty()){
+//                            extra_image1 == null
+//                        }else{
+//                            extra_image1=postDetail.extra_image1
+//                        }
+//
+//                        if (postDetail.extra_image2==null || postDetail.extra_image2.isEmpty()){
+//                            extra_image2 == null
+//                        }else{
+//                            extra_image2=postDetail.extra_image2
+//                        }
+                        val arrayList2 = ArrayList<String>(6)
+                        arrayList2.add(front_image)
+                        arrayList2.add(right_image)
+                        arrayList2.add(right_image)
+                        arrayList2.add(back_image)
+                        if (postDetail.extra_image1!=null){
+                            arrayList2.add(postDetail.extra_image1)
                         }
-
-                        if (postDetail.extra_image2==null || postDetail.extra_image2.isEmpty()){
-
-                        }else{
-                            extra_image2=postDetail.extra_image2
+                        if (postDetail.extra_image2!=null){
+                            arrayList2.add(postDetail.extra_image2)
                         }
 
                         Log.d("@ moret image","numbers:"+extra_image1+","+extra_image2)
-                        val images = listOf(front_image,
-                                right_image,
-                                left_image,
-                                back_image,
-                                extra_image1,
-                                extra_image2
-                        )
-                        sliderImage.setItems(images)
+//                        val images = listOf(front_image,
+//                                right_image,
+//                                left_image,
+//                                back_image
+//                                extra_image1,
+//                                extra_image2
+//                        )
+                        sliderImage.setItems(arrayList2)
                         sliderImage.addTimerToSlide(3000)
                         sliderImage.removeTimerSlide()
                         sliderImage.getIndicator()
