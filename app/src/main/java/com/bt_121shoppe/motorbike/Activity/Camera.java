@@ -49,6 +49,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
+import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bumptech.glide.Glide;
@@ -153,6 +154,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private List<Integer> list_id_model = new ArrayList<>();
     private List<Integer> list_id_year = new ArrayList<>();
     private List<Integer> list_brand_model = new ArrayList<>();
+
     private  BottomNavigationView bnavigation;
     String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor;
     int idYear=0,process_type=0,post_type=0,category=0;
@@ -186,6 +188,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }
         Log.d("Pk",""+pk);
         //ButterKnife.bind(this);
+//check active and deactive account by samang 2/09/19
+        Active_user activeUser = new Active_user();
+        String active;
+        active = activeUser.isUserActive(pk,this);
+        if (active.equals("false")){
+            activeUser.clear_session(this);
+        }
+// end
         mCompressor = new FileCompressor(this);
    //     Log.d(TAG,"time"+Instant.now().toString());
         TextView back = (TextView)findViewById(R.id.tv_back);

@@ -1,6 +1,5 @@
 package com.bt_121shoppe.motorbike.chats;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,8 +21,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.Activity.Notification;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -85,7 +86,14 @@ public class ChatMainActivity extends AppCompatActivity {
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
-
+//check active and deactive account by samang 2/09/19
+        Active_user activeUser = new Active_user();
+        String active;
+        active = activeUser.isUserActive(pk,this);
+        if (active.equals("false")){
+            activeUser.clear_session(this);
+        }
+// end
         bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(3).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(menuItem -> {

@@ -10,14 +10,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import com.bt_121shoppe.motorbike.Activity.*
+import com.bt_121shoppe.motorbike.Api.api.Active_user
 import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Rent.Rent_vehicle
 import com.bt_121shoppe.motorbike.Login_Register.UserAccount
 import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.chats.ChatMainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
 class Rent_Main1 : AppCompatActivity() {
-
+    private var pk=0
     private var content: FrameLayout? = null
     private var bnavigation: BottomNavigationView? = null
 
@@ -26,6 +28,17 @@ class Rent_Main1 : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         locale()
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        if (sharedPref.contains("token")) {
+            pk = sharedPref.getInt("Pk",0)
+        } else if (sharedPref.contains("id")) {
+            pk = sharedPref.getInt("id", 0)
+        }
+
+ //check active and deactive account by samang 2/09/19
+        val activeUser = Active_user()
+        val active: String
+        active = activeUser.isUserActive(pk, this)
+//end
         content = findViewById(R.id.content) as FrameLayout
         supportFragmentManager.beginTransaction().replace(R.id.content, Rent_vehicle()).commit()
          bnavigation = findViewById(R.id.navigation)
@@ -39,9 +52,14 @@ class Rent_Main1 : AppCompatActivity() {
                 }
                 R.id.notification -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Rent_Main1,Notification::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                        //check active and deactive account by samang 2/09/19  (all)
+                        if (active.equals("false")){
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Rent_Main1, Notification::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Rent_Main1, UserAccount::class.java)
                         startActivity(intent)
@@ -50,12 +68,16 @@ class Rent_Main1 : AppCompatActivity() {
                 }
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Rent_Main1, Camera::class.java)
-                        intent.putExtra("process_type",1)
-                        intent.putExtra("post_type","rent")
-                        intent.putExtra("category",2) //buy eletronic=1
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        if (active.equals("false")){
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Rent_Main1, Camera::class.java)
+                            intent.putExtra("process_type", 1)
+                            intent.putExtra("post_type", "rent")
+                            intent.putExtra("category", 2) //buy eletronic=1
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Rent_Main1, UserAccount::class.java)
                         startActivity(intent)
@@ -64,9 +86,13 @@ class Rent_Main1 : AppCompatActivity() {
                 }
                 R.id.message -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Rent_Main1,Message::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                        if (active.equals("false")){
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Rent_Main1, ChatMainActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Rent_Main1, UserAccount::class.java)
                         startActivity(intent)
@@ -75,9 +101,13 @@ class Rent_Main1 : AppCompatActivity() {
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Rent_Main1, Account::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        if (active.equals("false")){
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Rent_Main1, Account::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Rent_Main1, UserAccount::class.java)
                         startActivity(intent)

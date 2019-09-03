@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
+import com.bt_121shoppe.motorbike.Api.api.Active_user
 import com.bt_121shoppe.motorbike.Login_Register.UserAccount
 import com.bt_121shoppe.motorbike.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -51,6 +52,14 @@ class Notification : AppCompatActivity() {
         } else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0)
         }
+//check active and deactive account by samang 2/09/19
+        val activeUser = Active_user()
+        val active: String
+        active = activeUser.isUserActive(pk, this)
+        if (active == "false") {
+            activeUser.clear_session(this)
+        }
+// end
         val url= ConsumeAPI.BASE_URL+"api/v1/users/"+pk
         val result=CommonFunction.doGetRequestwithAuth(url,encodeAuth)
         Log.d("Hello",result)

@@ -41,6 +41,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.date.YearMonthPickerDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -126,7 +127,14 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
-
+//check active and deactive account by samang 2/09/19
+        Active_user activeUser = new Active_user();
+        String active;
+        active = activeUser.isUserActive(pk,this);
+        if (active.equals("false")){
+            activeUser.clear_session(this);
+        }
+//end
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");

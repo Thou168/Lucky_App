@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.bt_121shoppe.motorbike.AccountTab.MainLoanList;
 import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Setting.Setting;
@@ -132,6 +133,15 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         }else if (preferences.contains("id")){
             pk = preferences.getInt("id",0);
         }
+
+//check active and deactive account by samang 2/09/19
+        Active_user activeUser = new Active_user();
+        String active;
+        active = activeUser.isUserActive(pk,this);
+        if (active.equals("false")){
+            activeUser.clear_session(this);
+        }
+// end
         //Log.d("Account","Breand pk"+pk);
         if (pk==0){
             Intent intent = new Intent(Account.this, UserAccount.class);
@@ -222,7 +232,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 selectImage();
             }
         });
-    }
+    }  // onCreate
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

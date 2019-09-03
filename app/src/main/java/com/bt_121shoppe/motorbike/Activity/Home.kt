@@ -127,7 +127,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     lateinit var mHandler: Handler
-    private var activeUser: Active_user? = null
+//    private var activeUser: Active_user? = null
     internal lateinit var mAllPostAdapter:AllPostAdapter
     internal lateinit var maLayoutManager:LinearLayoutManager
     internal lateinit var mAllPosts:ArrayList<PostProduct>
@@ -246,7 +246,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
 
-
+//check active and deactive account by samang 2/09/19
+            val active: String
+            val activeUser = Active_user()
+            active = activeUser.isUserActive(pk,this)
+            Log.d("Active!!!!","is:"+active)
 
         bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation!!.menu.getItem(0).isChecked = true
@@ -257,10 +261,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.notification -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-
-                        val intent = Intent(this@Home, Notification::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        //check active and deactive account by samang 2/09/19  (all)
+                        if (active.equals("false")){
+                            Log.d("Active???","is:"+active)
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Home, Notification::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
                         intent.putExtra("verify","notification")
@@ -271,14 +280,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        if (activeUser?.isUserActive(pk,this)==false) {
+                         if (active.equals("false")){
+                             Log.d("Active???","is:"+active)
+                             activeUser.clear_session(this)
+                         }else{
+                             val intent = Intent(this@Home, Camera::class.java)
+                             startActivity(intent)
+                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                         }
 
-                        }else{
-                            Log.d("Active!!!!","is:"+activeUser?.isUserActive(pk,this))
-                            val intent = Intent(this@Home, Camera::class.java)
-                            startActivity(intent)
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                        }
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
                         intent.putExtra("verify","camera")
@@ -289,9 +299,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.message -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Home,ChatMainActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+                        if (active.equals("false")){
+                            Log.d("Active???","is:"+active)
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Home, ChatMainActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
                         intent.putExtra("verify","message")
@@ -302,9 +317,14 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
                 R.id.account ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Home, Account::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        if (active.equals("false")){
+                            Log.d("Active???","is:"+active)
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Home, Account::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
                         intent.putExtra("verify","account")

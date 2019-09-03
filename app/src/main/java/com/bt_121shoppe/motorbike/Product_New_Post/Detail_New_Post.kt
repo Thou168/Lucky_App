@@ -663,6 +663,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }
                         tvDescription.setText(postDetail.description.toString())
                         user_email.setText(postDetail.contact_email.toString())
+                        user_name.setText(postDetail.machine_code.toString())
 
                         val contact_phone = postDetail.contact_phone.toString()
                             //Phone_call(contact_phone)
@@ -721,13 +722,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         back_image=postDetail.back_image_path
 
                         if (postDetail.extra_image1==null || postDetail.extra_image1.isEmpty()){
-                            extra_image1 == null
+
                         }else{
                             extra_image1=postDetail.extra_image1
                         }
 
                         if (postDetail.extra_image2==null || postDetail.extra_image2.isEmpty()){
-                            extra_image2 == null
+
                         }else{
                             extra_image2=postDetail.extra_image2
                         }
@@ -819,12 +820,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         else
                             postUsername=user1.profile.first_name
                         postUserId=user1.username
-
-                        if(user1.getFirst_name().isEmpty()){
-                            user_name!!.setText(user1.getUsername())
-                        }else{
-                            user_name!!.setText(user1.getFirst_name())
-                        }
+//
+//                        if(user1.getFirst_name().isEmpty()){
+//                            user_name!!.setText(user1.getUsername())
+//                        }else{
+//                            user_name!!.setText(user1.getFirst_name())
+//                        }
 
 //                        user_telephone.setText(user1.profile.telephone)
 //                        user_email.setText(user1.email)
