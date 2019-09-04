@@ -22,6 +22,7 @@ public class Item implements Serializable {
     private String back_image_path;
     private String created;
     private int created_by;
+    @SerializedName("modified")
     private String modified;
     private String modified_by = null;
     private String approved_date;

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -75,21 +76,27 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final Item model = datas.get(position);
         String iditem = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
-        String type_status = null;
-        view.linearLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, Detail_New_Post.class);
-            intent.putExtra("Price", model.getCost());
-            intent.putExtra("postt", 1);
-            intent.putExtra("ID",Integer.parseInt(iditem));
-            mContext.startActivity(intent);
-        });
+//        view.linearLayout.setOnClickListener(v -> {
+//            Intent intent = new Intent(mContext, Detail_New_Post.class);
+//            intent.putExtra("Price", model.getCost());
+//            intent.putExtra("postt", 1);
+//            intent.putExtra("ID",Integer.parseInt(iditem));
+//            mContext.startActivity(intent);
+//        });
         view.btn_unlike.setVisibility(View.GONE);
 
+        Double rs_price = 0.0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         long date = 0;
+        Log.d("344343444","4545"+model.getModified());
         try {
-            date = sdf.parse(model.getCreated()).getTime();
+            if (model.getModified() == null){
+                date = sdf.parse(model.getCreated()).getTime();
+            }else {
+                date = sdf.parse(model.getModified()).getTime();
+            }
+
             Long now = System.currentTimeMillis();
             CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
             view.date.setText(ago);
@@ -97,7 +104,34 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             e.printStackTrace();
         }
         view.title.setText(model.getTitle());
-        view.cost.setText("$"+model.getCost());
+        if (model.getDiscount().equals("0.00")){
+            view.cost.setText("$"+model.getCost());
+//            rs_price = Double.parseDouble(model.getCost());
+        }else {
+            rs_price = Double.parseDouble(model.getCost());
+            if (model.getDiscount_type().equals("amount")){
+                rs_price = rs_price - Double.parseDouble(model.getDiscount());
+            }else if (model.getDiscount_type().equals("percent")){
+                Double per = Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
+                rs_price = rs_price - per;
+            }
+            view.cost.setText("$"+rs_price);
+            view.txt_discount.setVisibility(View.VISIBLE);
+            Double co_price = Double.parseDouble(model.getCost());
+            view.txt_discount.setText("$"+co_price);
+            view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        Double finalRs_price = rs_price;
+        view.linearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, Detail_New_Post.class);
+            intent.putExtra("Price", model.getCost());
+            intent.putExtra("Discount", finalRs_price);
+            if (model.getStatus() == 2){
+                intent.putExtra("postt", 2);
+            }
+            intent.putExtra("ID",Integer.parseInt(iditem));
+            mContext.startActivity(intent);
+        });
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
         if (model.getPost_type().equals("sell")){
             view.item_type.setText(R.string.sell_t);
@@ -138,7 +172,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,item_type,txtview,date;
+        TextView title,cost,item_type,txtview,date,txt_discount;
         ImageView imageView;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
@@ -151,7 +185,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
             btn_unlike = view.findViewById(R.id.imgbtn_unlike);
-//            btn_edit = view.findViewById(R.id.btnedit_post);
+            txt_discount = view.findViewById(R.id.tv_discount);
 //            btn_delete = view.findViewById(R.id.btndelete);
             linearLayout = view.findViewById(R.id.linearLayout);
         }

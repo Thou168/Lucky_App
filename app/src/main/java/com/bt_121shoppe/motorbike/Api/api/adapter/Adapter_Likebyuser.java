@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -89,14 +90,43 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
                     view.title.setText(response.body().getTitle());
-                    view.cost.setText("$"+response.body().getCost());
-
-                    view.linearLayout.setOnClickListener(v -> {
+                    Double rs_price=0.0;
+                    if (response.body().getDiscount().equals("0.00")){
+                        Double co_cost = Double.parseDouble(response.body().getCost());
+                        view.cost.setText("$"+co_cost);
+                        view.linearLayout.setOnClickListener(v -> {
                         Intent intent = new Intent(mContext, Detail_New_Post.class);
-                        intent.putExtra("Price", response.body().getCost());
                         intent.putExtra("ID",Integer.parseInt(iditem));
                         mContext.startActivity(intent);
                     });
+                    }else {
+                        rs_price = Double.parseDouble(response.body().getCost());
+                        if (response.body().getDiscount_type().equals("amount")){
+                            rs_price = rs_price - Double.parseDouble(response.body().getDiscount());
+                        }else if (response.body().equals("percent")){
+                            Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
+                            rs_price = rs_price - per;
+                        }
+                        Double finalRs_price = rs_price;
+                        Log.d("565656","56"+finalRs_price);
+                        view.linearLayout.setOnClickListener(v -> {
+                            Intent intent = new Intent(mContext, Detail_New_Post.class);
+                            intent.putExtra("Discount", finalRs_price);
+                            intent.putExtra("ID",Integer.parseInt(iditem));
+                            mContext.startActivity(intent);
+                        });
+                        view.cost.setText("$"+rs_price);
+                        view.txt_discount.setVisibility(View.VISIBLE);
+                        Double co_price = Double.parseDouble(response.body().getCost());
+                        view.txt_discount.setText("$"+co_price);
+                        view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+//                    view.linearLayout.setOnClickListener(v -> {
+//                        Intent intent = new Intent(mContext, Detail_New_Post.class);
+//                        intent.putExtra("Price", response.body().getCost());
+//                        intent.putExtra("ID",Integer.parseInt(iditem));
+//                        mContext.startActivity(intent);
+//                    });
                     if (response.body().getPost_type().equals("sell")){
                         view.item_type.setText(R.string.sell_t);
                         view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
@@ -113,7 +143,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                     Log.d("545445",response.body().getCreated());
                     long date = 0;
                     try {
-                        date = sdf.parse(response.body().getCreated()).getTime();
+                        date = sdf.parse(response.body().getApproved_date()).getTime();
                         Long now = System.currentTimeMillis();
                         CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
                         view.date.setText(ago);
@@ -184,7 +214,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,item_type,txtview,date;
+        TextView title,cost,item_type,txtview,date,txt_discount;
         ImageView imageView;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
@@ -198,6 +228,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             txtview = view.findViewById(R.id.user_view);
             btn_unlike = view.findViewById(R.id.imgbtn_unlike);
             linearLayout = view.findViewById(R.id.linearLayout);
+            txt_discount = view.findViewById(R.id.tv_discount);
         }
     }
 }

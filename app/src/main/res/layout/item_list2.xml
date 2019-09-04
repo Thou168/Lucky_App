@@ -43,9 +43,20 @@
                 android:textColor="@android:color/holo_red_light"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:text="$0.00"
+                android:textSize="12dp"
+                android:layout_marginBottom="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_price"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/tv_price"
+                android:text="$0.00"
+                android:textSize="12dp"/>
 
             <RelativeLayout
                 android:id="@+id/li_postType"
@@ -56,16 +67,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-
                 <ImageButton
                     android:id="@+id/imgbtn_unlike"
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_favorite_24dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="40dp"
-                    android:background="#ffff"
-                    />
+                    android:background="#ffff" />
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -80,6 +89,7 @@
                         android:id="@+id/item_type"
                         android:textStyle="bold"
                         android:textSize="12dp"
+                        android:layout_marginBottom="12dp"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content" />
                     <LinearLayout

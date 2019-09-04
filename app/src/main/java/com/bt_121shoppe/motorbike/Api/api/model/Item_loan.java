@@ -46,8 +46,6 @@ public class Item_loan extends LikebyUser{
     private String loan_created = getCreated();
 //    @SerializedName("created_by")
     private int loan_created_by = getCreated_by();
-//    @SerializedName("modified")
-    private String loan_modified = getModified();
 //    @SerializedName("modified_by")
     private String loan_modified_by = getModified_by();
 //    @SerializedName("received_date")
@@ -91,7 +89,6 @@ public class Item_loan extends LikebyUser{
         this.mfi = mfi;
         this.loan_created = loan_created;
         this.loan_created_by = loan_created_by;
-        this.loan_modified = modified;
         this.loan_modified_by = modified_by;
         this.loan_received_date = received_date;
         this.loan_received_by = received_by;
@@ -279,16 +276,6 @@ public class Item_loan extends LikebyUser{
 
     public void setLoan_created_by(int loan_created_by) {
         this.loan_created_by = loan_created_by;
-    }
-
-    @Override
-    public String getModified() {
-        return loan_modified;
-    }
-
-    @Override
-    public void setModified(String modified) {
-        this.loan_modified = modified;
     }
 
     @Override

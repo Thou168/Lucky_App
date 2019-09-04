@@ -160,7 +160,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        checkPermission()
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
-//        Log.d("ID Detail New :",postId.toString())
+        Log.d("123456789 :",discount.toString())
         sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
@@ -186,31 +186,31 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         back.setOnClickListener { finish() }
         //Slider
 
-        Layout_call_chat_like_loan = findViewById<ConstraintLayout>(R.id.Constrainlayout_call_chat_like_loan)
+        Layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan)
 
-        sliderImage = findViewById<SliderImage>(R.id.slider)
-        tvPostTitle = findViewById<TextView>(R.id.title)
-        tvPrice = findViewById<TextView>(R.id.tv_price)
-        tvPrice1 = findViewById<TextView>(R.id.tv_price1)
-        tvDiscount = findViewById<TextView>(R.id.tv_discount)
-        tvBrand=findViewById<TextView>(R.id.tvBrand)
-        tvModel=findViewById<TextView>(R.id.tv_Model)
-        tvYear=findViewById<TextView>(R.id.tv_Year)
-        tvCondition=findViewById<TextView>(R.id.tv_Condition)
-        tvColor=findViewById<TextView>(R.id.tv_Color)
-        tvDescription=findViewById<TextView>(R.id.tv_Description)
-        tvMonthlyPayment=findViewById<TextView>(R.id.tvMonthlyPayment)
-        edLoanPrice=findViewById<EditText>(R.id.ed_loan_price)
-        edLoanInterestRate=findViewById<EditText>(R.id.ed_loan_interest_rate)
-        edLoanDeposit=findViewById<EditText>(R.id.ed_loan_deposit)
-        edLoanTerm=findViewById<EditText>(R.id.ed_loan_term)
-        user_name = findViewById<TextView>(R.id.tv_name)
-        img_user = findViewById<CircleImageView>(R.id.cr_img)
-        user_telephone=findViewById<TextView>(R.id.tv_phone)
-        user_email=findViewById<TextView>(R.id.tv_email)
+        sliderImage = findViewById(R.id.slider)
+        tvPostTitle = findViewById(R.id.title)
+        tvPrice = findViewById(R.id.tv_price)
+//        tvPrice1 = findViewById(R.id.tv_price1)
+        tvDiscount = findViewById(R.id.tv_discount)
+        tvBrand=findViewById(R.id.tvBrand)
+        tvModel=findViewById(R.id.tv_Model)
+        tvYear=findViewById(R.id.tv_Year)
+        tvCondition=findViewById(R.id.tv_Condition)
+        tvColor=findViewById(R.id.tv_Color)
+        tvDescription=findViewById(R.id.tv_Description)
+        tvMonthlyPayment=findViewById(R.id.tvMonthlyPayment)
+        edLoanPrice=findViewById(R.id.ed_loan_price)
+        edLoanInterestRate=findViewById(R.id.ed_loan_interest_rate)
+        edLoanDeposit=findViewById(R.id.ed_loan_deposit)
+        edLoanTerm=findViewById(R.id.ed_loan_term)
+        user_name = findViewById(R.id.tv_name)
+        img_user = findViewById(R.id.cr_img)
+        user_telephone=findViewById(R.id.tv_phone)
+        user_email=findViewById(R.id.tv_email)
         tv_count_view=findViewById(R.id.view)
-        tv_location_duration=findViewById<TextView>(R.id.tv_location_duration)
-        address_detial = findViewById<TextView>(R.id.address)
+        tv_location_duration=findViewById(R.id.tv_location_duration)
+        address_detial = findViewById(R.id.address)
         call_phone = findViewById(R.id.btn_call)
 
         mprocessBar = findViewById(R.id.mprogressbar)
@@ -539,7 +539,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         show_amount_loan = discount.toString()
 
-                        tvPrice1.setText("$"+ postDetail.cost)
+//                        tvPrice1.setText("$"+ postDetail.cost)
 
                         edLoanDeposit.addTextChangedListener(object: TextWatcher {
                             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -580,9 +580,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
                         })
 
+                        Log.d("767676", discount.toString())
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
-                            tvPrice.visibility = View.GONE
+                            tvPrice.text = postDetail.cost
                             show_amount_loan = postDetail.cost.toString()
                             edLoanPrice.setText(""+postDetail.cost)
 
@@ -624,7 +625,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 }
                             })
                         }else{
-                            tvPrice1.visibility = View.GONE
+//                            tvPrice.visibility = View.GONE
                         }
 
                         var st = "$"+postDetail.cost
@@ -698,7 +699,15 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         sdf.timeZone = TimeZone.getTimeZone("GMT+7")
                         if (pt == 1){
                             time = sdf.parse(postDetail.created).time
-                        }else{
+                        }else if(pt == 2){ //pt = 2 for detail history post user
+                            if (postDetail.modified == null){
+                                time = sdf.parse(postDetail.created).time
+                            }else{
+                                val mdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                mdf.timeZone = TimeZone.getTimeZone("GMT")
+                                time = mdf.parse(postDetail.modified).time
+                            }
+                        } else{
                             time = sdf.parse(postDetail.approved_date).time
                         }
 
