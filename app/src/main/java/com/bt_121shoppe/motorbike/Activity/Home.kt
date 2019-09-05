@@ -259,6 +259,44 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 R.id.home -> {
                     recreate()
                 }
+                R.id.camera ->{
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        if (active.equals("false")){
+                            Log.d("Active???","is:"+active)
+                            activeUser.clear_session(this)
+                        }else{
+                            val intent = Intent(this@Home, Camera::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+
+                    }else{
+                        val intent = Intent(this@Home, UserAccount::class.java)
+                        intent.putExtra("verify","camera")
+                        Log.d("VeriFy Code", intent.toString())
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
+                }
+
+                R.id.message -> {
+                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
+                        if (active.equals("false")){
+                            Log.d("Active???","is:"+active)
+                            activeUser.clear_session(this)
+                        }else {
+                            val intent = Intent(this@Home, ChatMainActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+                    }else{
+                        val intent = Intent(this@Home, UserAccount::class.java)
+                        intent.putExtra("verify","message")
+                        Log.d("VeriFy Code", intent.toString())
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
+                }
                 R.id.notification -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
                         //check active and deactive account by samang 2/09/19  (all)
@@ -273,43 +311,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     }else{
                         val intent = Intent(this@Home, UserAccount::class.java)
                         intent.putExtra("verify","notification")
-                        Log.d("VeriFy Code", intent.toString())
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                    }
-                }
-                R.id.camera ->{
-                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                         if (active.equals("false")){
-                             Log.d("Active???","is:"+active)
-                             activeUser.clear_session(this)
-                         }else{
-                             val intent = Intent(this@Home, Camera::class.java)
-                             startActivity(intent)
-                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                         }
-
-                    }else{
-                        val intent = Intent(this@Home, UserAccount::class.java)
-                        intent.putExtra("verify","camera")
-                        Log.d("VeriFy Code", intent.toString())
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                    }
-                }
-                R.id.message -> {
-                    if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        if (active.equals("false")){
-                            Log.d("Active???","is:"+active)
-                            activeUser.clear_session(this)
-                        }else {
-                            val intent = Intent(this@Home, ChatMainActivity::class.java)
-                            startActivity(intent)
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                        }
-                    }else{
-                        val intent = Intent(this@Home, UserAccount::class.java)
-                        intent.putExtra("verify","message")
                         Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -491,7 +492,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                 else
                                     drawer_username.setText(user1.first_name)
                                 if (ffuser!!.imageURL == "default") {
-                                    imageView.setImageResource(R.drawable.user)
+                                    imageView.setImageResource(R.drawable.square_logo)
                                 } else {
                                     Glide.with(this@Home).load(ffuser.imageURL).into(imageView)
                                 }

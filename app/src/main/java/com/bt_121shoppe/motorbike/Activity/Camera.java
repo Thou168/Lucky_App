@@ -215,7 +215,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         String language = preferences.getString("My_Lang", "");
 
         bnavigation = findViewById(R.id.bnaviga);
-        bnavigation.getMenu().getItem(2).setChecked(true);
+        bnavigation.getMenu().getItem(1).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.home:
@@ -264,7 +264,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         Call_Type(Encode);
         Call_years(Encode);
         initialUserInformation(pk,Encode);
-Log.d("User information",user_name+","+user_email+","+user_phone+","+user_address+","+user_address_name);
+        Log.d("User information",user_name+","+user_email+","+user_phone+","+user_address+","+user_address_name);
         TextChange();
         add_Phone();
         bundle = getIntent().getExtras();
@@ -1083,6 +1083,12 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
+                post.put("front_image_path", "");
+                post.put("right_image_path", "");
+                post.put("left_image_path", "");
+                post.put("back_image_path", "");
+                post.put("extra_image1", "");
+                post.put("extra_image2", "");
             }else {
                 post.put("discount_type", strDiscountType);
                 post.put("discount",str_dis);
@@ -1121,17 +1127,17 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
 // add 2 image by samang 26/08
             if(bitmapImage5==null){
                 post.put("extra_image1", "");
-//                post.put("back_image_base64", "");
+                post.put("extra_image1_base64", "");
             }else{
                 post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
-//                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
+                post.put("extra_image1_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
             }
             if(bitmapImage6==null){
                 post.put("extra_image2", "");
-//                post.put("other_image_base64", "");
+                post.put("extra_image2_base64", "");
             }else{
                 post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
-//                post.put("others_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
+                post.put("extra_image2_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
             }
  //end add image
             //Instant.now().toString()
@@ -1172,11 +1178,8 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
                 post.put("contact_email", etEmail.getText().toString());
             }
 
-//            if (latlng.isEmpty() || latlng == null){
-//                post.put("contact_address", user_address);
-//            }else {
-                post.put("contact_address", latlng);
-//            }
+             post.put("contact_address", latlng);
+
 // end check
             post.put("color", strColor);
 
@@ -1270,8 +1273,11 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
-                                                        startActivity(new Intent(Camera.this,Home.class));
-                                                        dialog.dismiss();
+                                                       Intent intent = new Intent(Camera.this,Home.class);
+                                                       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                       startActivity(intent);
+                                                       finish();
+                                                       dialog.dismiss();
                                                     }
                                                 });
                                         alertDialog.show();
@@ -1497,11 +1503,9 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
             }else {
                 post.put("contact_email", etEmail.getText().toString());
             }
-            if (latlng.isEmpty() || latlng == null){
-                post.put("contact_address", edit_address);
-            }else {
-                post.put("contact_address", latlng);
-            }
+
+            post.put("contact_address", latlng);
+
             //end check
 
             post.put("color", strColor);
@@ -1604,7 +1608,10 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
-                                                        startActivity(new Intent(Camera.this,Home.class));
+                                                        Intent intent = new Intent(Camera.this,Home.class);
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(intent);
+                                                        finish();
                                                         dialog.dismiss();
                                                     }
                                                 });
@@ -2490,22 +2497,22 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
         icPhone3     = (ImageView) findViewById(R.id. imgPhone3);
         icDiscount_amount = (ImageView) findViewById(R.id. imgDisAmount);
         icDiscount_type   = (ImageView) findViewById(R.id.imgDisType );
-        imageView1=(ImageView) findViewById(R.id.Picture1);
-        imageView2=(ImageView) findViewById(R.id.Picture2);
-        imageView3=(ImageView) findViewById(R.id.Picture3);
-        imageView4=(ImageView) findViewById(R.id.Picture4);
-        imageView5=(ImageView) findViewById(R.id.Picture5);
-        imageView6=(ImageView) findViewById(R.id.Picture6);
+        imageView1 =(ImageView) findViewById(R.id.Picture1);
+        imageView2 =(ImageView) findViewById(R.id.Picture2);
+        imageView3 =(ImageView) findViewById(R.id.Picture3);
+        imageView4 =(ImageView) findViewById(R.id.Picture4);
+        imageView5 =(ImageView) findViewById(R.id.Picture5);
+        imageView6 =(ImageView) findViewById(R.id.Picture6);
 
         input_title = (TextInputLayout)findViewById(R.id.tilTitle);
         input_price = (TextInputLayout)findViewById(R.id.tilPrice);
-        input_des = (TextInputLayout)findViewById(R.id.tilDescription);
-        input_dis = (TextInputLayout)findViewById(R.id.tilDisAmout);
-        input_name = (TextInputLayout)findViewById(R.id.tilName);
+        input_des   = (TextInputLayout)findViewById(R.id.tilDescription);
+        input_dis   = (TextInputLayout)findViewById(R.id.tilDisAmout);
+        input_name  = (TextInputLayout)findViewById(R.id.tilName);
         input_phone = (TextInputLayout)findViewById(R.id.tilPhone1);
         input_email = (TextInputLayout)findViewById(R.id.tilEmail);
-        tilPhone2  = (TextInputLayout)findViewById(R.id.tilPhone2);
-        tilphone3  = (TextInputLayout)findViewById(R.id.tilPhone3);
+        tilPhone2   = (TextInputLayout)findViewById(R.id.tilPhone2);
+        tilphone3   = (TextInputLayout)findViewById(R.id.tilPhone3);
 
     }
 
@@ -3455,7 +3462,7 @@ Log.d("User information",user_name+","+user_email+","+user_phone+","+user_addres
     @Override
     protected void onStart() {
         super.onStart();
-        bnavigation.getMenu().getItem(2).setChecked(true);
+        bnavigation.getMenu().getItem(1).setChecked(true);
     }
 }
 

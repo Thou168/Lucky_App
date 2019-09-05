@@ -65,7 +65,7 @@ class Notification : AppCompatActivity() {
         Log.d("Hello",result)
 
          bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
-        bnavigation!!.menu.getItem(1).isChecked = true
+        bnavigation!!.menu.getItem(3).isChecked = true
         bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -131,6 +131,6 @@ class Notification : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        bnavigation!!.menu.getItem(1).isChecked = true
+        bnavigation!!.menu.getItem(3).isChecked = true
     }
 }

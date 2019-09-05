@@ -5,17 +5,17 @@
     android:icon="@drawable/tab_home_selector"
     android:title="@string/home"/>
     <item
-    android:id="@+id/notification"
-    android:icon="@drawable/tab_notification_selector"
-    android:title="@string/notification"/>
-    <item
         android:id="@+id/camera"
         android:icon="@drawable/tab_home_camera"
         android:title="@string/camera"/>
     <item
-    android:id="@+id/message"
-    android:icon="@drawable/icon_chat"
-    android:title="@string/chat"/>
+        android:id="@+id/message"
+        android:icon="@drawable/icon_chat"
+        android:title="@string/chat"/>
+    <item
+    android:id="@+id/notification"
+    android:icon="@drawable/tab_notification_selector"
+    android:title="@string/notification"/>
     <item
         android:id="@+id/account"
         android:icon="@drawable/tab_account_selector"

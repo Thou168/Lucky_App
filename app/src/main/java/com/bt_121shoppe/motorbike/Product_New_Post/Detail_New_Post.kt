@@ -55,6 +55,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetDialog
 //import com.google.android.gms.location.FusedLocationProviderClient
 //import com.google.android.gms.maps.GoogleMap
 //import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -667,7 +668,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         user_name.setText(postDetail.machine_code.toString())
 
                         val contact_phone = postDetail.contact_phone.toString()
-                            //Phone_call(contact_phone)
+                            Phone_call(contact_phone)
                         val splitPhone = contact_phone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                             if(splitPhone.size == 1){
                                 user_telephone.text = splitPhone[0]
@@ -872,97 +873,94 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
     }
 
-//    fun Phone_call(contactPhone: String) {
-//        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-//
-//        call_phone.setOnClickListener {
-//
-//            val dialog = BottomSheetDialog(it.context)
-//            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
-//            dialog.setContentView(view)
-//            dialog.show()
-//
-//            val phone1= view.findViewById<TextView>(R.id.call_phone1)
-//            val phone2= view.findViewById<TextView>(R.id.call_phone2)
-//            val phone3= view.findViewById<TextView>(R.id.call_phone3)
-//            if (splitPhone.size == 1){
-//                phone1.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone1.setOnClickListener {
-////                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-////                    startActivity(intent)
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_DIAL
-//                        data = Uri.parse("tel:"+splitPhone[0])
-//                    }
+    fun Phone_call(contactPhone: String) {
+        val splitPhone = contactPhone.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+
+        call_phone.setOnClickListener {
+
+            val dialog = BottomSheetDialog(it.context)
+            val view = layoutInflater.inflate(R.layout.call_sheet_dialog,null)
+            dialog.setContentView(view)
+            dialog.show()
+
+            val phone1= view.findViewById<TextView>(R.id.call_phone1)
+            val phone2= view.findViewById<TextView>(R.id.call_phone2)
+            val phone3= view.findViewById<TextView>(R.id.call_phone3)
+            if (splitPhone.size == 1){
+                phone1.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone1.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
 //                    startActivity(intent)
-//                }
-//            }else if (splitPhone.size == 2){
-//                phone1.visibility = View.VISIBLE
-//                phone2.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone2.text = "  "+splitPhone[1]
-//                phone1.setOnClickListener {
-////                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-////                    startActivity(intent)
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_DIAL
-//                        data = Uri.parse("tel:"+ splitPhone[0])
-//                    }
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[0])
+                    }
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 2){
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone1.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
 //                    startActivity(intent)
-//                }
-//                phone2.setOnClickListener {
-////                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-////                    startActivity(intent)
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_DIAL
-//                        data = Uri.parse("tel:"+splitPhone[1])
-//                    }
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+ splitPhone[0])
+                    }
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
 //                    startActivity(intent)
-//                }
-//            }else if (splitPhone.size == 3){
-//
-//                phone1.visibility = View.VISIBLE
-//                phone2.visibility = View.VISIBLE
-//                phone3.visibility = View.VISIBLE
-//                phone1.text = "  "+splitPhone[0]
-//                phone2.text = "  "+splitPhone[1]
-//                phone3.text = "  "+splitPhone[2]
-//
-//                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
-//                phone1.setOnClickListener {
-////                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
-////                    startActivity(intent)
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_DIAL
-//                        data = Uri.parse("tel:"+splitPhone[0])
-//                    }
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[1])
+                    }
+                    startActivity(intent)
+                }
+            }else if (splitPhone.size == 3){
+
+                phone1.visibility = View.VISIBLE
+                phone2.visibility = View.VISIBLE
+                phone3.visibility = View.VISIBLE
+                phone1.text = "  "+splitPhone[0]
+                phone2.text = "  "+splitPhone[1]
+                phone3.text = "  "+splitPhone[2]
+
+                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2])
+                phone1.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[0], null))
 //                    startActivity(intent)
-//                }
-//                phone2.setOnClickListener {
-////                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
-////                    startActivity(intent)
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_DIAL
-//                        data = Uri.parse("tel:"+splitPhone[1])
-//                    }
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[0])
+                    }
+                    startActivity(intent)
+                }
+                phone2.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[1], null))
 //                    startActivity(intent)
-//                }
-//                phone3.setOnClickListener {
-////                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
-////                    startActivity(intent)
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_DIAL
-//                        data = Uri.parse("tel:"+splitPhone[2])
-//                    }
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[1])
+                    }
+                    startActivity(intent)
+                }
+                phone3.setOnClickListener {
+//                    val intent =  Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", splitPhone[2], null))
 //                    startActivity(intent)
-//                }
-//            }
-//
-//
-//
-//        }  // call
-//    }
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_DIAL
+                        data = Uri.parse("tel:"+splitPhone[2])
+                    }
+                    startActivity(intent)
+                }
+            }
+        }  // call
+    }
 
     fun Like_post(encode: String) {
         val url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk
