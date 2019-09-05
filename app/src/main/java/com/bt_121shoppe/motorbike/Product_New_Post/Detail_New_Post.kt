@@ -745,7 +745,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val arrayList2 = ArrayList<String>(6)
                         arrayList2.add(front_image)
                         arrayList2.add(right_image)
-                        arrayList2.add(right_image)
+                        arrayList2.add(left_image)
                         arrayList2.add(back_image)
                         if (postDetail.extra_image1!=null){
                             arrayList2.add(postDetail.extra_image1)

@@ -1398,6 +1398,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                    String city    = addressList.get(0).getLocality();
                     String road = addressList.get(0).getAddressLine(0);
 
+                    Log.d("Name road",road);
                     tvAddress_account.setQuery( road , false );
                 }catch (IOException e){
                     e.printStackTrace();

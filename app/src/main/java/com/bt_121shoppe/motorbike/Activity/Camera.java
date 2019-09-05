@@ -161,7 +161,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
     ProgressDialog mProgress;
-    private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
+    private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6,default_bitmap;
 
     int edit_id,status;
     Bundle bundle;
@@ -568,7 +568,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(v.getContext(),"Click",Toast.LENGTH_SHORT).show();
 
                 String stDis_amount,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
@@ -594,15 +593,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             dbDis_percent = 0;
                         }
                     }
-
+                int image_value ;
+                if (tvPostType.getText().toString().equals("Buy")){
+                    image_value = 1;
+                }else if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
+                    image_value = 0;
+                }else image_value = 1;
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                   tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
-                   || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
+                   || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice
+                   ||  image_value == 0
                ){
-
-                   //Toast.makeText(v.getContext(),"Click 2",Toast.LENGTH_SHORT).show();
-                   //|| etPrice.getText().toString().length()==0 || dbDis_percent >=100|| dbDis_amount >= dbPrice  || bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null
 
                     if (etPhone1.getText().toString().length()<8){
                         etPhone1.requestFocus();
@@ -665,7 +667,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                     mProgress.show();
                     if(process_type==1){
-
                         if (cate == 2){
                             type = Integer.parseInt(tvType_elec.getText().toString());
                         }
@@ -673,13 +674,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         PostData(Encode);
                     }
                     else{
-//                    Toast.makeText(v.getContext(),"Edit",Toast.LENGTH_SHORT).show();
                         Log.d("Type id  edit ", String.valueOf(type));
                        EditPost_Approve(Encode, edit_id);
                    }
-
                 } else  {
-//                   Toast.makeText(v.getContext(),"Post",Toast.LENGTH_SHORT).show();
                     mProgress.show();
                     PostData(Encode);
                 }
@@ -1079,65 +1077,93 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("category", cate);
             post.put("status", 3);
             post.put("condition",strCondition);
+            //post.put("discount", 0);
+            post.put("user",pk );
 
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
-                post.put("front_image_path", "");
-                post.put("right_image_path", "");
-                post.put("left_image_path", "");
-                post.put("back_image_path", "");
-                post.put("extra_image1", "");
-                post.put("extra_image2", "");
+// set default image for Buy when no select image by samang 5/9/19
+                 default_bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.logo_121);
+                if (bitmapImage1 == null) {
+                    post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, default_bitmap)));
+                } else {
+                    post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+                }
+                if (bitmapImage2 == null) {
+                    post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, default_bitmap)));
+                } else {
+                    post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage2)));
+                }
+                if (bitmapImage3 == null) {
+                    post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, default_bitmap)));
+                } else {
+                    post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage3)));
+                }
+                if (bitmapImage4 == null) {
+                    post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, default_bitmap)));
+                } else {
+                    post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage4)));
+                }
+                if (bitmapImage5 == null) {
+                    post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, default_bitmap)));
+                } else {
+                    post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage5)));
+                }
+                if (bitmapImage6 == null) {
+                    post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, default_bitmap)));
+                } else {
+                    post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage6)));
+                }
+
             }else {
                 post.put("discount_type", strDiscountType);
-                post.put("discount",str_dis);
-            }
-            //post.put("discount", 0);
-            post.put("user",pk );
-            if(bitmapImage1==null) {
-                post.put("front_image_path", "");
-                post.put("front_image_base64", "");
-            }
-            else {
-                post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
-                post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
-            }
-            if(bitmapImage2==null){
-                post.put("right_image_path", "");
-                post.put("right_image_base64", "");
-            }else{
-                post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
-                post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage2)));
-            }
-            if(bitmapImage3==null){
-                post.put("left_image_path", "");
-                post.put("left_image_base64", "");
-            }else{
-                post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
-                post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage3)));
-            }
-            if(bitmapImage4==null){
-                post.put("back_image_path", "");
-                post.put("back_image_base64", "");
-            }else{
-                post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
-                post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage4)));
-            }
+                post.put("discount", str_dis);
+
+                if (bitmapImage1 == null) {
+                    post.put("front_image_path", "");
+                    post.put("front_image_base64", "");
+                } else {
+                    post.put("front_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+                    post.put("front_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage1)));
+                }
+                if (bitmapImage2 == null) {
+                    post.put("right_image_path", "");
+                    post.put("right_image_base64", "");
+                } else {
+                    post.put("right_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage2)));
+                    post.put("right_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage2)));
+                }
+                if (bitmapImage3 == null) {
+                    post.put("left_image_path", "");
+                    post.put("left_image_base64", "");
+                } else {
+                    post.put("left_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage3)));
+                    post.put("left_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage3)));
+                }
+                if (bitmapImage4 == null) {
+                    post.put("back_image_path", "");
+                    post.put("back_image_base64", "");
+                } else {
+                    post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage4)));
+                    post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage4)));
+                }
 // add 2 image by samang 26/08
-            if(bitmapImage5==null){
-                post.put("extra_image1", "");
-                post.put("extra_image1_base64", "");
-            }else{
-                post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
-                post.put("extra_image1_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
-            }
-            if(bitmapImage6==null){
-                post.put("extra_image2", "");
-                post.put("extra_image2_base64", "");
-            }else{
-                post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
-                post.put("extra_image2_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
+                if (bitmapImage5 == null) {
+                    post.put("extra_image1", "");
+                    post.put("extra_image1_base64", "");
+                } else {
+                    post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage5)));
+                    post.put("extra_image1_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage5)));
+                }
+                if (bitmapImage6 == null) {
+                    post.put("extra_image2", "");
+                    post.put("extra_image2_base64", "");
+                } else {
+                    post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage6)));
+                    post.put("extra_image2_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage6)));
+                }
+
             }
  //end add image
             //Instant.now().toString()
