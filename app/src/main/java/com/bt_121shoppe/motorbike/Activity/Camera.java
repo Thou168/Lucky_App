@@ -594,7 +594,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         }
                     }
                 int image_value ;
-                if (tvPostType.getText().toString().equals("Buy")){
+                String postType = tvPostType.getText().toString();
+                if (postType.equals("Buy") || postType.equals("ទិញ")){
                     image_value = 1;
                 }else if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     image_value = 0;

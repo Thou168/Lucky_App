@@ -44,6 +44,7 @@ import com.bt_121shoppe.motorbike.chats.ChatActivity
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity
 import com.bt_121shoppe.motorbike.models.PostViewModel
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
 import com.bt_121shoppe.motorbike.utils.LoanCalculator
 
 import com.google.android.gms.maps.GoogleMap
@@ -101,6 +102,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     internal lateinit var Layout_call_chat_like_loan: ConstraintLayout
     internal lateinit var txt_detail_new: TextView
     private lateinit var tvPostTitle:TextView
+    private lateinit var tvPostCode:TextView
     private lateinit var tvPrice:TextView
     private lateinit var tvPrice1:TextView
     private lateinit var tvDiscount: TextView
@@ -200,6 +202,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         tvCondition=findViewById(R.id.tv_Condition)
         tvColor=findViewById(R.id.tv_Color)
         tvDescription=findViewById(R.id.tv_Description)
+        tvPostCode = findViewById(R.id.tvPostCode)
         tvMonthlyPayment=findViewById(R.id.tvMonthlyPayment)
         edLoanPrice=findViewById(R.id.ed_loan_price)
         edLoanInterestRate=findViewById(R.id.ed_loan_interest_rate)
@@ -537,6 +540,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$ "+ discount)
                         edLoanPrice.setText(""+discount)
+                        tvPostCode.setText(postDetail.id.toString())
 
                         show_amount_loan = discount.toString()
 
@@ -731,17 +735,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         left_image=postDetail.left_image_path
                         back_image=postDetail.back_image_path
 
-//                        if (postDetail.extra_image1==null || postDetail.extra_image1.isEmpty()){
-//                            extra_image1 == null
-//                        }else{
-//                            extra_image1=postDetail.extra_image1
-//                        }
-//
-//                        if (postDetail.extra_image2==null || postDetail.extra_image2.isEmpty()){
-//                            extra_image2 == null
-//                        }else{
-//                            extra_image2=postDetail.extra_image2
-//                        }
                         val arrayList2 = ArrayList<String>(6)
                         arrayList2.add(front_image)
                         arrayList2.add(right_image)
@@ -829,12 +822,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val profilepicture: String=if(user1.profile.base64_profile_image==null) "" else user1.profile.base64_profile_image
                         if(profilepicture.isNullOrEmpty()){
-                            img_user.setImageResource(R.drawable.user)
+                            img_user.setImageResource(R.drawable.square_logo)
                         }else {
                             val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
                             var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                             img_user.setImageBitmap(decodedByte)
+
                         }
+                        CommomAPIFunction.getUserProfileFB(this@Detail_New_Post,img_user,user1.username)
 
                         if(user1.profile.first_name==null)
                             postUsername=user1.username

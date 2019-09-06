@@ -17,6 +17,7 @@
     <string name="description">DESCRIPTION</string>
     <string name="Description">Description</string>
     <string name="tax">Tax Type</string>
+    <string name="postcode">Post Code</string>
     <string name="brand">Brand</string>
     <string name="year">Year</string>
     <string name="price">Price</string>

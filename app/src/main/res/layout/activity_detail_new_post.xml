@@ -101,10 +101,38 @@
                         android:textSize="@dimen/dp_16"
                         android:textStyle="bold" />
                     <View
-                        android:id="@+id/line"
+                        android:id="@+id/line0"
                         style="@style/line"
                         android:layout_below="@+id/description" />
+                    <TextView
+                        android:id="@+id/postCodeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line0"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/postcode"
+                        android:textSize="14sp" />
 
+                    <TextView
+                        android:id="@+id/tvPostCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line0"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginLeft="166dp"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/postcode"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <View
+                        android:id="@+id/line"
+                        style="@style/line"
+                        android:layout_below="@+id/tvPostCode" />
                     <TextView
                         android:id="@+id/brandTitle"
                         android:layout_width="wrap_content"

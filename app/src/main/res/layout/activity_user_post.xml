@@ -39,15 +39,32 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab"
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab"-->
+<!--                android:background="@color/colorLightGray"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"/>-->
+<!--            <androidx.viewpager.widget.ViewPager-->
+<!--                android:id="@+id/pager"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+            <TextView
+                android:id="@+id/title_userpost"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/post"
                 android:background="@color/colorLightGray"
+                android:gravity="center"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_user_post"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"/>
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                />
+            <include
+                android:id="@+id/contact_user2"
+                layout="@layout/activity_contact_user2"
+                android:visibility="gone"
+                />
         </LinearLayout>
     </ScrollView>
     <androidx.appcompat.widget.Toolbar
@@ -63,5 +80,16 @@
             android:text="@string/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_back_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_18"
+            android:textColor="@android:color/white"
+            android:text="@string/back"
+            android:drawableLeft="@drawable/chevron_left_36"
+            android:gravity="center"
+            android:visibility="gone"
+            />
     </androidx.appcompat.widget.Toolbar>
 </RelativeLayout>

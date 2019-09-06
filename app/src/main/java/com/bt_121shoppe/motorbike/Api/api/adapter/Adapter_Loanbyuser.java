@@ -26,6 +26,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
+import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bumptech.glide.Glide;
@@ -85,9 +86,9 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
         view.linearLayout.setOnClickListener(v -> {
             Log.d("idpost",postid);
             Log.d("idloan",loanid);
-            Intent intent = new Intent(mContext, LoanCreateActivity.class);
+            Intent intent = new Intent(mContext, Detail_New_Post.class);
             intent.putExtra("id",Integer.parseInt(loanid));
-            intent.putExtra("post",Integer.parseInt(postid));
+            intent.putExtra("ID",Integer.parseInt(postid));
             mContext.startActivity(intent);
         });
         view.btn_edit.setOnClickListener(v -> {
