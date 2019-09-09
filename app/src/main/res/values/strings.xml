@@ -30,7 +30,7 @@
     <string name="menu_like">Your Like</string>
     <string name="menu_loan">Your Loan</string>
     <string name="menu_setting">Setting</string>
-    <string name="menu_about">About Us</string>
+    <string name="menu_about">About 121</string>
     <string name="menu_privacy">Term of Privacy</string>
     //Buy Sell Rent
     <string name="buy1">BUY</string>
@@ -95,8 +95,8 @@
     <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
 
     <string name="facebook_app_id">596607940863011</string>
-<!--    <string name="facebook_app_id">2638303279534710</string>-->
-    <string name="fb_login_protocol_scheme">fb2638303279534710</string>
+<!--    <string name="facebook_app_id">491433131642841</string>-->
+    <string name="fb_login_protocol_scheme">fb596607940863011</string>
 
     <string-array name="category">
         <item>Motorbike</item>
@@ -250,7 +250,7 @@
     //Post type
     <string-array name="posty_type">
         <item>Sell</item>
-        <item>Buy</item>
+<!--        <item>Buy</item>-->
         <item>Rent</item>
     </string-array>
 
@@ -456,7 +456,7 @@
     <string name="discount">DISCOUNT</string>
     <string name="discount_type">Discount type</string>
 
-    <string name="about_us_heading">About Us</string>
+    <string name="about_us_heading">About 121</string>
     <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
     <string name="about_us_description">Welcome to 121 online market platform!
         A new modern online market in Cambodia. User friendly, super quick and easy to use in online market, helps you Buy, Sell or Rent anything in your neighborhood. 121 Online Market Platform is the future of E-Commerce in Cambodia, aiming to make up for all inconveniences of other markets, and replace them with new modern solutions.

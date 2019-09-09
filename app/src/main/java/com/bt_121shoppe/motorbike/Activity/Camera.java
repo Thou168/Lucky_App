@@ -2334,11 +2334,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     strPostType = "sell";
                                     relatve_discount.setVisibility(View.VISIBLE);
                                     break;
+//                                case 1:
+//                                    strPostType = "buy";
+//                                    relatve_discount.setVisibility(View.GONE);
+//                                    break;
                                 case 1:
-                                    strPostType = "buy";
-                                    relatve_discount.setVisibility(View.GONE);
-                                    break;
-                                case 2:
                                     strPostType = "rent";
                                     relatve_discount.setVisibility(View.VISIBLE);
                                     break;
