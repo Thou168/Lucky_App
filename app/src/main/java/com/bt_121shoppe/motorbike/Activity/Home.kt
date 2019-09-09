@@ -49,6 +49,7 @@ import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.motorbike.Product_dicount.MyAdapter
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.Setting.AboutUsActivity
+import com.bt_121shoppe.motorbike.Setting.ContactActivity
 import com.bt_121shoppe.motorbike.Setting.Setting
 import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity
 import com.bt_121shoppe.motorbike.Startup.Item
@@ -402,7 +403,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             super.onBackPressed()
         }
     }
-
+//add navigation by Raksmey 9/9/2019
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
@@ -431,6 +432,10 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             R.id.nav_about -> {
                 val intent = Intent(this@Home, AboutUsActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_contact->{
+                val intent = Intent(this@Home, ContactActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_privacy -> {

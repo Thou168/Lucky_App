@@ -1,4 +1,5 @@
 <resources>
+    <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
     <string name="app_name">121 Motorbike</string>
     <string name="title_activity_new__main">New_Main</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -6,12 +7,12 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     //Message on deposit
-    <string name="deposit_message">should lower than price!</string>
+    <string name="action_settings">Settings</string>
 
     //Detail
+    <string name="deposit_message">should lower than price!</string>
     <string name="nav_detail">Detail</string>
     <string name="detail">DETAIL</string>
     <string name="description">DESCRIPTION</string>
@@ -22,68 +23,53 @@
     <string name="year">Year</string>
     <string name="price">Price</string>
     <string name="color">Color</string>
-    <string name="condition">Condition</string>
 
     //menus
+    <string name="condition">Condition</string>
     <string name="menu_profile">Your Profile</string>
     <string name="menu_post">Your Post</string>
     <string name="menu_like">Your Like</string>
     <string name="menu_loan">Your Loan</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_about">About 121</string>
-    <string name="menu_privacy">Term of Privacy</string>
+    <string name="menu_contact">Contact 121</string>
     //Buy Sell Rent
+    <string name="menu_privacy">Term of Privacy</string>
     <string name="buy1">BUY</string>
     <string name="sell1">SELL</string>
+
     <string name="rent">RENT</string>
-
     <string name="search">Search here</string>
-    <string name="back">Back</string>
 
+    <string name="back">Back</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="account_toolbar">My Account</string>
 
     <!-- Login String -->
+    <string name="account_toolbar">My Account</string>
     <string name="login_username">Phone Number</string>
-    <string name="login_password">Password</string>
     <!-- End Login String -->
-    <string name="title_activity_account"></string>
+    <string name="login_password">Password</string>
     //search
-    <string name="search_all">Search All Products</string>
+    <string name="title_activity_account"></string>
 
     //loancreateactivity
 
-    <string-array name="co_borrower">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="ID_card">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="Family_book">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="Staff_id">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="Land_Tile">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
+    <string name="search_all">Search All Products</string>
 
     <string name="category">Category</string>
+
+    <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
+
+    <string name="facebook_app_id">596607940863011</string>
+
+    <string name="fb_login_protocol_scheme">fb596607940863011</string>
+
+    <string name="ok_dob" translatable="false">Ok</string>
 
     <!--
      https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=20:0B:71:3B:B2:46:75:A1:87:78:2E:4C:49:3F:E3:B6:FD:2D:76:D3%3Bexample.javatpoint.com.kotlingooglemapcurrentlocation
@@ -92,12 +78,406 @@
     https://developers.google.com/maps/documentation/android/start#get-key
     -->
     //map
-    <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>
+    <string name="cancel_dob" translatable="false">Cancel</string>
 
-    <string name="facebook_app_id">596607940863011</string>
-<!--    <string name="facebook_app_id">491433131642841</string>-->
-    <string name="fb_login_protocol_scheme">fb596607940863011</string>
+    <string name="title_Login">Login account</string>
+    <!--    <string name="facebook_app_id">491433131642841</string>-->
+    <string name="title_registration">Register to post free ad</string>
 
+    <string name="phone_number">Phone Number</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="Password">Password</string>
+    <string name="alert_phone">Wrong phone number</string>
+    <string name="alert_phone1">Username is empty</string>
+    <string name="secret_number">Wrong password</string>
+    <string name="secret_number1">Password is empty</string>
+
+    <string name="confirm">Confirm Password</string>
+    <string name="or">Or</string>
+
+    //user account registration
+    <string name="register_by_facebook">Register by using your facebook account</string>
+    <string name="change_password">Change Password</string>
+    <string name="language">Language</string>
+    <string name="language2">English</string>
+    <string name="khmer">Khmer</string>
+    <string name="setting">Setting</string>
+    <string name="version">Version</string>
+    <string name="logout">Logout</string>
+    <string name="app_setting">APP SETTING</string>
+    <string name="account_setting">ACCOUNT SETTING</string>
+    <string name="txt_account_setting">Account Setting</string>
+    <string name="hit_fistname">Fist Name</string>
+
+    //Setting
+    <string name="hit_lastname">Last Name</string>
+    <string name="hit_store">Store/Company Name</string>
+    <string name="hit_about_shop">About Shop/Company</string>
+    <string name="hit_wingnumber">Wing Account Number</string>
+    <string name="hit_wingaccount">Wing Account Name</string>
+    <string name="hit_dealer">Dealer</string>
+    <string name="product_discount">Best Deal</string>
+    <string name="new_post">New Post</string>
+    <string name="home">Home</string>
+    //Edit_Account
+    <string name="notification">Notification</string>
+    <string name="camera">Post Ad</string>
+    <string name="chat">Chat</string>
+    <string name="account">Account</string>
+    <string name="motor">Motorbike</string>
+    <string name="electronic">Electronic</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="sell">Sell</string>
+
+    //Home
+    <string name="buy">Buy</string>
+    <string name="sell_t">SELL</string>
+
+    //title
+    <string name="buy_t">BUY</string>
+    <string name="post">Post</string>
+    <string name="like">Like</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_password">New Password</string>
+
+    //category
+    <string name="old_password">Old Password</string>
+    <string name="condition_change_password">You will use the new password to access your account.</string>
+    <string name="yes_loan">Yes</string>
+
+    //type
+    <string name="no_loan">No</string>
+    <string name="contact_number">Contact Phone Number</string>
+
+    <string name="back_button">Back</string>
+    <string name="submit_button">Submit</string>
+
+    //Tab
+    <string name="login_button">Login</string>
+    <string name="clear_all_label">Clear</string>
+
+    //change password
+
+    <string name="create_loan">Your create</string>
+    <string name="already_created">You cannot request duplicate loan.</string>
+    <string name="title_fill_information">Fill in Information</string>
+    <string name="txt_clr_detail">DETAIL</string>
+
+    //loan_yes_or_no
+    <string name="hit_username">Username</string>
+    <string name="hit_shop_name">Shop Name</string>
+
+    <string name="hit_gender">Gender</string>
+
+    <!-- button part -->
+    <string name="hit_age">Age</string>
+    <string name="hit_job">Job</string>
+    <string name="hit_mon_income">Monthy Average Income</string>
+    <!-- End button part -->
+
+    <!-- Spinner Array -->
+    <string name="hit_mon_expense">Monthy Average Expense</string>
+    <string name="hit_phone1">Phone 1</string>
+    <string name="hit_phone2">Phone 2</string>
+    <string name="hit_phone3">Phone 3</string>
+    <!-- End Spinner Array -->
+
+    //Post type
+    <string name="hit_email">Email</string>
+
+    //Condition
+    <string name="txt_clr_information">LOAN INFORMATION</string>
+
+    //Condition filter search
+    <string name="loan_information">Loan Information</string>
+
+    // Color
+    <string name="hit_loan_amount">Loan Amount</string>
+
+    //Rent type
+    <string name="hit_loan_duration">Loan Duration (month)</string>
+    //Discount type
+
+    <string name="hit_purpos">Loan Purpose</string>
+    <string name="hit_status">Status</string>
+    <string name="txt_clr_supporting">LOAN SUPPORTING DOCUMENT</string>
+
+    <!--    message for loan created-->
+    <string name="hit_state_id">State ID</string>
+    <string name="hit_family_book">Family Book</string>
+
+
+    <string name="hit_staffid">Staff ID/ Salary Slip</string>
+
+    <string name="hit_hourse">House Plant</string>
+    <string name="loan_calculation">LOAN CALCULATION</string>
+    <string name="loan_calculation_title">Loan Calculation</string>
+    <string name="title_loan_price">Price ($)</string>
+    <string name="title_loan_interest_rate">Interest Rate (%)</string>
+    <string name="title_loan_deposit">Deposit ($)</string>
+    <string name="title_loan_term">Loan Term(Month)</string>
+    <string name="title_monthly_payment">Monthly Payment</string>
+    <string name="hit_co_borrower">Co-Borrower</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_delete">Delete</string>
+    <string name="loan_description">Loan Description</string>
+    <string name="Price">Price ($)</string>
+    <string name="interest_rate">Interest Rate (%)</string>
+    <string name="deposit">Deposit ($)</string>
+    <string name="term">Term (Month)</string>
+    <string name="Monthly_payment">Monthly Payment</string>
+    <string name="contact">Contact</string>
+    <string name="locaion">Location :</string>
+    <string name="birth">Year of birth</string>
+    <string name="place">Place of birth</string>
+    <string name="married">Marital Status</string>
+    <string name="location">Location</string>
+    <string name="connect_facebook">Quick Connect with Facebook</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="log_or_register">Login or Register with your phone number</string>
+    <string name="choose">Choose</string>
+    <string name="choose_language">Choose language</string>
+    <string name="upload">Upload</string>
+    <string name="post_type">Post type</string>
+    <string name="title">Title</string>
+    <!-- End Loan Information String -->
+
+    //delete and edit
+    <string name="type">Type</string>
+    <string name="model">Model</string>
+
+    //Loan
+    <string name="address">Address</string>
+    <string name="name">Name</string>
+    <string name="contact_detail">CONTACT DETAIL</string>
+    <string name="discountt">Discount</string>
+    <string name="discount">DISCOUNT</string>
+    <string name="discount_type">Discount type</string>
+    <string name="about_us_heading">About 121</string>
+    <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
+
+    <string name="about_us_description">Welcome to 121 online market platform!
+        A new modern online market in Cambodia. User friendly, super quick and easy to use in online market, helps you Buy, Sell or Rent anything in your neighborhood. 121 Online Market Platform is the future of E-Commerce in Cambodia, aiming to make up for all inconveniences of other markets, and replace them with new modern solutions.
+        For example possibility to add products by signing up for an account with very clear information details, and marking the position of dealers’ shop on the map, its help you can understand more clearly about dealer. You can use it through the website, or download our free application from Play Store, App Store or Google Play.
+    </string>
+
+    <string name="term_privacy_heading">Privacy Policy</string>
+
+    <string name="term_privacy_description">This Privacy Policy describes how 121 Online Market Platform (website, tools, apps and services) is responsible for collection, using and retain of personal information. Your privacy is important to us, so we collect only the data that we really need to let this App run smoothly and properly.
+        This privacy policy enter into force on 1st Aug, 2019. By using the 121 Online Market Platform agree with this PRIVACY POLICY. You should check this page occasionally to ensure you are familiar with any changes.
+    </string>
+
+    <string name="rigth_suspend">Rights to Suspend or Terminate</string>
+    <string name="right_suspend_description">You agree that this App, in its own discretion, may terminate any listing or use of the service immediately and without notice if\n
+    (a) You are not abiding by the general rules of this App\n
+    (b) You have repeatedly broken a certain term\n
+    (c) You have listed a suspicious it
+    </string>
+    <string name="general_term">General Terms</string>
+    <string name="general_term_description">This App is intended to be a friendly, enjoyable and useful experience, but as with anything concerning any kind of transactions there are risks involved and we strongly advise you to understand all of these terms before submitting the listing.
+    This App acts as the screen for selYou agree that this App, in its own discretion, may terminate any listing or use of the service immediately and without notice if\n
+    (a) You are not abiding by the general rules of this App\n
+    (b) You have repeatedly broken a certain term\n
+    (c) You have listed a suspicious itlers/lessors to post listings and for buyers/lessees to bid/purchase on seller or lessor\'s listings. We are not involved in the actual transaction between buyers/lessees and sellers/lessors. As a result, we have no control over the quality, safety or legality of the items listed the truth or accuracy of the product listings, We cannot and do not control whether or not sellers/lessors will complete the sale/rent of items they offer or buyers/lessees will complete the purchases/rent of items they have bid on.
+    In addition, This App shall not be responsible for any items sold/rent through it, for any damage to items during the inspection period, nor for misrepresentations or breaches of contract by either buyer, lessee, seller or lessor.
+    This App shall not be responsible for the cost of procurement of substitute goods or any losses resulting from any goods purchased or obtained. This App assumes no liability for the content of the listings. However if you fall victim of a fraudulent transaction, we will assist you as much as we can.
+    </string>
+
+    //login
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_snipper">SnipperActivity</string>
+    <string name="name_officer">Name of Responsible Officer</string>
+    <string name="shop_address">Shop Address</string>
+
+    //Camera post
+    <string name="shop_name">Shop Name</string>
+    <string name="bt_verify">Verify</string>
+    <string name="verify_code">Verify Code</string>
+    //post ad
+    <string name="condittion_verify">We just send the verify code to this number. Enter the code from that message there.</string>
+    <string name="dont_receive">Do not Receive the Code?</string>
+    <string name="resend">Resend</string>
+    <string name="enter_number">Enter your phone number</string>
+    <string name="verify_code_message">Brand with this username already exists.</string>
+    <string name="type_message">Type a message...</string>
+    <string name="username">Username</string>
+    <string name="renew">Renew</string>
+    <string name="choose_type">Choose Type</string>
+    <string name="choose_model">Choose Model</string>
+
+    <string name="choose_color">Choose color</string>
+    <string name="choose_discount">Choose type discount</string>
+    <string name="choose_condition">Choose condition</string>
+
+    <string name="choose_type_post">Choose type post</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="choose_brand">Choose Brand</string>
+    <string name="choose_year">Choose Year</string>
+
+    <string name="public_user">Public User</string>
+    <string name="other_dealer">Other Dealers</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="shoppe">121 Shoppe</string>
+    <string name="search_here">Search...</string>
+
+    //dealer
+    <string name="no_result">No Result</string>
+    <string name="related_poat">Related Post</string>
+    <string name="english_khmer">English</string>
+    //verify
+    <string name="chat_toolbar">Chats</string>
+    <string name="all_text">All</string>
+    <string name="loan_message">Your loan request is Under checking</string>
+    <string name="loan_fail_message">Loan request has been error while submitting.</string>
+    <string name="missing_image">Please select images</string>
+    <string name="post_message">Your post is waiting for approval.</string>
+    <string name="title_edit_loan">Edit your loan</string>
+    //message
+    <string name="title_create_loan">Create your loan</string>
+    <string name="loan_feedback">Please check again!!</string>
+    <string name="loan_feedback1">Your loan has not been edit</string>
+    //filter
+    <string name="title_post">Post ads</string>
+    <string name="post_fail_message">This Post ads has been error while submitting.</string>
+    <string name="post_success_message">This Post ads has been successfully submitted.</string>
+    <string name="waiting_approval">Waiting approval</string>
+    <string name="ok">OK</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="uploading">Uploading</string>
+    <string name="job">Job can`t be empty</string>
+    <string name="monthly_expense">Monthly expense can`t be empty</string>
+
+    <string name="monthly_income">Monthly income can`t be empty</string>
+    <string name="co_borrower">Co-borrower can`t be empty</string>
+    <string name="loan_amount">Loan amount can`t be empty</string>
+    <string name="loan_purpose">Loan purpose can`t be empty</string>
+    <string name="loan_term">Loan term can`t be empty</string>
+    <string name="id_card">ID card can`t be empty</string>
+
+    <string name="staff_id">Staff ID can`t be empty</string>
+
+    <!-- Chats -->
+    <string name="title_land">Land title can`t be empty</string>
+    <string name="book_family">Family book can`t be empty</string>
+
+    <string name="delete_loan">Are you sure you want to cancel this loan?</string>
+    <string name="cancel_loan">Cancel loan</string>
+    <string name="permission">Need Permissions</string>
+    <string name="setting_permission">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_setting">GOTO SETTINGS</string>
+    <string name="cancel">Cancel</string>
+    <string name="facebook_login_register">Register or Login with Facebook</string>
+    <string name="confirm_phone_number_title">Set Phone</string>
+    <string name="confirm_phone_number_text">Please enter your phone number in the box below to verify your phone number. We will send the verification code to your phone.</string>
+    <string name="confirm_phone_number_hint">Your Phone Number</string>
+    <string name="button_close">Close</string>
+    <string name="phone_exist">This phone number is already used. Please try another.</string>
+
+    <string name="progress_waiting">In progress...</string>
+    <string name="requried_permission">Please Turn On your Location Connection</string>
+    <string name="gps">Please Turn On your PGS Connection</string>
+    //validate loan
+    <string name="choose_province">Choose Province</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="choose_status">Choose Marital Status</string>
+    <string name="choose_gender">Choose Gender</string>
+    <string name="title_edit_account">Edit account</string>
+    <string name="edit_success_message">Account information has been successfully submitted.</string>
+    <string name="edit_fail_message">Account information has been error while submitting.</string>
+    <string name="update">Updating...</string>
+    <string name="title_unlike">Remove Save Ad</string>
+    <string name="unlike_message">Are you sure to remove this save ad?uploading</string>
+    <string name="like_post">You Liked this post</string>
+    <string name="forget_pwd">Forget Password?</string>
+    <string name="search_account_title">Search Account</string>
+
+    //permission
+    <string name="search_account_text">Enter the phone number you have registered to the 121 Shoppe account, and we will send a code to set up a new password.</string>
+    <string name="search_account_phone">Phone Number</string>
+    <string name="invalid_phone">The Phone Number is invalid</string>
+    <string name="reset_password_title">Reset Password</string>
+    <string name="reset_password_text">You will use this Password to access your account.</string>
+    <string name="public_brand">Public User</string>
+    <string name="login_fail">Login Failure</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="title_change_password">Changed Password</string>
+    <string name="success_change_password">Your password was changed</string>
+    <string name="fail_change_password">Your password has been error while changing.</string>
+    <string name="tab_post">Post</string>
+    <string name="tab_like">Like</string>
+    //Account
+    <string name="tab_loan">Loan</string>
+    <string name="active">Active ads</string>
+    <string name="history">History</string>
+    <string name="history_loan">History</string>
+    <string name="loan_active">Active Loan</string>
+    <string name="view">View: </string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="marriedd">Married</string>
+    <string name="separated">Separated</string>
+    <string name="single">Single</string>
+    <string name="divorced">Divorced</string>
+    <string name="widowed">Widowed</string>
+    <string name="user_type">User Type</string>
+    <string name="load_more_text">View more</string>
+    <string name="result">Result</string>
+    <string name="filter">Filter</string>
+    <string name="done">Done</string>
+    //log
+    <string name="not_found">No Result Found...!</string>
+    <string name="all">All</string>
+    //change password
+    <string name="message">You can not send empty message</string>
+    <string name="pending">Pending</string>
+    <string name="Post_Renewal">Post Renewal</string>
+    //tab account
+    <string name="renew_post">Do you want to renew this post?</string>
+    <string name="newl">New</string>
+    <string name="used">Used</string>
+    <string name="blue">Blue</string>
+    <string name="black">Black</string>
+    <string name="silver">Silver</string>
+    <string name="red">Red</string>
+    <string name="gray">Gray</string>
+    //edit account
+    <string name="yellow">Yellow</string>
+    <string name="pink">Pink</string>
+    <string name="purple">Purple</string>
+    <string name="orange">Orange</string>
+    <string name="green">Green</string>
+    <string name="sel">Sell</string>
+    <string name="ren">Rent</string>
+    <string name="bu">Buy</string>
+    <string name="amount">Amount</string>
+    <string name="percent">Percent</string>
+    //filter
+    <string name="no_more_result">No more result</string>
+    <string name="no_conversation">No Conversation!</string>
+    <string-array name="co_borrower">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="ID_card">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="Family_book">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="Staff_id">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    //renew
+    <string-array name="Land_Tile">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
     <string-array name="category">
         <item>Motorbike</item>
         <item>Electronic</item>
@@ -107,6 +487,7 @@
         <item>Yamaha</item>
         <item>Suzuki</item>
     </string-array>
+
     <string-array name="year">
         <item>2019</item>
         <item>2018</item>
@@ -141,91 +522,6 @@
         <item>Kompong Thom</item>
         <item>Kompong Chhnang</item>
     </string-array>
-
-    <string name="ok_dob" translatable="false">Ok</string>
-    <string name="cancel_dob" translatable="false">Cancel</string>
-
-    //user account registration
-    <string name="title_Login">Login account</string>
-    <string name="title_registration">Register to post free ad</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="email" translatable="false">Email</string>
-    <string name="Password">Password</string>
-    <string name="alert_phone">Wrong phone number</string>
-    <string name="alert_phone1">Username is empty</string>
-    <string name="secret_number">Wrong password</string>
-    <string name="secret_number1">Password is empty</string>
-    <string name="confirm">Confirm Password</string>
-    <string name="or">Or</string>
-    <string name="register_by_facebook">Register by using your facebook account</string>
-
-    //Setting
-    <string name="change_password">Change Password</string>
-    <string name="language">Language</string>
-    <string name="language2">English</string>
-    <string name="khmer">Khmer</string>
-    <string name="setting">Setting</string>
-    <string name="version">Version</string>
-    <string name="logout">Logout</string>
-    <string name="app_setting">APP SETTING</string>
-    <string name="account_setting">ACCOUNT SETTING</string>
-    //Edit_Account
-    <string name="txt_account_setting">Account Setting</string>
-    <string name="hit_fistname">Fist Name</string>
-    <string name="hit_lastname">Last Name</string>
-    <string name="hit_store">Store/Company Name</string>
-    <string name="hit_about_shop">About Shop/Company</string>
-    <string name="hit_wingnumber">Wing Account Number</string>
-    <string name="hit_wingaccount">Wing Account Name</string>
-    <string name="hit_dealer">Dealer</string>
-
-    //Home
-    <string name="product_discount">Best Deal</string>
-    <string name="new_post">New Post</string>
-
-    //title
-    <string name="home">Home</string>
-    <string name="notification">Notification</string>
-    <string name="camera">Post Ad</string>
-    <string name="chat">Chat</string>
-    <string name="account">Account</string>
-
-    //category
-    <string name="motor">Motorbike</string>
-    <string name="electronic">Electronic</string>
-    <string name="vehicle">Vehicle</string>
-
-    //type
-    <string name="sell">Sell</string>
-    <string name="buy">Buy</string>
-
-    <string name="sell_t">SELL</string>
-    <string name="buy_t">BUY</string>
-
-    //Tab
-    <string name="post">Post</string>
-    <string name="like">Like</string>
-
-    //change password
-
-    <string name="confirm_password">Confirm Password</string>
-    <string name="new_password">New Password</string>
-    <string name="old_password">Old Password</string>
-    <string name="condition_change_password">You will use the new password to access your account.</string>
-
-    //loan_yes_or_no
-    <string name="yes_loan">Yes</string>
-    <string name="no_loan">No</string>
-
-    <string name="contact_number">Contact Phone Number</string>
-
-    <!-- button part -->
-    <string name="back_button">Back</string>
-    <string name="submit_button">Submit</string>
-    <string name="login_button">Login</string>
-    <!-- End button part -->
-
-    <!-- Spinner Array -->
     <string-array name="groups_array">
         <item>Public User</item>
         <item>121 Shoppe</item>
@@ -245,29 +541,20 @@
         <item>Pursat</item>
         <item>Battambong</item>
     </string-array>
-    <!-- End Spinner Array -->
-
-    //Post type
     <string-array name="posty_type">
         <item>Sell</item>
-<!--        <item>Buy</item>-->
+        <!--        <item>Buy</item>-->
         <item>Rent</item>
     </string-array>
-
-    //Condition
     <string-array name="condition">
         <item>New</item>
         <item>Used</item>
     </string-array>
-
-    //Condition filter search
     <string-array name="filter_condition">
         <item>All</item>
         <item>New</item>
         <item>Used</item>
     </string-array>
-
-    // Color
     <string-array name="color">
         <item>Blue</item>
         <item>Black</item>
@@ -280,15 +567,10 @@
         <item>Orange</item>
         <item>Green</item>
     </string-array>
-
-    //Rent type
     <string-array name="rent_type">
         <item>Week</item>
         <item>Month</item>
     </string-array>
-    //Discount type
-
-    <string name="clear_all_label">Clear</string>
     <string-array name="discount_type">
         <item> $</item>
         <item> %</item>
@@ -298,62 +580,6 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
-
-    <!--    message for loan created-->
-    <string name="create_loan">Your create</string>
-    <string name="already_created">You cannot request duplicate loan.</string>
-
-
-    <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
-
-    <string name="title_fill_information">Fill in Information</string>
-    <string name="txt_clr_detail">DETAIL</string>
-    <string name="hit_username">Username</string>
-    <string name="hit_shop_name">Shop Name</string>
-    <string name="hit_gender">Gender</string>
-    <string name="hit_age">Age</string>
-    <string name="hit_job">Job</string>
-    <string name="hit_mon_income">Monthy Average Income</string>
-    <string name="hit_mon_expense">Monthy Average Expense</string>
-    <string name="hit_phone1">Phone 1</string>
-    <string name="hit_phone2">Phone 2</string>
-    <string name="hit_phone3">Phone 3</string>
-    <string name="hit_email">Email</string>
-    <string name="txt_clr_information">LOAN INFORMATION</string>
-    <string name="loan_information">Loan Information</string>
-    <string name="hit_loan_amount">Loan Amount</string>
-    <string name="hit_loan_duration">Loan Duration (month)</string>
-    <string name="hit_purpos">Loan Purpose</string>
-    <string name="hit_status">Status</string>
-    <string name="txt_clr_supporting">LOAN SUPPORTING DOCUMENT</string>
-    <string name="hit_state_id">State ID</string>
-    <string name="hit_family_book">Family Book</string>
-    <string name="hit_staffid">Staff ID/ Salary Slip</string>
-    <string name="hit_hourse">House Plant</string>
-    <string name="loan_calculation">LOAN CALCULATION</string>
-    <string name="loan_calculation_title">Loan Calculation</string>
-    <string name="title_loan_price">Price ($)</string>
-    <string name="title_loan_interest_rate">Interest Rate (%)</string>
-    <string name="title_loan_deposit">Deposit ($)</string>
-    <string name="title_loan_term">Loan Term(Month)</string>
-    <string name="title_monthly_payment">Monthly Payment</string>
-    <string name="hit_co_borrower">Co-Borrower</string>
-    <!-- End Loan Information String -->
-
-    //delete and edit
-    <string name="button_edit">Edit</string>
-    <string name="button_delete">Delete</string>
-
-    //Loan
-    <string name="loan_description">Loan Description</string>
-    <string name="Price">Price ($)</string>
-    <string name="interest_rate">Interest Rate (%)</string>
-    <string name="deposit">Deposit ($)</string>
-    <string name="term">Term (Month)</string>
-    <string name="Monthly_payment">Monthly Payment</string>
-    <string name="contact">Contact</string>
-    <string name="locaion">Location :</string>
-
     <string-array name="tab_A">
         <item>Item 1A</item>
         <item>Item 1B</item>
@@ -376,7 +602,6 @@
         <item>Item 1S</item>
         <item>Item 1T</item>
     </string-array>
-
     <string-array name="tab_B">
         <item>Item 2A</item>
         <item>Item 2B</item>
@@ -399,7 +624,6 @@
         <item>Item 2S</item>
         <item>Item 2T</item>
     </string-array>
-
     <string-array name="tab_C">
         <item>Item 3A</item>
         <item>Item 3B</item>
@@ -429,238 +653,15 @@
         <item>Item 3Z</item>
     </string-array>
 
-    <string name="birth">Year of birth</string>
-    <string name="place">Place of birth</string>
-    <string name="married">Marital Status</string>
-    <string name="location">Location</string>
-
-    //login
-    <string name="connect_facebook">Quick Connect with Facebook</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="log_or_register">Login or Register with your phone number</string>
-
-    //Camera post
-    <string name="choose">Choose</string>
-    <string name="choose_language">Choose language</string>
-    <string name="upload">Upload</string>
-    //post ad
-    <string name="post_type">Post type</string>
-    <string name="title">Title</string>
-    <string name="type">Type</string>
-    <string name="model">Model</string>
-    <string name="address">Address</string>
-    <string name="name">Name</string>
-    <string name="contact_detail">CONTACT DETAIL</string>
-    <string name="discountt">Discount</string>
-    <string name="discount">DISCOUNT</string>
-    <string name="discount_type">Discount type</string>
-
-    <string name="about_us_heading">About 121</string>
-    <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
-    <string name="about_us_description">Welcome to 121 online market platform!
-        A new modern online market in Cambodia. User friendly, super quick and easy to use in online market, helps you Buy, Sell or Rent anything in your neighborhood. 121 Online Market Platform is the future of E-Commerce in Cambodia, aiming to make up for all inconveniences of other markets, and replace them with new modern solutions.
-        For example possibility to add products by signing up for an account with very clear information details, and marking the position of dealers’ shop on the map, its help you can understand more clearly about dealer. You can use it through the website, or download our free application from Play Store, App Store or Google Play.
-    </string>
-
-    <string name="term_privacy_heading">Privacy Policy</string>
-    <string name="term_privacy_description">This Privacy Policy describes how 121 Online Market Platform (website, tools, apps and services) is responsible for collection, using and retain of personal information. Your privacy is important to us, so we collect only the data that we really need to let this App run smoothly and properly.
-        This privacy policy enter into force on 1st Aug, 2019. By using the 121 Online Market Platform agree with this PRIVACY POLICY. You should check this page occasionally to ensure you are familiar with any changes.
-    </string>
-    <string name="rigth_suspend">Rights to Suspend or Terminate</string>
-    <string name="right_suspend_description">You agree that this App, in its own discretion, may terminate any listing or use of the service immediately and without notice if\n
-    (a) You are not abiding by the general rules of this App\n
-    (b) You have repeatedly broken a certain term\n
-    (c) You have listed a suspicious it
-    </string>
-
-    <string name="general_term">General Terms</string>
-    <string name="general_term_description">This App is intended to be a friendly, enjoyable and useful experience, but as with anything concerning any kind of transactions there are risks involved and we strongly advise you to understand all of these terms before submitting the listing.
-    This App acts as the screen for selYou agree that this App, in its own discretion, may terminate any listing or use of the service immediately and without notice if\n
-    (a) You are not abiding by the general rules of this App\n
-    (b) You have repeatedly broken a certain term\n
-    (c) You have listed a suspicious itlers/lessors to post listings and for buyers/lessees to bid/purchase on seller or lessor\'s listings. We are not involved in the actual transaction between buyers/lessees and sellers/lessors. As a result, we have no control over the quality, safety or legality of the items listed the truth or accuracy of the product listings, We cannot and do not control whether or not sellers/lessors will complete the sale/rent of items they offer or buyers/lessees will complete the purchases/rent of items they have bid on.
-    In addition, This App shall not be responsible for any items sold/rent through it, for any damage to items during the inspection period, nor for misrepresentations or breaches of contract by either buyer, lessee, seller or lessor.
-    This App shall not be responsible for the cost of procurement of substitute goods or any losses resulting from any goods purchased or obtained. This App assumes no liability for the content of the listings. However if you fall victim of a fraudulent transaction, we will assist you as much as we can.
-    </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_snipper">SnipperActivity</string>
-
-    //dealer
-    <string name="name_officer">Name of Responsible Officer</string>
-    <string name="shop_address">Shop Address</string>
-    <string name="shop_name">Shop Name</string>
-    //verify
-    <string name="bt_verify">Verify</string>
-    <string name="verify_code">Verify Code</string>
-    <string name="condittion_verify">We just send the verify code to this number. Enter the code from that message there.</string>
-    <string name="dont_receive">Do not Receive the Code?</string>
-    <string name="resend">Resend</string>
-    <string name="enter_number">Enter your phone number</string>
-    <string name="verify_code_message">Brand with this username already exists.</string>
-    //message
-    <string name="type_message">Type a message...</string>
-    <string name="username">Username</string>
-    <string name="renew">Renew</string>
-    //filter
-    <string name="choose_type">Choose Type</string>
-    <string name="choose_model">Choose Model</string>
-    <string name="choose_color">Choose color</string>
-    <string name="choose_discount">Choose type discount</string>
-    <string name="choose_condition">Choose condition</string>
-    <string name="choose_type_post">Choose type post</string>
-    <string name="choose_category">Choose Category</string>
-    <string name="choose_brand">Choose Brand</string>
-    <string name="choose_year">Choose Year</string>
-
-    <string name="public_user">Public User</string>
-    <string name="other_dealer">Other Dealers</string>
-    <string name="shoppe">121 Shoppe</string>
-    <string name="search_here">Search...</string>
-    <string name="no_result">No Result</string>
-    <string name="related_poat">Related Post</string>
-
-    <string name="english_khmer">English</string>
-
-    <!-- Chats -->
-    <string name="chat_toolbar">Chats</string>
-    <string name="all_text">All</string>
-
-    <string name="loan_message">Your loan request is Under checking</string>
-    <string name="loan_fail_message">Loan request has been error while submitting.</string>
-    <string name="missing_image">Please select images</string>
-    <string name="post_message">Your post is waiting for approval.</string>
-    <string name="title_edit_loan">Edit your loan</string>
-    <string name="title_create_loan">Create your loan</string>
-    <string name="loan_feedback">Please check again!!</string>
-    <string name="loan_feedback1">Your loan has not been edit</string>
-    <string name="title_post">Post ads</string>
-    <string name="post_fail_message">This Post ads has been error while submitting.</string>
-    <string name="post_success_message">This Post ads has been successfully submitted.</string>
-    <string name="waiting_approval">Waiting approval</string>
-
-    <string name="ok">OK</string>
-    <string name="please_wait">Please wait...</string>
-    <string name="uploading">Uploading</string>
-    //validate loan
-    <string name="job">Job can`t be empty</string>
-    <string name="monthly_expense">Monthly expense can`t be empty</string>
-    <string name="monthly_income">Monthly income can`t be empty</string>
-    <string name="co_borrower">Co-borrower can`t be empty</string>
-    <string name="loan_amount">Loan amount can`t be empty</string>
-    <string name="loan_purpose">Loan purpose can`t be empty</string>
-    <string name="loan_term">Loan term can`t be empty</string>
-    <string name="id_card">ID card can`t be empty</string>
-    <string name="staff_id">Staff ID can`t be empty</string>
-    <string name="title_land">Land title can`t be empty</string>
-    <string name="book_family">Family book can`t be empty</string>
-    <string name="delete_loan">Are you sure you want to cancel this loan?</string>
-    <string name="cancel_loan">Cancel loan</string>
-
-    //permission
-    <string name="permission">Need Permissions</string>
-    <string name="setting_permission">This app needs permission to use this feature. You can grant them in app settings.</string>
-    <string name="go_setting">GOTO SETTINGS</string>
-    <string name="cancel">Cancel</string>
-    <string name="facebook_login_register">Register or Login with Facebook</string>
-    <string name="confirm_phone_number_title">Set Phone</string>
-    <string name="confirm_phone_number_text">Please enter your phone number in the box below to verify your phone number. We will send the verification code to your phone.</string>
-    <string name="confirm_phone_number_hint">Your Phone Number</string>
-    <string name="button_close">Close</string>
-    <string name="phone_exist">This phone number is already used. Please try another.</string>
-    <string name="progress_waiting">In progress...</string>
-    <string name="requried_permission">Please Turn On your Location Connection</string>
-    <string name="gps">Please Turn On your PGS Connection</string>
-    //Account
-    <string name="choose_province">Choose Province</string>
-    <string name="choose_location">Choose Location</string>
-    <string name="choose_status">Choose Marital Status</string>
-    <string name="choose_gender">Choose Gender</string>
-    <string name="title_edit_account">Edit account</string>
-    <string name="edit_success_message">Account information has been successfully submitted.</string>
-    <string name="edit_fail_message">Account information has been error while submitting.</string>
-    <string name="update">Updating...</string>
-    <string name="title_unlike">Remove Save Ad</string>
-    <string name="unlike_message">Are you sure to remove this save ad?uploading</string>
-    <string name="like_post">You Liked this post</string>
-    <string name="forget_pwd">Forget Password?</string>
-    <string name="search_account_title">Search Account</string>
-    <string name="search_account_text">Enter the phone number you have registered to the 121 Shoppe account, and we will send a code to set up a new password.</string>
-    <string name="search_account_phone">Phone Number</string>
-    <string name="invalid_phone">The Phone Number is invalid</string>
-    <string name="reset_password_title">Reset Password</string>
-    <string name="reset_password_text">You will use this Password to access your account.</string>
-    <string name="public_brand">Public User</string>
-    //log
-    <string name="login_fail">Login Failure</string>
-    <string name="logout_message">Are you sure you want to logout?</string>
-    //change password
-    <string name="title_change_password">Changed Password</string>
-    <string name="success_change_password">Your password was changed</string>
-    <string name="fail_change_password">Your password has been error while changing.</string>
-    //tab account
-    <string name="tab_post">Post</string>
-    <string name="tab_like">Like</string>
-    <string name="tab_loan">Loan</string>
-    <string name="active">Active ads</string>
-    <string name="history">History</string>
-    <string name="history_loan">History</string>
-    <string name="loan_active">Active Loan</string>
-    <string name="view">View: </string>
-    //edit account
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other">Other</string>
-    <string name="marriedd">Married</string>
-    <string name="separated">Separated</string>
-    <string name="single">Single</string>
-    <string name="divorced">Divorced</string>
-    <string name="widowed">Widowed</string>
-    <string name="user_type">User Type</string>
-    <string name="load_more_text">View more</string>
-    //filter
-    <string name="result">Result</string>
-    <string name="filter">Filter</string>
-    <string name="done">Done</string>
-    <string name="not_found">No Result Found...!</string>
-    <string name="all">All</string>
-    <string name="message">You can not send empty message</string>
-    //renew
-    <string name="pending">Pending</string>
-    <string name="Post_Renewal">Post Renewal</string>
-    <string name="renew_post">Do you want to renew this post?</string>
-
-    <string name="newl">New</string>
-    <string name="used">Used</string>
-    <string name="blue">Blue</string>
-    <string name="black">Black</string>
-    <string name="silver">Silver</string>
-    <string name="red">Red</string>
-    <string name="gray">Gray</string>
-    <string name="yellow">Yellow</string>
-    <string name="pink">Pink</string>
-    <string name="purple">Purple</string>
-    <string name="orange">Orange</string>
-    <string name="green">Green</string>
-    <string name="sel">Sell</string>
-    <string name="ren">Rent</string>
-    <string name="bu">Buy</string>
-    <string name="amount">Amount</string>
-    <string name="percent">Percent</string>
     <string-array name="usertype">
         <item>Public User</item>
         <item>Other Dealers</item>
     </string-array>
-    <string name="no_more_result">No more result</string>
-
     <string-array name="dailog_delete">
         <item>This product has been sold</item>
         <item>Suspend this ads</item>
         <item>Delete to post new ads</item>
         <item>Cancel</item>
     </string-array>
-    <string name="no_conversation">No Conversation!</string>
 
 </resources>

@@ -2328,7 +2328,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             tvPostType.setText(postTypeListItems[i]);
                             //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
                             icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
-
+                            //close option buy by Raksmey 9/9/2019
                             switch (i) {
                                 case 0:
                                     strPostType = "sell";
