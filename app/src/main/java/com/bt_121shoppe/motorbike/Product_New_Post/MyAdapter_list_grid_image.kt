@@ -18,9 +18,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Item_API
+import com.bt_121shoppe.motorbike.Api.ConsumeAPI
+import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.useraccount.User_post
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
+import com.google.gson.JsonParseException
+import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.*
 import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?,val context: Context) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
@@ -61,6 +70,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val show_view= itemView.findViewById<TextView>(R.id.user_view)
         val tv_discount = itemView.findViewById<TextView>(R.id.tv_discount)
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
+        val img_user = itemView.findViewById<CircleImageView>(R.id.img_user)
 
         fun bindItems(item: Item_API,context: Context) {
 
@@ -115,6 +125,38 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                   intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)
             }
+            var user1 = User()
+            var URL_ENDPOINT= ConsumeAPI.BASE_URL+"api/v1/users/"+item.userId
+            var MEDIA_TYPE= MediaType.parse("application/json")
+            var client= OkHttpClient()
+            var request= Request.Builder()
+                    .url(URL_ENDPOINT)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    //.header("Authorization",encode)
+                    .build()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    val mMessage = e.message.toString()
+                    Log.w("failure Response", mMessage)
+                }
+
+                @Throws(IOException::class)
+                override fun onResponse(call: Call, response: Response) {
+                    val mMessage = response.body()!!.string()
+                    val gson = Gson()
+                    try {
+                        user1= gson.fromJson(mMessage, User::class.java)
+
+                        CommomAPIFunction.getUserProfileFB(context,img_user,user1.username)
+
+
+                    } catch (e: JsonParseException) {
+                        e.printStackTrace()
+                    }
+
+                }
+            })
         }
         fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
             val bytes = ByteArrayOutputStream()

@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class PostProduct implements Serializable {
     private static final long serialVersionUID=1L;
     private int postId;
+    private int user_id;
     private String postTitle;
     private String postType;
     private String postImage;
@@ -16,8 +17,9 @@ public class PostProduct implements Serializable {
 
     public PostProduct(){}
 
-    public PostProduct(int postId,String postTitle,String postType,String postImage,String postPrice,String locationDuration,int countView,String discountType,String discountAmount){
+    public PostProduct(int postId,int user_id,String postTitle,String postType,String postImage,String postPrice,String locationDuration,int countView,String discountType,String discountAmount){
         this.postId=postId;
+        this.user_id = user_id;
         this.postTitle=postTitle;
         this.postType=postType;
         this.postImage=postImage;
@@ -30,6 +32,14 @@ public class PostProduct implements Serializable {
 
     public int getPostId() {
         return postId;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getPostTitle() {

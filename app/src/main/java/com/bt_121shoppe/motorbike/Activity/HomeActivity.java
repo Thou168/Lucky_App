@@ -202,6 +202,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                             JSONObject object = results.getJSONObject(i);
                             String locationDT="";
                             int id=object.getInt("id");
+                            int user_id = object.getInt("user");
                             String title = object.getString("title");
                             String type = object.getString("post_type");
                             String cost = object.getString("cost");
@@ -215,7 +216,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                             String frontImage=object.getString("front_image_path");
                             String[] splitPath=frontImage.split("/");
                             String imageUrl=ConsumeAPI.IMAGE_STRING_PATH+splitPath[splitPath.length-1];
-                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby);
+                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,"null",type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby);
                             if(!address.isEmpty()){
                                 String[] lateLong=address.split(",");
                                 address=CommonFunction.getAddressFromMap(this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));
@@ -236,8 +237,8 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                                     e.printStackTrace();
                                 }
                             }
-                            mPostBestDeals.add(new PostProduct(id,title,type,imageUrl,cost,locationDT, 0,discountType,discountAmount));
-                            mmPost.add(new PostProduct(id,title,type,imageUrl,cost,locationDT,0,discountType,discountAmount));
+                            mPostBestDeals.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT, 0,discountType,discountAmount));
+                            mmPost.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT,0,discountType,discountAmount));
 
                         }
                     } catch (JSONException ej) {
@@ -330,6 +331,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                         if(isProduction==ConsumeAPI.IS_PRODUCTION && status==4) {
                             itemCount++;
                             String id=obj.getString("id");
+                            int user_id = obj.getInt("user");
                             String coverUrl = obj.getString("coverUrl");
                             String createdAt = obj.getString("createdAt");
                             String price=obj.getString("price");
@@ -361,8 +363,8 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                                 }
                             }
 
-                            mAllPosts.add(new PostProduct(Integer.parseInt(id),title,type,coverUrl,price,locationDT,viewCount ,discountType,discountAmount));
-                            mmPost.add(new PostProduct(Integer.parseInt(id),title,type,coverUrl,price,locationDT, viewCount,discountType,discountAmount));
+                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,locationDT,viewCount ,discountType,discountAmount));
+                            mmPost.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,locationDT, viewCount,discountType,discountAmount));
                             Log.d(TAG, "Result " + locationDT);
                         }
                     }catch (JSONException e){

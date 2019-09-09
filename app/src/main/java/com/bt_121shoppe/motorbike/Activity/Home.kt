@@ -534,6 +534,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         val `object` = jsonArray.getJSONObject(i)
                         val title = `object`.getString("title")
                         val id = `object`.getInt("id")
+                        val user_id = `object`.getInt("user")
                         val condition = `object`.getString("condition")
                         val cost = `object`.getDouble("cost")
                         val image = `object`.getString("front_image_path")
@@ -583,7 +584,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             txtno_found1!!.visibility = View.GONE
 
                                             cc=jsonCount
-                                            itemApi.add(Item_API(id,image,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                            itemApi.add(Item_API(id,user_id,image,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             recyclerView!!.adapter = MyAdapter_list_grid_image(itemApi, "List",this@Home)
                                             //List Grid and Image
                                             list = findViewById(R.id.img_list)
@@ -662,6 +663,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             val `object` = jsonArray.getJSONObject(i)
                             val title = `object`.getString("title")
                             val id = `object`.getInt("id")
+                            val user_id = `object`.getInt("user")
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
                             val discount = `object`.getDouble("discount")
@@ -701,7 +703,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                                             val jsonCount = jsonObject.getInt("count")
                                             Log.d("Item count view ", jsonCount.toString())
                                             cc = jsonCount
-                                            itemApi.add(Item_discount(id, image, image, title, cost, discount, condition, postType, agoap.toString(), cc.toString(), discount_type))
+                                            itemApi.add(Item_discount(id,user_id, image, image, title, cost, discount, condition, postType, agoap.toString(), cc.toString(), discount_type))
                                             best_list!!.adapter = MyAdapter(itemApi)
                                             //List Grid and Image
                                         } catch (e: JsonParseException) {
@@ -881,6 +883,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         if (isProduction == ConsumeAPI.IS_PRODUCTION && status == 4) {
                             itemCount++
                             val id = obj.getString("id")
+                            val user_id = obj.getInt("createdBy")
                             val coverUrl = obj.getString("coverUrl")
                             val createdAt = obj.getString("createdAt")
                             val price = obj.getString("price")
@@ -912,8 +915,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
                             }
 
-                            mAllPosts.add(PostProduct(Integer.parseInt(id), title, type, coverUrl, price, locationDT, viewCount, discountType, discountAmount))
-                            mmPost.add(PostProduct(Integer.parseInt(id), title, type, coverUrl, price, locationDT, viewCount, discountType, discountAmount))
+                            mAllPosts.add(PostProduct(Integer.parseInt(id),user_id, title,type, coverUrl, price, locationDT, viewCount, discountType, discountAmount))
+                            mmPost.add(PostProduct(Integer.parseInt(id),user_id, title, type, coverUrl, price, locationDT, viewCount, discountType, discountAmount))
                             Log.d("HOME", "Result $locationDT")
                         }
                     } catch (e: JSONException) {

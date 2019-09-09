@@ -21,10 +21,16 @@ public class AllResponse {
     private int count;
     public int getCount() { return count; }
 
-//    @SerializedName("username")
-//    @Expose
-//    private String username;
-//    public String getUsername() { return username; }
-//    public void setUsername(String username) { this.username = username; }
+    @SerializedName("username")
+    @Expose
+    private String username;
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    @SerializedName("first_name")
+    @Expose
+    private String first_name;
+    public String getFirst_name() { return first_name; }
+    public void setFirst_name(String first_name) { this.first_name = first_name; }
 
 }

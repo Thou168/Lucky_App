@@ -50,6 +50,11 @@ import android.widget.Toast;
 
 
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Brand;
+import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bumptech.glide.Glide;
@@ -1277,6 +1282,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     @Override
                                     public void run() {
                                         try {
+                                            String pTitel_new = tvBrand.getText().toString()+" "+ tvModel.getText().toString()+" "+tvYear.getText().toString()+" "+tvColor.getText().toString();
                                             JSONObject obj = new JSONObject(respon);
                                             int pID=obj.getInt("id");
                                             String pTitle=obj.getString("title");
@@ -1288,7 +1294,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String location=obj.getString("contact_address");
                                             String createdAt=obj.getString("created");
                                             int pStatus=obj.getInt("status");
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk);
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pTitel_new,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }

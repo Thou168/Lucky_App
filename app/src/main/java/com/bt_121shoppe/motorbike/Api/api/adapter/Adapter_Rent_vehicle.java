@@ -21,12 +21,15 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.TimeZone;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -112,6 +115,7 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
                 @Override
                 public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                     view.txtview.setText(String.valueOf(response.body().getCount()));
+                    CommomAPIFunction.getUserProfileFB(mContext,view.img_user,"086595985");
                 }
 
                 @Override
@@ -137,6 +141,7 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
         TextView title,cost,date,item_type,txtview;
         ImageView imageView;
         LinearLayout linearLayout;
+        CircleImageView img_user;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -146,6 +151,7 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
             linearLayout = view.findViewById(R.id.linearLayout);
+            img_user = view.findViewById(R.id.img_user);
         }
     }
 }

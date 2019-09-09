@@ -30,7 +30,7 @@ public class Item implements Serializable {
     private String rejected_date = null;
     private String rejected_by = null;
     private String rejected_comments;
-    private float modeling;
+    private int modeling;
     private String description;
     private String cost;
     private String post_type;
@@ -231,11 +231,11 @@ public class Item implements Serializable {
         this.rejected_comments = rejected_comments;
     }
 
-    public float getModeling() {
+    public int getModeling() {
         return modeling;
     }
 
-    public void setModeling(float modeling) {
+    public void setModeling(int modeling) {
         this.modeling = modeling;
     }
 

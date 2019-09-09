@@ -36,6 +36,7 @@ import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
+import com.bt_121shoppe.motorbike.Api.api.model.Modeling
 import com.bt_121shoppe.motorbike.Login_Register.UserAccount
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount
 import com.bt_121shoppe.motorbike.useraccount.User_post
@@ -71,7 +72,6 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -94,8 +94,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private var REQUEST_PHONE_CALL =1;
     private var postId:Int=0
     private var pk=0
-    private var name=""
-    private var pass=""
+    private var name = ""
+    private var pass = ""
     private var Encode=""
     private var p=0
     private var pt=0
@@ -820,15 +820,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
 
-                        val profilepicture: String=if(user1.profile.base64_profile_image==null) "" else user1.profile.base64_profile_image
-                        if(profilepicture.isNullOrEmpty()){
-                            img_user.setImageResource(R.drawable.square_logo)
-                        }else {
-                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
-                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                            img_user.setImageBitmap(decodedByte)
-
-                        }
+//                        val profilepicture: String=if(user1.profile.base64_profile_image==null) "" else user1.profile.base64_profile_image
+//                        if(profilepicture.isNullOrEmpty()){
+//                            img_user.setImageResource(R.drawable.user)
+//                        }else {
+//                            val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)
+//                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+//                            img_user.setImageBitmap(decodedByte)
+//                        }
                         CommomAPIFunction.getUserProfileFB(this@Detail_New_Post,img_user,user1.username)
 
                         if(user1.profile.first_name==null)
@@ -1092,7 +1091,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount=jsonObject.getInt("count")
-                        Log.d("444444",jsonCount.toString())
                         if (jsonCount == 1 || jsonCount == 0){
                             mprocessBar.visibility = View.GONE
                             tex_noresult.visibility = View.VISIBLE
@@ -1103,6 +1101,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val obj = jsonArray.getJSONObject(i)
                             val title = obj.getString("title")
                             val id = obj.getInt("id")
+                            val user_id = obj.getInt("user")
+                            val userId = obj.getInt("user")
                             val condition = obj.getString("condition")
                             val cost = obj.getDouble("cost")
                             val image = obj.getString("front_image_path")
@@ -1117,10 +1117,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val time: Long = sdf.parse(obj.getString("approved_date")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-
                             if(postId != id) {
                                 //Log.d("PostId ",postId.toString())
-                                itemApi.add(Item_API(id, img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
+                                itemApi.add(Item_API(id, user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
+//                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)
                             list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2) as RecyclerView.LayoutManager?

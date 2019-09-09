@@ -1,7 +1,10 @@
 package com.bt_121shoppe.motorbike.Api.api;
 
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.model.Brand;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
+import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 
@@ -24,8 +27,8 @@ public interface Service {
     @PATCH("api/v1/renewaldelete/{id}/")
     Call<change_status_delete> getpathStatus(@Path("id") int id, @Body change_status_delete change_status, @Header("Authorization") String authorization);
 
-//    @GET("/allposts/?page=")
-//    Call<AllResponse> getAllPost(@Query("page") String page);
+    @GET("api/v1/users/{pk}/")
+    Call<AllResponse> getProfile(@Path("pk") int pk, @Header("Authorization") String authorization);
 //    @GET("/bestdeal/")
 //    Call<AllResponse> getBestdeal();
     @GET("countview/?post=")
@@ -76,5 +79,12 @@ public interface Service {
     Call<AllResponse> getBrands();
     @GET("api/v1/years/")
     Call<AllResponse> getYear();
+
+    @GET("api/v1/users/{id}/")
+    Call<User> getuser(@Path("id")int id);
+    @GET("api/v1/models/{modeling}/")
+    Call<Modeling> getModeling(@Path("modeling") int modeling);
+    @GET("api/v1/brands/{brand}/")
+    Call<Brand> getBrand(@Path("brand") int brand);
 
 }

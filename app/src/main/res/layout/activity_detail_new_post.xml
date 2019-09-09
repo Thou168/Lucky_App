@@ -21,7 +21,6 @@
             <View style="@style/line"/>
             <TextView
                 android:id="@+id/title"
-                android:lines="2"
                 android:paddingLeft="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -2,6 +2,7 @@ package com.bt_121shoppe.motorbike.adapters;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostProduct;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG=AllPostAdapter.class.getSimpleName();
@@ -97,6 +109,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postOriginalPrice;
         TextView postView;
         TextView postLang;
+        CircleImageView img_user;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -108,6 +121,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postOriginalPrice=itemView.findViewById(R.id.tv_discount);
             postView=itemView.findViewById(R.id.user_view);
             postLang=itemView.findViewById(R.id.user_view1);
+            img_user = itemView.findViewById(R.id.img_user);
         }
 
         @Override
@@ -178,6 +192,23 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     itemView.getContext().startActivity(intent);
                 }
             });
+// 05 09 19 thou
+            try{
+                Service api = Client.getClient().create(Service.class);
+                Call<User> call = api.getuser(mPost.getUser_id());
+                call.enqueue(new retrofit2.Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+
+                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d("Error",t.getMessage());
+                    }
+                });
+            }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
         }
 
     }

@@ -93,6 +93,7 @@ class fragment_rent_eletronics : Fragment() {
                             val `object` = jsonArray.getJSONObject(i)
                             val title = `object`.getString("title")
                             val id = `object`.getInt("id")
+                            val user_id = `object`.getInt("user")
                             val condition = `object`.getString("condition")
                             val cost = `object`.getDouble("cost")
                             val image = `object`.getString("front_image_path")
@@ -131,7 +132,7 @@ class fragment_rent_eletronics : Fragment() {
                                         val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                            item.add(Item_API(id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                            item.add(Item_API(id, user_id,image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                             Log.d("Item: ", item.size.toString())
                                             recycleView!!.layoutManager = GridLayoutManager(context, 1)
                                             recycleView!!.adapter = MyAdapter_list_grid_image(item, "List",context1)

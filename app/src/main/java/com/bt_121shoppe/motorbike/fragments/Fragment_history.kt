@@ -146,6 +146,7 @@ class Fragment_history: Fragment() {
                                             if (jsonObject1 != null) {
                                                 val title = jsonObject1.getString("title")
                                                 val id = jsonObject1.getInt("id")
+                                                val user_id = jsonObject1.getInt("user")
                                                 val condition = jsonObject1.getString("condition")
                                                 val cost = jsonObject1.getDouble("cost")
                                                 val image = jsonObject1.getString("front_image_path")
@@ -185,7 +186,7 @@ class Fragment_history: Fragment() {
                                                             val jsonObject = JSONObject(mMessage)
                                                             val jsonCount = jsonObject.getInt("count")
                                                             activity!!.runOnUiThread {
-                                                                itemApi.add(Item_API(id, img_user, frontImagePart, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
+                                                                itemApi.add(Item_API(id, user_id,img_user, frontImagePart, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
                                                                 recyclerView!!.adapter = MyAdapter_post_history(itemApi, "List")
                                                                 recyclerView!!.layoutManager = GridLayoutManager(context, 1) as RecyclerView.LayoutManager?
                                                             }

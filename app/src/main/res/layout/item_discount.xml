@@ -15,17 +15,20 @@
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/user"
-                android:background="@color/colorLightGray"
-                android:orientation="horizontal"
+                android:background="#EBEBEB"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_user"
+                    android:layout_gravity="right"
+                    android:src="@drawable/logo"
                     card_view:civ_border_width="2dp"
                     card_view:civ_border_color="@color/circle"
                     android:layout_width="30dp"
                     android:layout_height="30dp" />
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -48,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:visibility="gone"
                     android:textSize="10dp"
                     android:id="@+id/location"
                     android:text="Phonm Penh - 2h ago"
@@ -73,26 +77,28 @@
                     android:layout_toEndOf="@+id/tv_price" />
 
                 <LinearLayout
-                    android:gravity="right"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/location"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_discount"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right">
+
                     <TextView
                         android:id="@+id/user_view"
-                        android:textSize="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
-                        android:text="@string/view"/>
+                        android:text="@string/view"
+                        android:textSize="10dp" />
+
                     <TextView
                         android:id="@+id/view"
-                        android:textSize="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"/>
+                        android:layout_alignParentBottom="true"
+                        android:textSize="10dp" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

@@ -9,12 +9,13 @@ import java.util.HashMap;
 
 public class FBPostCommonFunction {
 
-    public static void SubmitPost(String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby){
+    public static void SubmitPost(String id,String title,String title_new,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby){
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("isProduction", ConsumeAPI.IS_PRODUCTION);
         hashMap.put("id",id);
         hashMap.put("title",title);
+        hashMap.put("new_title",title_new);
         hashMap.put("type",type);
         hashMap.put("coverUrl",coverUrl);
         hashMap.put("price",price);

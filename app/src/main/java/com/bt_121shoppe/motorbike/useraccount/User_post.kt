@@ -236,6 +236,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                 val obj =jsonArray.getJSONObject(i)
                                 val title = obj.getString("title")
                                 val id = obj.getInt("id")
+                                val user_id = obj.getInt("user")
                                 val condition = obj.getString("condition")
                                 val cost = obj.getDouble("cost")
                                 val image = obj.getString("front_image_path")
@@ -272,7 +273,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
-                                                itemApi.add(Item_API(id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                                 recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                             }

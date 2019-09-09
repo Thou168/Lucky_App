@@ -38,7 +38,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="220dp">
+                    android:layout_height="250dp">
                     <androidx.recyclerview.widget.RecyclerView
                         app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         android:id="@+id/horizontal"
