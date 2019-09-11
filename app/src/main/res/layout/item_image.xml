@@ -14,13 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/user"
             android:background="#EBEBEB"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_user"
+                android:id="@+id/img_user1"
                 android:src="@drawable/logo"
                 card_view:civ_border_width="2dp"
                 android:layout_gravity="right"
@@ -42,14 +43,32 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="250dp" />
-        <TextView
-            android:id="@+id/title"
-            android:text="title"
-            android:lines="1"
-            android:layout_marginLeft="@dimen/dp_4"
-            android:textSize="15dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_toStartOf="@+id/img_user"
+                android:lines="1"
+                android:text="title"
+                android:textSize="15dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_user"
+                android:src="@drawable/logo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                card_view:civ_border_width="2dp"
+                android:layout_gravity="right"
+                card_view:civ_border_color="@color/circle"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+        </RelativeLayout>
         <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -59,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:visibility="gone"
                     android:textSize="10dp"
                     android:id="@+id/location"
                     android:layout_marginLeft="@dimen/dp_4"
@@ -66,6 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <LinearLayout
+                    android:layout_marginTop="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
@@ -89,6 +110,7 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"

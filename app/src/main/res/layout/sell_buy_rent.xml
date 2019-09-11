@@ -22,7 +22,7 @@
             <TextView
                 android:id="@+id/buy"
                 android:textStyle="bold"
-                android:textSize="@dimen/dp_20"
+                android:textSize="@dimen/dp_18"
                 android:textColor="#DF8302"
                 android:text="@string/buy1"
                 android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
                 android:id="@+id/sell"
                 android:textColor="#089D01"
                 android:textStyle="bold"
-                android:textSize="@dimen/dp_20"
+                android:textSize="@dimen/dp_18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sell1" />
@@ -64,10 +64,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rent"
-                android:textSize="@dimen/dp_20" />
+                android:textSize="@dimen/dp_18" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
+        android:visibility="gone"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
