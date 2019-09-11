@@ -1443,7 +1443,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5),2000,null);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(current_location)
-                .zoom(18)
+                .zoom(10)
                 .bearing(90)
                 .tilt(30)
                 .build();

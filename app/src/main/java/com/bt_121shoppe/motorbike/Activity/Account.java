@@ -31,6 +31,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -154,6 +155,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         uploadprofile=findViewById(R.id.imgCover);
         tvUsername=findViewById(R.id.tvUsername);
         viewPager = findViewById(R.id.pagerMain);
+
         inttab=0;
 
         tabs = findViewById(R.id.tabs);

@@ -74,7 +74,7 @@ public class UserAccount extends AppCompatActivity {
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Register.class);
+                Intent intent = new Intent(v.getContext(), SelectUserType.class);
                 intent.putExtra("Register_verify",verify);
                 intent.putExtra("product_id",product_id);
                 startActivity(intent);

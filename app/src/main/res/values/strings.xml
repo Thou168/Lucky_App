@@ -1,5 +1,7 @@
 <resources>
+
     <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
+
     <string name="app_name">121 Motorbike</string>
     <string name="title_activity_new__main">New_Main</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -119,6 +121,7 @@
     <string name="product_discount">Best Deal</string>
     <string name="new_post">New Post</string>
     <string name="home">Home</string>
+
     //Edit_Account
     <string name="notification">Notification</string>
     <string name="camera">Post Ad</string>
@@ -241,6 +244,7 @@
     <string name="upload">Upload</string>
     <string name="post_type">Post type</string>
     <string name="title">Title</string>
+    <string name="selectuser">Select Account Type</string>
     <!-- End Loan Information String -->
 
     //delete and edit

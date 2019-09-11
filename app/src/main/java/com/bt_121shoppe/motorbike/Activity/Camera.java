@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +45,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -134,6 +136,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     File mPhotoFile;
     FileCompressor mCompressor;
     private RelativeLayout relatve_discount;
+    private ScrollView scrollView;
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3,icAddress;
@@ -181,7 +184,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
 
-
+        scrollView = findViewById(R.id.scroll_post);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -235,11 +238,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     }
                     break;
                 case R.id.camera:
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), Camera.class));
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
-                    }
+//                    if (prefer.contains("token")||prefer.contains("id")) {
+//                        startActivity(new Intent(getApplicationContext(), Camera.class));
+//                    }else {
+//                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+//                    }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     break;
                 case R.id.message:
                     if (prefer.contains("token")||prefer.contains("id")) {
@@ -3435,7 +3439,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 2000, null);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(current_location)
-                .zoom(18)
+                .zoom(10)
                 .bearing(90)
                 .tilt(30)
                 .build();

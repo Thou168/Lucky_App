@@ -174,6 +174,11 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                                                         Intent intent = new Intent(mContext, Account.class);
                                                         mContext.startActivity(intent);
                                                         ((Activity)mContext).finish();
+                                        // delete item withou intent by samang 9/9/19
+//                                                        datas.remove(position);
+//                                                        notifyItemRemoved(position);
+//                                                        notifyItemRangeChanged(position, datas.size());
+
                                                         if (response.code() == 400) {
                                                             try {
                                                                 Log.v("Error code 400",response.errorBody().string());

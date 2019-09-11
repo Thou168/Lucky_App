@@ -174,6 +174,10 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
                             Intent intent = new Intent(mContext, Account.class);
                             mContext.startActivity(intent);
                             ((Activity)mContext).finish();
+//                 // delete item without intent by samang 9/9/19
+//                            datas.remove(position);
+//                            notifyItemRemoved(position);
+//                            notifyItemRangeChanged(position, datas.size());
                         }
 
                         @Override

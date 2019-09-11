@@ -58,6 +58,7 @@ class VerifyMobileActivity : AppCompatActivity() {
     internal lateinit var reference: DatabaseReference
     private var verify = ""
     private var product_id = 0
+    private var user_group = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +71,7 @@ class VerifyMobileActivity : AppCompatActivity() {
         authType=intent.getIntExtra("authType",0)
         no = intent.getStringExtra("phoneNumber")
         password=intent.getStringExtra("password")
+        user_group = intent.getIntExtra("user_group",0)
 
         login = findViewById<View>(R.id.login) as Button
         back=findViewById<TextView>(R.id.tvBack_account)
@@ -250,7 +252,8 @@ class VerifyMobileActivity : AppCompatActivity() {
             post_body.put("telephone", no)
             post_body.put("group",1)
             postdata.put("profile", post_body)
-            postdata.put("groups", JSONArray("[\"1\"]"))
+//            postdata.put("groups", JSONArray("[\"1\"]"))
+            postdata.put("groups", JSONArray("["+user_group+"]"))
         } catch (e: JSONException) {
             // TODO Auto-generated catch block
             e.printStackTrace()

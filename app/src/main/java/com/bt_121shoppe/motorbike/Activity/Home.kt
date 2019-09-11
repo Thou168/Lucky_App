@@ -31,6 +31,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +56,7 @@ import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity
 import com.bt_121shoppe.motorbike.Startup.Item
 import com.bt_121shoppe.motorbike.Startup.Search1
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapter
+import com.bt_121shoppe.motorbike.adapters.CustomAdapter
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration
 import com.bt_121shoppe.motorbike.models.PostProduct
@@ -125,6 +127,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     var txtno_found: TextView? = null
     var progreessbar1: ProgressBar? = null
     var txtno_found1: TextView? = null
+    var nestscrollView : NestedScrollView?= null
 
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     lateinit var mHandler: Handler
@@ -182,6 +185,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         toolbar.title = " "
         setSupportActionBar(toolbar)
+        nestscrollView = findViewById(R.id.nestedScrollView)
         progreessbar =findViewById(R.id.progress_bar)
         progreessbar!!.visibility = View.VISIBLE
         txtno_found =findViewById(R.id.text)
@@ -258,7 +262,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    recreate()
+                   nestscrollView?.fullScroll(ScrollView.FOCUS_UP)
+
                 }
                 R.id.camera ->{
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -389,11 +394,15 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }  // onCreate
     override fun onRefresh() {
         Handler().postDelayed({
-            recreate()
+//            recreate()
             mSwipeRefreshLayout!!.setRefreshing(false)
-        }, 1500)
+            getBest()
+            readAllPosts()
+        }, 2000)
 
     }
+
+
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -846,6 +855,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         builder.show()
     }
+
     override fun onStart() {
         super.onStart()
         bnavigation!!.menu.getItem(0).isChecked = true
@@ -868,6 +878,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val dividerDrawable = ContextCompat.getDrawable(this, R.drawable.divider_drawable)
         recyclerView!!.addItemDecoration(DividerItemDecoration(dividerDrawable))
         mAllPostAdapter = AllPostAdapter(java.util.ArrayList(), "List")
+
         readAllPosts()
         progreessbar1!!.visibility = View.GONE
     }
@@ -966,5 +977,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         })
     }
+
 
 }

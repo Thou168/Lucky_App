@@ -27,6 +27,7 @@ import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.adapters.CustomAdapter;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

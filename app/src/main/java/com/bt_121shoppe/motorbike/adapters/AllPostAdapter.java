@@ -49,6 +49,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         switch (viewType){
             case VIEW_TYPE_NORMAL:
                 switch (mView){
@@ -226,4 +227,6 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         }
     }
+
+
 }

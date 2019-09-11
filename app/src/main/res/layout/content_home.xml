@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/refresh"
     tools:context=".Activity.Home"
+    android:scrollbarStyle="insideOverlay"
     tools:showIn="@layout/app_bar_home">
 
     <RelativeLayout
@@ -13,9 +14,11 @@
         android:layout_height="wrap_content">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_above="@+id/bnaviga"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"

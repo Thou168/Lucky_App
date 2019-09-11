@@ -81,6 +81,7 @@
     <string name="confirm">បញ្ជាក់លេខសម្ងាត់</string>
     <string name="or">ឬ</string>
     <string name="register_by_facebook">ចុះឈ្មោះដោយប្រើ​​គណនីហ្វេសប៊ុក</string>
+    <string name="selectuser">ជ្រើសរើសប្រភេទគណនី</string>
 
     //Setting
     <string name="change_password">ប្តូរលេខសម្ងាត់</string>

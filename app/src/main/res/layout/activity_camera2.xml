@@ -35,6 +35,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
+            android:id="@+id/scroll_post"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -699,12 +700,16 @@
 
         </ScrollView>
     </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:menu="@menu/bottom_navigation"
         android:layout_alignParentBottom="true"
         android:id="@+id/bnaviga"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"/>
+        android:layout_height="?android:attr/actionBarSize"
+
+        />
+
 
 
 </RelativeLayout>

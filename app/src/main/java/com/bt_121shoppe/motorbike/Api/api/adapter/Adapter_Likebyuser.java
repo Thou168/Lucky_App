@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,6 +81,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final LikebyUser model = datas.get(position);
+
         String iditem = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
         String itemid_like = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
         try{
@@ -164,6 +166,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                     }catch (Exception e){Log.d("Error e",e.getMessage());}
 //Button Unlike
                     view.btn_unlike.setOnClickListener(v -> {
+
                         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                         dialog.setTitle(R.string.title_unlike)
                                 .setMessage(R.string.unlike_message)
@@ -177,9 +180,14 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                                     call_unlike.enqueue(new Callback<change_status_unlike>() {
                                         @Override
                                         public void onResponse(Call<change_status_unlike> call1, Response<change_status_unlike> response1) {
-                                            Intent intent = new Intent(mContext, Account.class);
-                                            mContext.startActivity(intent);
-                                            ((Activity)mContext).finish();
+//                                            Intent intent = new Intent(mContext, Account.class);
+//                                            mContext.startActivity(intent);
+//                                            ((Activity)mContext).finish();
+
+// delete item without intent by samang 9/9/19
+                                            datas.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, datas.size());
                                         }
 
                                         @Override
