@@ -561,5 +561,9 @@
         <item>លុបដើម្បីប្រកាសជាថ្មី</item>
         <item>បោះបង់</item>
     </string-array>
-    <string name="no_conversation">No Conversation!</string>
+<!--    <string name="no_conversation">គ្មានការសន្ទនា!</string>-->
+    <string name="no_internet">គ្មានការភ្ជាប់អ៊ីនធឺណិត</string>
+    <string name="upgrade">វិវត្តន៍</string>
+    <string name="min_price">តម្លៃអប្បបរមា</string>
+    <string name="max_price">តម្លៃអតិបរមា</string>
 </resources>

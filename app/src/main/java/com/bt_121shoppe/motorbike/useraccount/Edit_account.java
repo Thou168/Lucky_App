@@ -110,6 +110,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
 
     private TextInputLayout input_user, input_wingname,input_wingnum;
+    private Button btUpgrade;
 
     private Validator validator;
     @Override
@@ -189,6 +190,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         tilShop_name  = (TextInputLayout)findViewById(R.id.tilShop_name);
         tilPhone2     = (TextInputLayout)findViewById(R.id.tilPhone_account2);
         tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
+        btUpgrade = findViewById(R.id.btn_upgrade);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -328,50 +330,50 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 mDialog.show();
             }
         });
-        usertpyeItem=getResources().getStringArray(R.array.usertype);
-        tvType.setOnClickListener(v -> {
-            AlertDialog.Builder mbuilder = new AlertDialog.Builder(Edit_account.this);
-            mbuilder.setTitle(getString(R.string.user_type));
-            if (language.equals("km")){
-                mbuilder.setSingleChoiceItems(usertpyeItem, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        tvType.setText(usertpyeItem[i]);
-                        id_type = type_userid[i];
-                        if (id_type == 1){
-                            imgShopName.setVisibility(View.GONE);
-                            tilShop_name.setVisibility(View.GONE);
-                        }else {
-                            imgShopName.setVisibility(View.VISIBLE);
-                            tilShop_name.setVisibility(View.VISIBLE);
-                        }
-
-                        dialog.dismiss();
-                    }
-                });
-            }else if (language.equals("en")){
-                mbuilder.setSingleChoiceItems(type_userListItem, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        tvType.setText(type_userListItem[i]);
-                        id_type = type_userid[i];
-                        if (id_type == 1){
-                            imgShopName.setVisibility(View.GONE);
-                            tilShop_name.setVisibility(View.GONE);
-                        }else {
-                            imgShopName.setVisibility(View.VISIBLE);
-                            tilShop_name.setVisibility(View.VISIBLE);
-                        }
-
-                        dialog.dismiss();
-                    }
-                });
-            }
-            AlertDialog mDialog = mbuilder.create();
-            mDialog.show();
-
-        });
-
+        //Close option usertype by Raksmey 11/09/2019
+//        usertpyeItem=getResources().getStringArray(R.array.usertype);
+//        tvType.setOnClickListener(v -> {
+//            AlertDialog.Builder mbuilder = new AlertDialog.Builder(Edit_account.this);
+//            mbuilder.setTitle(getString(R.string.user_type));
+//            if (language.equals("km")){
+//                mbuilder.setSingleChoiceItems(usertpyeItem, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int i) {
+//                        tvType.setText(usertpyeItem[i]);
+//                        id_type = type_userid[i];
+//                        if (id_type == 1){
+//                            imgShopName.setVisibility(View.GONE);
+//                            tilShop_name.setVisibility(View.GONE);
+//                        }else {
+//                            imgShopName.setVisibility(View.VISIBLE);
+//                            tilShop_name.setVisibility(View.VISIBLE);
+//                        }
+//
+//                        dialog.dismiss();
+//                    }
+//                });
+//            }else if (language.equals("en")){
+//                mbuilder.setSingleChoiceItems(type_userListItem, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int i) {
+//                        tvType.setText(type_userListItem[i]);
+//                        id_type = type_userid[i];
+//                        if (id_type == 1){
+//                            imgShopName.setVisibility(View.GONE);
+//                            tilShop_name.setVisibility(View.GONE);
+//                        }else {
+//                            imgShopName.setVisibility(View.VISIBLE);
+//                            tilShop_name.setVisibility(View.VISIBLE);
+//                        }
+//
+//                        dialog.dismiss();
+//                    }
+//                });
+//            }
+//            AlertDialog mDialog = mbuilder.create();
+//            mDialog.show();
+//
+//        });
         mp_Dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -439,13 +441,28 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 if(tvType.getText().toString().length()<3){
                     tvType.requestFocus();
                     imgType.setImageResource(R.drawable.ic_error_black_24dp);
-
-                }else if (etUsername.getText().toString().length()<3){
+                }else if (etShop_name.getText().toString().length()<3){
+                    etShop_name.requestFocus();
+                    imgShopName.setImageResource(R.drawable.ic_error_black_24dp);
+                } else if (etUsername.getText().toString().length()<3){
                     etUsername.requestFocus();
                     imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
                 }else {
                     mProgress.show();
                     PutData(url, Encode);
+                }
+            }
+        });
+        //add new button Upgrade by Raksmey
+        btUpgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i=0;i<type_userid.length;i++){
+                    id_type = type_userid[i];
+                    if(id_type == 1){
+                        imgShopName.setVisibility(View.VISIBLE);
+                        tilShop_name.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -522,11 +539,13 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
                                 tvType.setText(getString(R.string.other_dealer));
+                                btUpgrade.setVisibility(View.GONE);
                                 imgShopName.setVisibility(View.VISIBLE);
                                 tilShop_name.setVisibility(View.VISIBLE);
                                 etShop_name.setText(convertJsonJava.getProfile().getShop_name());
                             }else {
                                 tvType.setText(getString(R.string.public_user));
+                                btUpgrade.setVisibility(View.VISIBLE);
                                 imgShopName.setVisibility(View.GONE);
                                 tilShop_name.setVisibility(View.GONE);
                             }

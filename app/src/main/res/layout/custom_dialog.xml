@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:hint="Min Price"
+            android:hint="@string/min_price"
             android:layout_weight="0.5"
             android:inputType="numberDecimal"
             android:padding="@dimen/dp_8dp" />
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:hint="Max Price"
+            android:hint="@string/max_price"
             android:layout_weight="0.5"
             android:inputType="numberDecimal"
             android:padding="@dimen/dp_8dp" />

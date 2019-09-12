@@ -718,5 +718,9 @@
         <item>Delete to post new ads</item>
         <item>Cancel</item>
     </string-array>
+    <string name="upgrade">Upgrade</string>
+    <string name="no_internet">No Internet Connection</string>
 <!--    <string name="no_conversation">No Conversation!</string>-->
+    <string name="min_price">Min Price</string>
+    <string name="max_price">Max Price</string>
 </resources>

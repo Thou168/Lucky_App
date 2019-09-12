@@ -11,12 +11,22 @@
         android:layout_gravity="center_vertical"
         android:src="@drawable/icon_null"
         android:background="@drawable/underline_gray"/>
+    <Button
+        android:id="@+id/btn_upgrade"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_gravity="right"
+        android:background="@drawable/underline_gray"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:hint="@string/upgrade"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/underline_gray"
         android:layout_toRightOf="@+id/imgType"
+        android:layout_toLeftOf="@+id/btn_upgrade"
         >
         <EditText
             android:id="@+id/tvType"
@@ -24,12 +34,11 @@
             android:layout_height="fill_parent"
             android:hint="@string/user_type"
             android:paddingLeft="10dp"
-            android:layout_toRightOf="@+id/imgType"
+            android:layout_toLeftOf="@+id/imgType"
             android:textSize="14dp"
             android:background="@null"
-            android:focusable="false"
-            android:drawableRight="@drawable/chevron_down_24"
-            />
+            android:focusable="false"/>
+<!--            android:drawableRight="@drawable/chevron_down_24"-->
     </com.google.android.material.textfield.TextInputLayout>
 
 

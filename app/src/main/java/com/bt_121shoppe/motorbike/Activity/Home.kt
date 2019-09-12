@@ -181,7 +181,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if(CheckNetwork.isIntenetAvailable(this@Home)){
 
         }else{
-            Toast.makeText(this@Home,"No Internet connection",Toast.LENGTH_LONG).show();
+            Toast.makeText(this@Home,getString(R.string.no_internet),Toast.LENGTH_LONG).show();
         }
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
