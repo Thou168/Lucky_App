@@ -346,6 +346,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             true
         }
+
+        //FirebaseAuth.getInstance().signOut()
+
         //SliderImage
         val sliderImage = findViewById(R.id.slider) as SliderImage
         val images = listOf("https://i.redd.it/glin0nwndo501.jpg", "https://i.redd.it/obx4zydshg601.jpg",
@@ -463,7 +466,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                 val intent = Intent(this@Home, AboutUsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_contact->{
+            R.id.nav_contact ->{
                 val intent = Intent(this@Home, ContactActivity::class.java)
                 startActivity(intent)
             }

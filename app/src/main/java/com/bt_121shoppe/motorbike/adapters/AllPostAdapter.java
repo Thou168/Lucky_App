@@ -141,6 +141,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super.onBind(position);
             final PostProduct mPost=mPostList.get(position);
 
+            postView.setText(String.valueOf(mPost.getCountView()));
             Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
@@ -200,8 +201,10 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 call.enqueue(new retrofit2.Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-
-//                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
+                        if (!response.isSuccessful()){
+                            Log.d("12122121", String.valueOf(response.code()));
+                        }
+                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
                     }
 
                     @Override

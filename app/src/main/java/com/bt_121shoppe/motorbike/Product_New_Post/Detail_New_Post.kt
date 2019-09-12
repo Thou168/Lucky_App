@@ -830,6 +830,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                            var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
 //                            img_user.setImageBitmap(decodedByte)
 //                        }
+
                         CommomAPIFunction.getUserProfileFB(this@Detail_New_Post,img_user,user1.username)
 
                         if(user1.profile.first_name==null)
@@ -1103,8 +1104,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val obj = jsonArray.getJSONObject(i)
                             val title = obj.getString("title")
                             val id = obj.getInt("id")
-                            val user_id = obj.getInt("user")
-                            val userId = obj.getInt("user")
+                            val user_id = obj.getInt("created_by")
                             val condition = obj.getString("condition")
                             val cost = obj.getDouble("cost")
                             val image = obj.getString("front_image_path")
@@ -1119,9 +1119,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val time: Long = sdf.parse(obj.getString("approved_date")).getTime()
                             val now: Long = System.currentTimeMillis()
                             val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+                            Log.d("1212121UserId ",user_id.toString())
                             if(postId != id) {
-                                //Log.d("PostId ",postId.toString())
-                                itemApi.add(Item_API(id, user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
+
+                                itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount))
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)
@@ -1158,6 +1159,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 try {
                     val jsonObject = JSONObject(mMessage)
                     val jsonCount=jsonObject.getInt("count")
+                    Log.d("1212121 id",postId.toString())
+                    Log.d("121212121view",jsonCount.toString())
                     runOnUiThread {
                         tv_count_view.setText(""+jsonCount)
                         //submit count view to firebase
@@ -1281,7 +1284,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     addressList = geocoder.getFromLocation(latitude, longtitude, 1)
                     val road = addressList!![0].getAddressLine(0)
 
-                    address_detial!!.text = road
+                    address_detial.text = road
 
                 } catch (e: IOException) {
                     e.printStackTrace()

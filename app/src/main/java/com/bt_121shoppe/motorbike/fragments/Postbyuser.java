@@ -92,15 +92,19 @@ public class Postbyuser extends Fragment {
         call.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                listData = response.body().getresults();
+                if (!response.isSuccessful()){
+                    Log.d("Response", String.valueOf(response.code()));
+                }else {
+                    listData = response.body().getresults();
 
-                if (listData.size()==0){
+                    if (listData.size() == 0) {
+                        progressBar.setVisibility(View.GONE);
+                        no_result.setVisibility(View.VISIBLE);
+                    }
                     progressBar.setVisibility(View.GONE);
-                    no_result.setVisibility(View.VISIBLE);
+                    mAdapter = new Adapter_postbyuser(listData, getContext());
+                    recyclerView.setAdapter(mAdapter);
                 }
-                progressBar.setVisibility(View.GONE);
-                mAdapter = new Adapter_postbyuser(listData,getContext());
-                recyclerView.setAdapter(mAdapter);
 
             }
 

@@ -70,15 +70,15 @@ public class Like_byuser extends Fragment {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                 Log.d("Like",response.message());
-                listData = response.body().getresults();
+//                listData = response.body().getresults();
 
-                if (listData.size()==0){
-                    progressBar.setVisibility(View.GONE);
-                    no_result.setVisibility(View.VISIBLE);
-                }
-                progressBar.setVisibility(View.GONE);
-                mAdapter = new Adapter_Likebyuser(listData,getContext());
-                recyclerView.setAdapter(mAdapter);
+//                if (listData.size()==0){
+//                    progressBar.setVisibility(View.GONE);
+//                    no_result.setVisibility(View.VISIBLE);
+//                }
+//                progressBar.setVisibility(View.GONE);
+//                mAdapter = new Adapter_Likebyuser(listData,getContext());
+//                recyclerView.setAdapter(mAdapter);
 
             }
 
