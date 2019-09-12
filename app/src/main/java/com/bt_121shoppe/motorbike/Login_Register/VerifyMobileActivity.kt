@@ -250,7 +250,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             postdata.put("username", no)
             postdata.put("password", password)
             post_body.put("telephone", no)
-            post_body.put("group",1)
+            post_body.put("group",user_group)
             postdata.put("profile", post_body)
 //            postdata.put("groups", JSONArray("[\"1\"]"))
             postdata.put("groups", JSONArray("["+user_group+"]"))

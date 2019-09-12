@@ -16,6 +16,7 @@ public class SelectUserType extends AppCompatActivity {
     private RadioButton radioPublic_User,radioOther_dealer;
     private RadioGroup radioGroup;
     private Button Next;
+    private String register_verify;
     private int group_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,9 @@ public class SelectUserType extends AppCompatActivity {
         radioOther_dealer= findViewById(R.id.radio_otherDealer);
         radioGroup = findViewById(R.id.radio_group);
         Next    = findViewById(R.id.btn_userType);
+
+        Intent intent = getIntent();
+        register_verify = intent.getStringExtra("Register_verify");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -38,8 +42,6 @@ public class SelectUserType extends AppCompatActivity {
                         group_user = 3;
                         break;
                 }
-
-
             }
         });
 
@@ -50,6 +52,7 @@ public class SelectUserType extends AppCompatActivity {
                     Toast.makeText(v.getContext(),"Please select account type",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(v.getContext(), Register.class);
+                    intent.putExtra("Register_verify",register_verify);
                     intent.putExtra("user_group", group_user);
                     startActivity(intent);
                 }

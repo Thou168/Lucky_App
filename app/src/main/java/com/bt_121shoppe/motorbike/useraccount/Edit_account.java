@@ -39,10 +39,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bt_121shoppe.motorbike.Activity.Account;
+import com.bt_121shoppe.motorbike.Activity.Camera;
+import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.Activity.Notification;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Login_Register.Register;
+import com.bt_121shoppe.motorbike.Login_Register.VerifyMobileActivity;
+import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.date.YearMonthPickerDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,6 +61,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.base.MoreObjects;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
@@ -83,6 +92,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = Edit_account.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
     private SearchView tvAddress_account;
+    private SupportMapFragment mapFragment;
     private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone,etPhone2,etPhone3,etEmail;
     private TextInputLayout tilShop_name,tilPhone2,tilPhone3;
     private ImageButton btnImagePhone1,btnImagePhone2;
@@ -91,14 +101,14 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private EditText btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location,tvType;
     private String name,pass,Encode,user_id;
     private ArrayAdapter<Integer> ad_id;
-    private int pk, id_pob=0,id_location=0,id_type=0;
+    private int pk, id_pob=0,id_location=0,id_type=0,product_id;
     private SharedPreferences prefer;
     private List<Integer> provinceIdArrayList=new ArrayList<>();
     private List<String> provinceNameArrayList=new ArrayList<>();
     private RequestQueue mQueue;
     private ProgressDialog mProgress;
     ArrayAdapter<CharSequence> adapter;
-
+    private String url;
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     double latitude,longtitude;
@@ -108,26 +118,37 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem,usertpyeItem;
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
-
     private TextInputLayout input_user, input_wingname,input_wingnum;
     private Button btUpgrade;
-
+    private String register_intent;
     private Validator validator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
+
         TextView back = (TextView) findViewById(R.id.tv_Back);
 //        layout_public_user = (LinearLayout)findViewById(R.id.layout_type_public_user);
 //        layout_121_dealer  = (LinearLayout)findViewById(R.id.layout_type_121_dealer);
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
+
         if (prefer.contains("token")) {
             pk = prefer.getInt("Pk",0);
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle!=null) {
+            pk = bundle.getInt("id_register",0);
+            register_intent = bundle.getString("Register_verify");
+            product_id = bundle.getInt("ID",0);
+        }
+
+       url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
 //check active and deactive account by samang 2/09/19
         Active_user activeUser = new Active_user();
         String active;
@@ -136,7 +157,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             activeUser.clear_session(this);
         }
 //end
-        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode =getEncodedString(name,pass);
@@ -145,52 +165,13 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
+
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
 
-        tvType      = findViewById(R.id.tvType);
-        etUsername  =(EditText) findViewById(R.id.etUsername);
-        etShop_name =(EditText) findViewById(R.id.etShop_name);
-        etWingName  =(EditText) findViewById(R.id.etWingName);
-        etWingNumber=(EditText) findViewById(R.id.etWingNumber);
-        etPhone     =(EditText) findViewById(R.id.etPhone_account);
-        etPhone2    =(EditText) findViewById(R.id.etPhone_account2);
-        etPhone3    =(EditText) findViewById(R.id.etPhone_account3);
-        etEmail     =(EditText) findViewById(R.id.etEmail_account);
-
-        btnImagePhone1 = (ImageButton)findViewById(R.id.btnPhone_account);
-        btnImagePhone2 = (ImageButton)findViewById(R.id.btnPhone_account2);
-
-        mp_Dob      = (EditText) findViewById(R.id.mp_Dob);
-        mp_Pob      = (EditText) findViewById(R.id.mp_Pob);
-        mp_Married  = (EditText) findViewById(R.id.mp_Married);
-        mp_Gender   = (EditText) findViewById(R.id.mp_Gender);
-        mp_location = (EditText) findViewById(R.id.mp_Location);
-        tvAddress_account = (SearchView) findViewById(R.id.tvAccount_Address);
-
-        imgType        =(ImageView) findViewById(R.id.imgType);
-        imgUsername =(ImageView) findViewById(R.id.imgUsername);
-        imgShopName =(ImageView) findViewById(R.id.imgShop_name);
-        imgWingName =(ImageView) findViewById(R.id.imgWingName);
-        imgWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
-        imgPhone    =(ImageView) findViewById(R.id.imgPhone_account);
-        imgPhone2   =(ImageView) findViewById(R.id.imgPhone_account2);
-        imgPhone3   =(ImageView) findViewById(R.id.imgPhone_account3);
-        imgEmail    =(ImageView) findViewById(R.id.imgEmail_account);
-        imgDob      =(ImageView) findViewById(R.id.imgDob);
-        imgPob         =(ImageView) findViewById(R.id.imgPob);
-        imgMarried     =(ImageView) findViewById(R.id.imgMarried);
-        imgGender      =(ImageView) findViewById(R.id.imgGender);
-        imgLocation    =(ImageView) findViewById(R.id.imgLocation);
-        imgAddress     = (ImageView) findViewById(R.id.imgAccount_Address);
-
-        input_user = (TextInputLayout)findViewById(R.id.tilUsername);
-        input_wingname = (TextInputLayout)findViewById(R.id.tilWingName);
-        input_wingnum = (TextInputLayout)findViewById(R.id.tilWingNumber);
-        tilShop_name  = (TextInputLayout)findViewById(R.id.tilShop_name);
-        tilPhone2     = (TextInputLayout)findViewById(R.id.tilPhone_account2);
-        tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
-        btUpgrade = findViewById(R.id.btn_upgrade);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_Account);
+ // cut all call id for make it easy to look and find something. by samang 12/9
+        Variable_Fields();
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -212,11 +193,9 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 strGender="female";
                                 break;
                         }
-
-                        dialogInterface.dismiss();
+                      dialogInterface.dismiss();
                     }
                 });
-
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
@@ -261,10 +240,14 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+
+
         Province();
         getYears();
         getUserType();
-        initialUserInformation(url,Encode);
+
+
+        initialUserInformation(url, Encode);
 
         mp_Pob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -414,6 +397,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+
         tvAddress_account.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -438,17 +422,22 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 //summitUserInformation();
-                if(tvType.getText().toString().length()<3){
-                    tvType.requestFocus();
-                    imgType.setImageResource(R.drawable.ic_error_black_24dp);
-                }else if (etShop_name.getText().toString().length()<3){
-                    etShop_name.requestFocus();
-                    imgShopName.setImageResource(R.drawable.ic_error_black_24dp);
-                } else if (etUsername.getText().toString().length()<3){
-                    etUsername.requestFocus();
-                    imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
+                if(tvType.getText().toString().length()<3 || etUsername.getText().toString().length()<3 || etPhone.getText().toString().length()<9 ){
+                    if(tvType.getText().toString().length()<3) {
+                        tvType.requestFocus();
+                        imgType.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (etUsername.getText().toString().length()<3){
+                        etUsername.requestFocus();
+                        imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (etPhone.getText().toString().length()<9){
+                        etPhone.requestFocus();
+                        imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
                 }else {
                     mProgress.show();
+                    Toast.makeText(getApplicationContext(),"Edit", Toast.LENGTH_SHORT).show();
                     PutData(url, Encode);
                 }
             }
@@ -614,9 +603,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                     List<String> date = new ArrayList<>();
                                     date.add(0, d);
                                 }
-
-                                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                                        .findFragmentById(R.id.map_Account);
 
                                  String addr = convertJsonJava.getProfile().getAddress();
                                  if (addr.isEmpty()) {
@@ -792,8 +778,12 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         mProgress.dismiss();
-                                        startActivity(new Intent(getApplicationContext(), Account.class));
-                                        dialog.dismiss();
+                                        if (register_intent!=null){
+                                            Intent_Screen(register_intent);
+                                        }else {
+                                            startActivity(new Intent(getApplicationContext(), Account.class));
+                                            dialog.dismiss();
+                                        }
                                     }
                                 });
                         alertDialog.show();
@@ -804,6 +794,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
 
     public void Province(){
         final String rl = ConsumeAPI.BASE_URL+"api/v1/provinces/";
@@ -1016,6 +1007,56 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         return dob;
     }
 
+    private void Intent_Screen(String register_verify){
+        Intent intent;
+        if(register_verify!=null) {
+            switch (register_verify) {
+                case "notification":
+                    intent = new Intent(Edit_account.this, Notification.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case "camera":
+                    intent = new Intent(Edit_account.this, Camera.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case "message":
+                    intent = new Intent(Edit_account.this, ChatMainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case "account":
+                    intent = new Intent(Edit_account.this, Account.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case "detail":
+                    intent = new Intent(Edit_account.this, Detail_New_Post.class);
+                    intent.putExtra("ID", product_id);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                default:
+                    intent = new Intent(Edit_account.this, Home.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+            }
+        }else{
+            intent = new Intent(Edit_account.this, Home.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+    }
+
     private void addPhone_number() {
         btnImagePhone1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1160,7 +1201,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()==0){
                     imgPhone.setImageResource(R.drawable.icon_null);
-                }else if (s.length()<8){
+                }else if (s.length()<9){
                     imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
@@ -1181,7 +1222,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()==0){
                     imgPhone2.setImageResource(R.drawable.icon_null);
-                }else if (s.length()<8){
+                }else if (s.length()<9){
                     imgPhone2.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgPhone2.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
@@ -1202,7 +1243,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()==0){
                     imgPhone3.setImageResource(R.drawable.icon_null);
-                }else if (s.length()<8){
+                }else if (s.length()<9){
                     imgPhone3.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgPhone3.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
@@ -1360,6 +1401,51 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //        });
     } // text change
 
+    private void Variable_Fields(){
+        tvType      = findViewById(R.id.tvType);
+        etUsername  =(EditText) findViewById(R.id.etUsername);
+        etShop_name =(EditText) findViewById(R.id.etShop_name);
+        etWingName  =(EditText) findViewById(R.id.etWingName);
+        etWingNumber=(EditText) findViewById(R.id.etWingNumber);
+        etPhone     =(EditText) findViewById(R.id.etPhone_account);
+        etPhone2    =(EditText) findViewById(R.id.etPhone_account2);
+        etPhone3    =(EditText) findViewById(R.id.etPhone_account3);
+        etEmail     =(EditText) findViewById(R.id.etEmail_account);
+
+        btnImagePhone1 = (ImageButton)findViewById(R.id.btnPhone_account);
+        btnImagePhone2 = (ImageButton)findViewById(R.id.btnPhone_account2);
+
+        mp_Dob      = (EditText) findViewById(R.id.mp_Dob);
+        mp_Pob      = (EditText) findViewById(R.id.mp_Pob);
+        mp_Married  = (EditText) findViewById(R.id.mp_Married);
+        mp_Gender   = (EditText) findViewById(R.id.mp_Gender);
+        mp_location = (EditText) findViewById(R.id.mp_Location);
+        tvAddress_account = (SearchView) findViewById(R.id.tvAccount_Address);
+
+        imgType        =(ImageView) findViewById(R.id.imgType);
+        imgUsername =(ImageView) findViewById(R.id.imgUsername);
+        imgShopName =(ImageView) findViewById(R.id.imgShop_name);
+        imgWingName =(ImageView) findViewById(R.id.imgWingName);
+        imgWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
+        imgPhone    =(ImageView) findViewById(R.id.imgPhone_account);
+        imgPhone2   =(ImageView) findViewById(R.id.imgPhone_account2);
+        imgPhone3   =(ImageView) findViewById(R.id.imgPhone_account3);
+        imgEmail    =(ImageView) findViewById(R.id.imgEmail_account);
+        imgDob      =(ImageView) findViewById(R.id.imgDob);
+        imgPob         =(ImageView) findViewById(R.id.imgPob);
+        imgMarried     =(ImageView) findViewById(R.id.imgMarried);
+        imgGender      =(ImageView) findViewById(R.id.imgGender);
+        imgLocation    =(ImageView) findViewById(R.id.imgLocation);
+        imgAddress     = (ImageView) findViewById(R.id.imgAccount_Address);
+
+        input_user = (TextInputLayout)findViewById(R.id.tilUsername);
+        input_wingname = (TextInputLayout)findViewById(R.id.tilWingName);
+        input_wingnum = (TextInputLayout)findViewById(R.id.tilWingNumber);
+        tilShop_name  = (TextInputLayout)findViewById(R.id.tilShop_name);
+        tilPhone2     = (TextInputLayout)findViewById(R.id.tilPhone_account2);
+        tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
+        btUpgrade    = (Button)findViewById(R.id.btn_upgrade);
+    }
     private void Seach_Address(){
         String loca = tvAddress_account.getQuery().toString();
         List<Address> address_Search = null;
@@ -1462,7 +1548,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5),2000,null);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(current_location)
-                .zoom(10)
+                .zoom(13)
                 .bearing(90)
                 .tilt(30)
                 .build();

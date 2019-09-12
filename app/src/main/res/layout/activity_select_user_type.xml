@@ -65,7 +65,7 @@
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginEnd="@dimen/dp_16"
         android:background="@drawable/mybutton"
-        android:text="Next"
+        android:text="@string/next"
         android:textColor="@color/white"
         android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"

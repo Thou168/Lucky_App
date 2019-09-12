@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class User {
     @SerializedName("pk")
     private int pk;
+    @SerializedName("username")
     private String username;
     private String email;
     private String first_name;

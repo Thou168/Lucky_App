@@ -201,7 +201,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
 
-                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
+//                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
                     }
 
                     @Override

@@ -9,6 +9,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
@@ -51,7 +52,6 @@ public class UserAccount extends AppCompatActivity {
         Intent intent = getIntent();
         verify = intent.getStringExtra("verify");
         product_id = intent.getIntExtra("product_id",0);
-
 
         Login = (Button)findViewById(R.id.btnLogin);
         Register =(Button)findViewById(R.id.btnRegister);

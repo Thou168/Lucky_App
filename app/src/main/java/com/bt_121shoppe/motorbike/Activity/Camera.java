@@ -40,6 +40,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -218,6 +219,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mProgress.setMessage(getString(R.string.please_wait));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+
 
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
@@ -612,11 +614,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                   tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
-                   || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 8 || dbDis_percent >=100|| dbDis_amount >= dbPrice
+                   || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                    ||  image_value == 0
                ){
 
-                    if (etPhone1.getText().toString().length()<8){
+                    if (etPhone1.getText().toString().length()<9){
                         etPhone1.requestFocus();
                         icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
                     }
@@ -674,7 +676,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                    tvType_elec.requestFocus();
                    icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
                } else if (bundle!=null) {
-
                     mProgress.show();
                     if(process_type==1){
                         if (cate == 2){
@@ -2882,7 +2883,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icPhone1.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 8) {
+                } else if (s.length() < 9) {
                     icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
                 } else icPhone1.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
@@ -2903,7 +2904,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icPhone2.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 8) {
+                } else if (s.length() < 9) {
                     icPhone2.setImageResource(R.drawable.ic_error_black_24dp);
                 } else icPhone2.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }
@@ -2924,7 +2925,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icPhone3.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 8) {
+                } else if (s.length() < 9) {
                     icPhone3.setImageResource(R.drawable.ic_error_black_24dp);
                 } else icPhone3.setImageResource(R.drawable.ic_check_circle_black_24dp);
             }

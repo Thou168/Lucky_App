@@ -29,6 +29,7 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Startup.MainActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.useraccount.Edit_account;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -108,23 +109,25 @@ public class Register extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mProgress.show();
+
                 // check validation by samang 10/09/19
                 String Number_Phone = editPhone.getText().toString();
                 String Password = editPassword.getText().toString();
                 String ComfirmPass = editComfirmPass.getText().toString();
                     PhoneError.setText(""); PasswordError.setText("");ComfirmPassError.setText("");
                 if (Number_Phone.length()<8 || Password.length()<4 || ComfirmPass.length()<4 || !Password.equals(ComfirmPass)){
+                    mProgress.dismiss();
                     if (Number_Phone.length()<8){
-                        PhoneError.setText("Phone number is empty");
+                        PhoneError.setText(R.string.inputPhone);
                     }else if (Password.length()<4){
-                        PasswordError.setText("Password is empty");
+                        PasswordError.setText(R.string.inputPassword);
                     }else if (ComfirmPass.length()<4){
-                        ComfirmPassError.setText("Comfirm Password is empty");
+                        ComfirmPassError.setText(R.string.inputComfirm);
                     }else if (!Password.equals(ComfirmPass)){
-                        ComfirmPassError.setText("Comfirm Password is Invalid");
+                        ComfirmPassError.setText(R.string.invalidPassword);
                     }
                 }else if (user_group == 1) {
+                    mProgress.show();
                     if (CheckNumber(ComfirmPass)) {
                         /* block for verify code sep 12 2019 */
 //                        Intent intent = new Intent(Register.this, VerifyMobileActivity.class);
@@ -136,20 +139,20 @@ public class Register extends AppCompatActivity {
 //                        intent.putExtra("user_group", user_group);
 //                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
-
                         registerAPIUser(editPhone.getText().toString(),Password,user_group);
-
                     } else {
+                        mProgress.dismiss();
                         PasswordError.setText("Password is only numbers");
                         ComfirmPassError.setText("Password is only numbers");
                     }
                     //registerUserFirebase("user1","borithnget@email.com","1234__");
-                }
-                else{
+                }else{
+                    mProgress.show();
                     registerAPIUser(editPhone.getText().toString(),Password,user_group);
+
                 }
 
-                mProgress.show();
+//                mProgress.show();
 
             }
         });
@@ -284,7 +287,6 @@ public class Register extends AppCompatActivity {
             int g=convertJsonJava.getGroup();
             int id = convertJsonJava.getId();
             String username=convertJsonJava.getUsername();
-
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -292,14 +294,17 @@ public class Register extends AppCompatActivity {
                         SharedPreferences.Editor editor =prefer.edit();
                         editor.putInt("id",id);
                         editor.putString("name",username);
-                        editor.putString("pass",pass);
+                        editor.putString("pass",editComfirmPass.getText().toString());
                         editor.putString("groups",String.valueOf(g));
                         editor.commit();
 
                         userEmail=ConsumeAPI.PREFIX_EMAIL+id+"@email.com";
                         Log.d(TAG,userEmail+" "+username+" "+pass);
-                        registerUserFirebase(username,userEmail,pass,String.valueOf(1));
-
+                        if (user_group == 1) {
+                            registerUserFirebase(username, userEmail, pass, String.valueOf(1));
+                        }else if (user_group == 3){
+                            registerUserAccount(username, userEmail, pass, String.valueOf(1),id);
+                        }
                     }else {
                         AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
                         alertDialog.setTitle(getString(R.string.register));
@@ -339,6 +344,43 @@ public class Register extends AppCompatActivity {
         }
     }
 
+    // for intent to edit_account by samang 12/09
+    private void registerUserAccount(String username, String email, String pass1, String group, int id){
+        String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
+        auth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+
+                            FirebaseUser firebaseUser=auth.getCurrentUser();
+                            String userId=firebaseUser.getUid();
+                            //save user information to firebase
+                            HashMap<String,String> hashMap=new HashMap<>();
+                            hashMap.put("id",userId);
+                            hashMap.put("username",username);
+                            hashMap.put("imageURL","default");
+                            hashMap.put("coverURL","default");
+                            hashMap.put("status","online");
+                            hashMap.put("search",username.toString());
+                            hashMap.put("password",password);
+                            hashMap.put("email",email);
+                            hashMap.put("group",group);
+                            reference.child("users").child(userId).setValue(hashMap);
+
+                            Intent intent = new Intent(Register.this,Edit_account.class);
+                            intent.putExtra("id_register",id);
+                            intent.putExtra("ID",product_id);
+                            intent.putExtra("Register_verify",register_verify);
+                            startActivity(intent);
+
+                        }else{
+                            Toast.makeText(Register.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
+                            Log.d(TAG,"Error "+task.getException()+" "+task.getResult());
+                        }
+                    }
+                });
+          }
     private Boolean CheckNumber(String st){
         Boolean check = false;
         String no = "\\d*\\.?\\d+";
@@ -352,4 +394,6 @@ public class Register extends AppCompatActivity {
         return check;
 
     }
+
+
 }

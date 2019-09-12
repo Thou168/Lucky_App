@@ -1303,7 +1303,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5f), 2000, null)
         val cameraPosition = CameraPosition.Builder()
                 .target(current_location)
-                .zoom(10f)
+                .zoom(14f)
                 .bearing(90f)
                 .tilt(30f)
                 .build()

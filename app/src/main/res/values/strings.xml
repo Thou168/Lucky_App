@@ -295,6 +295,11 @@
     <string name="post_type">Post type</string>
     <string name="title">Title</string>
     <string name="selectuser">Select Account Type</string>
+    <string name="inputPhone">Please input the Phone Numbers</string>
+    <string name="inputPassword">Please input the Password</string>
+    <string name="inputComfirm">Please input the Comfirm Password</string>
+    <string name="invalidPassword">Comfirm Password is Invalid</string>
+    <string name="next">Next</string>
     <!-- End Loan Information String -->
 
     //delete and edit
