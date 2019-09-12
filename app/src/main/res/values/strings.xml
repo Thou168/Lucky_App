@@ -1,8 +1,7 @@
 <resources>
 
     <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
-
-    <string name="app_name">121 Motorbike</string>
+    <string name="app_name">Motorbike 121</string>
     <string name="title_activity_new__main">New_Main</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -80,6 +79,57 @@
     https://developers.google.com/maps/documentation/android/start#get-key
     -->
     //map
+<!--    <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>-->
+
+<!--    <string name="facebook_app_id">596607940863011</string>-->
+    <!--    <string name="facebook_app_id">2638303279534710</string>-->
+<!--    <string name="fb_login_protocol_scheme">fb2638303279534710</string>-->
+
+    <string-array name="category">
+        <item>Motorbike</item>
+        <item>Electronic</item>
+    </string-array>
+    <string-array name="brand">
+        <item>Honda</item>
+        <item>Yamaha</item>
+        <item>Suzuki</item>
+    </string-array>
+    <string-array name="year">
+        <item>2019</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+
+    </string-array>
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="place">
+        <item>Place of Birth</item>
+        <item>Phnom Penh</item>
+        <item>Kompong Cham</item>
+    </string-array>
+    <string-array name="status">
+        <item>Marital Status</item>
+        <item>Single</item>
+        <item>Married</item>
+        <item>Separated</item>
+        <item>Divorced</item>
+        <item>Widowed</item>
+    </string-array>
+    <string-array name="location">
+        <item>Locations</item>
+        <item>Phnom Penh</item>
+        <item>Kompong Cham</item>
+        <item>Kompong Thom</item>
+        <item>Kompong Chhnang</item>
+    </string-array>
+
+<!--    <string name="ok_dob" translatable="false">Ok</string>-->
     <string name="cancel_dob" translatable="false">Cancel</string>
 
     <string name="title_Login">Login account</string>
@@ -260,7 +310,6 @@
     <string name="discount_type">Discount type</string>
     <string name="about_us_heading">About 121</string>
     <string name="about_us_heading_2">Welcome to 121 online market platform!</string>
-
     <string name="about_us_description">Welcome to 121 online market platform!
         A new modern online market in Cambodia. User friendly, super quick and easy to use in online market, helps you Buy, Sell or Rent anything in your neighborhood. 121 Online Market Platform is the future of E-Commerce in Cambodia, aiming to make up for all inconveniences of other markets, and replace them with new modern solutions.
         For example possibility to add products by signing up for an account with very clear information details, and marking the position of dealers’ shop on the map, its help you can understand more clearly about dealer. You can use it through the website, or download our free application from Play Store, App Store or Google Play.
@@ -303,7 +352,8 @@
     <string name="dont_receive">Do not Receive the Code?</string>
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
-    <string name="verify_code_message">Brand with this username already exists.</string>
+    <string name="verify_code_message">User with this username already exists.</string>
+    //message
     <string name="type_message">Type a message...</string>
     <string name="username">Username</string>
     <string name="renew">Renew</string>
@@ -482,50 +532,51 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
-    <string-array name="category">
-        <item>Motorbike</item>
-        <item>Electronic</item>
-    </string-array>
-    <string-array name="brand">
-        <item>Honda</item>
-        <item>Yamaha</item>
-        <item>Suzuki</item>
-    </string-array>
+<!--    <string-array name="category">-->
+<!--        <item>Motorbike</item>-->
+<!--        <item>Electronic</item>-->
+<!--    </string-array>-->
+<!--    <string-array name="brand">-->
+<!--        <item>Honda</item>-->
+<!--        <item>Yamaha</item>-->
+<!--        <item>Suzuki</item>-->
+<!--    </string-array>-->
 
-    <string-array name="year">
-        <item>2019</item>
-        <item>2018</item>
-        <item>2017</item>
-        <item>2016</item>
-        <item>2015</item>
+<!--    <string-array name="year">-->
+<!--        <item>2019</item>-->
+<!--        <item>2018</item>-->
+<!--        <item>2017</item>-->
+<!--        <item>2016</item>-->
+<!--        <item>2015</item>-->
 
-    </string-array>
-    <string-array name="gender">
-        <item>Gender</item>
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
-    </string-array>
-    <string-array name="place">
-        <item>Place of Birth</item>
-        <item>Phnom Penh</item>
-        <item>Kompong Cham</item>
-    </string-array>
-    <string-array name="status">
-        <item>Marital Status</item>
-        <item>Single</item>
-        <item>Married</item>
-        <item>Separated</item>
-        <item>Divorced</item>
-        <item>Widowed</item>
-    </string-array>
-    <string-array name="location">
-        <item>Locations</item>
-        <item>Phnom Penh</item>
-        <item>Kompong Cham</item>
-        <item>Kompong Thom</item>
-        <item>Kompong Chhnang</item>
-    </string-array>
+<!--    </string-array>-->
+<!--    <string-array name="gender">-->
+<!--        <item>Gender</item>-->
+<!--        <item>Male</item>-->
+<!--        <item>Female</item>-->
+<!--        <item>Other</item>-->
+<!--    </string-array>-->
+<!--    <string-array name="place">-->
+<!--        <item>Place of Birth</item>-->
+<!--        <item>Phnom Penh</item>-->
+<!--        <item>Kompong Cham</item>-->
+<!--    </string-array>-->
+<!--    <string-array name="status">-->
+<!--        <item>Marital Status</item>-->
+<!--        <item>Single</item>-->
+<!--        <item>Married</item>-->
+<!--        <item>Separated</item>-->
+<!--        <item>Divorced</item>-->
+<!--        <item>Widowed</item>-->
+<!--    </string-array>-->
+<!--    <string-array name="location">-->
+<!--        <item>Locations</item>-->
+<!--        <item>Phnom Penh</item>-->
+<!--        <item>Kompong Cham</item>-->
+<!--        <item>Kompong Thom</item>-->
+<!--        <item>Kompong Chhnang</item>-->
+<!--    </string-array>-->
+
     <string-array name="groups_array">
         <item>Public User</item>
         <item>121 Shoppe</item>
@@ -667,5 +718,5 @@
         <item>Delete to post new ads</item>
         <item>Cancel</item>
     </string-array>
-
+<!--    <string name="no_conversation">No Conversation!</string>-->
 </resources>

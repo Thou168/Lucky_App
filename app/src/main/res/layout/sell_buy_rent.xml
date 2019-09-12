@@ -25,6 +25,8 @@
                 android:textSize="@dimen/dp_18"
                 android:textColor="#DF8302"
                 android:text="@string/buy1"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -43,7 +45,9 @@
                 android:id="@+id/sell"
                 android:textColor="#089D01"
                 android:textStyle="bold"
-                android:textSize="@dimen/dp_18"
+                android:textSize="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sell1" />
@@ -61,6 +65,8 @@
                 android:id="@+id/rent"
                 android:textStyle="bold"
                 android:textColor="#DF041D"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rent"

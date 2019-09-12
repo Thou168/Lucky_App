@@ -668,6 +668,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             tvColor.setText(R.string.green)
                         }
                         tvDescription.setText(postDetail.description.toString())
+                        //user_email.setText(postDetail.contact_email.toString())
                         user_email.setText(postDetail.contact_email.toString())
                         user_name.setText(postDetail.machine_code.toString())
 
@@ -714,6 +715,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
                         } else{
                             time = sdf.parse(postDetail.approved_date).time
+                            //time=0
                         }
 
                         val now:Long = System.currentTimeMillis()

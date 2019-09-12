@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/refresh"
+    tools:context=".searches.SearchTypeActivity"
+    tools:showIn="@layout/layout_search_type">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_above="@+id/bnaviga"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.custom.sliderimage.logic.SliderImage
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
+                </com.custom.sliderimage.logic.SliderImage>
+
+                <include layout="@layout/content_search_buy_sell_rent"/>
+
+                <RelativeLayout
+                    android:background="@color/colorLightGray"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:gravity="center"
+                        android:paddingStart="@dimen/dp_16"
+                        android:textSize="@dimen/dp_16"
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/btn_image"
+                        android:src="@drawable/icon_image"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/grid" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_list"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/icon_list_c"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp" />
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/grid"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_toStartOf="@+id/img_list"
+                        android:src="@drawable/icon_grid" />
+                </RelativeLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:id="@+id/list_new_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/list_new_post"
+                        android:padding="@dimen/dp_16"
+                        android:gravity="center"
+                        android:text="@string/no_more_result"
+                        app:layout_constraintTop_toBottomOf="@id/list_new_post"
+                        tools:ignore="MissingConstraints" />
+
+                    <ProgressBar
+                        android:layout_marginTop="50dp"
+                        android:id="@+id/progress_bar1"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="50dp"
+                        tools:ignore="MissingConstraints">
+                    </ProgressBar>
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginTop="80dp"
+                        android:id="@+id/text1"
+                        android:text="@string/no_result"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bnaviga"
+            app:menu="@menu/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -38,4 +38,5 @@
     <color name="color_sell">#089D01</color>
     <color name="color_rent">#DF041D</color>
     <color name="colorLightGray">#cecece</color>
+    <color name="darkGrey">#808080</color>
 </resources>

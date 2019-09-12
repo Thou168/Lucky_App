@@ -766,7 +766,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     mapFragment.getMapAsync(Camera.this::onMapReady);
                                 }
 
-
                                 String fron = object.getString("front_image_path");
                                 String back = object.getString("back_image_path");
                                 String left = object.getString("left_image_path");

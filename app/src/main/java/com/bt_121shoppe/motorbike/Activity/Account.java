@@ -185,9 +185,9 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
                 if(user.getImageURL().equals("default")){
 //                    Glide.with(Account.this).load("http://www.seedcoworking.com/wp-content/uploads/2018/06/placeholder.jpg").into(upload);
-                    Glide.with(Account.this).load(R.drawable.square_logo).into(upload);
+                    Glide.with(Account.this).load(R.drawable.square_logo).thumbnail(0.1f).into(upload);
                 }else{
-                    Glide.with(Account.this).load(user.getImageURL()).into(upload);
+                    Glide.with(Account.this).load(user.getImageURL()).thumbnail(0.1f).into(upload);
                 }
                 if(user.getCoverURL().equals("default")){
 //                    Glide.with(Account.this).load("https://www.templaza.com/blog/components/com_easyblog/themes/wireframe/images/placeholder-image.png").into(imgCover);

@@ -1,6 +1,5 @@
 package com.bt_121shoppe.motorbike.Login_Register
 
-
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -83,7 +82,6 @@ class VerifyMobileActivity : AppCompatActivity() {
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         mProgress.setCancelable(false)
         mProgress.isIndeterminate = true
-
 
         reference = FirebaseDatabase.getInstance().reference
 
@@ -197,7 +195,9 @@ class VerifyMobileActivity : AppCompatActivity() {
                             hashMap["password"]=password
                             Log.d("TAG", "" + hashMap)
                             reference.child("users").child(userId).setValue(hashMap)
+
                             registerWithFBRequest(facebookname,facebookid,gender,birth)
+
                         }
                         else if(authType==4){ // login with fb
                             val reference = FirebaseDatabase.getInstance().getReference("users").child(userId)
@@ -282,6 +282,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun convertDateofBirth(birthday: String): String {
         var dd: String? = null
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -305,6 +306,7 @@ class VerifyMobileActivity : AppCompatActivity() {
         Log.d("jhh", dob)
         return dob
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun registerWithFBRequest(username:String, facebookid:String, gender:String, birth:String){
         val MEDIA_TYPE = MediaType.parse("application/json")
@@ -435,9 +437,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                 ) { dialog, which -> dialog.dismiss() }
                 alertDialog.show()
             }
-
         }
-
     }
 
     private fun postLoginRequest(password: String) {

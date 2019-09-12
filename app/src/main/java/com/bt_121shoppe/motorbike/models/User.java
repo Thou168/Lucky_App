@@ -9,8 +9,10 @@ public class User {
     private String search;
     private String coverURL;
     private String password;
+    private String email;
+    private String group;
 
-    public User(String id,String username,String imageURL,String status,String search,String coverURL,String password){
+    public User(String id,String username,String imageURL,String status,String search,String coverURL,String password,String email,String group){
         this.id=id;
         this.username=username;
         this.imageURL=imageURL;
@@ -18,6 +20,8 @@ public class User {
         this.search=search;
         this.coverURL=coverURL;
         this.password=password;
+        this.email=email;
+        this.group=group;
     }
 
     public User(){
@@ -78,5 +82,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 }

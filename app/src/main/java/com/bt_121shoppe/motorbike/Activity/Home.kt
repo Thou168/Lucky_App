@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -60,6 +61,7 @@ import com.bt_121shoppe.motorbike.adapters.CustomAdapter
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration
 import com.bt_121shoppe.motorbike.models.PostProduct
+import com.bt_121shoppe.motorbike.searches.SearchTypeActivity
 import com.bt_121shoppe.motorbike.utils.CheckNetwork
 import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bumptech.glide.Glide
@@ -163,6 +165,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onCreate(savedInstanceState)
         locale()
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_home)
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
@@ -251,7 +254,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) run { buildAlertMessageNoGps() }
         navView.setNavigationItemSelectedListener(this)
 
-//check active and deactive account by samang 2/09/19
+//check active and deactive account by samang 2/09/19navView
             val active: String
             val activeUser = Active_user()
             active = activeUser.isUserActive(pk,this)
@@ -354,20 +357,37 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         //Buy sell and Rent
         val buy = findViewById<TextView>(R.id.buy)
         buy.setOnClickListener{
-            val intent = Intent(this@Home, Buy::class.java)
-            intent.putExtra("Title","Buy")
+//            val intent = Intent(this@Home, Buy::class.java)
+//            intent.putExtra("Title","Buy")
+//            startActivity(intent)
+
+            //New Process
+            val intent=Intent(this@Home, SearchTypeActivity::class.java)
+            intent.putExtra("searchType",1)
+            intent.putExtra("postType","buy")
             startActivity(intent)
         }
         val sell = findViewById<TextView>(R.id.sell)
         sell.setOnClickListener {
-            val intent = Intent(this@Home, Sell::class.java)
-            intent.putExtra("Title","Sell")
+//            val intent = Intent(this@Home, Sell::class.java)
+//            intent.putExtra("Title","Sell")
+//            startActivity(intent)
+
+            //New Process
+            val intent=Intent(this@Home, SearchTypeActivity::class.java)
+            intent.putExtra("searchType",1)
+            intent.putExtra("postType","sell")
             startActivity(intent)
         }
         val rent = findViewById<TextView>(R.id.rent)
         rent.setOnClickListener {
-            val intent = Intent(this@Home, Rent::class.java)
-            intent.putExtra("Title","Rent")
+//            val intent = Intent(this@Home, Rent::class.java)
+//            intent.putExtra("Title","Rent")
+//            startActivity(intent)
+            //New Process
+            val intent=Intent(this@Home, SearchTypeActivity::class.java)
+            intent.putExtra("searchType",1)
+            intent.putExtra("postType","rent")
             startActivity(intent)
         }
         //Best Deal
@@ -494,6 +514,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                     runOnUiThread {
 
                         val fuser = FirebaseAuth.getInstance().currentUser
+                        //Log.d("USEr ",fuser!!.email.toString())
                         val reference = FirebaseDatabase.getInstance().getReference("users").child(fuser!!.uid)
 
                         reference.addValueEventListener(object : ValueEventListener {

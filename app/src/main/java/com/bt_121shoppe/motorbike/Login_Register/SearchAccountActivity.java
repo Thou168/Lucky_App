@@ -8,12 +8,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -85,14 +97,50 @@ public class SearchAccountActivity extends AppCompatActivity {
                         });
                 alertDialog.show();
             }else{
-//user found
+                //user found
                 mProgress.dismiss();
-                Intent intent=new Intent(SearchAccountActivity.this,VerifyMobileActivity.class);
-                intent.putExtra("authType",5);
-                intent.putExtra("phoneNumber",phonenumber);
-                intent.putExtra("password",phonenumber);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+
+                // #region block verify phone number code sep 10 2019
+//                Intent intent=new Intent(SearchAccountActivity.this,VerifyMobileActivity.class);
+//                intent.putExtra("authType",5);
+//                intent.putExtra("phoneNumber",phonenumber);
+//                intent.putExtra("password",phonenumber);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+                // #endregion
+
+                DatabaseReference reference= FirebaseDatabase.getInstance().getReference("users");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                            User user=snapshot.getValue(User.class);
+                            if(user.getUsername().equals(phonenumber)){
+                                FirebaseAuth auth=FirebaseAuth.getInstance();
+                                auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if(task.isSuccessful()){
+                                                    Intent intent=new Intent(SearchAccountActivity.this,ResetPasswordActivity.class);
+                                                    intent.putExtra("phoneNumber",phonenumber);
+                                                    intent.putExtra("password",user.getPassword());
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                        });
+                                return;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         }catch (JSONException e){

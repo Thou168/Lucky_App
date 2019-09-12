@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -40,6 +41,8 @@ public class CommomAPIFunction {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Log.d(TAG,"Firebase User "+snapshot);
+
                     User user=snapshot.getValue(User.class);
                     if(user.getUsername().equals(username)){
                         if(user.getImageURL().equals("default"))
@@ -50,6 +53,7 @@ public class CommomAPIFunction {
                         }
                         return;
                     }
+
                 }
             }
 

@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.util.Base64;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -114,8 +115,17 @@ public class CommonFunction {
         }catch (IOException e){
             e.printStackTrace();
         }
-
         return "";
+    }
+
+    public static void convertJSONUser(Context context,String response,String verify){
+        Gson gson=new Gson();
+        Convert_Json_Java convertJsonJava=new Convert_Json_Java();
+        try{
+
+        }catch (JsonParseException e){
+            e.printStackTrace();
+        }
     }
 
 }

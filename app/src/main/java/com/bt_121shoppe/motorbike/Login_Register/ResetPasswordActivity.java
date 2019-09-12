@@ -23,6 +23,10 @@ import com.bt_121shoppe.motorbike.models.ChangepassModel;
 import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -74,6 +78,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+        /*
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,7 +93,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
             }
         });
-
+           */
         //Log.d(TAG,"RUN RESULT "+username+" "+password);
         btnSubmit=findViewById(R.id.submit);
         etPassword=findViewById(R.id.etNewpass);
@@ -141,8 +146,18 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user=dataSnapshot.getValue(User.class);
-                setFirebaseUserPassword(user.getPassword());
-                encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,user.getPassword());
+                Log.d(TAG,user.getEmail());
+                //setFirebaseUserPassword(user.getPassword());
+
+                //check to get password
+                if(user.getGroup().equals("1")){
+                    String pwd=password.substring(0,3);
+                    //Log.d(TAG,"password "+pwd);
+                    encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,pwd);
+                }else{
+                    encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,password);
+                }
+
                 Request request = new Request.Builder()
                         .url(url)
                         .put(body)
@@ -159,12 +174,40 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String st = response.body().string();
-                        Log.d("Result",st);
+                        String newPassword;
+                        if(user.getGroup().equals("1")){
+                            newPassword=password1+"__";
+                        }
+                        else
+                            newPassword=password1;
                         /*update firebase password*/
                         databaseReference=FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
                         HashMap<String,Object> hashMap=new HashMap<>();
-                        hashMap.put("password",password1);
+                        hashMap.put("password",newPassword);
                         databaseReference.updateChildren(hashMap);
+
+                        //reset password for firebase user
+                        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+                        AuthCredential credential= EmailAuthProvider.getCredential(user.getEmail(),user.getPassword());
+                        firebaseUser.reauthenticate(credential)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            firebaseUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Log.d(TAG,"Password updated");
+
+                                                    }else{
+                                                        Log.d(TAG,"Error password not update");
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
 
                         Gson gson = new Gson();
                         ChangepassModel model = new ChangepassModel();

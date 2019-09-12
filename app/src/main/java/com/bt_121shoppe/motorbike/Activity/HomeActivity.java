@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
     TextView mBestDealNoResult;
     ArrayList<PostProduct> mPostBestDeals;
     ArrayList<PostProduct> mAllPosts;
-    String mBestDealUrl=ConsumeAPI.BASE_URL+"allposts/?page=1";
+    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=1";
     String mAllPostUrl=ConsumeAPI.BASE_URL+"allposts/?page=1";
     boolean isLoading=false,isAPLoading=false;
     int itemCount=0;
