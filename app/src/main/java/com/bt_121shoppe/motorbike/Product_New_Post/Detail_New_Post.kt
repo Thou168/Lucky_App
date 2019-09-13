@@ -213,7 +213,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         user_telephone=findViewById(R.id.tv_phone)
         user_email=findViewById(R.id.tv_email)
         tv_count_view=findViewById(R.id.view)
-        tv_location_duration=findViewById(R.id.tv_location_duration)
+//        tv_location_duration=findViewById(R.id.tv_location_duration)
         address_detial = findViewById(R.id.address)
         call_phone = findViewById(R.id.btn_call)
 
@@ -715,12 +715,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
                         } else{
                             time = sdf.parse(postDetail.approved_date).time
-                            //time=0
+                            //time=0\
                         }
-
-                        val now:Long = System.currentTimeMillis()
-                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-                        tv_location_duration.setText(ago)
+//closed post date by Raksmey 11/09/2019
+//                        val now:Long = System.currentTimeMillis()
+//                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+//                        tv_location_duration.setText(ago)
 
                         val base64_front_image=postDetail.front_image_path.toString()
                         val base64_right_image=postDetail.right_image_path.toString()
