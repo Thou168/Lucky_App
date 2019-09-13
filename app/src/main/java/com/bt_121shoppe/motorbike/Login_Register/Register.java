@@ -96,6 +96,8 @@ public class Register extends AppCompatActivity {
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
+
+
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         auth=FirebaseAuth.getInstance();
         reference= FirebaseDatabase.getInstance().getReference();
@@ -105,6 +107,14 @@ public class Register extends AppCompatActivity {
         product_id      = intent.getIntExtra("product_id",0);
         user_group = intent.getIntExtra("user_group",0);
 
+        if (user_group == 1){
+            PasswordError.setText(R.string.user_message);
+            ComfirmPassError.setText(R.string.user_message);
+
+        }else {
+            PasswordError.setText(R.string.dealer_message);
+            ComfirmPassError.setText(R.string.dealer_message);
+        }
         btnSubmit = (Button)findViewById(R.id.btnSub);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,12 +128,16 @@ public class Register extends AppCompatActivity {
                 if (Number_Phone.length()<8 || Password.length()<4 || ComfirmPass.length()<4 || !Password.equals(ComfirmPass)){
                     mProgress.dismiss();
                     if (Number_Phone.length()<8){
+                        PhoneError.setTextColor(getColor(R.color.red));
                         PhoneError.setText(R.string.inputPhone);
                     }else if (Password.length()<4){
+                        PasswordError.setTextColor(getColor(R.color.red));
                         PasswordError.setText(R.string.inputPassword);
                     }else if (ComfirmPass.length()<4){
+                        PasswordError.setTextColor(getColor(R.color.red));
                         ComfirmPassError.setText(R.string.inputComfirm);
                     }else if (!Password.equals(ComfirmPass)){
+                        ComfirmPassError.setTextColor(getColor(R.color.red));
                         ComfirmPassError.setText(R.string.invalidPassword);
                     }
                 }else if (user_group == 1) {
@@ -142,8 +156,10 @@ public class Register extends AppCompatActivity {
                         registerAPIUser(editPhone.getText().toString(),Password,user_group);
                     } else {
                         mProgress.dismiss();
-                        PasswordError.setText("Password is only numbers");
-                        ComfirmPassError.setText("Password is only numbers");
+                        PasswordError.setTextColor(getColor(R.color.red));
+                        ComfirmPassError.setTextColor(getColor(R.color.red));
+                        PasswordError.setText(R.string.user_message);
+                        ComfirmPassError.setText(R.string.user_message);
                     }
                     //registerUserFirebase("user1","borithnget@email.com","1234__");
                 }else{

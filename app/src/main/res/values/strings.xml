@@ -300,6 +300,9 @@
     <string name="inputComfirm">Please input the Comfirm Password</string>
     <string name="invalidPassword">Comfirm Password is Invalid</string>
     <string name="next">Next</string>
+    <string name="user_message">Password must be 4 digits and Number only</string>
+    <string name="dealer_message">Password can be Numbers,Letters and Special Characters</string>
+
     <!-- End Loan Information String -->
 
     //delete and edit

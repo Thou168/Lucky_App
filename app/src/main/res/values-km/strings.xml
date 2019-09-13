@@ -87,6 +87,8 @@
     <string name="inputComfirm">សូមបញ្ចូលពាក្យសម្ងាត់បញ្ជាក់</string>
     <string name="invalidPassword">ពាក្យសម្ងាត់បញ្ជាក់គឺមិនត្រឹមត្រូវ</string>
     <string name="next">បន្ទាប់</string>
+    <string name="user_message">លេខសម្ងាត់ត្រូវតែមាន ៤ ខ្ទង់ និង​លេខតែប៉ុណ្ណោះ</string>
+    <string name="dealer_message">លេខសម្ងាត់អាចជា លេខ​​ អក្សរ និង តួអក្សរពិសេស</string>
 
     //Setting
     <string name="change_password">ប្តូរលេខសម្ងាត់</string>

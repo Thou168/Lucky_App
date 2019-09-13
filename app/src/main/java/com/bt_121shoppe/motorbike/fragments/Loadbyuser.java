@@ -84,14 +84,14 @@ public class Loadbyuser extends Fragment {
         call.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-//                listData = response.body().getresults();
-//                if (listData.size()==0){
-//                    progressBar.setVisibility(View.GONE);
-//                    no_result.setVisibility(View.VISIBLE);
-//                }
-//                progressBar.setVisibility(View.GONE);
-//                mAdapter = new Adapter_Loanbyuser(listData,getContext());
-//                recyclerView.setAdapter(mAdapter);
+                listData = response.body().getresults();
+                if (listData.size()==0){
+                    progressBar.setVisibility(View.GONE);
+                    no_result.setVisibility(View.VISIBLE);
+                }
+                progressBar.setVisibility(View.GONE);
+                mAdapter = new Adapter_Loanbyuser(listData,getContext());
+                recyclerView.setAdapter(mAdapter);
 
             }
 
