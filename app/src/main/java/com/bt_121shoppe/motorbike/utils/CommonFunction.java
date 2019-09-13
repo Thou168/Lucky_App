@@ -23,6 +23,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CommonFunction {
+
+    public enum ProcessType{
+        FacebookRegister,
+        FacebookLogin,
+        MobileRegister,MobileLogin
+    }
+
     public static User obj;
     public static String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;

@@ -62,7 +62,7 @@ class fragment_sell_eletronics : Fragment() {
 
         recycleeview = view.findViewById<RecyclerView>(R.id.recyclerView)
 
-        val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val preferences = activity!!.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ CommonFunction.getEncodedString(username, password)

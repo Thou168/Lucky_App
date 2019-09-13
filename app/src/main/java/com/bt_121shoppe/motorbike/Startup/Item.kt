@@ -7,7 +7,9 @@ class Item(var id: Int,var img_user: Int,var image: Int,var price: Double,var na
     companion object {
         fun getList(): ArrayList<Item> {
             val itemList = ArrayList<Item>()
+
             itemList.clear()
+            /*
             itemList.add(Item(1,R.drawable.thean,R.drawable.image_suzuki,1300.0, "Thean","Motobike","Sell","Discount","sell motor suzuki 2018"))
             itemList.add(Item(2,R.drawable.thou,R.drawable.honda_dream, 2000.0,"Thou","Motobike","Rent","Discount","Honda Dream 2019"))
             itemList.add(Item(3,R.drawable.samang,R.drawable.image_honda_dream, 1500.0,"Samang","Motobike","But",null,"Honda Dream 2007 good"))
@@ -22,7 +24,7 @@ class Item(var id: Int,var img_user: Int,var image: Int,var price: Double,var na
             itemList.add(Item(2,R.drawable.thou,R.drawable.fan,5000.0, "Thou","Electronic","Buy",null,"fan new 100%"))
             itemList.add(Item(3,R.drawable.samang,R.drawable.fan1, 1200.0,"Samang","Electronic","Sell",null,"fan sell 2000"))
             itemList.add(Item(2,R.drawable.thou,R.drawable.camera1, 2300.0,"Thou","Electronic","Rent",null,"i want to rent camera"))
-
+*/
             return itemList
         }
         fun getType(type: String): ArrayList<Item>{

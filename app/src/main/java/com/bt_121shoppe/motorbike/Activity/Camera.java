@@ -31,7 +31,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -53,18 +52,13 @@ import android.widget.Toast;
 
 
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
-import com.bt_121shoppe.motorbike.Api.api.AllResponse;
-import com.bt_121shoppe.motorbike.Api.api.Client;
-import com.bt_121shoppe.motorbike.Api.api.Service;
-import com.bt_121shoppe.motorbike.Api.api.model.Brand;
-import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
@@ -236,14 +230,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), Notification.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
                 case R.id.camera:
 //                    if (prefer.contains("token")||prefer.contains("id")) {
 //                        startActivity(new Intent(getApplicationContext(), Camera.class));
 //                    }else {
-//                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+//                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
 //                    }
                     scrollView.fullScroll(ScrollView.FOCUS_UP);
                     break;
@@ -251,14 +245,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
                 case R.id.account :
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), Account.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
             }

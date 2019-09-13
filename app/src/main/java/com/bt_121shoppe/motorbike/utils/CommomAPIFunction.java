@@ -41,7 +41,7 @@ public class CommomAPIFunction {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    Log.d(TAG,"Firebase User "+snapshot);
+                    //Log.d(TAG,"Firebase User "+snapshot);
 
                     User user=snapshot.getValue(User.class);
                     if(user.getUsername().equals(username)){
@@ -53,7 +53,6 @@ public class CommomAPIFunction {
                         }
                         return;
                     }
-
                 }
             }
 

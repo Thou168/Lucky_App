@@ -57,7 +57,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText Username,Password;
     private Button btnSubmit;
@@ -163,7 +163,7 @@ public class Login extends AppCompatActivity {
         tvForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Login.this,SearchAccountActivity.class);
+                Intent intent=new Intent(LoginActivity.this,SearchAccountActivity.class);
                 startActivity(intent);
             }
         });
@@ -245,7 +245,7 @@ public class Login extends AppCompatActivity {
                         Log.d("Get Key",key.toString());
 
                         //login with confirm code sep 10 2019
-//                        Intent intent = new Intent(Login.this, VerifyMobileActivity.class);
+//                        Intent intent = new Intent(LoginActivity.this, VerifyMobileActivity.class);
 //                        intent.putExtra("authType",2);
 //                        intent.putExtra("phoneNumber",name);
 //                        intent.putExtra("password",pass);
@@ -267,7 +267,7 @@ public class Login extends AppCompatActivity {
                         loginEmailWithFirebase(user.getUsername());
 
                     }else {
-                        Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"LoginActivity failure",Toast.LENGTH_SHORT).show();
                         mProgress.dismiss();
                     }
                 }
@@ -277,7 +277,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getApplicationContext(),"Login failure",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"LoginActivity failure",Toast.LENGTH_SHORT).show();
                     mProgress.dismiss();
                 }
             });
@@ -303,38 +303,38 @@ public class Login extends AppCompatActivity {
                                             Intent intent;
                                             switch (login_verify){
                                                 case "notification":
-                                                    intent=new Intent(Login.this, Notification.class);
+                                                    intent=new Intent(LoginActivity.this, Notification.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                     break;
                                                 case "camera":
-                                                    intent=new Intent(Login.this, Camera.class);
+                                                    intent=new Intent(LoginActivity.this, Camera.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                     break;
                                                 case "message":
-                                                    intent=new Intent(Login.this, ChatMainActivity.class);
+                                                    intent=new Intent(LoginActivity.this, ChatMainActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                     break;
                                                 case "account":
-                                                    intent=new Intent(Login.this, Account.class);
+                                                    intent=new Intent(LoginActivity.this, Account.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                     break;
                                                 case "detail":
-                                                    intent=new Intent(Login.this, Detail_New_Post.class);
+                                                    intent=new Intent(LoginActivity.this, Detail_New_Post.class);
                                                     intent.putExtra("ID",product_id);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                     break;
                                                 default:
-                                                    intent=new Intent(Login.this, Home.class);
+                                                    intent=new Intent(LoginActivity.this, Home.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();

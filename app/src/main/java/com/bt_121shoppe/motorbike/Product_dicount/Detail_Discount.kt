@@ -48,14 +48,15 @@ class Detail_Discount : AppCompatActivity(){
         val name = findViewById<TextView>(R.id.tv_name)
         name.text = intent.getStringExtra("Name")
         val img_user = findViewById<CircleImageView>(R.id.cr_img)
-        img_user.setImageResource(intent.getIntExtra("Image_user", R.drawable.thou))
+        img_user.setImageResource(intent.getIntExtra("Image_user", R.drawable.user))
 
         findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
             val intent = Intent(this@Detail_Discount, User_post::class.java)
-            intent.putExtra("Image_user", getIntent().getIntExtra("Image_user", R.drawable.thean))
+            intent.putExtra("Image_user", getIntent().getIntExtra("Image_user", R.drawable.user))
             intent.putExtra("ID", id)
             startActivity(intent)
         }
+
         //Button SMS
 //        val sms = findViewById<Button>(R.id.btn_sms)
 //        sms.setOnClickListener {

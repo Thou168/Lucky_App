@@ -178,7 +178,7 @@
 
     <string name="account_toolbar">គណនីរបស់ខ្ញុំ</string>
 
-    <!-- Login String -->
+    <!-- LoginActivity String -->
     <string name="login_username">លេខទូរស័ព្ទ</string>
     <string name="login_password">លេខសម្ងាត់</string>
 

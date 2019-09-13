@@ -270,7 +270,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                Log.e("Register Verify", mMessage)
+                Log.e("RegisterActivity Verify", mMessage)
                 convertUser(mMessage)
             }
 
@@ -344,7 +344,7 @@ class VerifyMobileActivity : AppCompatActivity() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                Log.e("Register Verify", mMessage)
+                Log.e("RegisterActivity Verify", mMessage)
                 convertUser(mMessage)
             }
 
@@ -365,7 +365,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 //            val gg = convertJsonJava.groups
 //            val g = gg[0]
             val g=convertJsonJava.group
-            //Log.d("Register Verify", convertJsonJava.username + "\t" + convertJsonJava.email + "\t" + convertJsonJava.id + "\t" + g + "\t" + convertJsonJava.status)
+            //Log.d("RegisterActivity Verify", convertJsonJava.username + "\t" + convertJsonJava.email + "\t" + convertJsonJava.id + "\t" + g + "\t" + convertJsonJava.status)
             val id = convertJsonJava.id
 
             runOnUiThread {
@@ -377,7 +377,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     editor.putString("groups", g.toString())
                     editor.commit()
 
-                    Toast.makeText(applicationContext, "Register Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "RegisterActivity Success", Toast.LENGTH_SHORT).show()
                     verify = intent.getStringExtra("Register_verify")
                     product_id = intent.getIntExtra("product_id",0)
 
@@ -473,7 +473,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     converting(mMessage)
                 } else {
                     mProgress.dismiss()
-                    runOnUiThread { Toast.makeText(applicationContext, "Login failure", Toast.LENGTH_SHORT).show() }
+                    runOnUiThread { Toast.makeText(applicationContext, "LoginActivity failure", Toast.LENGTH_SHORT).show() }
 
                 }
             }
@@ -507,7 +507,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     editor.putInt("Pk",pk)
                     editor.commit()
 
-                    //Toast.makeText(applicationContext, "Register Success", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(applicationContext, "RegisterActivity Success", Toast.LENGTH_SHORT).show()
                     verify = intent.getStringExtra("Login_verify")
                     product_id = intent.getIntExtra("product_id",0)
                     Log.d("VeriFy TTTTT",":"+verify)
@@ -573,14 +573,14 @@ class VerifyMobileActivity : AppCompatActivity() {
 
                 } else {
                     mProgress.dismiss()
-                    Toast.makeText(applicationContext, "Login failure", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "LoginActivity failure", Toast.LENGTH_SHORT).show()
                 }
             }
         } catch (e: JsonParseException) {
             e.printStackTrace()
 
             runOnUiThread {
-                Toast.makeText(applicationContext, "Login failure", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "LoginActivity failure", Toast.LENGTH_SHORT).show()
                 mProgress.dismiss()
             }
         }

@@ -59,7 +59,7 @@ class FragmentC1: Fragment() {
         txtno_found = view.findViewById(R.id.text)
         amount = view.findViewById<TextView>(R.id.tv_price)
 
-        val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val preferences = activity!!.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)

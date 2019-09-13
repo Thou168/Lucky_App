@@ -36,8 +36,7 @@ import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
-import com.bt_121shoppe.motorbike.Api.api.model.Modeling
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount
 import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.R
@@ -164,7 +163,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
         Log.d("123456789 :",discount.toString())
-        sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
@@ -233,7 +232,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         loan = findViewById(R.id.btn_loan)
         loan.setOnClickListener{
             if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
-                val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
                 intent.putExtra("verify","detail")
                 intent.putExtra("product_id",postId)
                 startActivity(intent)
@@ -253,7 +252,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 intent.putExtra("postType",postType)
                 startActivity(intent)
             }else{
-                val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
                 intent.putExtra("verify","detail")
                 intent.putExtra("product_id",postId)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -267,7 +266,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
                 Like_post(Encode)
             }else{
-                val intent = Intent(this@Detail_New_Post, UserAccount::class.java)
+                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
                 intent.putExtra("verify","detail")
                 intent.putExtra("product_id",postId)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

@@ -31,7 +31,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +38,13 @@ import com.bt_121shoppe.motorbike.AccountTab.MainLoanList;
 import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Setting.Setting;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
 import com.bt_121shoppe.motorbike.models.User;
-import com.bt_121shoppe.motorbike.useraccount.Edit_account;
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -145,7 +144,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 // end
         //Log.d("Account","Breand pk"+pk);
         if (pk==0){
-            Intent intent = new Intent(Account.this, UserAccount.class);
+            Intent intent = new Intent(Account.this, UserAccountActivity.class);
             startActivity(intent);
             finish();
         }
@@ -170,7 +169,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         inttab = getIntent().getIntExtra("Tab",0);
         tabs.getTabAt(inttab).select();
 
-         bnavigation = findViewById(R.id.bnaviga);
+        bnavigation = findViewById(R.id.bnaviga);
         bnavigation.getMenu().getItem(4).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(mlistener);
 
@@ -206,7 +205,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
         edit_account = findViewById(R.id.btn_edit);
         edit_account.setOnClickListener(v -> {
-            Intent intent = new Intent(Account.this, Edit_account.class);
+            Intent intent = new Intent(Account.this, EditAccountActivity.class);
             startActivity(intent);
         });
         setting = findViewById(R.id.btn_setting);

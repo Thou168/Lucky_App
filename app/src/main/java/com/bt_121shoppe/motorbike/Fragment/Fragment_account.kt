@@ -66,7 +66,7 @@ class Fragment_account : Fragment() {
             }
         })
 
-        val preferences = this.activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val preferences = this.activity!!.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("password","")
         encodeAuth=getEncodedString(username,password)

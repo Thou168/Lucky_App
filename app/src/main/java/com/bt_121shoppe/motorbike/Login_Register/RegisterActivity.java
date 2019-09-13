@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bt_121shoppe.motorbike.AccountTab.MainAccountTabs;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
@@ -27,9 +26,8 @@ import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.Startup.MainActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
-import com.bt_121shoppe.motorbike.useraccount.Edit_account;
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,8 +35,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -53,18 +49,17 @@ import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private ImageButton btnFacebookLogin;
     private Button btnSubmit;
     private EditText editPhone,editComfirmPass,editPassword;
-    private static final String TAG = Register.class.getSimpleName();
+    private static final String TAG = RegisterActivity.class.getSimpleName();
     private TextView textView;
     private TextView PhoneError,PasswordError,ComfirmPassError;
     private Context context;
@@ -121,6 +116,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
 
                 // check validation by samang 10/09/19
+                pass=editPassword.getText().toString();
                 String Number_Phone = editPhone.getText().toString();
                 String Password = editPassword.getText().toString();
                 String ComfirmPass = editComfirmPass.getText().toString();
@@ -144,7 +140,7 @@ public class Register extends AppCompatActivity {
                     mProgress.show();
                     if (CheckNumber(ComfirmPass)) {
                         /* block for verify code sep 12 2019 */
-//                        Intent intent = new Intent(Register.this, VerifyMobileActivity.class);
+//                        Intent intent = new Intent(RegisterActivity.this, VerifyMobileActivity.class);
 //                        intent.putExtra("authType", 1);
 //                        intent.putExtra("phoneNumber", editPhone.getText().toString());
 //                        intent.putExtra("password", comfirm = editPassword.getText().toString());
@@ -200,51 +196,51 @@ public class Register extends AppCompatActivity {
                             if(register_verify!=null) {
                                 switch (register_verify) {
                                     case "notification":
-                                        intent = new Intent(Register.this, Notification.class);
+                                        intent = new Intent(RegisterActivity.this, Notification.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                         break;
                                     case "camera":
-                                        intent = new Intent(Register.this, Camera.class);
+                                        intent = new Intent(RegisterActivity.this, Camera.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                         break;
                                     case "message":
-                                        intent = new Intent(Register.this, ChatMainActivity.class);
+                                        intent = new Intent(RegisterActivity.this, ChatMainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                         break;
                                     case "account":
-                                        intent = new Intent(Register.this, Account.class);
+                                        intent = new Intent(RegisterActivity.this, Account.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                         break;
                                     case "detail":
-                                        intent = new Intent(Register.this, Detail_New_Post.class);
+                                        intent = new Intent(RegisterActivity.this, Detail_New_Post.class);
                                         intent.putExtra("ID", product_id);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                         break;
                                     default:
-                                        intent = new Intent(Register.this, Home.class);
+                                        intent = new Intent(RegisterActivity.this, Home.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                         break;
                                 }
                             }else{
-                                intent = new Intent(Register.this, Home.class);
+                                intent = new Intent(RegisterActivity.this, Home.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();
                             }
                         }else{
-                            Toast.makeText(Register.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
                             Log.d(TAG,"Error "+task.getException()+" "+task.getResult());
                         }
                     }
@@ -322,7 +318,7 @@ public class Register extends AppCompatActivity {
                             registerUserAccount(username, userEmail, pass, String.valueOf(1),id);
                         }
                     }else {
-                        AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
+                        AlertDialog alertDialog=new AlertDialog.Builder(RegisterActivity.this).create();
                         alertDialog.setTitle(getString(R.string.register));
                         alertDialog.setMessage(getString(R.string.verify_code_message));
                         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -343,7 +339,7 @@ public class Register extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
+                    AlertDialog alertDialog=new AlertDialog.Builder(RegisterActivity.this).create();
                     alertDialog.setTitle(getString(R.string.register));
                     alertDialog.setMessage(getString(R.string.verify_code_message));
                     alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -384,14 +380,14 @@ public class Register extends AppCompatActivity {
                             hashMap.put("group",group);
                             reference.child("users").child(userId).setValue(hashMap);
 
-                            Intent intent = new Intent(Register.this,Edit_account.class);
+                            Intent intent = new Intent(RegisterActivity.this, EditAccountActivity.class);
                             intent.putExtra("id_register",id);
                             intent.putExtra("ID",product_id);
                             intent.putExtra("Register_verify",register_verify);
                             startActivity(intent);
 
                         }else{
-                            Toast.makeText(Register.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
                             Log.d(TAG,"Error "+task.getException()+" "+task.getResult());
                         }
                     }
@@ -410,6 +406,4 @@ public class Register extends AppCompatActivity {
         return check;
 
     }
-
-
 }

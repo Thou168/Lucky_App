@@ -42,11 +42,8 @@ import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.Api.api.Active_user
-import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Buy.Buy
-import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Rent.Rent
-import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Sell.Sell
-import com.bt_121shoppe.motorbike.useraccount.Edit_account
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.motorbike.Product_dicount.MyAdapter
 import com.bt_121shoppe.motorbike.R
@@ -57,7 +54,6 @@ import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity
 import com.bt_121shoppe.motorbike.Startup.Item
 import com.bt_121shoppe.motorbike.Startup.Search1
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapter
-import com.bt_121shoppe.motorbike.adapters.CustomAdapter
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration
 import com.bt_121shoppe.motorbike.models.PostProduct
@@ -142,7 +138,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     internal val isAPLoading = false
 
     fun language(lang: String) {
-        Log.d("55555","YaYa"+lang)
+        //Log.d("55555","YaYa"+lang)
         val locale = Locale(lang)
         Locale.setDefault(locale)
         val confi = Configuration()
@@ -280,7 +276,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                         }
 
                     }else{
-                        val intent = Intent(this@Home, UserAccount::class.java)
+                        val intent = Intent(this@Home, UserAccountActivity::class.java)
                         intent.putExtra("verify","camera")
                         Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
@@ -299,7 +295,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Home, UserAccount::class.java)
+                        val intent = Intent(this@Home, UserAccountActivity::class.java)
                         intent.putExtra("verify","message")
                         Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
@@ -318,7 +314,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Home, UserAccount::class.java)
+                        val intent = Intent(this@Home, UserAccountActivity::class.java)
                         intent.putExtra("verify","notification")
                         Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
@@ -336,7 +332,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Home, UserAccount::class.java)
+                        val intent = Intent(this@Home, UserAccountActivity::class.java)
                         intent.putExtra("verify","account")
                         Log.d("VeriFy Code", intent.toString())
                         startActivity(intent)
@@ -441,7 +437,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         when (item.itemId) {
             R.id.nav_profile -> {
                 // Handle the camera action
-                val intent = Intent(this@Home, Edit_account::class.java)
+                val intent = Intent(this@Home, EditAccountActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_post -> {

@@ -56,7 +56,7 @@ class Fragment_history: Fragment() {
         progreessbar!!.visibility = View.VISIBLE
         txtno_found = view.findViewById(R.id.text)
 
-        val preferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val preferences = activity!!.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         username=preferences.getString("name","")
         password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)

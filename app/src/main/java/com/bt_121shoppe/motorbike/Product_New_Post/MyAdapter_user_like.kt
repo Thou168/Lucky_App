@@ -103,7 +103,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
                 var pass=""
                 var Encode=""
                 var pk=0
-                sharedPref= it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
+                sharedPref= it.context.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
 
                 if (sharedPref.contains("token") || sharedPref.contains("id")){
                     name = sharedPref.getString("name", "")

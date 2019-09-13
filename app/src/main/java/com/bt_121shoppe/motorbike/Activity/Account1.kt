@@ -29,8 +29,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
-import com.bt_121shoppe.motorbike.useraccount.Edit_account
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.Setting.Setting
 import com.bt_121shoppe.motorbike.adapters.ViewPagerAdapter
@@ -100,9 +100,9 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_tab_layout)
 
-        val preferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
-        username=preferences.getString("name","")
-        password=preferences.getString("pass","")
+        val preferences = getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
+        //username=preferences.getString("name","")
+        //password=preferences.getString("pass","")
         encodeAuth="Basic "+ getEncodedString(username,password)
         //Log.d("Hello",password)
         if (preferences.contains("token")) {
@@ -113,7 +113,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
         //Log.d("Account", "Breand pk "+ username)
         if(pk==0){
             Log.d("Account", "Breand pk "+ pk)
-            val intent= Intent(this@Account1,UserAccount::class.java)
+            val intent= Intent(this@Account1, UserAccountActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -133,7 +133,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account1, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -144,7 +144,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account1, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -155,7 +155,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account1, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -166,7 +166,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Account1, UserAccount::class.java)
+                        val intent = Intent(this@Account1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -238,7 +238,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
 
         val account_edit = findViewById<ImageButton>(R.id.btn_edit)
         account_edit.setOnClickListener {
-            val intent = Intent(this@Account1, Edit_account::class.java)
+            val intent = Intent(this@Account1, EditAccountActivity::class.java)
             startActivity(intent)
         }
         /*

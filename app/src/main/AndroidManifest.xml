@@ -40,7 +40,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Login_Register.SelectUserType"></activity>
+        <activity android:name=".Login_Register.SelectUserTypeActivity"></activity>
         <activity android:name=".Setting.ContactActivity" />
         <activity android:name=".firebases.activities.PostListActivity" />
         <activity android:name=".searches.SearchTypeActivity"></activity>
@@ -90,12 +90,12 @@
         <activity android:name=".Setting.TermPrivacyActivity" />
         <activity android:name=".Setting.AboutUsActivity" />
         <activity android:name=".Startup.Search1" />
-        <activity android:name=".useraccount.Edit_account" />
+        <activity android:name=".useraccount.EditAccountActivity" />
         <activity android:name=".Activity.Notification" />
         <activity android:name=".Setting.Setting" />
-        <activity android:name=".Login_Register.UserAccount" />
-        <activity android:name=".Login_Register.Register" />
-        <activity android:name=".Login_Register.Login" />
+        <activity android:name=".Login_Register.UserAccountActivity" />
+        <activity android:name=".Login_Register.RegisterActivity" />
+        <activity android:name=".Login_Register.LoginActivity" />
         <activity android:name=".Activity.Home" />
         <activity android:name=".Startup.Your_Post" />
         <activity android:name=".post.CameraActivity" />

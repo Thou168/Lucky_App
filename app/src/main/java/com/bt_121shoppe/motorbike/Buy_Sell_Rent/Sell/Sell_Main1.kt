@@ -12,7 +12,7 @@ import android.widget.FrameLayout
 import com.bt_121shoppe.motorbike.Activity.*
 import com.bt_121shoppe.motorbike.Api.api.Active_user
 import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Sell.Sell_vehicle
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,7 +27,7 @@ class Sell_Main1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         locale()
-        val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val sharedPref: SharedPreferences = getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         if (sharedPref.contains("token")) {
             pk = sharedPref.getInt("Pk",0)
         } else if (sharedPref.contains("id")) {
@@ -60,7 +60,7 @@ class Sell_Main1 : AppCompatActivity() {
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Sell_Main1, UserAccount::class.java)
+                        val intent = Intent(this@Sell_Main1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -78,7 +78,7 @@ class Sell_Main1 : AppCompatActivity() {
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Sell_Main1, UserAccount::class.java)
+                        val intent = Intent(this@Sell_Main1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -93,7 +93,7 @@ class Sell_Main1 : AppCompatActivity() {
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Sell_Main1, UserAccount::class.java)
+                        val intent = Intent(this@Sell_Main1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -108,7 +108,7 @@ class Sell_Main1 : AppCompatActivity() {
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }else{
-                        val intent = Intent(this@Sell_Main1, UserAccount::class.java)
+                        val intent = Intent(this@Sell_Main1, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }

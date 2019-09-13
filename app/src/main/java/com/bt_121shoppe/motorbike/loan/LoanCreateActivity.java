@@ -120,7 +120,7 @@ public class LoanCreateActivity extends AppCompatActivity {
         staff_id_or_salary_slip = (EditText) findViewById(R.id.tvStaffID);
         land_tile = (EditText) findViewById(R.id.tvLandTitle);
 
-        preferences=getSharedPreferences("Register",MODE_PRIVATE);
+        preferences=getSharedPreferences("RegisterActivity",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
         Encode=getEncodedString(username,password);

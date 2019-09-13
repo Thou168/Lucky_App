@@ -67,7 +67,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list1t,viewGroup,false);
 
-        prefer = mContext.getSharedPreferences("Register", Context.MODE_PRIVATE);
+        prefer = mContext.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
 

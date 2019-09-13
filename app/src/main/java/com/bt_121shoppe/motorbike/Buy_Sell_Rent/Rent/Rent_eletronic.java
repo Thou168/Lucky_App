@@ -66,7 +66,7 @@ public class Rent_eletronic extends PassRent2 {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
+        prefer = getActivity().getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
 

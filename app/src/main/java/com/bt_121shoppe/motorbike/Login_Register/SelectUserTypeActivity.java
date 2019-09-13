@@ -11,24 +11,33 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
-public class SelectUserType extends AppCompatActivity {
+public class SelectUserTypeActivity extends AppCompatActivity {
     private RadioButton radioPublic_User,radioOther_dealer;
     private RadioGroup radioGroup;
     private Button Next;
     private String register_verify;
     private int group_user;
+    private Intent intent;
+    private String processType,facebooktokenkey,facebookid,facebookname,imageurl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_user_type);
-// select account type by samang 10/09/19
+        // select account type by samang 10/09/19
         radioPublic_User = findViewById(R.id.radio_publicUser);
         radioOther_dealer= findViewById(R.id.radio_otherDealer);
         radioGroup = findViewById(R.id.radio_group);
         Next    = findViewById(R.id.btn_userType);
 
-        Intent intent = getIntent();
+        intent=getIntent();
+        processType=intent.getStringExtra("processtype");
+        facebooktokenkey=intent.getStringExtra("facebooktokenkey");
+        facebookid=intent.getStringExtra("facebookid");
+        facebookname=intent.getStringExtra("facebookname");
+        imageurl=intent.getStringExtra("imageurl");
         register_verify = intent.getStringExtra("Register_verify");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -51,10 +60,22 @@ public class SelectUserType extends AppCompatActivity {
                 if (radioGroup.getCheckedRadioButtonId() == -1){
                     Toast.makeText(v.getContext(),"Please select account type",Toast.LENGTH_SHORT).show();
                 }else {
-                    Intent intent = new Intent(v.getContext(), Register.class);
-                    intent.putExtra("Register_verify",register_verify);
-                    intent.putExtra("user_group", group_user);
-                    startActivity(intent);
+                    if(processType.equals(CommonFunction.ProcessType.FacebookRegister.toString())){
+                        Intent intent=new Intent(SelectUserTypeActivity.this,ConfirmMobileNumberActivity.class);
+                        intent.putExtra("facebooktokenkey",facebooktokenkey);
+                        intent.putExtra("facebookid",facebookid);
+                        intent.putExtra("facebookname",facebookname);
+                        intent.putExtra("imageurl",imageurl);
+                        intent.putExtra("usergroup",group_user);
+                        intent.putExtra("gender","");
+                        intent.putExtra("birthday","");
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+                        intent.putExtra("user_group", group_user);
+                        intent.putExtra("Register_verify",register_verify);
+                        startActivity(intent);
+                    }
                 }
             }
         });

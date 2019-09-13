@@ -124,7 +124,7 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
         mFilterYear=findViewById(R.id.filterYear);
         mFilterPriceRange=findViewById(R.id.filterPriceRange);
 
-        SharedPreferences sharedPref=getSharedPreferences("Register",Context.MODE_PRIVATE);
+        SharedPreferences sharedPref=getSharedPreferences("RegisterActivity",Context.MODE_PRIVATE);
         ActionBarDrawerToggle mToggle=new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();

@@ -27,8 +27,8 @@ import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
-import com.bt_121shoppe.motorbike.useraccount.Edit_account;
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Setting.Setting;
 import com.bt_121shoppe.motorbike.fragments.FragmentB1;
@@ -98,28 +98,28 @@ public class MainAccountTabs extends AppCompatActivity {
                         if (preferences.contains("token")||preferences.contains("id")) {
                             startActivity(new Intent(getApplicationContext(), Notification.class));
                         }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                            startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                         }
                         break;
                     case R.id.camera:
                         if (preferences.contains("token")||preferences.contains("id")) {
                             startActivity(new Intent(getApplicationContext(), Camera.class));
                         }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                            startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                         }
                         break;
                     case R.id.message:
                         if (preferences.contains("token")||preferences.contains("id")) {
                             startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
                         }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                            startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                         }
                         break;
                     case R.id.account :
                         if (preferences.contains("token")||preferences.contains("id")) {
                             startActivity(new Intent(getApplicationContext(), Account.class));
                         }else {
-                            startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                            startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                         }
                         break;
                 }
@@ -128,7 +128,7 @@ public class MainAccountTabs extends AppCompatActivity {
         });
 
 
-        preferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
         encodeAuth="Basic "+ CommonFunction.getEncodedString(username,password);
@@ -159,7 +159,7 @@ public class MainAccountTabs extends AppCompatActivity {
         account_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainAccountTabs.this, Edit_account.class);
+                Intent intent=new Intent(MainAccountTabs.this, EditAccountActivity.class);
                 startActivity(intent);
             }
         });

@@ -140,7 +140,7 @@ class MyAdapter_edit_loan(private val itemList: ArrayList<LoanItemAPI>, val type
                 var pk = 0
                 var encode = ""
 
-                sharedPref = it.context.getSharedPreferences("Register", Context.MODE_PRIVATE)
+                sharedPref = it.context.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
                 if (sharedPref.contains("token") || sharedPref.contains("id")) {
                     name = sharedPref.getString("name", "")
                     pass = sharedPref.getString("pass", "")

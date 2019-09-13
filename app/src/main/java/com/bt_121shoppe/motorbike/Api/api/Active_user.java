@@ -30,7 +30,7 @@ public class Active_user extends AppCompatActivity {
     boolean isActive;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefer = getSharedPreferences("Register", MODE_PRIVATE);
+        prefer = getSharedPreferences("RegisterActivity", MODE_PRIVATE);
 
     }
 
@@ -64,7 +64,7 @@ public class Active_user extends AppCompatActivity {
         deactived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.getSharedPreferences("Register",MODE_PRIVATE).edit().clear().commit();
+                context.getSharedPreferences("RegisterActivity",MODE_PRIVATE).edit().clear().commit();
                 context.startActivity(new Intent(context, Home.class));
                 dialog.dismiss();
             }

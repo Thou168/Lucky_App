@@ -50,10 +50,10 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
-    <!-- Login String -->
+    <!-- LoginActivity String -->
     <string name="account_toolbar">My Account</string>
     <string name="login_username">Phone Number</string>
-    <!-- End Login String -->
+    <!-- End LoginActivity String -->
     <string name="login_password">Password</string>
     //search
     <string name="title_activity_account"></string>

@@ -46,7 +46,6 @@ import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
-import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.Login_Register.VerifyMobileActivity;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
@@ -87,9 +86,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Edit_account extends AppCompatActivity implements OnMapReadyCallback {
+public class EditAccountActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private static final String TAG = Edit_account.class.getSimpleName();
+    private static final String TAG = EditAccountActivity.class.getSimpleName();
     private LinearLayout layout_public_user,layout_121_dealer;
     private SearchView tvAddress_account;
     private SupportMapFragment mapFragment;
@@ -126,12 +125,12 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-
         TextView back = (TextView) findViewById(R.id.tv_Back);
 //        layout_public_user = (LinearLayout)findViewById(R.id.layout_type_public_user);
 //        layout_121_dealer  = (LinearLayout)findViewById(R.id.layout_type_121_dealer);
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        //prefer = getSharedPreferences("RegisterActivity",MODE_PRIVATE);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
 
         if (prefer.contains("token")) {
@@ -177,7 +176,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_Gender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditAccountActivity.this);
                 mBuilder.setTitle(getString(R.string.choose_gender));
                 mBuilder.setSingleChoiceItems(genderListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -205,7 +204,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_Married.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditAccountActivity.this);
                 mBuilder.setTitle(getString(R.string.choose_status));
                 mBuilder.setSingleChoiceItems(maritalStatusListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -240,19 +239,15 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-
-
         Province();
         getYears();
         getUserType();
-
-
-        initialUserInformation(url, Encode);
+        initialUserInformation(url,Encode);
 
         mp_Pob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditAccountActivity.this);
                 mBuilder.setTitle(getString(R.string.choose_province));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(provinceItemkh, -1, new DialogInterface.OnClickListener() {
@@ -284,7 +279,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditAccountActivity.this);
                 mBuilder.setTitle(getString(R.string.choose_location));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(provinceItemkh, -1, new DialogInterface.OnClickListener() {
@@ -360,7 +355,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         mp_Dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Edit_account.this);
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditAccountActivity.this);
 //                mBuilder.setTitle(getString(R.string.choose_year));
 //                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
 //                    @Override
@@ -377,7 +372,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
 //                mDialog.show();
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(2000,01,01);
-                YearMonthPickerDialog yearMonthPickerDialog = new YearMonthPickerDialog(Edit_account.this, calendar, new YearMonthPickerDialog.OnDateSetListener() {
+                YearMonthPickerDialog yearMonthPickerDialog = new YearMonthPickerDialog(EditAccountActivity.this, calendar, new YearMonthPickerDialog.OnDateSetListener() {
                     @Override
                     public void onYearMonthSet(int year) {
                         Calendar calendar = Calendar.getInstance();
@@ -396,7 +391,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 yearMonthPickerDialog.show();
             }
         });
-
 
         tvAddress_account.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -517,10 +511,17 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            int g=0;
                             User convertJsonJava = new User();
 
                             convertJsonJava = gson.fromJson(mMessage,User.class);
-                            int g=convertJsonJava.getProfile().getGroup();
+                            //int g=convertJsonJava.getProfile().getGroup();
+                            try{
+                                JSONObject obj=new JSONObject(mMessage);
+                                g=obj.getInt("group");
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
 
                             id_type = g;
                             Log.d(TAG,"GROUP "+g);
@@ -543,7 +544,6 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                             etEmail.setText(convertJsonJava.getEmail());
 
                             if(convertJsonJava.getProfile()!=null) {
-
 
                                 if(convertJsonJava.getProfile().getTelephone()!=null){
                                     String phone = convertJsonJava.getProfile().getTelephone();
@@ -607,7 +607,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                  String addr = convertJsonJava.getProfile().getAddress();
                                  if (addr.isEmpty()) {
                                      get_location(true);
-                                     mapFragment.getMapAsync(Edit_account.this::onMapReady);
+                                     mapFragment.getMapAsync(EditAccountActivity.this::onMapReady);
                                  }else {
                                      String[] splitAddr = addr.split(",");
                                      Log.d("Split Location::", String.valueOf(splitAddr.length));
@@ -619,7 +619,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                                          String search_title = convertJsonJava.getProfile().getResponsible_officer().toString();
                                          tvAddress_account.setQuery(search_title,false);
                                      }
-                                     mapFragment.getMapAsync(Edit_account.this);
+                                     mapFragment.getMapAsync(EditAccountActivity.this);
                                  }
                                 String m = convertJsonJava.getProfile().getMarital_status();
                                  if (m!=null){
@@ -745,7 +745,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        AlertDialog alertDialog = new AlertDialog.Builder(Edit_account.this).create();
+                        AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
                         alertDialog.setMessage(getString(R.string.edit_fail_message));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -771,7 +771,7 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
                     public void run() {
                         mProgress.dismiss();
                         Log.d("Response EEEEE", message);
-                        AlertDialog alertDialog = new AlertDialog.Builder(Edit_account.this).create();
+                        AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
                         alertDialog.setMessage(getString(R.string.edit_success_message));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -1012,45 +1012,45 @@ public class Edit_account extends AppCompatActivity implements OnMapReadyCallbac
         if(register_verify!=null) {
             switch (register_verify) {
                 case "notification":
-                    intent = new Intent(Edit_account.this, Notification.class);
+                    intent = new Intent(EditAccountActivity.this, Notification.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
                 case "camera":
-                    intent = new Intent(Edit_account.this, Camera.class);
+                    intent = new Intent(EditAccountActivity.this, Camera.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
                 case "message":
-                    intent = new Intent(Edit_account.this, ChatMainActivity.class);
+                    intent = new Intent(EditAccountActivity.this, ChatMainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
                 case "account":
-                    intent = new Intent(Edit_account.this, Account.class);
+                    intent = new Intent(EditAccountActivity.this, Account.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
                 case "detail":
-                    intent = new Intent(Edit_account.this, Detail_New_Post.class);
+                    intent = new Intent(EditAccountActivity.this, Detail_New_Post.class);
                     intent.putExtra("ID", product_id);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
                 default:
-                    intent = new Intent(Edit_account.this, Home.class);
+                    intent = new Intent(EditAccountActivity.this, Home.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
             }
         }else{
-            intent = new Intent(Edit_account.this, Home.class);
+            intent = new Intent(EditAccountActivity.this, Home.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

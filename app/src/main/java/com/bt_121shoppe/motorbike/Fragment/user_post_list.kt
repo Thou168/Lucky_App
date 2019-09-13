@@ -38,7 +38,7 @@ class user_post_list: Passdata() {
 
         var bundle :Bundle ?= activity!!.intent.extras
         user_id = activity!!.intent.getStringExtra("ID").toInt()
-        val sharedPref: SharedPreferences = activity!!.getSharedPreferences("Register", Context.MODE_PRIVATE)
+        val sharedPref: SharedPreferences = activity!!.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
         username = sharedPref.getString("name", "")
         password = sharedPref.getString("pass", "")
         encode = "Basic "+com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString(username,password)

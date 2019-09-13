@@ -25,9 +25,8 @@ import com.bt_121shoppe.motorbike.Activity.Notification;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.adapters.CustomAdapter;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -107,28 +106,28 @@ public class ChatMainActivity extends AppCompatActivity {
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), Notification.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
                 case R.id.camera:
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), Camera.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
                 case R.id.message:
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
                 case R.id.account :
                     if (prefer.contains("token")||prefer.contains("id")) {
                         startActivity(new Intent(getApplicationContext(), Account.class));
                     }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccount.class));
+                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
             }
@@ -145,13 +144,13 @@ public class ChatMainActivity extends AppCompatActivity {
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser==null){
-            Intent intent =new Intent(ChatMainActivity.this, UserAccount.class);
+            Intent intent =new Intent(ChatMainActivity.this, UserAccountActivity.class);
             startActivity(intent);
             finish();
         }else
             databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
 
-        preferences = getSharedPreferences("Register",MODE_PRIVATE);
+        preferences = getSharedPreferences("RegisterActivity",MODE_PRIVATE);
         uusername=preferences.getString("name","");
         password=preferences.getString("pass","");
         encodeAuth="Basic "+ CommonFunction.getEncodedString(uusername,password);

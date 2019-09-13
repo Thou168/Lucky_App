@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.api.Active_user
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity
@@ -83,7 +83,7 @@ class Notification : AppCompatActivity() {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        val intent = Intent(this@Notification, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -94,7 +94,7 @@ class Notification : AppCompatActivity() {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        val intent = Intent(this@Notification, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -105,7 +105,7 @@ class Notification : AppCompatActivity() {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        val intent = Intent(this@Notification, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
@@ -116,7 +116,7 @@ class Notification : AppCompatActivity() {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{
-                        val intent = Intent(this@Notification, UserAccount::class.java)
+                        val intent = Intent(this@Notification, UserAccountActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
