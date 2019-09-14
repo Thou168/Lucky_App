@@ -3,6 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Button
+        android:id="@+id/btn_upgrade"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="@string/upgrade"
+        android:textAllCaps="false"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        android:background="@drawable/mybutton"
+        android:textColor="#fff"
+        android:textSize="@dimen/dp_16"/>
 
     <ImageView
         android:id="@+id/imgType"
@@ -10,23 +21,15 @@
         android:layout_height="45dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/icon_null"
+        android:layout_below="@+id/btn_upgrade"
         android:background="@drawable/underline_gray"/>
-    <Button
-        android:id="@+id/btn_upgrade"
-        android:layout_width="90dp"
-        android:layout_height="45dp"
-        android:layout_gravity="right"
-        android:background="@drawable/underline_gray"
-        android:layout_alignParentRight="true"
-        android:visibility="gone"
-        android:hint="@string/upgrade"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/underline_gray"
         android:layout_toRightOf="@+id/imgType"
-        android:layout_toLeftOf="@+id/btn_upgrade"
+        android:layout_below="@+id/btn_upgrade"
         >
         <EditText
             android:id="@+id/tvType"

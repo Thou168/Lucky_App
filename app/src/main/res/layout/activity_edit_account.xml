@@ -31,18 +31,6 @@
             android:textColor="#ffff"
             android:textStyle="bold"
             android:gravity="center_vertical"/>
-        <Button
-            android:id="@+id/btn_upgrade"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="@string/upgrade"
-            android:layout_gravity="right"
-            android:textAllCaps="false"
-            android:visibility="gone"
-            android:background="@color/gray_light"
-            android:layout_marginRight="@dimen/dp_8"
-            android:textColor="@color/colorSubmitButton"
-            android:textSize="@dimen/dp_16"/>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

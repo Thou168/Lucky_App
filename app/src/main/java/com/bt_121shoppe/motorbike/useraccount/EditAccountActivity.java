@@ -429,6 +429,15 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                         etPhone.requestFocus();
                         imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
                     }
+                }else if (id_type == 3){
+                    if (etShop_name.getText().toString().length()<3){
+                        etShop_name.requestFocus();
+                        imgShopName.setImageResource(R.drawable.ic_error_black_24dp);
+                    }else {
+                        mProgress.show();
+                        Toast.makeText(getApplicationContext(),"Edit", Toast.LENGTH_SHORT).show();
+                        PutData(url, Encode);
+                    }
                 }else {
                     mProgress.show();
                     Toast.makeText(getApplicationContext(),"Edit", Toast.LENGTH_SHORT).show();
@@ -445,6 +454,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     if(id_type == 1){
                         imgShopName.setVisibility(View.VISIBLE);
                         tilShop_name.setVisibility(View.VISIBLE);
+                        id_type = 3;
                     }
                 }
             }
@@ -511,17 +521,17 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            int g=0;
+//                            int g=0;
                             User convertJsonJava = new User();
 
                             convertJsonJava = gson.fromJson(mMessage,User.class);
-                            //int g=convertJsonJava.getProfile().getGroup();
-                            try{
-                                JSONObject obj=new JSONObject(mMessage);
-                                g=obj.getInt("group");
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
+                            int g=convertJsonJava.getProfile().getGroup();
+//                            try{
+//                                JSONObject obj=new JSONObject(mMessage);
+//                                g=obj.getInt("group");
+//                            }catch (JSONException e){
+//                                e.printStackTrace();
+//                            }
 
                             id_type = g;
                             Log.d(TAG,"GROUP "+g);
