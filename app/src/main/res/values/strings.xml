@@ -143,9 +143,18 @@
     <string name="alert_phone1">Username is empty</string>
     <string name="secret_number">Wrong password</string>
     <string name="secret_number1">Password is empty</string>
+    <string name="head_dialog_login">Your message</string>
+    <string name="wrong_pass_phone">Your password or your phone went wrong!</string>
 
     <string name="confirm">Confirm Password</string>
     <string name="or">Or</string>
+
+    //login_message
+    <string name="head_mss">Message</string>
+    <string name="title_mss">Corrected!</string>
+    <string name="btn_alert">Confirm</string>
+
+    <string name="title_wrong">Your phone or password is wrong!</string>
 
     //user account registration
     <string name="register_by_facebook">Register by using your facebook account</string>
@@ -212,6 +221,7 @@
     //change password
 
     <string name="create_loan">Your create</string>
+    <string name="for_loan_title">Message</string>
     <string name="already_created">You cannot request duplicate loan.</string>
     <string name="title_fill_information">Fill in Information</string>
     <string name="txt_clr_detail">DETAIL</string>
@@ -731,4 +741,10 @@
 <!--    <string name="no_conversation">No Conversation!</string>-->
     <string name="min_price">Min Price</string>
     <string name="max_price">Max Price</string>
+
+//new string dialog
+    <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="LOADING">Loading…</string>
 </resources>

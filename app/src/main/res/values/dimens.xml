@@ -20,4 +20,8 @@
     <dimen name="page_title">20sp</dimen>
     <dimen name="input_text">16sp</dimen>
     <dimen name="button_tab">14sp</dimen>
+
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
 </resources>

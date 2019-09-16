@@ -3,6 +3,8 @@ package com.bt_121shoppe.motorbike.Login_Register;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +78,12 @@ public class LoginActivity extends AppCompatActivity {
     int error = 0;
     String encode;
 
+    private TextView head;
+    private ImageView info_image;
+    private TextView title;
+    private Button btnOk;
+    Dialog dialog;
+
     private FirebaseAuth auth;
 
     @Override
@@ -104,58 +113,9 @@ public class LoginActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgress.show();
+                mProgress.dismiss();
                 postRequest();
-
-                String tpm = Username.getText().toString();
-                Service api = Client.getClient().create(Service.class);
-                retrofit2.Call<AllResponse> call = api.getUsername(tpm);
-                call.enqueue(new retrofit2.Callback<AllResponse>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
-
-                        //Log.d("33333",String.valueOf(response.body().getCount()));
-
-                        String empty_user = Username.getText().toString();
-                        String empty_pass = Password.getText().toString();
-                        
-                        //phone
-                        if (empty_user.isEmpty()){
-                            alert_phone.setText(R.string.alert_phone1);
-                            alert_phone.setTextColor(getResources().getColor(R.color.red));
-                        }else if(response.body().getCount()==1){
-                            alert_phone.setText("");
-                        }else {
-                            alert_phone.setText(R.string.alert_phone);
-                            alert_phone.setTextColor(getResources().getColor(R.color.red));
-                        }
-
-                        //password
-                        if (empty_pass.isEmpty()){
-                            alert_password.setText(R.string.secret_number1);
-                            alert_password.setTextColor(getResources().getColor(R.color.red));
-                        }else if (!empty_pass.isEmpty()){
-                            if (error == 1){
-                                alert_password.setText(R.string.secret_number);
-                                alert_password.setTextColor(getResources().getColor(R.color.red));
-                            }
-                            else {
-                                alert_password.setText("");
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
-
-
-                    }
-                });
-
-
-
-
+                jilapatitus();
             }
         });
 
@@ -169,6 +129,81 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     } //create
+
+    private void jilapatitus(){
+        String tpm = Username.getText().toString();
+        Service api = Client.getClient().create(Service.class);
+        retrofit2.Call<AllResponse> call = api.getUsername(tpm);
+        call.enqueue(new retrofit2.Callback<AllResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+
+                //Log.d("33333",String.valueOf(response.body().getCount()));
+                String empty_user = Username.getText().toString();
+                String empty_pass = Password.getText().toString();
+
+                //phone
+                if (empty_user.isEmpty()){
+                    alert_phone.setText(R.string.alert_phone1);
+                    alert_phone.setTextColor(getResources().getColor(R.color.red));
+                }else if(response.body().getCount()==1 ){
+                    if (response.body().getCount()==1){
+                        alert_phone.setText("");
+                    }
+                }else {
+                    alert_phone.setText(R.string.alert_phone);
+                    alert_phone.setTextColor(getResources().getColor(R.color.red));
+                }
+
+                //password
+                if (empty_pass.isEmpty()){
+                    alert_password.setText(R.string.secret_number1);
+                    alert_password.setTextColor(getResources().getColor(R.color.red));
+                }else if (!empty_pass.isEmpty()){
+                    if (error == 1){
+                        alert_password.setText(R.string.secret_number);
+                        alert_password.setTextColor(getResources().getColor(R.color.red));
+                    }
+                    else {
+                        alert_password.setText("");
+                        Log.d("ajdmsamwjdjansmd","mgnnwejwgwekfkk");
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+
+
+            }
+        });
+    }
+
+    private void login_wrong(){
+
+        dialog = new Dialog(this,R.style.MyDialogTheme);
+        dialog.setContentView(R.layout.dialog_custom);
+        head = (TextView)dialog.findViewById(R.id.a);
+        head.setText(R.string.head_dialog_login);
+        head.setTextColor(getResources().getColor(R.color.dack_color));
+        head.setTextSize(30);
+        info_image = (ImageView)dialog.findViewById(R.id.log_info);
+        info_image.setImageResource(R.drawable.ic_close_black_24dp);
+        title = (TextView) dialog.findViewById(R.id.text_dialog);
+        title.setText(R.string.wrong_pass_phone);
+        title.setTextSize(15);
+        btnOk = (Button)dialog.findViewById(R.id.btn_dialog);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
+
+    }
 
     private void postRequest() {
         name = Username.getText().toString();
@@ -200,12 +235,14 @@ public class LoginActivity extends AppCompatActivity {
                     final String mMessage = response.body().string();
                     Log.d(TAG,mMessage);
                     converting(mMessage);
+
                 }else {
-                    mProgress.dismiss();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            login_wrong();
                             error = 1;
+                            Toast.makeText(LoginActivity.this,"Login failure",Toast.LENGTH_SHORT).show();
                         }
                     });
 

@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Login_Register
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -58,6 +59,10 @@ class VerifyMobileActivity : AppCompatActivity() {
     private var verify = ""
     private var product_id = 0
     private var user_group = 0
+    private lateinit var dialog: Dialog
+    private lateinit var bar:TextView
+    private lateinit var title:TextView
+    private lateinit var btn_ok:Button
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +109,27 @@ class VerifyMobileActivity : AppCompatActivity() {
             resendVerificationCode("+855"+no,mResendToken)
         })
     }  //OnCreate
+
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    private fun ShowTestMessageLogin() {
+//        dialog = Dialog(this, R.style.MyDialogTheme)
+//        dialog.setContentView(R.layout.dialog_custom)
+//        bar = dialog.findViewById(R.id.a) as TextView
+//        bar.setText("Your Message")
+//        title = dialog.findViewById(R.id.text_dialog)
+//        title.setText("Your phone or your password is corrected!")
+//
+//        btn_ok = dialog.findViewById(R.id.btn_dialog) as Button
+//        btn_ok.setOnClickListener(View.OnClickListener {
+//
+//            val code = otp.text!!.toString().trim { it <= ' ' }
+//            verifyVerificationCode(code)
+//            dialog.dismiss()
+//
+//        })
+//        dialog.setCancelable(false)
+//        dialog.show()
+//    }
 
     private fun sendVerificationCode(no: String) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(

@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
@@ -91,6 +95,17 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
             intent.putExtra("ID",Integer.parseInt(postid));
             mContext.startActivity(intent);
         });
+
+//        view.linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, Detail_New_Post.class);
+//                intent.putExtra("Price", model.getCost());
+//                intent.putExtra("postt", 1);
+//                intent.putExtra("ID",Integer.parseInt(loanid));
+//                mContext.startActivity(intent);
+//            }
+//        });
         view.btn_edit.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, LoanCreateActivity.class);
             intent.putExtra("id",Integer.parseInt(loanid));
@@ -146,7 +161,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         view.item_type.setText(R.string.rent);
                         view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
                     }
-                    view.btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    view.btn_cancel.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View v) {
                             AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);

@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.loan;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -341,7 +342,9 @@ public class LoanCreateActivity extends AppCompatActivity {
 
         if (loan_amount.getText().toString().isEmpty()) {
             icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
-            input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+            loan_amount.setHint(getIntent().getStringExtra("Show_amount"));
+            loan_amount.setHintTextColor(getResources().getColor(R.color.red));
+//            input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
             isValid = false;
         } else {
             input_amount.setErrorEnabled(false);
@@ -404,7 +407,7 @@ public class LoanCreateActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icAddress_job.setImageResource(R.drawable.icon_null);
-
+                    input_job.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
 //                else if (s.length() < 2) {
 //                    icAddress_job.setImageResource(R.drawable.ic_error_black_24dp);
@@ -524,12 +527,14 @@ public class LoanCreateActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     icAddress_amount.setImageResource(R.drawable.icon_null);
+                    loan_amount.setHint(getIntent().getStringExtra("Show_amount"));
+                    loan_amount.setHintTextColor(getResources().getColor(R.color.gray_active_icon));
                 }
 //                } else if (s.length() < 2) {
 //                    icAddress_amount.setImageResource(R.drawable.ic_error_black_24dp);
 //                }
                 else
-                    icAddress_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                icAddress_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 input_amount.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 input_amount.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }

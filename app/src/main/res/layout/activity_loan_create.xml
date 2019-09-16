@@ -74,6 +74,7 @@
                         android:layout_height="45dp"
                         app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgJob"
+                        android:theme="@style/TextInputLayoutHint"
                         android:background="@drawable/underline">
 
                         <EditText
@@ -99,8 +100,7 @@
                         android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgCoBorrower"
                         android:layout_below="@+id/imgJob"
-                        android:background="@drawable/underline"
-                        >
+                        android:background="@drawable/underline">
                         <EditText
                             android:id="@+id/etCoBorrower"
                             android:layout_width="match_parent"
@@ -130,6 +130,7 @@
                         android:layout_below="@id/imgCoBorrower"
                         app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgMonthlyIncome"
+                        android:theme="@style/TextInputLayoutHint"
                         android:background="@drawable/underline">
 
                         <EditText
@@ -158,6 +159,7 @@
                         android:layout_below="@id/imgMonthlyIncome"
                         app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgMonthlyIncome"
+                        android:theme="@style/TextInputLayoutHint"
                         android:background="@drawable/underline">
 
                         <EditText
@@ -204,6 +206,7 @@
                         android:layout_height="45dp"
                         app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgPurpose"
+                        android:theme="@style/TextInputLayoutHint"
                         android:background="@drawable/underline">
 
                         <EditText
@@ -231,6 +234,7 @@
                         app:errorEnabled="true"
                         android:layout_below="@id/imgPurpose"
                         android:layout_toRightOf="@+id/imgLoanAmount"
+                        android:theme="@style/TextInputLayoutHint"
                         android:background="@drawable/underline">
 
                         <EditText
@@ -238,7 +242,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:textSize="14dp"
-                            android:hint="@string/hit_loan_amount"
                             android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
                             android:background="@null" />
@@ -259,6 +262,7 @@
                         android:layout_below="@id/imgLoanAmount"
                         app:errorEnabled="true"
                         android:layout_toRightOf="@+id/imgLoanAmount"
+                        android:theme="@style/TextInputLayoutHint"
                         android:background="@drawable/underline">
 
                         <EditText

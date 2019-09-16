@@ -299,7 +299,18 @@
 
     <!--    message for loan created-->
     <string name="create_loan">ការបង្កើត</string>
+    <string name="for_loan_title">សារ</string>
     <string name="already_created">អ្នកមិនអាចស្នើរសុំឥណទានស្ទួនគ្នាបានទេ</string>
+
+    //login_message
+    <string name="head_mss">សារ</string>
+    <string name="title_mss">ត្រឹមត្រូវ!</string>
+    <string name="btn_alert">យល់ព្រម</string>
+
+    <string name="title_wrong">លេខទូរស័ព្ទរឺលេខកូដរបស់អ្នកមិនត្រឹមត្រូវ!</string>
+
+    <string name="head_dialog_login">សាររបស់អ្នក</string>
+    <string name="wrong_pass_phone">លេខកូដរឺទូរស៏ព្ទរបស់អ្នកមិនត្រឹមត្រូវ!</string>
 
     //Rent type
     <string-array name="rent_type">

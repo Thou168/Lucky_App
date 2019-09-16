@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.*
 import android.text.format.DateUtils
+import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
@@ -67,13 +68,20 @@ import kotlinx.android.synthetic.main.content_home.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
+import org.w3c.dom.CharacterData
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.StringWriter
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.CharacterIterator
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.EventListener
 import kotlin.collections.ArrayList
+import kotlin.math.round
 
 class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private val TAG = Detail_Discount::class.java.simpleName
@@ -147,6 +155,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var show_deposit:TextView
     var st:String = "0"
     var st2: Double = 0.0
+
+    val decimal:Int = 0
+    lateinit var afc:String
+
+    var jakl:String = "0"
+    var ko:String = "0"
+    var ms:Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -280,10 +295,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         edLoanInterestRate.setText("1.5")
         edLoanTerm.setText("24")
 
-        tvMonthlyPayment.setText("$ 0.0")
+        tvMonthlyPayment.setText("$ 0.00")
 
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN /***&& event.action == KeyEvent.KeyCode*/) {
                 //Perform Code
                 calculateLoanMonthlyPayment()
                 return@OnKeyListener true
@@ -292,14 +307,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
         edLoanPrice.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                calculateLoanMonthlyPayment()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 calculateLoanMonthlyPayment()
             }
             override fun afterTextChanged(p0: Editable?) {
-                calculateLoanMonthlyPayment()
             }
         })
 
@@ -314,20 +327,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             false
         })
 
-//        edLoanDeposit.addTextChangedListener(object: TextWatcher {
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                calculateLoanMonthlyPayment()
-//            }
-//
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                calculateLoanMonthlyPayment()
-//
-//            }
-//            override fun afterTextChanged(p0: Editable?) {
-//                calculateLoanMonthlyPayment()
-//            }
-//        })
-
         edLoanInterestRate.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 //Perform Code
@@ -339,25 +338,65 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
 
         edLoanInterestRate.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                calculateLoanMonthlyPayment()
+            override fun beforeTextChanged(p0:CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 calculateLoanMonthlyPayment()
+
+                jakl = p0.toString()
+                if (jakl.isEmpty()){
+                    jakl = "0"
+                    Log.d("When empty",jakl)
+                }
+
+                var lol:Double = jakl.toDouble()
+                var dota:Double = ko.toDouble() // =0
+
+//                var koca:String = lol.toString()
+//                var kaca:String = dota.toString()
+
+                if (lol.equals(dota)){
+                    tvMonthlyPayment.text = "$0"
+//                    ms = jakl.toDouble()
+                    Log.d("For sero", lol.toString())
+                }
+
+                else{
+                    Log.d("For do", lol.toString())
+                    ms = jakl.toDouble()
+//                    jakl = "0"
+                }
+
+//                if (jakl != null) {
+//
+//                    if (jakl.isEmpty()){
+//                        st2 = jakl.toDouble()
+//                        tvMonthlyPayment.setText("$0")
+//                    }
+//                    else if (jakl.equals("0".toString())){
+//                        jakl = "0"
+//                        Log.d("Dota2esports",jakl)
+//                        st2 = jakl.toDouble()
+//                        tvMonthlyPayment.setText("$0")
+//                        Log.d("kaksdnansh",jakl)
+//                    }
+//                    else {
+//                        st2 = jakl.toDouble()
+//                        Log.d("lolesports",jakl)
+//                        tvMonthlyPayment.visibility = View.VISIBLE
+//                    }
+//                }
+
             }
             override fun afterTextChanged(p0: Editable?) {
-                calculateLoanMonthlyPayment()
             }
         })
-
 
         edLoanTerm.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 //Perform Code
 //                Toast.makeText(this@Detail_New_Post, calculateLoanMonthlyPayment().toString(), Toast.LENGTH_SHORT).show()
-                calculateLoanMonthlyPayment()
-
                 return@OnKeyListener true
             }
             false
@@ -370,9 +409,21 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 calculateLoanMonthlyPayment()
+                var hamu:String = p0.toString()
+                if (hamu.equals(ko)){
+                    tvMonthlyPayment.setText("$0.00")
+                    tvMonthlyPayment.visibility = View.VISIBLE
+                }
+                else if (hamu.isEmpty()){
+                    tvMonthlyPayment.setText("$0.00")
+                    tvMonthlyPayment.visibility = View.INVISIBLE
+                }
+                else if (hamu.isNotEmpty()){
+                    tvMonthlyPayment.visibility = View.VISIBLE
+                    Log.d("moskdadafa",hamu)
+                }
             }
             override fun afterTextChanged(p0: Editable?) {
-                calculateLoanMonthlyPayment()
             }
         })
 
@@ -432,11 +483,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postDetail = gson.fromJson(mMessage, PostViewModel::class.java)
                         Log.e(TAG,"D"+ mMessage)
  // hide button call chat like loan by samang 27/08/19
+
                         var create_by =  postDetail.created_by.toInt()
                         if (create_by == pk){
                             Layout_call_chat_like_loan.visibility = View.GONE
                         }
- //
+
                         val url1=ConsumeAPI.BASE_URL+"api/v1/years/"+postDetail.year
                         var client1=OkHttpClient()
                         val request1 = Request.Builder()
@@ -538,11 +590,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
                         tvPostTitle.setText(postDetail.title.toString())
-                        tvPrice.setText("$ "+ discount)
+                        tvPrice.setText("$"+ discount)
                         edLoanPrice.setText(""+discount)
                         tvPostCode.setText(postDetail.id.toString())
 
-                        show_amount_loan = discount.toString()
+                        show_amount_loan = "$"+discount.toString()
 
 //                        tvPrice1.setText("$"+ postDetail.cost)
 
@@ -558,9 +610,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 st = p0.toString()
                                 if (st.isEmpty()){
                                     st = "0"
+                                    Log.d("vetaneateanea","oracle")
                                     st2  = st.toDouble()
+                                    return
                                 }else{
+                                    Log.d("hamehameha",st)
                                     st2  = st.toDouble()
+                                    return
                                 }
 
                                 Log.d("jakata",ds.toString())
@@ -569,9 +625,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     show_deposit.setTextColor(resources.getColor(R.color.red))
                                     show_deposit.setText(R.string.deposit_message)
 //                                    tvMonthlyPayment.visibility = View.INVISIBLE
-                                    tvMonthlyPayment.text = "$0.0"
+                                    tvMonthlyPayment.text = "$0.00"
                                     tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
-
 
                                 }
                                 else if (st2 <= ds){
@@ -588,8 +643,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         Log.d("767676", discount.toString())
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
+                            tvPrice.visibility = View.GONE
+                            show_amount_loan = "$"+postDetail.cost.toString()
                             tvPrice.text = postDetail.cost
-                            show_amount_loan = postDetail.cost.toString()
+//                            show_amount_loan = postDetail.cost.toString()
                             edLoanPrice.setText(""+postDetail.cost)
 
                             edLoanDeposit.addTextChangedListener(object: TextWatcher {
@@ -605,6 +662,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         st = "0"
                                         st2  = st.toDouble()
                                     }else{
+                                        Log.d("hamehameha",st)
                                         st2  = st.toDouble()
                                     }
 
@@ -614,7 +672,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         show_deposit.setTextColor(resources.getColor(R.color.red))
                                         show_deposit.setText(R.string.deposit_message)
 //                                    tvMonthlyPayment.visibility = View.INVISIBLE
-                                        tvMonthlyPayment.text = "$0.0"
+                                        tvMonthlyPayment.text = "$0.00"
                                         tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
 
 
@@ -795,7 +853,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }
         })
     }
-
 
     fun getUserProfile(id:Int,encode: String){
         var user1 = User()
@@ -1190,16 +1247,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         if(loanPrice.isNullOrEmpty()) aPrice=0.0 else aPrice=loanPrice.toDouble()
         if(loanDeposit.isNullOrEmpty()) aDeposit= 0.0 else aDeposit=loanDeposit.toDouble()
-        if(loanInterestRate.isNullOrEmpty()) aInterestRate=1.5 else aInterestRate=loanInterestRate.toDouble()
-        if(loanTerm.isNullOrEmpty()) aLoanTerm=24 else aLoanTerm=loanTerm.toInt()
+        if(loanInterestRate.isNullOrEmpty()) aInterestRate = 0.0 else aInterestRate=loanInterestRate.toDouble()
+        if(loanTerm.isNullOrEmpty()) aLoanTerm=0 else aLoanTerm=loanTerm.toInt()
 
         val monthlyPayment=LoanCalculator.getLoanMonthPayment(aPrice,aDeposit,aInterestRate,aLoanTerm)
         //Log.d(TAG,loanPrice+" "+loanInterestRate+" "+monthlyPayment.toString() +" "+aPrice+" "+aInterestRate+" "+aLoanTerm)
-        val df:String
-        df = BigDecimal(monthlyPayment).setScale(2,RoundingMode.CEILING).toString()
+//        val df:String
+//        df = BigDecimal(monthlyPayment).setScale(2,RoundingMode.CEILING).toString()
+//        tvMonthlyPayment.text = "$" + df
 
-        tvMonthlyPayment.text = "$" + df
+        var df = DecimalFormatSymbols(Locale.US)
 
+        val me = DecimalFormat("#.##", df)
+        me.roundingMode = RoundingMode.HALF_EVEN
+        tvMonthlyPayment.setText("$" + me.format(monthlyPayment))
     }
 
     private fun getEncodedString(username: String, password: String): String {
@@ -1396,15 +1457,19 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     }
 
     fun withStyle() {
-        val builder = AlertDialog.Builder(ContextThemeWrapper(this, android.R.style.Widget_ActionBar_TabBar))
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this,R.style.AppTheme))
+//        val builder = AlertDialog.Builder(this)
         with(builder)
         {
+            setTitle(R.string.for_loan_title)
+            setIcon(R.drawable.ic_message_black_24dp)
             setMessage(R.string.already_created)
             setPositiveButton(getString(R.string.ok), DialogInterface.OnClickListener { dialog, which ->
                 refresh
                 dialog.dismiss()
             })
             show()
+            setCancelable(false)
         }
     }
 
