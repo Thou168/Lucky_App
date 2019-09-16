@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -33,13 +34,17 @@ public class SelectUserTypeActivity extends AppCompatActivity {
         Next    = findViewById(R.id.btn_userType);
 
         intent=getIntent();
-        processType=intent.getStringExtra("processtype");
-        facebooktokenkey=intent.getStringExtra("facebooktokenkey");
-        facebookid=intent.getStringExtra("facebookid");
-        facebookname=intent.getStringExtra("facebookname");
-        imageurl=intent.getStringExtra("imageurl");
-        register_verify = intent.getStringExtra("Register_verify");
+        if (intent!=null) {
+            processType = intent.getStringExtra("processtype");
+            facebooktokenkey = intent.getStringExtra("facebooktokenkey");
+            facebookid = intent.getStringExtra("facebookid");
+            facebookname = intent.getStringExtra("facebookname");
+            imageurl = intent.getStringExtra("imageurl");
+            register_verify = intent.getStringExtra("Register_verify");
 
+        }
+        Log.d("Facebook register",processType+","+facebooktokenkey+","+facebookid+","+facebookname+","+imageurl);
+        Log.d("11111","facebook is "+CommonFunction.ProcessType.FacebookRegister.toString());
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -60,16 +65,18 @@ public class SelectUserTypeActivity extends AppCompatActivity {
                 if (radioGroup.getCheckedRadioButtonId() == -1){
                     Toast.makeText(v.getContext(),"Please select account type",Toast.LENGTH_SHORT).show();
                 }else {
-                    if(processType.equals(CommonFunction.ProcessType.FacebookRegister.toString())){
-                        Intent intent=new Intent(SelectUserTypeActivity.this,ConfirmMobileNumberActivity.class);
-                        intent.putExtra("facebooktokenkey",facebooktokenkey);
-                        intent.putExtra("facebookid",facebookid);
-                        intent.putExtra("facebookname",facebookname);
-                        intent.putExtra("imageurl",imageurl);
-                        intent.putExtra("usergroup",group_user);
-                        intent.putExtra("gender","");
-                        intent.putExtra("birthday","");
+                    if (processType!=null){
+                        if(processType.equals(CommonFunction.ProcessType.FacebookRegister.toString())) {
+                        Intent intent = new Intent(SelectUserTypeActivity.this, ConfirmMobileNumberActivity.class);
+                        intent.putExtra("facebooktokenkey", facebooktokenkey);
+                        intent.putExtra("facebookid", facebookid);
+                        intent.putExtra("facebookname", facebookname);
+                        intent.putExtra("imageurl", imageurl);
+                        intent.putExtra("usergroup", group_user);
+                        intent.putExtra("gender", "");
+                        intent.putExtra("birthday", "");
                         startActivity(intent);
+                        }
                     }else {
                         Intent intent = new Intent(v.getContext(), RegisterActivity.class);
                         intent.putExtra("user_group", group_user);

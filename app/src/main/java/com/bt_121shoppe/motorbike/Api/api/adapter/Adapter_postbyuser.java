@@ -67,7 +67,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list1t,viewGroup,false);
 
-        prefer = mContext.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE);
+        prefer = mContext.getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
 
@@ -243,11 +243,14 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         }
         try{
             Service apiServiece = Client.getClient().create(Service.class);
+
             Call<AllResponse> call = apiServiece.getCount(iditem,basic_Encode);
+            Log.d("111111",basic_Encode);
             call.enqueue(new Callback<AllResponse>() {
                 @Override
                 public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                     view.txtview.setText(String.valueOf(response.body().getCount()));
+
                 }
 
                 @Override

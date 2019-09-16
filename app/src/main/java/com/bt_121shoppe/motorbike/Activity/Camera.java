@@ -3432,7 +3432,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 2000, null);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(current_location)
-                .zoom(10)
+                .zoom(14)
                 .bearing(90)
                 .tilt(30)
                 .build();

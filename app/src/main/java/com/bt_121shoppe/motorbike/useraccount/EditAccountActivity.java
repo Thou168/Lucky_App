@@ -417,17 +417,17 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             public void onClick(View v) {
                 //summitUserInformation();
                 if(tvType.getText().toString().length()<3 || etUsername.getText().toString().length()<3 || etPhone.getText().toString().length()<9 ){
-                    if(tvType.getText().toString().length()<3) {
-                        tvType.requestFocus();
-                        imgType.setImageResource(R.drawable.ic_error_black_24dp);
+                    if (etPhone.getText().toString().length()<9){
+                        etPhone.requestFocus();
+                        imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (etUsername.getText().toString().length()<3){
                         etUsername.requestFocus();
                         imgUsername.setImageResource(R.drawable.ic_error_black_24dp);
                     }
-                    if (etPhone.getText().toString().length()<9){
-                        etPhone.requestFocus();
-                        imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
+                    if(tvType.getText().toString().length()<3) {
+                        tvType.requestFocus();
+                        imgType.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                 }else if (id_type == 3){
                     if (etShop_name.getText().toString().length()<3){
@@ -435,12 +435,11 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                         imgShopName.setImageResource(R.drawable.ic_error_black_24dp);
                     }else {
                         mProgress.show();
-                        Toast.makeText(getApplicationContext(),"Edit", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(),"Edit", Toast.LENGTH_SHORT).show();
                         PutData(url, Encode);
                     }
                 }else {
                     mProgress.show();
-                    Toast.makeText(getApplicationContext(),"Edit", Toast.LENGTH_SHORT).show();
                     PutData(url, Encode);
                 }
             }
@@ -526,6 +525,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
                             convertJsonJava = gson.fromJson(mMessage,User.class);
                             int g=convertJsonJava.getProfile().getGroup();
+// close by samang
 //                            try{
 //                                JSONObject obj=new JSONObject(mMessage);
 //                                g=obj.getInt("group");
@@ -780,7 +780,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     @Override
                     public void run() {
                         mProgress.dismiss();
-                        Log.d("Response EEEEE", message);
                         AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
                         alertDialog.setMessage(getString(R.string.edit_success_message));
@@ -804,7 +803,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             }
         });
     }
-
 
     public void Province(){
         final String rl = ConsumeAPI.BASE_URL+"api/v1/provinces/";
@@ -1456,6 +1454,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
         btUpgrade    = (Button)findViewById(R.id.btn_upgrade);
     }
+
     private void Seach_Address(){
         String loca = tvAddress_account.getQuery().toString();
         List<Address> address_Search = null;

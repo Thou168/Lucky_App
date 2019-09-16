@@ -258,8 +258,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = prefer.edit();
                         editor.putString("token",key);
-                        editor.putString("name",name);
-                        editor.putString("pass",pass);
+                        editor.putString("name",Username.getText().toString());
+                        editor.putString("pass",Password.getText().toString());
                         editor.putInt("Pk",pk);
                         editor.commit();
                         mProgress.dismiss();
@@ -343,7 +343,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         }
                                         else{
-                                            //Toast.makeText(LoginActivity.this,"You cannot register with email or password.",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this,"You cannot register with email or password.",Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });

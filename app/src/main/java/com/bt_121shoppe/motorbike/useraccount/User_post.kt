@@ -109,10 +109,17 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
 
         val phone = intent.getExtras()!!.getString("Phone")
         val email = intent.getExtras()!!.getString("Email")
-        val addr  = intent.getExtras()!!.getString("map")
+        val addr_shop  = intent.getExtras()!!.getString("map_address")
+        val addr_post  = intent.extras.getString("map_post")  // use for user detail when user no address shop
 
-        Log.d("Late",addr)
+        Log.d("Late","1111------"+addr_shop+"and"+addr_post)
 
+        var addr =""
+        if (addr_shop.isEmpty()){
+            addr = addr_post
+        }else{
+            addr = addr_shop
+        }
 
 //        configureTabLayout()
         getUserProfile()
@@ -419,7 +426,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5f), 2000, null)
         val cameraPosition = CameraPosition.Builder()
                 .target(current_location)
-                .zoom(10f)
+                .zoom(14f)
                 .bearing(90f)
                 .tilt(30f)
                 .build()

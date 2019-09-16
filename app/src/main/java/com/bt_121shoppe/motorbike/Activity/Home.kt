@@ -206,6 +206,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             name = sharedPref.getString("name", "")
             pass = sharedPref.getString("pass", "")
+
+            Log.d("Name11111",name+","+pass)
             Encode = CommonFunction.getEncodedString(name,pass)
             if (sharedPref.contains("token")) {
                 pk = sharedPref.getInt("Pk",0)
@@ -792,6 +794,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         })
         return count
     }
+
+
     private fun requestStoragePermission(isCamera: Boolean) {
         Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .withListener(object : MultiplePermissionsListener {
@@ -812,16 +816,17 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
                             showSettingsDialog()
 
                         }
+
         // add call requestpermission by samang 27/08
                         if (ContextCompat.checkSelfPermission(this@Home, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(this@Home, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
-                        }
-               //
-                        if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)!== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(this@Home, arrayOf<String>(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-
                             ShowTestMessage()
                         }
+               //
+//                        if (ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_FINE_LOCATION)!== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@Home, Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+//                            ActivityCompat.requestPermissions(this@Home, arrayOf<String>(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+//
+//                        }
 
                     }
 

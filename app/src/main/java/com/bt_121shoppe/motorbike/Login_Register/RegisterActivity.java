@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -63,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView textView;
     private TextView PhoneError,PasswordError,ComfirmPassError;
     private Context context;
-    ProgressDialog mProgress;
+    private ProgressDialog mProgress;
     SharedPreferences prefer;
     String phone;
     String comfirm;
@@ -122,7 +123,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String ComfirmPass = editComfirmPass.getText().toString();
                     PhoneError.setText(""); PasswordError.setText("");ComfirmPassError.setText("");
                 if (Number_Phone.length()<8 || Password.length()<4 || ComfirmPass.length()<4 || !Password.equals(ComfirmPass)){
-                    mProgress.dismiss();
                     if (Number_Phone.length()<8){
                         PhoneError.setTextColor(getColor(R.color.red));
                         PhoneError.setText(R.string.inputPhone);
@@ -137,8 +137,9 @@ public class RegisterActivity extends AppCompatActivity {
                         ComfirmPassError.setText(R.string.invalidPassword);
                     }
                 }else if (user_group == 1) {
-                    mProgress.show();
+
                     if (CheckNumber(ComfirmPass)) {
+                        mProgress.show();
                         /* block for verify code sep 12 2019 */
 //                        Intent intent = new Intent(RegisterActivity.this, VerifyMobileActivity.class);
 //                        intent.putExtra("authType", 1);
@@ -169,6 +170,118 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void registerAPIUser(String username,String password,int group){
+        String url=ConsumeAPI.BASE_URL+"api/v1/users/";
+        OkHttpClient client=new OkHttpClient();
+        JSONObject postdata=new JSONObject();
+        JSONObject post_body=new JSONObject();
+        try{
+            postdata.put("username", username);
+            postdata.put("password", password);
+            post_body.put("telephone", username);
+            post_body.put("group",group);
+            postdata.put("profile", post_body);
+            postdata.put("groups",new JSONArray("[\"1\"]"));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        Log.d(TAG,"Data"+postdata);
+        RequestBody body=RequestBody.create(ConsumeAPI.MEDIA_TYPE,postdata.toString());
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                final String mMessage = response.body().string();
+                Log.d(TAG,mMessage);
+                mProgress.dismiss();
+                convertUser(mMessage);
+            }
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String mMessage = e.getMessage().toString();
+                mProgress.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "failure Response:" + mMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void convertUser(String mMessage){
+        Gson gson =new  Gson();
+        Convert_Json_Java convertJsonJava =new Convert_Json_Java();
+        try {
+            convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java.class);
+            int g=convertJsonJava.getGroup();
+            int id = convertJsonJava.getId();
+            String username=convertJsonJava.getUsername();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (id!=0){
+                        SharedPreferences.Editor editor =prefer.edit();
+                        editor.putInt("id",id);
+                        editor.putString("name",username);
+                        editor.putString("pass",editComfirmPass.getText().toString());
+                        editor.putString("groups",String.valueOf(g));
+                        editor.commit();
+
+                        userEmail=ConsumeAPI.PREFIX_EMAIL+id+"@email.com";
+                        Log.d(TAG,"2221111@@---- "+userEmail+" "+username+" "+pass+","+user_group);
+                        if (user_group == 1) {
+                            registerUserFirebase(username, userEmail, pass, String.valueOf(1));
+                        }else if (user_group == 3){
+                            registerUserAccount(username, userEmail, pass, String.valueOf(3),id);
+                        }
+                    }else {
+                        AlertDialog alertDialog=new AlertDialog.Builder(RegisterActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.register));
+                        alertDialog.setMessage(getString(R.string.verify_code_message));
+                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                        mProgress.dismiss();
+                    }
+                }
+            });
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog alertDialog=new AlertDialog.Builder(RegisterActivity.this).create();
+                    alertDialog.setTitle(getString(R.string.register));
+                    alertDialog.setMessage(getString(R.string.verify_code_message));
+                    alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    mProgress.dismiss();
+                }
+            });
+
+        }
+    }
+
     private void registerUserFirebase(String username,String email,String pass1,String group){
         String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
         auth.createUserWithEmailAndPassword(email,password)
@@ -247,118 +360,9 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void registerAPIUser(String username,String password,int group){
-        String url=ConsumeAPI.BASE_URL+"api/v1/users/";
-        OkHttpClient client=new OkHttpClient();
-        JSONObject postdata=new JSONObject();
-        JSONObject post_body=new JSONObject();
-        try{
-            postdata.put("username", username);
-            postdata.put("password", password);
-            post_body.put("telephone", username);
-            post_body.put("group",group);
-            postdata.put("profile", post_body);
-            postdata.put("groups",new JSONArray("[\"1\"]"));
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-        Log.d(TAG,"Data"+postdata);
-        RequestBody body=RequestBody.create(ConsumeAPI.MEDIA_TYPE,postdata.toString());
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                final String mMessage = response.body().string();
-                Log.d(TAG,mMessage);
-                convertUser(mMessage);
-            }
-            @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage().toString();
-                mProgress.dismiss();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "failure Response:" + mMessage, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-    }
-
-    private void convertUser(String mMessage){
-        Gson gson =new  Gson();
-        Convert_Json_Java convertJsonJava =new Convert_Json_Java();
-        try {
-            convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java.class);
-            int g=convertJsonJava.getGroup();
-            int id = convertJsonJava.getId();
-            String username=convertJsonJava.getUsername();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (id!=0){
-                        SharedPreferences.Editor editor =prefer.edit();
-                        editor.putInt("id",id);
-                        editor.putString("name",username);
-                        editor.putString("pass",editComfirmPass.getText().toString());
-                        editor.putString("groups",String.valueOf(g));
-                        editor.commit();
-
-                        userEmail=ConsumeAPI.PREFIX_EMAIL+id+"@email.com";
-                        Log.d(TAG,userEmail+" "+username+" "+pass);
-                        if (user_group == 1) {
-                            registerUserFirebase(username, userEmail, pass, String.valueOf(1));
-                        }else if (user_group == 3){
-                            registerUserAccount(username, userEmail, pass, String.valueOf(1),id);
-                        }
-                    }else {
-                        AlertDialog alertDialog=new AlertDialog.Builder(RegisterActivity.this).create();
-                        alertDialog.setTitle(getString(R.string.register));
-                        alertDialog.setMessage(getString(R.string.verify_code_message));
-                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
-                        mProgress.dismiss();
-                    }
-                }
-            });
-
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog alertDialog=new AlertDialog.Builder(RegisterActivity.this).create();
-                    alertDialog.setTitle(getString(R.string.register));
-                    alertDialog.setMessage(getString(R.string.verify_code_message));
-                    alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                    mProgress.dismiss();
-                }
-            });
-
-        }
-    }
-
     // for intent to edit_account by samang 12/09
     private void registerUserAccount(String username, String email, String pass1, String group, int id){
-        String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
+        String password=group.equals("3")?pass1+"__":pass1;
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

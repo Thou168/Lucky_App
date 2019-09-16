@@ -136,6 +136,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var postType:String
     private lateinit var con:String
     private lateinit var col:String
+    private lateinit var address_map: String
     var discount: Double = 0.0
     var encodeAuth:String = ""
     lateinit var sharedPref: SharedPreferences
@@ -163,7 +164,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
         Log.d("123456789 :",discount.toString())
-        sharedPref = getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
         Encode = getEncodedString(name,pass)
@@ -684,6 +685,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val addr = postDetail.contact_address.toString()
 //                        Log.d("LAAAAA",addr)
+                        address_map = addr     // use for user detail when user no address shop
                         var time:Long
                         if(addr.isEmpty()) {
 
@@ -852,8 +854,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             intent.putExtra("ID",user1.id.toString())
                             intent.putExtra("Phone",user1.profile.telephone)
                             intent.putExtra("Email",user1.email)
-                            intent.putExtra("map",user1.profile.address)
-                            //intent.putExtra("Phone",phone.text)
+                            intent.putExtra("map_address",user1.profile.address)
+                            intent.putExtra("map_post",address_map)         // use for user detail when user no address shop
+                             //intent.putExtra("Phone",phone.text)
                             intent.putExtra("Username",user1.username)
                             intent.putExtra("Name",user1.first_name)
                             startActivity(intent)
