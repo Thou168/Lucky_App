@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="@dimen/dp_8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etShopname"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="@string/shop_name"
+            android:textSize="14dp"
+            android:padding="@dimen/dp_8dp" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:hint="@string/address"
+            android:textSize="14dp"
+            android:padding="@dimen/dp_8dp" />
+        <TextView
+            android:id="@+id/tv_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/shop_logo"
+            android:textSize="14dp"
+            android:padding="@dimen/dp_8"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_below="@+id/tv_logo"
+            android:id="@+id/logo_shop"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/circle"
+            android:src="@drawable/square_logo"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_4">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_weight="0.5"
+            android:text="@string/cancel" />
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_weight="0.5"
+            android:text="@string/submit_button" />
+
+    </LinearLayout>
+
+</LinearLayout>

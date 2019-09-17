@@ -1,13 +1,16 @@
 package com.bt_121shoppe.motorbike.useraccount;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,14 +21,19 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +59,7 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.date.YearMonthPickerDialog;
+import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -59,25 +68,44 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.common.base.MoreObjects;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.validation.Validator;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -92,11 +120,11 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     private LinearLayout layout_public_user,layout_121_dealer;
     private SearchView tvAddress_account;
     private SupportMapFragment mapFragment;
-    private EditText etUsername,etShop_name,etWingNumber,etWingName,etPhone,etPhone2,etPhone3,etEmail;
-    private TextInputLayout tilShop_name,tilPhone2,tilPhone3;
-    private ImageButton btnImagePhone1,btnImagePhone2;
+    private EditText etUsername,etShop_name,etShop_name1,etShop_name2,etWingNumber,etWingName,etPhone,etPhone2,etPhone3,etEmail,shopname,address;
+    private TextInputLayout tilShop_name,tilPhone2,tilPhone3,tilShop_name1,tilShop_name2;
+    private ImageButton btnImagePhone1,btnImagePhone2,btnShopname,btnShopname1;
     private ImageView imgType,imgGender,imgPob,imgLocation,imgAddress,imgMarried,imgUsername,imgDob,imgWingNumber,
-            imgWingName,imgPhone,imgPhone2,imgPhone3,imgEmail,imgShopName,imgShopAddr,imgResponsible;
+            imgWingName,imgPhone,imgPhone2,imgPhone3,imgEmail,imgShopName,imgShopAddr,imgResponsible,imgShopname1,imgShopname2;
     private EditText btnsubmit,mp_Gender,mp_Married,mp_Dob,mp_Pob,mp_location,tvType;
     private String name,pass,Encode,user_id;
     private ArrayAdapter<Integer> ad_id;
@@ -104,6 +132,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     private SharedPreferences prefer;
     private List<Integer> provinceIdArrayList=new ArrayList<>();
     private List<String> provinceNameArrayList=new ArrayList<>();
+    private List<String> shop=new ArrayList<>();
     private RequestQueue mQueue;
     private ProgressDialog mProgress;
     ArrayAdapter<CharSequence> adapter;
@@ -118,7 +147,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
     private TextInputLayout input_user, input_wingname,input_wingnum;
-    private Button btUpgrade;
+    private Button btUpgrade,Cancle,Submit;
+    private CircleImageView btnlogo;
     private String register_intent;
     private Validator validator;
     @Override
@@ -458,6 +488,90 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 }
             }
         });
+        //button add shop name by Raksmey 16/09/2019
+        btnShopname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
+                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
+                View dialog = inflater.inflate(R.layout.dialog_add_shop,null);
+                shopname = dialog.findViewById(R.id.etShopname);
+                address = dialog.findViewById(R.id.etAddress);
+                btnlogo = dialog.findViewById(R.id.logo_shop);
+                Cancle = dialog.findViewById(R.id.buttonCancel);
+                Submit = dialog.findViewById(R.id.buttonSubmit);
+                btnlogo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                Cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                Submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String shop = shopname.getText().toString();
+                        String addr = address.getText().toString();
+                        etShop_name1.setText(shop);
+                        etShop_name1.setVisibility(View.VISIBLE);
+                        imgShopname1.setVisibility(View.VISIBLE);
+                        tilShop_name1.setVisibility(View.VISIBLE);
+                        btnShopname1.setVisibility(View.VISIBLE);
+                        btnShopname.setVisibility(View.GONE);
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.setView(dialog);
+                alertDialog.show();
+            }
+        });
+        btnShopname1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
+                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
+                View dialog = inflater.inflate(R.layout.dialog_add_shop,null);
+                shopname = dialog.findViewById(R.id.etShopname);
+                address = dialog.findViewById(R.id.etAddress);
+                btnlogo = dialog.findViewById(R.id.logo_shop);
+                Cancle = dialog.findViewById(R.id.buttonCancel);
+                Submit = dialog.findViewById(R.id.buttonSubmit);
+                btnlogo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                Cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                Submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String shop = shopname.getText().toString();
+                        String addr = address.getText().toString();
+                        etShop_name2.setText(shop);
+                        etShop_name2.setVisibility(View.VISIBLE);
+                        imgShopname2.setVisibility(View.VISIBLE);
+                        tilShop_name2.setVisibility(View.VISIBLE);
+                        btnShopname1.setVisibility(View.GONE);
+                        btnShopname.setVisibility(View.GONE);
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.setView(dialog);
+                alertDialog.show();
+            }
+        });
+        //end
 
     } // oncreate
 
@@ -542,6 +656,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                 btUpgrade.setVisibility(View.GONE);
                                 imgShopName.setVisibility(View.VISIBLE);
                                 tilShop_name.setVisibility(View.VISIBLE);
+                                btnShopname.setVisibility(View.VISIBLE);
                                 etShop_name.setText(convertJsonJava.getProfile().getShop_name());
                             }else {
                                 tvType.setText(getString(R.string.public_user));
@@ -1153,6 +1268,50 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
             }
         });
+        etShop_name1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgShopname1.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgShopname1.setImageResource(R.drawable.ic_error_black_24dp);
+                }else {
+                    imgShopname1.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        etShop_name2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()==0){
+                    imgShopname2.setImageResource(R.drawable.icon_null);
+                }else if (s.length()<3){
+                    imgShopname2.setImageResource(R.drawable.ic_error_black_24dp);
+                }else {
+                    imgShopname2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         etWingName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1413,6 +1572,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         tvType      = findViewById(R.id.tvType);
         etUsername  =(EditText) findViewById(R.id.etUsername);
         etShop_name =(EditText) findViewById(R.id.etShop_name);
+        etShop_name1 =(EditText) findViewById(R.id.etShop_name1);
+        etShop_name2 = (EditText) findViewById(R.id.etShop_name2);
         etWingName  =(EditText) findViewById(R.id.etWingName);
         etWingNumber=(EditText) findViewById(R.id.etWingNumber);
         etPhone     =(EditText) findViewById(R.id.etPhone_account);
@@ -1422,6 +1583,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
         btnImagePhone1 = (ImageButton)findViewById(R.id.btnPhone_account);
         btnImagePhone2 = (ImageButton)findViewById(R.id.btnPhone_account2);
+        btnShopname1 = (ImageButton)findViewById(R.id.btnShopname1);
+        btnShopname = (ImageButton)findViewById(R.id.btnShopname);
 
         mp_Dob      = (EditText) findViewById(R.id.mp_Dob);
         mp_Pob      = (EditText) findViewById(R.id.mp_Pob);
@@ -1433,6 +1596,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         imgType        =(ImageView) findViewById(R.id.imgType);
         imgUsername =(ImageView) findViewById(R.id.imgUsername);
         imgShopName =(ImageView) findViewById(R.id.imgShop_name);
+        imgShopname1 =(ImageView) findViewById(R.id.imgShop_name1);
+        imgShopname2 =(ImageView) findViewById(R.id.imgShop_name2);
         imgWingName =(ImageView) findViewById(R.id.imgWingName);
         imgWingNumber=(ImageView) findViewById(R.id.imgWingNumber);
         imgPhone    =(ImageView) findViewById(R.id.imgPhone_account);
@@ -1450,6 +1615,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         input_wingname = (TextInputLayout)findViewById(R.id.tilWingName);
         input_wingnum = (TextInputLayout)findViewById(R.id.tilWingNumber);
         tilShop_name  = (TextInputLayout)findViewById(R.id.tilShop_name);
+        tilShop_name1  = (TextInputLayout)findViewById(R.id.tilShop_name1);
+        tilShop_name2  = (TextInputLayout)findViewById(R.id.tilShop_name2);
         tilPhone2     = (TextInputLayout)findViewById(R.id.tilPhone_account2);
         tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
         btUpgrade    = (Button)findViewById(R.id.btn_upgrade);

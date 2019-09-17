@@ -741,6 +741,7 @@
 <!--    <string name="no_conversation">No Conversation!</string>-->
     <string name="min_price">Min Price</string>
     <string name="max_price">Max Price</string>
+    <string name="shop_logo">Shop Logo</string>
 
 //new string dialog
     <string name="dialog_default_title">Here\'s a message!</string>

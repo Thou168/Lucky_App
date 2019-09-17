@@ -579,9 +579,16 @@
         <item>លុបដើម្បីប្រកាសជាថ្មី</item>
         <item>បោះបង់</item>
     </string-array>
-<!--    <string name="no_conversation">គ្មានការសន្ទនា!</string>-->
+    <string name="no_conversation">គ្មានការសន្ទនា!</string>
     <string name="no_internet">គ្មានការភ្ជាប់អ៊ីនធឺណិត</string>
     <string name="upgrade">វិវឌ្ឍន៍ទៅជាអ្នកចែកចាយ</string>
     <string name="min_price">តម្លៃអប្បបរមា</string>
     <string name="max_price">តម្លៃអតិបរមា</string>
+    <string name="shop_logo">Logo របស់ហាង</string>
+
+    //new string dialog
+    <string name="dialog_default_title">នេះជាសារ!</string>
+    <string name="dialog_ok">យល់ព្រម</string>
+    <string name="dialog_cancel">បោះបង់</string>
+    <string name="LOADING">កំពុងបញ្ចូល ...</string>
 </resources>
