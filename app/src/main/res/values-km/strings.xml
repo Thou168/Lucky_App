@@ -591,4 +591,11 @@
     <string name="dialog_ok">យល់ព្រម</string>
     <string name="dialog_cancel">បោះបង់</string>
     <string name="LOADING">កំពុងបញ្ចូល ...</string>
+
+    //thou
+    <string-array name="select_photo">
+        <item>ថតរូប</item>
+        <item>វិចិត្រសាល</item>
+        <item>បោះបង់</item>
+    </string-array>
 </resources>

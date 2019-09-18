@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_loan,viewGroup,false);
 
-        prefer = mContext.getSharedPreferences("RegisterActivity", Context.MODE_PRIVATE);
+        prefer = mContext.getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
 
@@ -83,6 +84,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             itemCall.enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
+
 //                    String postid = String.valueOf(response.body().g).substring(0, String.valueOf(model.getPost()).indexOf("."));
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
                     view.title.setText(response.body().getTitle());
@@ -112,7 +114,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
 
                 @Override
                 public void onFailure(Call<Item> call, Throwable t) {
-
+                    Log.d("OnFailur Run",t.getMessage());
                 }
             });
         }catch (Exception e){}

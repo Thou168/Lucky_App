@@ -134,4 +134,6 @@ dependencies {
 
     // or, for Android:
     api 'com.google.guava:guava:28.0-android'
+    //for language
+    implementation 'io.paperdb:paperdb:2.5'
 }

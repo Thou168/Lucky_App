@@ -1,5 +1,7 @@
 package com.bt_121shoppe.motorbike.AccountTab;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bt_121shoppe.motorbike.Activity.Account;
+import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.fragments.Postbyuser;
 import com.bt_121shoppe.motorbike.fragments.history_postbyuser;
@@ -21,11 +25,15 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
+
 public class MainPostList extends Fragment {
     public static final String TAG = "PostFragement";
     LinearLayout mainLayout;
     TabLayout tabs;
     ViewPager vpNews;
+    Context context;
+    Resources resources;
 
     public MainPostList(){}
 
@@ -38,6 +46,13 @@ public class MainPostList extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: ");
+
+        Paper.init(getContext());
+        String language = Paper.book().read("language");
+        Log.d("44444444","MainPostList"+language);
+        if (language == null)
+            Paper.book().write("language","en");
+        updateView(language);
     }
 
     @Override
@@ -49,13 +64,28 @@ public class MainPostList extends Fragment {
         return mainLayout;
     }
 
+    private void updateView(String language) {
+        context = LocaleHapler.setLocale(getContext(),language);
+        resources = context.getResources();
+
+//        NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
+//        Postbyuser n1 = new Postbyuser();
+//        history_postbyuser n2 = new history_postbyuser();
+//        adp.addFrag(n1, resources.getString(R.string.active));
+//        adp.addFrag(n2, resources.getString(R.string.history));
+//
+//        tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+//        vpNews.setAdapter(adp);
+//        vpNews.setOffscreenPageLimit(12);
+//        tabs.setupWithViewPager(vpNews);
+    }
+
     private void setUpPager() {
         NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
         Postbyuser n1 = new Postbyuser();
         history_postbyuser n2 = new history_postbyuser();
-
-        adp.addFrag(n1, getString(R.string.active));
-        adp.addFrag(n2, getString(R.string.history));
+        adp.addFrag(n1, resources.getString(R.string.active));
+        adp.addFrag(n2, resources.getString(R.string.history));
 
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         vpNews.setAdapter(adp);

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Paint;
 import android.text.format.DateUtils;
 import android.util.Base64;
@@ -30,6 +31,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.LikebyUser;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
+import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bumptech.glide.Glide;
@@ -39,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,13 +77,26 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
         }
         basic_Encode = "Basic "+getEncodedString(name,pass);
 
+        Paper.init(mContext);
+        String language = Paper.book().read("language");
+        if (language == null)
+            Paper.book().write("language","km");
+
+
         return new ViewHolder(view);
+    }
+    private void updateView(String language,ViewHolder view) {
+        Context context = LocaleHapler.setLocale(mContext, language);
+        Resources resources = context.getResources();
+        view.txtview1.setText(resources.getString(R.string.view));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final LikebyUser model = datas.get(position);
+
+        updateView(Paper.book().read("language"),view);
 
         String iditem = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
         String itemid_like = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
@@ -110,7 +126,6 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                             rs_price = rs_price - per;
                         }
                         Double finalRs_price = rs_price;
-                        Log.d("565656","56"+finalRs_price);
                         view.linearLayout.setOnClickListener(v -> {
                             Intent intent = new Intent(mContext, Detail_New_Post.class);
                             intent.putExtra("Discount", finalRs_price);
@@ -222,7 +237,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,item_type,txtview,date,txt_discount;
+        TextView title,cost,item_type,txtview,txtview1,date,txt_discount;
         ImageView imageView;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
@@ -234,6 +249,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             date = view.findViewById(R.id.date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
+            txtview1 = view.findViewById(R.id.user_view1);
             btn_unlike = view.findViewById(R.id.imgbtn_unlike);
             linearLayout = view.findViewById(R.id.linearLayout);
             txt_discount = view.findViewById(R.id.tv_discount);

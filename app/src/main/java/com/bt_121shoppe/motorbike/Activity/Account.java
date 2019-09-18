@@ -1,8 +1,12 @@
 package com.bt_121shoppe.motorbike.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -11,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -18,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +31,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -38,9 +45,14 @@ import com.bt_121shoppe.motorbike.AccountTab.MainLoanList;
 import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Language.LocaleHapler;
+import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.Setting.AboutUsActivity;
+import com.bt_121shoppe.motorbike.Setting.ContactActivity;
 import com.bt_121shoppe.motorbike.Setting.Setting;
+import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
 import com.bt_121shoppe.motorbike.models.User;
@@ -52,6 +64,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -79,7 +92,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import io.paperdb.Paper;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -87,7 +103,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Account extends AppCompatActivity  implements TabLayout.OnTabSelectedListener{
+public class Account extends AppCompatActivity  implements TabLayout.OnTabSelectedListener, NavigationView.OnNavigationItemSelectedListener{
 
     private final static String TAG= Account.class.getSimpleName();
     private static final int REQUEST_TAKE_PHOTO=1;
@@ -99,7 +115,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
     TabLayout tabs;
     ViewPager viewPager;
-    SharedPreferences preferences;
+    SharedPreferences preferences,lanugau_pre;
     private File mPhotoFile;
     private FileCompressor mCompressor;
     private Bitmap bitmapImage;
@@ -115,14 +131,71 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     Button uploadcover;
     ImageButton edit_account,setting;
     ImageView imgCover,upload,uploadprofile;
-    TextView tvUsername;
+    TextView tvUsername,tvusername_drawer;
     int inttab;
+    String lang,tmppost,tmplike,tmploan;
+    ImageView logo_kh,logo_en;
+    String[] photo_select;
+    DrawerLayout drawer;
+    Toolbar toolbar;
+    ActionBarDrawerToggle toggle;
+    Menu menu;
+    MenuItem nav_profile,nav_post,nav_like,nav_loan,nav_setting,nav_about,nav_contact,nav_term;
+    View view_header;
+    CircleImageView img_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_tab_layout);
-        locale();
+        setContentView(R.layout.main_tab_layout1);
+//        locale();
+        photo_select = getResources().getStringArray(R.array.select_photo);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        logo_kh = findViewById(R.id.khmer);
+        logo_en = findViewById(R.id.english);
+        tabs = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.pagerMain);
+        uploadcover = findViewById(R.id.btnUpload_Cover);
+
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+//        view_header = navigationView.getHeaderView(0);
+
+        View headerView = navigationView.getHeaderView(0);
+        tvusername_drawer =  headerView.findViewById(R.id.drawer_username);
+        img_profile = headerView.findViewById(R.id.imageView);
+
+        menu = navigationView.getMenu();
+        nav_profile = menu.findItem(R.id.nav_profile);
+        nav_post = menu.findItem(R.id.nav_post);
+        nav_like = menu.findItem(R.id.nav_like);
+        nav_loan = menu.findItem(R.id.nav_loan);
+        nav_setting = menu.findItem(R.id.nav_setting);
+        nav_about = menu.findItem(R.id.nav_about);
+        nav_contact = menu.findItem(R.id.nav_contact);
+        nav_term = menu.findItem(R.id.nav_privacy);
+        Switch_language();
+//        lanugau_pre = getSharedPreferences("Settings",Context.MODE_PRIVATE);
+//        lang = lanugau_pre.getString("My_Lang","");
+//        logo_kh = findViewById(R.id.khmer);
+//        logo_en = findViewById(R.id.english);
+//        if (lang.equals("km")){
+//            logo_kh.setVisibility(View.GONE);
+//            logo_en.setVisibility(View.VISIBLE);
+////            logo_en.setOnClickListener(v -> language("en"));
+//        }else {
+//            logo_kh.setVisibility(View.VISIBLE);
+//            logo_en.setVisibility(View.GONE);
+////            logo_kh.setOnClickListener(v -> language("km"));
+//        }
+
         preferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
         username = preferences.getString("name","");
         password = preferences.getString("pass","");
@@ -153,11 +226,9 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         upload=findViewById(R.id.imgProfile);
         uploadprofile=findViewById(R.id.imgCover);
         tvUsername=findViewById(R.id.tvUsername);
-        viewPager = findViewById(R.id.pagerMain);
 
         inttab=0;
 
-        tabs = findViewById(R.id.tabs);
         //tabs.setupWithViewPager(viewPager);
         //inttab = getIntent().getIntExtra("Tab",0);
         Log.d("Acc",inttab+" "+tabs);
@@ -214,28 +285,80 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             startActivity(intent);
         });
 
-        uploadcover = findViewById(R.id.btnUpload_Cover);
-        uploadcover.setOnClickListener(v -> {
-            type = "cover";
+
+        uploadcover.setOnClickListener(v -> { type = "cover";
             selectImage();
         });
 
-        imgCover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = "cover";
-                selectImage();
-            }
+        imgCover.setOnClickListener(v -> { type = "cover";
+            selectImage();
         });
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type="profile";
-                selectImage();
-            }
+        upload.setOnClickListener(v -> { type="profile";
+            selectImage();
         });
     }  // onCreate
+
+    private void Switch_language(){
+        Paper.init(this);
+        String language = Paper.book().read("language");
+        Log.d("44444444","444"+language);
+        if (language == null) {
+            Paper.book().write("language", "km");
+            updateView(Paper.book().read("language"));
+            language("km");
+            logo_kh.setVisibility(View.GONE);
+            logo_en.setVisibility(View.VISIBLE);
+        }else {
+            if (language.equals("km")) {
+                logo_kh.setVisibility(View.GONE);
+                logo_en.setVisibility(View.VISIBLE);
+            } else {
+                logo_kh.setVisibility(View.VISIBLE);
+                logo_en.setVisibility(View.GONE);
+            }
+            logo_en.setOnClickListener(view -> {
+                Paper.book().write("language", "en");
+                updateView(Paper.book().read("language"));
+                language("en");
+                logo_kh.setVisibility(View.VISIBLE);
+                logo_en.setVisibility(View.GONE);
+            });
+        }
+        logo_kh.setOnClickListener(view -> {
+            Paper.book().write("language","km");
+            updateView(Paper.book().read("language"));
+            language("km");
+            logo_kh.setVisibility(View.GONE);
+            logo_en.setVisibility(View.VISIBLE);
+        });
+    }
+    private void updateView(String language) {
+        Context context = LocaleHapler.setLocale(this,language);
+//        LocaleHapler lh = new LocaleHapler();
+//        lh.language(getBaseContext(),language);
+        Resources resources = context.getResources();
+        photo_select = resources.getStringArray(R.array.select_photo);
+        uploadcover.setText(resources.getString(R.string.upload));
+        //Tabs
+        tabs.removeAllTabs();
+        tabs.addTab(tabs.newTab().setText(resources.getString(R.string.tab_post)));
+        tabs.addTab(tabs.newTab().setText(resources.getString(R.string.tab_like)));
+        tabs.addTab(tabs.newTab().setText(resources.getString(R.string.tab_loan)));
+        tabs.setOnTabSelectedListener(this);
+        Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
+        viewPager.setAdapter(adapter);
+        //title menu
+        nav_profile.setTitle(resources.getString(R.string.menu_profile));
+        nav_post.setTitle(resources.getString(R.string.menu_post));
+        nav_like.setTitle(resources.getString(R.string.menu_like));
+        nav_loan.setTitle(resources.getString(R.string.menu_loan));
+        nav_setting.setTitle(resources.getString(R.string.menu_setting));
+        nav_about.setTitle(resources.getString(R.string.menu_about));
+        nav_contact.setTitle(resources.getString(R.string.menu_contact));
+        nav_term.setTitle(resources.getString(R.string.menu_privacy));
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -283,6 +406,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     }
 
     private void getUserProfile(){
+
         final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
         MediaType MEDIA_TYPE=MediaType.parse("application/json");
         OkHttpClient client = new OkHttpClient();
@@ -298,16 +422,40 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             public void onResponse(okhttp3.Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 Gson gson = new Gson();
+                User user = new User();
                 try{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
-                            converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
-                            if(converJsonJava.getFirst_name()==null)
-                                tvUsername.setText(converJsonJava.getUsername());
-                            else
-                                tvUsername.setText(converJsonJava.getFirst_name());
+                    user = gson.fromJson(respon, User.class);
+                    runOnUiThread(() -> {
+
+                        FirebaseUser fuser =  FirebaseAuth.getInstance().getCurrentUser();
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                User ffuser = dataSnapshot.getValue(User.class);
+                                if (ffuser.getImageURL() == "default") {
+                                    img_profile.setImageResource(R.drawable.square_logo);
+                                } else {
+                                    Glide.with(getBaseContext()).load(ffuser.getImageURL()).into(img_profile);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
+                        converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
+                        if(converJsonJava.getFirst_name()==null) {
+                            tvUsername.setText(converJsonJava.getUsername());
+                            tvusername_drawer.setText(converJsonJava.getUsername());
+                        }
+                        else {
+                            tvUsername.setText(converJsonJava.getFirst_name());
+                            tvusername_drawer.setText(converJsonJava.getFirst_name());
                         }
                     });
                 }catch (JsonParseException e){
@@ -323,45 +471,45 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     }
 
     private void selectImage(){
-        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = preferences.getString("My_Lang", "");
-        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
-        final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
+//        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+//        String language = preferences.getString("My_Lang", "");
+//        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
+//        final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Account.this);
-        if (language.equals("km")){
-            dialogBuilder.setItems(itemkh, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case 0:
-                            requestStoragePermission(true);
-                            break;
-                        case 1:
-                            requestStoragePermission(false);
-                            break;
-                        case 2:
-                            Toast.makeText(Account.this,""+itemkh[which].toString(),Toast.LENGTH_SHORT).show();
-                            break;
-                    }
+//        if (language.equals("km")){
+            dialogBuilder.setItems(photo_select, (dialog, which) -> {
+                switch (which){
+                    case 0:
+                        requestStoragePermission(true);
+                        break;
+                    case 1:
+                        requestStoragePermission(false);
+                        break;
+                    case 2:
+                        Toast.makeText(Account.this,""+photo_select[which],Toast.LENGTH_SHORT).show();
+                        break;
                 }
             });
-        }else if (language.equals("en")){
-            dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case 0:
-                            requestStoragePermission(true);
-                            break;
-                        case 1:
-                            requestStoragePermission(false);
-                            break;
-                        case 2:
-                            Toast.makeText(Account.this,""+items[which].toString(),Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-                }
-            });
-        }
+            Log.d("6767676767","SelectImage");
         dialogBuilder.create().show();
+//        }
+//        else if (language.equals("en")){
+//            dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    switch (which){
+//                        case 0:
+//                            requestStoragePermission(true);
+//                            break;
+//                        case 1:
+//                            requestStoragePermission(false);
+//                            break;
+//                        case 2:
+//                            Toast.makeText(Account.this,""+items[which].toString(),Toast.LENGTH_SHORT).show();
+//                            break;
+//                    }
+//                }
+//            });
+//        }
 
     }
     private void requestStoragePermission(boolean isCamera) {
@@ -434,39 +582,36 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         return Base64.encodeToString(userpass.trim().getBytes(), Base64.NO_WRAP);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mlistener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.home:
-                    Intent myIntent = new Intent(Account.this, Home.class);
-                    startActivity(myIntent);
-                    break;
-                case R.id.notification:
-                    Intent myIntent2 = new Intent(Account.this, Notification.class);
-                    startActivity(myIntent2);
-                    break;
-                case R.id.camera:
-                    Intent myIntent3 = new Intent(Account.this, Camera.class);
-                    startActivity(myIntent3);
-                    break;
-                case R.id.message:
-                    Intent myIntent4 = new Intent(Account.this, ChatMainActivity.class);
-                    startActivity(myIntent4);
-                    break;
-                case R.id.account:
-//                    Intent myIntent5 = new Intent(Account.this, Camera.class);
-//                    startActivity(myIntent5);
-                    break;
-            }
-            return true;
-        }
-    };
+            = item -> {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        Intent myIntent = new Intent(Account.this, Home.class);
+                        startActivity(myIntent);
+                        break;
+                    case R.id.notification:
+                        Intent myIntent2 = new Intent(Account.this, Notification.class);
+                        startActivity(myIntent2);
+                        break;
+                    case R.id.camera:
+                        Intent myIntent3 = new Intent(Account.this, Camera.class);
+                        startActivity(myIntent3);
+                        break;
+                    case R.id.message:
+                        Intent myIntent4 = new Intent(Account.this, ChatMainActivity.class);
+                        startActivity(myIntent4);
+                        break;
+                    case R.id.account:
+    //                    Intent myIntent5 = new Intent(Account.this, Camera.class);
+    //                    startActivity(myIntent5);
+                        break;
+                }
+                return true;
+            };
 
     private void setUpPager(){
-        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_post)));
-        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_like)));
-        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_loan)));
+        tabs.addTab(tabs.newTab().setText(R.string.tab_post));
+        tabs.addTab(tabs.newTab().setText(R.string.tab_like));
+        tabs.addTab(tabs.newTab().setText(R.string.tab_loan));
         tabs.setOnTabSelectedListener(this);
         Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
         viewPager.setAdapter(adapter);
@@ -485,6 +630,38 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this, EditAccountActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_post) {
+            tabs.getTabAt(0).select();
+        } else if (id == R.id.nav_like) {
+            tabs.getTabAt(1).select();
+        } else if (id == R.id.nav_loan) {
+            tabs.getTabAt(2).select();
+        } else if (id == R.id.nav_setting) {
+            Intent intent = new Intent(this, Setting.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_about) {
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_contact) {
+            Intent intent = new Intent(this, ContactActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_privacy) {
+            Intent intent = new Intent(this, TermPrivacyActivity.class);
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public class Pager extends FragmentStatePagerAdapter {
@@ -596,12 +773,12 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         editor.putString("My_Lang", lang);
         editor.apply();
     }
-
-    private void locale() {
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang","");
-        Log.d("language",language);
-        language(language);
-    }
+//
+//    private void locale() {
+//        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+//        String language = prefer.getString("My_Lang","");
+//        Log.d("language",language);
+//        language(language);
+//    }
 }
 

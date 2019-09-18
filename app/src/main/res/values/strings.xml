@@ -748,4 +748,11 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="LOADING">Loading…</string>
+
+    //thou
+    <string-array name="select_photo">
+        <item>Take Photo</item>
+        <item>Choose from Library</item>
+        <item>Cancel</item>
+    </string-array>
 </resources>

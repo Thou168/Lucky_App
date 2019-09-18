@@ -42,7 +42,11 @@ import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.Api.api.Active_user
-import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity
+import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Buy.Buy
+import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Rent.Rent
+import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Sell.Sell
+import com.bt_121shoppe.motorbike.Language.LocaleHapler
+import com.bt_121shoppe.motorbike.Login_Register.UserAccount
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.motorbike.Product_dicount.MyAdapter
@@ -58,6 +62,7 @@ import com.bt_121shoppe.motorbike.chats.ChatMainActivity
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration
 import com.bt_121shoppe.motorbike.models.PostProduct
 import com.bt_121shoppe.motorbike.searches.SearchTypeActivity
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity
 import com.bt_121shoppe.motorbike.utils.CheckNetwork
 import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bumptech.glide.Glide
@@ -75,6 +80,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import de.hdodenhof.circleimageview.CircleImageView
+import io.paperdb.Paper
 import net.hockeyapp.android.CrashManager
 
 import okhttp3.*
@@ -136,6 +142,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private var itemCount=0
     internal val isLoading = false
     internal val isAPLoading = false
+    var buy: TextView? = null
+    var rent: TextView? = null
+    var sell: TextView? = null
 
     fun language(lang: String) {
         //Log.d("55555","YaYa"+lang)
@@ -163,6 +172,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         sharedPreferences = getSharedPreferences(myPreferences,Context.MODE_PRIVATE)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_home)
+
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
 
@@ -193,6 +203,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         txtno_found1 =findViewById(R.id.text1)
         khmer = findViewById(R.id.khmer)
         english = findViewById(R.id.english)
+        khmer!!.visibility = View.GONE
+        english!!.visibility = View.GONE
 
         val sharedPref: SharedPreferences = getSharedPreferences("Register", Context.MODE_PRIVATE)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -214,35 +226,35 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             } else if (sharedPref.contains("id")) {
                 pk = sharedPref.getInt("id", 0)
             }
-            english!!.setOnClickListener { language("en")
-                recreate()
-            }
-            khmer!!.setOnClickListener { language("km")
-                recreate()
-            }
-            if(language.equals("km")) {
-                english!!.visibility = View.VISIBLE
-                khmer!!.visibility = View.GONE
-            }else{
-                english!!.visibility = View.GONE
-                khmer!!.visibility = View.VISIBLE
-            }
+//            english!!.setOnClickListener { language("en")
+//                recreate()
+//            }
+//            khmer!!.setOnClickListener { language("km")
+//                recreate()
+//            }
+//            if(language.equals("km")) {
+//                english!!.visibility = View.VISIBLE
+//                khmer!!.visibility = View.GONE
+//            }else{
+//                english!!.visibility = View.GONE
+//                khmer!!.visibility = View.VISIBLE
+//            }
             getUserProfile()
         }else{
             drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            if(language.equals("km")) {
-                english!!.visibility = View.VISIBLE
-                khmer!!.visibility = View.GONE
-            }else{
-                english!!.visibility = View.GONE
-                khmer!!.visibility = View.VISIBLE
-            }
-            english!!.setOnClickListener { language("en")
-                recreate()
-            }
-            khmer!!.setOnClickListener { language("km")
-                recreate()
-            }
+//            if(language.equals("km")) {
+//                english!!.visibility = View.VISIBLE
+//                khmer!!.visibility = View.GONE
+//            }else{
+//                english!!.visibility = View.GONE
+//                khmer!!.visibility = View.VISIBLE
+//            }
+//            english!!.setOnClickListener { language("en")
+//                recreate()
+//            }
+//            khmer!!.setOnClickListener { language("km")
+//                recreate()
+//            }
         }
 
         requestStoragePermission(false)
@@ -355,9 +367,9 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         sliderImage.addTimerToSlide(3000)
         //  sliderImage.removeTimerSlide()
         sliderImage.getIndicator()
-        //Buy sell and Rent
-        val buy = findViewById<TextView>(R.id.buy)
-        buy.setOnClickListener{
+//Buy sell and Rent
+        buy = findViewById(R.id.buy)
+        buy!!.setOnClickListener{
 //            val intent = Intent(this@Home, Buy::class.java)
 //            intent.putExtra("Title","Buy")
 //            startActivity(intent)
@@ -368,8 +380,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             intent.putExtra("postType","buy")
             startActivity(intent)
         }
-        val sell = findViewById<TextView>(R.id.sell)
-        sell.setOnClickListener {
+        sell = findViewById(R.id.sell)
+        sell!!.setOnClickListener {
 //            val intent = Intent(this@Home, Sell::class.java)
 //            intent.putExtra("Title","Sell")
 //            startActivity(intent)
@@ -380,8 +392,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             intent.putExtra("postType","sell")
             startActivity(intent)
         }
-        val rent = findViewById<TextView>(R.id.rent)
-        rent.setOnClickListener {
+        rent = findViewById(R.id.rent)
+        rent!!.setOnClickListener {
 //            val intent = Intent(this@Home, Rent::class.java)
 //            intent.putExtra("Title","Rent")
 //            startActivity(intent)
@@ -412,7 +424,49 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             val intent = Intent(this@Home, Search1::class.java)
             startActivity(intent)
         }
+        Switch_language()
     }  // onCreate
+    private fun Switch_language() {
+        Paper.init(this)
+        val language = Paper.book().read<String>("language")
+        Log.d("44444444", "444" + language)
+        if (language == null) {
+            Paper.book().write("language", "km")
+            language("km")
+            updateView(Paper.book().read("language"))
+            khmer!!.setVisibility(View.GONE)
+            english!!.setVisibility(View.VISIBLE)
+        } else {
+            if (language == "km") {
+                khmer!!.setVisibility(View.GONE)
+                english!!.setVisibility(View.VISIBLE)
+            } else {
+                khmer!!.setVisibility(View.VISIBLE)
+                english!!.setVisibility(View.GONE)
+            }
+            english!!.setOnClickListener{
+                Paper.book().write("language", "en")
+                updateView(Paper.book().read("language"))
+                language("en")
+                khmer!!.setVisibility(View.VISIBLE)
+                english!!.setVisibility(View.GONE)
+            }
+        }
+        khmer!!.setOnClickListener{
+            Paper.book().write("language", "km")
+            updateView(Paper.book().read("language"))
+            language("km")
+            khmer!!.setVisibility(View.GONE)
+            english!!.setVisibility(View.VISIBLE)
+        }
+    }
+    private fun updateView(language:String){
+        val context = LocaleHapler.setLocale(this, language)
+        val resources = context.resources
+        buy!!.text = resources.getText(R.string.buy1)
+        rent!!.text = resources.getText(R.string.rent)
+        sell!!.text = resources.getText(R.string.sell1)
+    }
     override fun onRefresh() {
         Handler().postDelayed({
 //            recreate()

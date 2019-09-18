@@ -69,7 +69,7 @@ public class Like_byuser extends Fragment {
         call.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                Log.d("Like",response.message());
+//                Log.d("Like",response.message());
                 listData = response.body().getresults();
 
                 if (listData.size()==0){
