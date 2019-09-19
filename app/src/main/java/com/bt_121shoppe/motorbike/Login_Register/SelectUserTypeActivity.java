@@ -18,7 +18,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
     private RadioButton radioPublic_User,radioOther_dealer;
     private RadioGroup radioGroup;
     private Button Next;
-    private String register_verify;
+    private String register_verify,product_id;
     private int group_user;
     private Intent intent;
     private String processType,facebooktokenkey,facebookid,facebookname,imageurl;
@@ -62,11 +62,10 @@ public class SelectUserTypeActivity extends AppCompatActivity {
         Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (radioGroup.getCheckedRadioButtonId() == -1){
-                    Toast.makeText(v.getContext(),"Please select account type",Toast.LENGTH_SHORT).show();
-                }else {
-                    if (processType!=null){
-                        if(processType.equals(CommonFunction.ProcessType.FacebookRegister.toString())) {
+                if (radioGroup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(v.getContext(), "Please select account type", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (processType.equals(CommonFunction.ProcessType.FacebookRegister.toString())) {
                         Intent intent = new Intent(SelectUserTypeActivity.this, ConfirmMobileNumberActivity.class);
                         intent.putExtra("facebooktokenkey", facebooktokenkey);
                         intent.putExtra("facebookid", facebookid);
@@ -75,12 +74,12 @@ public class SelectUserTypeActivity extends AppCompatActivity {
                         intent.putExtra("usergroup", group_user);
                         intent.putExtra("gender", "");
                         intent.putExtra("birthday", "");
+                        intent.putExtra("Register_verify", register_verify);
                         startActivity(intent);
-                        }
-                    }else {
+                    } else {
                         Intent intent = new Intent(v.getContext(), RegisterActivity.class);
                         intent.putExtra("user_group", group_user);
-                        intent.putExtra("Register_verify",register_verify);
+                        intent.putExtra("Register_verify", register_verify);
                         startActivity(intent);
                     }
                 }

@@ -1,138 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<HorizontalScrollView android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:card_view="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/rela_buy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rela_sell"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <TextView
-                android:id="@+id/buy"
-                android:textStyle="bold"
-                android:textSize="@dimen/dp_20"
-                android:textColor="#DF8302"
-                android:text="@string/buy1"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/rela_sell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rela_rent"
-            app:layout_constraintStart_toEndOf="@+id/rela_buy"
-            app:layout_constraintTop_toTopOf="@+id/rela_buy">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:visibility="gone"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        xmlns:card_view="http://schemas.android.com/tools"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/rela_buy"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/rela_sell"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+<!--            <TextView-->
+<!--                android:id="@+id/buy"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="@dimen/dp_20"-->
+<!--                android:textColor="#DF8302"-->
+<!--                android:text="@string/buy1"-->
+<!--                android:paddingLeft="@dimen/dp_16"-->
+<!--                android:paddingRight="@dimen/dp_16"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/rela_sell"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:gravity="center"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/rela_rent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/rela_buy"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/rela_buy">-->
 
-            <TextView
-                android:id="@+id/sell"
-                android:textColor="#089D01"
-                android:textStyle="bold"
-                android:textSize="@dimen/dp_20"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sell1" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/rela_rent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/rela_sell"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rela_sell"
-            app:layout_constraintTop_toTopOf="@+id/rela_sell">
-            <TextView
-                android:id="@+id/rent"
-                android:textStyle="bold"
-                android:textColor="#DF041D"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rent"
-                android:textSize="@dimen/dp_20" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/sell"-->
+<!--                android:textColor="#089D01"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="@dimen/dp_20"-->
+<!--                android:paddingLeft="@dimen/dp_16"-->
+<!--                android:paddingRight="@dimen/dp_16"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/sell1" />-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/rela_rent"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/rela_sell"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/rela_sell"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/rela_sell">-->
+<!--            <TextView-->
+<!--                android:id="@+id/rent"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#DF041D"-->
+<!--                android:paddingLeft="@dimen/dp_16"-->
+<!--                android:paddingRight="@dimen/dp_16"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/rent"-->
+<!--                android:textSize="@dimen/dp_20" />-->
+<!--        </LinearLayout>-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:paddingLeft="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:paddingLeft="@dimen/dp_8dp">
 
-        <Button
-            android:id="@+id/filterCategory"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PostTypeLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/transparent_bg_bordered_button"
-            android:text="@string/category"
-            android:layout_marginRight="@dimen/dp_8dp"
-            android:textSize="11sp"
-            android:drawableRight="@drawable/icons8_expand_arrow_16"
-            android:paddingLeft="@dimen/dp_4"
-            android:paddingRight="@dimen/dp_4"
-            android:textColor="@color/darkGrey" />
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:hint="@string/post_type"
+            app:hintTextAppearance="@style/TextLabel">
 
-        <Button
-            android:id="@+id/filterBrand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/transparent_bg_bordered_button"
-            android:text="@string/brand"
-            android:layout_marginRight="@dimen/dp_8dp"
-            android:textSize="11sp"
-            android:drawableRight="@drawable/icons8_expand_arrow_16"
-            android:paddingLeft="@dimen/dp_4"
-            android:paddingRight="@dimen/dp_4"
-            android:textColor="@color/darkGrey" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPostType"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:textSize="11sp"
+                android:text="@string/all"/>
 
-        <Button
-            android:id="@+id/filterYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/transparent_bg_bordered_button"
-            android:text="@string/year"
-            android:layout_marginRight="@dimen/dp_8dp"
-            android:textSize="11sp"
-            android:drawableRight="@drawable/icons8_expand_arrow_16"
-            android:paddingLeft="@dimen/dp_4"
-            android:paddingRight="@dimen/dp_4"
-            android:textColor="@color/darkGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/filterPriceRange"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/CategoryLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/transparent_bg_bordered_button"
-            android:text="@string/price"
-            android:layout_marginRight="@dimen/dp_8dp"
-            android:textSize="11sp"
-            android:drawableRight="@drawable/icons8_expand_arrow_16"
-            android:paddingLeft="@dimen/dp_4"
-            android:paddingRight="@dimen/dp_4"
-            android:textColor="@color/darkGrey" />
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:hint="@string/category"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextCategory"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:textSize="11sp"
+                android:text="@string/all"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/BrandLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:hint="@string/brand"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextBrand"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:textSize="11sp"
+                android:text="@string/all"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/YearLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:hint="@string/year"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextYear"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:textSize="11sp"
+                android:text="@string/all"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PriceRangeLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:hint="@string/price"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPriceRange"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:textSize="11sp"
+                android:text="@string/all"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
+<!--    <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="8dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-</LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/filterPostType"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/transparent_bg_bordered_button"-->
+<!--            android:text="@string/post_type"-->
+<!--            android:layout_marginRight="@dimen/dp_8dp"-->
+<!--            android:textSize="11sp"-->
+<!--            android:drawableRight="@drawable/icons8_expand_arrow_16"-->
+<!--            android:paddingLeft="@dimen/dp_4"-->
+<!--            android:paddingRight="@dimen/dp_4"-->
+<!--            android:textColor="@color/darkGrey" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/filterCategory"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/transparent_bg_bordered_button"-->
+<!--            android:text="@string/category"-->
+<!--            android:layout_marginRight="@dimen/dp_8dp"-->
+<!--            android:textSize="11sp"-->
+<!--            android:drawableRight="@drawable/icons8_expand_arrow_16"-->
+<!--            android:paddingLeft="@dimen/dp_4"-->
+<!--            android:paddingRight="@dimen/dp_4"-->
+<!--            android:textColor="@color/darkGrey" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/filterBrand"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/transparent_bg_bordered_button"-->
+<!--            android:text="@string/brand"-->
+<!--            android:layout_marginRight="@dimen/dp_8dp"-->
+<!--            android:textSize="11sp"-->
+<!--            android:drawableRight="@drawable/icons8_expand_arrow_16"-->
+<!--            android:paddingLeft="@dimen/dp_4"-->
+<!--            android:paddingRight="@dimen/dp_4"-->
+<!--            android:textColor="@color/darkGrey" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/filterYear"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/transparent_bg_bordered_button"-->
+<!--            android:text="@string/year"-->
+<!--            android:layout_marginRight="@dimen/dp_8dp"-->
+<!--            android:textSize="11sp"-->
+<!--            android:drawableRight="@drawable/icons8_expand_arrow_16"-->
+<!--            android:paddingLeft="@dimen/dp_4"-->
+<!--            android:paddingRight="@dimen/dp_4"-->
+<!--            android:textColor="@color/darkGrey" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/filterPriceRange"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/transparent_bg_bordered_button"-->
+<!--            android:text="@string/price"-->
+<!--            android:layout_marginRight="@dimen/dp_8dp"-->
+<!--            android:textSize="11sp"-->
+<!--            android:drawableRight="@drawable/icons8_expand_arrow_16"-->
+<!--            android:paddingLeft="@dimen/dp_4"-->
+<!--            android:paddingRight="@dimen/dp_4"-->
+<!--            android:textColor="@color/darkGrey" />-->
+
+<!--    </LinearLayout>-->
+
+
+</HorizontalScrollView>

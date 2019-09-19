@@ -377,7 +377,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     finish();
                                                     break;
                                             }
-
                                         }
                                         else{
                                             Toast.makeText(LoginActivity.this,"You cannot register with email or password.",Toast.LENGTH_SHORT).show();

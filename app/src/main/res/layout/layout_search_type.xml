@@ -10,33 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:scaleType="fitXY"-->
+<!--                    android:src="@drawable/logo" />-->
+
+                <ImageView
+                    android:id="@+id/khmer"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/flag_english" />
+                <ImageView
+                    android:id="@+id/english"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/flag_khmer" />
+            </androidx.appcompat.widget.Toolbar>
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_height="20dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/logo" />
 
-            <ImageView
-                android:id="@+id/khmer"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:src="@drawable/flag_english" />
-            <ImageView
-                android:id="@+id/english"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:src="@drawable/flag_khmer" />
-        </androidx.appcompat.widget.Toolbar>
+        </RelativeLayout>
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include

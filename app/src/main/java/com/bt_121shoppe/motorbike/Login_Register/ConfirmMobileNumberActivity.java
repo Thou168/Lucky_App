@@ -55,7 +55,7 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
     private Button button_sumit;
 
     private int usergroup;
-    private String facebooktokenkey,facebookid,facebookname,imageurl,gender,birth,userEmail;
+    private String facebooktokenkey,facebookid,facebookname,imageurl,gender,birth,userEmail,verify;
     private Intent intent;
     private ProgressDialog mProgress;
     private SharedPreferences prefer;
@@ -87,6 +87,7 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
         gender=intent.getStringExtra("gender");
         birth=intent.getStringExtra("birthday");
         usergroup=intent.getIntExtra("usergroup",0);
+        verify=intent.getStringExtra("Register_verify");
 
         back=findViewById(R.id.tvBack_account);
         edphonenumber=findViewById(R.id.phone_number);

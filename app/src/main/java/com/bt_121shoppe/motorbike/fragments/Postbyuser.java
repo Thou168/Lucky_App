@@ -73,14 +73,12 @@ public class Postbyuser extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//
 //        String[] items = getResources().getStringArray(R.array.tab_A);
 //        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
         recyclerView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 //        recyclerView.setAdapter(adapter);
-
     }
     private String getEncodedString(String username,String password){
         String userpass = username+":"+password;

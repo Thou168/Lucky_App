@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostResponse {
+public class APIResponse {
 
     @SerializedName("results")
     @Expose
@@ -16,4 +16,15 @@ public class PostResponse {
     public ArrayList<PostViewModel> getresults(){ return results; }
     public void setresults(ArrayList<PostViewModel> items){ this.results = items; }
 
+    @SerializedName("count")
+    @Expose
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

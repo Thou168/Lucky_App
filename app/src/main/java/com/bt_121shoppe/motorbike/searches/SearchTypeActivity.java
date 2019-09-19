@@ -1,6 +1,9 @@
 package com.bt_121shoppe.motorbike.searches;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,7 +41,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.classes.PostResponse;
+import com.bt_121shoppe.motorbike.classes.APIResponse;
+import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.custom.sliderimage.logic.SliderImage;
@@ -110,19 +114,20 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
         mLinerLayoutRent=findViewById(R.id.rela_rent);
         mDrawerLayout=findViewById(R.id.drawer_layout);
         NavigationView mNavigationView=findViewById(R.id.nav_view);
-        mBuy=findViewById(R.id.buy);
-        mSell=findViewById(R.id.sell);
-        mRent=findViewById(R.id.rent);
+//        mBuy=findViewById(R.id.buy);
+//        mSell=findViewById(R.id.sell);
+//        mRent=findViewById(R.id.rent);
         mSwipeRefreshLayout=findViewById(R.id.refresh);
         mRecyclerView=findViewById(R.id.list_new_post);
         mProgressbar=findViewById(R.id.progress_bar1);
         mListView=findViewById(R.id.img_list);
         mGridView=findViewById(R.id.grid);
         mGallaryVIew=findViewById(R.id.btn_image);
-        mFilterCategory=findViewById(R.id.filterCategory);
-        mFilterBrand=findViewById(R.id.filterBrand);
-        mFilterYear=findViewById(R.id.filterYear);
-        mFilterPriceRange=findViewById(R.id.filterPriceRange);
+
+//        mFilterCategory=findViewById(R.id.filterCategory);
+//        mFilterBrand=findViewById(R.id.filterBrand);
+//        mFilterYear=findViewById(R.id.filterYear);
+//        mFilterPriceRange=findViewById(R.id.filterPriceRange);
 
         SharedPreferences sharedPref=getSharedPreferences("RegisterActivity",Context.MODE_PRIVATE);
         ActionBarDrawerToggle mToggle=new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -203,12 +208,14 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             int searchType=bundle.getInt("searchType",0);
 
             if(searchType==1){ // 1= click on buy/sell/rent
-                changePostTypeUI(mPostType);
-                setupPostsList(mPostType,mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
+                //changePostTypeUI(mPostType);
+                //setupPostsList(mPostType,mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
             }else if(searchType==2){ //2= click on filter condition
 
             }
         }
+
+        loadFragment(new HomeFragment());
 
         /* -------------- start event listener -------------------------*/
         mImageViewKher.setOnClickListener(new View.OnClickListener() {
@@ -227,35 +234,35 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-        mBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAdapter.clearItems();
-                mPostType="buy";
-                changePostTypeUI("buy");
-                setupPostsList("buy",mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
-            }
-        });
-
-        mSell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAdapter.clearItems();
-                mPostType="sell";
-                changePostTypeUI("sell");
-                setupPostsList("sell",mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
-            }
-        });
-
-        mRent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAdapter.clearItems();
-                mPostType="rent";
-                changePostTypeUI("rent");
-                setupPostsList("rent",mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
-            }
-        });
+//        mBuy.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                mAdapter.clearItems();
+////                mPostType="buy";
+////                changePostTypeUI("buy");
+////                setupPostsList("buy",mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
+////            }
+////        });
+////
+////        mSell.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                mAdapter.clearItems();
+////                mPostType="sell";
+////                changePostTypeUI("sell");
+////                setupPostsList("sell",mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
+////            }
+////        });
+////
+////        mRent.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                mAdapter.clearItems();
+////                mPostType="rent";
+////                changePostTypeUI("rent");
+////                setupPostsList("rent",mViewType,mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
+////            }
+////        });
 
         mFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -479,10 +486,10 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
                 e.printStackTrace();
             }
             Log.d(TAG, "response " + response);
-            PostResponse postResponse = new PostResponse();
+            APIResponse APIResponse = new APIResponse();
             Gson gson = new Gson();
-            postResponse = gson.fromJson(response, PostResponse.class);
-            mPosts = postResponse.getresults();
+            APIResponse = gson.fromJson(response, APIResponse.class);
+            mPosts = APIResponse.getresults();
             mAdapter.addItems(mPosts);
         }else{
             for(int i=0;i<modelIdList.length;i++){
@@ -496,10 +503,10 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
                     e.printStackTrace();
                 }
                 Log.d(TAG, "response with model " + response);
-                PostResponse postResponse = new PostResponse();
+                APIResponse APIResponse = new APIResponse();
                 Gson gson = new Gson();
-                postResponse = gson.fromJson(response, PostResponse.class);
-                mPosts = postResponse.getresults();
+                APIResponse = gson.fromJson(response, APIResponse.class);
+                mPosts = APIResponse.getresults();
                 mAdapter.addItems(mPosts);
             }
         }
@@ -702,6 +709,13 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             e.printStackTrace();
         }
         return modelsId;
+    }
+
+    private void loadFragment(Fragment fragment){
+        FragmentManager fm=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fm.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
     }
 
 }

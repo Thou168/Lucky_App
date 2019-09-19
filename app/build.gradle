@@ -71,6 +71,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     //bottom navigation
     implementation 'com.google.android.material:material:1.0.0'
+    //implementation 'com.google.android.material:material:1.1.0-alpha04'
     //slider
     implementation 'io.github.ivanespitiac:imageslider:1.0.3'
     //implementation 'com.github.pramonow:android-horizontalLists:1.0.1'
@@ -131,7 +132,6 @@ dependencies {
     //implementation 'com.google.guava:guava:24.0'
     implementation 'com.google.guava:guava:28.0-jre'
     implementation 'com.codesgood:justifiedtextview:1.1.0'
-
     // or, for Android:
     api 'com.google.guava:guava:28.0-android'
     //for language

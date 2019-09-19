@@ -47,9 +47,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class HomeActivity extends AppCompatActivity implements PostBestDealAdapter.Callback {
+public class HomeOldActivity extends AppCompatActivity implements PostBestDealAdapter.Callback {
 
-    private static final String TAG=HomeActivity.class.getSimpleName();
+    private static final String TAG= HomeOldActivity.class.getSimpleName();
     RecyclerView mAllPostRecyclerView;
     RecyclerView mBestDealRecyclerView;
     PostBestDealAdapter mPostBestDealAdpater;
@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                 //Collections.sort(mAllPosts, (s1,s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
                 mAllPostAdapter=new AllPostAdapter(mAllPosts,"Image");
                 mAllPostRecyclerView.setAdapter(mAllPostAdapter);
-                maLayoutManager=new GridLayoutManager(HomeActivity.this,1);
+                maLayoutManager=new GridLayoutManager(HomeOldActivity.this,1);
                 mAllPostRecyclerView.setLayoutManager(maLayoutManager);
             }
         });
@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                 //Collections.sort(mAllPosts, (s1,s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
                 mAllPostAdapter=new AllPostAdapter(mAllPosts,"Grid");
                 mAllPostRecyclerView.setAdapter(mAllPostAdapter);
-                maLayoutManager=new GridLayoutManager(HomeActivity.this,2);
+                maLayoutManager=new GridLayoutManager(HomeOldActivity.this,2);
                 mAllPostRecyclerView.setLayoutManager(maLayoutManager);
             }
         });
@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
                 //Collections.sort(mAllPosts, (s1,s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
                 mAllPostAdapter=new AllPostAdapter(mAllPosts,"List");
                 mAllPostRecyclerView.setAdapter(mAllPostAdapter);
-                maLayoutManager=new GridLayoutManager(HomeActivity.this,1);
+                maLayoutManager=new GridLayoutManager(HomeOldActivity.this,1);
                 mAllPostRecyclerView.setLayoutManager(maLayoutManager);
             }
         });
@@ -344,7 +344,7 @@ public class HomeActivity extends AppCompatActivity implements PostBestDealAdapt
 
                             if(!location.isEmpty()){
                                 String[] lateLong=location.split(",");
-                                location=CommonFunction.getAddressFromMap(HomeActivity.this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));
+                                location=CommonFunction.getAddressFromMap(HomeOldActivity.this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));
                                 locationDT=location+" - ";
                             }
                             if(!createdAt.equals("null")){

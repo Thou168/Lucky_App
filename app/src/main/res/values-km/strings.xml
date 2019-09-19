@@ -584,6 +584,7 @@
     <string name="upgrade">វិវឌ្ឍន៍ទៅជាអ្នកចែកចាយ</string>
     <string name="min_price">តម្លៃអប្បបរមា</string>
     <string name="max_price">តម្លៃអតិបរមា</string>
+    <string name="result_name"> លទ្ធផល</string>
     <string name="shop_logo">Logo របស់ហាង</string>
 
     //new string dialog

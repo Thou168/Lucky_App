@@ -70,6 +70,37 @@ public class Active_user extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+    public static boolean isUserActive(Context context,int userId){
+        String response="";
+        try{
+            response= CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/users/"+userId);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        try{
+            JSONObject obj=new JSONObject(response);
+            return obj.getBoolean("is_active");
 
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public static void clearSession(Context context){
+
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.custom_dialog_deactive);
+        dialog.setCancelable(false);
+        Button deactived = dialog.findViewById(R.id.btn_dialog_deactive);
+        deactived.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.getSharedPreferences("RegisterActivity",MODE_PRIVATE).edit().clear().commit();
+                context.startActivity(new Intent(context, Home.class));
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

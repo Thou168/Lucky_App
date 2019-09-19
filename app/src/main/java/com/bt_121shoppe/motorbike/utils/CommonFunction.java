@@ -24,6 +24,12 @@ import okhttp3.Response;
 
 public class CommonFunction {
 
+    public static final int FILTERPOSTTYPE=1;
+    public final static int FILTERCATEGORY=2;
+    public static final int FILTERBRAND=3;
+    public final static int FILTERYEAR=4;
+    public static final int FILTERPRICERANGE=5;
+
     public enum ProcessType{
         FacebookRegister,
         FacebookLogin,

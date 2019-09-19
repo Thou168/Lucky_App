@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.bt_121shoppe.motorbike.Activity.Home;
-import com.bt_121shoppe.motorbike.Setting.Setting;
 
 public class Splash_screen extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 2000;

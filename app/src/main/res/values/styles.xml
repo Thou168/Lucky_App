@@ -88,6 +88,9 @@
     <style name="AddressSearchView" parent="Widget.AppCompat.SearchView" >
         <item name="android:textSize">14dp</item>
     </style>
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">10sp</item>
+    </style>
 
     <style name="TextInputLayoutHint" parent="">
         <item name="colorControlActivated">#999595</item>

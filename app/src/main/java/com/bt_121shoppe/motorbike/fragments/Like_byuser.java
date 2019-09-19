@@ -79,7 +79,6 @@ public class Like_byuser extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 mAdapter = new Adapter_Likebyuser(listData,getContext());
                 recyclerView.setAdapter(mAdapter);
-
             }
 
             @Override
