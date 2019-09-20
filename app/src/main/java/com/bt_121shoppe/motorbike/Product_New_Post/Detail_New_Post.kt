@@ -217,7 +217,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         tvCondition=findViewById(R.id.tv_Condition)
         tvColor=findViewById(R.id.tv_Color)
         tvDescription=findViewById(R.id.tv_Description)
-        tvPostCode = findViewById(R.id.tvPostCode)
+//        tvPostCode = findViewById(R.id.tvPostCode)
         tvMonthlyPayment=findViewById(R.id.tvMonthlyPayment)
         edLoanPrice=findViewById(R.id.ed_loan_price)
         edLoanInterestRate=findViewById(R.id.ed_loan_interest_rate)
@@ -592,7 +592,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$"+ discount)
                         edLoanPrice.setText(""+discount)
-                        tvPostCode.setText(postDetail.id.toString())
+//                        tvPostCode.setText(postDetail.id.toString())
 
                         show_amount_loan = "$"+discount.toString()
 

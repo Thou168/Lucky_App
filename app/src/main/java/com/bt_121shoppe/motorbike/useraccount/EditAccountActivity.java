@@ -483,6 +483,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     if(id_type == 1){
                         imgShopName.setVisibility(View.VISIBLE);
                         tilShop_name.setVisibility(View.VISIBLE);
+                        btUpgrade.setVisibility(View.GONE);
+                        btnShopname.setVisibility(View.VISIBLE);
                         id_type = 3;
                     }
                 }
@@ -492,83 +494,93 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         btnShopname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
-                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
-                View dialog = inflater.inflate(R.layout.dialog_add_shop,null);
-                shopname = dialog.findViewById(R.id.etShopname);
-                address = dialog.findViewById(R.id.etAddress);
-                btnlogo = dialog.findViewById(R.id.logo_shop);
-                Cancle = dialog.findViewById(R.id.buttonCancel);
-                Submit = dialog.findViewById(R.id.buttonSubmit);
-                btnlogo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                if (etShop_name.getText().toString().length() < 3) {
+                    etShop_name.requestFocus();
+                    imgShopName.setImageResource(R.drawable.ic_error_black_24dp);
+                } else {
+                    final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
+                    LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
+                    View dialog = inflater.inflate(R.layout.dialog_add_shop, null);
+                    shopname = dialog.findViewById(R.id.etShopname);
+                    address = dialog.findViewById(R.id.etAddress);
+                    btnlogo = dialog.findViewById(R.id.logo_shop);
+                    Cancle = dialog.findViewById(R.id.buttonCancel);
+                    Submit = dialog.findViewById(R.id.buttonSubmit);
+                    btnlogo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                    }
-                });
-                Cancle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                Submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String shop = shopname.getText().toString();
-                        String addr = address.getText().toString();
-                        etShop_name1.setText(shop);
-                        etShop_name1.setVisibility(View.VISIBLE);
-                        imgShopname1.setVisibility(View.VISIBLE);
-                        tilShop_name1.setVisibility(View.VISIBLE);
-                        btnShopname1.setVisibility(View.VISIBLE);
-                        btnShopname.setVisibility(View.GONE);
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.setView(dialog);
-                alertDialog.show();
+                        }
+                    });
+                    Cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    Submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String shop = shopname.getText().toString();
+                            String addr = address.getText().toString();
+                            etShop_name1.setText(shop);
+                            etShop_name1.setVisibility(View.VISIBLE);
+                            imgShopname1.setVisibility(View.VISIBLE);
+                            tilShop_name1.setVisibility(View.VISIBLE);
+                            btnShopname1.setVisibility(View.VISIBLE);
+                            btnShopname.setVisibility(View.GONE);
+                            alertDialog.dismiss();
+                        }
+                    });
+                    alertDialog.setView(dialog);
+                    alertDialog.show();
+                }
             }
         });
         btnShopname1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
-                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
-                View dialog = inflater.inflate(R.layout.dialog_add_shop,null);
-                shopname = dialog.findViewById(R.id.etShopname);
-                address = dialog.findViewById(R.id.etAddress);
-                btnlogo = dialog.findViewById(R.id.logo_shop);
-                Cancle = dialog.findViewById(R.id.buttonCancel);
-                Submit = dialog.findViewById(R.id.buttonSubmit);
-                btnlogo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                if (etShop_name1.getText().toString().length() < 3) {
+                    etShop_name1.requestFocus();
+                    imgShopname1.setImageResource(R.drawable.ic_error_black_24dp);
+                } else {
+                    final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
+                    LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
+                    View dialog = inflater.inflate(R.layout.dialog_add_shop, null);
+                    shopname = dialog.findViewById(R.id.etShopname);
+                    address = dialog.findViewById(R.id.etAddress);
+                    btnlogo = dialog.findViewById(R.id.logo_shop);
+                    Cancle = dialog.findViewById(R.id.buttonCancel);
+                    Submit = dialog.findViewById(R.id.buttonSubmit);
+                    btnlogo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                    }
-                });
-                Cancle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                Submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String shop = shopname.getText().toString();
-                        String addr = address.getText().toString();
-                        etShop_name2.setText(shop);
-                        etShop_name2.setVisibility(View.VISIBLE);
-                        imgShopname2.setVisibility(View.VISIBLE);
-                        tilShop_name2.setVisibility(View.VISIBLE);
-                        btnShopname1.setVisibility(View.GONE);
-                        btnShopname.setVisibility(View.GONE);
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.setView(dialog);
-                alertDialog.show();
+                        }
+                    });
+                    Cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    Submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String shop = shopname.getText().toString();
+                            String addr = address.getText().toString();
+                            etShop_name2.setText(shop);
+                            etShop_name2.setVisibility(View.VISIBLE);
+                            imgShopname2.setVisibility(View.VISIBLE);
+                            tilShop_name2.setVisibility(View.VISIBLE);
+                            btnShopname1.setVisibility(View.GONE);
+                            btnShopname.setVisibility(View.GONE);
+                            alertDialog.dismiss();
+                        }
+                    });
+                    alertDialog.setView(dialog);
+                    alertDialog.show();
+                }
             }
         });
         //end
