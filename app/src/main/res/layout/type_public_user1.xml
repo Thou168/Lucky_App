@@ -106,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:textSize="14dp"
+            android:editable="false"
             android:hint="@string/hit_shop_name"
             android:paddingLeft="10dp"
             android:background="@null"

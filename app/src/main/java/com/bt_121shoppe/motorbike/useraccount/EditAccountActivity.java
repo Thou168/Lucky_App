@@ -483,6 +483,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     if(id_type == 1){
                         imgShopName.setVisibility(View.VISIBLE);
                         tilShop_name.setVisibility(View.VISIBLE);
+                        etShop_name.requestFocus();
                         btUpgrade.setVisibility(View.GONE);
                         btnShopname.setVisibility(View.VISIBLE);
                         id_type = 3;
@@ -581,6 +582,42 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     alertDialog.setView(dialog);
                     alertDialog.show();
                 }
+            }
+        });
+        etShop_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
+                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
+                View dialog = inflater.inflate(R.layout.dialog_add_shop, null);
+                shopname = dialog.findViewById(R.id.etShopname);
+                address = dialog.findViewById(R.id.etAddress);
+                btnlogo = dialog.findViewById(R.id.logo_shop);
+                Cancle = dialog.findViewById(R.id.buttonCancel);
+                Submit = dialog.findViewById(R.id.buttonSubmit);
+                btnlogo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                Cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                Submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String shop = shopname.getText().toString();
+                        String addr = address.getText().toString();
+                        etShop_name.setText(shop);
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.setView(dialog);
+                alertDialog.show();
             }
         });
         //end
