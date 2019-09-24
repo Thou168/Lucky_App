@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class FBPostCommonFunction {
 
-    public static void SubmitPost(String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby){
+    public static void SubmitPost(String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby,String subTitle,String postCode){
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("isProduction", ConsumeAPI.IS_PRODUCTION);
@@ -25,10 +25,12 @@ public class FBPostCommonFunction {
         hashMap.put("viewCount",0);
         hashMap.put("status",status);
         hashMap.put("createdBy",createdby);
+        hashMap.put("subTitle",subTitle);
+        hashMap.put("postCode",postCode);
         reference.child(ConsumeAPI.FB_POST).child(id).setValue(hashMap);
     }
 
-    public static void modifiedPost(String id,String title,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt){
+    public static void modifiedPost(String id,String title,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,String subTitle){
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_POST).child(id);
         HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("title",title);
@@ -39,6 +41,7 @@ public class FBPostCommonFunction {
         hashMap.put("createdAt",createdAt);
         hashMap.put("price",price);
         hashMap.put("status",3);
+        hashMap.put("subTitle",subTitle);
         reference.updateChildren(hashMap);
     }
 

@@ -194,7 +194,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     itemView.getContext().startActivity(intent);
                 }
             });
-// 05 09 19 thou
+            // 05 09 19 thou
             try{
                 Service api = Client.getClient().create(Service.class);
                 Call<User> call = api.getuser(mPost.getUser_id());

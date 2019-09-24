@@ -1,9 +1,14 @@
 package com.bt_121shoppe.motorbike.Api;
 
 import com.bt_121shoppe.motorbike.Api.api.model.Sales;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.UserShopViewModel;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class User {
+
     @SerializedName("pk")
     private int pk;
     @SerializedName("username")
@@ -23,6 +28,7 @@ public class User {
     private int[] groups;
     private int id;
     private int group;
+    private List<ShopViewModel> shops;
 
     public int getId() {
         return id;
@@ -150,5 +156,13 @@ public class User {
 
     public void setSales(Sales[] sales) {
         this.sales = sales;
+    }
+
+    public List<ShopViewModel> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<ShopViewModel> shops) {
+        this.shops = shops;
     }
 }

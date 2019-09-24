@@ -17,6 +17,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -59,7 +62,13 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.date.YearMonthPickerDialog;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.UserShopViewModel;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
+import com.bt_121shoppe.motorbike.utils.ImageUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -117,6 +126,9 @@ import okhttp3.Response;
 public class EditAccountActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = EditAccountActivity.class.getSimpleName();
+    private static final int REQUEST_TAKE_PHOTO=1;
+    private static final int REQUEST_GALLARY_PHOTO=2;
+    private File mPhotoFile;
     private LinearLayout layout_public_user,layout_121_dealer;
     private SearchView tvAddress_account;
     private SupportMapFragment mapFragment;
@@ -143,7 +155,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     String latlng;
     GoogleMap mMap;
     int mMonth,mYear,mDay;
-    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem,usertpyeItem;
+    private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem,usertpyeItem,photoChooseOption;
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
     private TextInputLayout input_user, input_wingname,input_wingnum;
@@ -151,6 +163,12 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     private CircleImageView btnlogo;
     private String register_intent;
     private Validator validator;
+    private List<UserShopViewModel> userShops;
+    private FileCompressor mCompressor;
+    private Uri imageUri;
+    private Bitmap bitmapImage;
+    private TextView mDealerShop1,mDealerShop2,mDealerShop3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,14 +196,14 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         }
 
        url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
-//check active and deactive account by samang 2/09/19
+        //check active and deactive account by samang 2/09/19
         Active_user activeUser = new Active_user();
         String active;
         active = activeUser.isUserActive(pk,this);
         if (active.equals("false")){
             activeUser.clear_session(this);
         }
-//end
+        //end
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode =getEncodedString(name,pass);
@@ -194,13 +212,15 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_Account);
- // cut all call id for make it easy to look and find something. by samang 12/9
+        // cut all call id for make it easy to look and find something. by samang 12/9
         Variable_Fields();
+        userShops=new ArrayList<>();
+        photoChooseOption=getResources().getStringArray(R.array.select_photo);
+        mCompressor = new FileCompressor(this);
 
         genderListItems=getResources().getStringArray(R.array.genders_array);
         mp_Gender.setOnClickListener(new View.OnClickListener() {
@@ -483,6 +503,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     if(id_type == 1){
                         imgShopName.setVisibility(View.VISIBLE);
                         tilShop_name.setVisibility(View.VISIBLE);
+                        etShop_name.requestFocus();
+                        etShop_name.setText("Shop Name");
                         btUpgrade.setVisibility(View.GONE);
                         btnShopname.setVisibility(View.VISIBLE);
                         id_type = 3;
@@ -490,6 +512,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 }
             }
         });
+
         //button add shop name by Raksmey 16/09/2019
         btnShopname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -506,18 +529,21 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     btnlogo = dialog.findViewById(R.id.logo_shop);
                     Cancle = dialog.findViewById(R.id.buttonCancel);
                     Submit = dialog.findViewById(R.id.buttonSubmit);
+
                     btnlogo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            selectImage();
                         }
                     });
+
                     Cancle.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             alertDialog.dismiss();
                         }
                     });
+
                     Submit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -529,6 +555,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             tilShop_name1.setVisibility(View.VISIBLE);
                             btnShopname1.setVisibility(View.VISIBLE);
                             btnShopname.setVisibility(View.GONE);
+                            userShops.add(new UserShopViewModel(1,pk,shop,addr,bitmapImage,1,""));
                             alertDialog.dismiss();
                         }
                     });
@@ -537,6 +564,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 }
             }
         });
+
         btnShopname1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -544,6 +572,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     etShop_name1.requestFocus();
                     imgShopname1.setImageResource(R.drawable.ic_error_black_24dp);
                 } else {
+
                     final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
                     LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
                     View dialog = inflater.inflate(R.layout.dialog_add_shop, null);
@@ -552,10 +581,11 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     btnlogo = dialog.findViewById(R.id.logo_shop);
                     Cancle = dialog.findViewById(R.id.buttonCancel);
                     Submit = dialog.findViewById(R.id.buttonSubmit);
+
                     btnlogo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            selectImage();
                         }
                     });
                     Cancle.setOnClickListener(new View.OnClickListener() {
@@ -583,6 +613,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 }
             }
         });
+
         etShop_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -594,10 +625,31 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 btnlogo = dialog.findViewById(R.id.logo_shop);
                 Cancle = dialog.findViewById(R.id.buttonCancel);
                 Submit = dialog.findViewById(R.id.buttonSubmit);
+
+                int dealerShopId=Integer.parseInt(mDealerShop1.getText().toString());
+
+                if(userShops.size()>0){
+                    for(int i=0;i<userShops.size();i++) {
+                        UserShopViewModel userShopViewModel=userShops.get(i);
+                        if (userShopViewModel != null) {
+                            if(userShopViewModel.getId()==dealerShopId) {
+                                shopname.setText(userShopViewModel.getShop_name());
+                                address.setText(userShopViewModel.getShop_address());
+                                if (userShopViewModel.getShop_image() == null && userShopViewModel.getShop_image_path().isEmpty())
+                                    Glide.with(getBaseContext()).load(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                                else {
+                                    if (!userShopViewModel.getShop_image_path().isEmpty())
+                                        Glide.with(getBaseContext()).load(ConsumeAPI.BASE_URL_IMG + userShopViewModel.getShop_image_path()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 btnlogo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        selectImage();
                     }
                 });
                 Cancle.setOnClickListener(new View.OnClickListener() {
@@ -619,6 +671,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 alertDialog.show();
             }
         });
+
         etShop_name1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -630,10 +683,25 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 btnlogo = dialog.findViewById(R.id.logo_shop);
                 Cancle = dialog.findViewById(R.id.buttonCancel);
                 Submit = dialog.findViewById(R.id.buttonSubmit);
+
+                if(userShops.size()>0){
+                    UserShopViewModel userShopViewModel=userShops.get(0);
+                    if(userShopViewModel!=null){
+                        shopname.setText(userShopViewModel.getShop_name());
+                        address.setText(userShopViewModel.getShop_address());
+                        if(userShopViewModel.getShop_image()==null && userShopViewModel.getShop_image_path().isEmpty())
+                            Glide.with(getBaseContext()).load(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                        else{
+                            if(!userShopViewModel.getShop_image_path().isEmpty())
+                                Glide.with(getBaseContext()).load(ConsumeAPI.BASE_URL_IMG+userShopViewModel.getShop_image_path()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                        }
+                    }
+                }
+
                 btnlogo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        selectImage();
                     }
                 });
                 Cancle.setOnClickListener(new View.OnClickListener() {
@@ -655,6 +723,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 alertDialog.show();
             }
         });
+
         etShop_name2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -666,10 +735,13 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 btnlogo = dialog.findViewById(R.id.logo_shop);
                 Cancle = dialog.findViewById(R.id.buttonCancel);
                 Submit = dialog.findViewById(R.id.buttonSubmit);
+
+
+
                 btnlogo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        selectImage();
                     }
                 });
                 Cancle.setOnClickListener(new View.OnClickListener() {
@@ -694,8 +766,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         //end
 
     } // oncreate
-
-
 
     private void showDatePickerDialog(){
         final Calendar c = Calendar.getInstance();
@@ -728,7 +798,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
     private void initialUserInformation(String url,String encode){
         MediaType MEDIA_TYPE     =  MediaType.parse("application/json");
-        Log.d(TAG,"tt"+url);
         OkHttpClient client = new OkHttpClient();
         String auth = "Basic "+ encode;
         Request request = new Request.Builder()
@@ -749,14 +818,12 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 String mMessage = response.body().string();
                 Log.e(TAG,mMessage);
                 Gson gson = new Gson();
-
+                Log.d(TAG,"User"+mMessage);
                 try{
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            int g=0;
                             User convertJsonJava = new User();
-
                             convertJsonJava = gson.fromJson(mMessage,User.class);
                             int g=convertJsonJava.getProfile().getGroup();
 // close by samang
@@ -768,7 +835,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 //                            }
 
                             id_type = g;
-                            Log.d(TAG,"GROUP "+g);
                             if (g==2){
                                 tvType.setText(getString(R.string.shoppe));
                             }else if (g==3){
@@ -777,7 +843,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                 imgShopName.setVisibility(View.VISIBLE);
                                 tilShop_name.setVisibility(View.VISIBLE);
                                 btnShopname.setVisibility(View.VISIBLE);
-                                etShop_name.setText(convertJsonJava.getProfile().getShop_name());
+                                //etShop_name.setText(convertJsonJava.getProfile().getShop_name());
                             }else {
                                 tvType.setText(getString(R.string.public_user));
                                 btUpgrade.setVisibility(View.VISIBLE);
@@ -794,7 +860,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     String phone = convertJsonJava.getProfile().getTelephone();
                                     String[] splitPhone = phone.split(",");
 
-                                    Log.d("SPLIT:::", String.valueOf(splitPhone.length));
                                     if (splitPhone.length == 1){
                                         etPhone.setText(String.valueOf(splitPhone[0]));
                                         btnImagePhone1.setVisibility(View.VISIBLE);
@@ -828,7 +893,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     etWingName.setText(convertJsonJava.getProfile().getWing_account_name());
                                 }
                                 String s = convertJsonJava.getProfile().getGender();
-                                Log.d(TAG,"Gender:"+s);
                                 if (s!=null ){
                                     if (s.equals("male")){
                                         mp_Gender.setText(R.string.male);
@@ -855,10 +919,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                      mapFragment.getMapAsync(EditAccountActivity.this::onMapReady);
                                  }else {
                                      String[] splitAddr = addr.split(",");
-                                     Log.d("Split Location::", String.valueOf(splitAddr.length));
                                      latitude = Double.valueOf(splitAddr[0]);
                                      longtitude = Double.valueOf(splitAddr[1]);
-
                                      get_location(false);
                                      if (convertJsonJava.getProfile().getResponsible_officer()!=null){
                                          String search_title = convertJsonJava.getProfile().getResponsible_officer().toString();
@@ -876,8 +938,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                          mp_Married.setText(R.string.other);
                                      }
                                  }
-
-
                                 if(convertJsonJava.getProfile().getPlace_of_birth()!=null) {
                                     int p = Integer.parseInt(convertJsonJava.getProfile().getPlace_of_birth());
                                     getProvinceName(p,true);
@@ -888,7 +948,31 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     getProvinceName(l,false);
                                 }
                             }
-                            //}
+                            //dealer shop section
+                            if(convertJsonJava.getShops().size()>0){
+                                for(int i=0;i<convertJsonJava.getShops().size();i++){
+                                    ShopViewModel shopViewModel=convertJsonJava.getShops().get(i);
+                                    switch (i){
+                                        case 0:
+                                            etShop_name.setText(shopViewModel.getShop_name());
+                                            mDealerShop1.setText(shopViewModel.getId());
+                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image()));
+                                            break;
+                                        case 1:
+                                            etShop_name1.setText(shopViewModel.getShop_name());
+                                            mDealerShop2.setText(shopViewModel.getId());
+                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image()));
+                                            break;
+                                        case 2:
+                                            etShop_name2.setText(shopViewModel.getShop_name());
+                                            mDealerShop3.setText(shopViewModel.getId());
+                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image()));
+                                            break;
+                                    }
+                                }
+                            }else{
+                                Log.d(TAG,"No Shop name");
+                            }
                         }
                     });
                 }catch (JsonParseException e){
@@ -1015,6 +1099,13 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     @Override
                     public void run() {
                         mProgress.dismiss();
+
+                        if(userShops.size()>0){
+                            for(int i=0;i<userShops.size();i++){
+                                postUserShop(userShops.get(i),encode);
+                            }
+                        }
+
                         AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
                         alertDialog.setMessage(getString(R.string.edit_success_message));
@@ -1031,12 +1122,71 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     }
                                 });
                         alertDialog.show();
-
                     }
                 });
                 //finish();
             }
         });
+    }
+
+    private void postUserShop(UserShopViewModel usershop,String encode){
+        String usershopurl= ConsumeAPI.BASE_URL+"api/v1/shop/";
+        OkHttpClient client1=new OkHttpClient();
+        JSONObject post1=new JSONObject();
+        try{
+            post1.put("user",pk);
+            post1.put("shop_name",usershop.getShop_name());
+            post1.put("shop_address",usershop.getShop_address());
+            post1.put("record_status",1);
+            if(usershop.getShop_image()==null){
+                post1.put("shop_image",null);
+            }else{
+                try {
+                    post1.put("shop_image", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, usershop.getShop_image())));
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                }
+            }
+            RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
+            String auth = "Basic " + encode;
+            Request request1 = new Request.Builder()
+                    .url(usershopurl)
+                    .post(body1)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client1.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String message = e.getMessage().toString();
+                    Log.d("failure Response",message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                    mProgress.dismiss();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String message = response.body().string();
+                    Log.d(TAG,"User shop success"+ message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgress.dismiss();
+
+                        }
+                    });
+                    //finish();
+                }
+            });
+        }catch (JSONException je){
+            je.printStackTrace();
+        }
     }
 
     public void Province(){
@@ -1743,6 +1893,9 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         etShop_name.setFocusable(false);
         etShop_name1.setFocusable(false);
         etShop_name2.setFocusable(false);
+        mDealerShop1=findViewById(R.id.dealer_shop_id_1);
+        mDealerShop2=findViewById(R.id.dealer_shop_id_2);
+        mDealerShop3=findViewById(R.id.dealer_shop_id_3);
     }
 
     private void Seach_Address(){
@@ -1900,5 +2053,130 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==Activity.RESULT_OK){
+            if(requestCode==REQUEST_GALLARY_PHOTO){
+                try {
+                    imageUri = data.getData();
+                    mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(imageUri)));
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }else if(requestCode==REQUEST_TAKE_PHOTO){
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                imageUri=Uri.fromFile(mPhotoFile);
+
+            }
+            bitmapImage= BitmapFactory.decodeFile(mPhotoFile.getPath());
+            Glide.with(EditAccountActivity.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(btnlogo);
+            Log.d(TAG,"IMage "+imageUri);
+
+        }
+
+    }
+
+    private void selectImage(){
+        AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(EditAccountActivity.this);
+        dialogBuilder.setItems(photoChooseOption, (dialog, which) -> {
+            switch (which){
+                case 0:
+                    requestStoragePermission(true);
+                    break;
+                case 1:
+                    requestStoragePermission(false);
+                    break;
+                case 2:
+                    Toast.makeText(EditAccountActivity.this,""+photoChooseOption[which],Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        });
+        dialogBuilder.create().show();
+    }
+    private void requestStoragePermission(boolean isCamera) {
+        Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            if (isCamera) {
+                                dispatchTakePictureIntent();
+                            } else {
+                                dispatchGalleryIntent();
+                            }
+                        }
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).withErrorListener(error -> Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show())
+                .onSameThread()
+                .check();
+    }
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        this.getPackageName() + ".provider",
+                        photoFile);
+                //BuildConfig.APPLICATION_ID
+                mPhotoFile = photoFile;
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                //startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+    private void dispatchGalleryIntent() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivityForResult(pickPhoto, REQUEST_GALLARY_PHOTO);
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String mFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File mFile = File.createTempFile(mFileName, ".jpg", storageDir);
+        return mFile;
+    }
+    public String getRealPathFromUri(Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = getContentResolver().query(contentUri, proj, null, null, null);
+            assert cursor != null;
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 }

@@ -11,9 +11,13 @@ import com.bt_121shoppe.motorbike.Api.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -139,6 +143,158 @@ public class CommonFunction {
         }catch (JsonParseException e){
             e.printStackTrace();
         }
+    }
+
+    // Generates a random int with n digits
+    public static int generateRandomDigits(int n) {
+        int m = (int) Math.pow(10, n - 1);
+        return m + new Random().nextInt(9 * m);
+    }
+
+    public static String generatePostSubTitle(int brandId,int modelId,int year,String colorEn,String colorKH){
+        String postSubTitleEN="";
+        String postSubTitleKH="";
+        //get brand name
+        try{
+            String brandResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
+            try{
+                JSONObject obj=new JSONObject(brandResponse);
+                postSubTitleEN=postSubTitleEN+" "+obj.getString("brand_name");
+                postSubTitleKH=postSubTitleKH+" "+obj.getString("brand_name_as_kh");
+            }catch (JSONException je){
+                je.printStackTrace();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        //get model name
+        try{
+            String modelResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/models/"+modelId);
+            try{
+                JSONObject obj=new JSONObject(modelResponse);
+                postSubTitleEN=postSubTitleEN+" "+obj.getString("modeling_name");
+                postSubTitleKH=postSubTitleKH+" "+obj.getString("modeling_name_kh");
+            }catch (JSONException je){
+                je.printStackTrace();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+
+        //year
+        try{
+            String yearResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+year);
+            try{
+                JSONObject obj=new JSONObject(yearResponse);
+                postSubTitleEN=postSubTitleEN+" "+obj.getString("year");
+                postSubTitleKH=postSubTitleKH+" "+obj.getString("year");
+            }catch (JSONException je){
+                je.printStackTrace();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+
+        postSubTitleEN=postSubTitleEN+" "+colorEn;
+        postSubTitleKH=postSubTitleKH+" "+colorKH;
+
+        return postSubTitleEN+","+postSubTitleKH;
+    }
+
+    public static String generatePostSubTitle(int modelId,int yearId,String color){
+        String postSubTitleEN="";
+        String postSubTitleKH="";
+        String modelEN="";
+        String modelKH="";
+        String strColor="";
+        String strColorKH="";
+        int brandId=0;
+        //get model name and brand id
+        try{
+            String modelResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/models/"+modelId);
+            try{
+                JSONObject obj=new JSONObject(modelResponse);
+                brandId=obj.getInt("brand");
+                modelEN=obj.getString("modeling_name");
+                modelKH=obj.getString("modeling_name_kh");
+            }catch (JSONException je){
+                je.printStackTrace();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        //get brand name
+        try{
+            String brandResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
+            try{
+                JSONObject obj=new JSONObject(brandResponse);
+                postSubTitleEN=postSubTitleEN+" "+obj.getString("brand_name")+" "+modelEN;
+                postSubTitleKH=postSubTitleKH+" "+obj.getString("brand_name_as_kh")+" "+modelKH;
+            }catch (JSONException je){
+                je.printStackTrace();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        //get year
+        try{
+            String yearResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
+            try{
+                JSONObject obj=new JSONObject(yearResponse);
+                postSubTitleEN=postSubTitleEN+" "+obj.getString("year");
+                postSubTitleKH=postSubTitleKH+" "+obj.getString("year");
+            }catch (JSONException je){
+                je.printStackTrace();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        //get color
+        switch (color){
+            case "blue":
+                strColor="Blue";
+                strColorKH="ខៀវ";
+                break;
+            case "black":
+                strColor="Black";
+                strColorKH="ខ្មៅ";
+                break;
+            case "silver":
+                strColor="Silver";
+                strColorKH="ខៀវ";
+                break;
+            case "red":
+                strColor="Red";
+                strColorKH="ក្រហម";
+                break;
+            case "gray":
+                strColor="Gray";
+                strColorKH="ប្រផេះ";
+                break;
+            case "yellow":
+                strColor="Yellow";
+                strColorKH="លឿង";
+                break;
+            case "pink":
+                strColor="Pink";
+                strColorKH="ផ្កាឈូក";
+                break;
+            case "purple":
+                strColor="Purple";
+                strColorKH="ស្វាយ";
+                break;
+            case "orange":
+                strColor="Orange";
+                strColorKH="ទឹកក្រូច";
+                break;
+            case "green":
+                strColor="Green";
+                strColorKH="បៃតង";
+                break;
+        }
+        postSubTitleEN=postSubTitleEN+" "+strColor;
+        postSubTitleKH=postSubTitleKH+" "+strColorKH;
+        return postSubTitleEN+","+postSubTitleKH;
     }
 
 }

@@ -42,8 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-
-import org.checkerframework.checker.units.qual.A;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,6 +65,7 @@ public class HomeFragment extends Fragment {
     private PostBestDealAdapterV2 mPostBestDealAdpater;
     private AllPostAdapter mAllPostAdapter;
     private ImageView mListView,mGridView,mGallaryView;
+    private TextView mBestDealText;
 
     private int mPostTypeId=0,mCategoryId=0,mBrandId=0,mYearId=0;
     private double mMinPrice=0,mMaxPrice=0;
@@ -97,6 +96,7 @@ public class HomeFragment extends Fragment {
         mListView=view.findViewById(R.id.img_list);
         mGridView=view.findViewById(R.id.grid);
         mGallaryView=view.findViewById(R.id.btn_image);
+        mBestDealText=view.findViewById(R.id.bestDeal);
 
         mETFilterPostType.setFocusable(false);
         mETFilterCategory.setFocusable(false);
@@ -298,9 +298,10 @@ public class HomeFragment extends Fragment {
                             String discountType=obj.getString("discountType");
                             String location=obj.getString("location");
                             int viewCount=obj.getInt("viewCount");
-                            String title=obj.getString("title");
+                            String title=obj.getString("subTitle");
                             String type=obj.getString("type");
-                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,"",viewCount ,discountType,discountAmount));
+                            String[] splitTitle=title.split(",");
+                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,splitTitle[0],type,coverUrl,price,"",viewCount ,discountType,discountAmount));
                             Log.d(TAG,"count posts before "+mAllPosts.size());
                         }
                     }catch (JSONException je){
@@ -355,4 +356,5 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 }

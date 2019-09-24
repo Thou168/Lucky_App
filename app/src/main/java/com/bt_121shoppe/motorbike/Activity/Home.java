@@ -291,8 +291,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mProgress.setMessage(getString(R.string.please_wait));
         //mProgress.show();
 
-
-        loadFragment(new HomeFragment());
+        loadFragment(new HomeFragment(),"FHome");
 
 
         /* -------------- start event listener -------------------------*/
@@ -311,7 +310,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //                recreate();
 //            }
 //        });
-
 
     }
 
@@ -415,10 +413,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         language(language);
     }
 
-    private void loadFragment(Fragment fragment){
+    private void loadFragment(Fragment fragment,String fTag){
         FragmentManager fm=getFragmentManager();
         FragmentTransaction fragmentTransaction=fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.replace(R.id.frameLayout,fragment,fTag);
         fragmentTransaction.commit();
     }
 
@@ -593,8 +591,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         });
 
                         com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
-
+                        Log.d(TAG,respon);
                         converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
+
                         if(converJsonJava.getFirst_name()==null) {
                             mUserNameDrawer.setText(converJsonJava.getUsername());
                         }

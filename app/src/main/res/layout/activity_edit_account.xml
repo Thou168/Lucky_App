@@ -36,6 +36,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -43,15 +44,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <include
                     android:id="@+id/layout_type_public_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     layout="@layout/type_public_user1"/>
 
-
                 <ImageView
-
                     android:id="@+id/imgAccount_Address"
                     android:layout_width="15dp"
                     android:layout_height="45dp"
@@ -80,8 +80,7 @@
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_below="@id/tvAccount_Address"
-                    />
+                    android:layout_below="@id/tvAccount_Address" />
 
                 <Button
                     android:id="@+id/btn_EditAccount"

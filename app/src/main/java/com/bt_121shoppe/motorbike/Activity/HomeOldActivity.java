@@ -63,7 +63,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
     TextView mBestDealNoResult;
     ArrayList<PostProduct> mPostBestDeals;
     ArrayList<PostProduct> mAllPosts;
-    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=1";
+    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=2";
     String mAllPostUrl=ConsumeAPI.BASE_URL+"allposts/?page=1";
     boolean isLoading=false,isAPLoading=false;
     int itemCount=0;
@@ -202,7 +202,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             JSONObject object = results.getJSONObject(i);
                             String locationDT="";
                             int id=object.getInt("id");
-                            int user_id = object.getInt("user");
+                            int user_id = object.getInt("created_by");
                             String title = object.getString("title");
                             String type = object.getString("post_type");
                             String cost = object.getString("cost");
@@ -216,12 +216,16 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             String frontImage=object.getString("front_image_path");
                             String[] splitPath=frontImage.split("/");
                             String imageUrl=ConsumeAPI.IMAGE_STRING_PATH+splitPath[splitPath.length-1];
-                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby);
+                            String postSubTitle=CommonFunction.generatePostSubTitle(object.getInt("modeling"),object.getInt("year"),object.getString("color"));
+                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby,postSubTitle,"");
+
                             if(!address.isEmpty()){
                                 String[] lateLong=address.split(",");
                                 address=CommonFunction.getAddressFromMap(this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));
                                 locationDT=address+" - ";
                             }
+
+                            /*
                             if(!approvedDate.equals("null")){
                                 try {
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -237,6 +241,8 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                                     e.printStackTrace();
                                 }
                             }
+                            */
+
                             mPostBestDeals.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT, 0,discountType,discountAmount));
                             mmPost.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT,0,discountType,discountAmount));
 

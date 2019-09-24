@@ -46,7 +46,7 @@
         <activity android:name=".firebases.activities.PostListActivity" />
         <activity android:name=".searches.SearchTypeActivity" />
         <activity android:name=".post.PostGallaryActivity" />
-        <activity android:name=".Activity.Home">
+        <activity android:name=".Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,10 +70,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
@@ -100,7 +98,7 @@
         <activity android:name=".Login_Register.UserAccountActivity" />
         <activity android:name=".Login_Register.RegisterActivity" />
         <activity android:name=".Login_Register.LoginActivity" />
-<!--        <activity android:name=".Activity.Home" />-->
+        <activity android:name=".Activity.Home" />
         <activity android:name=".Startup.Your_Post" />
         <activity android:name=".post.CameraActivity" />
         <activity

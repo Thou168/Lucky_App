@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
@@ -21,10 +19,8 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -128,10 +124,15 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
         public void onBind(int position){
             super.onBind(position);
             final PostViewModel mPost=mPostList.get(position);
+            String strPostTitle="";
+            if(mPost.getPost_sub_title().isEmpty()){
+                strPostTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+            }else
+                strPostTitle=mPost.getPost_sub_title().split(",")[0];
 
             Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
 
-            postTitle.setText(mPost.getTitle());
+            postTitle.setText(strPostTitle);
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setText("$ "+mPost.getCost());

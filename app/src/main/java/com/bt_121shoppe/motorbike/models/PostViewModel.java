@@ -39,6 +39,8 @@ public class PostViewModel {
     private SaleViewModel[] sales;
     private BuyViewModel[] buys;
     private RentViewModel[] rents;
+    private String post_code;
+    private String post_sub_title;
 
     public int getId() {
         return id;
@@ -199,6 +201,14 @@ public class PostViewModel {
         return contact_email;
     }
 
+    public String getPost_code() {
+        return post_code;
+    }
+
+    public String getPost_sub_title() {
+        return post_sub_title;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -341,6 +351,14 @@ public class PostViewModel {
 
     public void setSales(SaleViewModel[] sales) {
         this.sales = sales;
+    }
+
+    public void setPost_code(String post_code) {
+        this.post_code = post_code;
+    }
+
+    public void setPost_sub_title(String post_sub_title) {
+        this.post_sub_title = post_sub_title;
     }
 }
 

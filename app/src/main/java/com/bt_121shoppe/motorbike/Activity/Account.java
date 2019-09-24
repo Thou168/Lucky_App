@@ -434,10 +434,10 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 User ffuser = dataSnapshot.getValue(User.class);
-                                if (ffuser.getImageURL() == "default") {
+                                if (ffuser.getImageURL().equals("default")) {
                                     img_profile.setImageResource(R.drawable.square_logo);
                                 } else {
-                                    Glide.with(getBaseContext()).load(ffuser.getImageURL()).into(img_profile);
+                                    Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(img_profile);
                                 }
                             }
 

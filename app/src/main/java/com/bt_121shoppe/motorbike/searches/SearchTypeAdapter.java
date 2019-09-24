@@ -12,13 +12,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG=SearchTypeActivity.class.getSimpleName();
@@ -110,6 +121,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postOriginalPrice;
         TextView postView;
         TextView postLang;
+        CircleImageView img_user;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -121,6 +133,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postOriginalPrice=itemView.findViewById(R.id.tv_discount);
             postView=itemView.findViewById(R.id.user_view);
             postLang=itemView.findViewById(R.id.user_view1);
+            img_user = itemView.findViewById(R.id.img_user);
         }
 
         @Override
@@ -138,6 +151,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position){
             super.onBind(position);
             final PostViewModel mPost=mPostList.get(position);
+            String strPostTitle="";
 
             Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
             String lang=postLang.getText().toString();
@@ -156,11 +170,16 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 else if (mPost.getPost_type().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
             }
-            postTitle.setText(mPost.getTitle());
+            if(mPost.getPost_sub_title().isEmpty()){
+                strPostTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor()).split(",")[0];
+            }else
+                strPostTitle=mPost.getPost_sub_title().split(",")[0];
+            postTitle.setText(strPostTitle);
             postLocationDT.setText("");
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
+
                 postOriginalPrice.setVisibility(View.VISIBLE);
                 postOriginalPrice.setText("$ "+mPost.getCost());
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -178,7 +197,32 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 postOriginalPrice.setVisibility(View.GONE);
             }
 
-            postView.setText(String.valueOf("0"));
+            //get count view
+            int countView=0;
+            try{
+                String response= CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"countview/?post="+mPost.getId());
+                APIResponse APIResponse =new APIResponse();
+                Gson gson=new Gson();
+                APIResponse =gson.fromJson(response, APIResponse.class);
+                countView= APIResponse.getCount();
+            }catch (IOException io){
+                io.printStackTrace();
+            }
+            postView.setText(String.valueOf(countView));
+            //get user profile
+            try{
+                String userResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/users/"+mPost.getCreated_by());
+                try{
+                    JSONObject obj=new JSONObject(userResponse);
+                    String username=obj.getString("username");
+                    CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,username);
+                }catch (JSONException joe){
+                    joe.printStackTrace();
+                }
+
+            }catch (IOException ioe){
+                ioe.printStackTrace();
+            }
 
             double finalMPrice = mPrice;
             itemView.setOnClickListener(new View.OnClickListener() {

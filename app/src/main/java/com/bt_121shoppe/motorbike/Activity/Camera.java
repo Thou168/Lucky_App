@@ -55,6 +55,7 @@ import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
@@ -159,7 +160,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private List<Integer> list_brand_model = new ArrayList<>();
 
     private  BottomNavigationView bnavigation;
-    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor;
+    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor,strColorKH;
     int idYear=0,process_type=0,post_type=0,category=0;
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
@@ -315,8 +316,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             Log.d("Type ID", String.valueOf(type));
 
         }
-
-
 
         tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1060,8 +1059,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             strDiscountType="amount";
         if(strCondition==null || strCondition.isEmpty())
             strCondition="new";
-        if(strColor==null || strColor.isEmpty())
-            strColor="black";
+        if(strColor==null || strColor.isEmpty()) {
+            strColor = "black";
+            strColorKH="ខ្មៅ";
+        }
         String str_dis=etDiscount_amount.getText().toString();
         if(str_dis==null || str_dis.isEmpty())
             str_dis="0";
@@ -1152,7 +1153,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     post.put("back_image_path", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage4)));
                     post.put("back_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage4)));
                 }
-// add 2 image by samang 26/08
+                // add 2 image by samang 26/08
                 if (bitmapImage5 == null) {
                     post.put("extra_image1", "");
                     post.put("extra_image1_base64", "");
@@ -1167,9 +1168,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage6)));
                     post.put("extra_image2_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage6)));
                 }
-
             }
- //end add image
+            //end add image
             //Instant.now().toString()
             post.put("created", "");
             post.put("created_by", pk);
@@ -1213,6 +1213,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 // end check
             post.put("color", strColor);
 
+            //enhance sep 19 2019
+            post.put("post_code", CommonFunction.generateRandomDigits(9));
+            post.put("post_sub_title",CommonFunction.generatePostSubTitle(brand,model,year,strColor,strColorKH));
+
             switch (strPostType){
                 case "លក់":
                 case "sell":
@@ -1249,10 +1253,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     post.put("buy_post",new JSONArray("["+buy+"]"));
                     break;
             }
+
             Log.d(TAG,post.toString());
-
-            Log.d(TAG,"URl:"+url);
-
 
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
@@ -1290,8 +1292,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String dicountType=obj.getString("discount_type");
                                             String location=obj.getString("contact_address");
                                             String createdAt=obj.getString("created");
+                                            String postCode=obj.getString("post_code");
+                                            String postSubTitle=obj.getString("post_sub_title");
                                             int pStatus=obj.getInt("status");
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk);
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
@@ -1406,7 +1410,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private void EditPost_Approve(String encode,int edit_id) {
 
-
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
         OkHttpClient client = new OkHttpClient();
@@ -1417,8 +1420,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             strDiscountType="amount";
         if(strCondition==null || strCondition.isEmpty())
             strCondition="new";
-        if(strColor==null || strColor.isEmpty())
-            strColor="black";
+        if(strColor==null || strColor.isEmpty()) {
+            strColor = "black";
+            strColorKH="ខ្មៅ";
+        }
         String str_dis=etDiscount_amount.getText().toString();
         if(str_dis==null || str_dis.isEmpty())
             str_dis="0";
@@ -1535,10 +1540,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
 
             post.put("contact_address", latlng);
-
             //end check
-
             post.put("color", strColor);
+            post.put("post_sub_title",CommonFunction.generatePostSubTitle(brand,model,year,strColor,strColorKH));
 
             switch (strPostType){
                 case "លក់":
@@ -1627,7 +1631,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String dicountType = obj.getString("discount_type");
                                             String location = obj.getString("contact_address");
                                             String createdAt = obj.getString("created");
-                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt);
+                                            String postSubTitle=obj.getString("post_sub_title");
+                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
@@ -2393,33 +2398,43 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         switch (i){
                             case 0:
                                 strColor="blue";
+                                strColorKH="ខៀវ";
                                 break;
                             case 1:
                                 strColor="black";
+                                strColorKH="ខ្មៅ";
                                 break;
                             case 2:
                                 strColor="silver";
+                                strColorKH="ខៀវ";
                                 break;
                             case 3:
                                 strColor="red";
+                                strColorKH="ក្រហម";
                                 break;
                             case 4:
                                 strColor="gray";
+                                strColorKH="ប្រផេះ";
                                 break;
                             case 5:
                                 strColor="yellow";
+                                strColorKH="លឿង";
                                 break;
                             case 6:
                                 strColor="pink";
+                                strColorKH="ផ្កាឈូក";
                                 break;
                             case 7:
                                 strColor="purple";
+                                strColorKH="ស្វាយ";
                                 break;
                             case 8:
                                 strColor="orange";
+                                strColorKH="ទឹកក្រូច";
                                 break;
                             case 9:
                                 strColor="green";
+                                strColorKH="បៃតង";
                                 break;
                         }
                         icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
@@ -3164,7 +3179,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
                 requestStoragePermission(true);
             }
-// add 2 image by samang 26/08
+            // add 2 image by samang 26/08
             else if (requestCode == REQUEST_TAKE_PHOTO_5){
                 try {
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
