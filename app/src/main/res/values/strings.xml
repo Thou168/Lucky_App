@@ -228,7 +228,7 @@
 
     //loan_yes_or_no
     <string name="hit_username">Username</string>
-    <string name="hit_shop_name">Shop Name</string>
+    <string name="hit_shop_name">Shop Name 1</string>
 
     <string name="hit_gender">Gender</string>
 
@@ -756,4 +756,6 @@
         <item>Choose from Library</item>
         <item>Cancel</item>
     </string-array>
+    <string name="shopname2">Shop name 2</string>
+    <string name="shopname3">Shop name 3</string>
 </resources>

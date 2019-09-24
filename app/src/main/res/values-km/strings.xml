@@ -132,7 +132,7 @@
     <string name="title_fill_information">បំពេញព័ត៌មាន</string>
     <string name="txt_clr_detail">ព័ត៌មានលំអិត</string>
     <string name="hit_username">ឈ្មោះអ្នកប្រើប្រាស់</string>
-    <string name="hit_shop_name">ឈ្មោះហាង</string>
+    <string name="hit_shop_name">ឈ្មោះហាងទី១</string>
     <string name="hit_gender">ភេទ</string>
     <string name="hit_age">អាយុ</string>
     <string name="hit_job">មុខរបរ</string>
@@ -599,4 +599,6 @@
         <item>វិចិត្រសាល</item>
         <item>បោះបង់</item>
     </string-array>
+    <string name="shopname2">ឈ្មោះហាងទី២</string>
+    <string name="shopname3">ឈ្មោះហាងទី៣</string>
 </resources>

@@ -147,7 +147,8 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:textSize="14dp"
-            android:hint="@string/shop_name"
+            android:editable="false"
+            android:hint="@string/shopname2"
             android:paddingLeft="10dp"
             android:background="@null"
             />
@@ -187,7 +188,8 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:textSize="14dp"
-            android:hint="@string/shop_name"
+            android:editable="false"
+            android:hint="@string/shopname3"
             android:paddingLeft="10dp"
             android:background="@null"
             />
