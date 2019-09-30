@@ -112,9 +112,8 @@ public class UserAccountActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), SelectUserTypeActivity.class);
                 intent.putExtra("Register_verify",verify);
                 intent.putExtra("product_id",product_id);
+                intent.putExtra("processtype",CommonFunction.ProcessType.MobileRegister.toString());
                 startActivity(intent);
-
-                Log.d("RegisterActivity Verify",verify);
    //             startActivity(new Intent(v.getContext(),RegisterActivity.class));
             }
         });

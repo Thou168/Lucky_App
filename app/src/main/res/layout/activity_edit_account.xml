@@ -71,8 +71,7 @@
                     app:theme="@style/AddressSearchView"
                     android:textSize="14dp"
                     app:iconifiedByDefault="false"
-                    app:searchIcon="@null"
-                    />
+                    app:searchIcon="@null" />
 
                 <fragment
                     android:id="@+id/map_Account"

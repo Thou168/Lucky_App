@@ -92,8 +92,6 @@ public class RegisterActivity extends AppCompatActivity {
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-
-
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         auth=FirebaseAuth.getInstance();
         reference= FirebaseDatabase.getInstance().getReference();

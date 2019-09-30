@@ -192,7 +192,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    buildAlertMessageNoGps();
+                    //buildAlertMessageNoGps();
                 }
             });
         }
@@ -276,10 +276,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         /* start implementation slider navigation */
         SliderImage mSliderImages=findViewById(R.id.slider);
         List<String> mImages=new ArrayList<>();
-        mImages.add("https://www.allkpop.com/upload/2018/12/content/131156/rv-1jpg.jpg");
-        mImages.add("https://www.sbs.com.au/popasia/sites/sbs.com.au.popasia/files/styles/full/public/redvelvet_1.jpg?itok=0ZNzn25v&mtime=1522728750");
-        mImages.add("https://sa.kapamilya.com/absnews/abscbnnews/media/2019/news/05/27/korean.jpg");
-        mImages.add("https://akns-images.eonline.com/eol_images/Entire_Site/2019719/rs_1024x576-190819194533-e-asia-red-velvet-umpah-umpah.jpg?fit=inside|900:auto&output-quality=90");
+        mImages.add("http://cambo-report.com/storage/0MX5fa6STYIdLNYePG9x1rQHKPYWQSxazY8rRI1S.jpeg");
+        mImages.add("https://i.ytimg.com/vi/iAkUDrdAmUU/maxresdefault.jpg");
+        mImages.add("https://www.tracker.co.uk/application/files/thumbnails/hero_banner_small/6015/4867/2711/motorbike-banner.jpg");
+        mImages.add("https://www.coxmotorgroup.com/images/cmg/new-motorcycles/new-motorcycle-banner.jpg");
         mSliderImages.setItems(mImages);
         mSliderImages.addTimerToSlide(3000);
         mSliderImages.getIndicator();

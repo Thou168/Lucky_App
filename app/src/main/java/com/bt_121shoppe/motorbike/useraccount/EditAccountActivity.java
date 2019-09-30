@@ -166,8 +166,9 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     private List<UserShopViewModel> userShops;
     private FileCompressor mCompressor;
     private Uri imageUri;
-    private Bitmap bitmapImage;
+    private Bitmap bitmapImage,bitmapImage1,bitmapImage2;
     private TextView mDealerShop1,mDealerShop2,mDealerShop3;
+    private int mDealerShopId1=0,mDealerShopId2=0,mDealerShopId3=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +181,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         //prefer = getSharedPreferences("RegisterActivity",MODE_PRIVATE);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
-
         if (prefer.contains("token")) {
             pk = prefer.getInt("Pk",0);
         }else if (prefer.contains("id")) {
@@ -188,7 +188,6 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         }
 
         Bundle bundle = getIntent().getExtras();
-
         if (bundle!=null) {
             pk = bundle.getInt("id_register",0);
             register_intent = bundle.getString("Register_verify");
@@ -466,6 +465,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v) {
                 //summitUserInformation();
+                //Log.e(TAG,"Count shop "+userShops.size());
+
                 if(tvType.getText().toString().length()<3 || etUsername.getText().toString().length()<3 || etPhone.getText().toString().length()<9 ){
                     if (etPhone.getText().toString().length()<9){
                         etPhone.requestFocus();
@@ -492,6 +493,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     mProgress.show();
                     PutData(url, Encode);
                 }
+
             }
         });
         //add new button Upgrade by Raksmey
@@ -514,6 +516,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         });
 
         //button add shop name by Raksmey 16/09/2019
+        //
         btnShopname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -555,7 +558,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             tilShop_name1.setVisibility(View.VISIBLE);
                             btnShopname1.setVisibility(View.VISIBLE);
                             btnShopname.setVisibility(View.GONE);
-                            userShops.add(new UserShopViewModel(1,pk,shop,addr,bitmapImage,1,""));
+                            mDealerShopId2=2;
+                            userShops.add(new UserShopViewModel(mDealerShopId2,pk,shop,addr,bitmapImage,1,"",false,true));
                             alertDialog.dismiss();
                         }
                     });
@@ -605,6 +609,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             tilShop_name2.setVisibility(View.VISIBLE);
                             btnShopname1.setVisibility(View.GONE);
                             btnShopname.setVisibility(View.GONE);
+                            mDealerShopId3=3;
+                            userShops.add(new UserShopViewModel(mDealerShopId3,pk,shop,addr,bitmapImage,1,"",false,true));
                             alertDialog.dismiss();
                         }
                     });
@@ -626,19 +632,96 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 Cancle = dialog.findViewById(R.id.buttonCancel);
                 Submit = dialog.findViewById(R.id.buttonSubmit);
 
-                int dealerShopId=Integer.parseInt(mDealerShop1.getText().toString());
+                //int dealerShopId=Integer.parseInt(mDealerShop1.getText().toString());
 
                 if(userShops.size()>0){
                     for(int i=0;i<userShops.size();i++) {
                         UserShopViewModel userShopViewModel=userShops.get(i);
                         if (userShopViewModel != null) {
-                            if(userShopViewModel.getId()==dealerShopId) {
+                            if(userShopViewModel.getId()==mDealerShopId1) {
                                 shopname.setText(userShopViewModel.getShop_name());
                                 address.setText(userShopViewModel.getShop_address());
-                                if (userShopViewModel.getShop_image() == null && userShopViewModel.getShop_image_path().isEmpty())
+                                if (userShopViewModel.getShop_image() == null && userShopViewModel.getShop_image_path()==null)
                                     Glide.with(getBaseContext()).load(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
                                 else {
-                                    if (!userShopViewModel.getShop_image_path().isEmpty())
+                                    if(userShopViewModel.getShop_image()!=null)
+                                        btnlogo.setImageBitmap(userShopViewModel.getShop_image());
+                                    else if (userShopViewModel.getShop_image_path()!=null)
+                                        Glide.with(getBaseContext()).load(ConsumeAPI.BASE_URL_IMG + userShopViewModel.getShop_image_path()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                btnlogo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        selectImage();
+                    }
+                });
+                Cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                Submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        String shop = shopname.getText().toString();
+                        String addr = address.getText().toString();
+                        if(!shop.isEmpty()) {
+                            if(mDealerShopId1>0){
+                                for(int i=0;i<userShops.size();i++){
+                                    UserShopViewModel findShopObj=userShops.get(i);
+                                    if(findShopObj.getId()==mDealerShopId1){
+                                        findShopObj.setShop_name(shop);
+                                        findShopObj.setShop_address(addr);
+                                        findShopObj.setShop_image(bitmapImage);
+                                        findShopObj.setEdit(true);
+                                    }
+                                }
+                            }else
+                                userShops.add(new UserShopViewModel(mDealerShopId1,pk,shop,addr,bitmapImage,1,"",false,true));
+                            etShop_name.setText(shop);
+                            alertDialog.dismiss();
+
+                            Log.d(TAG,"Shop List after :"+userShops.toString());
+                        }
+                    }
+                });
+                alertDialog.setView(dialog);
+                alertDialog.show();
+            }
+        });
+
+        etShop_name1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
+                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
+                View dialog = inflater.inflate(R.layout.dialog_add_shop, null);
+                shopname = dialog.findViewById(R.id.etShopname);
+                address = dialog.findViewById(R.id.etAddress);
+                btnlogo = dialog.findViewById(R.id.logo_shop);
+                Cancle = dialog.findViewById(R.id.buttonCancel);
+                Submit = dialog.findViewById(R.id.buttonSubmit);
+
+                if(userShops.size()>0){
+                    for(int i=0;i<userShops.size();i++) {
+                        UserShopViewModel userShopViewModel = userShops.get(i);
+                        if (userShopViewModel != null) {
+                            if(userShopViewModel.getId()==mDealerShopId2) {
+                                shopname.setText(userShopViewModel.getShop_name());
+                                address.setText(userShopViewModel.getShop_address());
+                                if (userShopViewModel.getShop_image() == null && userShopViewModel.getShop_image_path()==null)
+                                    Glide.with(getBaseContext()).load(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                                else {
+                                    if(userShopViewModel.getShop_image()!=null)
+                                        btnlogo.setImageBitmap(userShopViewModel.getShop_image());
+                                    else if (userShopViewModel.getShop_image_path()!=null)
                                         Glide.with(getBaseContext()).load(ConsumeAPI.BASE_URL_IMG + userShopViewModel.getShop_image_path()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
                                 }
                             }
@@ -663,8 +746,23 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     public void onClick(View view) {
                         String shop = shopname.getText().toString();
                         String addr = address.getText().toString();
-                        etShop_name.setText(shop);
-                        alertDialog.dismiss();
+                        if(!shop.isEmpty()) {
+                            if(mDealerShopId2>0){
+                                for(int i=0;i<userShops.size();i++){
+                                    UserShopViewModel findShopObj=userShops.get(i);
+                                    if(findShopObj.getId()==mDealerShopId2){
+                                        findShopObj.setShop_name(shop);
+                                        findShopObj.setShop_address(addr);
+                                        findShopObj.setShop_image(bitmapImage);
+                                        findShopObj.setEdit(true);
+                                    }
+                                }
+                            }else
+                                userShops.add(new UserShopViewModel(mDealerShopId2,pk,shop,addr,bitmapImage,1,"",false,true));
+
+                            etShop_name1.setText(shop);
+                            alertDialog.dismiss();
+                        }
                     }
                 });
                 alertDialog.setView(dialog);
@@ -672,7 +770,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        etShop_name1.setOnClickListener(new View.OnClickListener() {
+        etShop_name2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
@@ -685,15 +783,21 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 Submit = dialog.findViewById(R.id.buttonSubmit);
 
                 if(userShops.size()>0){
-                    UserShopViewModel userShopViewModel=userShops.get(0);
-                    if(userShopViewModel!=null){
-                        shopname.setText(userShopViewModel.getShop_name());
-                        address.setText(userShopViewModel.getShop_address());
-                        if(userShopViewModel.getShop_image()==null && userShopViewModel.getShop_image_path().isEmpty())
-                            Glide.with(getBaseContext()).load(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
-                        else{
-                            if(!userShopViewModel.getShop_image_path().isEmpty())
-                                Glide.with(getBaseContext()).load(ConsumeAPI.BASE_URL_IMG+userShopViewModel.getShop_image_path()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                    for(int i=0;i<userShops.size();i++) {
+                        UserShopViewModel userShopViewModel = userShops.get(i);
+                        if (userShopViewModel != null) {
+                            if(userShopViewModel.getId()==mDealerShopId3) {
+                                shopname.setText(userShopViewModel.getShop_name());
+                                address.setText(userShopViewModel.getShop_address());
+                                if (userShopViewModel.getShop_image() == null && userShopViewModel.getShop_image_path()==null)
+                                    Glide.with(getBaseContext()).load(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                                else {
+                                    if(userShopViewModel.getShop_image()!=null)
+                                        btnlogo.setImageBitmap(userShopViewModel.getShop_image());
+                                    else if (userShopViewModel.getShop_image_path()!=null)
+                                        Glide.with(getBaseContext()).load(ConsumeAPI.BASE_URL_IMG + userShopViewModel.getShop_image_path()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(btnlogo);
+                                }
+                            }
                         }
                     }
                 }
@@ -715,48 +819,23 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                     public void onClick(View view) {
                         String shop = shopname.getText().toString();
                         String addr = address.getText().toString();
-                        etShop_name1.setText(shop);
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.setView(dialog);
-                alertDialog.show();
-            }
-        });
+                        if(!shop.isEmpty()) {
+                            if(mDealerShopId3>0){
+                                for(int i=0;i<userShops.size();i++){
+                                    UserShopViewModel findShopObj=userShops.get(i);
+                                    if(findShopObj.getId()==mDealerShopId3){
+                                        findShopObj.setShop_name(shop);
+                                        findShopObj.setShop_address(addr);
+                                        findShopObj.setShop_image(bitmapImage);
+                                        findShopObj.setEdit(true);
+                                    }
+                                }
+                            }else
+                                userShops.add(new UserShopViewModel(mDealerShopId3,pk,shop,addr,bitmapImage,1,"",false,true));
 
-        etShop_name2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(EditAccountActivity.this).create();
-                LayoutInflater inflater = EditAccountActivity.this.getLayoutInflater();
-                View dialog = inflater.inflate(R.layout.dialog_add_shop, null);
-                shopname = dialog.findViewById(R.id.etShopname);
-                address = dialog.findViewById(R.id.etAddress);
-                btnlogo = dialog.findViewById(R.id.logo_shop);
-                Cancle = dialog.findViewById(R.id.buttonCancel);
-                Submit = dialog.findViewById(R.id.buttonSubmit);
-
-
-
-                btnlogo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        selectImage();
-                    }
-                });
-                Cancle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                Submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String shop = shopname.getText().toString();
-                        String addr = address.getText().toString();
-                        etShop_name2.setText(shop);
-                        alertDialog.dismiss();
+                            etShop_name2.setText(shop);
+                            alertDialog.dismiss();
+                        }
                     }
                 });
                 alertDialog.setView(dialog);
@@ -950,23 +1029,39 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             }
                             //dealer shop section
                             if(convertJsonJava.getShops().size()>0){
+
                                 for(int i=0;i<convertJsonJava.getShops().size();i++){
                                     ShopViewModel shopViewModel=convertJsonJava.getShops().get(i);
                                     switch (i){
                                         case 0:
+                                            Log.e(TAG,"Here first shop");
                                             etShop_name.setText(shopViewModel.getShop_name());
-                                            mDealerShop1.setText(shopViewModel.getId());
-                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image()));
+                                            //mDealerShop1.setText(shopViewModel.getId());
+                                            mDealerShopId1=shopViewModel.getId();
+                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                         case 1:
+                                            Log.e(TAG,"Here second shop");
                                             etShop_name1.setText(shopViewModel.getShop_name());
-                                            mDealerShop2.setText(shopViewModel.getId());
-                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image()));
+                                            etShop_name1.setVisibility(View.VISIBLE);
+                                            imgShopname1.setVisibility(View.VISIBLE);
+                                            tilShop_name1.setVisibility(View.VISIBLE);
+                                            btnShopname1.setVisibility(View.VISIBLE);
+                                            btnShopname.setVisibility(View.GONE);
+                                            //mDealerShop2.setText(shopViewModel.getId());
+                                            mDealerShopId2=shopViewModel.getId();
+                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                         case 2:
                                             etShop_name2.setText(shopViewModel.getShop_name());
-                                            mDealerShop3.setText(shopViewModel.getId());
-                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image()));
+                                            etShop_name2.setVisibility(View.VISIBLE);
+                                            imgShopname2.setVisibility(View.VISIBLE);
+                                            tilShop_name2.setVisibility(View.VISIBLE);
+                                            btnShopname1.setVisibility(View.GONE);
+                                            btnShopname.setVisibility(View.GONE);
+                                            //mDealerShop3.setText(shopViewModel.getId());
+                                            mDealerShopId3=shopViewModel.getId();
+                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                     }
                                 }
@@ -1094,7 +1189,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String message = response.body().string();
-                Log.d("Response EEEEE", message);
+                //Log.d("Response EEEEE", message);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1102,7 +1197,10 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
                         if(userShops.size()>0){
                             for(int i=0;i<userShops.size();i++){
-                                postUserShop(userShops.get(i),encode);
+                                if(userShops.get(i).isEdit())
+                                    putUserShop(userShops.get(i).getId(),userShops.get(i),encode);
+                                else if(userShops.get(i).isAddNew())
+                                    postUserShop(userShops.get(i),encode);
                             }
                         }
 
@@ -1152,6 +1250,65 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             Request request1 = new Request.Builder()
                     .url(usershopurl)
                     .post(body1)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client1.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String message = e.getMessage().toString();
+                    Log.d("failure Response",message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                    mProgress.dismiss();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String message = response.body().string();
+                    Log.d(TAG,"User shop success"+ message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgress.dismiss();
+
+                        }
+                    });
+                    //finish();
+                }
+            });
+        }catch (JSONException je){
+            je.printStackTrace();
+        }
+    }
+
+    private void putUserShop(int id,UserShopViewModel usershop,String encode){
+        String usershopurl= ConsumeAPI.BASE_URL+"api/v1/shop/"+id+"/";
+        OkHttpClient client1=new OkHttpClient();
+        JSONObject post1=new JSONObject();
+        try{
+            post1.put("user",pk);
+            post1.put("shop_name",usershop.getShop_name());
+            post1.put("shop_address",usershop.getShop_address());
+            if(usershop.getShop_image()==null){
+                post1.put("shop_image",null);
+            }else{
+                try {
+                    post1.put("shop_image", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, usershop.getShop_image())));
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                }
+            }
+            RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
+            String auth = "Basic " + encode;
+            Request request1 = new Request.Builder()
+                    .url(usershopurl)
+                    .put(body1)
                     .header("Accept","application/json")
                     .header("Content-Type","application/json")
                     .header("Authorization",auth)
@@ -1893,9 +2050,9 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         etShop_name.setFocusable(false);
         etShop_name1.setFocusable(false);
         etShop_name2.setFocusable(false);
-        mDealerShop1=findViewById(R.id.dealer_shop_id_1);
-        mDealerShop2=findViewById(R.id.dealer_shop_id_2);
-        mDealerShop3=findViewById(R.id.dealer_shop_id_3);
+        mDealerShop1=(TextView)findViewById(R.id.dealer_shop_id_1);
+        mDealerShop2=(TextView) findViewById(R.id.dealer_shop_id_2);
+        mDealerShop3=(TextView) findViewById(R.id.dealer_shop_id_3);
     }
 
     private void Seach_Address(){

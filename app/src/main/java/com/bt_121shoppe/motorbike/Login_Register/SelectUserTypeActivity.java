@@ -15,13 +15,15 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 public class SelectUserTypeActivity extends AppCompatActivity {
+
+    private static final String TAG=SelectUserTypeActivity.class.getSimpleName();
     private RadioButton radioPublic_User,radioOther_dealer;
     private RadioGroup radioGroup;
     private Button Next;
     private String register_verify,product_id;
     private int group_user;
     private Intent intent;
-    private String processType,facebooktokenkey,facebookid,facebookname,imageurl;
+    private String processType="",facebooktokenkey,facebookid,facebookname,imageurl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,9 @@ public class SelectUserTypeActivity extends AppCompatActivity {
             facebookname = intent.getStringExtra("facebookname");
             imageurl = intent.getStringExtra("imageurl");
             register_verify = intent.getStringExtra("Register_verify");
-
         }
-        Log.d("Facebook register",processType+","+facebooktokenkey+","+facebookid+","+facebookname+","+imageurl);
-        Log.d("11111","facebook is "+CommonFunction.ProcessType.FacebookRegister.toString());
+//        Log.d("Facebook register",processType+","+facebooktokenkey+","+facebookid+","+facebookname+","+imageurl);
+//        Log.d("11111","facebook is "+CommonFunction.ProcessType.FacebookRegister.toString());
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
