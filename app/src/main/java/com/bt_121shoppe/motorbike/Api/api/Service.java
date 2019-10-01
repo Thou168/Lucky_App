@@ -7,6 +7,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
+import com.bt_121shoppe.motorbike.classes.APIResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -86,5 +87,18 @@ public interface Service {
     Call<Modeling> getModeling(@Path("modeling") int modeling);
     @GET("api/v1/brands/{brand}/")
     Call<Brand> getBrand(@Path("brand") int brand);
+
+    //added by Rith oct 01 2019
+    @GET("relatedpost/?post_type=&category=&modeling=&min_price=&max_price=&year=")
+    Call<APIResponse> getFilterResult(@Query("post_type") String post_type,@Query("category") String category,@Query("min_price") String min_price,@Query("max_price") String max_price,@Query("year") String year);
+
+    @GET("relatedpost/?post_type=&category=&modeling=&min_price=&max_price=&year=")
+    Call<APIResponse> getFilterResultwithModel(@Query("post_type") String post_type,@Query("category") String category,@Query("modeling")int modeling,@Query("min_price") String min_price,@Query("max_price") String max_price,@Query("year") String year);
+
+    @GET("bestdeal/")
+    Call<APIResponse> getPostBestDeal();
+
+    @GET("allposts/")
+    Call<APIResponse> getAllPosts();
 
 }

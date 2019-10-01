@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
@@ -37,6 +40,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFilterResultFragment extends android.app.Fragment {
     private static final String TAG= HomeFilterResultFragment.class.getSimpleName();
 
@@ -47,6 +54,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
     private String mViewType="",mCurrentLanguage;
     private ArrayList<PostViewModel> mPosts;
     private int[] modelIdListItems;
+    private int countresult=0;
 
     private ImageView mGridView,mListView,mGallaryView;
     private RecyclerView mRecyclerView;
@@ -299,10 +307,11 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         String strMaxPrice=maxPrice<1?"":String.valueOf(maxPrice);
         String type=postType.equals("1")?"sell":postType.equals("2")?"rent":"";
 
-        int countresult=0;
         //Log.d(TAG,"model id "+modelIdList.length);
         if(modelIdList.length==0) {
             mPosts = new ArrayList<>();
+            //old process
+            /*
             String url = ConsumeAPI.BASE_URL + "relatedpost/?post_type=" + type + "&category=" + category + "&modeling=&min_price="+strMinPrice+"&max_price="+strMaxPrice+"&year=" + year;
             String response = "";
             try {
@@ -317,12 +326,41 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             mPosts = APIResponse.getresults();
             mAdapter.addItems(mPosts);
             countresult=mPosts.size();
+            */
+            //new process
+            Service apiService= Client.getClient().create(Service.class);
+            Call<APIResponse> call=apiService.getFilterResult(type,category,strMinPrice,strMaxPrice,year);
+            call.enqueue(new Callback<APIResponse>() {
+                @Override
+                public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                    if(!response.isSuccessful()){
+                        Log.e(TAG,"Get Filter Result failure:"+response.code());
+                    }else{
+                        mPosts=response.body().getresults();
+                        mAdapter.addItems(mPosts);
+                        countresult =mPosts.size();
+                        mCountResultTextView.setText(mPosts.size()+" "+getString(R.string.result_name));
+                        if(countresult ==0)
+                            mNoResultTextView.setVisibility(View.VISIBLE);
+                        else
+                            mNoResultTextView.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<APIResponse> call, Throwable t) {
+                    Log.e(TAG,"Get Filter Result failure:"+t.getMessage());
+                }
+            });
+
+
 
         }else{
 
             for(int i=0;i<modelIdList.length;i++){
                 String modelId=String.valueOf(modelIdList[i]);
                 mPosts = new ArrayList<>();
+                /*
                 String url = ConsumeAPI.BASE_URL + "relatedpost/?post_type=" + type + "&category=" + category + "&modeling="+modelId+"&min_price="+strMinPrice+"&max_price="+strMaxPrice+"&year=" + year;
                 String response = "";
                 try {
@@ -336,19 +374,47 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                 APIResponse = gson.fromJson(response, APIResponse.class);
                 mPosts = APIResponse.getresults();
                 mAdapter.addItems(mPosts);
-                countresult=countresult+mPosts.size();
+                countresult = countresult +mPosts.size();
+                */
+                //new process
+                Service apiService= Client.getClient().create(Service.class);
+                Call<APIResponse> call=apiService.getFilterResult(type,category,strMinPrice,strMaxPrice,year);
+                call.enqueue(new Callback<APIResponse>() {
+                    @Override
+                    public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                        if(!response.isSuccessful()){
+                            Log.e(TAG,"Get Filter Result failure:"+response.code());
+                        }else{
+                            mPosts=response.body().getresults();
+                            mAdapter.addItems(mPosts);
+                            countresult =countresult+mPosts.size();
+                            mCountResultTextView.setText(countresult+" "+getString(R.string.result_name));
+
+                            if(countresult ==0)
+                                mNoResultTextView.setVisibility(View.VISIBLE);
+                            else
+                                mNoResultTextView.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<APIResponse> call, Throwable t) {
+                        Log.e(TAG,"Get Filter Result failure:"+t.getMessage());
+                    }
+                });
+
             }
         }
-        mCountResultTextView.setText(countresult+" "+getString(R.string.result_name));
+        //mCountResultTextView.setText(countresult+" "+getString(R.string.result_name));
         mRecyclerView.setAdapter(mAdapter);
         ViewCompat.setNestedScrollingEnabled(mRecyclerView,false);
         mAdapter.notifyDataSetChanged();
         mProgress.dismiss();
 
-        if(countresult==0)
-            mNoResultTextView.setVisibility(View.VISIBLE);
-        else
-            mNoResultTextView.setVisibility(View.GONE);
+//        if(countresult ==0)
+//            mNoResultTextView.setVisibility(View.VISIBLE);
+//        else
+//            mNoResultTextView.setVisibility(View.GONE);
 
         mListView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -160,7 +160,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private List<Integer> list_brand_model = new ArrayList<>();
 
     private  BottomNavigationView bnavigation;
-    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor,strColorKH;
+    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor,strColorKH="";
     int idYear=0,process_type=0,post_type=0,category=0;
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
@@ -1155,14 +1155,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 // add 2 image by samang 26/08
                 if (bitmapImage5 == null) {
-                    post.put("extra_image1", "");
+                    post.put("extra_image1", null);
                     post.put("extra_image1_base64", "");
                 } else {
                     post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage5)));
                     post.put("extra_image1_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage5)));
                 }
                 if (bitmapImage6 == null) {
-                    post.put("extra_image2", "");
+                    post.put("extra_image2", null);
                     post.put("extra_image2_base64", "");
                 } else {
                     post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapImage6)));

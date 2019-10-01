@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -24,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapter;
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapterV2;
@@ -51,6 +54,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -237,9 +244,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void prepareBestDealContent(){
+        /*
         new Handler().postDelayed(()->{
             String urlBestDeal= ConsumeAPI.BASE_URL+"bestdeal/";
-
             try{
                 String response=CommonFunction.doGetRequest(urlBestDeal);
                 Log.d(TAG,response);
@@ -259,6 +266,34 @@ public class HomeFragment extends Fragment {
             }
             mPostBestDealAdpater.addItems(mPostBestDeals);
         },2000);
+        */
+        Service apiService= Client.getClient().create(Service.class);
+        Call<APIResponse> call=apiService.getPostBestDeal();
+        call.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                mBestDealProgressbar.setVisibility(View.GONE);
+                if(!response.isSuccessful()){
+                    mBestDealNoResult.setVisibility(View.VISIBLE);
+                }else{
+                    int count=response.body().getCount();
+                    if(count==0)
+                        mBestDealNoResult.setVisibility(View.VISIBLE);
+                    else{
+                        mBestDealNoResult.setVisibility(View.GONE);
+                        mPostBestDeals=response.body().getresults();
+                        mPostBestDealAdpater.addItems(mPostBestDeals);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                Log.e(TAG,"Failed best deal with message:"+t.getMessage());
+                mBestDealProgressbar.setVisibility(View.GONE);
+                mBestDealNoResult.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void setupAllPosts(){
@@ -279,75 +314,143 @@ public class HomeFragment extends Fragment {
         //mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
         mAllPostAdapter=new AllPostAdapterV2(new ArrayList<>(),"List");
         prepareAllPostsContent();
-        mAllPostProgressbar.setVisibility(View.GONE);
+        //mAllPostProgressbar.setVisibility(View.GONE);
     }
 
     private void prepareAllPostsContent(){
 
-        //get from api
-        new Handler().postDelayed(()->{
-            try {
-                String urlAllPosts=ConsumeAPI.BASE_URL+"allposts/";
-                String response=CommonFunction.doGetRequest(urlAllPosts);
-                Log.d(TAG,"All posts response:"+response);
-                APIResponse apiResponseObj=new APIResponse();
-                Gson gson=new Gson();
-                apiResponseObj=gson.fromJson(response,APIResponse.class);
-                int count=apiResponseObj.getresults().size()>0?apiResponseObj.getresults().size():0;
+        Service apiService=Client.getClient().create(Service.class);
+        Call<APIResponse> call=apiService.getAllPosts();
+        call.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
                 mAllPostProgressbar.setVisibility(View.GONE);
-                if(count==0) {
+                if(!response.isSuccessful()){
                     mAllPostsNoResult.setVisibility(View.VISIBLE);
-                    mAllPostNoMoreResult.setVisibility(View.GONE);
                 }else{
-                    mAllPostsNoResult.setVisibility(View.GONE);
-                    mAllPostNoMoreResult.setVisibility(View.VISIBLE);
-                    mAllPosts=apiResponseObj.getresults();
+                    int count=response.body().getCount();
+                    if(count==0){
+                        mAllPostsNoResult.setVisibility(View.VISIBLE);
+                        mAllPostNoMoreResult.setVisibility(View.GONE);
+                    }else {
+                        mAllPostsNoResult.setVisibility(View.GONE);
+                        mAllPostNoMoreResult.setVisibility(View.VISIBLE);
+                        mAllPosts=response.body().getresults();
+                    }
+
+                    Log.d(TAG,"count posts "+mAllPosts.size());
+                    Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
+                    mAllPostAdapter.addItems(mAllPosts);
+                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                    mAllPostAdapter.notifyDataSetChanged();
+
+                    mListView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mListView.setImageResource(R.drawable.icon_list_c);
+                            mGridView.setImageResource(R.drawable.icon_grid);
+                            mGallaryView.setImageResource(R.drawable.icon_image);
+                            mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
+                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+                        }
+                    });
+
+                    mGridView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mListView.setImageResource(R.drawable.icon_list);
+                            mGridView.setImageResource(R.drawable.icon_grid_c);
+                            mGallaryView.setImageResource(R.drawable.icon_image);
+                            mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
+                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                        }
+                    });
+
+                    mGallaryView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mListView.setImageResource(R.drawable.icon_list);
+                            mGridView.setImageResource(R.drawable.icon_grid);
+                            mGallaryView.setImageResource(R.drawable.icon_image_c);
+                            mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
+                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+                        }
+                    });
                 }
-
-                Log.d(TAG,"count posts "+mAllPosts.size());
-                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                mAllPostAdapter.addItems(mAllPosts);
-                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
-                mAllPostAdapter.notifyDataSetChanged();
-
-                mListView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list_c);
-                        mGridView.setImageResource(R.drawable.icon_grid);
-                        mGallaryView.setImageResource(R.drawable.icon_image);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-                    }
-                });
-
-                mGridView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list);
-                        mGridView.setImageResource(R.drawable.icon_grid_c);
-                        mGallaryView.setImageResource(R.drawable.icon_image);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                    }
-                });
-
-                mGallaryView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list);
-                        mGridView.setImageResource(R.drawable.icon_grid);
-                        mGallaryView.setImageResource(R.drawable.icon_image_c);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-                    }
-                });
-
-            }catch (IOException ioe) {
-                ioe.printStackTrace();
             }
-        },2000);
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                mAllPostsNoResult.setVisibility(View.VISIBLE);
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+
+        //get from api
+//        new Handler().postDelayed(()->{
+//            try {
+//                String urlAllPosts=ConsumeAPI.BASE_URL+"allposts/";
+//                String response=CommonFunction.doGetRequest(urlAllPosts);
+//                Log.d(TAG,"All posts response:"+response);
+//                APIResponse apiResponseObj=new APIResponse();
+//                Gson gson=new Gson();
+//                apiResponseObj=gson.fromJson(response,APIResponse.class);
+//                int count=apiResponseObj.getresults().size()>0?apiResponseObj.getresults().size():0;
+//                mAllPostProgressbar.setVisibility(View.GONE);
+//                if(count==0) {
+//                    mAllPostsNoResult.setVisibility(View.VISIBLE);
+//                    mAllPostNoMoreResult.setVisibility(View.GONE);
+//                }else{
+//                    mAllPostsNoResult.setVisibility(View.GONE);
+//                    mAllPostNoMoreResult.setVisibility(View.VISIBLE);
+//                    mAllPosts=apiResponseObj.getresults();
+//                }
+//
+//                Log.d(TAG,"count posts "+mAllPosts.size());
+//                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
+//                mAllPostAdapter.addItems(mAllPosts);
+//                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+//                ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+//                mAllPostAdapter.notifyDataSetChanged();
+//
+//                mListView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.icon_list_c);
+//                        mGridView.setImageResource(R.drawable.icon_grid);
+//                        mGallaryView.setImageResource(R.drawable.icon_image);
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+//                    }
+//                });
+//
+//                mGridView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.icon_list);
+//                        mGridView.setImageResource(R.drawable.icon_grid_c);
+//                        mGallaryView.setImageResource(R.drawable.icon_image);
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//                    }
+//                });
+//
+//                mGallaryView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.icon_list);
+//                        mGridView.setImageResource(R.drawable.icon_grid);
+//                        mGallaryView.setImageResource(R.drawable.icon_image_c);
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+//                    }
+//                });
+//
+//            }catch (IOException ioe) {
+//                ioe.printStackTrace();
+//            }
+//        },2000);
 
         //get from firebase
         /*

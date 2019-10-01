@@ -395,7 +395,7 @@ public class HomeFilterConditionFragment extends Fragment {
                 e.printStackTrace();
             }
             mAdapter.addItems(mFilters);
-        },2000);
+        },500);
         //mProgressbar.setVisibility(View.GONE);
     }
 
@@ -404,9 +404,9 @@ public class HomeFilterConditionFragment extends Fragment {
             ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
             mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
             mFilters.add(new FilterConditionViewModel(1,getString(R.string.sel)));
-            mFilters.add(new FilterConditionViewModel(2,getString(R.string.rent)));
+            mFilters.add(new FilterConditionViewModel(2,getString(R.string.ren)));
             mAdapter.addItems(mFilters);
-        },2000);
+        },500);
     }
 
     private void prepareFilterConditionCategory(){
@@ -439,8 +439,10 @@ public class HomeFilterConditionFragment extends Fragment {
                 e.printStackTrace();
             }
             mAdapter.addItems(mFilters);
-        },2000);
+        },500);
     }
+
+
 
     private void prepareFilterConditionBrand(int categoryId){
         new Handler().postDelayed(()->{
@@ -488,7 +490,7 @@ public class HomeFilterConditionFragment extends Fragment {
                 e.printStackTrace();
             }
             mAdapter.addItems(mFilters);
-        },2000);
+        },500);
     }
 
     private void loadFragment(Fragment fragment){
