@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapter;
+import com.bt_121shoppe.motorbike.adapters.AllPostAdapterV2;
 import com.bt_121shoppe.motorbike.adapters.PostBestDealAdapterV2;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
@@ -58,19 +59,21 @@ public class HomeFragment extends Fragment {
     private TextInputLayout mFilterCategory,mFilterBrand,mFilterYear,mFilterPriceRange,mFilterPostType;
     private TextInputEditText mETFilterCategory,mETFilterBrandET,mETFilterYear,mETFilterPriceRange,mETFilterPostType;
     private RecyclerView mBestDealRecyclerView,mAllPostsRecyclerView;
-    private TextView mBestDealNoResult,mAllPostsNoResult;
+    private TextView mBestDealNoResult,mAllPostsNoResult,mAllPostNoMoreResult;
     private ProgressBar mBestDealProgressbar,mAllPostProgressbar;
     private PreCachingLayoutManager mLayoutManager;
     private LinearLayoutManager mAllPostLayoutManager;
     private PostBestDealAdapterV2 mPostBestDealAdpater;
-    private AllPostAdapter mAllPostAdapter;
+    //private AllPostAdapter mAllPostAdapter;
+    private AllPostAdapterV2 mAllPostAdapter;
     private ImageView mListView,mGridView,mGallaryView;
     private TextView mBestDealText;
 
     private int mPostTypeId=0,mCategoryId=0,mBrandId=0,mYearId=0;
     private double mMinPrice=0,mMaxPrice=0;
     private List<PostViewModel> mPostBestDeals;
-    private List<PostProduct> mAllPosts;
+    //private List<PostProduct> mAllPosts;
+    private List<PostViewModel> mAllPosts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +96,7 @@ public class HomeFragment extends Fragment {
         mAllPostsRecyclerView=view.findViewById(R.id.list_new_post);
         mAllPostProgressbar=view.findViewById(R.id.progress_bar1);
         mAllPostsNoResult=view.findViewById(R.id.text1);
+        mAllPostNoMoreResult=view.findViewById(R.id.textViewAllPostNoMoreResult);
         mListView=view.findViewById(R.id.img_list);
         mGridView=view.findViewById(R.id.grid);
         mGallaryView=view.findViewById(R.id.btn_image);
@@ -272,12 +276,81 @@ public class HomeFragment extends Fragment {
         mAllPostsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Drawable dividerDrawable=ContextCompat.getDrawable(getContext(),R.drawable.divider_drawable);
         mAllPostsRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
-        mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
+        //mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
+        mAllPostAdapter=new AllPostAdapterV2(new ArrayList<>(),"List");
         prepareAllPostsContent();
         mAllPostProgressbar.setVisibility(View.GONE);
     }
 
     private void prepareAllPostsContent(){
+
+        //get from api
+        new Handler().postDelayed(()->{
+            try {
+                String urlAllPosts=ConsumeAPI.BASE_URL+"allposts/";
+                String response=CommonFunction.doGetRequest(urlAllPosts);
+                Log.d(TAG,"All posts response:"+response);
+                APIResponse apiResponseObj=new APIResponse();
+                Gson gson=new Gson();
+                apiResponseObj=gson.fromJson(response,APIResponse.class);
+                int count=apiResponseObj.getresults().size()>0?apiResponseObj.getresults().size():0;
+                mAllPostProgressbar.setVisibility(View.GONE);
+                if(count==0) {
+                    mAllPostsNoResult.setVisibility(View.VISIBLE);
+                    mAllPostNoMoreResult.setVisibility(View.GONE);
+                }else{
+                    mAllPostsNoResult.setVisibility(View.GONE);
+                    mAllPostNoMoreResult.setVisibility(View.VISIBLE);
+                    mAllPosts=apiResponseObj.getresults();
+                }
+
+                Log.d(TAG,"count posts "+mAllPosts.size());
+                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
+                mAllPostAdapter.addItems(mAllPosts);
+                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                mAllPostAdapter.notifyDataSetChanged();
+
+                mListView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mListView.setImageResource(R.drawable.icon_list_c);
+                        mGridView.setImageResource(R.drawable.icon_grid);
+                        mGallaryView.setImageResource(R.drawable.icon_image);
+                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
+                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+                    }
+                });
+
+                mGridView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mListView.setImageResource(R.drawable.icon_list);
+                        mGridView.setImageResource(R.drawable.icon_grid_c);
+                        mGallaryView.setImageResource(R.drawable.icon_image);
+                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
+                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                    }
+                });
+
+                mGallaryView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mListView.setImageResource(R.drawable.icon_list);
+                        mGridView.setImageResource(R.drawable.icon_grid);
+                        mGallaryView.setImageResource(R.drawable.icon_image_c);
+                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
+                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+                    }
+                });
+
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        },2000);
+
+        //get from firebase
+        /*
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
         Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
         mAllPosts=new ArrayList<>();
@@ -308,8 +381,10 @@ public class HomeFragment extends Fragment {
                         je.printStackTrace();
                     }
                 }
+
+
                 Log.d(TAG,"count posts "+mAllPosts.size());
-                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
+                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
                 mAllPostAdapter.addItems(mAllPosts);
                 mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
                 ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
@@ -321,7 +396,7 @@ public class HomeFragment extends Fragment {
                         mListView.setImageResource(R.drawable.icon_list_c);
                         mGridView.setImageResource(R.drawable.icon_grid);
                         mGallaryView.setImageResource(R.drawable.icon_image);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"List"));
+                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
                     }
                 });
@@ -332,7 +407,7 @@ public class HomeFragment extends Fragment {
                         mListView.setImageResource(R.drawable.icon_list);
                         mGridView.setImageResource(R.drawable.icon_grid_c);
                         mGallaryView.setImageResource(R.drawable.icon_image);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Grid"));
+                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
                     }
                 });
@@ -343,7 +418,7 @@ public class HomeFragment extends Fragment {
                         mListView.setImageResource(R.drawable.icon_list);
                         mGridView.setImageResource(R.drawable.icon_grid);
                         mGallaryView.setImageResource(R.drawable.icon_image_c);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Image"));
+                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
                     }
                 });
@@ -355,6 +430,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        */
+
     }
 
 }
