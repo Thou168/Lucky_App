@@ -16,6 +16,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,7 +101,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     private SharedPreferences mSharedPreferences;
     private DrawerLayout mDrawerLayout;
-    private ImageView mImageViewEnglish,mImageViewKher,mProfileImageDrawer;
+    private ImageView mImageViewEnglish, mImageViewKhmer,mProfileImageDrawer;
     private RecyclerView mRecyclerView;
     private BottomNavigationView mBottomNavigation;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -118,7 +120,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Bundle bundle;
     private int pk=0,mPostTypeId=0,mCategoryId=0,mBrandId=0,mYearId=0;
     private double mMinPrice=0,mMaxPrice=0;
+    private Fragment currentFragment;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +148,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         setSupportActionBar(mToolbar);
 
         mImageViewEnglish=findViewById(R.id.english);
-        mImageViewKher=findViewById(R.id.khmer);
+        mImageViewKhmer =findViewById(R.id.khmer);
         mDrawerLayout=findViewById(R.id.drawer_layout);
         NavigationView mNavigationView=findViewById(R.id.nav_view);
         mSwipeRefreshLayout=findViewById(R.id.refresh);
@@ -179,10 +183,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 //        if(language.equals("km")){
 //            mImageViewEnglish.setVisibility(View.GONE);
-//            mImageViewKher.setVisibility(View.VISIBLE);
+//            mImageViewKhmer.setVisibility(View.VISIBLE);
 //        }else{
 //            mImageViewEnglish.setVisibility(View.VISIBLE);
-//            mImageViewKher.setVisibility(View.GONE);
+//            mImageViewKhmer.setVisibility(View.GONE);
 //        }
 
         requestStoragePermission(false);
@@ -291,11 +295,27 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mProgress.setMessage(getString(R.string.please_wait));
         //mProgress.show();
 
-        loadFragment(new HomeFragment(),"FHome");
+        if (getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE) {
+            // If the screen is now in landscape mode, we can show the
+            // dialog in-line with the list so we don't need this activity.
+            finish();
+            return;
+        }
+
+        if (savedInstanceState == null) {
+            // During initial setup, plug in the details fragment.
+            HomeFragment details = new HomeFragment();
+            //details.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(R.id.frameLayout, details).commit();
+        }
+        //loadFragment(new HomeFragment(),"FHome");
+
+
 
 
         /* -------------- start event listener -------------------------*/
-//        mImageViewKher.setOnClickListener(new View.OnClickListener() {
+//        mImageViewKhmer.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                language("km");
@@ -386,14 +406,18 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public void onBackPressed(){
         if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        else
+        else {
             super.onBackPressed();
+            Log.e(TAG, "Run on back pressed event.");
+        }
     }
 
     @Override
     public void onStart(){
         super.onStart();
         mBottomNavigation.getMenu().getItem(0).setChecked(true);
+        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
+        Log.e(TAG,"current Fragment onStart "+currentFragment);
     }
 
     private void language(String lang){
@@ -503,48 +527,77 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private void SwitchLanguage(){
         Paper.init(this);
         String language=Paper.book().read("language");
-
+        Log.e(TAG,"Current language is "+language);
         if(language==null){
             Paper.book().write("language","km");
             language("km");
-            updateView(Paper.book().read("language"));
-            mImageViewKher.setVisibility(View.GONE);
+            mImageViewKhmer.setVisibility(View.GONE);
             mImageViewEnglish.setVisibility(View.VISIBLE);
+            updateView(Paper.book().read("language"));
         }else{
             if(language.equals("km")){
-                mImageViewKher.setVisibility(View.GONE);
+                mImageViewKhmer.setVisibility(View.GONE);
                 mImageViewEnglish.setVisibility(View.VISIBLE);
             }else {
-                mImageViewKher.setVisibility(View.VISIBLE);
+                mImageViewKhmer.setVisibility(View.VISIBLE);
                 mImageViewEnglish.setVisibility(View.GONE);
             }
             mImageViewEnglish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Paper.book().write("language","en");
-                    updateView(Paper.book().read("language"));
                     language("en");
-                    mImageViewKher.setVisibility(View.VISIBLE);
+                    mImageViewKhmer.setVisibility(View.VISIBLE);
                     mImageViewEnglish.setVisibility(View.GONE);
+                    updateView(Paper.book().read("language"));
                 }
             });
         }
 
-        mImageViewKher.setOnClickListener(new View.OnClickListener() {
+        mImageViewKhmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Paper.book().write("language","km");
-                updateView(Paper.book().read("language"));
                 language("km");
-                mImageViewKher.setVisibility(View.GONE);
+                mImageViewKhmer.setVisibility(View.GONE);
                 mImageViewEnglish.setVisibility(View.VISIBLE);
+                updateView(Paper.book().read("language"));
             }
         });
     }
 
     private void updateView(String language){
+        //Log.e(TAG,"current Fragment on change language "+language);
+        language(language);
+        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(currentFragment).attach(currentFragment).commit();
+
+//        switch (language){
+//            case "km":
+//                mImageViewKhmer.setVisibility(View.VISIBLE);
+//                mImageViewEnglish.setVisibility(View.GONE);
+//                break;
+//            case "en":
+//                mImageViewKhmer.setVisibility(View.GONE);
+//                mImageViewEnglish.setVisibility(View.VISIBLE);
+//                break;
+//        }
         Context context= LocaleHapler.setLocale(this,language);
-        Resources resource=context.getResources();
+        Resources resources=context.getResources();
+        //title menu
+        nav_profile.setTitle(resources.getString(R.string.menu_profile));
+        nav_post.setTitle(resources.getString(R.string.menu_post));
+        nav_like.setTitle(resources.getString(R.string.menu_like));
+        nav_loan.setTitle(resources.getString(R.string.menu_loan));
+        nav_setting.setTitle(resources.getString(R.string.menu_setting));
+        nav_about.setTitle(resources.getString(R.string.menu_about));
+        nav_contact.setTitle(resources.getString(R.string.menu_contact));
+        nav_term.setTitle(resources.getString(R.string.menu_privacy));
+
     }
 
     private void getUserProfile(){

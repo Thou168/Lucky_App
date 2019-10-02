@@ -320,6 +320,93 @@ public class HomeFilterConditionFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //move your code from onViewCreated() here
+        /* initial value to filter control */
+        //Post Type
+        switch (postTypeId){
+            case 0:
+                mFilterPostType.setText(getString(R.string.all));
+                break;
+            case 1:
+                mFilterPostType.setText(getString(R.string.sell));
+                break;
+            case 2:
+                mFilterPostType.setText(getString(R.string.rent));
+                break;
+        }
+        //Category
+        if(categoryId==0){
+            mFilterCategory.setText(getString(R.string.all));
+        }else {
+            try {
+                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
+                try{
+                    JSONObject obj=new JSONObject(responseCategory);
+                    if(currentLanguage.equals("km"))
+                        mFilterCategory.setText(obj.getString("cat_name_kh"));
+                    else
+                        mFilterCategory.setText(obj.getString("cat_name"));
+                }catch (JSONException je){
+                    je.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //Brand
+        if(brandId==0){
+            mFilterBrand.setText(getString(R.string.all));
+        }else{
+            try{
+                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
+                try{
+                    JSONObject obj=new JSONObject(responseBrand);
+                    if(currentLanguage.equals("km"))
+                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
+                    else
+                        mFilterBrand.setText(obj.getString("brand_name"));
+                }catch (JSONException je){
+                    je.printStackTrace();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        //Year
+        if(yearId==0){
+            mFilterYear.setText(getString(R.string.all));
+        }else{
+            try{
+                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
+                try{
+                    JSONObject obj=new JSONObject(responseYear);
+                    mFilterYear.setText(obj.getString("year"));
+                }catch (JSONException je){
+                    je.printStackTrace();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        //price range
+        if(minPrice>1||maxPrice>1){
+            if(minPrice>1&&maxPrice>1)
+                mFilterPriceRange.setText("$"+minPrice+" - $"+maxPrice);
+            else if(minPrice>1&&maxPrice<1)
+                mFilterPriceRange.setText("$"+minPrice+" - $");
+            else if(minPrice<1&&maxPrice>1)
+                mFilterPriceRange.setText("$0 - $"+maxPrice);
+        }else
+            mFilterPriceRange.setText(getString(R.string.all));
+
+        /* end initial value to filter control */
+
+    }
+
     private void setupFilterItemsList(){
         mFilterItemsList=new ArrayList<>();
         mLayoutManager=new PreCachingLayoutManager(getContext());

@@ -81,7 +81,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         mMinPrice=bundle.getDouble("minPrice",0);
         mMaxPrice=bundle.getDouble("maxPrice",0);
 
-        Log.d(TAG,"post="+mPostTypeId+" cat= "+mCategoryId+" brand="+mBrandId+" year="+mYearId);
+        Log.d(TAG,"post="+mPostTypeId+" cat= "+mCategoryId+" brand="+mBrandId+" year="+mYearId+"  current language is"+mCurrentLanguage);
 
         mProgress=new ProgressDialog(getContext());
         mProgress.setMessage(getString(R.string.please_wait));
@@ -277,6 +277,93 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         setupFilterResults(String.valueOf(mPostTypeId),"List",mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //move your code from onViewCreated() here
+        /* initial value to filter control */
+        //Post Type
+        switch (mPostTypeId){
+            case 0:
+                mFilterPostType.setText(getString(R.string.all));
+                break;
+            case 1:
+                mFilterPostType.setText(getString(R.string.sell));
+                break;
+            case 2:
+                mFilterPostType.setText(getString(R.string.rent));
+                break;
+        }
+        //Category
+        if(mCategoryId==0){
+            mFilterCategory.setText(getString(R.string.all));
+        }else {
+            try {
+                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+mCategoryId);
+                try{
+                    JSONObject obj=new JSONObject(responseCategory);
+                    if(mCurrentLanguage.equals("km"))
+                        mFilterCategory.setText(obj.getString("cat_name_kh"));
+                    else
+                        mFilterCategory.setText(obj.getString("cat_name"));
+                }catch (JSONException je){
+                    je.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //Brand
+        if(mBrandId==0){
+            mFilterBrand.setText(getString(R.string.all));
+        }else{
+            try{
+                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+mBrandId);
+                try{
+                    JSONObject obj=new JSONObject(responseBrand);
+                    if(mCurrentLanguage.equals("km"))
+                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
+                    else
+                        mFilterBrand.setText(obj.getString("brand_name"));
+                }catch (JSONException je){
+                    je.printStackTrace();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        //Year
+        if(mYearId==0){
+            mFilterYear.setText(getString(R.string.all));
+        }else{
+            try{
+                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+mYearId);
+                try{
+                    JSONObject obj=new JSONObject(responseYear);
+                    mFilterYear.setText(obj.getString("year"));
+                }catch (JSONException je){
+                    je.printStackTrace();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        //price range
+        if(mMinPrice>1||mMaxPrice>1){
+            if(mMinPrice>1&&mMaxPrice>1)
+                mFilterPriceRange.setText("$"+mMinPrice+" - $"+mMaxPrice);
+            else if(mMinPrice>1&&mMaxPrice<1)
+                mFilterPriceRange.setText("$"+mMinPrice+" - $");
+            else if(mMinPrice<1&&mMaxPrice>1)
+                mFilterPriceRange.setText("$0 - $"+mMaxPrice);
+        }else
+            mFilterPriceRange.setText(getString(R.string.all));
+
+        /* end initial value to filter control */
+
     }
 
     private void setupFilterResults(String postType,String viewType,int categoryId,int[] modelsId,int yearId,double minPrice,double maxPrice){

@@ -115,6 +115,8 @@ public class HomeFragment extends Fragment {
         mETFilterYear.setFocusable(false);
         mETFilterPriceRange.setFocusable(false);
 
+        mETFilterPostType.setText(getString(R.string.all));
+
         mBestDealProgressbar.setVisibility(View.VISIBLE);
         mAllPostProgressbar.setVisibility(View.VISIBLE);
 
@@ -209,6 +211,17 @@ public class HomeFragment extends Fragment {
         /* end action event lister */
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mETFilterPostType.setText(getString(R.string.all));
+        mETFilterCategory.setText(getString(R.string.all));
+        mETFilterBrandET.setText(getString(R.string.all));
+        mETFilterYear.setText(getString(R.string.all));
+        mETFilterPriceRange.setText(getString(R.string.all));
     }
 
     private void loadFragment(Fragment fragment){

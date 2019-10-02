@@ -231,7 +231,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
         //tabs.setupWithViewPager(viewPager);
         //inttab = getIntent().getIntExtra("Tab",0);
-        Log.d("Acc",inttab+" "+tabs);
+        //Log.d("Acc",inttab+" "+tabs);
         //tabs.getTabAt(inttab).select();
 
 

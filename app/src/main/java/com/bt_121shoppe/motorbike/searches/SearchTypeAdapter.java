@@ -170,11 +170,28 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 else if (mPost.getPost_type().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
             }
+
+
+//            if(mPost.getPost_sub_title().isEmpty()){
+//                strPostTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor()).split(",")[0];
+//            }else
+//                strPostTitle=mPost.getPost_sub_title().split(",")[0];
+//            postTitle.setText(strPostTitle);
+
             if(mPost.getPost_sub_title().isEmpty()){
-                strPostTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor()).split(",")[0];
+                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+                if(lang.equals("View:"))
+                    strPostTitle=fullTitle.split(",")[0];
+                else
+                    strPostTitle=fullTitle.split(",")[1];
             }else
+            if(lang.equals("View:"))
                 strPostTitle=mPost.getPost_sub_title().split(",")[0];
+            else
+                strPostTitle=mPost.getPost_sub_title().split(",")[1];
+
             postTitle.setText(strPostTitle);
+
             postLocationDT.setText("");
 
             double mPrice=0;
