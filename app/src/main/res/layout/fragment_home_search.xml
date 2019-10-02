@@ -74,6 +74,7 @@
             </ProgressBar>
 
             <TextView
+                android:visibility="gone"
                 android:layout_marginTop="80dp"
                 android:id="@+id/noResult"
                 android:text="@string/no_result"

@@ -103,48 +103,19 @@
                         android:id="@+id/line0"
                         style="@style/line"
                         android:layout_below="@+id/description" />
-<!--                    <TextView-->
-<!--                        android:id="@+id/postCodeTitle"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_below="@+id/line0"-->
-<!--                        android:layout_marginLeft="@dimen/dp_16"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:padding="@dimen/dp_8"-->
-<!--                        android:text="@string/postcode"-->
-<!--                        android:textSize="14sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/tvPostCode"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_below="@+id/line0"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:layout_marginStart="0dp"-->
-<!--                        android:layout_marginLeft="166dp"-->
-<!--                        android:layout_marginTop="1dp"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:padding="@dimen/dp_8"-->
-<!--                        android:text="@string/postcode"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:textStyle="bold" />-->
-<!--                    <View-->
-<!--                        android:id="@+id/line"-->
-<!--                        style="@style/line"-->
-<!--                        android:layout_below="@+id/tvPostCode" />-->
                     <TextView
-                        android:id="@+id/brandTitle"
+                        android:id="@+id/postCodeTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line0"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
-                        android:text="@string/brand"
+                        android:text="@string/postcode"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tvBrand"
+                        android:id="@+id/tvPostCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line0"
@@ -154,81 +125,110 @@
                         android:layout_marginTop="1dp"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
-                        android:text="@string/brand"
+                        android:text="@string/postcode"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-
                     <View
-                        android:id="@+id/line2"
+                        android:id="@+id/line"
                         style="@style/line"
-                        android:layout_below="@+id/tvBrand" />
+                        android:layout_below="@+id/tvPostCode" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/brandTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line"-->
+<!--                        android:layout_marginLeft="@dimen/dp_16"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="@dimen/dp_8"-->
+<!--                        android:text="@string/brand"-->
+<!--                        android:textSize="14sp" />-->
 
-                    <TextView
-                        android:id="@+id/modelTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line2"
-                        android:layout_marginLeft="@dimen/dp_16"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/model"
-                        android:textSize="14sp" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvBrand"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_marginStart="0dp"-->
+<!--                        android:layout_marginLeft="166dp"-->
+<!--                        android:layout_marginTop="1dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="@dimen/dp_8"-->
+<!--                        android:text="@string/brand"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:layout_alignParentEnd="true"
-                        android:id="@+id/tv_Model"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line2"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/model"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <View-->
+<!--                        android:id="@+id/line2"-->
+<!--                        style="@style/line"-->
+<!--                        android:layout_below="@+id/tvBrand" />-->
 
-                    <View
-                        android:id="@+id/linee2"
-                        style="@style/line"
-                        android:layout_below="@+id/tvBrand" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/modelTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line2"-->
+<!--                        android:layout_marginLeft="@dimen/dp_16"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="@dimen/dp_8"-->
+<!--                        android:text="@string/model"-->
+<!--                        android:textSize="14sp" />-->
 
-                    <TextView
-                        android:id="@+id/yearTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line3"
-                        android:layout_marginLeft="@dimen/dp_16"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/year"
-                        android:textSize="14sp" />
+<!--                    <TextView-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:id="@+id/tv_Model"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line2"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="@dimen/dp_8"-->
+<!--                        android:text="@string/model"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:layout_alignParentEnd="true"
-                        android:id="@+id/tv_Year"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line3"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/year"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <View-->
+<!--                        android:id="@+id/linee2"-->
+<!--                        style="@style/line"-->
+<!--                        android:layout_below="@+id/tvBrand" />-->
 
-                    <View
-                        android:id="@+id/line3"
-                        style="@style/line"
-                        android:layout_below="@+id/tv_Model" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/yearTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line3"-->
+<!--                        android:layout_marginLeft="@dimen/dp_16"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="@dimen/dp_8"-->
+<!--                        android:text="@string/year"-->
+<!--                        android:textSize="14sp" />-->
 
-                    <View
-                        android:id="@+id/line4"
-                        style="@style/line"
-                        android:layout_below="@+id/tv_Year" />
+<!--                    <TextView-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:id="@+id/tv_Year"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line3"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:padding="@dimen/dp_8"-->
+<!--                        android:text="@string/year"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <View-->
+<!--                        android:id="@+id/line3"-->
+<!--                        style="@style/line"-->
+<!--                        android:layout_below="@+id/tv_Model" />-->
+
+<!--                    <View-->
+<!--                        android:id="@+id/line4"-->
+<!--                        style="@style/line"-->
+<!--                        android:layout_below="@+id/tv_Year" />-->
 
                     <TextView
                         android:id="@+id/conditionTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/line4"
+                        android:layout_below="@+id/line"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
@@ -240,7 +240,7 @@
                         android:id="@+id/tv_Condition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/line4"
+                        android:layout_below="@+id/line"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_8"
                         android:text="@string/condition"

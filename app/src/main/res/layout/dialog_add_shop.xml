@@ -15,21 +15,31 @@
         android:weightSum="1"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etShopname"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilShop_Name"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:hint="@string/shop_name"
-            android:textSize="14dp"
-            android:padding="@dimen/dp_8dp" />
+            android:layout_height="45dp">
+            <EditText
+                android:id="@+id/etShopname"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="@string/shop_name"
+                android:textSize="14dp"
+                android:padding="@dimen/dp_8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etAddress"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilShop_Addr"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:hint="@string/address"
-            android:textSize="14dp"
-            android:padding="@dimen/dp_8dp" />
+            android:layout_height="45dp">
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="@string/address"
+                android:textSize="14dp"
+                android:padding="@dimen/dp_8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/tv_logo"
             android:layout_width="match_parent"

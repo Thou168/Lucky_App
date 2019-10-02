@@ -364,12 +364,12 @@ public class HomeFilterConditionFragment extends Fragment {
 
         mRecylerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-        mProgressbar.setVisibility(View.GONE);
+        mProgressbar.setVisibility(View.VISIBLE);
     }
 
     private void prepareFilterConditionYear(){
-        mProgressbar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(()->{
+            mProgressbar.setVisibility(View.GONE);
             mFilterUrl= ConsumeAPI.BASE_URL+"api/v1/years/";
             ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
             mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
@@ -401,6 +401,7 @@ public class HomeFilterConditionFragment extends Fragment {
 
     private void prepareFilterConditionPostType(){
         new Handler().postDelayed(()->{
+            mProgressbar.setVisibility(View.GONE);
             ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
             mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
             mFilters.add(new FilterConditionViewModel(1,getString(R.string.sel)));
@@ -420,6 +421,7 @@ public class HomeFilterConditionFragment extends Fragment {
                     JSONObject obj=new JSONObject(response);
                     int count=obj.getInt("count");
                     if(count>0){
+                        mProgressbar.setVisibility(View.GONE);
                         JSONArray results=obj.getJSONArray("results");
                         for(int i=0;i<results.length();i++){
                             JSONObject rs=results.getJSONObject(i);
@@ -455,6 +457,7 @@ public class HomeFilterConditionFragment extends Fragment {
                     JSONObject obj=new JSONObject(response);
                     int count=obj.getInt("count");
                     if(count>0){
+                        mProgressbar.setVisibility(View.GONE);
                         JSONArray results=obj.getJSONArray("results");
                         if(categoryId==0){
                             for(int i=0;i<results.length();i++){

@@ -46,6 +46,7 @@ import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity
 import com.bt_121shoppe.motorbike.models.PostViewModel
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
+import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bt_121shoppe.motorbike.utils.LoanCalculator
 
 import com.google.android.gms.maps.GoogleMap
@@ -211,13 +212,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         tvPrice = findViewById(R.id.tv_price)
 //        tvPrice1 = findViewById(R.id.tv_price1)
         tvDiscount = findViewById(R.id.tv_discount)
-        tvBrand=findViewById(R.id.tvBrand)
-        tvModel=findViewById(R.id.tv_Model)
-        tvYear=findViewById(R.id.tv_Year)
+//        tvBrand=findViewById(R.id.tvBrand)
+//        tvModel=findViewById(R.id.tv_Model)
+//        tvYear=findViewById(R.id.tv_Year)
         tvCondition=findViewById(R.id.tv_Condition)
         tvColor=findViewById(R.id.tv_Color)
         tvDescription=findViewById(R.id.tv_Description)
-//        tvPostCode = findViewById(R.id.tvPostCode)
+        tvPostCode = findViewById(R.id.tvPostCode)
         tvMonthlyPayment=findViewById(R.id.tvMonthlyPayment)
         edLoanPrice=findViewById(R.id.ed_loan_price)
         edLoanInterestRate=findViewById(R.id.ed_loan_interest_rate)
@@ -504,7 +505,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 runOnUiThread {
                                     try {
                                         val jsonObject = JSONObject(mMessage)
-                                        tvYear.setText(jsonObject.getString("year"))
+//                                        tvYear.setText(jsonObject.getString("year"))
                                     } catch (e: JSONException) {
                                         e.printStackTrace()
                                     }
@@ -533,9 +534,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         Log.d("modeling_name",jsonObject.getString("modeling_name"))
                                         Log.d("Language",language)
                                         if(language.equals("km")){
-                                            tvModel.setText(jsonObject.getString("modeling_name_kh"))
+//                                            tvModel.setText(jsonObject.getString("modeling_name_kh"))
                                         }else if(language.equals("en")){
-                                            tvModel.setText(jsonObject.getString("modeling_name"))
+//                                            tvModel.setText(jsonObject.getString("modeling_name"))
                                         }
 
                                         val url3=ConsumeAPI.BASE_URL+"api/v1/brands/"+jsonObject.getString("brand")
@@ -555,9 +556,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                                         val jsonObject = JSONObject(mMessage)
                                                         //Log.d(TAG,"Year "+jsonObject.getString("year"))
                                                         if(language.equals("km")){
-                                                            tvBrand.setText(jsonObject.getString("brand_name_as_kh"))
+//                                                            tvBrand.setText(jsonObject.getString("brand_name_as_kh"))
                                                         }else if(language.equals("en")){
-                                                            tvBrand.setText(jsonObject.getString("brand_name"))
+//                                                            tvBrand.setText(jsonObject.getString("brand_name"))
                                                         }
 
                                                     } catch (e: JSONException) {
@@ -583,17 +584,30 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         })
+//Add by Raksmey 02/10/2019
+                        var ptitle:String
+                        if (postDetail.post_sub_title.isEmpty()){
+                            postTitle=CommonFunction.generatePostSubTitle(postDetail.modeling,postDetail.year,postDetail.color)
+                            if (language.equals("en"))
+                                ptitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                            else
+                                ptitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        } else
+                            if (language.equals("en"))
+                                ptitle = postDetail.getPost_sub_title().split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                            else
+                                ptitle = postDetail.getPost_sub_title().split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        tvPostTitle.setText(ptitle)
 
-
-                        postTitle=postDetail.title.toString()
+//                        postTitle=postDetail.title.toString()
                         postPrice=postDetail.cost.toString()
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
-                        tvPostTitle.setText(postDetail.title.toString())
+//                        tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$"+ discount)
                         edLoanPrice.setText(""+discount)
-//                        tvPostCode.setText(postDetail.id.toString())
-
+                        tvPostCode.setText(postDetail.id.toString())
+//End
                         show_amount_loan = "$"+discount.toString()
 
 //                        tvPrice1.setText("$"+ postDetail.cost)

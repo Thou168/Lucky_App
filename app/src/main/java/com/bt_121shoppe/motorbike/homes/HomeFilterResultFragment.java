@@ -85,6 +85,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
 
         mProgress=new ProgressDialog(getContext());
         mProgress.setMessage(getString(R.string.please_wait));
+        mProgress.show();
 
         mRecyclerView=view.findViewById(R.id.RecylerView);
         mListView=view.findViewById(R.id.img_list);
@@ -279,7 +280,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
     }
 
     private void setupFilterResults(String postType,String viewType,int categoryId,int[] modelsId,int yearId,double minPrice,double maxPrice){
-        mProgress.show();
+//        mProgress.show();
         mPosts=new ArrayList<>();
         mLayoutManager=new GridLayoutManager(getContext(),1);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -333,6 +334,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             call.enqueue(new Callback<APIResponse>() {
                 @Override
                 public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                    mProgress.dismiss();
                     if(!response.isSuccessful()){
                         Log.e(TAG,"Get Filter Result failure:"+response.code());
                     }else{
@@ -382,6 +384,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                 call.enqueue(new Callback<APIResponse>() {
                     @Override
                     public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                        mProgress.dismiss();
                         if(!response.isSuccessful()){
                             Log.e(TAG,"Get Filter Result failure:"+response.code());
                         }else{
@@ -409,7 +412,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         mRecyclerView.setAdapter(mAdapter);
         ViewCompat.setNestedScrollingEnabled(mRecyclerView,false);
         mAdapter.notifyDataSetChanged();
-        mProgress.dismiss();
+//        mProgress.dismiss();
 
 //        if(countresult ==0)
 //            mNoResultTextView.setVisibility(View.VISIBLE);
