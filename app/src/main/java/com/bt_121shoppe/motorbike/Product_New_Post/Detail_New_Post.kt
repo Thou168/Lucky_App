@@ -216,7 +216,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        tvModel=findViewById(R.id.tv_Model)
 //        tvYear=findViewById(R.id.tv_Year)
         tvCondition=findViewById(R.id.tv_Condition)
-        tvColor=findViewById(R.id.tv_Color)
+//        tvColor=findViewById(R.id.tv_Color)
         tvDescription=findViewById(R.id.tv_Description)
         tvPostCode = findViewById(R.id.tvPostCode)
         tvMonthlyPayment=findViewById(R.id.tvMonthlyPayment)
@@ -606,7 +606,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                        tvPostTitle.setText(postDetail.title.toString())
                         tvPrice.setText("$"+ discount)
                         edLoanPrice.setText(""+discount)
-                        tvPostCode.setText(postDetail.id.toString())
+                        tvPostCode.setText(postDetail.post_code.toString())
 //End
                         show_amount_loan = "$"+discount.toString()
 
@@ -718,27 +718,27 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         } else if (con == "used") {
                             tvCondition.setText(R.string.used)
                         }
-                        if (col == "blue") {
-                            tvColor.setText(R.string.blue)
-                        } else if (col == "black") {
-                            tvColor.setText(R.string.black)
-                        } else if (col == "silver") {
-                            tvColor.setText(R.string.silver)
-                        } else if (col == "red") {
-                            tvColor.setText(R.string.red)
-                        } else if (col == "gray") {
-                            tvColor.setText(R.string.gray)
-                        } else if (col == "yellow") {
-                            tvColor.setText(R.string.yellow)
-                        } else if (col == "pink") {
-                            tvColor.setText(R.string.pink)
-                        } else if (col == "purple") {
-                            tvColor.setText(R.string.purple)
-                        } else if (col == "orange") {
-                            tvColor.setText(R.string.orange)
-                        } else if (col == "green") {
-                            tvColor.setText(R.string.green)
-                        }
+//                        if (col == "blue") {
+//                            tvColor.setText(R.string.blue)
+//                        } else if (col == "black") {
+//                            tvColor.setText(R.string.black)
+//                        } else if (col == "silver") {
+//                            tvColor.setText(R.string.silver)
+//                        } else if (col == "red") {
+//                            tvColor.setText(R.string.red)
+//                        } else if (col == "gray") {
+//                            tvColor.setText(R.string.gray)
+//                        } else if (col == "yellow") {
+//                            tvColor.setText(R.string.yellow)
+//                        } else if (col == "pink") {
+//                            tvColor.setText(R.string.pink)
+//                        } else if (col == "purple") {
+//                            tvColor.setText(R.string.purple)
+//                        } else if (col == "orange") {
+//                            tvColor.setText(R.string.orange)
+//                        } else if (col == "green") {
+//                            tvColor.setText(R.string.green)
+//                        }
                         tvDescription.setText(postDetail.description.toString())
                         //user_email.setText(postDetail.contact_email.toString())
                         user_email.setText(postDetail.contact_email.toString())

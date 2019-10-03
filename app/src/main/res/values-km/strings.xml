@@ -480,7 +480,7 @@
 
     //permission
     <string name="permission">ត្រូវការការអនុញ្ញាត</string>
-    <string name="setting_permission">កម្មវិធីនេះត្រូវការការអនុញ្ញាតឱ្យប្រើលក្ខណៈនេះ។ អ្នកអាចផ្តល់ឱ្យពួកគេនៅក្នុងការកំណត់កម្មវិធី</string>
+    <string name="setting_permission">អ្នកត្រូវការការអនុញ្ញាតដើម្បីអាចប្រើប្រាស់លក្ខណៈនេះបាន។ អ្នកអាចធ្វើការកំណត់នៅក្នុងការកំណត់របស់កម្មវិធីបាន។</string>
     <string name="go_setting">ចូលទៅកំណត់</string>
     <string name="cancel">បោះបង់</string>
 
