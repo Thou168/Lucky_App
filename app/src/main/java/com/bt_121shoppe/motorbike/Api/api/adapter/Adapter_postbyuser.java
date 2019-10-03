@@ -33,6 +33,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -55,6 +56,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
     private Context mContext;
     SharedPreferences prefer;
     String name,pass,basic_Encode;
+    String mama,lao;
     private int pk=0;
     private OnItemClickListener onItemClickListener;
 
@@ -200,8 +202,21 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
 
             view.date.setText(ago);
-        } catch (ParseException e) { e.printStackTrace(); }
-        view.title.setText(model.getTitle());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String jok;
+        lao = model.getTitle();
+//        view.title.setText(lao);
+        jok=model.getTitle();
+        if (jok.length()>37){
+            jok=jok.substring(0,37)+"...";
+            view.title.setText(jok);
+        }else {
+            view.title.setText(jok);
+        }
+
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
         }else {

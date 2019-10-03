@@ -124,6 +124,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //                Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
 //            else if(mPost.getPostType().equals("buy"))
 //                Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
+
             postTitle.setText(mPost.getPostTitle());
             postLocationDT.setText(mPost.getLocationDuration());
             double mPrice=0;

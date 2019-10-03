@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.*;
 
-public class Item implements Serializable {
+public class Item {
 
     private float id;
     private String title;
@@ -41,6 +41,7 @@ public class Item implements Serializable {
     private String contact_email;
     private String contact_address;
     private String color;
+    private String post_sub_title;
 
     @SerializedName("sales")
     private List<Type_item> sales;
@@ -311,6 +312,14 @@ public class Item implements Serializable {
 
     public void setContact_address(String contact_address) {
         this.contact_address = contact_address;
+    }
+
+    public String getPost_sub_title() {
+        return post_sub_title;
+    }
+
+    public void setPost_sub_title(String post_sub_title) {
+        this.post_sub_title = post_sub_title;
     }
 
     public String getColor() {

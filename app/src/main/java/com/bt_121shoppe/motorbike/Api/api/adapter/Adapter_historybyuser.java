@@ -103,7 +103,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        view.title.setText(model.getTitle());
+//        view.title.setText(model.getTitle());
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
 //            rs_price = Double.parseDouble(model.getCost());

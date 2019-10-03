@@ -47,7 +47,6 @@ import java.util.*
 
 class User_post : AppCompatActivity() , OnMapReadyCallback{
 
-
     var user_id:Int=0
     var username:String=""
     var password:String=""
@@ -71,7 +70,6 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
     private lateinit var  mMap: GoogleMap
     private lateinit var  latlng: String
     private lateinit var linearLayout: LinearLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -187,8 +185,9 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                             if(user1.getFirst_name().isEmpty())
                             {
                                 Username!!.setText(user1.getUsername())
+
                             }else {
-                                Username!!.setText(user1.getFirst_name())
+                                Username.setText(user1.getFirst_name())
                             }
                         CommomAPIFunction.getUserProfileFB(this@User_post,img_user,user1.username)
 

@@ -724,6 +724,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 String name = object.getString("machine_code");
                                 String discount = object.getString("discount");
                                 String email = object.getString("contact_email");
+                                String post_sub_title = object.getString("post_sub_title");
                                 strPostType = object.getString("post_type");
                                 cate = object.getInt("category");
                                 type = object.getInt("type");

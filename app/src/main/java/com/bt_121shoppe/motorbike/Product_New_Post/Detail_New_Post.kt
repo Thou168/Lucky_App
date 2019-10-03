@@ -604,10 +604,21 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
 //                        tvPostTitle.setText(postDetail.title.toString())
+
+//                        if (postDetail.title.toString().isNotEmpty()){
+//                            tvPostTitle.setText(postDetail.title.toString())
+//                        }else{
+//                            tvPostTitle.setText(postDetail.post_sub_title.toString())
+//                        }
+//
+                        tvPostTitle.setTextSize(22F)
+                        tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
+//
                         tvPrice.setText("$"+ discount)
                         edLoanPrice.setText(""+discount)
                         tvPostCode.setText(postDetail.post_code.toString())
-//End
+//                        tvPostCode.setText(postDetail.id.toString())
+
                         show_amount_loan = "$"+discount.toString()
 
 //                        tvPrice1.setText("$"+ postDetail.cost)
@@ -742,7 +753,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         tvDescription.setText(postDetail.description.toString())
                         //user_email.setText(postDetail.contact_email.toString())
                         user_email.setText(postDetail.contact_email.toString())
-                        user_name.setText(postDetail.machine_code.toString())
+                        user_name.text=postDetail.machine_code.toString()
 
                         val contact_phone = postDetail.contact_phone.toString()
                             Phone_call(contact_phone)

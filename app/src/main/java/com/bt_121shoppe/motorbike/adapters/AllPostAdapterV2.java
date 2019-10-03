@@ -43,6 +43,7 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
     private AllPostAdapter.Callback callback;
     private List<PostViewModel> mPostList;
     private String mView;
+    private String jok;
 
     public AllPostAdapterV2(List<PostViewModel> postList,String view){
         this.mPostList=postList;
@@ -115,8 +116,8 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postPrice;
         TextView postOriginalPrice;
         TextView postView;
-        TextView postLang;
         CircleImageView img_user;
+        TextView postLang;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -127,8 +128,8 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
             postPrice=itemView.findViewById(R.id.tv_price);
             postOriginalPrice=itemView.findViewById(R.id.tv_discount);
             postView=itemView.findViewById(R.id.user_view);
-            postLang=itemView.findViewById(R.id.user_view1);
             img_user = itemView.findViewById(R.id.img_user);
+            postLang=itemView.findViewById(R.id.user_view1);
         }
 
         @Override
@@ -168,20 +169,28 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             String strPostTitle="";
+            String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
             if(mPost.getPost_sub_title().isEmpty()){
-                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+
                 if(lang.equals("View:"))
                     strPostTitle=fullTitle.split(",")[0];
                 else
                     strPostTitle=fullTitle.split(",")[1];
-            }else
-                if(lang.equals("View:"))
-                    strPostTitle=mPost.getPost_sub_title().split(",")[0];
-                else
-                    strPostTitle=mPost.getPost_sub_title().split(",")[1];
+            }else {
+                if (lang.equals("View:")) {
+                    strPostTitle = mPost.getPost_sub_title().split(",")[0];
+                } else {
+                    strPostTitle = mPost.getPost_sub_title().split(",")[1];
+                }
+            }
 
-            postTitle.setText(strPostTitle);
-
+            jok=strPostTitle;
+            if (jok.length()>36){
+                jok=jok.substring(0,36)+"...";
+                postTitle.setText(jok);
+            }else {
+                postTitle.setText(jok);
+            }
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setVisibility(View.VISIBLE);

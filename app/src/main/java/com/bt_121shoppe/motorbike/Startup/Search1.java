@@ -150,7 +150,7 @@ public class Search1 extends AppCompatActivity {
                         JSONObject object = jsonArray.getJSONObject(i);
                         int id = object.getInt("id");
                         int user_id = object.getInt("user");
-                        String title = object.getString("title");
+                        String postsubtitle = object.getString("post_sub_title");
                         double cost = object.getDouble("cost");
                         String condition = object.getString("condition");
                         String image = object.getString("front_image_path");
@@ -189,7 +189,7 @@ public class Search1 extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            item_apis.add(new Item_API(id,user_id, img_user, image, title, cost, condition, post_type, ago.toString(), json_count,discount_type,discount));
+                                            item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,discount_type,discount));
                                             MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                             rv.setAdapter(adapterUserPost);
                                             rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));

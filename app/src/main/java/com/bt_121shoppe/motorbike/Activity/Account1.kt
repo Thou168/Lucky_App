@@ -95,6 +95,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
     //private lateinit var uploadTask
     internal var fuser: FirebaseUser? = null
     internal lateinit var reference: DatabaseReference
+    lateinit var mkm:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

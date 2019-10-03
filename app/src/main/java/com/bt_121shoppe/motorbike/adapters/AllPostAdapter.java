@@ -1,7 +1,9 @@
 package com.bt_121shoppe.motorbike.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Callback callback;
     private List<PostProduct> mPostList;
     private String mView;
+    private String jok;
 
     public AllPostAdapter(List<PostProduct> postList,String view){
         this.mPostList=postList;
@@ -159,7 +162,16 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 else if (mPost.getPostType().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
             }
-            postTitle.setText(mPost.getPostTitle());
+//            postTitle.setText(mPost.getPostTitle());
+//            jok = mPost.getPostTitle();
+//            if (jok.length() > 10){
+//                jok=jok.substring(0,10)+"...";
+//                postTitle.setText(jok);
+//            }
+//            else {
+//                postTitle.setText(mPost.getPostTitle());
+//            }
+
             postLocationDT.setText(mPost.getLocationDuration());
 
             double mPrice=0;

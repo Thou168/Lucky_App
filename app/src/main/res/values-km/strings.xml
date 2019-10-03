@@ -70,6 +70,7 @@
 
     //user account registration
     <string name="title_Login">Login account</string>
+    <string name="login_failure">បរាជ័យក្នុងការចូល</string>
     <string name="title_registration">ចុះឈ្មោះលក់ដោយឥតគិតថ្លៃ</string>
     <string name="phone_number">លេខទូរស័ព្ទ</string>
     <string name="email" translatable="false">អ៊ីម៉ែល</string>
@@ -309,7 +310,7 @@
 
     <string name="title_wrong">លេខទូរស័ព្ទរឺលេខកូដរបស់អ្នកមិនត្រឹមត្រូវ!</string>
 
-    <string name="head_dialog_login">សាររបស់អ្នក</string>
+    <string name="head_dialog_login">បរាជ៍យក្នុងការចូល!</string>
     <string name="wrong_pass_phone">លេខកូដរឺទូរស៏ព្ទរបស់អ្នកមិនត្រឹមត្រូវ!</string>
 
     //Rent type

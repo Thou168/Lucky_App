@@ -7,9 +7,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +34,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bumptech.glide.load.engine.Resource;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -78,11 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     int error = 0;
     String encode;
 
-    private TextView head;
-    private ImageView info_image;
-    private TextView title;
-    private Button btnOk;
-    Dialog dialog;
+    private AlertDialog.Builder dialog;
 
     private FirebaseAuth auth;
 
@@ -180,29 +180,45 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login_wrong(){
+//    private void login_wrong(){
+//
+//        dialog = new Dialog(this,R.style.MyDialogTheme);
+//        dialog.setContentView(R.layout.dialog_custom);
+//        head = (TextView)dialog.findViewById(R.id.a);
+//        head.setText(R.string.head_dialog_login);
+//        head.setTextColor(getResources().getColor(R.color.dack_color));
+//        head.setTextSize(30);
+//        info_image = (ImageView)dialog.findViewById(R.id.log_info);
+//        info_image.setImageResource(R.drawable.ic_close_black_24dp);
+//        title = (TextView) dialog.findViewById(R.id.text_dialog);
+//        title.setText(R.string.wrong_pass_phone);
+//        title.setTextSize(15);
+//        btnOk = (Button)dialog.findViewById(R.id.btn_dialog);
+//        btnOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//        dialog.setCancelable(false);
+//        dialog.show();
+//
+//    }
 
-        dialog = new Dialog(this,R.style.MyDialogTheme);
-        dialog.setContentView(R.layout.dialog_custom);
-        head = (TextView)dialog.findViewById(R.id.a);
-        head.setText(R.string.head_dialog_login);
-        head.setTextColor(getResources().getColor(R.color.dack_color));
-        head.setTextSize(30);
-        info_image = (ImageView)dialog.findViewById(R.id.log_info);
-        info_image.setImageResource(R.drawable.ic_close_black_24dp);
-        title = (TextView) dialog.findViewById(R.id.text_dialog);
-        title.setText(R.string.wrong_pass_phone);
-        title.setTextSize(15);
-        btnOk = (Button)dialog.findViewById(R.id.btn_dialog);
-        btnOk.setOnClickListener(new View.OnClickListener() {
+    private void login_error(){
+        dialog = new AlertDialog.Builder(LoginActivity.this,R.style.AlertDialogCustom);
+        dialog.setTitle(R.string.head_dialog_login);
+        dialog.setMessage(R.string.wrong_pass_phone);
+        dialog.setCancelable(false);
+        dialog.setIcon(android.R.drawable.ic_delete);
+        dialog.setPositiveButton(R.string.btn_alert, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+            public void onClick(DialogInterface dialogInterface, int i) {
+
             }
         });
-        dialog.setCancelable(false);
+        dialog.create();
         dialog.show();
-
     }
 
     private void postRequest() {
@@ -240,9 +256,10 @@ public class LoginActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            login_wrong();
+//                            login_wrong();
+                            login_error();
                             error = 1;
-                            Toast.makeText(LoginActivity.this,"Login failure",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this,getResources().getString(R.string.login_failure),Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -298,7 +315,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("name",Username.getText().toString());
                         editor.putString("pass",Password.getText().toString());
                         editor.putInt("Pk",pk);
-                        editor.commit();
+                        editor.apply();
                         mProgress.dismiss();
 
                         loginEmailWithFirebase(user.getUsername());

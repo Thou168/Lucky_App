@@ -135,6 +135,7 @@
     <string name="title_Login">Login account</string>
     <!--    <string name="facebook_app_id">491433131642841</string>-->
     <string name="title_registration">Register to post free ad</string>
+    <string name="login_failure">Login failure</string>
 
     <string name="phone_number">Phone Number</string>
     <string name="email" translatable="false">Email</string>
@@ -143,7 +144,7 @@
     <string name="alert_phone1">Username is empty</string>
     <string name="secret_number">Wrong password</string>
     <string name="secret_number1">Password is empty</string>
-    <string name="head_dialog_login">Your message</string>
+    <string name="head_dialog_login">Login failure!</string>
     <string name="wrong_pass_phone">Your password or your phone went wrong!</string>
 
     <string name="confirm">Confirm Password</string>
@@ -152,7 +153,7 @@
     //login_message
     <string name="head_mss">Message</string>
     <string name="title_mss">Corrected!</string>
-    <string name="btn_alert">Confirm</string>
+    <string name="btn_alert">Ok</string>
 
     <string name="title_wrong">Your phone or password is wrong!</string>
 

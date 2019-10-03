@@ -360,5 +360,6 @@ public class PostViewModel {
     public void setPost_sub_title(String post_sub_title) {
         this.post_sub_title = post_sub_title;
     }
+
 }
 

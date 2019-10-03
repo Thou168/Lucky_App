@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.paperdb.Paper;
 
 public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
     private static final String TAG=PostBestDealAdapter.class.getSimpleName();
@@ -33,6 +34,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
 
     private PostBestDealAdapter.Callback mCallback;
     private List<PostViewModel> mPostList;
+    String jok;
 
     public PostBestDealAdapterV2(List<PostViewModel> postList){
         mPostList=postList;
@@ -95,6 +97,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
         TextView postPrice;
         TextView postOriginalPrice;
         TextView postView;
+        TextView postLang;
         CircleImageView postProfile;
 
         public ViewHolder(View itemView) {
@@ -107,6 +110,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
             postOriginalPrice=itemView.findViewById(R.id.tv_price);
             postView=itemView.findViewById(R.id.view);
             postProfile=itemView.findViewById(R.id.img_user);
+            postLang=itemView.findViewById(R.id.user_view);
         }
 
         @Override
@@ -124,28 +128,29 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
         public void onBind(int position){
             super.onBind(position);
             final PostViewModel mPost=mPostList.get(position);
+
+            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
+            String lang=postLang.getText().toString();
+
             String strPostTitle="";
-            //String lang=postLang.getText().toString();
             if(mPost.getPost_sub_title().isEmpty()){
-                strPostTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-            }else
-                strPostTitle=mPost.getPost_sub_title().split(",")[0];
+                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+                if(lang.equals("View:"))
+                    strPostTitle=fullTitle.split(",")[0];
+                else
+                    strPostTitle=fullTitle.split(",")[1];
+            }else if(lang.equals("View:"))
+                strPostTitle = mPost.getPost_sub_title().split(",")[0];
+            else
+                strPostTitle=mPost.getPost_sub_title().split(",")[1];
 
-            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
-
-//            if(mPost.getPost_sub_title().isEmpty()){
-//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-//                if(lang.equals("View:"))
-//                    strPostTitle=fullTitle.split(",")[0];
-//                else
-//                    strPostTitle=fullTitle.split(",")[1];
-//            }else
-//            if(lang.equals("View:"))
-//                strPostTitle=mPost.getPost_sub_title().split(",")[0];
-//            else
-//                strPostTitle=mPost.getPost_sub_title().split(",")[1];
-
-            postTitle.setText(strPostTitle);
+            jok=strPostTitle;
+            if (jok.length()>15){
+                jok=jok.substring(0,15)+"...";
+                postTitle.setText(jok);
+            }else {
+                postTitle.setText(jok);
+            }
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setText("$ "+mPost.getCost());
