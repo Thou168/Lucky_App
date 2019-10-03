@@ -449,7 +449,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
                         com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
                         converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
-                        if(converJsonJava.getFirst_name()==null) {
+                        if(converJsonJava.getFirst_name()==null || converJsonJava.getFirst_name().isEmpty()) {
                             tvUsername.setText(converJsonJava.getUsername());
                             tvusername_drawer.setText(converJsonJava.getUsername());
                         }

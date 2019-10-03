@@ -647,7 +647,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         Log.d(TAG,respon);
                         converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
 
-                        if(converJsonJava.getFirst_name()==null) {
+                        if(converJsonJava.getFirst_name()==null || converJsonJava.getFirst_name().isEmpty()) {
                             mUserNameDrawer.setText(converJsonJava.getUsername());
                         }
                         else {
