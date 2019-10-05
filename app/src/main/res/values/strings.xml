@@ -755,8 +755,14 @@
     <string-array name="select_photo">
         <item>Take Photo</item>
         <item>Choose from Library</item>
+        <item>Delete Photo</item>
         <item>Cancel</item>
     </string-array>
     <string name="shopname2">Shop name 2</string>
     <string name="shopname3">Shop name 3</string>
+    <string name="delete_photo">Are you sure you want to delete this photo?</string>
+    <string name="back_message">Are you sure you want to leave this page? Please note that any details you have filled in will not be saved.</string>
+    <string name="back_no">No</string>
+    <string name="back_ok">Yes</string>
+    <string name="deleting">Deleting...</string>
 </resources>

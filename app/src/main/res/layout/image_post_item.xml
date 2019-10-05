@@ -12,6 +12,13 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/icons8_add_camera_96" />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/remove_pic1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-25dp"
+        android:background="@drawable/cancel"/>
 
     <ImageView
         android:id="@+id/Picture2"
@@ -20,6 +27,13 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/add_box_black_24dp" />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/remove_pic2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-25dp"
+        android:background="@drawable/cancel"/>
 
     <ImageView
         android:id="@+id/Picture3"
@@ -28,6 +42,14 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/add_box_black_24dp" />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/remove_pic3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-25dp"
+        android:background="@drawable/cancel"/>
+
     <ImageView
         android:id="@+id/Picture4"
         android:layout_width="130dp"
@@ -35,6 +57,14 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/add_box_black_24dp" />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/remove_pic4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-25dp"
+        android:background="@drawable/cancel"/>
+
     <ImageView
         android:id="@+id/Picture5"
         android:layout_width="130dp"
@@ -42,6 +72,14 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/add_box_black_24dp" />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/remove_pic5"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-25dp"
+        android:background="@drawable/cancel"/>
+
     <ImageView
         android:id="@+id/Picture6"
         android:layout_width="130dp"
@@ -49,5 +87,12 @@
         android:layout_margin="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/add_box_black_24dp" />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/remove_pic6"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-25dp"
+        android:background="@drawable/cancel"/>
 
 </LinearLayout>

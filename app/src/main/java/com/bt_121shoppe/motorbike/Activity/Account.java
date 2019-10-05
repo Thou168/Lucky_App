@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -62,6 +63,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -74,6 +76,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
@@ -257,13 +260,15 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 //                    Glide.with(Account.this).load("http://www.seedcoworking.com/wp-content/uploads/2018/06/placeholder.jpg").into(upload);
                     Glide.with(Account.this).load(R.drawable.square_logo).thumbnail(0.1f).into(upload);
                 }else{
-                    Glide.with(Account.this).load(user.getImageURL()).thumbnail(0.1f).into(upload);
+//                    Glide.with(Account.this).load(user.getImageURL()).thumbnail(0.1f).into(upload);
+                    Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(upload);
                 }
                 if(user.getCoverURL().equals("default")){
 //                    Glide.with(Account.this).load("https://www.templaza.com/blog/components/com_easyblog/themes/wireframe/images/placeholder-image.png").into(imgCover);
                     Glide.with(Account.this).load(R.drawable.logo_121).into(imgCover);
                 }else{
-                    Glide.with(Account.this).load(user.getCoverURL()).into(imgCover);
+//                    Glide.with(Account.this).load(user.getCoverURL()).into(imgCover);
+                    Glide.with(getBaseContext()).load(user.getCoverURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(imgCover);
                 }
             }
             @Override
@@ -485,7 +490,39 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                     case 1:
                         requestStoragePermission(false);
                         break;
+  //Add case 2 by Raksmey
                     case 2:
+                        AlertDialog builder = new AlertDialog.Builder(Account.this).create();
+                        builder.setMessage(getString(R.string.delete_photo));
+                        builder.setCancelable(false);
+                        builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (type.equals("cover")){
+                                    try {
+                                        RemoveImage(type);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else if (type.equals("profile")){
+                                    try {
+                                        RemoveImage(type);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+                        builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                selectImage();
+                            }
+                        });
+                        builder.show();
+                        break;
+ //End
+                    case 3:
                         Toast.makeText(Account.this,""+photo_select[which],Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -756,7 +793,53 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             Toast.makeText(Account.this,"No image selected.",Toast.LENGTH_LONG).show();
         }
     }
+ //add function RemoveImage by Raksmey
+    private void RemoveImage(String type) throws IOException {
 
+        final ProgressDialog pd=new ProgressDialog(Account.this);
+        pd.setMessage(getString(R.string.deleting));
+        pd.show();
+        imageUri = Uri.fromFile(createImageFile());
+        if(imageUri!=null){
+            final StorageReference fileReference=storageReference.child(System.currentTimeMillis()
+                    +"."+getFileExtenstion(imageUri));
+            uploadTask=fileReference.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if(!task.isSuccessful()){
+                        throw task.getException();
+                    }
+                    return fileReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if(task.isSuccessful()){
+                        Uri downloadUri= (Uri) task.getResult();
+                        String mUri=downloadUri.toString();
+                        reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                        HashMap<String,Object> map=new HashMap<>();
+                        if(type.equals("profile"))
+                            map.put("imageURL",mUri);
+                        else if(type.equals("cover"))
+                            map.put("coverURL",mUri);
+                        reference.updateChildren(map);
+                        pd.dismiss();
+                    }else{
+                        Toast.makeText(Account.this,"Failed",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Account.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    pd.dismiss();
+                }
+            });
+        }
+    }
+    //End
 
     @Override
     protected void onStart() {

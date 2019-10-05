@@ -598,8 +598,14 @@
     <string-array name="select_photo">
         <item>ថតរូប</item>
         <item>វិចិត្រសាល</item>
+        <item>លុបរូបភាព</item>
         <item>បោះបង់</item>
     </string-array>
     <string name="shopname2">ឈ្មោះហាងទី២</string>
     <string name="shopname3">ឈ្មោះហាងទី៣</string>
+    <string name="delete_photo">តើអ្នកពិតជាចង់លុបរូបថតនេះឬ?</string>
+    <string name="back_message">តើអ្នកប្រាកដជាចង់ចាកចេញពីទំព័រនេះមែនទេ?​ សូមចំណាំថាព័ត៌មានលម្អិតដែលអ្នកបានបំពេញនឹងមិនត្រូវបានរក្សាទុកទេ។</string>
+    <string name="back_no">បិទ</string>
+    <string name="back_ok">យល់ព្រម</string>
+    <string name="deleting">កំពុងធ្វើការលុប ...</string>
 </resources>

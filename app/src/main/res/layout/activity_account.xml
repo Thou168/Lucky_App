@@ -11,7 +11,6 @@
         android:layout_above="@+id/bnaviga"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:background="@color/colorPrimary"
@@ -49,11 +48,14 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="175dp">
+
                         <ImageView
                             android:id="@+id/imgCover"
-                            android:background="#999"
                             android:layout_width="match_parent"
                             android:layout_height="175dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="0dp"
+                            android:background="#999"
                             android:scaleType="centerCrop" />
                         <Button
                             android:id="@+id/btnUpload_Cover"

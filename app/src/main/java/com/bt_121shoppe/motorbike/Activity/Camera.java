@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -137,7 +138,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3,icAddress;
     private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_email,input_phone, tilPhone2,tilphone3;
-    private ImageButton btnImagePhone1,btnImagePhone2;
+    private ImageButton btnImagePhone1,btnImagePhone2,btremove_pic1,btremove_pic2,btremove_pic3,btremove_pic4,btremove_pic5,btremove_pic6;
     private SearchView tvAddress;
     private Button submit_post;
     private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
@@ -206,7 +207,22 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
+                builder.setMessage(getString(R.string.back_message));
+                builder.setCancelable(false);
+                builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        builder.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
 
@@ -549,7 +565,68 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_6;
             }
         });
-
+ //Add by Raksmey
+        btremove_pic1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageView1 != null){
+                    imageView1.setImageResource(R.drawable.icons8_add_camera_96);
+                    bitmapImage1=null;
+                    btremove_pic1.setVisibility(View.GONE);
+                }
+            }
+        });
+        btremove_pic2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageView2 !=null){
+                    imageView2.setImageResource(R.drawable.add_box_black_24dp);
+                    bitmapImage2=null;
+                    btremove_pic2.setVisibility(View.GONE);
+                }
+            }
+        });
+        btremove_pic3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageView3 !=null){
+                    imageView3.setImageResource(R.drawable.add_box_black_24dp);
+                    bitmapImage3=null;
+                    btremove_pic3.setVisibility(View.GONE);
+                }
+            }
+        });
+        btremove_pic4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageView4 !=null){
+                    imageView4.setImageResource(R.drawable.add_box_black_24dp);
+                    bitmapImage4=null;
+                    btremove_pic4.setVisibility(View.GONE);
+                }
+            }
+        });
+        btremove_pic5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageView5 !=null){
+                    imageView5.setImageResource(R.drawable.add_box_black_24dp);
+                    bitmapImage5=null;
+                    btremove_pic5.setVisibility(View.GONE);
+                }
+            }
+        });
+        btremove_pic6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageView6 !=null){
+                    imageView6.setImageResource(R.drawable.add_box_black_24dp);
+                    bitmapImage6=null;
+                    btremove_pic6.setVisibility(View.GONE);
+                }
+            }
+        });
+//End
         tvAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -865,6 +942,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView1.setImageBitmap(resource);
                                                 bitmapImage1 = resource;
+                                                btremove_pic1.setVisibility(View.VISIBLE);
                                             }
 
                                             @Override
@@ -878,6 +956,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 imageView2.setImageBitmap(resource);
                                                 bitmapImage2 = resource;
                                                 Log.d("BITMAP","2:"+bitmapImage2);
+                                                btremove_pic2.setVisibility(View.VISIBLE);
                                             }
 
                                             @Override
@@ -890,6 +969,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView3.setImageBitmap(resource);
                                                 bitmapImage3 = resource;
+                                                btremove_pic3.setVisibility(View.VISIBLE);
                                             }
 
                                             @Override
@@ -902,6 +982,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView4.setImageBitmap(resource);
                                                 bitmapImage4 = resource;
+                                                btremove_pic4.setVisibility(View.VISIBLE);
                                             }
 
                                             @Override
@@ -914,6 +995,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView5.setImageBitmap(resource);
                                                 bitmapImage5 = resource;
+                                                btremove_pic5.setVisibility(View.VISIBLE);
                                             }
 
                                             @Override
@@ -926,6 +1008,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView6.setImageBitmap(resource);
                                                 bitmapImage6 = resource;
+                                                btremove_pic6.setVisibility(View.VISIBLE);
                                             }
 
                                             @Override
@@ -2523,6 +2606,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         etEmail           = (EditText)findViewById(R.id.etEmail );
         btnImagePhone1    = (ImageButton)findViewById(R.id.btnPhone1_post);
         btnImagePhone2    = (ImageButton)findViewById(R.id.btnPhone2_post);
+        btremove_pic1    = (ImageButton)findViewById(R.id.remove_pic1);
+        btremove_pic2    = (ImageButton)findViewById(R.id.remove_pic2);
+        btremove_pic3    = (ImageButton)findViewById(R.id.remove_pic3);
+        btremove_pic4    = (ImageButton)findViewById(R.id.remove_pic4);
+        btremove_pic5    = (ImageButton)findViewById(R.id.remove_pic5);
+        btremove_pic6    = (ImageButton)findViewById(R.id.remove_pic6);
         //// icon  ////////
         icTitile     = (ImageView) findViewById(R.id.imgTitle);
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
@@ -3144,7 +3233,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
-
+                btremove_pic1.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_2) {
@@ -3156,6 +3245,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
+                btremove_pic2.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_3) {
@@ -3167,6 +3257,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
+                btremove_pic3.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_4) {
@@ -3178,6 +3269,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
+                btremove_pic4.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
             }
             // add 2 image by samang 26/08
@@ -3190,6 +3282,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView5);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_6;
+                btremove_pic5.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
             }
             else if (requestCode == REQUEST_TAKE_PHOTO_6){
@@ -3200,6 +3293,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView6);
+                btremove_pic6.setVisibility(View.VISIBLE);
             }
 //
             else if (requestCode == REQUEST_GALLERY_PHOTO_1) {
@@ -3211,7 +3305,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
-
+                btremove_pic1.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_2) {
                 Uri selectedImage = data.getData();
@@ -3222,6 +3316,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
+                btremove_pic2.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_3) {
                 Uri selectedImage = data.getData();
@@ -3232,6 +3327,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
+                btremove_pic3.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_4) {
                 Uri selectedImage = data.getData();
@@ -3242,6 +3338,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
+                btremove_pic4.setVisibility(View.VISIBLE);
 
            }
  // add 2 image by samang
@@ -3254,6 +3351,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView5);
+                btremove_pic5.setVisibility(View.VISIBLE);
 
             }
            else if (requestCode == REQUEST_GALLERY_PHOTO_6){
@@ -3265,7 +3363,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView6);
-
+                btremove_pic6.setVisibility(View.VISIBLE);
             }
  // end
         }
