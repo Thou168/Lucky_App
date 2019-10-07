@@ -84,7 +84,10 @@
     <string name="register_by_facebook">ចុះឈ្មោះដោយប្រើ​​គណនីហ្វេសប៊ុក</string>
     <string name="selectuser">ជ្រើសរើសប្រភេទគណនី</string>
     <string name="inputPhone">សូមបញ្ចូលលេខទូរស័ព្ទ</string>
+    <string name="inputPhoneWrong">លេខទូរស័ព្ទមិនត្រឹមត្រូវ</string>
     <string name="inputPassword">សូមបញ្ចូលពាក្យសម្ងាត់</string>
+    <string name="wrongInputPassword">ពាក្យ​សម្ងាត់​មិនត្រឹម​ត្រូវ​</string>
+    <string name="wrongInputPasswordSecond">ពាក្យ​សម្ងាត់​មិនត្រូវ​គ្នា</string>
     <string name="inputComfirm">សូមបញ្ចូលពាក្យសម្ងាត់បញ្ជាក់</string>
     <string name="invalidPassword">ពាក្យសម្ងាត់បញ្ជាក់គឺមិនត្រឹមត្រូវ</string>
     <string name="next">បន្ទាប់</string>

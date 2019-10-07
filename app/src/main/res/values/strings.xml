@@ -307,8 +307,11 @@
     <string name="title">Title</string>
     <string name="selectuser">Select Account Type</string>
     <string name="inputPhone">Please input the Phone Numbers</string>
+    <string name="inputPhoneWrong">Invalid Phone Number</string>
     <string name="inputPassword">Please input the Password</string>
-    <string name="inputComfirm">Please input the Comfirm Password</string>
+    <string name="wrongInputPassword">Invalid Password</string>
+    <string name="wrongInputPasswordSecond">Password does not match</string>
+    <string name="inputComfirm">Invalid Confirm Password</string>
     <string name="invalidPassword">Comfirm Password is Invalid</string>
     <string name="next">Next</string>
     <string name="user_message">Password must be 4 digits and Number only</string>

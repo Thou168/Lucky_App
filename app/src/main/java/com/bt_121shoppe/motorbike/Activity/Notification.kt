@@ -64,7 +64,7 @@ class Notification : AppCompatActivity() {
         val result=CommonFunction.doGetRequestwithAuth(url,encodeAuth)
         Log.d("Hello",result)
 
-         bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
+        bnavigation = findViewById<BottomNavigationView>(R.id.bnaviga)
         bnavigation!!.menu.getItem(3).isChecked = true
         bnavigation!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

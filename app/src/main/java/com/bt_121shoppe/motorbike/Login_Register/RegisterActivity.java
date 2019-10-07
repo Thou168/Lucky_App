@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -76,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference reference;
 
+    private AlertDialog.Builder dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,22 +122,47 @@ public class RegisterActivity extends AppCompatActivity {
                 String Number_Phone = editPhone.getText().toString();
                 String Password = editPassword.getText().toString();
                 String ComfirmPass = editComfirmPass.getText().toString();
-                    PhoneError.setText(""); PasswordError.setText("");ComfirmPassError.setText("");
+
                 if (Number_Phone.length()<8 || Password.length()<4 || ComfirmPass.length()<4 || !Password.equals(ComfirmPass)){
-                    if (Number_Phone.length()<8){
+                    login_error();
+                    if (Number_Phone.isEmpty()){
                         PhoneError.setTextColor(getColor(R.color.red));
                         PhoneError.setText(R.string.inputPhone);
-                    }else if (Password.length()<4){
+                    }else if (Number_Phone.length()<9){
+                        PhoneError.setTextColor(getColor(R.color.red));
+                        PhoneError.setText(R.string.inputPhoneWrong);
+                    }
+                    else{
+                        PhoneError.setText("");
+                    }
+
+                    if (Password.isEmpty()){
                         PasswordError.setTextColor(getColor(R.color.red));
                         PasswordError.setText(R.string.inputPassword);
-                    }else if (ComfirmPass.length()<4){
-                        PasswordError.setTextColor(getColor(R.color.red));
-                        ComfirmPassError.setText(R.string.inputComfirm);
-                    }else if (!Password.equals(ComfirmPass)){
-                        ComfirmPassError.setTextColor(getColor(R.color.red));
-                        ComfirmPassError.setText(R.string.invalidPassword);
                     }
-                }else if (user_group == 1) {
+                    else if (Password.length()<4){
+                        PasswordError.setTextColor(getColor(R.color.red));
+                        PasswordError.setText(R.string.wrongInputPassword);
+                        Log.d("Jajaja","Nanano");
+                    }
+                    else {
+                        PasswordError.setText("");
+                    }
+
+                    if (ComfirmPass.isEmpty()){
+                        ComfirmPassError.setTextColor(getColor(R.color.red));
+                        ComfirmPassError.setText(R.string.inputComfirm);
+                    }
+                    else if (ComfirmPass.length()<4){
+                        ComfirmPassError.setTextColor(getColor(R.color.red));
+                        ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
+                        Log.d("Kokoko","Konoha");
+                    }
+                    else {
+                        ComfirmPassError.setTextColor(getColor(R.color.red));
+                        ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
+                    }
+                } else if (user_group == 1) {
 
                     if (CheckNumber(ComfirmPass)) {
                         mProgress.show();
@@ -162,11 +190,25 @@ public class RegisterActivity extends AppCompatActivity {
                     registerAPIUser(editPhone.getText().toString(),Password,user_group);
 
                 }
-
 //                mProgress.show();
+            }
+        });
+    }
+
+    private void login_error(){
+        dialog = new AlertDialog.Builder(RegisterActivity.this,R.style.AlertDialogCustom);
+        dialog.setTitle(R.string.head_dialog_login);
+//        dialog.setMessage(R.string.wrong_pass_phone);
+        dialog.setCancelable(false);
+        dialog.setIcon(android.R.drawable.ic_delete);
+        dialog.setPositiveButton(R.string.btn_alert, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
             }
         });
+        dialog.create();
+        dialog.show();
     }
 
 
@@ -352,6 +394,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }else{
                             Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
+
                             Log.d(TAG,"Error "+task.getException()+" "+task.getResult());
                         }
                     }
