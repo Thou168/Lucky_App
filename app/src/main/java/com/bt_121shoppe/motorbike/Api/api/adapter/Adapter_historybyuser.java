@@ -25,6 +25,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -86,24 +87,52 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         view.btn_unlike.setVisibility(View.GONE);
 
         Double rs_price = 0.0;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        long date = 0;
-        Log.d("344343444","4545"+model.getModified());
-        try {
-            if (model.getModified() == null){
-                date = sdf.parse(model.getCreated()).getTime();
-            }else {
-                date = sdf.parse(model.getModified()).getTime();
-            }
+ //Close by Raksmey
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        long date = 0;
+//        Log.d("344343444","4545"+model.getModified());
+//        try {
+//            if (model.getModified() == null){
+//                date = sdf.parse(model.getCreated()).getTime();
+//            }else {
+//                date = sdf.parse(model.getModified()).getTime();
+//            }
+//
+//            Long now = System.currentTimeMillis();
+//            CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
+//            view.date.setText(ago);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//End
+//Add by Raksmey
+        String strPostTitle="";
+        String lang = view.strView.getText().toString();
+        int year =Integer.valueOf(model.getYear());
+        String fullTitle= CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
+        if(model.getPost_sub_title()== null){
 
-            Long now = System.currentTimeMillis();
-            CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-            view.date.setText(ago);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            if(lang.equals("View:"))
+                strPostTitle=fullTitle.split(",")[0];
+            else
+                strPostTitle=fullTitle.split(",")[1];
+        }else {
+            if (lang.equals("View:")) {
+                strPostTitle = model.getPost_sub_title().split(",")[0];
+            } else {
+                strPostTitle = model.getPost_sub_title().split(",")[1];
+            }
+        }
+        String jok=strPostTitle;
+        if (jok.length()>37){
+            jok=jok.substring(0,37)+"...";
+            view.title.setText(jok);
+        }else {
+            view.title.setText(jok);
         }
 //        view.title.setText(model.getTitle());
+//End
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
 //            rs_price = Double.parseDouble(model.getCost());
@@ -172,7 +201,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,item_type,txtview,date,txt_discount;
+        TextView title,cost,item_type,txtview,date,txt_discount,strView;
         ImageView imageView;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
@@ -181,9 +210,10 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             title = view.findViewById(R.id.title);
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);
-            date = view.findViewById(R.id.date);
+//            date = view.findViewById(R.id.date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
+            strView = view.findViewById(R.id.user_view1);
             btn_unlike = view.findViewById(R.id.imgbtn_unlike);
             txt_discount = view.findViewById(R.id.tv_discount);
 //            btn_delete = view.findViewById(R.id.btndelete);

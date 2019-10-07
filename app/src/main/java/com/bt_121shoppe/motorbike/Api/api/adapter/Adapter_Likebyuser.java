@@ -34,6 +34,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -107,7 +108,34 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
-                    view.title.setText(response.body().getTitle());
+//Add by Raksmey
+                    String strPostTitle="";
+                    String lang = view.txtview1.getText().toString();
+                    int year =Integer.valueOf(response.body().getYear());
+                    String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
+                    if(model.getPost_sub_title()== null){
+
+                        if(lang.equals("View:"))
+                            strPostTitle=fullTitle.split(",")[0];
+                        else
+                            strPostTitle=fullTitle.split(",")[1];
+                    }else {
+                        if (lang.equals("View:")) {
+                            strPostTitle = model.getPost_sub_title().split(",")[0];
+                        } else {
+                            strPostTitle = model.getPost_sub_title().split(",")[1];
+                        }
+                    }
+
+                    String jok=strPostTitle;
+                    if (jok.length()>37){
+                        jok=jok.substring(0,37)+"...";
+                        view.title.setText(jok);
+                    }else {
+                        view.title.setText(jok);
+                    }
+//                    view.title.setText(response.body().getTitle());
+//End
                     Double rs_price=0.0;
                     if (response.body().getDiscount().equals("0.00")){
                         Double co_cost = Double.parseDouble(response.body().getCost());
@@ -154,17 +182,18 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         view.item_type.setText(R.string.rent);
                         view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
                     }
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-                    Log.d("545445",response.body().getCreated());
-                    long date = 0;
-                    try {
-                        date = sdf.parse(response.body().getApproved_date()).getTime();
-                        Long now = System.currentTimeMillis();
-                        CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-                        view.date.setText(ago);
-                    } catch (ParseException e) { e.printStackTrace(); }
+//Close by Raksmey
+//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+//                    Log.d("545445",response.body().getCreated());
+//                    long date = 0;
+//                    try {
+//                        date = sdf.parse(response.body().getApproved_date()).getTime();
+//                        Long now = System.currentTimeMillis();
+//                        CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
+//                        view.date.setText(ago);
+//                    } catch (ParseException e) { e.printStackTrace(); }
+//End
 //Count View
                     try{
                         Service apiServiece = Client.getClient().create(Service.class);
@@ -246,7 +275,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             title = view.findViewById(R.id.title);
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);
-            date = view.findViewById(R.id.date);
+//            date = view.findViewById(R.id.date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
             txtview1 = view.findViewById(R.id.user_view1);

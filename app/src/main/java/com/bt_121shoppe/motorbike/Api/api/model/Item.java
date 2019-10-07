@@ -31,6 +31,7 @@ public class Item {
     private String rejected_by = null;
     private String rejected_comments;
     private int modeling;
+    private String year;
     private String description;
     private String cost;
     private String post_type;
@@ -240,6 +241,9 @@ public class Item {
         this.modeling = modeling;
     }
 
+    public String getYear() {return year;}
+
+    public void setYear(String year) { this.year = year; }
 
     public String getDescription() {
         return description;

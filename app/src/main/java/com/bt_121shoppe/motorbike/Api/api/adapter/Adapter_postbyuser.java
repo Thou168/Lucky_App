@@ -191,32 +191,51 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             });
             dialog.create().show();
         });
+//Close by Raksmey
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+////        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        long date = 0;
+//        try {
+//            date = sdf.parse(model.getCreated()).getTime();
+//            Long now = System.currentTimeMillis();
+//            CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
+//
+//            view.date.setText(ago);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//End
+//Add by Raksmey
+        String strPostTitle="";
+        String lang = view.strView.getText().toString();
+        int year =Integer.valueOf(model.getYear());
+        String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
+        if(model.getPost_sub_title()== null){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        long date = 0;
-        try {
-            date = sdf.parse(model.getCreated()).getTime();
-            Long now = System.currentTimeMillis();
-            CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-
-            view.date.setText(ago);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            if(lang.equals("View:"))
+                strPostTitle=fullTitle.split(",")[0];
+            else
+                strPostTitle=fullTitle.split(",")[1];
+        }else {
+            if (lang.equals("View:")) {
+                strPostTitle = model.getPost_sub_title().split(",")[0];
+            } else {
+                strPostTitle = model.getPost_sub_title().split(",")[1];
+            }
         }
 
         String jok;
-        lao = model.getTitle();
+//        lao = model.getTitle();
 //        view.title.setText(lao);
-        jok=model.getTitle();
+        jok=strPostTitle;
         if (jok.length()>37){
             jok=jok.substring(0,37)+"...";
             view.title.setText(jok);
         }else {
             view.title.setText(jok);
         }
-
+//Endd
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
         }else {
@@ -313,7 +332,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
 
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,date,item_type,txtview,txt_discount;
+        TextView title,cost,date,item_type,txtview,txt_discount,strView;
         ImageView imageView;
         Button btn_renewal,btn_edit,btn_delete;
         LinearLayout linearLayout;
@@ -323,9 +342,10 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);
             txt_discount = view.findViewById(R.id.tv_discount);
-            date = view.findViewById(R.id.date);
+//            date = view.findViewById(R.id.date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
+            strView = view.findViewById(R.id.user_view1);
             btn_renewal = view.findViewById(R.id.btn_renew);
             btn_edit = view.findViewById(R.id.btnedit_post);
             btn_delete = view.findViewById(R.id.btndelete);
