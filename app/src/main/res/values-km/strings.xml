@@ -37,7 +37,7 @@
     <string name="menu_loan">ឥណទានរបស់អ្នក</string>
     <string name="menu_setting">ការកំណត់</string>
     <string name="menu_about">អំពី​ ១២១</string>
-    <string name="menu_contact">ទំនាក់ទំនង១២១</string>
+    <string name="menu_contact">ទំនាក់ទំនង ១២១</string>
     <string name="menu_privacy">លក្ខខណ្ឌ</string>
     <string name="title_activity_account">គណនី</string>
 
@@ -83,11 +83,14 @@
     <string name="or">ឬ</string>
     <string name="register_by_facebook">ចុះឈ្មោះដោយប្រើ​​គណនីហ្វេសប៊ុក</string>
     <string name="selectuser">ជ្រើសរើសប្រភេទគណនី</string>
+
+    //dialog error register
+    <string name="head_dialog_register">បរាជ័យក្នុងការបង្កើត</string>
     <string name="inputPhone">សូមបញ្ចូលលេខទូរស័ព្ទ</string>
     <string name="inputPhoneWrong">លេខទូរស័ព្ទមិនត្រឹមត្រូវ</string>
     <string name="inputPassword">សូមបញ្ចូលពាក្យសម្ងាត់</string>
-    <string name="wrongInputPassword">ពាក្យ​សម្ងាត់​មិនត្រឹម​ត្រូវ​</string>
-    <string name="wrongInputPasswordSecond">ពាក្យ​សម្ងាត់​មិនត្រូវ​គ្នា</string>
+    <string name="wrongInputPassword">លេខ​សម្ងាត់​មិនត្រឹម​ត្រូវ​</string>
+    <string name="wrongInputPasswordSecond">លេខ​សម្ងាត់​មិនត្រូវ​គ្នា</string>
     <string name="inputComfirm">សូមបញ្ចូលពាក្យសម្ងាត់បញ្ជាក់</string>
     <string name="invalidPassword">ពាក្យសម្ងាត់បញ្ជាក់គឺមិនត្រឹមត្រូវ</string>
     <string name="next">បន្ទាប់</string>
@@ -112,7 +115,7 @@
     <string name="hit_store">ឈ្មោះហាង/ក្រុមហ៊ុន</string>
     <string name="hit_about_shop">អំពីហាង/ក្រុមហ៊ុន</string>
     <string name="hit_wingnumber">លេខគណនីវីង</string>
-    <string name="hit_wingaccount">ឈ្មោះគណនីវីង</string>s
+    <string name="hit_wingaccount">ឈ្មោះគណនីវីង</string>
     <string name="hit_dealer">អ្នកចែកចាយ</string>
 
     //delete and edit
@@ -381,6 +384,15 @@
 កម្មវិធីនេះ មិនមានការទទួលខុសត្រូវចំពោះខ្លឹមសារនៃផលិតផលដែលបានប្រកាសទិញ លក់ ជួលឡើយ ។ ទោះយ៉ាងណាក៏ដោយប្រសិនបើអ្នកប្រើប្រាស់ក្លាយជាជនរងគ្រោះនៃប្រតិបត្តិការឆបោក យើងខ្ញុំនឹងជួយអ្នកប្រើប្រាស់ឲ្យអស់ពីលទ្ធភាពរបស់យើងខ្ញុំ ។
 </string>
     <string name="condittion_verify">យើងនឹងផ្ញើកូដផ្ទៀងផ្ទាត់ទៅកាន់លេខនេះ។ អ្នកគ្រាន់តែបញ្ចូលកូដដែលទទួលបានពីសារនៅទីនេះ</string>
+
+    //contact us 121
+    <string name="head_shop_121">១២១ សបភី ឯ.ក </string>
+    <string name="address_contact_us">អាសយដ្ឋាន ៖ 	"អគារអិលអេសអាយ (ជាន់ទី៣) មហាវិថីមិត្តភាពភ្នំពេញ-ហាណូយ
+                  (លេខ១០១៩)  សង្កាត់គោកឃ្លាង   ខណ្ឌសែនសុខ   រាជធានីភ្នំពេញ ។"</string>
+    <string name="telephone_contact_us">ទូរស័ព្ទលេខ ៖	069 99 00 37 / 089 99 00 37</string>
+    <string name="telephone_2">069 99 00 57 / 089 99 00 57</string>
+    <string name="email_contact_us">អុីមែល       ៖	Info.121shoppe@gmail.com</string>
+    <string name="website_contact_us">គេហទំព័រ ៖ 121shoppe.com</string>
 
     //Loan
     <string name="loan_description">ព័ត៌មានលម្អិតឥណទាន</string>

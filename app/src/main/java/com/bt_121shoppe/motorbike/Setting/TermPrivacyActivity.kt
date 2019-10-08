@@ -17,7 +17,9 @@ class TermPrivacyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_term_privacy)
 
         var txtBack = findViewById<View>(R.id.tvBack_account) as TextView
-        txtBack.setOnClickListener(View.OnClickListener { finish() })
+        txtBack.setOnClickListener(View.OnClickListener {
+            finish()
+        })
 
         val txt_term_privacy_description=findViewById<TextView>(R.id.txt_term_privacy_description)
         val txt_suspend_description=findViewById<TextView>(R.id.txt_suspend_description)

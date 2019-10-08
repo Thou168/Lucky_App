@@ -306,6 +306,8 @@
     <string name="post_type">Post type</string>
     <string name="title">Title</string>
     <string name="selectuser">Select Account Type</string>
+    //dialog error register
+    <string name="head_dialog_register">Register failure!</string>
     <string name="inputPhone">Please input the Phone Numbers</string>
     <string name="inputPhoneWrong">Invalid Phone Number</string>
     <string name="inputPassword">Please input the Password</string>
@@ -358,6 +360,15 @@
     In addition, This App shall not be responsible for any items sold/rent through it, for any damage to items during the inspection period, nor for misrepresentations or breaches of contract by either buyer, lessee, seller or lessor.
     This App shall not be responsible for the cost of procurement of substitute goods or any losses resulting from any goods purchased or obtained. This App assumes no liability for the content of the listings. However if you fall victim of a fraudulent transaction, we will assist you as much as we can.
     </string>
+    
+    //contact us 121
+    <string name="head_shop_121">121 Shoppe Co., Ltd</string>
+    <string name="address_contact_us">Address :	"LSI Building (3rd floor), Phnom Penh-Hanio Friendship Blvd.
+                  (#1019), SK. Kouk Khleang, KH. Sen Sok, Phnom Penh"</string>
+    <string name="telephone_contact_us">Telephone :	069 99 00 37 / 089 99 00 37</string>
+    <string name="telephone_2">069 99 00 57 / 089 99 00 57</string>
+    <string name="email_contact_us">E-mail :		Info.121shoppe@gmail.com</string>
+    <string name="website_contact_us">Website :	121shoppe.com</string>
 
     //login
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -374,7 +385,10 @@
     <string name="dont_receive">Do not Receive the Code?</string>
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
-    <string name="verify_code_message">User with this username already exists.</string>
+    <string name="verify_code_message">"User with this username already exists.
+
+
+        Please create new for register!"</string>
     //message
     <string name="type_message">Type a message...</string>
     <string name="username">Username</string>
@@ -396,7 +410,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="shoppe">121 Shoppe</string>
-    <string name="search_here">Search...</string>
+    <string name="search_here">Search…</string>
 
     //dealer
     <string name="no_result">No Result</string>
@@ -420,7 +434,7 @@
     <string name="post_success_message">This Post ads has been successfully submitted.</string>
     <string name="waiting_approval">Waiting approval</string>
     <string name="ok">OK</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait…</string>
     <string name="uploading">Uploading</string>
     <string name="job">Job can`t be empty</string>
     <string name="monthly_expense">Monthly expense can`t be empty</string>
@@ -451,7 +465,7 @@
     <string name="button_close">Close</string>
     <string name="phone_exist">This phone number is already used. Please try another.</string>
 
-    <string name="progress_waiting">In progress...</string>
+    <string name="progress_waiting">In progress…</string>
     <string name="requried_permission">Please Turn On your Location Connection</string>
     <string name="gps">Please Turn On your PGS Connection</string>
     //validate loan
@@ -462,7 +476,7 @@
     <string name="title_edit_account">Edit account</string>
     <string name="edit_success_message">Account information has been successfully submitted.</string>
     <string name="edit_fail_message">Account information has been error while submitting.</string>
-    <string name="update">Updating...</string>
+    <string name="update">Updating…</string>
     <string name="title_unlike">Remove Save Ad</string>
     <string name="unlike_message">Are you sure to remove this save ad?uploading</string>
     <string name="like_post">You Liked this post</string>

@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String ComfirmPass = editComfirmPass.getText().toString();
 
                 if (Number_Phone.length()<8 || Password.length()<4 || ComfirmPass.length()<4 || !Password.equals(ComfirmPass)){
-                    login_error();
+                    register_error();
                     if (Number_Phone.isEmpty()){
                         PhoneError.setTextColor(getColor(R.color.red));
                         PhoneError.setText(R.string.inputPhone);
@@ -195,9 +195,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void login_error(){
+    private void register_error(){
         dialog = new AlertDialog.Builder(RegisterActivity.this,R.style.AlertDialogCustom);
-        dialog.setTitle(R.string.head_dialog_login);
+        dialog.setTitle(R.string.head_dialog_register);
 //        dialog.setMessage(R.string.wrong_pass_phone);
         dialog.setCancelable(false);
         dialog.setIcon(android.R.drawable.ic_delete);
