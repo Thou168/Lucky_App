@@ -284,7 +284,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(new Intent(EditAccountActivity.this,Home.class));
             }
         });
 

@@ -122,50 +122,45 @@ public class RegisterActivity extends AppCompatActivity {
                 String Number_Phone = editPhone.getText().toString();
                 String Password = editPassword.getText().toString();
                 String ComfirmPass = editComfirmPass.getText().toString();
+                if (user_group == 1){
+                    if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)) {
+//                    register_error();
+                        if (Number_Phone.isEmpty()) {
+                            PhoneError.setTextColor(getColor(R.color.red));
+                            PhoneError.setText(R.string.inputPhone);
+                        } else if (Number_Phone.length() < 9) {
+                            PhoneError.setTextColor(getColor(R.color.red));
+                            PhoneError.setText(R.string.inputPhoneWrong);
+                        } else {
+                            PhoneError.setText("");
+                        }
 
-                if (Number_Phone.length()<8 || Password.length()<4 || ComfirmPass.length()<4 || !Password.equals(ComfirmPass)){
-                    register_error();
-                    if (Number_Phone.isEmpty()){
-                        PhoneError.setTextColor(getColor(R.color.red));
-                        PhoneError.setText(R.string.inputPhone);
-                    }else if (Number_Phone.length()<9){
-                        PhoneError.setTextColor(getColor(R.color.red));
-                        PhoneError.setText(R.string.inputPhoneWrong);
-                    }
-                    else{
-                        PhoneError.setText("");
-                    }
+                        if (Password.isEmpty()) {
+                            PasswordError.setTextColor(getColor(R.color.red));
+                            PasswordError.setText(R.string.inputPassword);
+                        } else if (Password.length() != 4) {
+                            PasswordError.setTextColor(getColor(R.color.red));
+                            PasswordError.setText(R.string.user_message);
+                            Log.d("Jajaja", "Nanano");
+                        } else {
+                            PasswordError.setText("");
+                        }
 
-                    if (Password.isEmpty()){
-                        PasswordError.setTextColor(getColor(R.color.red));
-                        PasswordError.setText(R.string.inputPassword);
-                    }
-                    else if (Password.length()<4){
-                        PasswordError.setTextColor(getColor(R.color.red));
-                        PasswordError.setText(R.string.wrongInputPassword);
-                        Log.d("Jajaja","Nanano");
-                    }
-                    else {
-                        PasswordError.setText("");
-                    }
-
-                    if (ComfirmPass.isEmpty()){
-                        ComfirmPassError.setTextColor(getColor(R.color.red));
-                        ComfirmPassError.setText(R.string.inputComfirm);
-                    }
-                    else if (ComfirmPass.length()<4){
-                        ComfirmPassError.setTextColor(getColor(R.color.red));
-                        ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
-                        Log.d("Kokoko","Konoha");
-                    }
-                    else {
-                        ComfirmPassError.setTextColor(getColor(R.color.red));
-                        ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
-                    }
-                } else if (user_group == 1) {
-
-                    if (CheckNumber(ComfirmPass)) {
+                        if (ComfirmPass.isEmpty()) {
+                            ComfirmPassError.setTextColor(getColor(R.color.red));
+                            ComfirmPassError.setText(R.string.inputComfirm);
+                        } else if (!Password.equals(ComfirmPass)) {
+                            ComfirmPassError.setTextColor(getColor(R.color.red));
+                            ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
+                            Log.d("Kokoko", "Konoha");
+                        } else {
+                            ComfirmPassError.setText("");
+                        }
+                    }else if (CheckNumber(ComfirmPass)) {
                         mProgress.show();
+                        PhoneError.setText("");
+                        ComfirmPassError.setText("");
+                        PasswordError.setText("");
                         /* block for verify code sep 12 2019 */
 //                        Intent intent = new Intent(RegisterActivity.this, VerifyMobileActivity.class);
 //                        intent.putExtra("authType", 1);
@@ -179,18 +174,45 @@ public class RegisterActivity extends AppCompatActivity {
                         registerAPIUser(editPhone.getText().toString(),Password,user_group);
                     } else {
                         mProgress.dismiss();
-                        PasswordError.setTextColor(getColor(R.color.red));
-                        ComfirmPassError.setTextColor(getColor(R.color.red));
-                        PasswordError.setText(R.string.user_message);
-                        ComfirmPassError.setText(R.string.user_message);
                     }
-                    //registerUserFirebase("user1","borithnget@email.com","1234__");
-                }else{
-                    mProgress.show();
-                    registerAPIUser(editPhone.getText().toString(),Password,user_group);
+                }else {
+                    if (Number_Phone.length()<9 || !Password.equals(ComfirmPass)) {
+//                    register_error();
+                        if (Number_Phone.isEmpty()) {
+                            PhoneError.setTextColor(getColor(R.color.red));
+                            PhoneError.setText(R.string.inputPhone);
+                        } else if (Number_Phone.length() < 9) {
+                            PhoneError.setTextColor(getColor(R.color.red));
+                            PhoneError.setText(R.string.inputPhoneWrong);
+                        } else {
+                            PhoneError.setText("");
+                        }
 
+                        if (Password.isEmpty()) {
+                            PasswordError.setTextColor(getColor(R.color.red));
+                            PasswordError.setText(R.string.inputPassword);
+                        }else {
+                            PasswordError.setText("");
+                        }
+
+                        if (ComfirmPass.isEmpty()) {
+                            ComfirmPassError.setTextColor(getColor(R.color.red));
+                            ComfirmPassError.setText(R.string.inputComfirm);
+                        } else if (!Password.equals(ComfirmPass)) {
+                            ComfirmPassError.setTextColor(getColor(R.color.red));
+                            ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
+                            Log.d("Kokoko", "Konoha");
+                        } else {
+                            ComfirmPassError.setText("");
+                        }
+                    }else {
+                        mProgress.show();
+                        PhoneError.setText("");
+                        ComfirmPassError.setText("");
+                        PasswordError.setText("");
+                        registerAPIUser(editPhone.getText().toString(), Password, user_group);
+                    }
                 }
-//                mProgress.show();
             }
         });
     }
