@@ -176,7 +176,9 @@ public class RegisterActivity extends AppCompatActivity {
                         mProgress.dismiss();
                     }
                 }else {
-                    if (Number_Phone.length()<9 || !Password.equals(ComfirmPass)) {
+                    Pattern lowerCasePatten = Pattern.compile("[a-z ]");
+                    Pattern digitCasePatten = Pattern.compile("[0-9 ]");
+                    if (Number_Phone.length()<9 || !lowerCasePatten.matcher(Password).find() || !lowerCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
 //                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
@@ -191,7 +193,14 @@ public class RegisterActivity extends AppCompatActivity {
                         if (Password.isEmpty()) {
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.inputPassword);
-                        }else {
+                        }else if (!lowerCasePatten.matcher(Password).find()){
+                            PasswordError.setTextColor(getColor(R.color.red));
+                            PasswordError.setText(R.string.valid_dealer_pass);
+                        }else if (!digitCasePatten.matcher(Password).find()){
+                            PasswordError.setTextColor(getColor(R.color.red));
+                            PasswordError.setText(R.string.valid_dealer_pass);
+                        }
+                        else {
                             PasswordError.setText("");
                         }
 
