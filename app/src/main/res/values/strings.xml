@@ -363,8 +363,8 @@
     
     //contact us 121
     <string name="head_shop_121">121 Shoppe Co., Ltd</string>
-    <string name="address_contact_us">Address :	"LSI Building (3rd floor), Phnom Penh-Hanio Friendship Blvd.
-                  (#1019), SK. Kouk Khleang, KH. Sen Sok, Phnom Penh"</string>
+    <string name="address_contact_us">Address :	LSI Building (3rd floor), Phnom Penh-Hanio Friendship Blvd.
+                  (#1019), SK. Kouk Khleang, KH. Sen Sok, Phnom Penh</string>
     <string name="telephone_contact_us">Telephone :	069 99 00 37 / 089 99 00 37</string>
     <string name="telephone_2">069 99 00 57 / 089 99 00 57</string>
     <string name="email_contact_us">E-mail :		Info.121shoppe@gmail.com</string>

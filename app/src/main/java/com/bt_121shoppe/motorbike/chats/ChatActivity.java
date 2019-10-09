@@ -125,7 +125,7 @@ public class ChatActivity extends AppCompatActivity {
 
             tvusername.setText(postUsername);
             tvposttitle.setText(postTitle);
-            tvpostprice.setText("$ "+postPrice);
+            tvpostprice.setText("$"+postPrice);
 
             if(postImage==null|| postImage.isEmpty()){
                 Glide.with(this).load(R.drawable.no_image_available).thumbnail(0.1f).into(imageView);
