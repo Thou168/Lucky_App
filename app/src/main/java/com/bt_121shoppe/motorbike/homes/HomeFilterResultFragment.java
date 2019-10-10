@@ -556,7 +556,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             JSONObject obj=new JSONObject(response);
             JSONArray results=obj.getJSONArray("results");
             for(int i=0;i<results.length();i++){
-                JSONObject oobj=results.getJSONObject(i);
+                JSONObject oobj=results.getJSONObject(i-1);
                 if(brandId==oobj.getInt("brand"))
                     count++;
             }

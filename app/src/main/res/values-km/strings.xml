@@ -317,8 +317,8 @@
 
     <string name="title_wrong">លេខទូរស័ព្ទរឺលេខកូដរបស់អ្នកមិនត្រឹមត្រូវ!</string>
 
-    <string name="head_dialog_login">បរាជ៍យក្នុងការចូល!</string>
-    <string name="wrong_pass_phone">លេខកូដរឺទូរស៏ព្ទរបស់អ្នកមិនត្រឹមត្រូវ!</string>
+    <string name="head_dialog_login">បរាជ័យក្នុងការចូល!</string>
+    <string name="wrong_pass_phone">លេខកូដរឺទូរស័ព្ទរបស់អ្នកមិនត្រឹមត្រូវ!</string>
 
     //Rent type
     <string-array name="rent_type">
