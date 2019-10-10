@@ -20,20 +20,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -41,6 +45,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,6 +82,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -133,6 +140,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     File mPhotoFile;
     FileCompressor mCompressor;
     private RelativeLayout relatve_discount;
+    private RelativeLayout relative_used;
     private ScrollView scrollView;
     private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
@@ -172,6 +180,38 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     Bundle bundle;
     int mmodel=1;
 
+//for condition used
+    private TextInputLayout textInputWholeint;
+    private TextInputLayout textInputfront_and_rear_wheel_sets;
+    private TextInputLayout textInputThe_whole_screw;
+    private TextInputLayout textInputFront_and_rear_pumps;
+    private TextInputLayout textInputLeft_and_right_engine_counter;
+    private TextInputLayout textInputEngine_head;
+    private TextInputLayout textInputMachine_Assembly;
+    private TextInputLayout textInputConsole;
+    private TextInputLayout textInputAccessories;
+
+    private EditText edwhole_int;
+    private EditText edfront_and_rear_wheel_sets;
+    private EditText edThe_whole_screw;
+    private EditText edFront_and_rear_pumps;
+    private EditText edLeft_and_right_engine_counter;
+    private EditText edEngine_head;
+    private EditText edMachine_Assembly;
+    private EditText edConsole;
+    private EditText edAccessories;
+
+    private ImageView imgwhole_int;
+    private ImageView imgfront_and_rear_wheel_sets;
+    private ImageView imgThe_whole_screw;
+    private ImageView imgFront_and_rear_pumps;
+    private ImageView imgLeft_and_right_engine_counter;
+    private ImageView imgEngine_head;
+    private ImageView imgMachine_Assembly;
+    private ImageView imgConsole;
+    private ImageView imgAccessories;
+//end
+
     private String[] postTypeListItems,conditionListItems,modelListItemkh,discountTypeListItems,brandListItemkh,typeListItemkh,categoryListItemkh,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems;
     private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -180,6 +220,44 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
+
+    //for condition used
+        relative_used = (RelativeLayout)findViewById(R.id.relative_Used);
+        relative_used.setVisibility(View.GONE);
+
+        //input layout
+        textInputWholeint = (TextInputLayout)findViewById(R.id.inputwhole_int);
+        textInputfront_and_rear_wheel_sets = (TextInputLayout)findViewById(R.id.inputfront_and_rear_wheel_sets);
+        textInputThe_whole_screw=(TextInputLayout)findViewById(R.id.inputThe_whole_screw);
+        textInputFront_and_rear_pumps = (TextInputLayout)findViewById(R.id.inputFront_and_rear_pumps);
+        textInputLeft_and_right_engine_counter = (TextInputLayout)findViewById(R.id.inputLeft_and_right_engine_counter);
+        textInputEngine_head=(TextInputLayout)findViewById(R.id.inputEngine_head);
+        textInputMachine_Assembly = (TextInputLayout)findViewById(R.id.inputMachine_Assembly);
+        textInputConsole=(TextInputLayout)findViewById(R.id.inputConsole);
+        textInputAccessories=(TextInputLayout)findViewById(R.id.inputAccessories);
+
+        //edtext
+        edwhole_int = (EditText)findViewById(R.id.edwhole_int);
+        edfront_and_rear_wheel_sets = (EditText)findViewById(R.id.edfront_and_rear_wheel_sets);
+        edThe_whole_screw = (EditText)findViewById(R.id.edThe_whole_screw);
+        edFront_and_rear_pumps = (EditText)findViewById(R.id.edFront_and_rear_pumps);
+        edLeft_and_right_engine_counter = (EditText)findViewById(R.id.edLeft_and_right_engine_counter);
+        edEngine_head = (EditText)findViewById(R.id.edEngine_head);
+        edMachine_Assembly = (EditText)findViewById(R.id.edMachine_Assembly);
+        edConsole = (EditText)findViewById(R.id.edConsole);
+        edAccessories = (EditText)findViewById(R.id.edAccessories);
+
+        imgwhole_int = (ImageView)findViewById(R.id.imgwhole_int);
+        imgfront_and_rear_wheel_sets = (ImageView)findViewById(R.id.imgfront_and_rear_wheel_sets);
+        imgThe_whole_screw = (ImageView)findViewById(R.id.imgThe_whole_screw);
+        imgFront_and_rear_pumps = (ImageView)findViewById(R.id.imgFront_and_rear_pumps);
+        imgLeft_and_right_engine_counter = (ImageView)findViewById(R.id.imgLeft_and_right_engine_counter);
+        imgEngine_head = (ImageView)findViewById(R.id.imgEngine_head);
+        imgMachine_Assembly = (ImageView)findViewById(R.id.imgMachine_Assembly);
+        imgConsole = (ImageView)findViewById(R.id.imgConsole);
+        imgAccessories = (ImageView)findViewById(R.id.imgAccessories);
+
+    // end
 
         scrollView = findViewById(R.id.scroll_post);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
@@ -2455,9 +2533,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         switch (i){
                             case 0:
                                 strCondition="new";
+                                relative_used.setVisibility(View.GONE);
                                 break;
                             case 1:
                                 strCondition="used";
+                                validationforused();
+                                relative_used.setVisibility(View.VISIBLE);
                                 break;
                         }
                         dialogInterface.dismiss();
@@ -2572,6 +2653,269 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+    }
+
+    private void validationforused(){
+        edwhole_int.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgwhole_int.setImageResource(R.drawable.icon_null);
+                    textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputWholeint.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edfront_and_rear_wheel_sets.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
+                    textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputfront_and_rear_wheel_sets.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edThe_whole_screw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgThe_whole_screw.setImageResource(R.drawable.icon_null);
+                    textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputThe_whole_screw.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edFront_and_rear_pumps.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
+                    textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputFront_and_rear_pumps.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edLeft_and_right_engine_counter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
+                    textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputLeft_and_right_engine_counter.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edEngine_head.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgEngine_head.setImageResource(R.drawable.icon_null);
+                    textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputEngine_head.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edMachine_Assembly.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgMachine_Assembly.setImageResource(R.drawable.icon_null);
+                    textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputMachine_Assembly.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edConsole.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgConsole.setImageResource(R.drawable.icon_null);
+                    textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputConsole.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edAccessories.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    imgAccessories.setImageResource(R.drawable.icon_null);
+                    textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                }
+                else if (s.length() > 100) {
+                    imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                else if
+                (s.length()<=100) {
+                    imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    textInputAccessories.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
+                    textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private String getEncodedString(String username, String password) {

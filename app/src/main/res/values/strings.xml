@@ -534,6 +534,22 @@
     <string name="silver">Silver</string>
     <string name="red">Red</string>
     <string name="gray">Gray</string>
+    
+    //for condition used
+    <string name="moto_eta">I. Motorcycles (Eta)</string>
+        <string name="whole_int">Whole ink</string>
+        <string name="front_and_rear_wheel_sets">Front and rear wheel sets</string>
+        <string name="The_whole_screw">The whole screw</string>
+        <string name="Front_and_rear_pumps">Front and rear pumps</string>
+
+    <string name="machine_section">II. Machine section)</string>
+        <string name="Left_and_right_engine_counter">Left and right engine counter</string>
+        <string name="Engine_head">Engine head</string>
+        <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
+        <string name="Console">Console</string>
+
+    <string name="other_sections">III. Other sections</string>
+        <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
     //edit account
     <string name="yellow">Yellow</string>
     <string name="pink">Pink</string>

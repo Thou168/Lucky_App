@@ -79,8 +79,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
-
                     <ImageView
                         android:id="@+id/imgTitle"
                         android:layout_width="15dp"
@@ -94,6 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgTitle"
+                        app:hintTextAppearance="@style/CounterText"
                         android:background="@drawable/underline_gray">
 
                         <EditText
@@ -356,6 +355,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgColor"
+                        app:hintTextAppearance="@style/CounterText"
                         android:layout_toRightOf="@+id/imgPrice"
                         android:background="@drawable/underline_gray">
 
@@ -385,13 +385,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/imgPrice"
+                        app:hintTextAppearance="@style/CounterText"
                         android:layout_toRightOf="@+id/imgDescription"
                         android:background="#F9F9F9">
 
                         <EditText
                             android:id="@+id/etDescription"
                             android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="wrap_content"
                             android:textSize="14dp"
                             android:hint="@string/description"
                             android:paddingLeft="10dp"
@@ -399,6 +400,338 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relative_Used"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/relative_motorcycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/titl_motorcycle"
+                            android:padding="@dimen/dp_8"
+                            android:text="@string/moto_eta"
+                            android:textSize="16dp"
+                            android:background="@color/grey_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:id="@+id/imgwhole_int"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_below="@id/titl_motorcycle"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputwhole_int"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/titl_motorcycle"
+                            android:layout_toEndOf="@+id/imgwhole_int"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edwhole_int"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/whole_int"
+                                android:gravity="bottom"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Show error"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imgfront_and_rear_wheel_sets"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgwhole_int"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputfront_and_rear_wheel_sets"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgwhole_int"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_toRightOf="@+id/imgfront_and_rear_wheel_sets"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edfront_and_rear_wheel_sets"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/front_and_rear_wheel_sets"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imgThe_whole_screw"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgfront_and_rear_wheel_sets"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputThe_whole_screw"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/imgfront_and_rear_wheel_sets"
+                            android:layout_toRightOf="@+id/imgThe_whole_screw"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edThe_whole_screw"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/The_whole_screw"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imgFront_and_rear_pumps"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgThe_whole_screw"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputFront_and_rear_pumps"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/imgThe_whole_screw"
+                            android:layout_toRightOf="@+id/imgFront_and_rear_pumps"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edFront_and_rear_pumps"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/Front_and_rear_pumps"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_machinesection"
+                        android:layout_below="@+id/relative_motorcycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/mk"
+                            android:padding="@dimen/dp_8"
+                            android:text="@string/machine_section"
+                            android:textSize="16dp"
+                            android:background="@color/grey_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:id="@+id/imgLeft_and_right_engine_counter"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_below="@id/mk"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLeft_and_right_engine_counter"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/mk"
+                            android:layout_toRightOf="@+id/imgLeft_and_right_engine_counter"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edLeft_and_right_engine_counter"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/Left_and_right_engine_counter"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imgEngine_head"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgLeft_and_right_engine_counter"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputEngine_head"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/imgLeft_and_right_engine_counter"
+                            android:layout_toRightOf="@+id/imgEngine_head"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edEngine_head"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/Engine_head"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imgMachine_Assembly"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgEngine_head"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputMachine_Assembly"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/imgEngine_head"
+                            android:layout_toRightOf="@+id/imgMachine_Assembly"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edMachine_Assembly"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/Machine_Assembly"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imgConsole"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/imgMachine_Assembly"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputConsole"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_below="@+id/imgMachine_Assembly"
+                            android:layout_toRightOf="@+id/imgConsole"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edConsole"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/Console"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_othersection"
+                        android:layout_below="@+id/relative_machinesection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/la"
+                            android:padding="@dimen/dp_8"
+                            android:text="@string/other_sections"
+                            android:textSize="16dp"
+                            android:background="@color/grey_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:id="@+id/imgAccessories"
+                            android:layout_width="15dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_below="@id/la"
+                            android:src="@drawable/icon_null"
+                            android:background="@drawable/underline_gray"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputAccessories"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_below="@+id/la"
+                            app:counterMaxLength="100"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/TextLimitError"
+                            app:hintTextAppearance="@style/CounterText"
+                            android:layout_toRightOf="@+id/imgAccessories"
+                            android:background="@drawable/underline_gray">
+
+                            <EditText
+                                android:id="@+id/edAccessories"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:hint="@string/Accessories"
+                                android:inputType="number"
+                                android:paddingLeft="10dp"
+                                android:background="@null" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -459,6 +792,7 @@
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgDisType"
                         android:layout_toRightOf="@+id/imgDisAmount"
+                        app:hintTextAppearance="@style/CounterText"
                         android:background="@drawable/underline_gray">
 
                         <EditText
@@ -496,6 +830,7 @@
                         android:id="@+id/tilName"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        app:hintTextAppearance="@style/CounterText"
                         android:layout_toRightOf="@+id/imgName"
                         android:background="@drawable/underline_gray">
 
@@ -533,6 +868,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgName"
+                        app:hintTextAppearance="@style/CounterText"
                         android:layout_toRightOf="@+id/imgPhone1"
                         android:layout_toLeftOf="@+id/btnPhone1_post"
                         android:background="@drawable/underline_gray">
@@ -577,6 +913,7 @@
                         android:layout_below="@+id/imgPhone1"
                         android:layout_toRightOf="@+id/imgPhone2"
                         android:layout_toLeftOf="@+id/btnPhone2_post"
+                        app:hintTextAppearance="@style/CounterText"
                         android:visibility="gone"
                         android:background="@drawable/underline_gray">
 
@@ -611,6 +948,7 @@
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgPhone2"
                         android:layout_toRightOf="@+id/imgPhone1"
+                        app:hintTextAppearance="@style/CounterText"
                         android:visibility="gone"
                         android:background="@drawable/underline_gray">
 
@@ -639,6 +977,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_below="@+id/imgPhone3"
+                        app:hintTextAppearance="@style/CounterText"
                         android:layout_toRightOf="@+id/imgEmail"
                         android:background="@drawable/underline_gray">
 

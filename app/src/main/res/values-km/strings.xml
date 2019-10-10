@@ -542,6 +542,22 @@
     <string name="history_loan">ប្រវត្តិស្នើសុំឥណទាន</string>
     <string name="loan_active">ឥណទានស្នើសុំថ្មី</string>
     <string name="view">ចំនួនអ្នកមើលៈ</string>
+
+    //for condition used
+    <string name="moto_eta">I. ភិនភាគម៉ូតូ (អេតា)</string>
+        <string name="whole_int">ទឹកថ្នាំទាំងមូល</string>
+        <string name="front_and_rear_wheel_sets">សំណុំកង់មុខ និងក្រោយ</string>
+        <string name="The_whole_screw">ខ្ចៅទាំងមូល</string>
+        <string name="Front_and_rear_pumps">បូមខាងមុខ និងខាងក្រោយ</string>
+
+    <string name="machine_section">II. ផ្នែកម៉ាស៊ីន</string>
+        <string name="Left_and_right_engine_counter">កាទែរម៉ាស៊ីនឆ្វេង និងស្តាំ</string>
+        <string name="Engine_head">ក្បាលកន្លាស់ម៉ាស៊ីន</string>
+        <string name="Machine_Assembly">គ្រឿងបង្គុំម៉ាស៊ីន(យ៉ុត អាគុយ ម៉ាញេតូ បេន ភ្លើងស្តុប …)</string>
+        <string name="Console">កុងទ័រ</string>
+
+    <string name="other_sections">III. ផ្នែកផ្សេងៗ</string>
+        <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
     //edit account
     <string name="male">ប្រុស</string>
     <string name="female">ស្រី</string>
