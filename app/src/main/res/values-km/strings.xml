@@ -122,7 +122,6 @@
     //delete and edit
     <string name="button_edit">កែប្រែ</string>
     <string name="button_delete">លុប</string>
-
 //Buy Sell Rent
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">Khmer map</string>-->
 

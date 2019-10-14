@@ -567,7 +567,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void updateView(String language){
-        //Log.e(TAG,"current Fragment on change language "+language);
+        Log.e(TAG,"current Fragment on change language "+language);
         language(language);
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
