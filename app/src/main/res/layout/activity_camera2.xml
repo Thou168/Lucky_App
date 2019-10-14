@@ -767,8 +767,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:hint="@string/discount_type"
-                            android:paddingLeft="10dp"
-                            android:textSize="14dp"
+                            android:paddingStart="10dp"
+                            android:textSize="14sp"
                             android:background="@null"
                             android:focusable="false"
                             android:drawableRight="@drawable/chevron_down_24"/>

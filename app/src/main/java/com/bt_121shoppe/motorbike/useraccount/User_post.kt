@@ -181,7 +181,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                     runOnUiThread {
 
                             val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
-                            val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
+//                            val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
                             if(user1.getFirst_name().isEmpty())
                             {
                                 Username!!.setText(user1.getUsername())
@@ -191,13 +191,13 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                             }
                         CommomAPIFunction.getUserProfileFB(this@User_post,img_user,user1.username)
 
-                            if(coverpicture.isNullOrEmpty()){
-
-                            }else {
-                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
-                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-//                                imgCover!!.setImageBitmap(decodedByte)
-                            }
+//                            if(coverpicture.isNullOrEmpty()){
+//
+//                            }else {
+//                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
+//                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+////                                imgCover!!.setImageBitmap(decodedByte)
+//                            }
 
                     }
 

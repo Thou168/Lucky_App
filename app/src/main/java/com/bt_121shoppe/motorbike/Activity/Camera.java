@@ -42,11 +42,13 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,6 +105,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 //import butterknife.ButterKnife;
@@ -170,6 +173,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private  BottomNavigationView bnavigation;
     String id_cate, id_brand,id_model,id_year,id_type, login_verify,register_intent,strPostType,strCondition,strDiscountType,strColor,strColorKH="";
+//    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor,strColorKH="";
+    String used_eta1,used_eta2,used_eta3,used_eta4;
+    String used_machine1,used_machine2,used_machine3,used_machine4;
+    String used_other1;
+    int usedeta1=0,usedeta2=0,usedeta3=0,usedeta4=0,usedmachine1=0,usedmachine2=0,usedmachine3=0,usedmachine4=0,usedothers=0;
+    double dbused_eta1,dbused_eta2,dbused_eta3,dbused_eta4;
+    double dbused_machine1,dbused_machine2,dbused_machine3,dbused_machine4;
+    double dbused_other1;
+
     int idYear=0,process_type=0,post_type=0,category=0;
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
@@ -768,8 +780,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                   tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                    ||  image_value == 0
-               ){
-
+               ) {
                     if (etPhone1.getText().toString().length()<9){
                         etPhone1.requestFocus();
                         icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
@@ -905,6 +916,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 year = object.getInt("year");
 
                                 strCondition = object.getString("condition");
+                                usedeta1 = object.getInt("used_eta1");
+                                usedeta2 = object.getInt("used_eta2");
+                                usedeta3 = object.getInt("used_eta3");
+                                usedeta4 = object.getInt("used_eta4");
+                                usedmachine1 = object.getInt("used_machine1");
+                                usedmachine2 = object.getInt("used_machine2");
+                                usedmachine3 = object.getInt("used_machine3");
+                                usedmachine4 = object.getInt("used_machine4");
+                                usedothers = object.getInt("used_other1");
                                 strColor = object.getString("color");
                                 strDiscountType = object.getString("discount_type");
 
@@ -1248,6 +1268,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("category", cate);
             post.put("status", 3);
             post.put("condition",strCondition);
+
             //post.put("discount", 0);
             post.put("user",pk );
 
@@ -1383,6 +1404,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("post_code", CommonFunction.generateRandomDigits(9));
             post.put("post_sub_title",CommonFunction.generatePostSubTitle(brand,model,year,strColor,strColorKH));
 
+            post.put("used_eta1",edwhole_int.getText().toString());
+            post.put("used_eta2",edfront_and_rear_wheel_sets.getText().toString());
+            post.put("used_eta3",edThe_whole_screw.getText().toString());
+            post.put("used_eta4",edFront_and_rear_pumps.getText().toString());
+            post.put("used_machine1",edLeft_and_right_engine_counter.getText().toString());
+            post.put("used_machine2",edEngine_head.getText().toString());
+            post.put("used_machine3",edMachine_Assembly.getText().toString());
+            post.put("used_machine4",edConsole.getText().toString());
+            post.put("used_other1",edAccessories.getText().toString());
+
             switch (strPostType){
                 case "លក់":
                 case "sell":
@@ -1460,8 +1491,19 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String createdAt=obj.getString("created");
                                             String postCode=obj.getString("post_code");
                                             String postSubTitle=obj.getString("post_sub_title");
+
+                                            String eta1 = obj.getString("used_eta1");
+                                            String eta2 = obj.getString("used_eta2");
+                                            String eta3 = obj.getString("used_eta3");
+                                            String eta4 = obj.getString("used_eta4");
+                                            String machine1 = obj.getString("used_machine1");
+                                            String machine2 = obj.getString("used_machine2");
+                                            String machine3 = obj.getString("used_machine3");
+                                            String machine4 = obj.getString("used_machine4");
+                                            String other1 = obj.getString("used_other1");
+
                                             int pStatus=obj.getInt("status");
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
@@ -1601,6 +1643,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("status", 3);
             post.put("condition",strCondition);
 
+            post.put("used_eta1",edwhole_int.getText().toString());
+            post.put("used_eta2",edfront_and_rear_wheel_sets.getText().toString());
+            post.put("used_eta3",edThe_whole_screw.getText().toString());
+            post.put("used_eta4",edFront_and_rear_pumps.getText().toString());
+            post.put("used_machine1",edLeft_and_right_engine_counter.getText().toString());
+            post.put("used_machine2",edEngine_head.getText().toString());
+            post.put("used_machine3",edMachine_Assembly.getText().toString());
+            post.put("used_machine4",edConsole.getText().toString());
+            post.put("used_other1",edAccessories.getText().toString());
+
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
@@ -1683,6 +1735,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("vin_code", tvAddress.getQuery().toString());
             post.put("machine_code", etName.getText().toString());
             post.put("type", type);
+
 //check empty field user for detail by samang 28/08
             if (tvAddress.getQuery().toString().isEmpty() || tvAddress.getQuery().toString() == null){
                 post.put("vin_code", edit_address_name);
@@ -1798,7 +1851,17 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String location = obj.getString("contact_address");
                                             String createdAt = obj.getString("created");
                                             String postSubTitle=obj.getString("post_sub_title");
-                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle);
+
+                                            String eta1 = obj.getString("used_eta1");
+                                            String eta2 = obj.getString("used_eta2");
+                                            String eta3 = obj.getString("used_eta3");
+                                            String eta4 = obj.getString("used_eta4");
+                                            String machine1 = obj.getString("used_machine1");
+                                            String machine2 = obj.getString("used_machine2");
+                                            String machine3 = obj.getString("used_machine3");
+                                            String machine4 = obj.getString("used_machine4");
+                                            String other1 = obj.getString("used_other1");
+                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
@@ -2542,6 +2605,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             case 1:
                                 strCondition="used";
                                 validationforused();
+                                value_used();
                                 relative_used.setVisibility(View.VISIBLE);
                                 break;
                         }
@@ -2616,6 +2680,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        icDiscount_amount.setVisibility(View.GONE);
+        input_dis.setVisibility(View.GONE);
         discountTypeListItems = getResources().getStringArray(R.array.discount_type);
         tvDiscount_type.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2631,10 +2697,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             case 0:
                                 //etDiscount_amount.setHint("Discount Amount");
                                 strDiscountType="amount";
+                                icDiscount_amount.setVisibility(View.VISIBLE);
+                                input_dis.setVisibility(View.VISIBLE);
                                 break;
                             case 1:
                                 //etDiscount_amount.setHint("Discount Percentage");
                                 strDiscountType="percent";
+                                icDiscount_amount.setVisibility(View.VISIBLE);
+                                input_dis.setVisibility(View.VISIBLE);
                                 break;
                         }
                         icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
@@ -2645,10 +2715,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-
                             tvDiscount_type.setText("");
                             etDiscount_amount.setText("");
-
+                            icDiscount_amount.setVisibility(View.GONE);
+                            input_dis.setVisibility(View.GONE);
                     }
                 });
 
@@ -2656,6 +2726,99 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 mDialog.show();
             }
         });
+
+    }
+
+    private void value_used(){
+
+//        Double dbused_eta1,dbused_eta2,dbused_eta3,dbused_eta4;
+//        Double dbused_machine1,dbused_machine2,dbused_machine3,dbused_machine4;
+//        Double dbused_other1;
+//        used_eta1 = edwhole_int.getText().toString();
+//        used_eta2 = edfront_and_rear_wheel_sets.getText().toString();
+//        used_eta3 = edThe_whole_screw.getText().toString();
+//        used_eta4 = edFront_and_rear_pumps.getText().toString();
+//        used_machine1 = edLeft_and_right_engine_counter.getText().toString();
+//        used_machine2 = edEngine_head.getText().toString();
+//        used_machine3 = edMachine_Assembly.getText().toString();
+//        used_machine4 = edConsole.getText().toString();
+//        used_other1 = edAccessories.getText().toString();
+//
+//        if (used_eta1 == null || used_eta1.isEmpty()){
+//            dbused_eta1 = 1;
+//            Log.d("LOL","kokkoko");
+//        }else  {
+//            dbused_eta1 = Double.parseDouble(used_eta1);
+//            Log.d("TAG",used_eta1);
+//        }
+//
+//        if (used_eta2==null || used_eta2.isEmpty()){
+//            dbused_eta2 = 1;
+//            Log.d("LOL","dasdas");
+//        }else {
+//            dbused_eta2 = Double.parseDouble(used_eta2);
+//        }
+//
+//        if (used_eta3==null || used_eta3.isEmpty()){
+//            dbused_eta3 = 1;
+//            Log.d("LOL","fhznxj");
+//        }else {
+//            dbused_eta3 = Double.parseDouble(used_eta3);
+//        }
+//
+//        if (used_eta4==null || used_eta4.isEmpty()){
+//            dbused_eta4 = 1;
+//            Log.d("LOL","mjkghf");
+//        }else {
+//            dbused_eta4 = Double.parseDouble(used_eta4);
+//        }
+//
+//        if (used_machine1==null || used_machine1.isEmpty()){
+//            dbused_machine1 = 1;
+//            Log.d("LOL","turtyew");
+//        }else {
+//            dbused_machine1 = Double.parseDouble(used_machine1);
+//        }
+//
+//        if (used_machine2==null || used_machine2.isEmpty()){
+//            dbused_machine2 = 1;
+//            Log.d("LOL","ykiossa");
+//        }else {
+//            dbused_machine2 = Double.parseDouble(used_machine2);
+//        }
+//
+//        if (used_machine3==null || used_machine3.isEmpty()){
+//            dbused_machine3 = 1;
+//            Log.d("LOL","qwqescx");
+//        }else {
+//            dbused_machine3 = Double.parseDouble(used_machine3);
+//        }
+//
+//        if (used_machine4==null || used_machine4.isEmpty()){
+//            dbused_machine4 = 1;
+//            Log.d("LOL","plojhhn");
+//        }else {
+//            dbused_machine4 = Double.parseDouble(used_machine4);
+//        }
+//
+//
+//        if (used_other1 == null || used_other1.isEmpty()){
+//            dbused_other1 = 1;
+//            Log.d("LOL","gfsdsvx");
+//        }else {
+//            dbused_other1 = Double.parseDouble(used_other1);
+//        }
+
+//        used_eta1 = edwhole_int.getText().toString();
+//        used_eta2 = edfront_and_rear_wheel_sets.getText().toString();
+//        used_eta3 = edThe_whole_screw.getText().toString();
+//        used_eta4 = edFront_and_rear_pumps.getText().toString();
+//        used_machine1 = edLeft_and_right_engine_counter.getText().toString();
+//        used_machine2 = edEngine_head.getText().toString();
+//        used_machine3 = edMachine_Assembly.getText().toString();
+//        used_machine4 = edConsole.getText().toString();
+//        used_other1 = edAccessories.getText().toString();
+
 
     }
 

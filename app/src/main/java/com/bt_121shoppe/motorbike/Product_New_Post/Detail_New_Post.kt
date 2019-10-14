@@ -1436,67 +1436,67 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         language(language)
     }
 
-//    private fun getMyLoan() {
-//        val IDPOST = ArrayList<Int>()
-//        var loaned = false
-//        Log.d("12345","Hello90"+encodeAuth)
-//        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/"
-//        val client= OkHttpClient()
-//        val request= Request.Builder()
-//                .url(URL_ENDPOINT)
-//                .header("Accept","application/json")
-//                .header("Content-Type","application/json")
-//                .header("Authorization",encodeAuth)
-//                .build()
-//        client.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                val mMessage = e.message.toString()
-//                Log.w("failure Response", mMessage)
-//            }
-//            @Throws(IOException::class)
-//            override fun onResponse(call: Call, response: Response) {
-//                val mMessage = response.body()!!.string()
-//                Log.d(TAG,"Laon_status "+mMessage)
-//                val jsonObject = JSONObject(mMessage)
-//                val jsonArray = jsonObject.getJSONArray("results")
-//                try {
-//                    runOnUiThread {
-//                        for (i in 0 until jsonArray.length()) {
-//                            val obj = jsonArray.getJSONObject(i)
-//                            val post_id = obj.getInt("post")
-//
-//                            Log.d("Status Id123",post_id.toString())
-//                            Log.d("Status 123",postId.toString())
-//                            IDPOST.add(post_id)
-//
-//                        }
-//                        Log.d("ARRayList",IDPOST.size.toString())
-//                        for (i in 0 until IDPOST.size)
-//                            if(IDPOST.get(i) == postId){
-//                               loaned = true
-//                            }
-//                        loan.setOnClickListener {
-////                            Log.d("IDFOR","Loanded"+loaned.toString())
-////                            Log.d("IDPOST","HeyPro"+postId.toString())
-//                            if (loaned){
-////                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
-//                                withStyle()
-//
-//                            }else{
-//                                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+    private fun getMyLoan() {
+        val IDPOST = ArrayList<Int>()
+        var loaned = false
+        Log.d("12345","Hello90"+encodeAuth)
+        val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/"
+        val client= OkHttpClient()
+        val request= Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",encodeAuth)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                val mMessage = e.message.toString()
+                Log.w("failure Response", mMessage)
+            }
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val mMessage = response.body()!!.string()
+                Log.d(TAG,"Laon_status "+mMessage)
+                val jsonObject = JSONObject(mMessage)
+                val jsonArray = jsonObject.getJSONArray("results")
+                try {
+                    runOnUiThread {
+                        for (i in 0 until jsonArray.length()) {
+                            val obj = jsonArray.getJSONObject(i)
+                            val post_id = obj.getInt("post")
+
+                            Log.d("Status Id123",post_id.toString())
+                            Log.d("Status 123",postId.toString())
+                            IDPOST.add(post_id)
+
+                        }
+                        Log.d("ARRayList",IDPOST.size.toString())
+                        for (i in 0 until IDPOST.size)
+                            if(IDPOST.get(i) == postId){
+                               loaned = true
+                            }
+                        loan.setOnClickListener {
+//                            Log.d("IDFOR","Loanded"+loaned.toString())
+//                            Log.d("IDPOST","HeyPro"+postId.toString())
+                            if (loaned){
+//                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+                                withStyle()
+
+                            }else{
+                                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
 //                                intent.putExtra("Show_amount",show_amount_loan)
-//                                intent.putExtra("PutIDLoan",postId)
-//                                startActivity(intent)
-//                            }
-//                        }
-//                    }
-//
-//                } catch (e: JsonParseException) {
-//                    e.printStackTrace() }
-//
-//            }
-//        })
-//    }
+                                intent.putExtra("PutIDLoan",postId)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+
+                } catch (e: JsonParseException) {
+                    e.printStackTrace() }
+
+            }
+        })
+    }
 
     fun withStyle() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this,R.style.AppTheme))
