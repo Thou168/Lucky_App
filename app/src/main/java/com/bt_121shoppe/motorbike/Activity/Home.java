@@ -229,7 +229,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         }
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
-                        intent.putExtra("verify","camera");
+                        intent.putExtra("verify","notification");
                         startActivity(intent);
                     }
                     break;
@@ -255,7 +255,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         }
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
-                        intent.putExtra("verify","camera");
+                        intent.putExtra("verify","message");
                         startActivity(intent);
                     }
                     break;
@@ -268,7 +268,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         }
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
-                        intent.putExtra("verify","camera");
+                        intent.putExtra("verify","account");
                         startActivity(intent);
                     }
                     break;

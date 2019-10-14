@@ -20,8 +20,8 @@ public class SelectUserTypeActivity extends AppCompatActivity {
     private RadioButton radioPublic_User,radioOther_dealer;
     private RadioGroup radioGroup;
     private Button Next;
-    private String register_verify,product_id;
-    private int group_user;
+    private String register_verify;
+    private int group_user,product_id;
     private Intent intent;
     private String processType="",facebooktokenkey,facebookid,facebookname,imageurl;
 
@@ -37,6 +37,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
 
         intent=getIntent();
         if (intent!=null) {
+            product_id   = intent.getIntExtra("product_id",0);
             processType = intent.getStringExtra("processtype");
             facebooktokenkey = intent.getStringExtra("facebooktokenkey");
             facebookid = intent.getStringExtra("facebookid");
@@ -80,6 +81,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
                     } else {
                         Intent intent = new Intent(v.getContext(), RegisterActivity.class);
                         intent.putExtra("user_group", group_user);
+                        intent.putExtra("product_id",product_id);
                         intent.putExtra("Register_verify", register_verify);
                         startActivity(intent);
                     }

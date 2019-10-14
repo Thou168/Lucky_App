@@ -169,7 +169,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private List<Integer> list_brand_model = new ArrayList<>();
 
     private  BottomNavigationView bnavigation;
-    String id_cate, id_brand,id_model,id_year,id_type,strPostType,strCondition,strDiscountType,strColor,strColorKH="";
+    String id_cate, id_brand,id_model,id_year,id_type, login_verify,register_intent,strPostType,strCondition,strDiscountType,strColor,strColorKH="";
     int idYear=0,process_type=0,post_type=0,category=0;
     int cate=0,brand=0,model=0,year=0,type=0;
     SharedPreferences prefer,pre_id;
@@ -291,7 +291,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                        if (register_intent!=null || login_verify!=null){
+                            startActivity(new Intent(Camera.this,Home.class));
+                        }else finish();
                     }
                 });
                 builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
@@ -369,6 +371,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         add_Phone();
         bundle = getIntent().getExtras();
         if (bundle!=null) {
+            login_verify = bundle.getString("Login_verify");
+            register_intent = bundle.getString("Register_verify");
             process_type=bundle.getInt("process_type",0);
             if(process_type==1){
                 strPostType=bundle.getString("post_type");

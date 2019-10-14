@@ -40,6 +40,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.motorbike.Activity.Home
 import com.custom.sliderimage.logic.SliderImage
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
@@ -209,7 +210,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         list_rela = findViewById(R.id.list_rela)
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
-        back.setOnClickListener { finish() }
+        back.setOnClickListener {
+            if (p!= null) {
+                startActivity(Intent(this@Detail_New_Post, Home::class.java))
+            } else finish()
+        }
         //Slider
 
         Layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan)
@@ -1250,6 +1255,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
+                Log.d("JJJJJJJJJJJJJ",mMessage)
                 val gson = Gson()
                 try {
                     val jsonObject = JSONObject(mMessage)

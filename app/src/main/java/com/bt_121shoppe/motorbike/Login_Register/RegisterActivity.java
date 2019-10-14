@@ -387,6 +387,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         break;
                                     case "camera":
                                         intent = new Intent(RegisterActivity.this, Camera.class);
+                                        intent.putExtra("Register_verify",register_verify);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
