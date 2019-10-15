@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Notification">
+    tools:context=".Activity.NotificationActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,19 +23,44 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/noti_recy"-->
-        <!--android:layout_above="@+id/bnaviga"-->
-        <!--android:layout_below="@id/toolbar_notification"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<androidx.recyclerview.widget.RecyclerView-->
-            <!--android:id="@+id/layout_notification"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
-        <!--</androidx.recyclerview.widget.RecyclerView>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8"
+        android:padding="@dimen/dp_8"
+        android:background="#ffffff"
+        android:visibility="visible"
+        android:layout_below="@id/toolbar"
+        android:id="@+id/rl_noResult">
 
-    <!--</LinearLayout>-->
+        <ImageView
+            android:id="@+id/notification_empty_logo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/notification_sample"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_below="@id/notification_empty_logo"
+            android:text="@string/no_notification"/>
+
+    </RelativeLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:menu="@menu/bottom_navigation"

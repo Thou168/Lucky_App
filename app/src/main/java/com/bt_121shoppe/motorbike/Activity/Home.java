@@ -223,7 +223,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 case R.id.notification:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
                         if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(Home.this, Notification.class));
+                            startActivity(new Intent(Home.this, NotificationActivity.class));
                         }else{
                             Active_user.clearSession(this);
                         }
@@ -310,9 +310,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             getFragmentManager().beginTransaction().add(R.id.frameLayout, details).commit();
         }
         //loadFragment(new HomeFragment(),"FHome");
-
-
-
 
         /* -------------- start event listener -------------------------*/
 //        mImageViewKhmer.setOnClickListener(new View.OnClickListener() {
@@ -530,10 +527,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Log.e(TAG,"Current language is "+language);
         if(language==null){
             Paper.book().write("language","km");
+            updateView("km");
             language("km");
             mImageViewKhmer.setVisibility(View.GONE);
             mImageViewEnglish.setVisibility(View.VISIBLE);
-            updateView(Paper.book().read("language"));
         }else{
             if(language.equals("km")){
                 mImageViewKhmer.setVisibility(View.GONE);
@@ -546,10 +543,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 @Override
                 public void onClick(View view) {
                     Paper.book().write("language","en");
+                    updateView(Paper.book().read("language"));
                     language("en");
                     mImageViewKhmer.setVisibility(View.VISIBLE);
                     mImageViewEnglish.setVisibility(View.GONE);
-                    updateView(Paper.book().read("language"));
                 }
             });
         }
@@ -558,23 +555,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onClick(View view) {
                 Paper.book().write("language","km");
+                updateView(Paper.book().read("language"));
                 language("km");
                 mImageViewKhmer.setVisibility(View.GONE);
                 mImageViewEnglish.setVisibility(View.VISIBLE);
-                updateView(Paper.book().read("language"));
+
             }
         });
     }
 
     private void updateView(String language){
+        language=language==null?"km":language;
         Log.e(TAG,"current Fragment on change language "+language);
-        language(language);
-        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false);
-        }
-        ft.detach(currentFragment).attach(currentFragment).commit();
+        //language(language);
+
 
 //        switch (language){
 //            case "km":
@@ -589,15 +583,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Context context= LocaleHapler.setLocale(this,language);
         Resources resources=context.getResources();
         //title menu
-        nav_profile.setTitle(resources.getString(R.string.menu_profile));
-        nav_post.setTitle(resources.getString(R.string.menu_post));
-        nav_like.setTitle(resources.getString(R.string.menu_like));
-        nav_loan.setTitle(resources.getString(R.string.menu_loan));
-        nav_setting.setTitle(resources.getString(R.string.menu_setting));
-        nav_about.setTitle(resources.getString(R.string.menu_about));
-        nav_contact.setTitle(resources.getString(R.string.menu_contact));
-        nav_term.setTitle(resources.getString(R.string.menu_privacy));
-
+        if(context!=null && resources!=null) {
+//            nav_profile.setTitle(R.string.menu_profile);
+//            nav_post.setTitle(resources.getString(R.string.menu_post));
+//            nav_like.setTitle(resources.getString(R.string.menu_like));
+//            nav_loan.setTitle(resources.getString(R.string.menu_loan));
+//            nav_setting.setTitle(resources.getString(R.string.menu_setting));
+//            nav_about.setTitle(resources.getString(R.string.menu_about));
+//            nav_contact.setTitle(resources.getString(R.string.menu_contact));
+//            nav_term.setTitle(resources.getString(R.string.menu_privacy));
+        }
+        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(currentFragment).attach(currentFragment).commit();
     }
 
     private void getUserProfile(){

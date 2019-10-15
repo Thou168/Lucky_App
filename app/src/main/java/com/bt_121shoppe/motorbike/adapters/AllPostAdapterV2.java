@@ -169,9 +169,9 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             String strPostTitle="";
-            String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-            if(mPost.getPost_sub_title().isEmpty()){
 
+            if(mPost.getPost_sub_title().isEmpty()){
+                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
                 if(lang.equals("View:"))
                     strPostTitle=fullTitle.split(",")[0];
                 else
@@ -234,6 +234,7 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
                 }
             });
             // 05 09 19 thou
+
             try{
                 Service api = Client.getClient().create(Service.class);
                 Call<User> call = api.getuser(Integer.parseInt(mPost.getCreated_by()));
@@ -252,6 +253,7 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
                     }
                 });
             }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
+
         }
 
     }

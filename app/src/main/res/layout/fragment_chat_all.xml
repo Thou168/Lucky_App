@@ -16,7 +16,7 @@
         android:id="@+id/rl_noResult">
 
         <ImageView
-            android:id="@+id/chat_empty_logo"
+            android:id="@+id/notification_empty_logo"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:src="@drawable/chat_sample"/>
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="16sp"
-            android:layout_below="@id/chat_empty_logo"
+            android:layout_below="@id/notification_empty_logo"
             android:text="@string/no_conversation"/>
 
     </RelativeLayout>

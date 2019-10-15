@@ -31,7 +31,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             sendNotification(remoteMessage);
         }
 //        Log.d(TAG, "From: " + remoteMessage.getFrom());
-//        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+//        Log.d(TAG, "NotificationActivity Message Body: " + remoteMessage.getNotification().getBody());
 
 //        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
 //                .setContentTitle(remoteMessage.getNotification().getTitle())

@@ -56,7 +56,7 @@ class Rent_Main1 : AppCompatActivity() {
                         if (active.equals("false")){
                             activeUser.clear_session(this)
                         }else {
-                            val intent = Intent(this@Rent_Main1, Notification::class.java)
+                            val intent = Intent(this@Rent_Main1, NotificationActivity::class.java)
                             startActivity(intent)
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }

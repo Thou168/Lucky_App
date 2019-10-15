@@ -2,6 +2,7 @@ package com.bt_121shoppe.motorbike.searches;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
@@ -30,6 +34,9 @@ import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG=SearchTypeActivity.class.getSimpleName();
@@ -184,19 +191,18 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     strPostTitle=fullTitle.split(",")[0];
                 else
                     strPostTitle=fullTitle.split(",")[1];
-            }else
-            if(lang.equals("View:"))
-                strPostTitle=mPost.getPost_sub_title().split(",")[0];
-            else
-                strPostTitle=mPost.getPost_sub_title().split(",")[1];
+            }else {
+                if (lang.equals("View:"))
+                    strPostTitle = mPost.getPost_sub_title().split(",")[0];
+                else
+                    strPostTitle = mPost.getPost_sub_title().split(",")[1];
+            }
 
             postTitle.setText(strPostTitle);
-
             postLocationDT.setText("");
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
-
                 postOriginalPrice.setVisibility(View.VISIBLE);
                 postOriginalPrice.setText("$ "+mPost.getCost());
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -227,19 +233,36 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
             postView.setText(String.valueOf(countView));
             //get user profile
-            try{
-                String userResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/users/"+mPost.getCreated_by());
-                try{
-                    JSONObject obj=new JSONObject(userResponse);
-                    String username=obj.getString("username");
-                    CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,username);
-                }catch (JSONException joe){
-                    joe.printStackTrace();
+            Service apiService= Client.getClient().create(Service.class);
+            Call<User> call=apiService.getuser(Integer.parseInt(mPost.getCreated_by()));
+            call.enqueue(new retrofit2.Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if(!response.isSuccessful()){
+                        Log.e(TAG,"Get User Detail "+response.code());
+                    }else{
+                        //Log.d(TAG,"Response body "+response.body());
+                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
+                    }
                 }
 
-            }catch (IOException ioe){
-                ioe.printStackTrace();
-            }
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+
+                }
+            });
+//            try{
+//                String userResponse=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/users/"+mPost.getCreated_by());
+//                try{
+//                    JSONObject obj=new JSONObject(userResponse);
+//                    String username=obj.getString("username");
+//                    CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,username);
+//                }catch (JSONException joe){
+//                    joe.printStackTrace();
+//                }
+//            }catch (IOException ioe){
+//                ioe.printStackTrace();
+//            }
 
             double finalMPrice = mPrice;
             itemView.setOnClickListener(new View.OnClickListener() {

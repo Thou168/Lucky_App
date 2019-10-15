@@ -20,11 +20,17 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.adapters.FilterConditionAdapter;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
+import com.bt_121shoppe.motorbike.models.BrandViewModel;
+import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
+import com.bt_121shoppe.motorbike.models.YearViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,13 +41,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFilterConditionFragment extends Fragment {
 
     private static final String TAG=HomeFilterConditionFragment.class.getSimpleName();
     private View view;
     private int filterType=0,postTypeId=0,categoryId=0,brandId=0,yearId=0;
-    private ArrayList<FilterConditionViewModel> mFilterItemsList;
+    private List<FilterConditionViewModel> mFilterItemsList;
     private String mFilterUrl="",currentLanguage;
     private Bundle bundle;
     private double minPrice=0,maxPrice=0;
@@ -114,55 +125,109 @@ public class HomeFilterConditionFragment extends Fragment {
         if(categoryId==0){
             mFilterCategory.setText(getString(R.string.all));
         }else {
-            try {
-                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
-                try{
-                    JSONObject obj=new JSONObject(responseCategory);
-                    if(currentLanguage.equals("km"))
-                        mFilterCategory.setText(obj.getString("cat_name_kh"));
-                    else
-                        mFilterCategory.setText(obj.getString("cat_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+//            try {
+//                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
+//                try{
+//                    JSONObject obj=new JSONObject(responseCategory);
+//                    if(currentLanguage.equals("km"))
+//                        mFilterCategory.setText(obj.getString("cat_name_kh"));
+//                    else
+//                        mFilterCategory.setText(obj.getString("cat_name"));
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+            Service apiService=Client.getClient().create(Service.class);
+            Call<CategoryViewModel> call=apiService.getCategoryDetail(categoryId);
+            call.enqueue(new Callback<CategoryViewModel>() {
+                @Override
+                public void onResponse(Call<CategoryViewModel> call, Response<CategoryViewModel> response) {
+                    if(response.isSuccessful()) {
+                        CategoryViewModel mResponse = response.body();
+                        if(currentLanguage.equals("km"))
+                            mFilterCategory.setText(mResponse.getCat_name_kh());
+                        else
+                            mFilterCategory.setText(mResponse.getCat_name());
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<CategoryViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Brand
         if(brandId==0){
             mFilterBrand.setText(getString(R.string.all));
         }else{
-            try{
-                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
-                try{
-                    JSONObject obj=new JSONObject(responseBrand);
-                    if(currentLanguage.equals("km"))
-                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
-                    else
-                        mFilterBrand.setText(obj.getString("brand_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+//            try{
+//                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
+//                try{
+//                    JSONObject obj=new JSONObject(responseBrand);
+//                    if(currentLanguage.equals("km"))
+//                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
+//                    else
+//                        mFilterBrand.setText(obj.getString("brand_name"));
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+            Service apiService=Client.getClient().create(Service.class);
+            Call<BrandViewModel> call=apiService.getBrandDetail(brandId);
+            call.enqueue(new Callback<BrandViewModel>() {
+                @Override
+                public void onResponse(Call<BrandViewModel> call, Response<BrandViewModel> response) {
+                    if(response.isSuccessful()){
+                        if(currentLanguage.equals("km"))
+                            mFilterBrand.setText(response.body().getBrand_name_kh());
+                        else
+                            mFilterBrand.setText(response.body().getBrand_name());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<BrandViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Year
         if(yearId==0){
             mFilterYear.setText(getString(R.string.all));
         }else{
-            try{
-                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
-                try{
-                    JSONObject obj=new JSONObject(responseYear);
-                    mFilterYear.setText(obj.getString("year"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+//            try{
+//                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
+//                try{
+//                    JSONObject obj=new JSONObject(responseYear);
+//                    mFilterYear.setText(obj.getString("year"));
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+
+            Service apiService=Client.getClient().create(Service.class);
+            Call<YearViewModel> call=apiService.getYearDetail(yearId);
+            call.enqueue(new Callback<YearViewModel>() {
+                @Override
+                public void onResponse(Call<YearViewModel> call, Response<YearViewModel> response) {
+                    if(response.isSuccessful()){
+                        mFilterYear.setText(response.body().getYear());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<YearViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //price range
         if(minPrice>1||maxPrice>1){
@@ -342,55 +407,109 @@ public class HomeFilterConditionFragment extends Fragment {
         if(categoryId==0){
             mFilterCategory.setText(getString(R.string.all));
         }else {
-            try {
-                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
-                try{
-                    JSONObject obj=new JSONObject(responseCategory);
-                    if(currentLanguage.equals("km"))
-                        mFilterCategory.setText(obj.getString("cat_name_kh"));
-                    else
-                        mFilterCategory.setText(obj.getString("cat_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+//            try {
+//                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
+//                try{
+//                    JSONObject obj=new JSONObject(responseCategory);
+//                    if(currentLanguage.equals("km"))
+//                        mFilterCategory.setText(obj.getString("cat_name_kh"));
+//                    else
+//                        mFilterCategory.setText(obj.getString("cat_name"));
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+            Service apiService=Client.getClient().create(Service.class);
+            Call<CategoryViewModel> call=apiService.getCategoryDetail(categoryId);
+            call.enqueue(new Callback<CategoryViewModel>() {
+                @Override
+                public void onResponse(Call<CategoryViewModel> call, Response<CategoryViewModel> response) {
+                    if(response.isSuccessful()) {
+                        CategoryViewModel mResponse = response.body();
+                        if(currentLanguage.equals("km"))
+                            mFilterCategory.setText(mResponse.getCat_name_kh());
+                        else
+                            mFilterCategory.setText(mResponse.getCat_name());
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<CategoryViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Brand
         if(brandId==0){
             mFilterBrand.setText(getString(R.string.all));
         }else{
-            try{
-                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
-                try{
-                    JSONObject obj=new JSONObject(responseBrand);
-                    if(currentLanguage.equals("km"))
-                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
-                    else
-                        mFilterBrand.setText(obj.getString("brand_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+//            try{
+//                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
+//                try{
+//                    JSONObject obj=new JSONObject(responseBrand);
+//                    if(currentLanguage.equals("km"))
+//                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
+//                    else
+//                        mFilterBrand.setText(obj.getString("brand_name"));
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+            Service apiService=Client.getClient().create(Service.class);
+            Call<BrandViewModel> call=apiService.getBrandDetail(brandId);
+            call.enqueue(new Callback<BrandViewModel>() {
+                @Override
+                public void onResponse(Call<BrandViewModel> call, Response<BrandViewModel> response) {
+                    if(response.isSuccessful()){
+                        if(currentLanguage.equals("km"))
+                            mFilterBrand.setText(response.body().getBrand_name_kh());
+                        else
+                            mFilterBrand.setText(response.body().getBrand_name());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<BrandViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Year
         if(yearId==0){
             mFilterYear.setText(getString(R.string.all));
         }else{
-            try{
-                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
-                try{
-                    JSONObject obj=new JSONObject(responseYear);
-                    mFilterYear.setText(obj.getString("year"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+//            try{
+//                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
+//                try{
+//                    JSONObject obj=new JSONObject(responseYear);
+//                    mFilterYear.setText(obj.getString("year"));
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+
+            Service apiService=Client.getClient().create(Service.class);
+            Call<YearViewModel> call=apiService.getYearDetail(yearId);
+            call.enqueue(new Callback<YearViewModel>() {
+                @Override
+                public void onResponse(Call<YearViewModel> call, Response<YearViewModel> response) {
+                    if(response.isSuccessful()){
+                        mFilterYear.setText(response.body().getYear());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<YearViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //price range
         if(minPrice>1||maxPrice>1){
@@ -404,7 +523,6 @@ public class HomeFilterConditionFragment extends Fragment {
             mFilterPriceRange.setText(getString(R.string.all));
 
         /* end initial value to filter control */
-
     }
 
     private void setupFilterItemsList(){
@@ -455,35 +573,62 @@ public class HomeFilterConditionFragment extends Fragment {
     }
 
     private void prepareFilterConditionYear(){
-        new Handler().postDelayed(()->{
-            mProgressbar.setVisibility(View.GONE);
-            mFilterUrl= ConsumeAPI.BASE_URL+"api/v1/years/";
-            ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
-            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
-            try{
-                String response= CommonFunction.doGetRequest(mFilterUrl);
-                try{
-                    JSONObject obj=new JSONObject(response);
-                    int count=obj.getInt("count");
-                    if(count==0){
-
-                    }
-                    JSONArray results=obj.getJSONArray("results");
-                    for(int i=0;i<results.length();i++){
-                        JSONObject result=results.getJSONObject(i);
-                        int id=result.getInt("id");
-                        String year=result.getString("year");
-                        mFilters.add(new FilterConditionViewModel(id,year));
-                    }
-                }catch (JSONException eo){
-                    eo.printStackTrace();
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            mAdapter.addItems(mFilters);
-        },500);
+//        new Handler().postDelayed(()->{
+//            mProgressbar.setVisibility(View.GONE);
+//            mFilterUrl= ConsumeAPI.BASE_URL+"api/v1/years/";
+//            ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
+//            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+//            try{
+//                String response= CommonFunction.doGetRequest(mFilterUrl);
+//                try{
+//                    JSONObject obj=new JSONObject(response);
+//                    int count=obj.getInt("count");
+//                    if(count==0){
+//
+//                    }
+//                    JSONArray results=obj.getJSONArray("results");
+//                    for(int i=0;i<results.length();i++){
+//                        JSONObject result=results.getJSONObject(i);
+//                        int id=result.getInt("id");
+//                        String year=result.getString("year");
+//                        mFiters.add(new FillterConditionViewModel(id,year));
+//                    }
+//                }catch (JSONException eo){
+//                    eo.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//            mAdapter.addItems(mFilters);
+//        },500);
         //mProgressbar.setVisibility(View.GONE);
+
+
+        Service apiService= Client.getClient().create(Service.class);
+        Call<YearViewModel> call=apiService.getYearFilter();
+        call.enqueue(new Callback<YearViewModel>() {
+            @Override
+            public void onResponse(Call<YearViewModel> call, Response<YearViewModel> response) {
+                if(response.isSuccessful()){
+                    List<YearViewModel> mYearResponse=new ArrayList<>();
+                    List<FilterConditionViewModel> mFilters=new ArrayList<>();
+                    mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+                    //Log.e(TAG,"Year Response Count "+response.body().getresults().size());
+                    mYearResponse=response.body().getresults();
+
+                    for(int i=0;i<mYearResponse.size();i++){
+                        mFilters.add(new FilterConditionViewModel(mYearResponse.get(i).getId(),mYearResponse.get(i).getYear()));
+                    }
+                    mAdapter.addItems(mFilters);
+                    mProgressbar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<YearViewModel> call, Throwable t) {
+
+            }
+        });
     }
 
     private void prepareFilterConditionPostType(){
@@ -498,89 +643,162 @@ public class HomeFilterConditionFragment extends Fragment {
     }
 
     private void prepareFilterConditionCategory(){
-        new Handler().postDelayed(()->{
-            mFilterUrl=ConsumeAPI.BASE_URL+"api/v1/categories/";
-            ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
-            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
-            try{
-                String response=CommonFunction.doGetRequest(mFilterUrl);
-                try{
-                    JSONObject obj=new JSONObject(response);
-                    int count=obj.getInt("count");
-                    if(count>0){
-                        mProgressbar.setVisibility(View.GONE);
-                        JSONArray results=obj.getJSONArray("results");
-                        for(int i=0;i<results.length();i++){
-                            JSONObject rs=results.getJSONObject(i);
-                            String name="";
-                            int id=rs.getInt("id");
-                            if(currentLanguage.equals("km"))
-                                name=rs.getString("cat_name_kh");
-                            else
-                                name=rs.getString("cat_name");
-                            mFilters.add(new FilterConditionViewModel(id,name));
-                        }
+
+//        new Handler().postDelayed(()->{
+//            mFilterUrl=ConsumeAPI.BASE_URL+"api/v1/categories/";
+//            ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
+//            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+//            try{
+//                String response=CommonFunction.doGetRequest(mFilterUrl);
+//                try{
+//                    JSONObject obj=new JSONObject(response);
+//                    int count=obj.getInt("count");
+//                    if(count>0){
+//                        mProgressbar.setVisibility(View.GONE);
+//                        JSONArray results=obj.getJSONArray("results");
+//                        for(int i=0;i<results.length();i++){
+//                            JSONObject rs=results.getJSONObject(i);
+//                            String name="";
+//                            int id=rs.getInt("id");
+//                            if(currentLanguage.equals("km"))
+//                                name=rs.getString("cat_name_kh");
+//                            else
+//                                name=rs.getString("cat_name");
+//                            mFilters.add(new FilterConditionViewModel(id,name));
+//                        }
+//                    }
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//            mAdapter.addItems(mFilters);
+//        },500);
+
+        Service apiService= Client.getClient().create(Service.class);
+        Call<CategoryViewModel> call=apiService.getCategoryFilter();
+        call.enqueue(new Callback<CategoryViewModel>() {
+            @Override
+            public void onResponse(Call<CategoryViewModel> call, Response<CategoryViewModel> response) {
+                if(response.isSuccessful()){
+                    List<CategoryViewModel> mResponse=new ArrayList<>();
+                    List<FilterConditionViewModel> mFilters=new ArrayList<>();
+                    mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+                    //Log.e(TAG,"Year Response Count "+response.body().getresults().size());
+                    mResponse=response.body().getresults();
+
+                    for(int i=0;i<mResponse.size();i++){
+                        if(currentLanguage.equals("km"))
+                            mFilters.add(new FilterConditionViewModel(mResponse.get(i).getId(),mResponse.get(i).getCat_name_kh()));
+                        else
+                            mFilters.add(new FilterConditionViewModel(mResponse.get(i).getId(),mResponse.get(i).getCat_name()));
                     }
-                }catch (JSONException je){
-                    je.printStackTrace();
+
+                    mAdapter.addItems(mFilters);
+                    mProgressbar.setVisibility(View.GONE);
                 }
-            }catch (IOException e){
-                e.printStackTrace();
             }
-            mAdapter.addItems(mFilters);
-        },500);
+
+            @Override
+            public void onFailure(Call<CategoryViewModel> call, Throwable t) {
+
+            }
+        });
+
     }
 
-
-
     private void prepareFilterConditionBrand(int categoryId){
-        new Handler().postDelayed(()->{
-            mFilterUrl=ConsumeAPI.BASE_URL+"api/v1/brands/";
-            ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
-            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
-            try{
-                String response=CommonFunction.doGetRequest(mFilterUrl);
-                try{
-                    JSONObject obj=new JSONObject(response);
-                    int count=obj.getInt("count");
-                    if(count>0){
-                        mProgressbar.setVisibility(View.GONE);
-                        JSONArray results=obj.getJSONArray("results");
-                        if(categoryId==0){
-                            for(int i=0;i<results.length();i++){
-                                JSONObject rs=results.getJSONObject(i);
-                                String name="";
-                                int id=rs.getInt("id");
-                                if(currentLanguage.equals("km"))
-                                    name=rs.getString("brand_name_as_kh");
+
+//        new Handler().postDelayed(()->{
+//            mFilterUrl=ConsumeAPI.BASE_URL+"api/v1/brands/";
+//            ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
+//            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+//            try{
+//                String response=CommonFunction.doGetRequest(mFilterUrl);
+//                try{
+//                    JSONObject obj=new JSONObject(response);
+//                    int count=obj.getInt("count");
+//                    if(count>0){
+//                        mProgressbar.setVisibility(View.GONE);
+//                        JSONArray results=obj.getJSONArray("results");
+//                        if(categoryId==0){
+//                            for(int i=0;i<results.length();i++){
+//                                JSONObject rs=results.getJSONObject(i);
+//                                String name="";
+//                                int id=rs.getInt("id");
+//                                if(currentLanguage.equals("km"))
+//                                    name=rs.getString("brand_name_as_kh");
+//                                else
+//                                    name=rs.getString("brand_name");
+//                                mFilters.add(new FilterConditionViewModel(id,name));
+//                            }
+//                        }else{
+//                            for(int i=0;i<results.length();i++){
+//                                JSONObject rs=results.getJSONObject(i);
+//                                String name="";
+//                                int cid=rs.getInt("category");
+//                                if(cid==categoryId){
+//                                    int id=rs.getInt("id");
+//                                    if(currentLanguage.equals("km"))
+//                                        name=rs.getString("brand_name_as_kh");
+//                                    else
+//                                        name=rs.getString("brand_name");
+//                                    mFilters.add(new FilterConditionViewModel(id,name));
+//                                }
+//                            }
+//                        }
+//                    }
+//                }catch (JSONException je){
+//                    je.printStackTrace();
+//                }
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//            mAdapter.addItems(mFilters);
+//        },500);
+
+        Service apiService= Client.getClient().create(Service.class);
+        Call<BrandViewModel> call=apiService.getBrandFilter();
+        call.enqueue(new Callback<BrandViewModel>() {
+            @Override
+            public void onResponse(Call<BrandViewModel> call, Response<BrandViewModel> response) {
+                if(response.isSuccessful()){
+                    List<BrandViewModel> mResponse=new ArrayList<>();
+                    List<FilterConditionViewModel> mFilters=new ArrayList<>();
+                    mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+                    Log.e(TAG,"Category Response Count "+response.body().getresults().size());
+                    mResponse=response.body().getresults();
+                    if(categoryId==0) {
+                        for(int i=0;i<mResponse.size();i++){
+                            Log.d(TAG,mResponse.get(i).getBrand_name()+" "+mResponse.get(i).getBrand_name_kh());
+                            if (currentLanguage.equals("km"))
+                                mFilters.add(new FilterConditionViewModel(mResponse.get(i).getId(), mResponse.get(i).getBrand_name_kh()));
+                            else
+                                mFilters.add(new FilterConditionViewModel(mResponse.get(i).getId(), mResponse.get(i).getBrand_name()));
+                        }
+                    }else{
+                        for(int i=0;i<mResponse.size();i++){
+                            if(mResponse.get(i).getCategory()==categoryId){
+                                Log.d(TAG,mResponse.get(i).getBrand_name()+" "+mResponse.get(i).getBrand_name_kh());
+                                if (currentLanguage.equals("km"))
+                                    mFilters.add(new FilterConditionViewModel(mResponse.get(i).getId(), mResponse.get(i).getBrand_name_kh()));
                                 else
-                                    name=rs.getString("brand_name");
-                                mFilters.add(new FilterConditionViewModel(id,name));
-                            }
-                        }else{
-                            for(int i=0;i<results.length();i++){
-                                JSONObject rs=results.getJSONObject(i);
-                                String name="";
-                                int cid=rs.getInt("category");
-                                if(cid==categoryId){
-                                    int id=rs.getInt("id");
-                                    if(currentLanguage.equals("km"))
-                                        name=rs.getString("brand_name_as_kh");
-                                    else
-                                        name=rs.getString("brand_name");
-                                    mFilters.add(new FilterConditionViewModel(id,name));
-                                }
+                                    mFilters.add(new FilterConditionViewModel(mResponse.get(i).getId(), mResponse.get(i).getBrand_name()));
                             }
                         }
                     }
-                }catch (JSONException je){
-                    je.printStackTrace();
+                    mAdapter.addItems(mFilters);
+                    mProgressbar.setVisibility(View.GONE);
                 }
-            }catch (IOException e){
-                e.printStackTrace();
             }
-            mAdapter.addItems(mFilters);
-        },500);
+
+            @Override
+            public void onFailure(Call<BrandViewModel> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void loadFragment(Fragment fragment){

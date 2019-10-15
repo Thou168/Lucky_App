@@ -423,7 +423,7 @@
 
     //dealer
     <string name="name_officer">ឈ្មោះអ្នកទទួលខុសត្រូវ</string>
-    <string name="shop_address">ទីតាំងហាង</string>type_message
+    <string name="shop_address">ទីតាំងហាង</string>
     <string name="shop_name">ឈ្មោះហាង</string>
 
     //verify
@@ -574,7 +574,7 @@
     <string name="result">លទ្ធផល</string>
     <string name="filter">ច្រោះ</string>
     <string name="done">ធ្វើរួច</string>
-    <string name="not_found">រកមិនឃើញលទ្ធផលទេ ... !</string>
+    <string name="not_found">រកមិនឃើញលទ្ធផលទេ ... </string>
     <string name="all">ទាំងអស់</string>
     <string name="message">អ្នកមិនអាចផ្ញើសារទទេបានទេ</string>
     //renew
@@ -634,9 +634,11 @@
     </string-array>
     <string name="shopname2">ឈ្មោះហាងទី២</string>
     <string name="shopname3">ឈ្មោះហាងទី៣</string>
+    <string name="sold">បានលក់</string>
     <string name="delete_photo">តើអ្នកពិតជាចង់លុបរូបថតនេះឬ?</string>
     <string name="back_message">តើអ្នកប្រាកដជាចង់ចាកចេញពីទំព័រនេះមែនទេ?​ សូមចំណាំថាព័ត៌មានលម្អិតដែលអ្នកបានបំពេញនឹងមិនត្រូវបានរក្សាទុកទេ។</string>
     <string name="back_no">បិទ</string>
     <string name="back_ok">យល់ព្រម</string>
     <string name="deleting">កំពុងធ្វើការលុប ...</string>
+    <string name="no_notification">គ្មានការជូនដំណឹងទេ</string>
 </resources>

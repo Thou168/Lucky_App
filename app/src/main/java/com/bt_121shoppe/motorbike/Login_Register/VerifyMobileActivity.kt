@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bt_121shoppe.motorbike.Activity.Account
 import com.bt_121shoppe.motorbike.Activity.Camera
 import com.bt_121shoppe.motorbike.Activity.Home
-import com.bt_121shoppe.motorbike.Activity.Notification
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post
@@ -410,7 +410,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     Log.d("VeriFy",":"+verify);
 
                     if (verify.equals("notification")){
-                        val intent = Intent(this@VerifyMobileActivity, Notification::class.java)
+                        val intent = Intent(this@VerifyMobileActivity, NotificationActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                         finish()
@@ -539,7 +539,7 @@ class VerifyMobileActivity : AppCompatActivity() {
                     Log.d("VeriFy TTTTT",":"+verify)
 
                     if (verify.equals("notification")){
-                        val intent = Intent(this@VerifyMobileActivity, Notification::class.java)
+                        val intent = Intent(this@VerifyMobileActivity, NotificationActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                         finish()
@@ -574,7 +574,7 @@ class VerifyMobileActivity : AppCompatActivity() {
 
 //                    val noti = intent.getStringExtra("noti")
 //                    if (noti.equals("notifi")){
-//                        val intent = Intent(this@VerifyMobileActivity, Notification::class.java)
+//                        val intent = Intent(this@VerifyMobileActivity, NotificationActivity::class.java)
 //                        startActivity(intent)
 //                    }
 //

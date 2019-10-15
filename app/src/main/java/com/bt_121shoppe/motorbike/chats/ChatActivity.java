@@ -222,7 +222,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
         user.setId(tvreceiver.getText().toString());
-        Log.d(TAG,"here i got firebase chat to user.... "+user.getId());
+        //Log.d(TAG,"here i got firebase chat to user.... "+user.getId());
         return user;
     }
 

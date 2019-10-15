@@ -8,6 +8,10 @@ import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
+import com.bt_121shoppe.motorbike.models.BrandViewModel;
+import com.bt_121shoppe.motorbike.models.CategoryViewModel;
+import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
+import com.bt_121shoppe.motorbike.models.YearViewModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -58,7 +62,7 @@ public interface Service {
 
     @GET("api/v1/userfilter/?last_name=&username=")
     Call<AllResponse> getUsername(@Query("username") String username);
-//Buy_Rent_Sell
+    //Buy_Rent_Sell
     @GET("relatedpost/?post_type=rent&category=2&modeling=&min_price=&max_price=")
     Call<AllResponse> getRent_vehicle();
     @GET("relatedpost/?post_type=rent&category=1&modeling=&min_price=&max_price=")
@@ -94,11 +98,21 @@ public interface Service {
 
     @GET("relatedpost/?post_type=&category=&modeling=&min_price=&max_price=&year=")
     Call<APIResponse> getFilterResultwithModel(@Query("post_type") String post_type,@Query("category") String category,@Query("modeling")int modeling,@Query("min_price") String min_price,@Query("max_price") String max_price,@Query("year") String year);
-
     @GET("bestdeal/")
     Call<APIResponse> getPostBestDeal();
-
     @GET("allposts/")
     Call<APIResponse> getAllPosts();
+    @GET("api/v1/years/")
+    Call<YearViewModel> getYearFilter();
+    @GET("api/v1/years/{id}/")
+    Call<YearViewModel> getYearDetail(@Path("id") int id);
+    @GET("api/v1/categories/")
+    Call<CategoryViewModel> getCategoryFilter();
+    @GET("api/v1/categories/{id}/")
+    Call<CategoryViewModel> getCategoryDetail(@Path("id") int id);
+    @GET("api/v1/brands/")
+    Call<BrandViewModel> getBrandFilter();
+    @GET("api/v1/brands/{id}/")
+    Call<BrandViewModel> getBrandDetail(@Path("id") int id);
 
 }

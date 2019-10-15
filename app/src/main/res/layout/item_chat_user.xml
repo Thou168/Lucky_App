@@ -79,10 +79,7 @@
                 android:maxLines="1"
                 android:text=""/>
 
-
         </RelativeLayout>
-
-
 
     </LinearLayout>
 

@@ -1,5 +1,10 @@
 package com.bt_121shoppe.motorbike.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class CategoryViewModel {
     private int id;
     private String cat_name;
@@ -73,4 +78,15 @@ public class CategoryViewModel {
     public void setCreated(String created) {
         this.created = created;
     }
+
+    @SerializedName("results")
+    @Expose
+    private List<CategoryViewModel> results;
+    public List getresults(){ return results; }
+    public void setresults(List items){ this.results = items; }
+
+    @SerializedName("count")
+    @Expose
+    private int count;
+    public int getCount() { return count; }
 }

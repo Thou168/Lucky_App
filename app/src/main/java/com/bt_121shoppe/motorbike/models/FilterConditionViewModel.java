@@ -1,5 +1,11 @@
 package com.bt_121shoppe.motorbike.models;
 
+import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class FilterConditionViewModel {
     private int id;
     private String name;
@@ -90,4 +96,15 @@ public class FilterConditionViewModel {
     public void setYearId(int yearId) {
         this.yearId = yearId;
     }
+
+    @SerializedName("results")
+    @Expose
+    private List<FilterConditionViewModel> results;
+    public List getresults(){ return results; }
+    public void setresults(List items){ this.results = items; }
+
+    @SerializedName("count")
+    @Expose
+    private int count;
+    public int getCount() { return count; }
 }

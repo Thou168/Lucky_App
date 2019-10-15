@@ -28,7 +28,7 @@ class Message : AppCompatActivity() {
                 }
                 R.id.notification -> {
                     if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                        val intent = Intent(this@Message, Notification::class.java)
+                        val intent = Intent(this@Message, NotificationActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

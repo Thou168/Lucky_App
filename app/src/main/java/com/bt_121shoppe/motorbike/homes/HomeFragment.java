@@ -254,6 +254,7 @@ public class HomeFragment extends Fragment {
         mBestDealRecyclerView.setAdapter(mPostBestDealAdpater);
         mPostBestDealAdpater.notifyDataSetChanged();
         //mPostBestDealAdpater.setHasStableIds(true);
+
     }
 
     private void prepareBestDealContent(){
@@ -285,7 +286,7 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<APIResponse>() {
             @Override
             public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
-                mBestDealProgressbar.setVisibility(View.GONE);
+
                 if(!response.isSuccessful()){
                     mBestDealNoResult.setVisibility(View.VISIBLE);
                 }else{
@@ -298,6 +299,7 @@ public class HomeFragment extends Fragment {
                         mPostBestDealAdpater.addItems(mPostBestDeals);
                     }
                 }
+                mBestDealProgressbar.setVisibility(View.GONE);
             }
 
             @Override
@@ -331,74 +333,78 @@ public class HomeFragment extends Fragment {
     }
 
     private void prepareAllPostsContent(){
+        //new process
+        //new Handler().postDelayed(()-> {
 
-        Service apiService=Client.getClient().create(Service.class);
-        Call<APIResponse> call=apiService.getAllPosts();
-        call.enqueue(new Callback<APIResponse>() {
+                    Service apiService = Client.getClient().create(Service.class);
+                    Call<APIResponse> call = apiService.getAllPosts();
+                    call.enqueue(new Callback<APIResponse>() {
+                        @Override
+                        public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+
+                            if (!response.isSuccessful()) {
+                                mAllPostsNoResult.setVisibility(View.VISIBLE);
+                            } else {
+                                int count = response.body().getCount();
+                                if (count == 0) {
+                                    mAllPostsNoResult.setVisibility(View.VISIBLE);
+                                    mAllPostNoMoreResult.setVisibility(View.GONE);
+                                } else {
+                                    mAllPostsNoResult.setVisibility(View.GONE);
+                                    mAllPostNoMoreResult.setVisibility(View.VISIBLE);
+                                    mAllPosts = response.body().getresults();
+                                }
+
+                                Log.d(TAG, "count posts " + mAllPosts.size());
+                                Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getId(), s1.getId()));
+                                mAllPostAdapter.addItems(mAllPosts);
+                                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                mAllPostAdapter.notifyDataSetChanged();
+                                mAllPostProgressbar.setVisibility(View.GONE);
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<APIResponse> call, Throwable t) {
+                            mAllPostsNoResult.setVisibility(View.VISIBLE);
+                            Log.e(TAG, "onFailure: " + t.getMessage());
+                        }
+                    });
+        mListView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
-                mAllPostProgressbar.setVisibility(View.GONE);
-                if(!response.isSuccessful()){
-                    mAllPostsNoResult.setVisibility(View.VISIBLE);
-                }else{
-                    int count=response.body().getCount();
-                    if(count==0){
-                        mAllPostsNoResult.setVisibility(View.VISIBLE);
-                        mAllPostNoMoreResult.setVisibility(View.GONE);
-                    }else {
-                        mAllPostsNoResult.setVisibility(View.GONE);
-                        mAllPostNoMoreResult.setVisibility(View.VISIBLE);
-                        mAllPosts=response.body().getresults();
-                    }
-
-                    Log.d(TAG,"count posts "+mAllPosts.size());
-                    Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                    mAllPostAdapter.addItems(mAllPosts);
-                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
-                    mAllPostAdapter.notifyDataSetChanged();
-
-                    mListView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mListView.setImageResource(R.drawable.icon_list_c);
-                            mGridView.setImageResource(R.drawable.icon_grid);
-                            mGallaryView.setImageResource(R.drawable.icon_image);
-                            mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
-                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-                        }
-                    });
-
-                    mGridView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mListView.setImageResource(R.drawable.icon_list);
-                            mGridView.setImageResource(R.drawable.icon_grid_c);
-                            mGallaryView.setImageResource(R.drawable.icon_image);
-                            mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
-                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                        }
-                    });
-
-                    mGallaryView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mListView.setImageResource(R.drawable.icon_list);
-                            mGridView.setImageResource(R.drawable.icon_grid);
-                            mGallaryView.setImageResource(R.drawable.icon_image_c);
-                            mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
-                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<APIResponse> call, Throwable t) {
-                mAllPostsNoResult.setVisibility(View.VISIBLE);
-                Log.e(TAG, "onFailure: "+t.getMessage());
+            public void onClick(View view) {
+                mListView.setImageResource(R.drawable.icon_list_c);
+                mGridView.setImageResource(R.drawable.icon_grid);
+                mGallaryView.setImageResource(R.drawable.icon_image);
+                mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts, "List"));
+                mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
             }
         });
+
+        mGridView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListView.setImageResource(R.drawable.icon_list);
+                mGridView.setImageResource(R.drawable.icon_grid_c);
+                mGallaryView.setImageResource(R.drawable.icon_image);
+                mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts, "Grid"));
+                mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            }
+        });
+
+        mGallaryView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListView.setImageResource(R.drawable.icon_list);
+                mGridView.setImageResource(R.drawable.icon_grid);
+                mGallaryView.setImageResource(R.drawable.icon_image_c);
+                mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts, "Image"));
+                mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+            }
+        });
+                //},5000);
 
         //get from api
 //        new Handler().postDelayed(()->{
@@ -463,90 +469,94 @@ public class HomeFragment extends Fragment {
 //            }catch (IOException ioe) {
 //                ioe.printStackTrace();
 //            }
-//        },2000);
+//        },500);
 
         //get from firebase
-        /*
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
-        Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
-        mAllPosts=new ArrayList<>();
-        myQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    try{
-                        JSONObject obj=new JSONObject((Map) snapshot.getValue());
-                        int status=obj.getInt("status");
-                        if(status==4){
-                            String id=obj.getString("id");
-                            int user_id = obj.getInt("createdBy");
-                            String coverUrl = obj.getString("coverUrl");
-                            String createdAt = obj.getString("createdAt");
-                            String price=obj.getString("price");
-                            String discountAmount=obj.getString("discountAmount");
-                            String discountType=obj.getString("discountType");
-                            String location=obj.getString("location");
-                            int viewCount=obj.getInt("viewCount");
-                            String title=obj.getString("subTitle");
-                            String type=obj.getString("type");
-                            String[] splitTitle=title.split(",");
-                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,splitTitle[0],type,coverUrl,price,"",viewCount ,discountType,discountAmount));
-                            Log.d(TAG,"count posts before "+mAllPosts.size());
-                        }
-                    }catch (JSONException je){
-                        je.printStackTrace();
-                    }
-                }
 
+//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
+//        Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
+//        mAllPosts=new ArrayList<>();
+//        myQuery.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                    try{
+//                        JSONObject obj=new JSONObject((Map) snapshot.getValue());
+//                        int status=obj.getInt("status");
+//                        if(status==4){
+//                            String id=obj.getString("id");
+//                            int user_id = obj.getInt("createdBy");
+//                            String coverUrl = obj.getString("coverUrl");
+//                            String createdAt = obj.getString("createdAt");
+//                            String price=obj.getString("price");
+//                            String discountAmount=obj.getString("discountAmount");
+//                            String discountType=obj.getString("discountType");
+//                            String location=obj.getString("location");
+//                            int viewCount=obj.getInt("viewCount");
+//                            String title=obj.getString("subTitle");
+//                            String type=obj.getString("type");
+//                            String[] splitTitle=title.split(",");
+//                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,splitTitle[0],type,coverUrl,price,"",viewCount ,discountType,discountAmount));
+//                            Log.d(TAG,"count posts before "+mAllPosts.size());
+//                        }
+//                    }catch (JSONException je){
+//                        je.printStackTrace();
+//                    }
+//                }
+//
+//
+//                Log.d(TAG,"count posts "+mAllPosts.size());
+//                //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
+//                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
+//                mAllPostAdapter.addItems(mAllPosts);
+//                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+//                ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+//                mAllPostAdapter.notifyDataSetChanged();
+//
+//                mListView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.icon_list_c);
+//                        mGridView.setImageResource(R.drawable.icon_grid);
+//                        mGallaryView.setImageResource(R.drawable.icon_image);
+//                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"List"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+//                    }
+//                });
+//
+//                mGridView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.icon_list);
+//                        mGridView.setImageResource(R.drawable.icon_grid_c);
+//                        mGallaryView.setImageResource(R.drawable.icon_image);
+//                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Grid"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//                    }
+//                });
+//
+//                mGallaryView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.icon_list);
+//                        mGridView.setImageResource(R.drawable.icon_grid);
+//                        mGallaryView.setImageResource(R.drawable.icon_image_c);
+//                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Image"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
-                Log.d(TAG,"count posts "+mAllPosts.size());
-                Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                mAllPostAdapter.addItems(mAllPosts);
-                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
-                mAllPostAdapter.notifyDataSetChanged();
-
-                mListView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list_c);
-                        mGridView.setImageResource(R.drawable.icon_grid);
-                        mGallaryView.setImageResource(R.drawable.icon_image);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-                    }
-                });
-
-                mGridView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list);
-                        mGridView.setImageResource(R.drawable.icon_grid_c);
-                        mGallaryView.setImageResource(R.drawable.icon_image);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                    }
-                });
-
-                mGallaryView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list);
-                        mGridView.setImageResource(R.drawable.icon_grid);
-                        mGallaryView.setImageResource(R.drawable.icon_image_c);
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        */
 
     }
 

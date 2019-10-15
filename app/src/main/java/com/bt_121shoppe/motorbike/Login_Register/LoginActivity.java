@@ -4,27 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
-import com.bt_121shoppe.motorbike.Activity.Notification;
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Api.User;
@@ -34,7 +30,6 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
-import com.bumptech.glide.load.engine.Resource;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -357,7 +352,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Intent intent;
                                             switch (login_verify){
                                                 case "notification":
-                                                    intent=new Intent(LoginActivity.this, Notification.class);
+                                                    intent=new Intent(LoginActivity.this, NotificationActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();

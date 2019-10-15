@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
-import com.bt_121shoppe.motorbike.Activity.Notification;
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
@@ -356,7 +356,7 @@ public class UserAccountActivity extends AppCompatActivity {
                         Intent intent;
                         switch (verify){
                             case "notification":
-                                intent=new Intent(UserAccountActivity.this, Notification.class);
+                                intent=new Intent(UserAccountActivity.this, NotificationActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();

@@ -1,6 +1,7 @@
 <resources>
 
     <style name="loan_calculation_title1">ការរគណនាប្រាក់ម្ចី / Loan Calculation</style>
+
     <string name="app_name">Motorbike 121</string>
     <string name="title_activity_new__main">New_Main</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -79,11 +80,11 @@
     https://developers.google.com/maps/documentation/android/start#get-key
     -->
     //map
-<!--    <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>-->
+    <!--    <string name="google_maps_key">AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4 </string>-->
 
-<!--    <string name="facebook_app_id">596607940863011</string>-->
+    <!--    <string name="facebook_app_id">596607940863011</string>-->
     <!--    <string name="facebook_app_id">2638303279534710</string>-->
-<!--    <string name="fb_login_protocol_scheme">fb2638303279534710</string>-->
+    <!--    <string name="fb_login_protocol_scheme">fb2638303279534710</string>-->
 
     <string-array name="category">
         <item>Motorbike</item>
@@ -129,7 +130,7 @@
         <item>Kompong Chhnang</item>
     </string-array>
 
-<!--    <string name="ok_dob" translatable="false">Ok</string>-->
+    <!--    <string name="ok_dob" translatable="false">Ok</string>-->
     <string name="cancel_dob" translatable="false">Cancel</string>
 
     <string name="title_Login">Login account</string>
@@ -773,13 +774,13 @@
     </string-array>
     <string name="upgrade">Upgrade to be Dealer</string>
     <string name="no_internet">No Internet Connection</string>
-<!--    <string name="no_conversation">No Conversation!</string>-->
+    <!--    <string name="no_conversation">No Conversation!</string>-->
     <string name="min_price">Min Price</string>
     <string name="max_price">Max Price</string>
     <string name="result_name"> results</string>
     <string name="shop_logo">Shop Logo</string>
 
-//new string dialog
+    //new string dialog
     <string name="dialog_default_title">Here\'s a message!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
@@ -794,9 +795,11 @@
     </string-array>
     <string name="shopname2">Shop name 2</string>
     <string name="shopname3">Shop name 3</string>
+    <string name="sold">Sold</string>
     <string name="delete_photo">Are you sure you want to delete this photo?</string>
     <string name="back_message">Are you sure you want to leave this page? Please note that any details you have filled in will not be saved.</string>
     <string name="back_no">No</string>
     <string name="back_ok">Yes</string>
     <string name="deleting">Deleting...</string>
+    <string name="no_notification">No Notification</string>
 </resources>

@@ -130,7 +130,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                 }
                 R.id.notification -> {
                     if (preferences.contains("token") || preferences.contains("id")) {
-                        val intent = Intent(this@Account1, Notification::class.java)
+                        val intent = Intent(this@Account1, NotificationActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }else{

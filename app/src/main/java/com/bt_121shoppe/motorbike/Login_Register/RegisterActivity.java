@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +21,7 @@ import android.widget.Toast;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
-import com.bt_121shoppe.motorbike.Activity.Notification;
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
@@ -33,7 +32,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -380,7 +378,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(register_verify!=null) {
                                 switch (register_verify) {
                                     case "notification":
-                                        intent = new Intent(RegisterActivity.this, Notification.class);
+                                        intent = new Intent(RegisterActivity.this, NotificationActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();

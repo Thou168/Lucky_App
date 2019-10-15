@@ -21,7 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
-import com.bt_121shoppe.motorbike.Activity.Notification;
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
@@ -104,7 +104,7 @@ public class ChatMainActivity extends AppCompatActivity {
                     break;
                 case R.id.notification:
                     if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), Notification.class));
+                        startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
                     }else {
                         startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }

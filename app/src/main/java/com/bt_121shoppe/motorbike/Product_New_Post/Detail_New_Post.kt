@@ -97,7 +97,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION = 1
     internal lateinit var locationManager: LocationManager
-    internal var latitude: Double = 0.toDouble()
+    internal var latitude:Double = 0.toDouble()
     internal var longtitude:Double = 0.toDouble()
     private var list_rela: RecyclerView? = null
     private var relativecal: RelativeLayout? = null
@@ -145,7 +145,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var mprocessBar:ProgressBar
     private lateinit var address_detial:TextView
     private lateinit var call_phone:ImageView
-    private lateinit var postTitle:String
+    private var postTitle:String=""
     private lateinit var postPrice:String
     private lateinit var postFrontImage:String
     private lateinit var postUsername:String

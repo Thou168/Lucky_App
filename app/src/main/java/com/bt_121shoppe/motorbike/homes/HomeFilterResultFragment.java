@@ -28,7 +28,10 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
+import com.bt_121shoppe.motorbike.models.BrandViewModel;
+import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.models.YearViewModel;
 import com.bt_121shoppe.motorbike.searches.SearchTypeAdapter;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.textfield.TextInputEditText;
@@ -106,6 +109,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         mFilterYear.setFocusable(false);
         mFilterPriceRange.setFocusable(false);
 
+        modelIdListItems=new int[0];
         /* initial value to filter control */
         //Post Type
         switch (mPostTypeId){
@@ -123,55 +127,68 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         if(mCategoryId==0){
             mFilterCategory.setText(getString(R.string.all));
         }else {
-            try {
-                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+mCategoryId);
-                try{
-                    JSONObject obj=new JSONObject(responseCategory);
-                    if(mCurrentLanguage.equals("km"))
-                        mFilterCategory.setText(obj.getString("cat_name_kh"));
-                    else
-                        mFilterCategory.setText(obj.getString("cat_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+            Service apiService=Client.getClient().create(Service.class);
+            Call<CategoryViewModel> call=apiService.getCategoryDetail(mCategoryId);
+            call.enqueue(new Callback<CategoryViewModel>() {
+                @Override
+                public void onResponse(Call<CategoryViewModel> call, Response<CategoryViewModel> response) {
+                    if(response.isSuccessful()) {
+                        CategoryViewModel mResponse = response.body();
+                        if(mCurrentLanguage.equals("km"))
+                            mFilterCategory.setText(mResponse.getCat_name_kh());
+                        else
+                            mFilterCategory.setText(mResponse.getCat_name());
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<CategoryViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Brand
         if(mBrandId==0){
             mFilterBrand.setText(getString(R.string.all));
         }else{
-            try{
-                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+mBrandId);
-                try{
-                    JSONObject obj=new JSONObject(responseBrand);
-                    if(mCurrentLanguage.equals("km"))
-                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
-                    else
-                        mFilterBrand.setText(obj.getString("brand_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+            Service apiService=Client.getClient().create(Service.class);
+            Call<BrandViewModel> call=apiService.getBrandDetail(mBrandId);
+            call.enqueue(new Callback<BrandViewModel>() {
+                @Override
+                public void onResponse(Call<BrandViewModel> call, Response<BrandViewModel> response) {
+                    if(response.isSuccessful()){
+                        if(mCurrentLanguage.equals("km"))
+                            mFilterBrand.setText(response.body().getBrand_name_kh());
+                        else
+                            mFilterBrand.setText(response.body().getBrand_name());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<BrandViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Year
         if(mYearId==0){
             mFilterYear.setText(getString(R.string.all));
         }else{
-            try{
-                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+mYearId);
-                try{
-                    JSONObject obj=new JSONObject(responseYear);
-                    mFilterYear.setText(obj.getString("year"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+            Service apiService=Client.getClient().create(Service.class);
+            Call<YearViewModel> call=apiService.getYearDetail(mYearId);
+            call.enqueue(new Callback<YearViewModel>() {
+                @Override
+                public void onResponse(Call<YearViewModel> call, Response<YearViewModel> response) {
+                    if(response.isSuccessful()){
+                        mFilterYear.setText(response.body().getYear());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<YearViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //price range
         if(mMinPrice>1||mMaxPrice>1){
@@ -271,11 +288,46 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                 loadFragment(fragment);
             }
         });
+        mListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewType="List";
+                mListView.setImageResource(R.drawable.icon_list_c);
+                mGridView.setImageResource(R.drawable.icon_grid);
+                mGallaryView.setImageResource(R.drawable.icon_image);
+                mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"List"));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+            }
+        });
+
+        mGridView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewType="Grid";
+                mListView.setImageResource(R.drawable.icon_list);
+                mGridView.setImageResource(R.drawable.icon_grid_c);
+                mGallaryView.setImageResource(R.drawable.icon_image);
+                mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Grid"));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+            }
+        });
+
+        mGallaryView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewType="Image";
+                mListView.setImageResource(R.drawable.icon_list);
+                mGridView.setImageResource(R.drawable.icon_grid);
+                mGallaryView.setImageResource(R.drawable.icon_image_c);
+                mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Image"));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+            }
+        });
         /* end action event lister */
-
-        modelIdListItems=getModelIdList(mBrandId);
+        if(mBrandId>0) {
+            modelIdListItems = getModelIdList(mBrandId);
+        }
         setupFilterResults(String.valueOf(mPostTypeId),"List",mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
-
         return view;
     }
 
@@ -301,55 +353,68 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         if(mCategoryId==0){
             mFilterCategory.setText(getString(R.string.all));
         }else {
-            try {
-                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+mCategoryId);
-                try{
-                    JSONObject obj=new JSONObject(responseCategory);
-                    if(mCurrentLanguage.equals("km"))
-                        mFilterCategory.setText(obj.getString("cat_name_kh"));
-                    else
-                        mFilterCategory.setText(obj.getString("cat_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+            Service apiService=Client.getClient().create(Service.class);
+            Call<CategoryViewModel> call=apiService.getCategoryDetail(mCategoryId);
+            call.enqueue(new Callback<CategoryViewModel>() {
+                @Override
+                public void onResponse(Call<CategoryViewModel> call, Response<CategoryViewModel> response) {
+                    if(response.isSuccessful()) {
+                        CategoryViewModel mResponse = response.body();
+                        if(mCurrentLanguage.equals("km"))
+                            mFilterCategory.setText(mResponse.getCat_name_kh());
+                        else
+                            mFilterCategory.setText(mResponse.getCat_name());
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<CategoryViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Brand
         if(mBrandId==0){
             mFilterBrand.setText(getString(R.string.all));
         }else{
-            try{
-                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+mBrandId);
-                try{
-                    JSONObject obj=new JSONObject(responseBrand);
-                    if(mCurrentLanguage.equals("km"))
-                        mFilterBrand.setText(obj.getString("brand_name_as_kh"));
-                    else
-                        mFilterBrand.setText(obj.getString("brand_name"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+            Service apiService=Client.getClient().create(Service.class);
+            Call<BrandViewModel> call=apiService.getBrandDetail(mBrandId);
+            call.enqueue(new Callback<BrandViewModel>() {
+                @Override
+                public void onResponse(Call<BrandViewModel> call, Response<BrandViewModel> response) {
+                    if(response.isSuccessful()){
+                        if(mCurrentLanguage.equals("km"))
+                            mFilterBrand.setText(response.body().getBrand_name_kh());
+                        else
+                            mFilterBrand.setText(response.body().getBrand_name());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<BrandViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //Year
         if(mYearId==0){
             mFilterYear.setText(getString(R.string.all));
         }else{
-            try{
-                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+mYearId);
-                try{
-                    JSONObject obj=new JSONObject(responseYear);
-                    mFilterYear.setText(obj.getString("year"));
-                }catch (JSONException je){
-                    je.printStackTrace();
+            Service apiService=Client.getClient().create(Service.class);
+            Call<YearViewModel> call=apiService.getYearDetail(mYearId);
+            call.enqueue(new Callback<YearViewModel>() {
+                @Override
+                public void onResponse(Call<YearViewModel> call, Response<YearViewModel> response) {
+                    if(response.isSuccessful()){
+                        mFilterYear.setText(response.body().getYear());
+                    }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onFailure(Call<YearViewModel> call, Throwable t) {
+
+                }
+            });
         }
         //price range
         if(mMinPrice>1||mMaxPrice>1){
@@ -506,41 +571,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
 //        else
 //            mNoResultTextView.setVisibility(View.GONE);
 
-        mListView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewType="List";
-                mListView.setImageResource(R.drawable.icon_list_c);
-                mGridView.setImageResource(R.drawable.icon_grid);
-                mGallaryView.setImageResource(R.drawable.icon_image);
-                mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"List"));
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-            }
-        });
 
-        mGridView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewType="Grid";
-                mListView.setImageResource(R.drawable.icon_list);
-                mGridView.setImageResource(R.drawable.icon_grid_c);
-                mGallaryView.setImageResource(R.drawable.icon_image);
-                mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Grid"));
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-            }
-        });
-
-        mGallaryView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewType="Image";
-                mListView.setImageResource(R.drawable.icon_list);
-                mGridView.setImageResource(R.drawable.icon_grid);
-                mGallaryView.setImageResource(R.drawable.icon_image_c);
-                mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Image"));
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-            }
-        });
     }
 
     private int[] getModelIdList(int brandId){

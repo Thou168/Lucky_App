@@ -16,7 +16,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -47,7 +46,6 @@ import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccount;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Setting.AboutUsActivity;
@@ -63,7 +61,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -76,7 +73,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
@@ -147,7 +143,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     View view_header;
     CircleImageView img_profile;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tab_layout1);
@@ -251,9 +246,12 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
 
+//        com.bt_121shoppe.motorbike.utils.Notification.sendNotification(fuser.getUid());
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 User user=dataSnapshot.getValue(User.class);
 
                 if(user.getImageURL().equals("default")){
@@ -290,7 +288,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             startActivity(intent);
         });
 
-
         uploadcover.setOnClickListener(v -> { type = "cover";
             selectImage();
         });
@@ -307,7 +304,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     private void Switch_language(){
         Paper.init(this);
         String language = Paper.book().read("language");
-        Log.d("44444444","444"+language);
+        //Log.d("44444444","444"+language);
         if (language == null) {
             Paper.book().write("language", "km");
             updateView(Paper.book().read("language"));
@@ -626,7 +623,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         startActivity(myIntent);
                         break;
                     case R.id.notification:
-                        Intent myIntent2 = new Intent(Account.this, Notification.class);
+                        Intent myIntent2 = new Intent(Account.this, NotificationActivity.class);
                         startActivity(myIntent2);
                         break;
                     case R.id.camera:

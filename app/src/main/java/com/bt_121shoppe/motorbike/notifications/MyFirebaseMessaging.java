@@ -21,7 +21,6 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
         Log.d("MyFirebaseMessaging",remoteMessage.toString());
         String sented=remoteMessage.getData().get("sented");
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();

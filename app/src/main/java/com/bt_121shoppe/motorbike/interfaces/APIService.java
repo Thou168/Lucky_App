@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.interfaces;
 
+import com.bt_121shoppe.motorbike.models.NotificationSenderViewModel;
 import com.bt_121shoppe.motorbike.notifications.MyResponse;
 import com.bt_121shoppe.motorbike.notifications.Sender;
 
@@ -18,4 +19,7 @@ public interface APIService {
 
     @POST("fcm/send")
     Call<MyResponse> sendNotification(@Body Sender body);
+
+    @POST("fcm/send")
+    Call<MyResponse> sendNotification1(@Body NotificationSenderViewModel body);
 }

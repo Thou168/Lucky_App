@@ -149,7 +149,7 @@
                 android:background="#00FFFFFF"
                 android:paddingLeft="@dimen/dp_16"
                 android:drawableLeft="@drawable/delete"
-                android:text="@string/button_delete" />
+                android:text="@string/sold" />
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

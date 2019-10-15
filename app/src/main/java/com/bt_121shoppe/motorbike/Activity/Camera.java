@@ -337,7 +337,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
                 case R.id.notification:
                     if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), Notification.class));
+                        startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
                     }else {
                         startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }

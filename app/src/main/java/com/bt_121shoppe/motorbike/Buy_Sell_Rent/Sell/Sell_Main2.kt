@@ -55,7 +55,7 @@ class Sell_Main2 : AppCompatActivity() {
                         if (active.equals("false")){
                             activeUser.clear_session(this)
                         }else {
-                            val intent = Intent(this@Sell_Main2, Notification::class.java)
+                            val intent = Intent(this@Sell_Main2, NotificationActivity::class.java)
                             startActivity(intent)
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
