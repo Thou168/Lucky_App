@@ -13,12 +13,6 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:background="@android:color/holo_blue_light"
-                android:layout_height="?attr/actionBarSize">
-            </androidx.appcompat.widget.Toolbar>
             <LinearLayout
                 android:padding="5dp"
                 android:layout_below="@+id/toolbar"
@@ -274,6 +268,29 @@
                 </RelativeLayout>
                 <View style="@style/line"/>
             </LinearLayout>
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@android:color/holo_blue_light"
+                />
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/submit_button"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@android:color/holo_blue_light"
+                />
         </RelativeLayout>
     </ScrollView>
 </FrameLayout>

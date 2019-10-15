@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".loan.Create_Load">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@android:color/holo_blue_light"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/chevron_left_36"/>
+    </androidx.appcompat.widget.Toolbar>
 
-    <com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.CustomViewPager
-        android:id="@+id/viewPager"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+</RelativeLayout>

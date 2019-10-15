@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bt_121shoppe.motorbike.R;
 
@@ -19,7 +21,7 @@ public class two extends Fragment {
 
     private Toolbar mToolbar;
     private TextView mTvName;
-    private Button mBtnNext, mBtnNextWithFinish;
+    private Button mBtnNext, mBtnNextWithFinish, mBtnback;
 
     private int mNumber;
 
@@ -45,9 +47,37 @@ public class two extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_create__load_two, container, false);
 //        initView(view);
+        mBtnNext = view.findViewById(R.id.btn_next);
+        mBtnback = view.findViewById(R.id.btn_back);
+
+        mBtnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                one fragment = new one();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+        });
+        mBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                three fragment = new three();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+        });
+
         return view;
     }
 
+    private void loadFragment(Fragment fragment){
+        FragmentManager fm=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fm.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
+    }
 
 //    private void initView(View view) {
 //        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);

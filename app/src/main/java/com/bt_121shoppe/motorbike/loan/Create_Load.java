@@ -9,9 +9,11 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.fragments.history_postbyuser;
+import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.CustomViewPager;
 import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.FragmentAdapter;
 import com.bt_121shoppe.motorbike.loan.child.one;
@@ -21,6 +23,7 @@ import com.bt_121shoppe.motorbike.loan.child.two;
 public class Create_Load extends AppCompatActivity {
 
     Button next,prev;
+    TextView back;
     CustomViewPager viewPager;
     int count=0;
     @Override
@@ -28,8 +31,19 @@ public class Create_Load extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__load);
 
-        viewPager = findViewById(R.id.viewPager);
-        setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, new one()).commit();
+        }
+        back = findViewById(R.id.tv_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+//        viewPager = findViewById(R.id.viewPager);
+//        setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
 //        next = findViewById(R.id.next);
 //        prev = findViewById(R.id.back);
 
@@ -48,15 +62,15 @@ public class Create_Load extends AppCompatActivity {
 //            viewPager.setCurrentItem(count,true);
 //        });
     }
-    public void setViewPager (int pager){
-        viewPager.setCurrentItem(pager);
-    }
-    public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
-        FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
-        //Add All Fragment To List
-        Adapter.add(new one(), "null");
-        Adapter.add(new two(), "null");
-        Adapter.add(new three(), "null");
-        viewPager.setAdapter(Adapter);
-    }
+//    public void setViewPager (int pager){
+//        viewPager.setCurrentItem(pager);
+//    }
+//    public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
+//        FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
+//        //Add All Fragment To List
+//        Adapter.add(new one(), "null");
+//        Adapter.add(new two(), "null");
+//        Adapter.add(new three(), "null");
+//        viewPager.setAdapter(Adapter);
+//    }
 }

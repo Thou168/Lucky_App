@@ -21,8 +21,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.homes.HomeFilterConditionFragment;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 
 import io.paperdb.Book;
@@ -81,6 +84,7 @@ public class one extends Fragment {
         etTotal_income_borrowers = view.findViewById(R.id.etTotal_income_borrowers);
         etTotal_cost_borrowers = view.findViewById(R.id.etTotal_cost_borrowers);
         et_total = view.findViewById(R.id.et_total);
+        mBtnNext = view.findViewById(R.id.btn_next);
         etTotal_cost_borrowers.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -147,7 +151,24 @@ public class one extends Fragment {
         et_Contributors.setOnClickListener(v -> {
             CreateAlertDialogWithRadioButtonGroup(values,et_Contributors);
         });
+        mBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                two fragment = new two();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+        });
+
         return view;
+    }
+    private void loadFragment(Fragment fragment){
+        FragmentManager fm=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fm.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack(null);
     }
     private void CreateAlertDialogWithRadioButtonGroup(String[] items,EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);

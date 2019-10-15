@@ -59,6 +59,7 @@ import com.bt_121shoppe.motorbike.utils.LoanCalculator
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.bt_121shoppe.motorbike.loan.Create_Load
 
 //import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -211,7 +212,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener {
-            if (p!= null) {
+            if (postId!= null) {
                 startActivity(Intent(this@Detail_New_Post, Home::class.java))
             } else finish()
         }
@@ -265,6 +266,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 intent.putExtra("verify","detail")
                 intent.putExtra("product_id",postId)
                 startActivity(intent)
+            }else{
+                val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                finish()
             }
         }
         val chat = findViewById<ImageView>(R.id.btn_sms)

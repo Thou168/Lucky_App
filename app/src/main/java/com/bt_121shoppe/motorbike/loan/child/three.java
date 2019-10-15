@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bt_121shoppe.motorbike.R;
 
@@ -25,7 +27,7 @@ public class three extends Fragment {
 
     private Toolbar mToolbar;
     private TextView mTvName;
-    private Button mBtnNext, mBtnNextWithFinish;
+    private Button mBtnSubmit, mBtnNextWithFinish,mBtnback;
 
     private int mNumber;
     AlertDialog dialog;
@@ -54,9 +56,27 @@ public class three extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_create__load_three, container, false);
         initView(view);
+        mBtnback = view.findViewById(R.id.btn_back);
+        mBtnSubmit = view.findViewById(R.id.btn_submit);
+
+        mBtnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                two fragment = new two();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+        });
+
         return view;
     }
-
+    private void loadFragment(Fragment fragment){
+        FragmentManager fm=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fm.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
+    }
     private void initView(View view) {
         etID_card = view.findViewById(R.id.etID_card);
         etID_card.setOnClickListener(v -> {
