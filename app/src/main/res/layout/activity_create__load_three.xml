@@ -13,17 +13,27 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="@dimen/dp_18"
+                android:textStyle="bold"
+                android:background="#B9E7E7E7"
+                android:gravity="center"
+                android:text="@string/document" />
             <LinearLayout
                 android:padding="5dp"
-                android:layout_below="@+id/toolbar"
+                android:layout_below="@+id/title"
                 android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <View style="@style/line"/>
                 <TextView
                     android:background="#B9E7E7E7"
-                    android:text="អ្នកខ្ចី"
-                    android:textSize="12dp"
-                    android:gravity="center"
+                    android:text="@string/borrower"
+                    android:textSize="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"/>
                 <View style="@style/line"/>
@@ -50,7 +60,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="អត្តសញ្ញាណប័ណ្ណ"
+                            android:hint="@string/cambodian_id"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -79,7 +89,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="សៀវភៅគ្រួសារ ឬសៀវភៅស្នាក់នៅ"
+                            android:hint="@string/family_book"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -108,7 +118,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="រូបថត"
+                            android:hint="@string/photo"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -137,17 +147,16 @@
                             android:focusable="false"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="កាតការងារ ឬលិខិតបញ្ជាក់ប្រាក់ខែ"
+                            android:hint="@string/job_id_card"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
                 <View style="@style/line"/>
                 <TextView
-                    android:text="អ្នករួមខ្ចី"
+                    android:text="@string/hit_co_borrower"
                     android:background="#B9E7E7E7"
-                    android:textSize="12dp"
-                    android:gravity="center"
+                    android:textSize="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"/>
                 <View style="@style/line"/>
@@ -174,7 +183,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="អត្តសញ្ញាណប័ណ្ណ"
+                            android:hint="@string/cambodian_id"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -203,7 +212,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="សៀវភៅគ្រួសារ ឬសៀវភៅស្នាក់នៅ"
+                            android:hint="@string/family_book"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -232,7 +241,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="រូបថត"
+                            android:hint="@string/photo"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -261,7 +270,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="កាតការងារ ឬលិខិតបញ្ជាក់ប្រាក់ខែ"
+                            android:hint="@string/job_id_card"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>

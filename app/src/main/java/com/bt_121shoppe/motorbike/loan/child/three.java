@@ -32,7 +32,6 @@ public class three extends Fragment {
     private int mNumber;
     AlertDialog dialog;
     private EditText etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
-    String[] values = {"មាន","មិនមាន","បោះបង់"};
 
     public static three newInstance(int number) {
         three fragment = new three();
@@ -59,6 +58,7 @@ public class three extends Fragment {
         mBtnback = view.findViewById(R.id.btn_back);
         mBtnSubmit = view.findViewById(R.id.btn_submit);
 
+
         mBtnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +78,7 @@ public class three extends Fragment {
         fragmentTransaction.commit();
     }
     private void initView(View view) {
+        String[] values = getResources().getStringArray(R.array.choose);
         etID_card = view.findViewById(R.id.etID_card);
         etID_card.setOnClickListener(v -> {
             CreateAlertDialog(values,etID_card);
@@ -114,7 +115,7 @@ public class three extends Fragment {
     }
 private void CreateAlertDialog(String[] items, EditText editText){
     AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-    builder.setTitle("Choose item");
+    builder.setTitle(R.string.choose);
     int checkedItem = 0; //this will checked the item when user open the dialog
     builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
         Toast.makeText(getContext(), "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();

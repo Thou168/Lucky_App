@@ -14,12 +14,22 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="@dimen/dp_18"
+                android:textStyle="bold"
+                android:text="@string/loan_info"
+                android:background="#B9E7E7E7"
+                android:gravity="center"/>
             <LinearLayout
                 android:padding="5dp"
-                android:layout_below="@+id/toolbar"
+                android:layout_below="@+id/title"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -41,7 +51,7 @@
                             android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="ទឹកប្រាក់ស្នើសុំខ្ចី"
+                            android:hint="@string/loan_amountt"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -68,7 +78,7 @@
                             android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="រយៈពេលខ្ចី (ខែ)"
+                            android:hint="@string/title_loan_term"
                             android:inputType="phone"
                             android:background="@null"
                             android:textSize="14dp" />
@@ -96,7 +106,9 @@
                             android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="របៀបសងប្រាក់"
+                            android:hint="@string/repayment_type"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:focusable="false"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -124,7 +136,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:inputType="number"
-                            android:hint="ទឹកប្រាក់ចូលរួមកម្ចី ($)"
+                            android:hint="@string/deposit_amount"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -151,7 +163,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_toEndOf="@+id/img_6"
-                            android:text="ការទិញធានារ៉ាប់រងលើផលិតផល"
+                            android:text="@string/insurance"
                             android:textSize="15dp" />
                         <RadioGroup
                             android:layout_marginTop="5dp"
@@ -167,13 +179,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="ត្រូវការ" />
+                                android:text="@string/insurance_yes" />
                             <RadioButton
                                 android:id="@+id/radio2"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="មិនត្រូវការ" />
+                                android:text="@string/insurance_no" />
                         </RadioGroup>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -198,7 +210,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_toEndOf="@+id/img_6_1"
-                            android:text="អនុញ្ញាតឲ្យភ្នាក់ងារចុះជួបដល់លំនៅដ្ឋាន"
+                            android:text="@string/allow_officer"
                             android:textSize="15dp" />
                         <RadioGroup
                             android:layout_marginTop="5dp"
@@ -214,13 +226,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="យល់ព្រម" />
+                                android:text="@string/allow_yes" />
                             <RadioButton
                                 android:id="@+id/radio4"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="មិនយល់ព្រម" />
+                                android:text="@string/allow_no" />
                         </RadioGroup>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -248,7 +260,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:inputType="number"
-                            android:hint="សរុបប្រាក់ត្រូវបង់សងប្រចាំខែឲ្យស្ថាប័ននោះ ($)"
+                            android:hint="@string/monthly_payment"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
                             android:background="@null"
@@ -280,40 +292,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:inputType="number"
-                            android:hint="រអនុញ្ញាតឲ្យភ្នាក់ងារចុះជួបដល់លំនៅដ្ឋាន"
+                            android:hint="@string/allow_officer"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
                 <View android:id="@+id/view_3" style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_10"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilTotal_income_borrowers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_10">
-                        <EditText
-                            android:id="@+id/etTotal_income_borrowers"
-                            android:paddingLeft="5dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="ប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View android:id="@+id/view_1" style="@style/line"/>
                 <RelativeLayout
                     android:id="@+id/relative_conspirator"
                     android:layout_width="match_parent"
@@ -337,9 +321,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:inputType="number"
-                            android:hint="ចំនួនស្ថាប័នដែលកំពុងជាប់បំណុល"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:focusable="false"
+                            android:hint="@string/number_lending"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>

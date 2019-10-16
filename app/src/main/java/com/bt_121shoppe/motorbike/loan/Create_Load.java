@@ -5,12 +5,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bt_121shoppe.motorbike.Activity.Camera;
+import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.fragments.history_postbyuser;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
@@ -38,7 +43,22 @@ public class Create_Load extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Create_Load.this).create();
+                builder.setMessage(getString(R.string.back_message));
+                builder.setCancelable(false);
+                builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                       finish();
+                    }
+                });
+                builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        builder.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
 

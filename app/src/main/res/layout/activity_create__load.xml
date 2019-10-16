@@ -19,6 +19,18 @@
             android:textColor="#fff"
             android:gravity="center_vertical"
             android:drawableLeft="@drawable/chevron_left_36"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/loan_information"
+        android:textSize="@dimen/page_title"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:gravity="center_vertical"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout

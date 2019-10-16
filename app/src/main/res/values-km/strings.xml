@@ -170,6 +170,63 @@
     <string name="hit_co_borrower">អ្នកចូលរួមខ្ចី</string>
 
     <string name="contact_number">លេខទំនាក់ទំនង</string>
+    <string name="co_borrower_yes">មាន</string>
+    <string name="co_borrower_no">មិនមាន</string>
+    <string name="loan_job">មុខរបរផ្ទាល់ខ្លួន</string>
+    <string name="job_period">រយៈពេលប្រកបរបរ​ (ឆ្នាំ)</string>
+    <string name="co_borrow_job">មុខរបរអ្នករួមខ្ចី</string>
+    <string name="relationship">អ្នករួមខ្ចីត្រូវជា</string>
+    <string name="total_expense">ប្រាក់ចំណាយសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)</string>
+    <string name="total_income"> ប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)</string>
+    <string name="repayment_type"> របៀបសងប្រាក់</string>
+    <string name="net_income">ប្រាក់សំណល់សរុប ($)</string>
+    <string name="job_id_card">កាតការងារ ឬលិខិតបញ្ជាក់ប្រាក់ខែ </string>
+    <string name="photo">រូបថត</string>
+    <string name="family_book">សៀវភៅគ្រួសារ ឬសៀវភៅស្នាក់នៅ</string>
+    <string name="cambodian_id">អត្តសញ្ញាណប័ណ្ណ </string>
+    <string name="monthly_payment">សរុបប្រាក់ត្រូវបង់សងប្រចាំខែឲ្យស្ថាប័ននោះ ($)</string>
+    <string name="number_lending">ចំនួនស្ថាប័នដែលកំពុងជាប់បំណុល</string>
+    <string name="allow_officer">អនុញ្ញាតឲ្យភ្នាក់ងារចុះជួបដល់លំនៅដ្ឋាន</string>
+    <string name="insurance">ការទិញធានារ៉ាប់រងលើផលិតផល</string>
+    <string name="deposit_amount">ទឹកប្រាក់ចូលរួមកម្ចី ($)</string>
+    <string name="loan_amountt">ទឹកប្រាក់ស្នើសុំខ្ចី</string>
+    <string name="borrower">អ្នកខ្ចី</string>
+    <string name="insurance_yes">ត្រូវការ</string>
+    <string name="insurance_no">មិនត្រូវការ</string>
+    <string name="allow_yes">យល់ព្រម</string>
+    <string name="allow_no">មិនយល់ព្រម</string>
+    <string name="choose_item">ជ្រើសរើស</string>
+    <string name="personal_info">ព័ត៌មានផ្ទាល់ខ្លួន</string>
+    <string name="loan_info">ព័ត៌មានឥណទាន</string>
+    <string name="document">ឯកសារពាក់ព័ន្ធ</string>
+    <string-array name="job">
+        <item>អ្នកលក់ដូរ</item>
+        <item>បុគ្គលិករដ្ឋ</item>
+        <item>បុគ្គលិកឯកជន</item>
+        <item>កម្មកររោងចក្រ</item>
+        <item>អ្នកផ្តល់សេវាផ្សេងៗ</item>
+        <item>ផ្សេងៗ</item>
+    </string-array>
+    <string-array name="relationship">
+        <item>ប្តី</item>
+        <item>ប្រពន្ធ</item>
+        <item>ឪពុក</item>
+        <item>ម្តាយ</item>
+        <item>កូនប្រុស</item>
+        <item>កូនស្រី</item>
+        <item>បងប្អូនប្រុស</item>
+        <item>បងប្អូនស្រី</item>
+        <item>ផ្សេងៗ</item>
+    </string-array>
+    <string-array name="choose">
+        <item>មាន</item>
+        <item>មិនមាន</item>
+        <item>បោះបង់</item>
+    </string-array>
+    <string-array name="repayment">
+        <item>បង់រំលោះប្រចាំខែថេរ</item>
+        <item>បង់រំលោះប្រចាំខែថយចុះជាលំដាប់</item>
+    </string-array>
 
     <!-- button part -->
     <string name="back_button">ត្រឡប់</string>

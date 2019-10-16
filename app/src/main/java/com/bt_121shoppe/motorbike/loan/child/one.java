@@ -38,8 +38,6 @@ public class one extends Fragment {
     private Button mBtnNext, mBtnNextWithFinish;
     private RelativeLayout relative_conspirator,relati_Contributors,relativeTime_Practicing1;
     AlertDialog dialog;
-    String[] values = {"អ្នកលក់ដូរ","បុគ្គលិករដ្ឋ","បុគ្គលិកឯកជន","កម្មកររោងចក្រ","អ្នកផ្តល់សេវាផ្សេងៗ","ផ្សេងៗ"};
-    String[] listItems = {"ប្ដី", "ប្រពន្ធ", "ឪពុក", "ម្តាយ", "កូនប្រុស","កូនស្រី","បងប្អូនប្រុស","បងប្អូនស្រី","ផ្សេងៗ"};
     private TextView tv_conspirator,tv_Contributors;
     private CardView carview_conspirator,carview_Contributors;
     private View view1,view2,view_3;
@@ -80,6 +78,9 @@ public class one extends Fragment {
         et_Personal_Occupation = view.findViewById(R.id.et_Personal_Occupation);
 
         relativeTime_Practicing1 = view.findViewById(R.id.relativeTime_Practicing1);
+
+        String[] values = getResources().getStringArray(R.array.job);
+        String[] listItems = getResources().getStringArray(R.array.relationship);
 
         etTotal_income_borrowers = view.findViewById(R.id.etTotal_income_borrowers);
         etTotal_cost_borrowers = view.findViewById(R.id.etTotal_cost_borrowers);
@@ -168,11 +169,10 @@ public class one extends Fragment {
         FragmentTransaction fragmentTransaction=fm.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
-        fragmentTransaction.addToBackStack(null);
     }
     private void CreateAlertDialogWithRadioButtonGroup(String[] items,EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(R.string.choose);
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             Toast.makeText(getContext(), "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();

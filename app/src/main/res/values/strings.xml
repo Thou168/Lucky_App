@@ -307,6 +307,64 @@
     <string name="post_type">Post type</string>
     <string name="title">Title</string>
     <string name="selectuser">Select Account Type</string>
+    <string name="co_borrower_yes">Yes</string>
+    <string name="co_borrower_no">No</string>
+    <string name="loan_job">Job</string>
+    <string name="job_period">Job Period (Year)</string>
+    <string name="co_borrow_job">Job of Co-borrower</string>
+    <string name="relationship">Relationship</string>
+    <string name="total_expense">Total Expense (Borrower and Co-Borrower) ($)</string>
+    <string name="total_income"> Total Income (Borrower and Co-Borrower) ($)</string>
+    <string name="repayment_type"> Loan Repayment Type</string>
+    <string name="net_income">Net Income ($)</string>
+    <string name="job_id_card">Job ID Card or Payslip</string>
+    <string name="photo">Photo</string>
+    <string name="family_book">Family Book or Resident Book</string>
+    <string name="cambodian_id">Cambodian ID Card </string>
+    <string name="monthly_payment">Monthly Amount Paid to the Institution ($)</string>
+    <string name="number_lending">Number of lending institution owed</string>
+    <string name="allow_officer">Allow officer to conduct home visit</string>
+    <string name="insurance">Buying Insurance for Product</string>
+    <string name="deposit_amount">Deposit Amount ($)</string>
+    <string name="loan_amountt">Loan Amount ($)</string>
+    <string name="borrower">Borrower</string>
+    <string name="insurance_yes">Yes</string>
+    <string name="insurance_no">No</string>
+    <string name="allow_yes">Yes</string>
+    <string name="allow_no">No</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="loan_info">Loan Information</string>
+    <string name="document">Document</string>
+    <string name="choose_item">Choose Item</string>
+    <string-array name="job">
+        <item>Seller</item>
+        <item>State staff</item>
+        <item>Private Company staff</item>
+        <item>Garment worker</item>
+        <item>Service Provider</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="relationship">
+        <item>Husband</item>
+        <item>Wife</item>
+        <item>Father</item>
+        <item>Mather</item>
+        <item>Son</item>
+        <item>Daughter</item>
+        <item>Brother</item>
+        <item>Sister</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="choose">
+        <item>Yes</item>
+        <item>No</item>
+        <item>Cancel</item>
+    </string-array>
+    <string-array name="repayment">
+        <item>Monthly Annuity Repayment</item>
+        <item>Monthly Declining Repayment</item>
+    </string-array>
+
     //dialog error register
     <string name="head_dialog_register">Register failure!</string>
     <string name="inputPhone">Please input the Phone Numbers</string>
