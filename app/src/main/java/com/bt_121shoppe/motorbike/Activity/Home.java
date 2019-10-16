@@ -390,13 +390,43 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                recreate();
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        },1500);
+
+        mSwipeRefreshLayout.setRefreshing(true);
+        dorefresh();
+//        Intent intent = getIntent();
+//        overridePendingTransition(0, 0);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        finish();
+//        overridePendingTransition(0, 0);
+//        startActivity(intent);
+//        overridePendingTransition(0, 0);
+
+//        finish();
+//        overridePendingTransition(0, 0);
+//        startActivity(getIntent());
+//        overridePendingTransition(0, 0);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                recreate();
+//                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//        },1500);
+    }
+
+    private void dorefresh(){
+        mSwipeRefreshLayout.setRefreshing(false);
+        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(currentFragment).attach(currentFragment).commit();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //this.onCreate(null);
     }
 
     @Override
@@ -416,6 +446,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
         Log.e(TAG,"current Fragment onStart "+currentFragment);
     }
+
 
     private void language(String lang){
         Locale locale=new Locale(lang);

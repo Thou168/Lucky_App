@@ -117,8 +117,8 @@ public class HomeFragment extends Fragment {
 
         mETFilterPostType.setText(getString(R.string.all));
 
-        mBestDealProgressbar.setVisibility(View.VISIBLE);
-        mAllPostProgressbar.setVisibility(View.VISIBLE);
+//        mBestDealProgressbar.setVisibility(View.VISIBLE);
+//        mAllPostProgressbar.setVisibility(View.VISIBLE);
 
         setUpBestDeal();
         setupAllPosts();

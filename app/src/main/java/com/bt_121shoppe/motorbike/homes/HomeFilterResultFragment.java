@@ -326,6 +326,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         /* end action event lister */
         if(mBrandId>0) {
             modelIdListItems = getModelIdList(mBrandId);
+            Log.e(TAG,"brand id "+mBrandId+" "+modelIdListItems.length);
         }
         setupFilterResults(String.valueOf(mPostTypeId),"List",mCategoryId,modelIdListItems,mYearId,mMinPrice,mMaxPrice);
         return view;
@@ -510,9 +511,9 @@ public class HomeFilterResultFragment extends android.app.Fragment {
 
 
         }else{
-
             for(int i=0;i<modelIdList.length;i++){
-                String modelId=String.valueOf(modelIdList[i]);
+                //String modelId=String.valueOf(modelIdList[i]);
+                int modelId=modelIdList[i];
                 mPosts = new ArrayList<>();
                 /*
                 String url = ConsumeAPI.BASE_URL + "relatedpost/?post_type=" + type + "&category=" + category + "&modeling="+modelId+"&min_price="+strMinPrice+"&max_price="+strMaxPrice+"&year=" + year;
@@ -532,7 +533,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                 */
                 //new process
                 Service apiService= Client.getClient().create(Service.class);
-                Call<APIResponse> call=apiService.getFilterResult(type,category,strMinPrice,strMaxPrice,year);
+                Call<APIResponse> call=apiService.getFilterResultwithModel(type,category,modelId,strMinPrice,strMaxPrice,year);
                 call.enqueue(new Callback<APIResponse>() {
                     @Override
                     public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
@@ -580,6 +581,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         int count=0,ccount=0;
         try{
             response=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/models/");
+            Log.e(TAG,response);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -587,7 +589,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             JSONObject obj=new JSONObject(response);
             JSONArray results=obj.getJSONArray("results");
             for(int i=0;i<results.length();i++){
-                JSONObject oobj=results.getJSONObject(i-1);
+                JSONObject oobj=results.getJSONObject(i);
                 if(brandId==oobj.getInt("brand"))
                     count++;
             }
@@ -602,6 +604,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         }catch (JSONException e){
             e.printStackTrace();
         }
+        Log.e(TAG,"Inline "+modelsId.length);
         return modelsId;
     }
 
