@@ -302,7 +302,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             finish();
             return;
         }
-
+        currentFragment=new HomeFragment();
         if (savedInstanceState == null) {
             // During initial setup, plug in the details fragment.
             HomeFragment details = new HomeFragment();
@@ -417,11 +417,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private void dorefresh(){
         mSwipeRefreshLayout.setRefreshing(false);
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false);
+        if(currentFragment!=null) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (Build.VERSION.SDK_INT >= 26) {
+                ft.setReorderingAllowed(false);
+            }
+            ft.detach(currentFragment).attach(currentFragment).commit();
         }
-        ft.detach(currentFragment).attach(currentFragment).commit();
     }
     @Override
     protected void onResume() {
@@ -597,7 +599,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     private void updateView(String language){
         language=language==null?"km":language;
-        Log.e(TAG,"current Fragment on change language "+language);
+
         //language(language);
 
 
@@ -625,11 +627,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //            nav_term.setTitle(resources.getString(R.string.menu_privacy));
         }
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false);
+        if(currentFragment!=null) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (Build.VERSION.SDK_INT >= 26) {
+                ft.setReorderingAllowed(false);
+            }
+            ft.detach(currentFragment).attach(currentFragment).commit();
         }
-        ft.detach(currentFragment).attach(currentFragment).commit();
     }
 
     private void getUserProfile(){
