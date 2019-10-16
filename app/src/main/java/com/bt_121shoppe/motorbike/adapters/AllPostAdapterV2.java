@@ -171,11 +171,11 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
             String strPostTitle="";
 
             if(mPost.getPost_sub_title().isEmpty()){
-                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-                if(lang.equals("View:"))
-                    strPostTitle=fullTitle.split(",")[0];
-                else
-                    strPostTitle=fullTitle.split(",")[1];
+//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+//                if(lang.equals("View:"))
+//                    strPostTitle=fullTitle.split(",")[0];
+//                else
+//                    strPostTitle=fullTitle.split(",")[1];
             }else {
                 if (lang.equals("View:")) {
                     strPostTitle = mPost.getPost_sub_title().split(",")[0];

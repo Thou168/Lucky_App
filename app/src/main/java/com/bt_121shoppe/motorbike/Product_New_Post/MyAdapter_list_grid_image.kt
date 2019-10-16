@@ -23,6 +23,7 @@ import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
+import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -77,6 +78,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             var price: Double = 0.0
             var discout1: Double = 0.0
+
             if (item.discount != 0.00){
                 tv_discount.visibility = View.VISIBLE
                 val dis_type = item.discount_type
@@ -98,7 +100,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 cost.text = "$"+item.cost.toString()
             }
 
-            title.text = item.title
             location_duration.text=item.location_duration
             show_view.text=" "+item.count_view
 
@@ -118,6 +119,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 } else
                     post_type.setImageResource(R.drawable.rent_kh)
             }
+            title.text = item.title
+
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
                   intent.putExtra("Discount",price)

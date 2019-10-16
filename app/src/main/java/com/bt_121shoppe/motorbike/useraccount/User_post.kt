@@ -240,7 +240,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                         if(jsonCount>0){
                             for (i in 0 until jsonArray.length()) {
                                 val obj =jsonArray.getJSONObject(i)
-                                val title = obj.getString("title")
+                                val sub_title = obj.getString("title")
                                 val id = obj.getInt("id")
                                 val user_id = obj.getInt("user")
                                 val condition = obj.getString("condition")
@@ -255,6 +255,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                 val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                                 val discount_type = obj.getString("discount_type")
                                 val discount = obj.getDouble("discount")
+                                val postsubtitle = obj.getString("post_sub_title")
 
                                 val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                                 var MEDIA_TYPE=MediaType.parse("application/json")
@@ -279,7 +280,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,sub_title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
                                                 recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                             }

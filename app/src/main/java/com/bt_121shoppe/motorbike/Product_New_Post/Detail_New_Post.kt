@@ -619,6 +619,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         tvPostTitle.setText(ptitle)
 
                         postTitle=ptitle.toString()
+                        intent.putExtra("koko",postTitle)
                         postPrice=discount.toString()
 
                         postFrontImage=postDetail.front_image_path.toString()

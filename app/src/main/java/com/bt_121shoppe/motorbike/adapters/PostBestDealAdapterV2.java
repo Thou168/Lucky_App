@@ -134,22 +134,32 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
 
             String strPostTitle="";
             if(mPost.getPost_sub_title().isEmpty()){
-                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-                if(lang.equals("View:"))
-                    strPostTitle=fullTitle.split(",")[0];
-                else
-                    strPostTitle=fullTitle.split(",")[1];
-            }else if(lang.equals("View:"))
+//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+//                if(lang.equals("View:")) {
+//                    strPostTitle = fullTitle.split(",")[0];
+//                }
+//                else {
+//                    strPostTitle = fullTitle.split(",")[1];
+//                }
+            }else if(lang.equals("View:")) {
                 strPostTitle = mPost.getPost_sub_title().split(",")[0];
-            else
-                strPostTitle=mPost.getPost_sub_title().split(",")[1];
-
-            jok=strPostTitle;
-            if (jok.length()>15){
-                jok=jok.substring(0,15)+"...";
-                postTitle.setText(jok);
-            }else {
-                postTitle.setText(jok);
+                jok = strPostTitle;
+                if (jok.length() > 15) {
+                    jok = jok.substring(0, 15) + "...";
+                    postTitle.setText(jok);
+                } else {
+                    postTitle.setText(jok);
+                }
+            }
+            else {
+                strPostTitle = mPost.getPost_sub_title().split(",")[1];
+                jok = strPostTitle;
+                if (jok.length() > 16) {
+                    jok = jok.substring(0, 16) + "...";
+                    postTitle.setText(jok);
+                } else {
+                    postTitle.setText(jok);
+                }
             }
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {

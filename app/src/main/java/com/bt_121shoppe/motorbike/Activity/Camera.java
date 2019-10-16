@@ -899,6 +899,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 cate = object.getInt("category");
                                 type = object.getInt("type");
 
+                                int eta1 = object.getInt("used_eta1");
+                                int eta2 = object.getInt("used_eta2");
+                                int eta3 = object.getInt("used_eta3");
+                                int eta4 = object.getInt("used_eta4");
+                                int machine1 = object.getInt("used_machine1");
+                                int machine2 = object.getInt("used_machine2");
+                                int machine3 = object.getInt("used_machine3");
+                                int machine4 = object.getInt("used_machine4");
+                                int other1 = object.getInt("used_other1");
+
                                 String phone = object.getString("contact_phone");
 
 
@@ -916,15 +926,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 year = object.getInt("year");
 
                                 strCondition = object.getString("condition");
-                                usedeta1 = object.getInt("used_eta1");
-                                usedeta2 = object.getInt("used_eta2");
-                                usedeta3 = object.getInt("used_eta3");
-                                usedeta4 = object.getInt("used_eta4");
-                                usedmachine1 = object.getInt("used_machine1");
-                                usedmachine2 = object.getInt("used_machine2");
-                                usedmachine3 = object.getInt("used_machine3");
-                                usedmachine4 = object.getInt("used_machine4");
-                                usedothers = object.getInt("used_other1");
+
                                 strColor = object.getString("color");
                                 strDiscountType = object.getString("discount_type");
 
@@ -1000,7 +1002,19 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         if (condition.equals("New")){
                                             tvCondition.setText(R.string.newl);
                                         }else if (condition.equals("Used")){
+                                            validationforused();
                                             tvCondition.setText(R.string.used);
+                                            relative_used.setVisibility(View.VISIBLE);
+
+                                            edwhole_int.setText(String.valueOf(eta1));
+                                            edfront_and_rear_wheel_sets.setText(String.valueOf(eta2));
+                                            edThe_whole_screw.setText(String.valueOf(eta3));
+                                            edFront_and_rear_pumps.setText(String.valueOf(eta4));
+                                            edLeft_and_right_engine_counter.setText(String.valueOf(machine1));
+                                            edEngine_head.setText(String.valueOf(machine2));
+                                            edMachine_Assembly.setText(String.valueOf(machine3));
+                                            edConsole.setText(String.valueOf(machine4));
+                                            edAccessories.setText(String.valueOf(other1));
                                         }
 
                                         if (discountType.equals("Amount")){
@@ -2605,7 +2619,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             case 1:
                                 strCondition="used";
                                 validationforused();
-                                value_used();
                                 relative_used.setVisibility(View.VISIBLE);
                                 break;
                         }
@@ -2680,7 +2693,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        icDiscount_amount.setVisibility(View.GONE);
+//        icDiscount_amount.setVisibility(View.GONE);
         input_dis.setVisibility(View.GONE);
         discountTypeListItems = getResources().getStringArray(R.array.discount_type);
         tvDiscount_type.setOnClickListener(new View.OnClickListener() {
@@ -2697,13 +2710,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             case 0:
                                 //etDiscount_amount.setHint("Discount Amount");
                                 strDiscountType="amount";
-                                icDiscount_amount.setVisibility(View.VISIBLE);
+//                                icDiscount_amount.setVisibility(View.VISIBLE);
                                 input_dis.setVisibility(View.VISIBLE);
                                 break;
                             case 1:
                                 //etDiscount_amount.setHint("Discount Percentage");
                                 strDiscountType="percent";
-                                icDiscount_amount.setVisibility(View.VISIBLE);
+//                                icDiscount_amount.setVisibility(View.VISIBLE);
                                 input_dis.setVisibility(View.VISIBLE);
                                 break;
                         }
@@ -2729,99 +2742,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    private void value_used(){
-
-//        Double dbused_eta1,dbused_eta2,dbused_eta3,dbused_eta4;
-//        Double dbused_machine1,dbused_machine2,dbused_machine3,dbused_machine4;
-//        Double dbused_other1;
-//        used_eta1 = edwhole_int.getText().toString();
-//        used_eta2 = edfront_and_rear_wheel_sets.getText().toString();
-//        used_eta3 = edThe_whole_screw.getText().toString();
-//        used_eta4 = edFront_and_rear_pumps.getText().toString();
-//        used_machine1 = edLeft_and_right_engine_counter.getText().toString();
-//        used_machine2 = edEngine_head.getText().toString();
-//        used_machine3 = edMachine_Assembly.getText().toString();
-//        used_machine4 = edConsole.getText().toString();
-//        used_other1 = edAccessories.getText().toString();
-//
-//        if (used_eta1 == null || used_eta1.isEmpty()){
-//            dbused_eta1 = 1;
-//            Log.d("LOL","kokkoko");
-//        }else  {
-//            dbused_eta1 = Double.parseDouble(used_eta1);
-//            Log.d("TAG",used_eta1);
-//        }
-//
-//        if (used_eta2==null || used_eta2.isEmpty()){
-//            dbused_eta2 = 1;
-//            Log.d("LOL","dasdas");
-//        }else {
-//            dbused_eta2 = Double.parseDouble(used_eta2);
-//        }
-//
-//        if (used_eta3==null || used_eta3.isEmpty()){
-//            dbused_eta3 = 1;
-//            Log.d("LOL","fhznxj");
-//        }else {
-//            dbused_eta3 = Double.parseDouble(used_eta3);
-//        }
-//
-//        if (used_eta4==null || used_eta4.isEmpty()){
-//            dbused_eta4 = 1;
-//            Log.d("LOL","mjkghf");
-//        }else {
-//            dbused_eta4 = Double.parseDouble(used_eta4);
-//        }
-//
-//        if (used_machine1==null || used_machine1.isEmpty()){
-//            dbused_machine1 = 1;
-//            Log.d("LOL","turtyew");
-//        }else {
-//            dbused_machine1 = Double.parseDouble(used_machine1);
-//        }
-//
-//        if (used_machine2==null || used_machine2.isEmpty()){
-//            dbused_machine2 = 1;
-//            Log.d("LOL","ykiossa");
-//        }else {
-//            dbused_machine2 = Double.parseDouble(used_machine2);
-//        }
-//
-//        if (used_machine3==null || used_machine3.isEmpty()){
-//            dbused_machine3 = 1;
-//            Log.d("LOL","qwqescx");
-//        }else {
-//            dbused_machine3 = Double.parseDouble(used_machine3);
-//        }
-//
-//        if (used_machine4==null || used_machine4.isEmpty()){
-//            dbused_machine4 = 1;
-//            Log.d("LOL","plojhhn");
-//        }else {
-//            dbused_machine4 = Double.parseDouble(used_machine4);
-//        }
-//
-//
-//        if (used_other1 == null || used_other1.isEmpty()){
-//            dbused_other1 = 1;
-//            Log.d("LOL","gfsdsvx");
-//        }else {
-//            dbused_other1 = Double.parseDouble(used_other1);
-//        }
-
-//        used_eta1 = edwhole_int.getText().toString();
-//        used_eta2 = edfront_and_rear_wheel_sets.getText().toString();
-//        used_eta3 = edThe_whole_screw.getText().toString();
-//        used_eta4 = edFront_and_rear_pumps.getText().toString();
-//        used_machine1 = edLeft_and_right_engine_counter.getText().toString();
-//        used_machine2 = edEngine_head.getText().toString();
-//        used_machine3 = edMachine_Assembly.getText().toString();
-//        used_machine4 = edConsole.getText().toString();
-//        used_other1 = edAccessories.getText().toString();
-
-
-    }
-
     private void validationforused(){
         edwhole_int.addTextChangedListener(new TextWatcher() {
             @Override
@@ -2835,14 +2755,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgwhole_int.setImageResource(R.drawable.icon_null);
                     textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputWholeint.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -2864,14 +2783,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
                     textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputfront_and_rear_wheel_sets.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -2893,14 +2811,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgThe_whole_screw.setImageResource(R.drawable.icon_null);
                     textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputThe_whole_screw.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -2922,14 +2839,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
                     textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputFront_and_rear_pumps.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -2951,14 +2867,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
                     textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputLeft_and_right_engine_counter.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -2980,14 +2895,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgEngine_head.setImageResource(R.drawable.icon_null);
                     textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputEngine_head.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -3009,14 +2923,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgMachine_Assembly.setImageResource(R.drawable.icon_null);
                     textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputMachine_Assembly.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -3038,14 +2951,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgConsole.setImageResource(R.drawable.icon_null);
                     textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputConsole.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
@@ -3067,14 +2979,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     imgAccessories.setImageResource(R.drawable.icon_null);
                     textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
-                else if (s.length() > 100) {
-                    imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
-                }
-                else if
-                (s.length()<=100) {
+                else if (s.length()<=100) {
                     imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputAccessories.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.blue_light)));
                     textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                }
+                else if (s.length() > 100) {
+                    imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
 
