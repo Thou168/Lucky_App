@@ -138,7 +138,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private RelativeLayout relatve_discount;
     private RelativeLayout relative_used;
     private ScrollView scrollView;
-    private EditText etTitle,etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
+    private EditText etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
     private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
             icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3,icAddress;
     private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_email,input_phone, tilPhone2,tilphone3;
@@ -704,43 +704,42 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 String stDis_amount,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
                 stPrice = etPrice.getText().toString();
-                if (strCondition.equals("used")){
-                    if (edwhole_int.getText().toString().length()==0){
-                        edwhole_int.requestFocus();
-                        imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
-                        edfront_and_rear_wheel_sets.requestFocus();
-                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edThe_whole_screw.getText().toString().length()==0){
-                        edThe_whole_screw.requestFocus();
-                        imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edFront_and_rear_pumps.getText().toString().length()==0){
-                        edFront_and_rear_pumps.requestFocus();
-                        imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edLeft_and_right_engine_counter.getText().toString().length()==0){
-                        edLeft_and_right_engine_counter.requestFocus();
-                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edEngine_head.getText().toString().length()==0){
-                        edEngine_head.requestFocus();
-                        imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edMachine_Assembly.getText().toString().length()==0){
-                        edMachine_Assembly.requestFocus();
-                        imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edConsole.getText().toString().length()==0){
-                        edConsole.requestFocus();
-                        imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                    if (edAccessories.getText().toString().length()==0){
-                        edAccessories.requestFocus();
-                        imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
+
+                if (edwhole_int.getText().toString().length()==0){
+                    edwhole_int.requestFocus();
+                    imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
+                    edfront_and_rear_wheel_sets.requestFocus();
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edThe_whole_screw.getText().toString().length()==0){
+                    edThe_whole_screw.requestFocus();
+                    imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edFront_and_rear_pumps.getText().toString().length()==0){
+                    edFront_and_rear_pumps.requestFocus();
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edLeft_and_right_engine_counter.getText().toString().length()==0){
+                    edLeft_and_right_engine_counter.requestFocus();
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edEngine_head.getText().toString().length()==0){
+                    edEngine_head.requestFocus();
+                    imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edMachine_Assembly.getText().toString().length()==0){
+                    edMachine_Assembly.requestFocus();
+                    imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edConsole.getText().toString().length()==0){
+                    edConsole.requestFocus();
+                    imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+                if (edAccessories.getText().toString().length()==0){
+                    edAccessories.requestFocus();
+                    imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
                 }
 
                 if (stPrice == null || stPrice.isEmpty()){
@@ -772,7 +771,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     image_value = 0;
                 }else image_value = 1;
 
-               if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
+               if (tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                   tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                    ||  image_value == 0) {
@@ -809,10 +808,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         tvPostType.requestFocus();
                         icPostType.setImageResource(R.drawable.ic_error_black_24dp);
                     }
-                    if (etTitle.getText().toString().length()<3) {
-                        etTitle.requestFocus();
-                        icTitile.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
+//                    if (etTitle.getText().toString().length()<3) {
+//                        etTitle.requestFocus();
+//                        icTitile.setImageResource(R.drawable.ic_error_black_24dp);
+//                    }
 
                    if (dbDis_percent >= 100){
                        etDiscount_amount.requestFocus();
@@ -1276,7 +1275,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         JSONObject sale = new JSONObject();
         try {
             //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-            post.put("title",etTitle.getText().toString());
+//            post.put("title",etTitle.getText().toString());
             post.put("category", cate);
             post.put("status", 3);
             post.put("condition",strCondition);
@@ -1650,7 +1649,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         if(model==0)
             model=mmodel;
         try {
-            post.put("title",etTitle.getText().toString());
+//            post.put("title",etTitle.getText().toString());
             post.put("category", cate );
             post.put("status", 3);
             post.put("condition",strCondition);
@@ -2618,6 +2617,33 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 strCondition="used";
                                 validationforused();
                                 relative_used.setVisibility(View.VISIBLE);
+                                if (edwhole_int.getText().toString().length()==0){
+                                    imgwhole_int.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
+                                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edThe_whole_screw.getText().toString().length()==0){
+                                    imgThe_whole_screw.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edFront_and_rear_pumps.getText().toString().length()==0){
+                                    imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edLeft_and_right_engine_counter.getText().toString().length()==0){
+                                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edEngine_head.getText().toString().length()==0){
+                                    imgEngine_head.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edMachine_Assembly.getText().toString().length()==0){
+                                    imgMachine_Assembly.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edConsole.getText().toString().length()==0){
+                                    imgConsole.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edAccessories.getText().toString().length()==0){
+                                    imgAccessories.setImageResource(R.drawable.icon_null);
+                                }
                                 break;
                         }
                         dialogInterface.dismiss();
