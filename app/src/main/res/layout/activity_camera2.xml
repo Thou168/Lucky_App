@@ -1032,7 +1032,7 @@
                         android:text="@string/submit_button"
                         android:layout_below="@+id/map_post"
                         android:textColor="#FFF"
-                        android:background="@color/logo_orange"/>
+                        android:background="@drawable/mybutton"/>
                 </RelativeLayout>
 
             </LinearLayout>

@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
@@ -72,13 +73,14 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val tv_discount = itemView.findViewById<TextView>(R.id.tv_discount)
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
         val img_user = itemView.findViewById<CircleImageView>(R.id.img_user)
+        val lang = itemView.findViewById<TextView>(R.id.user_view1)
 
         fun bindItems(item: Item_API,context: Context) {
 
             Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
             var price: Double = 0.0
             var discout1: Double = 0.0
-
+            var language:String
             if (item.discount != 0.00){
                 tv_discount.visibility = View.VISIBLE
                 val dis_type = item.discount_type
@@ -95,9 +97,28 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
                 cost.text = "$"+price.toString()
                 tv_discount.text = ms
-             }else{
+             }else {
                 tv_discount.text = price.toString()
-                cost.text = "$"+item.cost.toString()
+                cost.text = "$" + item.cost.toString()
+            }
+            language=lang.text.toString()
+            var strPostTitle = ""
+            if (item.postsubtitle.isEmpty()){
+
+            }
+            else{
+                if (language.equals("View:")){
+                    strPostTitle = item.postsubtitle.split(",")[0]
+                }else{
+                    strPostTitle = item.postsubtitle.split(",")[1]
+                }
+            }
+//            jok = strPostTitle
+            if (strPostTitle.length > 36) {
+                strPostTitle = strPostTitle.substring(0, 36) + "..."
+                title.setText(strPostTitle)
+            } else {
+                title.setText(strPostTitle)
             }
 
             location_duration.text=item.location_duration
@@ -111,7 +132,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                     post_type.setImageResource(R.drawable.buy)
                 } else
                     post_type.setImageResource(R.drawable.rent)
-            }else{
+            }else {
                 if (item.postType.equals("sell")) {
                     post_type.setImageResource(R.drawable.sell_kh)
                 } else if (item.postType.equals("buy")) {
@@ -119,7 +140,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 } else
                     post_type.setImageResource(R.drawable.rent_kh)
             }
-            title.text = item.title
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)

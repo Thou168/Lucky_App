@@ -189,7 +189,7 @@ public class Search1 extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,discount_type,discount));
+                                            item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,discount_type,discount,postsubtitle));
                                             MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                             rv.setAdapter(adapterUserPost);
                                             rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));

@@ -92,6 +92,7 @@ class user_post_list: Passdata() {
                                 val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                                 val discount_type = obj.getString("discount_type")
                                 val discount = obj.getDouble("discount")
+                                val postsubtitle = obj.getString("post_sub_title")
 
                                 val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                                 var MEDIA_TYPE=MediaType.parse("application/json")
@@ -116,7 +117,7 @@ class user_post_list: Passdata() {
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             activity!!.runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
                                                 recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
                                             }

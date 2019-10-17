@@ -114,6 +114,7 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postTitle;
         TextView postLocationDT;
         TextView postPrice;
+        TextView postDiscount;
         TextView postOriginalPrice;
         TextView postView;
         CircleImageView img_user;
@@ -138,7 +139,6 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
             typeImageView.setImageDrawable(null);
             postTitle.setText("");
             postLocationDT.setText("");
-            postPrice.setText("");
             postOriginalPrice.setText("");
             postView.setText("");
             //postLang.setText("");
@@ -190,10 +190,11 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
                 postTitle.setText(jok);
             }else {
                 postTitle.setText(jok);
+
             }
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
-                postOriginalPrice.setVisibility(View.VISIBLE);
+                postOriginalPrice.setVisibility(View.INVISIBLE);
                 postOriginalPrice.setText("$ "+mPost.getCost());
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 Double cost=Double.parseDouble(mPost.getCost());

@@ -118,7 +118,7 @@ class fragment_rent_vehicle : Fragment() {
 
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
-                            val postsubtitle = `object`.getString("post_sub_title")
+                            val title = `object`.getString("title")
                             val id = `object`.getInt("id")
                             val user_id = `object`.getInt("user")
                             val condition = `object`.getString("condition")
@@ -134,6 +134,7 @@ class fragment_rent_vehicle : Fragment() {
 //                            val category = `object`.getInt("category")
                             val discount_type = `object`.getString("discount_type")
                             val discount = `object`.getDouble("discount")
+                            val postsubtitle = `object`.getString("post_sub_title")
 
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
@@ -159,7 +160,7 @@ class fragment_rent_vehicle : Fragment() {
                                         val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                            item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount))
+                                            item.add(Item_API(id,user_id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
                                             Log.d("Item: ", item.size.toString())
                                             recyclerView!!.layoutManager = GridLayoutManager(context, 1)
                                             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List",context1)

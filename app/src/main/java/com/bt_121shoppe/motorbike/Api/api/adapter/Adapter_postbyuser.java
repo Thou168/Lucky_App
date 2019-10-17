@@ -226,8 +226,6 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         }
 
         String jok;
-//        lao = model.getTitle();
-//        view.title.setText(lao);
         jok=strPostTitle;
         if (jok.length()>37){
             jok=jok.substring(0,37)+"...";

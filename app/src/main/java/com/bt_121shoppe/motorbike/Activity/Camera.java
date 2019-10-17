@@ -20,35 +20,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,7 +75,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -100,12 +90,15 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 
 
 //import butterknife.ButterKnife;
@@ -232,42 +225,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
-
-    //for condition used
-        relative_used = (RelativeLayout)findViewById(R.id.relative_Used);
-        relative_used.setVisibility(View.GONE);
-
-        //input layout
-        textInputWholeint = (TextInputLayout)findViewById(R.id.inputwhole_int);
-        textInputfront_and_rear_wheel_sets = (TextInputLayout)findViewById(R.id.inputfront_and_rear_wheel_sets);
-        textInputThe_whole_screw=(TextInputLayout)findViewById(R.id.inputThe_whole_screw);
-        textInputFront_and_rear_pumps = (TextInputLayout)findViewById(R.id.inputFront_and_rear_pumps);
-        textInputLeft_and_right_engine_counter = (TextInputLayout)findViewById(R.id.inputLeft_and_right_engine_counter);
-        textInputEngine_head=(TextInputLayout)findViewById(R.id.inputEngine_head);
-        textInputMachine_Assembly = (TextInputLayout)findViewById(R.id.inputMachine_Assembly);
-        textInputConsole=(TextInputLayout)findViewById(R.id.inputConsole);
-        textInputAccessories=(TextInputLayout)findViewById(R.id.inputAccessories);
-
-        //edtext
-        edwhole_int = (EditText)findViewById(R.id.edwhole_int);
-        edfront_and_rear_wheel_sets = (EditText)findViewById(R.id.edfront_and_rear_wheel_sets);
-        edThe_whole_screw = (EditText)findViewById(R.id.edThe_whole_screw);
-        edFront_and_rear_pumps = (EditText)findViewById(R.id.edFront_and_rear_pumps);
-        edLeft_and_right_engine_counter = (EditText)findViewById(R.id.edLeft_and_right_engine_counter);
-        edEngine_head = (EditText)findViewById(R.id.edEngine_head);
-        edMachine_Assembly = (EditText)findViewById(R.id.edMachine_Assembly);
-        edConsole = (EditText)findViewById(R.id.edConsole);
-        edAccessories = (EditText)findViewById(R.id.edAccessories);
-
-        imgwhole_int = (ImageView)findViewById(R.id.imgwhole_int);
-        imgfront_and_rear_wheel_sets = (ImageView)findViewById(R.id.imgfront_and_rear_wheel_sets);
-        imgThe_whole_screw = (ImageView)findViewById(R.id.imgThe_whole_screw);
-        imgFront_and_rear_pumps = (ImageView)findViewById(R.id.imgFront_and_rear_pumps);
-        imgLeft_and_right_engine_counter = (ImageView)findViewById(R.id.imgLeft_and_right_engine_counter);
-        imgEngine_head = (ImageView)findViewById(R.id.imgEngine_head);
-        imgMachine_Assembly = (ImageView)findViewById(R.id.imgMachine_Assembly);
-        imgConsole = (ImageView)findViewById(R.id.imgConsole);
-        imgAccessories = (ImageView)findViewById(R.id.imgAccessories);
 
     // end
 
@@ -747,6 +704,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 String stDis_amount,stDis_percent,stPrice;
                 double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
                 stPrice = etPrice.getText().toString();
+                if (strCondition.equals("used")){
+                    if (edwhole_int.getText().toString().length()==0){
+                        edwhole_int.requestFocus();
+                        imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                }
+
                 if (stPrice == null || stPrice.isEmpty()){
                     dbPrice = 1;
                 }else {
@@ -779,8 +743,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                if (etTitle.getText().toString().length()<3||tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
                   tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
-                   ||  image_value == 0
-               ) {
+                   ||  image_value == 0) {
                     if (etPhone1.getText().toString().length()<9){
                         etPhone1.requestFocus();
                         icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
@@ -823,6 +786,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                        etDiscount_amount.requestFocus();
                        icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
                    }
+
                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
@@ -956,7 +920,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         etTitle.setText(title);
                                         etDescription.setText(description);
                                         etPrice.setText(String.valueOf(price));
-                                        etDiscount_amount.setText(discount);
                                         etName.setText(name);
 //                                        etPhone1.setText(phone);
                                         etEmail.setText(email);
@@ -1019,8 +982,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                         if (discountType.equals("Amount")){
                                             tvDiscount_type.setText(R.string.amount);
+                                            etDiscount_amount.setText(discount);
                                         }else if (discountType.equals("Percent")){
                                             tvDiscount_type.setText(R.string.percent);
+                                            etDiscount_amount.setText(discount);
+
                                         }
 
                                         if (color.equals("Blue")){
@@ -2694,7 +2660,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 //        icDiscount_amount.setVisibility(View.GONE);
-        input_dis.setVisibility(View.GONE);
+//        input_dis.setVisibility(View.GONE);
         discountTypeListItems = getResources().getStringArray(R.array.discount_type);
         tvDiscount_type.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2711,13 +2677,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 //etDiscount_amount.setHint("Discount Amount");
                                 strDiscountType="amount";
 //                                icDiscount_amount.setVisibility(View.VISIBLE);
-                                input_dis.setVisibility(View.VISIBLE);
+//                                input_dis.setVisibility(View.VISIBLE);
                                 break;
                             case 1:
                                 //etDiscount_amount.setHint("Discount Percentage");
                                 strDiscountType="percent";
 //                                icDiscount_amount.setVisibility(View.VISIBLE);
-                                input_dis.setVisibility(View.VISIBLE);
+//                                input_dis.setVisibility(View.VISIBLE);
                                 break;
                         }
                         icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
@@ -2730,8 +2696,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialogInterface, int which) {
                             tvDiscount_type.setText("");
                             etDiscount_amount.setText("");
-                            icDiscount_amount.setVisibility(View.GONE);
-                            input_dis.setVisibility(View.GONE);
+//                            icDiscount_amount.setVisibility(View.GONE);
+//                            input_dis.setVisibility(View.GONE);
                     }
                 });
 
@@ -3004,6 +2970,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private void Variable_Field() {
 
+        //for condition used
+        relative_used = (RelativeLayout)findViewById(R.id.relative_Used);
+        relative_used.setVisibility(View.GONE);
+
         relatve_discount = (RelativeLayout)findViewById(R.id.relative_discount);
         //textview ///////
         tvPostType = (EditText) findViewById(R.id.tvPostType);
@@ -3034,6 +3004,17 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         btremove_pic4    = (ImageButton)findViewById(R.id.remove_pic4);
         btremove_pic5    = (ImageButton)findViewById(R.id.remove_pic5);
         btremove_pic6    = (ImageButton)findViewById(R.id.remove_pic6);
+        //edtext
+        edwhole_int = (EditText)findViewById(R.id.edwhole_int);
+        edfront_and_rear_wheel_sets = (EditText)findViewById(R.id.edfront_and_rear_wheel_sets);
+        edThe_whole_screw = (EditText)findViewById(R.id.edThe_whole_screw);
+        edFront_and_rear_pumps = (EditText)findViewById(R.id.edFront_and_rear_pumps);
+        edLeft_and_right_engine_counter = (EditText)findViewById(R.id.edLeft_and_right_engine_counter);
+        edEngine_head = (EditText)findViewById(R.id.edEngine_head);
+        edMachine_Assembly = (EditText)findViewById(R.id.edMachine_Assembly);
+        edConsole = (EditText)findViewById(R.id.edConsole);
+        edAccessories = (EditText)findViewById(R.id.edAccessories);
+
         //// icon  ////////
         icTitile     = (ImageView) findViewById(R.id.imgTitle);
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
@@ -3060,6 +3041,27 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         imageView4 =(ImageView) findViewById(R.id.Picture4);
         imageView5 =(ImageView) findViewById(R.id.Picture5);
         imageView6 =(ImageView) findViewById(R.id.Picture6);
+
+        imgwhole_int = (ImageView)findViewById(R.id.imgwhole_int);
+        imgfront_and_rear_wheel_sets = (ImageView)findViewById(R.id.imgfront_and_rear_wheel_sets);
+        imgThe_whole_screw = (ImageView)findViewById(R.id.imgThe_whole_screw);
+        imgFront_and_rear_pumps = (ImageView)findViewById(R.id.imgFront_and_rear_pumps);
+        imgLeft_and_right_engine_counter = (ImageView)findViewById(R.id.imgLeft_and_right_engine_counter);
+        imgEngine_head = (ImageView)findViewById(R.id.imgEngine_head);
+        imgMachine_Assembly = (ImageView)findViewById(R.id.imgMachine_Assembly);
+        imgConsole = (ImageView)findViewById(R.id.imgConsole);
+        imgAccessories = (ImageView)findViewById(R.id.imgAccessories);
+
+        //input layout
+        textInputWholeint = (TextInputLayout)findViewById(R.id.inputwhole_int);
+        textInputfront_and_rear_wheel_sets = (TextInputLayout)findViewById(R.id.inputfront_and_rear_wheel_sets);
+        textInputThe_whole_screw=(TextInputLayout)findViewById(R.id.inputThe_whole_screw);
+        textInputFront_and_rear_pumps = (TextInputLayout)findViewById(R.id.inputFront_and_rear_pumps);
+        textInputLeft_and_right_engine_counter = (TextInputLayout)findViewById(R.id.inputLeft_and_right_engine_counter);
+        textInputEngine_head=(TextInputLayout)findViewById(R.id.inputEngine_head);
+        textInputMachine_Assembly = (TextInputLayout)findViewById(R.id.inputMachine_Assembly);
+        textInputConsole=(TextInputLayout)findViewById(R.id.inputConsole);
+        textInputAccessories=(TextInputLayout)findViewById(R.id.inputAccessories);
 
         input_title = (TextInputLayout)findViewById(R.id.tilTitle);
         input_price = (TextInputLayout)findViewById(R.id.tilPrice);
