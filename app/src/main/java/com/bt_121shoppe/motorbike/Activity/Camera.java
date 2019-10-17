@@ -709,6 +709,38 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         edwhole_int.requestFocus();
                         imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
                     }
+                    if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
+                        edfront_and_rear_wheel_sets.requestFocus();
+                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edThe_whole_screw.getText().toString().length()==0){
+                        edThe_whole_screw.requestFocus();
+                        imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edFront_and_rear_pumps.getText().toString().length()==0){
+                        edFront_and_rear_pumps.requestFocus();
+                        imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edLeft_and_right_engine_counter.getText().toString().length()==0){
+                        edLeft_and_right_engine_counter.requestFocus();
+                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edEngine_head.getText().toString().length()==0){
+                        edEngine_head.requestFocus();
+                        imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edMachine_Assembly.getText().toString().length()==0){
+                        edMachine_Assembly.requestFocus();
+                        imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edConsole.getText().toString().length()==0){
+                        edConsole.requestFocus();
+                        imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                    if (edAccessories.getText().toString().length()==0){
+                        edAccessories.requestFocus();
+                        imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
                 }
 
                 if (stPrice == null || stPrice.isEmpty()){
@@ -917,7 +949,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        etTitle.setText(title);
+//                                        etTitle.setText(title);
                                         etDescription.setText(description);
                                         etPrice.setText(String.valueOf(price));
                                         etName.setText(name);
@@ -2987,7 +3019,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvDiscount_type = (EditText) findViewById(R.id.tvDisType);
         tvAddress  = (SearchView) findViewById(R.id.tvAddress_post);
         // edit text ////
-        etTitle           = (EditText)findViewById(R.id.etTitle );
+//        etTitle           = (EditText)findViewById(R.id.etTitle );
         etDescription     = (EditText)findViewById(R.id.etDescription );
         etPrice           = (EditText)findViewById(R.id.etPrice );
         etDiscount_amount = (EditText)findViewById(R.id.etDisAmount );
@@ -3016,7 +3048,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         edAccessories = (EditText)findViewById(R.id.edAccessories);
 
         //// icon  ////////
-        icTitile     = (ImageView) findViewById(R.id.imgTitle);
+//        icTitile     = (ImageView) findViewById(R.id.imgTitle);
         icPostType   = (ImageView) findViewById(R.id.imgPostType);
         icCategory   = (ImageView) findViewById(R.id. imgCategory);
         icType_elec  = (ImageView) findViewById(R.id.imgType_elec );
@@ -3063,7 +3095,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         textInputConsole=(TextInputLayout)findViewById(R.id.inputConsole);
         textInputAccessories=(TextInputLayout)findViewById(R.id.inputAccessories);
 
-        input_title = (TextInputLayout)findViewById(R.id.tilTitle);
+//        input_title = (TextInputLayout)findViewById(R.id.tilTitle);
         input_price = (TextInputLayout)findViewById(R.id.tilPrice);
         input_des   = (TextInputLayout)findViewById(R.id.tilDescription);
         input_dis   = (TextInputLayout)findViewById(R.id.tilDisAmout);
@@ -3076,28 +3108,28 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void TextChange(){
-        etTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icTitile.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 2) {
-                    icTitile.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icTitile.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                input_title.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                input_title.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        etTitle.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (s.length() == 0) {
+//                    icTitile.setImageResource(R.drawable.icon_null);
+//                } else if (s.length() < 2) {
+//                    icTitile.setImageResource(R.drawable.ic_error_black_24dp);
+//                } else icTitile.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                input_title.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+//                input_title.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         tvPostType.addTextChangedListener(new TextWatcher() {
             @Override

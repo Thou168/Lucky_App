@@ -111,7 +111,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             view.btn_renewal.setOnClickListener(v -> { });
         }
         else {
-            view.btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.refresh, 0, 0, 0);
+            view.btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
             view.btn_renewal.setTextColor(Color.parseColor("#0A0909"));
             view.btn_renewal.setText(R.string.renew);
             view.btn_renewal.setOnClickListener(v -> new AlertDialog.Builder(mContext)

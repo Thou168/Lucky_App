@@ -79,48 +79,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/imgTitle"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgTitle"-->
+<!--                        android:layout_width="15dp"-->
+<!--                        android:layout_height="45dp"-->
 
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgTitle"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:background="@drawable/underline_gray">
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:src="@drawable/icon_null"-->
+<!--                        android:background="@drawable/underline_gray"/>-->
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/tilTitle"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_toRightOf="@+id/imgTitle"-->
+<!--                        app:hintTextAppearance="@style/CounterText"-->
+<!--                        android:background="@drawable/underline_gray">-->
 
-                        <EditText
-                            android:id="@+id/etTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/title"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
+<!--                        <EditText-->
+<!--                            android:id="@+id/etTitle"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="fill_parent"-->
+<!--                            android:textSize="14dp"-->
+<!--                            android:hint="@string/title"-->
+<!--                            android:paddingLeft="10dp"-->
+<!--                            android:background="@null"-->
+<!--                            />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <ImageView
                         android:id="@+id/imgPostType"
                         android:layout_width="15dp"
                         android:layout_height="45dp"
                         android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgTitle"
                         android:background="@drawable/underline_gray"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_toRightOf="@+id/imgPostType"
-                        android:background="@drawable/underline_gray"
-                        android:layout_below="@+id/imgTitle"
-                        >
+                        android:background="@drawable/underline_gray">
                         <EditText
                             android:id="@+id/tvPostType"
                             android:layout_width="match_parent"

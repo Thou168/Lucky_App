@@ -203,7 +203,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
-                postOriginalPrice.setVisibility(View.VISIBLE);
+                postOriginalPrice.setVisibility(View.INVISIBLE);
                 postOriginalPrice.setText("$ "+mPost.getCost());
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 Double cost=Double.parseDouble(mPost.getCost());
