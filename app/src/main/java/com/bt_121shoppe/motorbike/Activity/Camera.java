@@ -280,7 +280,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
 
@@ -1129,8 +1128,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
-                                        Log.d("sfasdfasf","1:"+bitmapImage1+"2:"+bitmapImage2+"3:"+bitmapImage3+"4:"+bitmapImage4);
 
+                                        Log.d("sfasdfasf","1:"+bitmapImage1+"2:"+bitmapImage2+"3:"+bitmapImage3+"4:"+bitmapImage4);
 
 //                                        byte[] decodedString1 = Base64.decode(fron, Base64.DEFAULT);
 //                                        bitmapImage1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
@@ -1407,24 +1406,23 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
 
              post.put("contact_address", latlng);
-
 // end check
             post.put("color", strColor);
 
             //enhance sep 19 2019
             post.put("post_code", CommonFunction.generateRandomDigits(9));
             post.put("post_sub_title",CommonFunction.generatePostSubTitle(brand,model,year,strColor,strColorKH));
-
-            post.put("used_eta1",edwhole_int.getText().toString());
-            post.put("used_eta2",edfront_and_rear_wheel_sets.getText().toString());
-            post.put("used_eta3",edThe_whole_screw.getText().toString());
-            post.put("used_eta4",edFront_and_rear_pumps.getText().toString());
-            post.put("used_machine1",edLeft_and_right_engine_counter.getText().toString());
-            post.put("used_machine2",edEngine_head.getText().toString());
-            post.put("used_machine3",edMachine_Assembly.getText().toString());
-            post.put("used_machine4",edConsole.getText().toString());
-            post.put("used_other1",edAccessories.getText().toString());
-
+            if(strCondition.equals("used")) {
+                post.put("used_eta1", edwhole_int.getText().toString());
+                post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
+                post.put("used_eta3", edThe_whole_screw.getText().toString());
+                post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
+                post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
+                post.put("used_machine2", edEngine_head.getText().toString());
+                post.put("used_machine3", edMachine_Assembly.getText().toString());
+                post.put("used_machine4", edConsole.getText().toString());
+                post.put("used_other1", edAccessories.getText().toString());
+            }
             switch (strPostType){
                 case "លក់":
                 case "sell":
@@ -1654,16 +1652,17 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("status", 3);
             post.put("condition",strCondition);
 
-            post.put("used_eta1",edwhole_int.getText().toString());
-            post.put("used_eta2",edfront_and_rear_wheel_sets.getText().toString());
-            post.put("used_eta3",edThe_whole_screw.getText().toString());
-            post.put("used_eta4",edFront_and_rear_pumps.getText().toString());
-            post.put("used_machine1",edLeft_and_right_engine_counter.getText().toString());
-            post.put("used_machine2",edEngine_head.getText().toString());
-            post.put("used_machine3",edMachine_Assembly.getText().toString());
-            post.put("used_machine4",edConsole.getText().toString());
-            post.put("used_other1",edAccessories.getText().toString());
-
+            if(strCondition.equals("used")) {
+                post.put("used_eta1", edwhole_int.getText().toString());
+                post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
+                post.put("used_eta3", edThe_whole_screw.getText().toString());
+                post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
+                post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
+                post.put("used_machine2", edEngine_head.getText().toString());
+                post.put("used_machine3", edMachine_Assembly.getText().toString());
+                post.put("used_machine4", edConsole.getText().toString());
+                post.put("used_other1", edAccessories.getText().toString());
+            }
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
@@ -1704,14 +1703,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
 // add 2 image by samang 26/08
             if(bitmapImage5==null){
-                post.put("extra_image1", "");
+                post.put("extra_image1", null);
 //                post.put("other_image_base64", "");
             }else{
                 post.put("extra_image1", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
 //                post.put("other_image_base64", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage5)));
             }
             if(bitmapImage6==null){
-                post.put("extra_image2", "");
+                post.put("extra_image2", null);
 //                post.put("others_image_base64", "");
             }else{
                 post.put("extra_image2", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this,bitmapImage6)));
@@ -2044,7 +2043,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void run() {
                         try{
-
                             type=0;
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
