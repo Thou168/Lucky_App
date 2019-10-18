@@ -995,19 +995,22 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         if (condition.equals("New")){
                                             tvCondition.setText(R.string.newl);
                                         }else if (condition.equals("Used")){
-                                            validationforused();
                                             tvCondition.setText(R.string.used);
-                                            relative_used.setVisibility(View.VISIBLE);
+                                            if(cate==2) {
+                                                validationforused();
 
-                                            edwhole_int.setText(String.valueOf(eta1));
-                                            edfront_and_rear_wheel_sets.setText(String.valueOf(eta2));
-                                            edThe_whole_screw.setText(String.valueOf(eta3));
-                                            edFront_and_rear_pumps.setText(String.valueOf(eta4));
-                                            edLeft_and_right_engine_counter.setText(String.valueOf(machine1));
-                                            edEngine_head.setText(String.valueOf(machine2));
-                                            edMachine_Assembly.setText(String.valueOf(machine3));
-                                            edConsole.setText(String.valueOf(machine4));
-                                            edAccessories.setText(String.valueOf(other1));
+                                                relative_used.setVisibility(View.VISIBLE);
+
+                                                edwhole_int.setText(String.valueOf(eta1));
+                                                edfront_and_rear_wheel_sets.setText(String.valueOf(eta2));
+                                                edThe_whole_screw.setText(String.valueOf(eta3));
+                                                edFront_and_rear_pumps.setText(String.valueOf(eta4));
+                                                edLeft_and_right_engine_counter.setText(String.valueOf(machine1));
+                                                edEngine_head.setText(String.valueOf(machine2));
+                                                edMachine_Assembly.setText(String.valueOf(machine3));
+                                                edConsole.setText(String.valueOf(machine4));
+                                                edAccessories.setText(String.valueOf(other1));
+                                            }
                                         }
 
                                         if (discountType.equals("Amount")){
@@ -2613,34 +2616,36 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 break;
                             case 1:
                                 strCondition="used";
-                                validationforused();
-                                relative_used.setVisibility(View.VISIBLE);
-                                if (edwhole_int.getText().toString().length()==0){
-                                    imgwhole_int.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
-                                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edThe_whole_screw.getText().toString().length()==0){
-                                    imgThe_whole_screw.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edFront_and_rear_pumps.getText().toString().length()==0){
-                                    imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edLeft_and_right_engine_counter.getText().toString().length()==0){
-                                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edEngine_head.getText().toString().length()==0){
-                                    imgEngine_head.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edMachine_Assembly.getText().toString().length()==0){
-                                    imgMachine_Assembly.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edConsole.getText().toString().length()==0){
-                                    imgConsole.setImageResource(R.drawable.icon_null);
-                                }
-                                if (edAccessories.getText().toString().length()==0){
-                                    imgAccessories.setImageResource(R.drawable.icon_null);
+                                if(cate==2) {
+                                    validationforused();
+                                    relative_used.setVisibility(View.VISIBLE);
+                                    if (edwhole_int.getText().toString().length() == 0) {
+                                        imgwhole_int.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edfront_and_rear_wheel_sets.getText().toString().length() == 0) {
+                                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edThe_whole_screw.getText().toString().length() == 0) {
+                                        imgThe_whole_screw.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edFront_and_rear_pumps.getText().toString().length() == 0) {
+                                        imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edLeft_and_right_engine_counter.getText().toString().length() == 0) {
+                                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edEngine_head.getText().toString().length() == 0) {
+                                        imgEngine_head.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edMachine_Assembly.getText().toString().length() == 0) {
+                                        imgMachine_Assembly.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edConsole.getText().toString().length() == 0) {
+                                        imgConsole.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edAccessories.getText().toString().length() == 0) {
+                                        imgAccessories.setImageResource(R.drawable.icon_null);
+                                    }
                                 }
                                 break;
                         }
