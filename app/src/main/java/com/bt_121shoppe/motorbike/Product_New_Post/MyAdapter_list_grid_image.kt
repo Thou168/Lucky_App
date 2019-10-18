@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.opengl.Visibility
 import android.provider.MediaStore
 import android.text.SpannableString
 import android.text.Spanned
@@ -74,6 +75,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
         val img_user = itemView.findViewById<CircleImageView>(R.id.img_user)
         val lang = itemView.findViewById<TextView>(R.id.user_view1)
+        val icon_call_user = itemView.findViewById<ImageView>(R.id.call_icon_user)
 
         fun bindItems(item: Item_API,context: Context) {
 
@@ -120,6 +122,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             } else {
                 title.setText(strPostTitle)
             }
+            icon_call_user.visibility = View.VISIBLE
 
             location_duration.text=item.location_duration
             show_view.text=" "+item.count_view

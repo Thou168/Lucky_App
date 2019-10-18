@@ -225,14 +225,15 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             }
         }
 
-        String jok;
-        jok=strPostTitle;
-        if (jok.length()>37){
-            jok=jok.substring(0,37)+"...";
-            view.title.setText(jok);
-        }else {
-            view.title.setText(jok);
-        }
+        view.title.setText(strPostTitle);
+//        String jok;
+//        jok=strPostTitle;
+//        if (jok.length()>37){
+//            jok=jok.substring(0,37)+"...";
+//            view.title.setText(jok);
+//        }else {
+//            view.title.setText(jok);
+//        }
 //Endd
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());

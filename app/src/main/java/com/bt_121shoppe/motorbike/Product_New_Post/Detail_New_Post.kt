@@ -666,12 +666,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     return
                                 }
 
-                                Log.d("jakata",ds.toString())
-                                Log.d("jakata","212121"+st2)
+//                                Log.d("jakata",ds.toString())
+                                Log.d("jakata", "212121$st2")
                                 if(st2 > ds){
                                     show_deposit.setTextColor(resources.getColor(R.color.red))
                                     show_deposit.setText(R.string.deposit_message)
-//                                    tvMonthlyPayment.visibility = View.INVISIBLE
                                     tvMonthlyPayment.text = "$0.00"
                                     tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
 
