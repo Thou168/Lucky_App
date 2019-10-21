@@ -100,6 +100,7 @@ public class HomeFilterConditionFragment extends Fragment {
         mFilterMinPrice=view.findViewById(R.id.filterMinPrice);
         mFilterMaxPrice=view.findViewById(R.id.filterMaxPrice);
 
+
         mFilterPriceRangeLayout.setVisibility(View.GONE);
 
         mFilterPostType.setFocusable(false);
@@ -540,25 +541,31 @@ public class HomeFilterConditionFragment extends Fragment {
         mRecylerView.setItemAnimator(new DefaultItemAnimator());
         Drawable dividerDrawable= ContextCompat.getDrawable(getContext(),R.drawable.divider_drawable);
         mRecylerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+        Drawable img = getContext().getResources().getDrawable( R.drawable.arrow_up_black_24dp);
 
         switch (filterType){
             case CommonFunction.FILTERPOSTTYPE:
+                mFilterPostType.setCompoundDrawablesWithIntrinsicBounds(null,null,img,null);
                 mAdapter=new FilterConditionAdapter(new ArrayList<>(),postTypeId,CommonFunction.FILTERPOSTTYPE,new FilterConditionViewModel(postTypeId,categoryId,brandId,yearId,minPrice,maxPrice));
                 prepareFilterConditionPostType();
                 break;
             case CommonFunction.FILTERCATEGORY:
+                mFilterCategory.setCompoundDrawablesWithIntrinsicBounds(null,null,img,null);
                 mAdapter=new FilterConditionAdapter(new ArrayList<>(),categoryId,CommonFunction.FILTERCATEGORY,new FilterConditionViewModel(postTypeId,categoryId,brandId,yearId,minPrice,maxPrice));
                 prepareFilterConditionCategory();
                 break;
             case CommonFunction.FILTERBRAND:
+                mFilterBrand.setCompoundDrawablesWithIntrinsicBounds(null,null,img,null);
                 mAdapter=new FilterConditionAdapter(new ArrayList<>(),brandId,CommonFunction.FILTERBRAND,new FilterConditionViewModel(postTypeId,categoryId,brandId,yearId,minPrice,maxPrice));
                 prepareFilterConditionBrand(categoryId);
                 break;
             case CommonFunction.FILTERYEAR:
+                mFilterYear.setCompoundDrawablesWithIntrinsicBounds(null,null,img,null);
                 mAdapter=new FilterConditionAdapter(new ArrayList<>(),yearId,CommonFunction.FILTERYEAR,new FilterConditionViewModel(postTypeId,categoryId,brandId,yearId,minPrice,maxPrice));
                 prepareFilterConditionYear();
                 break;
             default:
+                mFilterPriceRange.setCompoundDrawablesWithIntrinsicBounds(null,null,img,null);
                 mAdapter=new FilterConditionAdapter(new ArrayList<>(),0,CommonFunction.FILTERPRICERANGE,new FilterConditionViewModel(postTypeId,categoryId,brandId,yearId,minPrice,maxPrice));
                 mFilterPriceRangeLayout.setVisibility(View.VISIBLE);
                 mFilterListLayout.setVisibility(View.GONE);
