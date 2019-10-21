@@ -8,6 +8,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
+import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
@@ -15,10 +16,12 @@ import com.bt_121shoppe.motorbike.models.YearViewModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -53,6 +56,10 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("like/{id}/")
     Call<change_status_unlike> getputStatusUnlike(@Path("id") int id, @Body change_status_unlike change_status, @Header("Authorization") String authorization);
+    //create loan
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("api/v1/loan/")
+    Call<loan_item> setCreateLoan(@Body loan_item loanItem, @Header("Authorization") String authorization);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/loan/{id}/")
@@ -84,6 +91,8 @@ public interface Service {
     Call<AllResponse> getBrands();
     @GET("api/v1/years/")
     Call<AllResponse> getYear();
+    @GET("api/v1/provinces/")
+    Call<AllResponse> getProvince();
 
     @GET("api/v1/users/{id}/")
     Call<User> getuser(@Path("id")int id);

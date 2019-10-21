@@ -13,27 +13,17 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textSize="@dimen/dp_18"
-                android:textStyle="bold"
-                android:background="#B9E7E7E7"
-                android:gravity="center"
-                android:text="@string/document" />
             <LinearLayout
                 android:padding="5dp"
-                android:layout_below="@+id/title"
+                android:layout_below="@+id/toolbar"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/dp_8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <View style="@style/line"/>
                 <TextView
                     android:background="#B9E7E7E7"
-                    android:text="@string/borrower"
-                    android:textSize="14dp"
+                    android:text="អ្នកខ្ចី"
+                    android:textSize="12dp"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"/>
                 <View style="@style/line"/>
@@ -60,7 +50,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/cambodian_id"
+                            android:hint="អត្តសញ្ញាណប័ណ្ណ"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -89,7 +79,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/family_book"
+                            android:hint="សៀវភៅគ្រួសារ ឬសៀវភៅស្នាក់នៅ"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -118,7 +108,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/photo"
+                            android:hint="រូបថត"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -147,135 +137,142 @@
                             android:focusable="false"
                             android:layout_height="fill_parent"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/job_id_card"
+                            android:hint="កាតការងារ ឬលិខិតបញ្ជាក់ប្រាក់ខែ"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
                 <View style="@style/line"/>
-                <TextView
-                    android:text="@string/hit_co_borrower"
-                    android:background="#B9E7E7E7"
-                    android:textSize="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_20"/>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_11"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilID_card1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_11">
-                        <EditText
-                            android:id="@+id/etID_card1"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/cambodian_id"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_22"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilFamily_book1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_22">
-                        <EditText
-                            android:id="@+id/etFamily_book1"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/family_book"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_33"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhotos1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_33">
-                        <EditText
-                            android:id="@+id/etPhotos1"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/photo"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_44"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilEmployment_card1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_44">
-                        <EditText
-                            android:id="@+id/etEmployment_card1"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/job_id_card"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
+               <LinearLayout
+                   android:id="@+id/linealayout"
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:text="អ្នករួមខ្ចី"
+                       android:background="#B9E7E7E7"
+                       android:textSize="12dp"
+                       android:gravity="center"
+                       android:layout_width="match_parent"
+                       android:layout_height="@dimen/dp_20"/>
+                   <View style="@style/line"/>
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <ImageView
+                           android:layout_centerVertical="true"
+                           android:padding="2dp"
+                           android:id="@+id/img_5"
+                           android:src="@drawable/ic_null"
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"/>
+                       <com.google.android.material.textfield.TextInputLayout
+                           android:id="@+id/tilID_card1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="50dp"
+                           android:layout_alignParentEnd="true"
+                           android:layout_toEndOf="@+id/img_5">
+                           <EditText
+                               android:id="@+id/etID_card1"
+                               android:paddingLeft="5dp"
+                               android:focusable="false"
+                               android:layout_width="match_parent"
+                               android:layout_height="fill_parent"
+                               android:drawableEnd="@drawable/ic_arrow_drop_down"
+                               android:hint="អត្តសញ្ញាណប័ណ្ណ"
+                               android:background="@null"
+                               android:textSize="14dp" />
+                       </com.google.android.material.textfield.TextInputLayout>
+                   </RelativeLayout>
+                   <View style="@style/line"/>
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <ImageView
+                           android:layout_centerVertical="true"
+                           android:padding="2dp"
+                           android:id="@+id/img_6"
+                           android:src="@drawable/ic_null"
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"/>
+                       <com.google.android.material.textfield.TextInputLayout
+                           android:id="@+id/tilFamily_book1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="50dp"
+                           android:layout_alignParentEnd="true"
+                           android:layout_toEndOf="@+id/img_6">
+                           <EditText
+                               android:id="@+id/etFamily_book1"
+                               android:paddingLeft="5dp"
+                               android:focusable="false"
+                               android:layout_width="match_parent"
+                               android:layout_height="fill_parent"
+                               android:drawableEnd="@drawable/ic_arrow_drop_down"
+                               android:hint="សៀវភៅគ្រួសារ ឬសៀវភៅស្នាក់នៅ"
+                               android:background="@null"
+                               android:textSize="14dp" />
+                       </com.google.android.material.textfield.TextInputLayout>
+                   </RelativeLayout>
+                   <View style="@style/line"/>
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <ImageView
+                           android:layout_centerVertical="true"
+                           android:padding="2dp"
+                           android:id="@+id/img_7"
+                           android:src="@drawable/ic_null"
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"/>
+                       <com.google.android.material.textfield.TextInputLayout
+                           android:id="@+id/tilPhotos1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="50dp"
+                           android:layout_alignParentEnd="true"
+                           android:layout_toEndOf="@+id/img_7">
+                           <EditText
+                               android:id="@+id/etPhotos1"
+                               android:paddingLeft="5dp"
+                               android:focusable="false"
+                               android:layout_width="match_parent"
+                               android:layout_height="fill_parent"
+                               android:drawableEnd="@drawable/ic_arrow_drop_down"
+                               android:hint="រូបថត"
+                               android:background="@null"
+                               android:textSize="14dp" />
+                       </com.google.android.material.textfield.TextInputLayout>
+                   </RelativeLayout>
+                   <View style="@style/line"/>
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <ImageView
+                           android:layout_centerVertical="true"
+                           android:padding="2dp"
+                           android:id="@+id/img_8"
+                           android:src="@drawable/ic_null"
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"/>
+                       <com.google.android.material.textfield.TextInputLayout
+                           android:id="@+id/tilEmployment_card1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="50dp"
+                           android:layout_alignParentEnd="true"
+                           android:layout_toEndOf="@+id/img_8">
+                           <EditText
+                               android:id="@+id/etEmployment_card1"
+                               android:paddingLeft="5dp"
+                               android:focusable="false"
+                               android:layout_width="match_parent"
+                               android:layout_height="fill_parent"
+                               android:drawableEnd="@drawable/ic_arrow_drop_down"
+                               android:hint="កាតការងារ ឬលិខិតបញ្ជាក់ប្រាក់ខែ"
+                               android:background="@null"
+                               android:textSize="14dp" />
+                       </com.google.android.material.textfield.TextInputLayout>
+                   </RelativeLayout>
+                   <View style="@style/line"/>
+               </LinearLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/btn_back"

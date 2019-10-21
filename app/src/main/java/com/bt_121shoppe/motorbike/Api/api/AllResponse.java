@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.Api.api;
 
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
+import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class AllResponse {
     @SerializedName("results")
     @Expose
-    private List<Item_loan> results;
+    private List<province_Item> results;
     public List getresults(){ return results; }
     public void setresults(List items){ this.results = items; }
 

@@ -51,6 +51,7 @@ import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.chats.ChatActivity
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction
+import com.bt_121shoppe.motorbike.loan.Create_Load
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity
 import com.bt_121shoppe.motorbike.models.PostViewModel
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
@@ -59,7 +60,6 @@ import com.bt_121shoppe.motorbike.utils.LoanCalculator
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.bt_121shoppe.motorbike.loan.Create_Load
 
 //import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -268,6 +268,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 startActivity(intent)
             }else{
                 val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
+                intent.putExtra("product_id",postId)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
                 finish()

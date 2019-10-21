@@ -13,222 +13,246 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textSize="@dimen/dp_18"
-                android:textStyle="bold"
-                android:background="#B9E7E7E7"
-                android:gravity="center"
-                android:text="@string/personal_info" />
             <LinearLayout
-                android:padding="5dp"
-                android:layout_below="@+id/title"
-                android:orientation="vertical"
+                android:id="@+id/linear"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:id="@+id/img_1"
-                            android:src="@drawable/ic_null"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_1">
-                            <EditText
-                                android:id="@+id/etName"
-                                android:paddingLeft="5dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:hint="@string/name"
-                                android:background="@null"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-                <View style="@style/line"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:orientation="vertical"
+                android:padding="5dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
+                        android:src="@drawable/ic_null" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/img_1">
+
+                        <EditText
+                            android:id="@+id/etName"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@null"
+                            android:hint="ឈ្មោះ"
+                            android:inputType="text"
+                            android:paddingLeft="5dp"
+                            android:textSize="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
+
+                <View style="@style/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
                         android:id="@+id/img_2"
-                        android:src="@drawable/ic_null"
                         android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_2">
+
                         <EditText
                             android:id="@+id/etPhone"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="@string/phone_number"
-                            android:inputType="phone"
                             android:background="@null"
+                            android:hint="លេខទូរស័ព្ទ"
+                            android:inputType="phone"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_3"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tiladdress"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_3">
+
                         <EditText
                             android:id="@+id/etaddress"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="@string/address"
                             android:background="@null"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:focusable="false"
+                            android:hint="អាសយដ្ឋាន"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:id="@+id/relative_Personal_Occupation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_4"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_Personal_Occupation"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_4">
+
                         <EditText
                             android:id="@+id/et_Personal_Occupation"
-                            android:paddingLeft="5dp"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/loan_job"
-                            android:focusable="false"
                             android:background="@null"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:focusable="false"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
+                            android:hint="@string/loan_job"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_5"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_5"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTime_Practicing"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_5">
+
                         <EditText
                             android:id="@+id/etTime_Practicing"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:hint="@string/job_period"
                             android:background="@null"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:cardCornerRadius="5dp">
                     <RelativeLayout
                         android:id="@+id/relative_OC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/img_6"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null"
                             android:layout_width="20dp"
-                            android:layout_height="20dp"/>
+                            android:layout_height="20dp"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_null" />
                         <TextView
-                            android:id="@+id/tv_Co_borrowers"
+                            android:id="@+id/tv_product_insurance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_toEndOf="@+id/img_6"
                             android:text="@string/hit_co_borrower"
                             android:textSize="15dp" />
+
                         <RadioGroup
-                            android:layout_marginTop="5dp"
                             android:id="@+id/radio_group"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_Co_borrowers"
-                            android:layout_alignStart="@+id/tv_Co_borrowers"
+                            android:layout_below="@+id/tv_product_insurance"
+                            android:layout_alignStart="@+id/tv_product_insurance"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
                             <RadioButton
                                 android:id="@+id/radio1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/co_borrower_yes" />
+                                android:text="មាន" />
                             <RadioButton
                                 android:id="@+id/radio2"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="@string/co_borrower_no" />
+                                android:layout_weight="1"
+                                android:text="មិនមាន" />
                         </RadioGroup>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/relative_conspirator"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
                     <ImageView
+                        android:id="@+id/img_7"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_7"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_conspirator"
                         android:layout_width="wrap_content"
@@ -237,176 +261,222 @@
                         android:layout_toEndOf="@+id/img_7">
                         <EditText
                             android:id="@+id/et_conspirator"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/relationship"
+                            android:background="@null"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
-                            android:background="@null"
+                            android:hint="អ្នករួមខ្ចីត្រូវជា"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View  android:visibility="gone" android:id="@+id/view_1" style="@style/line"/>
+
+                <View
+                    android:id="@+id/view_1"
+                    style="@style/line"
+                    android:visibility="gone" />
+
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/relati_Contributors"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                     <ImageView
+                        android:id="@+id/img_8"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_8"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_Contributors"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_8">
+
                         <EditText
                             android:id="@+id/et_Contributors"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/co_borrow_job"
+                            android:background="@null"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
-                            android:background="@null"
+                            android:hint="មុខរបរអ្នករួមខ្ចី"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View android:visibility="gone" android:id="@+id/view_2"
-                    style="@style/line"/>
+
+                <View
+                    android:id="@+id/view_2"
+                    style="@style/line"
+                    android:visibility="gone" />
+
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/relativeTime_Practicing1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                     <ImageView
-                    android:layout_centerVertical="true"
-                    android:padding="2dp"
-                    android:id="@+id/img_9"
-                    android:src="@drawable/ic_null"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                        android:id="@+id/img_9"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilTime_Practicing1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/img_9">
-                    <EditText
-                        android:id="@+id/etTime_Practicing1"
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:inputType="number"
-                        android:hint="@string/job_period"
-                        android:background="@null"
-                        android:textSize="14dp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:id="@+id/tilTime_Practicing1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/img_9">
+
+                        <EditText
+                            android:id="@+id/etTime_Practicing1"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@null"
+                            android:hint="រយៈពេលប្រកបរបរ​ (ឆ្នាំ)"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
+                            android:textSize="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View android:id="@+id/view_3" android:visibility="gone" style="@style/line"/>
+
+                <View
+                    android:id="@+id/view_3"
+                    style="@style/line"
+                    android:visibility="gone" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_10"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_10"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTotal_income_borrowers"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_10">
+
                         <EditText
                             android:id="@+id/etTotal_income_borrowers"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/total_income"
                             android:background="@null"
+                            android:hint="ប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_11"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_11"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTotal_cost_borrowers"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_11">
+
                         <EditText
                             android:id="@+id/etTotal_cost_borrowers"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/total_expense"
                             android:background="@null"
+                            android:hint="ប្រាក់ចំណាយសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_12"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_12"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_total"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_12">
+
                         <EditText
                             android:id="@+id/et_total"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:focusable="false"
-                            android:hint="@string/net_income"
                             android:background="@null"
+                            android:focusable="false"
+                            android:hint="ប្រាក់សំណល់សរុប ($)"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <Button
-                    android:id="@+id/btn_next"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/next"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginLeft="100dp"
-                    android:background="@android:color/holo_blue_light"
-                    />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="@dimen/dp_8"
+                android:background="@android:color/holo_blue_light"
+                android:text="@string/next"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="@dimen/dp_8"
+                android:background="@android:color/holo_blue_light"
+                android:text="Test"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </ScrollView>
 </FrameLayout>

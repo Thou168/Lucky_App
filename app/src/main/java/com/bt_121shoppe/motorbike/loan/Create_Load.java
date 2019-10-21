@@ -3,27 +3,24 @@ package com.bt_121shoppe.motorbike.loan;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Dialog;
-import android.app.FragmentTransaction;
-import android.content.DialogInterface;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.bt_121shoppe.motorbike.Activity.Camera;
-import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.fragments.history_postbyuser;
-import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.CustomViewPager;
-import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.FragmentAdapter;
 import com.bt_121shoppe.motorbike.loan.child.one;
-import com.bt_121shoppe.motorbike.loan.child.three;
-import com.bt_121shoppe.motorbike.loan.child.two;
 
 public class Create_Load extends AppCompatActivity {
 
@@ -31,36 +28,24 @@ public class Create_Load extends AppCompatActivity {
     TextView back;
     CustomViewPager viewPager;
     int count=0;
+    AlertDialog dialog;
+    boolean check = false,mCardID,mBook_familiy,mPhoto,mCard_work;
+    RadioButton radio3;
+    int product_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__load);
 
+        Intent intent = getIntent();
+        product_id = intent.getIntExtra("product_id",0);
+
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, new one()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id)).commit();
         }
+
         back = findViewById(R.id.tv_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Create_Load.this).create();
-                builder.setMessage(getString(R.string.back_message));
-                builder.setCancelable(false);
-                builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                       finish();
-                    }
-                });
-                builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        builder.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
+        back.setOnClickListener(view -> finish());
 
 //        viewPager = findViewById(R.id.viewPager);
 //        setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
@@ -82,6 +67,114 @@ public class Create_Load extends AppCompatActivity {
 //            viewPager.setCurrentItem(count,true);
 //        });
     }
+    public void setBack(){
+        onBackPressed();
+    }
+    public void loadFragment(Fragment fragment){
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction=fm.beginTransaction();
+            fragmentTransaction.replace(R.id.frameLayout,fragment);
+            fragmentTransaction.commit();
+            fragmentTransaction.addToBackStack(null);
+    }
+    public boolean AlertDialog(String[] items, EditText editText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
+        builder.setTitle("Choose item");
+        int checkedItem = 0; //this will checked the item when user open the dialog
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            if (which == 0)
+                mCardID = true;
+            else mCardID = false;
+//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
+            editText.setText(items[which]);
+            dialog.dismiss();
+        });
+//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
+        dialog = builder.create();
+        dialog.show();
+        return mCardID;
+    }
+    public String cuteString(String st, int indext){
+        String[] separated = st.split(":");
+        return separated[indext];
+    }
+    public boolean Checked(EditText editText){
+        return (!editText.getText().toString().isEmpty() && editText.getText().toString().length()>2);
+    }
+    public boolean CheckedYear(EditText editText){
+        return (!editText.getText().toString().isEmpty() && editText.getText().toString().length()>0);
+    }
+    public void Condition(ImageView imageView,EditText editText){
+        editText.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String st = s.toString();
+                    //do your work here
+                if (!st.isEmpty()){
+                    if (st.length()>2){
+                        imageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    } else {
+                        imageView.setImageResource(R.drawable.ic_error_black_24dp);
+                    }
+                }
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+    public void ConditionYear(ImageView imageView,EditText editText){
+        editText.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String st = s.toString();
+                //do your work here
+                if (!st.isEmpty()){
+//                    if (st.length()>0){
+                        imageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                    } else {
+//                        imageView.setImageResource(R.drawable.ic_error_black_24dp);
+//                    }
+                }else {
+                    imageView.setImageResource(R.drawable.ic_error_black_24dp);
+                }
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+    public boolean RadioCondition(ImageView imageView, RadioGroup radioGroup){
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = radioGroup.findViewById(checkedId);
+            int index = radioGroup.indexOfChild(radioButton);
+            radio3 = radioGroup.findViewById(checkedId);
+            if (radio3.getText().toString().isEmpty()){
+                imageView.setImageResource(R.drawable.ic_error_black_24dp);
+                check = false;
+            }else {
+                imageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                check = true;
+            }
+        });
+        return check;
+    }
+//    public boolean Checked(ImageView imageView,EditText editText){
+//        if (editText.getText().toString().isEmpty() || editText.getText().toString().length()<3){
+//            editText.setError("wtf");
+//            imageView.setImageResource(R.drawable.ic_error_black_24dp);
+//            check = false;
+//        }else {
+//            check =true;
+//        }
+//        return check;
+//    }
 //    public void setViewPager (int pager){
 //        viewPager.setCurrentItem(pager);
 //    }

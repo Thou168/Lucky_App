@@ -3,14 +3,18 @@ package com.bt_121shoppe.motorbike.loan.child;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -24,30 +28,58 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.homes.HomeFilterConditionFragment;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.model.item_one;
+import com.bt_121shoppe.motorbike.loan.model.loan_item;
+import com.bt_121shoppe.motorbike.loan.model.province_Item;
+import java.io.IOException;
+import java.util.*;
 
-import io.paperdb.Book;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class one extends Fragment {
+import static android.content.Context.MODE_PRIVATE;
+import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
+
+public class one extends Fragment{
     private static final String ARG_NUMBER = "arg_number";
 
     private Toolbar mToolbar;
     private TextView mTvName;
     private Button mBtnNext, mBtnNextWithFinish;
     private RelativeLayout relative_conspirator,relati_Contributors,relativeTime_Practicing1;
-    AlertDialog dialog;
+    String[] values = {"seller","state staff","private company staff","service provider","other"};
+    String[] listItems = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other"};
     private TextView tv_conspirator,tv_Contributors;
     private CardView carview_conspirator,carview_Contributors;
     private View view1,view2,view_3;
-    private RadioButton radio1,radio2;
-    private RadioGroup radioGroup;
-    private EditText et_conspirator,et_Contributors,et_Personal_Occupation,etTotal_income_borrowers,etTotal_cost_borrowers,et_total;
-
-    private int mNumber;
-    private Create_Load frm_on = (Create_Load)getActivity();
+    private RadioButton radio1,radio2,radio3;
+    private RadioGroup mCo_borrower;
+    private EditText mName,mPhone_Number,mAddress,mJob,mRelationship,mCo_borrower_Job,mTotal_Income,mTotal_Expense,mNet_Income,
+                     mJob_Period,mCo_Job_Period;
+    private ImageView img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12;
+    private int mProductID;
+    private Create_Load createLoad;
+    private item_one itemOne;
+    int index,mProvinceID;
     Button next;
+    boolean radioCheck = false,Co_borrower;
+
+    private SharedPreferences preferences;
+    private String username,password,Encode;
+    private int pk;
+    loan_item loanItem;
+    String basicEncode;
+    private List<province_Item> listData;
+    private String[] provine = new String[25];
+    final Handler handler = new Handler();
+    AlertDialog dialog;
+
     public static one newInstance(int number) {
         one fragment = new one();
         Bundle args = new Bundle();
@@ -61,7 +93,7 @@ public class one extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            mNumber = args.getInt(ARG_NUMBER);
+            mProductID = args.getInt(ARG_NUMBER);
         }
     }
 
@@ -69,24 +101,14 @@ public class one extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_create__load_one, container, false);
-//        initView(view);
+        createLoad = (Create_Load)getActivity();
+        initView(view);
 //        next = view.findViewById(R.id.next);
-        et_conspirator = view.findViewById(R.id.et_conspirator);
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
-        et_Contributors = view.findViewById(R.id.et_Contributors);
         relati_Contributors = view.findViewById(R.id.relati_Contributors);
-        et_Personal_Occupation = view.findViewById(R.id.et_Personal_Occupation);
-
         relativeTime_Practicing1 = view.findViewById(R.id.relativeTime_Practicing1);
 
-        String[] values = getResources().getStringArray(R.array.job);
-        String[] listItems = getResources().getStringArray(R.array.relationship);
-
-        etTotal_income_borrowers = view.findViewById(R.id.etTotal_income_borrowers);
-        etTotal_cost_borrowers = view.findViewById(R.id.etTotal_cost_borrowers);
-        et_total = view.findViewById(R.id.et_total);
-        mBtnNext = view.findViewById(R.id.btn_next);
-        etTotal_cost_borrowers.addTextChangedListener(new TextWatcher() {
+        mTotal_Expense.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -94,14 +116,14 @@ public class one extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int incom;
-                if (s.length() == 0||etTotal_income_borrowers.getText().length() == 0){
+                if (s.length() == 0||mTotal_Income.getText().length() == 0){
                     s = "0";
                     incom = 0;
-                    etTotal_income_borrowers.setText("0");
+                    mTotal_Income.setText("0");
                 }
-                incom = Integer.parseInt(etTotal_income_borrowers.getText().toString());
+                incom = Integer.parseInt(mTotal_Income.getText().toString());
                 int borrow = Integer.parseInt(s.toString());
-                et_total.setText(""+(incom-borrow));
+                mNet_Income.setText(""+(incom-borrow));
             }
 
             @Override
@@ -109,18 +131,120 @@ public class one extends Fragment {
 
             }
         });
-
+        getprovince();
         view1 = view.findViewById(R.id.view_1);
         view2 = view.findViewById(R.id.view_2);
         view_3 = view.findViewById(R.id.view_3);
-        radioGroup = view.findViewById(R.id.radio_group);
         radio1 = view.findViewById(R.id.radio1);
         radio2 = view.findViewById(R.id.radio2);
 ////        next.setOnClickListener(v -> frm_on.setViewPager(1));
+
+        preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
+        username=preferences.getString("name","");
+        password=preferences.getString("pass","");
+        Encode = getEncodedString(username,password);
+        basicEncode = "Basic "+Encode;
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
+        Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
+
+        Button btn = view.findViewById(R.id.btn);
+        btn.setOnClickListener(v -> {
+            Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
+//            putapi();
+        });
+
+        return view;
+    }
+
+    private void getprovince(){
+        Service api = Client.getClient().create(Service.class);
+        Call<AllResponse> call = api.getProvince();
+        call.enqueue(new Callback<AllResponse>() {
+            @Override
+            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                if (!response.isSuccessful()){
+                    Log.d("Error121211",response.code()+" ");
+                }
+                listData = response.body().getresults();
+                for (int i=0;i<listData.size();i++){
+                    provine[i] = listData.get(i).getProvince();
+                    Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
+                    Log.e("Pk",""+ pk + Encode+" user "+ username+"  pass  "+password+ " List " +listData.size());
+                }
+//                Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password+ " List " +listData.size());
+            }
+            @Override
+            public void onFailure(Call<AllResponse> call, Throwable t) {
+                Log.d("OnFailure",t.getMessage());
+            }
+        });
+    }
+//    private void putapi(){
+//        Service api1 = Client.getClient().create(Service.class);
+//        loanItem = new loan_item(6000,0,2,400,300,1,1,pk,mProductID,pk,pk,null,mName.getText().toString(),null,0,"student","0123456789","#Strees 273",true,false,true,false,7,"seller",3,"Eykor ban",0,true,true,0,false,true,true,false,true);
+////        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
+//        Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
+//        call.enqueue(new Callback<loan_item>() {
+//            @Override
+//            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+//                try {
+//                    Log.d("Bodybody", response.errorBody().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                if (!response.isSuccessful()){
+//                    Log.d("Error121212", response.code() +"  "+ response.message());
+//                }
+//            }
 //
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            View radioButton = radioGroup.findViewById(checkedId);
-            int index = radioGroup.indexOfChild(radioButton);
+//            @Override
+//            public void onFailure(Call<loan_item> call, Throwable t) {
+//                Log.d("ErroronFailure121212", t.getMessage());
+//            }
+//        });
+//    }
+
+    private void initView(View view) {
+        mName = view.findViewById(R.id.etName);
+        mPhone_Number = view.findViewById(R.id.etPhone);
+        mAddress = view.findViewById(R.id.etaddress);
+        mJob = view.findViewById(R.id.et_Personal_Occupation);
+        mJob_Period = view.findViewById(R.id.etTime_Practicing);
+        mCo_borrower = view.findViewById(R.id.radio_group);
+        mRelationship = view.findViewById(R.id.et_conspirator);
+        mCo_borrower_Job = view.findViewById(R.id.et_Contributors);
+        mCo_Job_Period = view.findViewById(R.id.etTime_Practicing1);
+        mTotal_Income = view.findViewById(R.id.etTotal_income_borrowers);
+        mTotal_Expense = view.findViewById(R.id.etTotal_cost_borrowers);
+        mNet_Income = view.findViewById(R.id.et_total);
+
+        img1 = view.findViewById(R.id.img_1);
+        img2 = view.findViewById(R.id.img_2);
+        img3 = view.findViewById(R.id.img_3);
+        img4 = view.findViewById(R.id.img_4);
+        img5 = view.findViewById(R.id.img_5);
+        img6 = view.findViewById(R.id.img_6);
+        img7 = view.findViewById(R.id.img_7);
+        img8 = view.findViewById(R.id.img_8);
+        img9 = view.findViewById(R.id.img_9);
+        img10 = view.findViewById(R.id.img_10);
+        img11 = view.findViewById(R.id.img_11);
+        img12 = view.findViewById(R.id.img_12);
+
+        editext();
+        mBtnNext = view.findViewById(R.id.btn_next);
+
+//        int radioButtonID = mCo_borrower.getCheckedRadioButtonId();
+//        RadioButton radioButton = mCo_borrower.findViewById(radioButtonID);
+        mCo_borrower.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = mCo_borrower.findViewById(checkedId);
+           index = mCo_borrower.indexOfChild(radioButton);
+            radio3 = mCo_borrower.findViewById(checkedId);
+            img6.setImageResource(R.drawable.ic_check_circle_black_24dp);
             // Add logic here
             switch (index) {
                 case 0: // first button
@@ -130,7 +254,8 @@ public class one extends Fragment {
                     view1.setVisibility(View.VISIBLE);
                     view2.setVisibility(View.VISIBLE);
                     view_3.setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), "Selected button number " + index,Toast.LENGTH_SHORT).show();
+                    radioCheck = true;
+                    Co_borrower = true;
                     break;
                 case 1: // secondbutton
                     relative_conspirator.setVisibility(View.GONE);
@@ -139,75 +264,77 @@ public class one extends Fragment {
                     view1.setVisibility(View.GONE);
                     view2.setVisibility(View.GONE);
                     view_3.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Selected button number " + index, Toast.LENGTH_SHORT).show();
+
+                    mRelationship.setText(null);
+                    mCo_borrower_Job.setText(null);
+                    mCo_Job_Period.setText("0");
+                    radioCheck = true;
+                    Co_borrower = false;
                     break;
             }
         });
-        et_Personal_Occupation.setOnClickListener(v -> {
-            CreateAlertDialogWithRadioButtonGroup(values,et_Personal_Occupation);
+        mJob.setOnClickListener(v -> {
+            createLoad.AlertDialog(values,mJob);
         });
-        et_conspirator.setOnClickListener(v -> {
-            CreateAlertDialogWithRadioButtonGroup(listItems,et_conspirator);
+        mRelationship.setOnClickListener(v -> {
+           AlertDialog(listItems,mRelationship);
         });
-        et_Contributors.setOnClickListener(v -> {
-            CreateAlertDialogWithRadioButtonGroup(values,et_Contributors);
+        mCo_borrower_Job.setOnClickListener(v -> {
+            createLoad.AlertDialog(values,mCo_borrower_Job);
         });
-        mBtnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                two fragment = new two();
-                fragment.setArguments(bundle);
-                loadFragment(fragment);
+        mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
+        mBtnNext.setOnClickListener(view3 -> {
+//            Bundle bundle=new Bundle();
+//            boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
+//            Log.d("111111111111111","1111"+radio3.getText().toString());
+            if (editext()){
+                itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mJob.getText().toString(),
+                        Co_borrower,index,mRelationship.getText().toString(),mCo_borrower_Job.getText().toString(),Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
+                        mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID);
+                two fragment = two.newInstance(itemOne);
+//            fragment.setArguments(bundle);
+                createLoad.loadFragment(fragment);
             }
         });
 
-        return view;
     }
-    private void loadFragment(Fragment fragment){
-        FragmentManager fm=getFragmentManager();
-        FragmentTransaction fragmentTransaction=fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
-        fragmentTransaction.commit();
+    private boolean editext(){
+        boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
+        bname = createLoad.Checked(mName);
+        bphone = createLoad.Checked(mPhone_Number);
+        baddress = createLoad.Checked(mAddress);
+        bJob = createLoad.Checked(mJob);
+        bJob_Period = createLoad.CheckedYear(mJob_Period);
+//        bRelationship = createLoad.RadioCondition(img6,mCo_borrower);
+        bTotal_Income = createLoad.CheckedYear(mTotal_Income);
+        bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
+
+        createLoad.Condition(img1,mName);
+        createLoad.Condition(img2,mPhone_Number);
+        createLoad.Condition(img3,mAddress);
+        createLoad.Condition(img4,mJob);
+        createLoad.ConditionYear(img5,mJob_Period);
+        createLoad.Condition(img7,mRelationship);
+        createLoad.Condition(img8,mCo_borrower_Job);
+        createLoad.ConditionYear(img9,mCo_Job_Period);
+        createLoad.ConditionYear(img10,mTotal_Income);
+        createLoad.ConditionYear(img11,mTotal_Expense);
+        createLoad.ConditionYear(img12,mNet_Income);
+
+        return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
+//           boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
     }
-    private void CreateAlertDialogWithRadioButtonGroup(String[] items,EditText editText){
+    public void AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(R.string.choose);
+        builder.setTitle("Choose item");
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            Toast.makeText(getContext(), "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
+            mProvinceID = which;
+//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
         });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
         dialog = builder.create();
         dialog.show();
     }
-
-
-//    private void initView(View view) {
-//        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        mTvName = (TextView) view.findViewById(R.id.tv_name);
-//        mBtnNext = (Button) view.findViewById(R.id.btn_next);
-//        mBtnNextWithFinish = (Button) view.findViewById(R.id.btn_next_with_finish);
-//
-//        String title = "CyclerFragment " + mNumber;
-//
-//        mToolbar.setTitle(title);
-//        initToolbarNav(mToolbar);
-//
-//        mTvName.setText(title);
-//        mBtnNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                start(CycleFragment.newInstance(mNumber + 1));
-//            }
-//        });
-//        mBtnNextWithFinish.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startWithPop(CycleFragment.newInstance(mNumber + 1));
-//            }
-//        });
-//    }
 }
