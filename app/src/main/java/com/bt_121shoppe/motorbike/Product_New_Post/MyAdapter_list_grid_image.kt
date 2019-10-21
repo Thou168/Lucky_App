@@ -49,6 +49,10 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             Log.d("Type ",type.toString())
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_grid, parent, false)
             return ViewHolder(layout)
+        } else if (type.equals("image")){
+            Log.d("Type ",type.toString())
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list3, parent, false)
+            return ViewHolder(layout)
         }else{
             Log.d("Type ",type.toString())
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
@@ -75,7 +79,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
         val img_user = itemView.findViewById<CircleImageView>(R.id.img_user)
         val lang = itemView.findViewById<TextView>(R.id.user_view1)
-        val icon_call_user = itemView.findViewById<ImageView>(R.id.call_icon_user)
 
         fun bindItems(item: Item_API,context: Context) {
 
@@ -122,7 +125,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             } else {
                 title.setText(strPostTitle)
             }
-            icon_call_user.visibility = View.VISIBLE
 
             location_duration.text=item.location_duration
             show_view.text=" "+item.count_view

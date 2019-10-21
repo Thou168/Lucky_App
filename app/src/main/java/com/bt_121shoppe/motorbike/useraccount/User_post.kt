@@ -7,14 +7,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateUtils
-import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
@@ -26,10 +24,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
-import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.models.PostViewModel
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
+import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -281,7 +279,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
                                                 itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
-                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List",context1)
+                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "image",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                             }
 
