@@ -19,6 +19,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Item_API
@@ -40,6 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -280,6 +283,9 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             runOnUiThread {
                                                 itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
                                                 recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "image",context1)
+                                                val dividerItemDecoration = DividerItemDecoration(recyclrview.getContext(), DividerItemDecoration.VERTICAL)
+                                                dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this@User_post, R.drawable.divider_drawable)!!)
+                                                recyclrview.addItemDecoration(dividerItemDecoration)
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                             }
 
