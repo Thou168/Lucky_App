@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.loan.child;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -69,6 +71,7 @@ public class three extends Fragment {
     private SharedPreferences preferences;
     private String username,password,Encode;
     private int pk;
+    private int i = -1;
     loan_item loanItem;
     String basicEncode;
     boolean ischeck;
@@ -257,7 +260,7 @@ public class three extends Fragment {
     }
     private void putapi(){
         Service api1 = Client.getClient().create(Service.class);
-        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,1,itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),1,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getAddress(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),0,itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),0,mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period());
+        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,1,itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getAddress(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),0,itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),0,mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period());
 //        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
         Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
         call.enqueue(new Callback<loan_item>() {
@@ -268,6 +271,9 @@ public class three extends Fragment {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
+                if (response.isSuccessful()){
+
+                }
                 if (!response.isSuccessful()){
                     Log.d("Error121212", response.code() +"  "+ response.message());
                 }

@@ -49,7 +49,7 @@ public class two extends Fragment {
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
     private ImageView img1,img2,img3,img4,img5,img6,img7,img8,img9,img10;
     String[] values = {"monthly annuity repayment","monthly declining repayment"};
-    String[] institution = {"០","១","២"};
+    String[] institution = {"0","1","2",">2"};
     private RadioButton radio1,radio2,radio3;
     private RadioGroup rgBuying_product_insurance,mAllowto_visit_home;
     private boolean radioCheck1 = false,radioCheck2 = false;

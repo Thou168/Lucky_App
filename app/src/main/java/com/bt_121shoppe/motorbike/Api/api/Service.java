@@ -1,10 +1,12 @@
 package com.bt_121shoppe.motorbike.Api.api;
 
+import com.bt_121shoppe.motorbike.Api.Profile;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.model.Brand;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
@@ -37,6 +39,8 @@ public interface Service {
 
     @GET("api/v1/users/{pk}/")
     Call<AllResponse> getProfile(@Path("pk") int pk, @Header("Authorization") String authorization);
+    @GET("api/v1/users/{pk}/")
+    Call<User_Detail> getDetailUser(@Path("pk") int pk, @Header("Authorization") String authorization);
 //    @GET("/bestdeal/")
 //    Call<AllResponse> getBestdeal();
     @GET("countview/?post=")

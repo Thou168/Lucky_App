@@ -1,6 +1,9 @@
 package com.bt_121shoppe.motorbike.Api;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Profile {
+
     private int id;
     private String username;
     private String email;

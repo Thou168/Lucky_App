@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
@@ -107,7 +110,33 @@ public class one extends Fragment{
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
         relati_Contributors = view.findViewById(R.id.relati_Contributors);
         relativeTime_Practicing1 = view.findViewById(R.id.relativeTime_Practicing1);
+        mTotal_Income.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().isEmpty()){
+                    mTotal_Income.setFilters(new InputFilter[]{new InputFilterMinMax(0, 10000)});
+                    if (mTotal_Expense.getText().toString().isEmpty()){
+                        mNet_Income.setText(s.toString());
+                    }else {
+                        if (Double.parseDouble(s.toString())<Double.parseDouble(mTotal_Expense.getText().toString())){
+                            mTotal_Expense.setText(null);
+                        }else {
+                            mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())-Double.parseDouble(mTotal_Expense.getText().toString())+"");
+                        }
+                    }
+                }else {
+                    mNet_Income.setText(null);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         mTotal_Expense.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -115,15 +144,24 @@ public class one extends Fragment{
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int incom;
-                if (s.length() == 0||mTotal_Income.getText().length() == 0){
-                    s = "0";
-                    incom = 0;
-                    mTotal_Income.setText("0");
+                if (!s.toString().isEmpty()&&!mTotal_Income.getText().toString().isEmpty()){
+                    mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(mTotal_Income.getText().toString()))});
+                    mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())- Double.parseDouble(s.toString())+"");
+                }else {
+                    if (!mTotal_Income.getText().toString().isEmpty())
+                    mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())+"");
+                    else mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, 10000)});
                 }
-                incom = Integer.parseInt(mTotal_Income.getText().toString());
-                int borrow = Integer.parseInt(s.toString());
-                mNet_Income.setText(""+(incom-borrow));
+
+//                int incom;
+//                if (s.length() == 0||mTotal_Income.getText().length() == 0){
+//                    s = "0";
+//                    incom = 0;
+////                    mTotal_Income.setText("0");
+//                }
+//                incom = Integer.parseInt(mTotal_Income.getText().toString());
+//                int borrow = Integer.parseInt(s.toString());
+//                mNet_Income.setText(""+(incom-borrow));
             }
 
             @Override
@@ -151,15 +189,32 @@ public class one extends Fragment{
         }
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 
-        Button btn = view.findViewById(R.id.btn);
-        btn.setOnClickListener(v -> {
-            Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
-//            putapi();
-        });
-
+//        Button btn = view.findViewById(R.id.btn);
+//        btn.setOnClickListener(v -> {
+//            Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
+////            putapi();
+//        });
+        getDetailUser();
         return view;
     }
+    private void getDetailUser(){
+        Service api = Client.getClient().create(Service.class);
+        Call<User_Detail> call = api.getDetailUser(pk,basicEncode);
+        call.enqueue(new Callback<User_Detail>() {
+            @Override
+            public void onResponse(Call<User_Detail> call, Response<User_Detail> response) {
+                if (!response.body().getFirst_name().isEmpty()){
+                    mName.setText(response.body().getFirst_name());
+                }
+               mPhone_Number.setText(response.body().getProfile().getTelephone());
+            }
 
+            @Override
+            public void onFailure(Call<User_Detail> call, Throwable t) {
+
+            }
+        });
+    }
     private void getprovince(){
         Service api = Client.getClient().create(Service.class);
         Call<AllResponse> call = api.getProvince();
@@ -336,5 +391,29 @@ public class one extends Fragment{
         });
         dialog = builder.create();
         dialog.show();
+    }
+    public class InputFilterMinMax implements InputFilter {
+        private int min;
+        private int max;
+
+        public InputFilterMinMax(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            //noinspection EmptyCatchBlock
+            try {
+                int input = Integer.parseInt(dest.subSequence(0, dstart).toString() + source + dest.subSequence(dend, dest.length()));
+                if (isInRange(min, max, input))
+                    return null;
+            } catch (NumberFormatException nfe) { }
+            return "";
+        }
+
+        private boolean isInRange(int a, int b, int c) {
+            return b > a ? c >= a && c <= b : c >= b && c <= a;
+        }
     }
 }

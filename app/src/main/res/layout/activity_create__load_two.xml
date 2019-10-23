@@ -14,187 +14,219 @@
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/linearlayout"
-                android:padding="5dp"
-                android:layout_below="@+id/toolbar"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_1"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilLoan_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_1">
+
                         <EditText
                             android:id="@+id/etLoan_amount"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@null"
                             android:hint="ទឹកប្រាក់ស្នើសុំខ្ចី"
+                            android:inputType="number"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_2"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilBorrowing_period"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_2">
+
                         <EditText
                             android:id="@+id/etBorrowing_period"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="រយៈពេលខ្ចី (ខែ)"
-                            android:inputType="phone"
                             android:background="@null"
+                            android:hint="រយៈពេលខ្ចី (ខែ)"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_3"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPayment_Method"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_3">
+
                         <EditText
                             android:id="@+id/etPayment_Method"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:hint="របៀបសងប្រាក់"
                             android:background="@null"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:focusable="false"
+                            android:hint="របៀបសងប្រាក់"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_4"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilLoan_contributions"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_4">
+
                         <EditText
                             android:id="@+id/etLoan_contributions"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/deposit_amount"
                             android:background="@null"
+                            android:hint="@string/deposit_amount"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:cardCornerRadius="5dp">
+
                     <RelativeLayout
                         android:id="@+id/relative_OC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <ImageView
                             android:id="@+id/img_5"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null"
                             android:layout_width="20dp"
-                            android:layout_height="20dp"/>
+                            android:layout_height="20dp"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_null" />
+
                         <TextView
                             android:id="@+id/tv_product_insurance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_6"
+                            android:layout_toEndOf="@+id/img_5"
                             android:text="@string/insurance"
                             android:textSize="15dp" />
+
                         <RadioGroup
-                            android:layout_marginTop="5dp"
                             android:id="@+id/radio_group"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_product_insurance"
                             android:layout_alignStart="@+id/tv_product_insurance"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
+
                             <RadioButton
                                 android:id="@+id/radio1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/insurance_yes" />
+
                             <RadioButton
                                 android:id="@+id/radio2"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="@string/insurance_no" />
                         </RadioGroup>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:cardCornerRadius="5dp">
+
                     <RelativeLayout
                         android:id="@+id/relative_residence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <ImageView
                             android:id="@+id/img_6"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null"
                             android:layout_width="20dp"
-                            android:layout_height="20dp"/>
+                            android:layout_height="20dp"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_null" />
+
                         <TextView
                             android:id="@+id/tv_residence"
                             android:layout_width="wrap_content"
@@ -203,42 +235,50 @@
                             android:layout_toEndOf="@+id/img_6"
                             android:text="@string/allow_officer"
                             android:textSize="15dp" />
+
                         <RadioGroup
-                            android:layout_marginTop="5dp"
                             android:id="@+id/radio_group1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_residence"
                             android:layout_alignStart="@+id/tv_residence"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
+
                             <RadioButton
                                 android:id="@+id/radio3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/allow_yes" />
+
                             <RadioButton
                                 android:id="@+id/radio4"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="@string/allow_no" />
                         </RadioGroup>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
-                <View android:id="@+id/view_1" style="@style/line"/>
+
+                <View
+                    android:id="@+id/view_1"
+                    style="@style/line" />
+
                 <RelativeLayout
                     android:id="@+id/relative_conspirator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_7"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_7"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_conspirator"
@@ -260,48 +300,53 @@
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:id="@+id/relati_Contributors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
+                        android:id="@+id/img_8"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:padding="2dp"
-                        android:id="@+id/img_8"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
+                        android:src="@drawable/ic_null" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_Contributors"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_8">
+
                         <EditText
                             android:id="@+id/et_monthly_payment"
-                            android:paddingLeft="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:inputType="number"
-                            android:hint="@string/number_lending"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:background="@null"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:hint="@string/number_lending"
+                            android:inputType="number"
+                            android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
-                <View style="@style/line"/>
+
+                <View style="@style/line" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_below="@+id/linearlayout"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="100dp"
                 android:layout_marginRight="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
                 android:background="@android:color/holo_blue_light"
                 android:text="@string/next"
                 android:textColor="@color/white" />
@@ -309,11 +354,10 @@
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_below="@+id/linearlayout"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginTop="100dp"
-                android:layout_marginBottom="@dimen/dp_8"
                 android:background="@android:color/holo_blue_light"
                 android:text="@string/back"
                 android:textColor="@color/white" />
