@@ -358,11 +358,16 @@
     <string-array name="choose">
         <item>Yes</item>
         <item>No</item>
-        <item>Cancel</item>
     </string-array>
     <string-array name="repayment">
         <item>Monthly Annuity Repayment</item>
         <item>Monthly Declining Repayment</item>
+    </string-array>
+    <string-array name="institute">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>More than 2</item>
     </string-array>
 
     //dialog error register

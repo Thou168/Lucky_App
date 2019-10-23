@@ -46,7 +46,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@null"
-                                android:hint="ឈ្មោះ"
+                                android:hint="@string/name"
                                 android:inputType="text"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -79,7 +79,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@null"
-                                android:hint="លេខទូរស័ព្ទ"
+                                android:hint="@string/phone_number"
                                 android:inputType="phone"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -114,7 +114,7 @@
                                 android:background="@null"
                                 android:drawableEnd="@drawable/ic_arrow_drop_down"
                                 android:focusable="false"
-                                android:hint="អាសយដ្ឋាន"
+                                android:hint="@string/address"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -233,14 +233,14 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="មាន" />
+                                    android:text="@string/co_borrower_yes" />
 
                                 <RadioButton
                                     android:id="@+id/radio2"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="មិនមាន" />
+                                    android:text="@string/co_borrower_no" />
                             </RadioGroup>
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -275,7 +275,7 @@
                                 android:background="@null"
                                 android:drawableEnd="@drawable/ic_arrow_drop_down"
                                 android:focusable="false"
-                                android:hint="អ្នករួមខ្ចីត្រូវជា"
+                                android:hint="@string/relationship"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -315,7 +315,7 @@
                                 android:background="@null"
                                 android:drawableEnd="@drawable/ic_arrow_drop_down"
                                 android:focusable="false"
-                                android:hint="មុខរបរអ្នករួមខ្ចី"
+                                android:hint="@string/co_borrow_job"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -353,7 +353,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@null"
-                                android:hint="រយៈពេលប្រកបរបរ​ (ឆ្នាំ)"
+                                android:hint="@string/job_period"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -389,7 +389,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@null"
-                                android:hint="ប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)"
+                                android:hint="@string/total_income"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -422,7 +422,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@null"
-                                android:hint="ប្រាក់ចំណាយសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)"
+                                android:hint="@string/total_expense"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />
@@ -456,7 +456,7 @@
                                 android:layout_height="fill_parent"
                                 android:background="@null"
                                 android:focusable="false"
-                                android:hint="ប្រាក់សំណល់សរុប ($)"
+                                android:hint="@string/net_income"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
                                 android:textSize="14dp" />

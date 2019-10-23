@@ -46,7 +46,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@null"
-                            android:hint="ទឹកប្រាក់ស្នើសុំខ្ចី"
+                            android:hint="@string/loan_amountt"
                             android:inputType="number"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
@@ -79,7 +79,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@null"
-                            android:hint="រយៈពេលខ្ចី (ខែ)"
+                            android:hint="@string/term"
                             android:inputType="number"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
@@ -114,7 +114,7 @@
                             android:background="@null"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
-                            android:hint="របៀបសងប្រាក់"
+                            android:hint="@string/repayment_type"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -294,7 +294,7 @@
                             android:background="@null"
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
-                            android:hint="ចំនួនស្ថាប័នដែលកំពុងជាប់បំណុល"
+                            android:hint="@string/number_lending"
                             android:inputType="number"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
@@ -328,8 +328,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@null"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/number_lending"
+                            android:hint="@string/monthly_payment"
                             android:inputType="number"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />

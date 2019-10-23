@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +20,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bt_121shoppe.motorbike.Activity.Camera;
+import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.CustomViewPager;
 import com.bt_121shoppe.motorbike.loan.child.one;
@@ -45,7 +49,24 @@ public class Create_Load extends AppCompatActivity {
         }
 
         back = findViewById(R.id.tv_back);
-        back.setOnClickListener(view -> finish());
+        back.setOnClickListener(view ->{
+            android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Create_Load.this).create();
+            builder.setMessage(getString(R.string.back_message));
+            builder.setCancelable(false);
+            builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    builder.dismiss();
+                }
+            });
+            builder.show();
+        });
 
 //        viewPager = findViewById(R.id.viewPager);
 //        setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
@@ -79,7 +100,7 @@ public class Create_Load extends AppCompatActivity {
     }
     public boolean AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)

@@ -221,11 +221,16 @@
     <string-array name="choose">
         <item>មាន</item>
         <item>មិនមាន</item>
-        <item>បោះបង់</item>
     </string-array>
     <string-array name="repayment">
         <item>បង់រំលោះប្រចាំខែថេរ</item>
         <item>បង់រំលោះប្រចាំខែថយចុះជាលំដាប់</item>
+    </string-array>
+    <string-array name="institute">
+        <item>០</item>
+        <item>១</item>
+        <item>២</item>
+        <item>ច្រើនជាង២</item>
     </string-array>
 
     <!-- button part -->

@@ -48,8 +48,6 @@ public class two extends Fragment {
     private Create_Load createLoad;
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
     private ImageView img1,img2,img3,img4,img5,img6,img7,img8,img9,img10;
-    String[] values = {"monthly annuity repayment","monthly declining repayment"};
-    String[] institution = {"0","1","2",">2"};
     private RadioButton radio1,radio2,radio3;
     private RadioGroup rgBuying_product_insurance,mAllowto_visit_home;
     private boolean radioCheck1 = false,radioCheck2 = false;
@@ -105,7 +103,7 @@ public class two extends Fragment {
     }
     private void AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -120,6 +118,10 @@ public class two extends Fragment {
         dialog.show();
     }
     private void initView(View view) {
+
+        String[] values = getResources().getStringArray(R.array.repayment);
+        String[] institution = getResources().getStringArray(R.array.institute);
+
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
         mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);

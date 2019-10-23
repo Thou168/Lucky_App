@@ -62,7 +62,6 @@ public class three extends Fragment {
     private int mNumber;
     AlertDialog dialog;
     private EditText etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
-    String[] values = {"មាន","មិនមាន"};
     private Create_Load createLoad;
     private item_two itemTwo;
     private LinearLayout linearLayout;
@@ -132,7 +131,7 @@ public class three extends Fragment {
 
     private void AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -148,7 +147,7 @@ public class three extends Fragment {
     }
     private void AlertDialog1(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -164,7 +163,7 @@ public class three extends Fragment {
     }
     private void AlertDialog2(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -180,7 +179,7 @@ public class three extends Fragment {
     }
     private void AlertDialog3(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -196,7 +195,7 @@ public class three extends Fragment {
     }
     private void AlertDialog4(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -212,7 +211,7 @@ public class three extends Fragment {
     }
     private void AlertDialog5(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -228,7 +227,7 @@ public class three extends Fragment {
     }
     private void AlertDialog6(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -244,7 +243,7 @@ public class three extends Fragment {
     }
     private void AlertDialog7(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -286,6 +285,7 @@ public class three extends Fragment {
         });
     }
     private void initView(View view) {
+        String[] values = getResources().getStringArray(R.array.choose);
         etID_card = view.findViewById(R.id.etID_card);
         etID_card.setOnClickListener(v -> {
             AlertDialog(values,etID_card);

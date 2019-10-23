@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.loan.child;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -56,8 +57,6 @@ public class one extends Fragment{
     private TextView mTvName;
     private Button mBtnNext, mBtnNextWithFinish;
     private RelativeLayout relative_conspirator,relati_Contributors,relativeTime_Practicing1;
-    String[] values = {"seller","state staff","private company staff","service provider","other"};
-    String[] listItems = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other"};
     private TextView tv_conspirator,tv_Contributors;
     private CardView carview_conspirator,carview_Contributors;
     private View view1,view2,view_3;
@@ -77,7 +76,7 @@ public class one extends Fragment{
     private String username,password,Encode;
     private int pk;
     loan_item loanItem;
-    String basicEncode;
+    String basicEncode,currentLanguage;
     private List<province_Item> listData;
     private String[] provine = new String[25];
     final Handler handler = new Handler();
@@ -110,6 +109,9 @@ public class one extends Fragment{
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
         relati_Contributors = view.findViewById(R.id.relati_Contributors);
         relativeTime_Practicing1 = view.findViewById(R.id.relativeTime_Practicing1);
+        SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = preferences.getString("My_Lang", "");
+
         mTotal_Income.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -226,9 +228,13 @@ public class one extends Fragment{
                 }
                 listData = response.body().getresults();
                 for (int i=0;i<listData.size();i++){
-                    provine[i] = listData.get(i).getProvince();
-                    Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
-                    Log.e("Pk",""+ pk + Encode+" user "+ username+"  pass  "+password+ " List " +listData.size());
+                    if (currentLanguage.equals("en")){
+                        provine[i] = listData.get(i).getProvince();
+                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
+                        Log.e("Pk",""+ pk + Encode+" user "+ username+"  pass  "+password+ " List " +listData.size());
+                    }else {
+                        provine[i] = listData.get(i).getProvince_kh();
+                    }
                 }
 //                Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password+ " List " +listData.size());
             }
@@ -264,6 +270,10 @@ public class one extends Fragment{
 //    }
 
     private void initView(View view) {
+
+        String[] values = getResources().getStringArray(R.array.job);
+        String[] listItems = getResources().getStringArray(R.array.relationship);
+
         mName = view.findViewById(R.id.etName);
         mPhone_Number = view.findViewById(R.id.etPhone);
         mAddress = view.findViewById(R.id.etaddress);
@@ -381,7 +391,7 @@ public class one extends Fragment{
     }
     public void AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which;
