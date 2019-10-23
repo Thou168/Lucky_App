@@ -2,18 +2,23 @@ package com.bt_121shoppe.motorbike.loan.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.DialogPreference;
 
 public class item_one implements Parcelable {
-    private String Name,Phone_Number,Address,Job,Relationship,Co_borrower_Job,Net_Income;
+    private String Name,Phone_Number,Job,Relationship,Co_borrower_Job,Net_Income,Province,District,Commune,Village;
     private int Job_Period,Co_Job_Period,Index,mProductId,mProvinceID;
     private float Total_Income,Total_Expense;
+    private String Price;
     private boolean Co_borrower;
-    public item_one(String name, String phone_Number, String address, String job, boolean co_borrower,int index, String relationship,
+    public item_one(String name, String phone_Number, String province,String district,String commune,String village, String job, boolean co_borrower,int index, String relationship,
                     String co_borrower_Job, float total_Income, float total_Expense, String net_Income, int job_Period,
-                    int co_Job_Period,int ProductId,int provinceID) {
+                    int co_Job_Period,int ProductId,int provinceID,String price) {
         Name = name;
         Phone_Number = phone_Number;
-        Address = address;
+        Province = province;
+        District = district;
+        Commune = commune;
+        Village = village;
         Job = job;
         Co_borrower = co_borrower;
         Index = index;
@@ -26,8 +31,16 @@ public class item_one implements Parcelable {
         Co_Job_Period = co_Job_Period;
         mProductId = ProductId;
         mProvinceID = provinceID;
+        Price = price;
     }
 
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
 
     public int getmProvinceID() {
         return mProvinceID;
@@ -77,12 +90,36 @@ public class item_one implements Parcelable {
         Phone_Number = phone_Number;
     }
 
-    public String getAddress() {
-        return Address;
+    public String getProvince() {
+        return Province;
     }
 
-    public void setAddress(String address) {
-        Address = address;
+    public void setProvince(String province) {
+        Province = province;
+    }
+
+    public String getDistrict() {
+        return District;
+    }
+
+    public void setDistrict(String district) {
+        District = district;
+    }
+
+    public String getCommune() {
+        return Commune;
+    }
+
+    public void setCommune(String commune) {
+        Commune = commune;
+    }
+
+    public String getVillage() {
+        return Village;
+    }
+
+    public void setVillage(String village) {
+        Village = village;
     }
 
     public String getJob() {
@@ -173,7 +210,10 @@ public class item_one implements Parcelable {
     protected item_one(Parcel in) {
         Name = in.readString();
         Phone_Number = in.readString();
-        Address = in.readString();
+        Province = in.readString();
+        District = in.readString();
+        Commune = in.readString();
+        Village = in.readString();
         Job = in.readString();
         Co_borrower = in.readInt() == 1;
         Index = in.readInt();
@@ -189,7 +229,10 @@ public class item_one implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(Name);
         dest.writeString(Phone_Number);
-        dest.writeString(Address);
+        dest.writeString(Province);
+        dest.writeString(District);
+        dest.writeString(Commune);
+        dest.writeString(Village);
         dest.writeString(Job);
         dest.writeInt(Co_borrower?1:0);
         dest.writeInt(Index);

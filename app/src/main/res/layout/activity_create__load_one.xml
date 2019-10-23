@@ -96,28 +96,62 @@
                             android:id="@+id/img_3"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_centerVertical="true"
                             android:padding="2dp"
                             android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tiladdress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_3">
-
+                        <TextView
+                            android:layout_toEndOf="@+id/img_3"
+                            android:text="Address"
+                            android:id="@+id/text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:layout_below="@+id/text"
+                            android:layout_toEndOf="@+id/img_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="1"
+                            android:id="@+id/relative1"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical">
                             <EditText
-                                android:id="@+id/etaddress"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:drawableEnd="@drawable/ic_arrow_drop_down"
                                 android:focusable="false"
-                                android:hint="@string/address"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:inputType="numberDecimal"
+                                android:layout_weight="0.5"
+                                android:id="@+id/etcity"
+                                android:background="@null"
+                                android:hint="ក្រុង/ខេត្ត"
+                                android:drawableEnd="@drawable/arrow_down_black_24dp"
+                                android:textSize="14dp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:inputType="text"
+                                android:layout_weight="0.5"
+                                android:hint="ស្រុក/ខណ្ឌ"
+                                android:background="@null"
+                                android:id="@+id/edDistrict"
+                                android:textSize="14dp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:inputType="text"
+                                android:layout_weight="0.5"
+                                android:hint="ឃុំ/សង្កាត់"
+                                android:id="@+id/edCommune"
+                                android:background="@null"
+                                android:textSize="14dp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:inputType="text"
+                                android:layout_weight="0.5"
+                                android:hint="ភូមិ"
+                                android:id="@+id/edvillage"
+                                android:background="@null"
+                                android:textSize="14dp"/>
+                        </LinearLayout>
                     </RelativeLayout>
 
                     <View style="@style/line" />
@@ -470,8 +504,9 @@
                 android:layout_height="38dp"
                 android:layout_below="@+id/linear"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:background="@android:color/holo_blue_light"
                 android:text="@string/next"
                 android:textColor="@color/white" />

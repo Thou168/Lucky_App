@@ -2,8 +2,6 @@ package com.bt_121shoppe.motorbike.loan.child;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,14 +20,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
@@ -40,7 +35,7 @@ import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.loan.model.province_Item;
-import java.io.IOException;
+
 import java.util.*;
 
 import retrofit2.Call;
@@ -52,6 +47,7 @@ import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class one extends Fragment{
     private static final String ARG_NUMBER = "arg_number";
+    private static final String PRICE = "price";
 
     private Toolbar mToolbar;
     private TextView mTvName;
@@ -63,9 +59,10 @@ public class one extends Fragment{
     private RadioButton radio1,radio2,radio3;
     private RadioGroup mCo_borrower;
     private EditText mName,mPhone_Number,mAddress,mJob,mRelationship,mCo_borrower_Job,mTotal_Income,mTotal_Expense,mNet_Income,
-                     mJob_Period,mCo_Job_Period;
+                     mJob_Period,mCo_Job_Period,mDistrict,mCommune,mVillage;
     private ImageView img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12;
     private int mProductID;
+    String mPrice;
     private Create_Load createLoad;
     private item_one itemOne;
     int index,mProvinceID;
@@ -82,10 +79,11 @@ public class one extends Fragment{
     final Handler handler = new Handler();
     AlertDialog dialog;
 
-    public static one newInstance(int number) {
+    public static one newInstance(int number,String price) {
         one fragment = new one();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
+        args.putString(PRICE,price);
         fragment.setArguments(args);
         return fragment;
     }
@@ -96,6 +94,7 @@ public class one extends Fragment{
         Bundle args = getArguments();
         if (args != null) {
             mProductID = args.getInt(ARG_NUMBER);
+            mPrice = args.getString(PRICE);
         }
     }
 
@@ -120,15 +119,15 @@ public class one extends Fragment{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()){
-                    mTotal_Income.setFilters(new InputFilter[]{new InputFilterMinMax(0, 10000)});
+                    mTotal_Income.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
                     if (mTotal_Expense.getText().toString().isEmpty()){
                         mNet_Income.setText(s.toString());
                     }else {
-                        if (Double.parseDouble(s.toString())<Double.parseDouble(mTotal_Expense.getText().toString())){
-                            mTotal_Expense.setText(null);
-                        }else {
+//                        if (Double.parseDouble(s.toString())<Double.parseDouble(mTotal_Expense.getText().toString())){
+//                            mTotal_Expense.setText(null);
+//                        }else {
                             mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())-Double.parseDouble(mTotal_Expense.getText().toString())+"");
-                        }
+//                        }
                     }
                 }else {
                     mNet_Income.setText(null);
@@ -147,12 +146,12 @@ public class one extends Fragment{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()&&!mTotal_Income.getText().toString().isEmpty()){
-                    mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(mTotal_Income.getText().toString()))});
+//                    mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(mTotal_Income.getText().toString()))});
                     mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())- Double.parseDouble(s.toString())+"");
                 }else {
                     if (!mTotal_Income.getText().toString().isEmpty())
                     mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())+"");
-                    else mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, 10000)});
+                    else mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
                 }
 
 //                int incom;
@@ -199,6 +198,14 @@ public class one extends Fragment{
         getDetailUser();
         return view;
     }
+    public String method(String str) {
+        for (int i=0;i<str.length();i++){
+            if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+                str = str.substring(0, str.length() - 1);
+            }
+        }
+        return str;
+    }
     private void getDetailUser(){
         Service api = Client.getClient().create(Service.class);
         Call<User_Detail> call = api.getDetailUser(pk,basicEncode);
@@ -208,7 +215,10 @@ public class one extends Fragment{
                 if (!response.body().getFirst_name().isEmpty()){
                     mName.setText(response.body().getFirst_name());
                 }
-               mPhone_Number.setText(response.body().getProfile().getTelephone());
+                String stphone = response.body().getProfile().getTelephone();
+
+                mPhone_Number.setText(method(stphone));
+//               mPhone_Number.setText(response.body().getProfile().getTelephone());
             }
 
             @Override
@@ -276,7 +286,13 @@ public class one extends Fragment{
 
         mName = view.findViewById(R.id.etName);
         mPhone_Number = view.findViewById(R.id.etPhone);
-        mAddress = view.findViewById(R.id.etaddress);
+        mAddress = view.findViewById(R.id.etcity);
+        mDistrict = view.findViewById(R.id.edDistrict);
+        mCommune = view.findViewById(R.id.edCommune);
+        mVillage = view.findViewById(R.id.edvillage);
+
+        String address = mAddress.getText().toString()+","+mDistrict.getText().toString()+","+mCommune.getText().toString()+","+mVillage.getText().toString();
+
         mJob = view.findViewById(R.id.et_Personal_Occupation);
         mJob_Period = view.findViewById(R.id.etTime_Practicing);
         mCo_borrower = view.findViewById(R.id.radio_group);
@@ -353,9 +369,9 @@ public class one extends Fragment{
 //            boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
 //            Log.d("111111111111111","1111"+radio3.getText().toString());
             if (editext()){
-                itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mJob.getText().toString(),
+                itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),mJob.getText().toString(),
                         Co_borrower,index,mRelationship.getText().toString(),mCo_borrower_Job.getText().toString(),Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
-                        mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID);
+                        mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID,mPrice);
                 two fragment = two.newInstance(itemOne);
 //            fragment.setArguments(bundle);
                 createLoad.loadFragment(fragment);

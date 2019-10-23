@@ -44,6 +44,12 @@ public class loan_item implements Serializable{
     private String Telephone;
     @SerializedName("address")
     private String Address;
+    @SerializedName("district")
+    private String Distrmict;
+    @SerializedName("commune")
+    private String Commune;
+    @SerializedName("village")
+    private String Village;
     @SerializedName("state_id")
     private boolean State_id;
     @SerializedName("family_book")
@@ -68,12 +74,6 @@ public class loan_item implements Serializable{
     private String Rejected_date;
     @SerializedName("province_id")
     private int Province_id;
-    @SerializedName("district")
-    private String District;
-    @SerializedName("commune")
-    private String Commune;
-//    @SerializedName("village")
-//    private String Village;
     @SerializedName("borrower_job")
     private String Borrower_job;
     @SerializedName("borrower_job_period")
@@ -109,7 +109,7 @@ public class loan_item implements Serializable{
     public loan_item(float loan_amount, float loan_interest_rate, int loan_duration, float average_income,
                      float average_expense, int loan_status, int record_status, int created_by, int post,
                      int loan_to, int modified_by ,String loan_purpose, String username, String gender,
-                     int age, String job, String telephone, String address, boolean state_id, boolean family_book,
+                     int age, String job, String telephone, String address,String distrmict,String commune,String village, boolean state_id, boolean family_book,
                      boolean staff_id,  boolean is_borrower_photo,int province_id,String borrower_job, int borrower_job_period,
                      String loan_repayment_type, float loan_deposit_amount, boolean is_product_insurance,
                      boolean is_home_visit, int lending_intitution_owned, boolean is_coborrower_idcard,
@@ -133,6 +133,9 @@ public class loan_item implements Serializable{
         Job = job;
         Telephone = telephone;
         Address = address;
+        Distrmict = distrmict;
+        Commune = commune;
+        Village = village;
         State_id = state_id;
         Family_book = family_book;
         Staff_id = staff_id;

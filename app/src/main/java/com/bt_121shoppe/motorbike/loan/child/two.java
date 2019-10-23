@@ -3,6 +3,10 @@ package com.bt_121shoppe.motorbike.loan.child;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -52,8 +57,10 @@ public class two extends Fragment {
     private RadioGroup rgBuying_product_insurance,mAllowto_visit_home;
     private boolean radioCheck1 = false,radioCheck2 = false;
     private item_two itemTwo;
-    private boolean mVisit_home,mBuy_product_insurance;
+    private boolean mVisit_home,mBuy_product_insurance,check_return;
     AlertDialog dialog;
+    RelativeLayout relati_Contributors;
+
     public static two newInstance(item_one itemOne) {
         Bundle args = new Bundle();
 //        args.putParcelable(ARG_NUMBER,itemOne);
@@ -98,7 +105,7 @@ public class two extends Fragment {
                 createLoad.loadFragment(fragment);
             }
         });
-
+        mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
         return view;
     }
     private void AlertDialog(String[] items, EditText editText){
@@ -123,12 +130,16 @@ public class two extends Fragment {
         String[] institution = getResources().getStringArray(R.array.institute);
 
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
+
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
         mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);
+        relati_Contributors = view.findViewById(R.id.relati_Contributors);
         mloan_RepaymentType.setOnClickListener(v -> {
             createLoad.AlertDialog(values,mloan_RepaymentType);
         });
         mLoan_Contributions = view.findViewById(R.id.etLoan_contributions);
+        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+
 //        mBtnNextWithFinish = view.findViewById(R.id.btn_next_with_finish);
         rgBuying_product_insurance = view.findViewById(R.id.radio_group);
         rgBuying_product_insurance.setOnCheckedChangeListener((group, checkedId) -> {
@@ -167,10 +178,27 @@ public class two extends Fragment {
             }
         });
         mNumber_institution = view.findViewById(R.id.etNumber_debt);
+        mMonthly_Amount_Paid = view.findViewById(R.id.et_monthly_payment);
         mNumber_institution.setOnClickListener(v -> {
             createLoad.AlertDialog(institution,mNumber_institution);
         });
-        mMonthly_Amount_Paid = view.findViewById(R.id.et_monthly_payment);
+        mNumber_institution.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mNumber_institution.getText().toString().equals("0")){
+                    relati_Contributors.setVisibility(View.GONE);
+                    mMonthly_Amount_Paid.setText(null);
+                    check_return = false;
+                }else {
+                    relati_Contributors.setVisibility(View.VISIBLE);
+                    check_return = true;
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
         img1 = view.findViewById(R.id.img_1);
         img2 = view.findViewById(R.id.img_2);
@@ -182,6 +210,10 @@ public class two extends Fragment {
         img8 = view.findViewById(R.id.img_8);
         img9 = view.findViewById(R.id.img_9);
         img10 = view.findViewById(R.id.img_10);
+    }
+    public String cuteString(String st, int indext){
+        String[] separated = st.split("\\.");
+        return separated[indext];
     }
     private boolean checkEd(){
         boolean bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid;
@@ -199,7 +231,34 @@ public class two extends Fragment {
         createLoad.ConditionYear(img4,mLoan_Contributions);
         createLoad.ConditionYear(img7,mNumber_institution);
         createLoad.ConditionYear(img8,mMonthly_Amount_Paid);
+        if (check_return){
+            return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution&&bMonthly_Amount_Paid;
+        }else {
+            return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution;
+        }
+    }
+    public class InputFilterMinMax implements InputFilter {
+        private int min;
+        private int max;
 
-        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution&&bMonthly_Amount_Paid;
+        public InputFilterMinMax(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            //noinspection EmptyCatchBlock
+            try {
+                int input = Integer.parseInt(dest.subSequence(0, dstart).toString() + source + dest.subSequence(dend, dest.length()));
+                if (isInRange(min, max, input))
+                    return null;
+            } catch (NumberFormatException nfe) { }
+            return "";
+        }
+
+        private boolean isInRange(int a, int b, int c) {
+            return b > a ? c >= a && c <= b : c >= b && c <= a;
+        }
     }
 }

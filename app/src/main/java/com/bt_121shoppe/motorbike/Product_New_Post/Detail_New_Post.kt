@@ -160,6 +160,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     lateinit var sharedPref: SharedPreferences
     lateinit var loan:ImageView
 
+    var postDetail = PostViewModel()
     lateinit var mprgressbar: ProgressBar
     lateinit var mtext_onresult: TextView
     private lateinit var show_deposit:TextView
@@ -269,6 +270,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }else{
                 val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
                 intent.putExtra("product_id",postId)
+                Log.e("343434343",postDetail.cost)
+                intent.putExtra("price",postDetail.cost)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
                 finish()
@@ -500,7 +503,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 val gson = Gson()
                 try {
                     runOnUiThread {
-                        var postDetail = PostViewModel()
+
                         postDetail = gson.fromJson(mMessage, PostViewModel::class.java)
                         Log.e(TAG,"D"+ mMessage)
  // hide button call chat like loan by samang 27/08/19
@@ -687,10 +690,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
                         })
 
-                        Log.d("767676", discount.toString())
+//                        Log.d("767676", discount.toString())
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
-                            tvPrice.visibility = View.GONE
+//                            tvPrice.visibility = View.GONE
                             show_amount = "$"+postDetail.cost.toString()
                             tvPrice.text = postDetail.cost
 //                            show_amount_loan = postDetail.cost.toString()

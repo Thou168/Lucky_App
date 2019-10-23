@@ -47,7 +47,7 @@
                             android:layout_height="fill_parent"
                             android:background="@null"
                             android:hint="@string/loan_amountt"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -286,7 +286,6 @@
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/img_7">
-
                         <EditText
                             android:id="@+id/etNumber_debt"
                             android:layout_width="match_parent"
@@ -328,6 +327,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@null"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:hint="@string/monthly_payment"
                             android:inputType="number"
                             android:paddingLeft="5dp"
@@ -345,7 +345,8 @@
                 android:layout_below="@+id/linearlayout"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="100dp"
-                android:layout_marginRight="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:background="@android:color/holo_blue_light"
                 android:text="@string/next"
                 android:textColor="@color/white" />
@@ -357,6 +358,7 @@
                 android:layout_below="@+id/linearlayout"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginTop="100dp"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:background="@android:color/holo_blue_light"
                 android:text="@string/back"
                 android:textColor="@color/white" />

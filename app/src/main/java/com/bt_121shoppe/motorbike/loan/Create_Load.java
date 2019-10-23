@@ -36,6 +36,7 @@ public class Create_Load extends AppCompatActivity {
     boolean check = false,mCardID,mBook_familiy,mPhoto,mCard_work;
     RadioButton radio3;
     int product_id;
+    String price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,10 @@ public class Create_Load extends AppCompatActivity {
 
         Intent intent = getIntent();
         product_id = intent.getIntExtra("product_id",0);
+        price = intent.getStringExtra("price");
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id)).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id,price)).commit();
         }
 
         back = findViewById(R.id.tv_back);
