@@ -33,9 +33,9 @@ public class Create_Load extends AppCompatActivity {
     CustomViewPager viewPager;
     int count=0;
     AlertDialog dialog;
-    boolean check = false,mCardID,mBook_familiy,mPhoto,mCard_work;
+    boolean check = false,mBook_familiy,mPhoto,mCard_work;
     RadioButton radio3;
-    int product_id;
+    int product_id,mCardID;
     String price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +87,12 @@ public class Create_Load extends AppCompatActivity {
             fragmentTransaction.commit();
             fragmentTransaction.addToBackStack(null);
     }
-    public boolean AlertDialog(String[] items, EditText editText){
+    public int AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle("Choose item");
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mCardID = true;
-            else mCardID = false;
+                mCardID = which;
 //            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();

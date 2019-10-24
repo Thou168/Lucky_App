@@ -37,6 +37,7 @@ import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import java.io.Serializable;
 import java.util.List;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +61,8 @@ public class two extends Fragment {
     private boolean mVisit_home,mBuy_product_insurance,check_return;
     AlertDialog dialog;
     RelativeLayout relati_Contributors;
+    private int index;
+    String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
 
     public static two newInstance(item_one itemOne) {
         Bundle args = new Bundle();
@@ -99,7 +102,7 @@ public class two extends Fragment {
 //            Bundle bundle=new Bundle();
 //            fragment.setArguments(bundle);
             if (checkEd()){
-                itemTwo = new item_two(Float.parseFloat(mLoan_amount.getText().toString()),mLoan_Term.getText().toString(),mloan_RepaymentType.getText().toString(),mLoan_Contributions.getText().toString(),
+                itemTwo = new item_two(Float.parseFloat(mLoan_amount.getText().toString()),mLoan_Term.getText().toString(),values1[index],mLoan_Contributions.getText().toString(),
                         mBuy_product_insurance,mVisit_home,mNumber_institution.getText().toString(),mMonthly_Amount_Paid.getText().toString(),itemOne);
                 fragment = three.newInstance(itemTwo);
                 createLoad.loadFragment(fragment);
@@ -108,34 +111,37 @@ public class two extends Fragment {
         mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
         return view;
     }
-    private void AlertDialog(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mVisit_home = true;
-            else mVisit_home = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
     private void initView(View view) {
+
+        Paper.init(getContext());
+        String language = Paper.book().read("language");
+        Log.e("90909090909","Current language is "+language);
 
         String[] values = getResources().getStringArray(R.array.repayment);
         String[] institution = getResources().getStringArray(R.array.institute);
 
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
-
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
         mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);
         relati_Contributors = view.findViewById(R.id.relati_Contributors);
         mloan_RepaymentType.setOnClickListener(v -> {
-            createLoad.AlertDialog(values,mloan_RepaymentType);
+           createLoad.AlertDialog(values,mloan_RepaymentType);
+        });
+        mloan_RepaymentType.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (language.equals("km")||language.equals("en")){
+                    for (int i=0;i<values.length;i++){
+                        if (mloan_RepaymentType.getText().toString().equals(values[i])){
+                            index = i;
+                        }
+                    }
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
         });
         mLoan_Contributions = view.findViewById(R.id.etLoan_contributions);
         mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
@@ -187,7 +193,7 @@ public class two extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mNumber_institution.getText().toString().equals("0")){
+                if (mNumber_institution.getText().toString().equals("0")||mNumber_institution.getText().toString().equals("០")){
                     relati_Contributors.setVisibility(View.GONE);
                     mMonthly_Amount_Paid.setText(null);
                     check_return = false;
@@ -210,6 +216,21 @@ public class two extends Fragment {
         img8 = view.findViewById(R.id.img_8);
         img9 = view.findViewById(R.id.img_9);
         img10 = view.findViewById(R.id.img_10);
+    }
+    public int AlertDialog(String[] items, EditText editText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
+        builder.setTitle(getString(R.string.choose_item));
+        int checkedItem = 0; //this will checked the item when user open the dialog
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            index = which;
+//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
+            editText.setText(items[which]);
+            dialog.dismiss();
+        });
+//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
+        dialog = builder.create();
+        dialog.show();
+        return index;
     }
     public String cuteString(String st, int indext){
         String[] separated = st.split("\\.");
