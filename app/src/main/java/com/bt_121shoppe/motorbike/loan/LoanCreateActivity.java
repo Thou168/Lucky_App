@@ -771,7 +771,6 @@ public class LoanCreateActivity extends AppCompatActivity {
     }
 
     private void getLoan_user(String encode){
-
         if(id_edit !=0){
             final String url = String.format("%s%s/", ConsumeAPI.BASE_URL,"api/v1/loan/"+id_edit);
             Log.d("Url",url);
