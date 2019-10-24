@@ -82,7 +82,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
         fun bindItems(item: Item_API,context: Context) {
 
-            Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
+            Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(imageView)
             var price: Double = 0.0
             var discout1: Double = 0.0
             var language:String
@@ -118,13 +118,14 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                     strPostTitle = item.postsubtitle.split(",")[1]
                 }
             }
-//            jok = strPostTitle
-            if (strPostTitle.length > 36) {
-                strPostTitle = strPostTitle.substring(0, 36) + "..."
-                title.setText(strPostTitle)
-            } else {
-                title.setText(strPostTitle)
-            }
+
+//            if (strPostTitle.length > 36) {
+//                strPostTitle = strPostTitle.substring(0, 36) + "..."
+//                title.setText(strPostTitle)
+//            } else {
+//                title.setText(strPostTitle)
+//            }
+            title.setText(strPostTitle)
 
             location_duration.text=item.location_duration
             show_view.text=" "+item.count_view

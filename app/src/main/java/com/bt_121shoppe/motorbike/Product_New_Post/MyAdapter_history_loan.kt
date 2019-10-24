@@ -62,7 +62,7 @@ class MyAdapter_history_loan(private val itemList: ArrayList<LoanItemAPI>, val t
 //            val decodedString = Base64.decode(item.img_user, Base64.DEFAULT)
 //            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
 //            imageView.setImageBitmap(decodedByte)
-            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
+            Glide.with(itemView.context).load(item.image).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(imageView)
 
             title.text = item.title
             cost.text = "$"+item.cost

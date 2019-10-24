@@ -5,14 +5,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,8 +22,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.bt_121shoppe.motorbike.Activity.Camera;
-import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.CustomViewPager;
 import com.bt_121shoppe.motorbike.loan.child.one;
@@ -40,7 +40,6 @@ public class Create_Load extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__load);
-
         Intent intent = getIntent();
         product_id = intent.getIntExtra("product_id",0);
 
@@ -49,23 +48,11 @@ public class Create_Load extends AppCompatActivity {
         }
 
         back = findViewById(R.id.tv_back);
-        back.setOnClickListener(view ->{
-            android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Create_Load.this).create();
-            builder.setMessage(getString(R.string.back_message));
-            builder.setCancelable(false);
-            builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
-                }
-            });
-            builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    builder.dismiss();
-                }
-            });
-            builder.show();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_leaveLoan();
+            }
         });
 
 //        viewPager = findViewById(R.id.viewPager);
@@ -100,7 +87,7 @@ public class Create_Load extends AppCompatActivity {
     }
     public boolean AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
+        builder.setTitle("Choose item");
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
@@ -186,7 +173,63 @@ public class Create_Load extends AppCompatActivity {
         });
         return check;
     }
-//    public boolean Checked(ImageView imageView,EditText editText){
+
+    private void dialog_leaveLoan() {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+        final AlertDialog clearDialog = new AlertDialog.Builder(this).create();
+        clearDialog.setView(clearDialogView);
+        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.back_message);
+        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.yes_leave);
+        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+        btnNo.setText(R.string.no_leave);
+        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearDialog.dismiss();
+            }
+        });
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        clearDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+        final AlertDialog clearDialog = new AlertDialog.Builder(this).create();
+        clearDialog.setView(clearDialogView);
+        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.back_message);
+        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.yes_leave);
+        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+        btnNo.setText(R.string.no_leave);
+        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearDialog.dismiss();
+            }
+        });
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Create_Load.super.onBackPressed();
+            }
+        });
+
+        clearDialog.show();
+    }
+
+    //    public boolean Checked(ImageView imageView,EditText editText){
 //        if (editText.getText().toString().isEmpty() || editText.getText().toString().length()<3){
 //            editText.setError("wtf");
 //            imageView.setImageResource(R.drawable.ic_error_black_24dp);

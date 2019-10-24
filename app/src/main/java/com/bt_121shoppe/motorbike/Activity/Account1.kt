@@ -321,7 +321,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
                             }
                             Log.d("Response", result)
                         }
@@ -355,7 +355,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgCover)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().placeholder(R.drawable.default_profile_pic)).into(imgCover)
                             }
                             Log.d("Response", result)
                         }

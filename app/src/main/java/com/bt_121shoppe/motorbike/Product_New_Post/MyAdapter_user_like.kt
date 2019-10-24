@@ -66,7 +66,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
 
         fun bindItems(item: Unlike_api) {
-            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
+            Glide.with(itemView.context).load(item.image).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(imageView)
             title.text = item.title
             cost.text = "$"+item.cost.toString()
 //            location_duration.text=item.location_duration

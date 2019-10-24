@@ -129,18 +129,18 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
             super.onBind(position);
             final PostViewModel mPost=mPostList.get(position);
 
-            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
+            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
 
             String strPostTitle="";
             if(mPost.getPost_sub_title().isEmpty()){
-//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-//                if(lang.equals("View:")) {
-//                    strPostTitle = fullTitle.split(",")[0];
-//                }
-//                else {
-//                    strPostTitle = fullTitle.split(",")[1];
-//                }
+                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+                if(lang.equals("View:")) {
+                    strPostTitle = fullTitle.split(",")[0];
+                }
+                else {
+                    strPostTitle = fullTitle.split(",")[1];
+                }
             }else if(lang.equals("View:")) {
                 strPostTitle = mPost.getPost_sub_title().split(",")[0];
                 jok = strPostTitle;
@@ -161,6 +161,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
                     postTitle.setText(jok);
                 }
             }
+
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setText("$ "+mPost.getCost());

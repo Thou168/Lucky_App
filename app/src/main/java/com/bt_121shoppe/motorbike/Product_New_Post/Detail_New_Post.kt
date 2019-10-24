@@ -619,24 +619,17 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 ptitle = postDetail.getPost_sub_title().split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                         tvPostTitle.setText(ptitle)
 
-                        postTitle=ptitle.toString()
+                        postTitle=ptitle
 
                         postPrice=discount.toString()
 
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
-//                        tvPostTitle.setText(postDetail.title.toString())
 
-//                        if (postDetail.title.toString().isNotEmpty()){
-//                            tvPostTitle.setText(postDetail.title.toString())
-//                        }else{
-//                            tvPostTitle.setText(postDetail.post_sub_title.toString())
-//                        }
-//
                         tvPostTitle.setTextSize(22F)
                         tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
-//
-                        tvPrice.setText("$"+ discount)
+
+                        tvPrice.setText("$ "+ discount)
 
                         edLoanPrice.setText(""+discount)
                         tvPostCode.setText(postDetail.post_code.toString())
@@ -690,9 +683,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         Log.d("767676", discount.toString())
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
-                            tvPrice.visibility = View.GONE
+                            tvPrice.visibility = View.VISIBLE
+
                             show_amount = "$"+postDetail.cost.toString()
-                            tvPrice.text = postDetail.cost
+                            tvPrice.text ="$ "+postDetail.cost
 //                            show_amount_loan = postDetail.cost.toString()
                             edLoanPrice.setText(""+postDetail.cost)
                             postPrice=postDetail.cost.toString()
@@ -723,7 +717,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         tvMonthlyPayment.text = "$0.00"
                                         tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
 
-
                                     }
                                     else if (st2 <= ds){
                                         show_deposit.setText("")
@@ -739,7 +732,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                            tvPrice.visibility = View.GONE
                         }
 
-                        var st = "$"+postDetail.cost
+                        var st = "$ "+postDetail.cost
                         st = st.substring(0, st.length-1)
                         val ms = SpannableString(st)
                         val mst = StrikethroughSpan()

@@ -74,7 +74,7 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
         String iditem = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
 
         view.title.setText(model.getTitle());
-        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
+        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         view.linearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, Detail_New_Post.class);
             intent.putExtra("Price", model.getCost());
@@ -97,7 +97,7 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
         } catch (ParseException e) { e.printStackTrace(); }
         view.title.setText(model.getTitle());
         view.cost.setText("$"+model.getCost());
-        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
+        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         if (model.getPost_type().equals("sell")){
             view.item_type.setText(R.string.sell_t);
             view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));

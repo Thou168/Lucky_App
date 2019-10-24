@@ -78,7 +78,7 @@ class MyAdapter(private val itemList: ArrayList<Item_discount>) : RecyclerView.A
             cost.text = "$"+ price.toString()
             location.text = item.time
             count_view.text =item.countview
-            Glide.with(itemView.context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(imageView)
+            Glide.with(itemView.context).load(item.image).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(imageView)
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
                 val intent = Intent(itemView.context, Detail_New_Post::class.java)
