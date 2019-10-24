@@ -207,25 +207,26 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
 //        }
 //End
 //Add by Raksmey
-        String strPostTitle="";
-        String lang = view.strView.getText().toString();
-        int year =Integer.valueOf(model.getYear());
-        String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
-        if(model.getPost_sub_title()== null){
 
-            if(lang.equals("View:"))
-                strPostTitle=fullTitle.split(",")[0];
-            else
-                strPostTitle=fullTitle.split(",")[1];
-        }else {
-            if (lang.equals("View:")) {
-                strPostTitle = model.getPost_sub_title().split(",")[0];
-            } else {
-                strPostTitle = model.getPost_sub_title().split(",")[1];
-            }
-        }
+//        String strPostTitle="";
+//        String lang = view.strView.getText().toString();
+//        int year =Integer.valueOf(model.getYear());
+//        String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
+//        if(model.getPost_sub_title()== null){
+//            if(lang.equals("View:"))
+//                strPostTitle=fullTitle.split(",")[0];
+//            else
+//                strPostTitle=fullTitle.split(",")[1];
+//        }else {
+//            if (lang.equals("View:")) {
+//                strPostTitle = model.getPost_sub_title().split(",")[0];
+//            } else {
+//                strPostTitle = model.getPost_sub_title().split(",")[1];
+//            }
+//        }
+//
+//        view.title.setText(strPostTitle);
 
-        view.title.setText(strPostTitle);
 //        String jok;
 //        jok=strPostTitle;
 //        if (jok.length()>37){
@@ -237,6 +238,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
 //Endd
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
+            view.txt_discount.setVisibility(View.INVISIBLE);
         }else {
             rs_price = Double.parseDouble(model.getCost());
             if (model.getDiscount_type().equals("amount")){
@@ -263,7 +265,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             mContext.startActivity(intent);
         });
 
-        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
+        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         if (model.getPost_type().equals("sell")){
             view.item_type.setText(R.string.sell_t);
             view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));

@@ -124,7 +124,6 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
         getUserProfile()
         getUserPost_Data(this)
         getUserInformation(phone,email,addr)
-
         img_user.setOnClickListener {
             title.setText(R.string.contact)
             recyclrview.visibility = View.GONE

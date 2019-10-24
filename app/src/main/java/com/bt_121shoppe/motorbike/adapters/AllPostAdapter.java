@@ -145,7 +145,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             final PostProduct mPost=mPostList.get(position);
 
             postView.setText(String.valueOf(mPost.getCountView()));
-            Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
+            Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
                 if (mPost.getPostType().equals("sell"))
@@ -162,7 +162,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 else if (mPost.getPostType().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
             }
-//            postTitle.setText(mPost.getPostTitle());
+            postTitle.setText(mPost.getPostTitle());
 //            jok = mPost.getPostTitle();
 //            if (jok.length() > 10){
 //                jok=jok.substring(0,10)+"...";

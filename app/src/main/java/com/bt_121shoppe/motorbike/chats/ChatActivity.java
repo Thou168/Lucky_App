@@ -131,7 +131,7 @@ public class ChatActivity extends AppCompatActivity {
                 Glide.with(this).load(R.drawable.no_image_available).thumbnail(0.1f).into(imageView);
             }
             else{
-                Glide.with(this).load(postImage).placeholder(R.drawable.no_image_available).centerCrop().thumbnail(0.1f).into(imageView);
+                Glide.with(this).load(postImage).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(imageView);
 //                byte[] decodedString1 = Base64.decode(postImage, Base64.DEFAULT);
 //                Bitmap bitmapImage = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
 //                imageView.setImageBitmap(bitmapImage);

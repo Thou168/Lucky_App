@@ -160,7 +160,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             final PostViewModel mPost=mPostList.get(position);
             String strPostTitle="";
 
-            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
+            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
                 if (mPost.getPost_type().equals("sell"))

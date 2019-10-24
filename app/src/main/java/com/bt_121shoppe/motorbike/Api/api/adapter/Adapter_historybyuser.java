@@ -161,7 +161,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             intent.putExtra("ID",Integer.parseInt(iditem));
             mContext.startActivity(intent);
         });
-        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).into(view.imageView);
+        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         if (model.getPost_type().equals("sell")){
             view.item_type.setText(R.string.sell_t);
             view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));

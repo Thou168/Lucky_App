@@ -529,6 +529,11 @@
     <string name="like_post">អ្នកចូលចិត្តផលិតផលនេះ។</string>
     <string name="post_message">ការប្រកាសរបស់លោក-អ្នកកំពុងរងចាំការអនុម័ត</string>
     <string name="title_edit_loan">កែសម្រួលឥណទានរបស់អ្នក</string>
+
+    <string name="loan_title_leave">ចាកចេញ</string>
+    <string name="loan_mss_leave">អ្នកចង់ចាកចេញពីការកម្ចីនេះរឺ?</string>
+    <string name="yes_leave">បាទ រឺ​ ចាស!</string>
+    <string name="no_leave">ទេ</string>
     <string name="title_create_loan">បង្កើតឥណទានរបស់អ្នក</string>
     <string name="loan_feedback">សូមពិនិត្យម្តងទៀត !!</string>
     <string name="loan_feedback1">ឥណទានរបស់អ្នកមិនត្រូវបានកែសម្រួលទេ</string>

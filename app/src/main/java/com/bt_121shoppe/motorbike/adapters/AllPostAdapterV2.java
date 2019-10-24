@@ -150,7 +150,7 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
 
             //postView.setText(String.valueOf(mPost.getCountView()));
 
-            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(coverImageView);
+            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
                 if (mPost.getPost_type().equals("sell"))
@@ -169,13 +169,14 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             String strPostTitle="";
+//            typeImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             if(mPost.getPost_sub_title().isEmpty()){
-//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-//                if(lang.equals("View:"))
-//                    strPostTitle=fullTitle.split(",")[0];
-//                else
-//                    strPostTitle=fullTitle.split(",")[1];
+                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+                if(lang.equals("View:"))
+                    strPostTitle=fullTitle.split(",")[0];
+                else
+                    strPostTitle=fullTitle.split(",")[1];
             }else {
                 if (lang.equals("View:")) {
                     strPostTitle = mPost.getPost_sub_title().split(",")[0];

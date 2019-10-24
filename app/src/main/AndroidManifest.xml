@@ -48,6 +48,7 @@
 
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
+<!--            </intent-filter>-->
         </activity>
         <!-- <activity android:name=".homes.HomeOldActivity"></activity> -->
         <activity android:name=".Login_Register.SelectUserTypeActivity" />

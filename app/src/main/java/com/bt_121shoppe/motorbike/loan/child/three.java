@@ -1,11 +1,11 @@
 package com.bt_121shoppe.motorbike.loan.child;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,31 +15,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
-import com.bt_121shoppe.motorbike.Api.api.model.Item;
+import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
-import com.bt_121shoppe.motorbike.loan.model.province_Item;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,6 +50,9 @@ public class three extends Fragment {
     private TextView mTvName;
     private Button mBtnSubmit, mBtnNextWithFinish,mBtnback;
 
+    Button btn_positive;
+    Button btn_negative;
+
     private int mNumber;
     AlertDialog dialog;
     private EditText etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
@@ -75,7 +69,6 @@ public class three extends Fragment {
     String basicEncode;
     boolean ischeck;
     boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
-
     public static three newInstance(item_two itemTwo) {
         Bundle args = new Bundle();
 //        args.putParcelable(ARG_NUMBER,itemOne);
@@ -89,6 +82,7 @@ public class three extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+
         if (args != null) {
             itemTwo =  args.getParcelable(ARG_NUMBER);
         }
@@ -102,6 +96,8 @@ public class three extends Fragment {
         createLoad = (Create_Load)this.getActivity();
         mBtnback = view.findViewById(R.id.btn_back);
         mBtnSubmit = view.findViewById(R.id.btn_submit);
+        btn_positive = view.findViewById(R.id.button_positive);
+        btn_negative = view.findViewById(R.id.button_negative);
 
         checkEd();
         mBtnback.setOnClickListener(view1 -> { createLoad.setBack(); });
@@ -271,7 +267,7 @@ public class three extends Fragment {
 //                    e.printStackTrace();
 //                }
                 if (response.isSuccessful()){
-
+                    MaterialDialog();
                 }
                 if (!response.isSuccessful()){
                     Log.d("Error121212", response.code() +"  "+ response.message());
@@ -357,5 +353,20 @@ public class three extends Fragment {
         createLoad.ConditionYear(img8,etEmployment_card1);
 
         return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
+    }
+
+    private void MaterialDialog(){
+        androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getString(R.string.title_create_loan));
+        alertDialog.setMessage(getString(R.string.loan_message));
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getContext(), Detail_New_Post.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }
