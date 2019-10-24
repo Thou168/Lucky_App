@@ -37,6 +37,7 @@ public class Create_Load extends AppCompatActivity {
     RadioButton radio3;
     int product_id,mCardID;
     String price;
+    Boolean dialogpress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,8 @@ public class Create_Load extends AppCompatActivity {
 //        });
     }
     public void setBack(){
-        onBackPressed();
+        dialogpress = true;
+        super.onBackPressed();
     }
     public void loadFragment(Fragment fragment){
             FragmentManager fm = getSupportFragmentManager();
@@ -222,10 +224,9 @@ public class Create_Load extends AppCompatActivity {
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Create_Load.super.onBackPressed();
+                finish();
             }
         });
-
         clearDialog.show();
     }
 

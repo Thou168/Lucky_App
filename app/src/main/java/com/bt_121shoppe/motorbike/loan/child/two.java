@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.loan.child;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -97,7 +98,7 @@ public class two extends Fragment {
         mBtnNext = view.findViewById(R.id.btn_next);
         mBtnback = view.findViewById(R.id.btn_back);
 
-        mBtnback.setOnClickListener(view1 -> { createLoad.setBack(); });
+        mBtnback.setOnClickListener(view1 -> createLoad.setBack());
         mBtnNext.setOnClickListener(view12 -> {
 //            Bundle bundle=new Bundle();
 //            fragment.setArguments(bundle);

@@ -84,7 +84,6 @@
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_below="@+id/location"
-                    android:textColor="@android:color/holo_red_light"
                     android:layout_marginLeft="2dp"
                     android:text="$0.00"
                     android:textSize="12dp"
@@ -96,6 +95,7 @@
                     android:visibility="gone"
                     android:id="@+id/tv_discount"
                     android:layout_width="wrap_content"
+                    android:textColor="@android:color/holo_red_light"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/location"
                     android:layout_marginStart="5dp"

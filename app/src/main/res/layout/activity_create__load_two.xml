@@ -345,9 +345,9 @@
                 android:layout_below="@+id/linearlayout"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="100dp"
-                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/mybuttonbluelight"
                 android:text="@string/next"
                 android:textColor="@color/white" />
 
@@ -359,7 +359,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="@dimen/dp_8"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/mybuttonbluelight"
                 android:text="@string/back"
                 android:textColor="@color/white" />
         </RelativeLayout>

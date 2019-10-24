@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -20,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -71,6 +73,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
     private lateinit var  mMap: GoogleMap
     private lateinit var  latlng: String
     private lateinit var linearLayout: LinearLayout
+    private var haha:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +138,6 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
         //getUserPosts()
     }
 
-
 //    private fun configureTabLayout() {
 //        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.post)))
 //        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.contact)))
@@ -152,6 +154,15 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
 //
 //            }
 //        })
+//    }
+
+//    override fun onBackPressed() {
+//        tvBack_post.visibility = View.GONE
+//        tvBack.visibility = View.VISIBLE
+//        title.setText(R.string.post)
+//        recyclrview.visibility = View.VISIBLE
+//        linearLayout.visibility = View.GONE
+//        super.onBackPressed()
 //    }
 
     fun getUserProfile(){
@@ -310,7 +321,6 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
     }
 
     fun getUserInformation(phone: String?, email: String?, addr: String?) {
-
         val splitPhone = phone!!.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
         if (splitPhone.size == 1) {
             tvPhone.setText(splitPhone[0].toString())
@@ -338,6 +348,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
             mapFragment?.getMapAsync(this)
 
         }
+
     }
 
     fun getUserPosts(){
