@@ -208,24 +208,24 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
 //End
 //Add by Raksmey
 
-//        String strPostTitle="";
-//        String lang = view.strView.getText().toString();
-//        int year =Integer.valueOf(model.getYear());
-//        String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
-//        if(model.getPost_sub_title()== null){
-//            if(lang.equals("View:"))
-//                strPostTitle=fullTitle.split(",")[0];
-//            else
-//                strPostTitle=fullTitle.split(",")[1];
-//        }else {
-//            if (lang.equals("View:")) {
-//                strPostTitle = model.getPost_sub_title().split(",")[0];
-//            } else {
-//                strPostTitle = model.getPost_sub_title().split(",")[1];
-//            }
-//        }
-//
-//        view.title.setText(strPostTitle);
+        String strPostTitle="";
+        String lang = view.strView.getText().toString();
+        int year =Integer.valueOf(model.getYear());
+        String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
+        if(model.getPost_sub_title()== null){
+            if(lang.equals("View:"))
+                strPostTitle=fullTitle.split(",")[0];
+            else
+                strPostTitle=fullTitle.split(",")[1];
+        }else {
+            if (lang.equals("View:")) {
+                strPostTitle = model.getPost_sub_title().split(",")[0];
+            } else {
+                strPostTitle = model.getPost_sub_title().split(",")[1];
+            }
+        }
+
+        view.title.setText(strPostTitle);
 
 //        String jok;
 //        jok=strPostTitle;
