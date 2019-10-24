@@ -261,11 +261,11 @@ public class three extends Fragment {
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-//                try {
-//                    Log.d("Bodybody", response.errorBody().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    Log.d("Bodybody", response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if (response.isSuccessful()){
                     MaterialDialog();
                 }
