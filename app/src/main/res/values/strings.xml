@@ -336,6 +336,10 @@
     <string name="loan_info">Loan Information</string>
     <string name="document">Document</string>
     <string name="choose_item">Choose Item</string>
+    <string name="city">City/Province</string>
+    <string name="district">District/Khan</string>
+    <string name="commune">Commune/Sangkat</string>
+    <string name="village">Village</string>
     <string-array name="job">
         <item>Seller</item>
         <item>State staff</item>

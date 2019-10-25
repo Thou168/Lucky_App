@@ -80,7 +80,7 @@ public class one extends Fragment{
     final Handler handler = new Handler();
     AlertDialog dialog;
     String[] values1 = {"seller","state staff","private company staff","service provider","other"};
-    String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other"};
+    String[] Rela = {"husband", "wife", "father", "mother", "son","daughter","brother","sister","other"};
     public static one newInstance(int number,String price) {
         one fragment = new one();
         Bundle args = new Bundle();

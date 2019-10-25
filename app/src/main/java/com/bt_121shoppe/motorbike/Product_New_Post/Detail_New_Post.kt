@@ -270,7 +270,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }else{
                 val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
                 intent.putExtra("product_id",postId)
-                Log.e("343434343",postDetail.cost)
+                Log.e("343434343","jjjj"+postDetail.cost)
                 intent.putExtra("price",postDetail.cost)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)

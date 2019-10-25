@@ -2716,7 +2716,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 break;
                             case 2:
                                 strColor="silver";
-                                strColorKH="ខៀវ";
+                                strColorKH="ប្រាក់";
                                 break;
                             case 3:
                                 strColor="red";

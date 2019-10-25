@@ -28,6 +28,7 @@ import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
+import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
@@ -261,11 +262,11 @@ public class three extends Fragment {
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-                try {
-                    Log.d("Bodybody", response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Log.d("Bodybody","jjjjjjj"+ response.errorBody().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 if (response.isSuccessful()){
                     MaterialDialog();
                 }
@@ -363,6 +364,7 @@ public class three extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getContext(), Detail_New_Post.class);
+                        intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
                         startActivity(intent);
                         dialog.dismiss();
                     }

@@ -91,7 +91,7 @@ public class Create_Load extends AppCompatActivity {
     }
     public int AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle("Choose item");
+        builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
                 mCardID = which;
@@ -120,12 +120,10 @@ public class Create_Load extends AppCompatActivity {
                 String st = s.toString();
                     //do your work here
                 if (!st.isEmpty()){
-                    if (st.length()>2){
-                        imageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                    } else {
-                        imageView.setImageResource(R.drawable.ic_error_black_24dp);
-                    }
-                }
+                    imageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                }else {
+                    imageView.setImageResource(R.drawable.ic_error_black_24dp);
+            }
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }

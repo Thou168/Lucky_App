@@ -121,7 +121,7 @@
                                 android:layout_weight="0.5"
                                 android:id="@+id/etcity"
                                 android:background="@null"
-                                android:hint="ក្រុង/ខេត្ត"
+                                android:hint="@string/city"
                                 android:drawableEnd="@drawable/arrow_down_black_24dp"
                                 android:textSize="14dp"/>
                             <EditText
@@ -129,7 +129,7 @@
                                 android:layout_height="40dp"
                                 android:inputType="text"
                                 android:layout_weight="0.5"
-                                android:hint="ស្រុក/ខណ្ឌ"
+                                android:hint="@string/district"
                                 android:background="@null"
                                 android:id="@+id/edDistrict"
                                 android:textSize="14dp"/>
@@ -138,7 +138,7 @@
                                 android:layout_height="40dp"
                                 android:inputType="text"
                                 android:layout_weight="0.5"
-                                android:hint="ឃុំ/សង្កាត់"
+                                android:hint="@string/commune"
                                 android:id="@+id/edCommune"
                                 android:background="@null"
                                 android:textSize="14dp"/>
@@ -147,7 +147,7 @@
                                 android:layout_height="40dp"
                                 android:inputType="text"
                                 android:layout_weight="0.5"
-                                android:hint="ភូមិ"
+                                android:hint="@string/village"
                                 android:id="@+id/edvillage"
                                 android:background="@null"
                                 android:textSize="14dp"/>

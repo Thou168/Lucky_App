@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Product_New_Post
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -22,7 +23,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
+import com.bt_121shoppe.motorbike.Api.api.model.Item
 import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.models.PostViewModel
 import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
 import com.bt_121shoppe.motorbike.utils.CommonFunction
@@ -109,13 +112,13 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             language=lang.text.toString()
             var strPostTitle = ""
             if (item.postsubtitle.isEmpty()){
-
+                
             }
             else{
                 if (language.equals("View:")){
-                    strPostTitle = item.postsubtitle.split(",")[0]
+                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 }else{
-                    strPostTitle = item.postsubtitle.split(",")[1]
+                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 }
             }
 

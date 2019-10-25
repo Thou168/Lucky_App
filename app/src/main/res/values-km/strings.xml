@@ -199,6 +199,10 @@
     <string name="personal_info">ព័ត៌មានផ្ទាល់ខ្លួន</string>
     <string name="loan_info">ព័ត៌មានឥណទាន</string>
     <string name="document">ឯកសារពាក់ព័ន្ធ</string>
+    <string name="city">ក្រុង/ខេត្ត</string>
+    <string name="district">ស្រុក/ខណ្ឌ</string>
+    <string name="commune">ឃុំ/សង្កាត់</string>
+    <string name="village">ភូមិ</string>
     <string-array name="job">
         <item>អ្នកលក់ដូរ</item>
         <item>បុគ្គលិករដ្ឋ</item>

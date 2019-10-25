@@ -327,7 +327,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@null"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:hint="@string/monthly_payment"
                             android:inputType="number"
                             android:paddingLeft="5dp"
