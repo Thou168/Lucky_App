@@ -492,6 +492,7 @@
     <string name="missing_image">Please select images</string>
     <string name="post_message">Your post is waiting for approval.</string>
     <string name="title_edit_loan">Edit your loan</string>
+    <string name="loan_edit_m">Are you sure with your edit?</string>
 
     <string name="loan_title_leave">Loan leave</string>
     <string name="loan_mss_leave">You want to leave this loan?</string>

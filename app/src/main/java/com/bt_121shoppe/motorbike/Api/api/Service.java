@@ -42,7 +42,7 @@ public interface Service {
     Call<AllResponse> getProfile(@Path("pk") int pk, @Header("Authorization") String authorization);
     @GET("api/v1/users/{pk}/")
     Call<User_Detail> getDetailUser(@Path("pk") int pk, @Header("Authorization") String authorization);
-//    @GET("/bestdeal/")
+    //    @GET("/bestdeal/")
 //    Call<AllResponse> getBestdeal();
     @GET("countview/?post=")
     Call<AllResponse> getCount(@Query("post") String post, @Header("Authorization") String authorization);

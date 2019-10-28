@@ -143,25 +143,26 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
                 }
             }else if(lang.equals("View:")) {
                 strPostTitle = mPost.getPost_sub_title().split(",")[0];
-                jok = strPostTitle;
-                if (jok.length() > 15) {
-                    jok = jok.substring(0, 15) + "...";
-                    postTitle.setText(jok);
-                } else {
-                    postTitle.setText(jok);
-                }
+//                jok = strPostTitle;
+//                if (jok.length() > 15) {
+//                    jok = jok.substring(0, 15) + "...";
+//                    postTitle.setText(jok);
+//                } else {
+//                    postTitle.setText(jok);
+//                }
             }
             else {
                 strPostTitle = mPost.getPost_sub_title().split(",")[1];
-                jok = strPostTitle;
-                if (jok.length() > 16) {
-                    jok = jok.substring(0, 16) + "...";
-                    postTitle.setText(jok);
-                } else {
-                    postTitle.setText(jok);
-                }
+//                jok = strPostTitle;
+//                if (jok.length() > 16) {
+//                    jok = jok.substring(0, 16) + "...";
+//                    postTitle.setText(jok);
+//                } else {
+//                    postTitle.setText(jok);
+//                }
             }
 
+            postTitle.setText(strPostTitle);
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setText("$ "+mPost.getCost());

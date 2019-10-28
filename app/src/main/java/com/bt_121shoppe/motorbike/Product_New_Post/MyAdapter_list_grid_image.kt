@@ -112,23 +112,26 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             language=lang.text.toString()
             var strPostTitle = ""
             if (item.postsubtitle.isEmpty()){
-                
+//                if (language.equals("View:")){
+//                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+//                }else{
+//                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+//                }
             }
             else{
                 if (language.equals("View:")){
-                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                 }else{
-                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                 }
             }
-
+            title.setText(strPostTitle)
 //            if (strPostTitle.length > 36) {
 //                strPostTitle = strPostTitle.substring(0, 36) + "..."
 //                title.setText(strPostTitle)
 //            } else {
 //                title.setText(strPostTitle)
 //            }
-            title.setText(strPostTitle)
 
             location_duration.text=item.location_duration
             show_view.text=" "+item.count_view

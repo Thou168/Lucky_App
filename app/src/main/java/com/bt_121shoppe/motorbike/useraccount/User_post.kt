@@ -87,7 +87,10 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
         encode = "Basic "+com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString(username,password)
 
         tvBack =  findViewById<TextView>(R.id.tv_back)
-        tvBack.setOnClickListener { finish() }
+        tvBack.setOnClickListener {
+            haha = false
+            finish()
+        }
         tvBack_post = findViewById(R.id.tv_back_post)
         tvBack_post.setOnClickListener {
             tvBack_post.visibility = View.GONE
@@ -95,7 +98,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
             title.setText(R.string.post)
             recyclrview.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
-
+            haha = true
         }
 
 
@@ -138,7 +141,18 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
         //getUserPosts()
     }
 
-//    private fun configureTabLayout() {
+    override fun onBackPressed() {
+        if (haha){
+            tvBack_post.visibility = View.GONE
+            tvBack.visibility = View.VISIBLE
+            title.setText(R.string.post)
+            recyclrview.visibility = View.VISIBLE
+            linearLayout.visibility = View.GONE
+        }else{
+            finish()
+        }
+    }
+    //    private fun configureTabLayout() {
 //        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.post)))
 //        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.contact)))
 //        val adapter = Tab_Adapter(supportFragmentManager, tabLayout.tabCount)
@@ -351,50 +365,50 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
 
     }
 
-    fun getUserPosts(){
-        var posts= PostViewModel()
-        val URL_ENDPOINT=ConsumeAPI.BASE_URL+"postbyuserfilter/?created_by="+user_id+"&approved_by=&rejected_by=&modified_by="
-        var MEDIA_TYPE=MediaType.parse("application/json")
-        val client= OkHttpClient()
-        val request=Request.Builder()
-                .url(URL_ENDPOINT)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                //.header("Authorization",encode)
-                .build()
-        client.newCall(request).enqueue(object : Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                val mMessage = e.message.toString()
-                Log.w("failure Response", mMessage)
-            }
-            @Throws(IOException::class)
-            override fun onResponse(call: Call, response: Response) {
-                val mMessage = response.body()!!.string()
-                val gson = Gson()
-                Log.d("TAH","TT"+mMessage)
-
-                try {
-                    val jsonObject= JSONObject(mMessage)
-                    val jsonArray=jsonObject.getJSONArray("results")
-                    val jsonCount=jsonObject.getInt("count")
-                    runOnUiThread {
-                        if(jsonCount>0){
-                            for (i in 0 until jsonArray.length()) {
-                                val obj=jsonArray.getJSONObject(i)
-                                Log.e("TAG","T"+obj)
-                            }
-
-                        }
-
-                    }
-
-                } catch (e: JsonParseException) {
-                    e.printStackTrace()
-                }
-
-            }
-        })
-    }
+//    fun getUserPosts(){
+//        var posts= PostViewModel()
+//        val URL_ENDPOINT=ConsumeAPI.BASE_URL+"postbyuserfilter/?created_by="+user_id+"&approved_by=&rejected_by=&modified_by="
+//        var MEDIA_TYPE=MediaType.parse("application/json")
+//        val client= OkHttpClient()
+//        val request=Request.Builder()
+//                .url(URL_ENDPOINT)
+//                .header("Accept","application/json")
+//                .header("Content-Type","application/json")
+//                //.header("Authorization",encode)
+//                .build()
+//        client.newCall(request).enqueue(object : Callback{
+//            override fun onFailure(call: Call, e: IOException) {
+//                val mMessage = e.message.toString()
+//                Log.w("failure Response", mMessage)
+//            }
+//            @Throws(IOException::class)
+//            override fun onResponse(call: Call, response: Response) {
+//                val mMessage = response.body()!!.string()
+//                val gson = Gson()
+//                Log.d("TAH","TT"+mMessage)
+//
+//                try {
+//                    val jsonObject= JSONObject(mMessage)
+//                    val jsonArray=jsonObject.getJSONArray("results")
+//                    val jsonCount=jsonObject.getInt("count")
+//                    runOnUiThread {
+//                        if(jsonCount>0){
+//                            for (i in 0 until jsonArray.length()) {
+//                                val obj=jsonArray.getJSONObject(i)
+//                                Log.e("TAG","T"+obj)
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                } catch (e: JsonParseException) {
+//                    e.printStackTrace()
+//                }
+//
+//            }
+//        })
+//    }
 
 
 

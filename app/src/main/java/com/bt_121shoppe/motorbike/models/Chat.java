@@ -8,7 +8,7 @@ public class Chat {
     private String post;
     private String type;
 
-    public Chat(){}
+//    public Chat(){}
 
     public Chat(String sender,String receiver,String message,String post,String type,boolean isseen){
         this.sender=sender;
