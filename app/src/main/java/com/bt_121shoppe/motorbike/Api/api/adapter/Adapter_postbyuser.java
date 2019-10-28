@@ -285,7 +285,6 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
                 @Override
                 public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                     view.txtview.setText(String.valueOf(response.body().getCount()));
-
                 }
 
                 @Override

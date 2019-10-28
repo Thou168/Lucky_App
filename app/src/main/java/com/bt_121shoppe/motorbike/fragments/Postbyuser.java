@@ -46,6 +46,7 @@ public class Postbyuser extends Fragment {
     Adapter_postbyuser mAdapter;
     ProgressBar progressBar;
     TextView no_result;
+    int pk;
 
     public Postbyuser(){}
     @Override
@@ -60,6 +61,11 @@ public class Postbyuser extends Fragment {
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode = CommonFunction.getEncodedString(name,pass);
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk",0);
+        }else if (prefer.contains("id")) {
+            pk = prefer.getInt("id", 0);
+        }
 
         basic_Encode = "Basic "+getEncodedString(name,pass);
         getpostbyuser();

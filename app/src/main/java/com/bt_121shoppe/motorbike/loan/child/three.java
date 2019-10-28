@@ -435,19 +435,20 @@ public class three extends Fragment {
                 }
                if (response.body().isState_id()){
                    etID_card.setText("Yes");
-               } else etID_card.setText("No");
+                   mCard_ID = true;
+               } else {etID_card.setText("No"); mCard_ID = false;}
 
                 if (response.body().isFamily_book()){
-                    etFamily_book.setText("Yes");
-                } else etFamily_book.setText("No");
+                    etFamily_book.setText("Yes"); mFamily_Book = true;
+                } else{ etFamily_book.setText("No");mFamily_Book =false;}
 
                 if (response.body().isIs_borrower_photo()){
-                    etPhotos.setText("Yes");
-                } else etPhotos.setText("No");
+                    etPhotos.setText("Yes"); mPhoto = true;
+                } else {etPhotos.setText("No");mPhoto = false;}
 
                 if (response.body().isStaff_id()){
-                    etEmployment_card.setText("Yes");
-                } else etEmployment_card.setText("No");
+                    etEmployment_card.setText("Yes"); mCard_Work = true;
+                } else{ etEmployment_card.setText("No"); mCard_Work = false;}
             }
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) { }
