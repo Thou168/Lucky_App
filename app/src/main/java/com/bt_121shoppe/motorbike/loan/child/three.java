@@ -449,6 +449,20 @@ public class three extends Fragment {
                 if (response.body().isStaff_id()){
                     etEmployment_card.setText("Yes"); mCard_Work = true;
                 } else{ etEmployment_card.setText("No"); mCard_Work = false;}
+
+                //co-borrow
+                if (response.body().isIs_coborrower_idcard()){
+                    etID_card1.setText("Yes"); mCard_ID1 = true;
+                }else {  etID_card1.setText("No"); mCard_ID1 = false;}
+                if (response.body().isIs_coborrower_familybook()){
+                    etFamily_book1.setText("Yes"); mFamily_Book1 = true;
+                }else {etFamily_book1.setText("No"); mFamily_Book1 = false;}
+                if (response.body().isIs_coborrower_photo()){
+                    etPhotos1.setText("Yes"); mPhoto1= true;
+                }else {etPhotos1.setText("No"); mPhoto1 = false;}
+                if (response.body().isIs_coborrower_payslip()){
+                    etEmployment_card1.setText("Yes"); mCard_Work1= true;
+                }else {etEmployment_card1.setText("No"); mCard_Work1= false;}
             }
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) { }

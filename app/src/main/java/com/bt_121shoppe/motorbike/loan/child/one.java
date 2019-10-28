@@ -521,6 +521,7 @@ public class one extends Fragment{
                     Log.d("5555555555555555",response.code()+"");
                 }
 //                mName.setText(response.body());
+                mName.setText(response.body().getUsername());
                 mDistrict.setText(response.body().getDistrmict());
                 mCommune.setText(response.body().getCommune());
                 mVillage.setText(response.body().getVillage());
