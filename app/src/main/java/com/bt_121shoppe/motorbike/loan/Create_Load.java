@@ -176,11 +176,11 @@ public class Create_Load extends AppCompatActivity {
         final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
         final AlertDialog clearDialog = new AlertDialog.Builder(this).create();
         clearDialog.setView(clearDialogView);
-        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+        TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
         Mssloan.setText(R.string.back_message);
-        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+        Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
         btnYes.setText(R.string.yes_leave);
-        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+        Button btnNo = clearDialogView.findViewById(R.id.button_negative);
         btnNo.setText(R.string.no_leave);
         clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
             @Override

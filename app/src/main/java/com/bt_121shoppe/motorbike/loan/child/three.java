@@ -110,8 +110,9 @@ public class three extends Fragment {
             if (checkEd()){
                 Log.e("FromeLoan",String.valueOf(itemTwo.getItemOne().isFromLoan()));
                 if (itemTwo.getItemOne().isFromLoan()){
-                    Editloan();
-                    Log.d("909090909090909",loanItem.getLoan_amount()+"");
+//                    Editloan();
+                    dialog_leaveLoan();
+//                    Log.d("909090909090909",loanItem.getLoan_amount()+"");
                 }else {
                     Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
                     putapi();
@@ -308,6 +309,27 @@ public class three extends Fragment {
             public void onFailure(Call<loan_item> call, Throwable t) {
             }
         });
+    }
+    private void dialog_leaveLoan() {
+        LayoutInflater factory = LayoutInflater.from(getContext());
+        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+        final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
+        clearDialog.setView(clearDialogView);
+        TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.back_message);
+        Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.yes_leave);
+        Button btnNo = clearDialogView.findViewById(R.id.button_negative);
+        btnNo.setText(R.string.no_leave);
+        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(v -> {
+
+        });
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
+            Editloan();
+            clearDialog.dismiss();
+        });
+
+        clearDialog.show();
     }
     private void initView(View view) {
         String[] values = getResources().getStringArray(R.array.choose);
