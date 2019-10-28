@@ -32,6 +32,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.LoanSectionOneFragment;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
@@ -79,7 +80,7 @@ public class one extends Fragment{
     loan_item loanItem;
     String basicEncode,currentLanguage;
     private List<province_Item> listData;
-    private String[] provine = new String[25];
+    private String[] provine = new String[28];
     final Handler handler = new Handler();
     AlertDialog dialog;
     String[] values1 = {"seller","state staff","private company staff","service provider","other"};
@@ -249,12 +250,14 @@ public class one extends Fragment{
                     Log.d("Error121211",response.code()+" ");
                 }
                 listData = response.body().getresults();
+                Log.d("333333333333", String.valueOf(listData.size()));
                 for (int i=0;i<listData.size();i++){
                     if (currentLanguage.equals("en")){
                         provine[i] = listData.get(i).getProvince();
                         Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
                         Log.e("Pk",""+ pk + Encode+" user "+ username+"  pass  "+password+ " List " +listData.size());
                     }else {
+                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
                         provine[i] = listData.get(i).getProvince_kh();
                     }
                 }
@@ -517,6 +520,7 @@ public class one extends Fragment{
                 if (!response.isSuccessful()){
                     Log.d("5555555555555555",response.code()+"");
                 }
+//                mName.setText(response.body());
                 mDistrict.setText(response.body().getDistrmict());
                 mCommune.setText(response.body().getCommune());
                 mVillage.setText(response.body().getVillage());

@@ -27,6 +27,8 @@ public class loan_item implements Serializable{
     private int Post;
 
     //field not required
+    @SerializedName("name")
+    private String Name;
     @SerializedName("loan_to")
     private int Loan_to;
     @SerializedName("loan_purpose")
