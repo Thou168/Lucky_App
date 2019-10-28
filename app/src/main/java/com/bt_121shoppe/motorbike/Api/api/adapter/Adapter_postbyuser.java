@@ -212,7 +212,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         String lang = view.strView.getText().toString();
         int year =Integer.valueOf(model.getYear());
         String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
-        if(model.getPost_sub_title().isEmpty()){
+        if(model.getPost_sub_title() == null){
             if(lang.equals("View:"))
                 strPostTitle=fullTitle.split(",")[0];
             else
@@ -225,14 +225,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             }
         }
         view.title.setText(strPostTitle);
-//        String jok;
-//        jok=strPostTitle;
-//        if (jok.length()>37){
-//            jok=jok.substring(0,37)+"...";
-//            view.title.setText(jok);
-//        }else {
-//            view.title.setText(jok);
-//        }
+
 //Endd
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());

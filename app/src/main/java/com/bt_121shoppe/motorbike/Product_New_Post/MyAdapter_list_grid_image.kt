@@ -125,7 +125,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                     strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                 }
             }
-            title.setText(strPostTitle)
+            title.text = strPostTitle
 //            if (strPostTitle.length > 36) {
 //                strPostTitle = strPostTitle.substring(0, 36) + "..."
 //                title.setText(strPostTitle)
