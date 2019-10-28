@@ -10,6 +10,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
+import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
@@ -64,6 +65,11 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("api/v1/loan/")
     Call<loan_item> setCreateLoan(@Body loan_item loanItem, @Header("Authorization") String authorization);
+    @GET("api/v1/loan/{id_loan}/")
+    Call<loan_item> getDeailLoan(@Path("id_loan") int id_loan, @Header("Authorization") String authorization);
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("api/v1/loan/{id_loan}/")
+    Call<loan_item> getEditLoan(@Path("id_loan") int id, @Body loan_item loanItem, @Header("Authorization") String authorization);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/loan/{id}/")
@@ -97,6 +103,8 @@ public interface Service {
     Call<AllResponse> getYear();
     @GET("api/v1/provinces/")
     Call<AllResponse> getProvince();
+    @GET("api/v1/provinces/{id}/")
+    Call<Province> getProvince(@Path("id") int id);
 
     @GET("api/v1/users/{id}/")
     Call<User> getuser(@Path("id")int id);

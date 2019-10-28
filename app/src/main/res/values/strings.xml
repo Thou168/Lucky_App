@@ -344,7 +344,6 @@
         <item>Seller</item>
         <item>State staff</item>
         <item>Private Company staff</item>
-        <item>Garment worker</item>
         <item>Service Provider</item>
         <item>Other</item>
     </string-array>
@@ -371,7 +370,7 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
-        <item>More than 2</item>
+        <item>3</item>
     </string-array>
 
     //dialog error register

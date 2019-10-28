@@ -294,7 +294,7 @@
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
                             android:hint="@string/number_lending"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:paddingLeft="5dp"
                             android:textSize="14dp" />
                     </com.google.android.material.textfield.TextInputLayout>

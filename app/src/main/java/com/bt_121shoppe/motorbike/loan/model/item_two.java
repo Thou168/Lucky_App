@@ -4,13 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class item_two implements Parcelable {
-    private String Loan_Term,Loan_RepaymentType,Deposit_Amount,
+    private String Loan_Term,Loan_RepaymentType,
     Number_institution,Monthly_AmountPaid_Institurion;
     private item_one itemOne;
-    float Loan_Amount;
+    float Loan_Amount,Deposit_Amount;
     boolean Allow_visito_home,Buying_InsuranceProduct;
 
-    public item_two(float loan_Amount, String loan_Term, String loan_RepaymentType, String deposit_Amount, boolean buying_InsuranceProduct, boolean allow_visito_home, String number_institution, String monthly_AmountPaid_Institurion, item_one itemOne) {
+    public item_two(float loan_Amount, String loan_Term, String loan_RepaymentType, float deposit_Amount, boolean buying_InsuranceProduct, boolean allow_visito_home, String number_institution, String monthly_AmountPaid_Institurion, item_one itemOne) {
         Loan_Amount = loan_Amount;
         Loan_Term = loan_Term;
         Loan_RepaymentType = loan_RepaymentType;
@@ -26,7 +26,7 @@ public class item_two implements Parcelable {
         Loan_Amount = in.readFloat();
         Loan_Term = in.readString();
         Loan_RepaymentType = in.readString();
-        Deposit_Amount = in.readString();
+        Deposit_Amount = in.readFloat();
         Buying_InsuranceProduct = in.readInt() == 1;
         Allow_visito_home = in.readInt() == 1;
         Number_institution = in.readString();
@@ -70,11 +70,11 @@ public class item_two implements Parcelable {
         Loan_RepaymentType = loan_RepaymentType;
     }
 
-    public String getDeposit_Amount() {
+    public float getDeposit_Amount() {
         return Deposit_Amount;
     }
 
-    public void setDeposit_Amount(String deposit_Amount) {
+    public void setDeposit_Amount(float deposit_Amount) {
         Deposit_Amount = deposit_Amount;
     }
 
@@ -128,7 +128,7 @@ public class item_two implements Parcelable {
         dest.writeFloat(Loan_Amount);
         dest.writeString(Loan_Term);
         dest.writeString(Loan_RepaymentType);
-        dest.writeString(Deposit_Amount);
+        dest.writeFloat(Deposit_Amount);
         dest.writeInt(Buying_InsuranceProduct?1:0);
         dest.writeInt(Allow_visito_home?1:0);
         dest.writeString(Number_institution);

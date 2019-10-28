@@ -33,6 +33,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +64,7 @@ public class three extends Fragment {
     private ImageView img1,img2,img3,img4,img5,img6,img7,img8;
 
     private SharedPreferences preferences;
-    private String username,password,Encode;
+    private String username,password,Encode,language;
     private int pk;
     private int i = -1;
     loan_item loanItem;
@@ -100,12 +101,21 @@ public class three extends Fragment {
         btn_positive = view.findViewById(R.id.button_positive);
         btn_negative = view.findViewById(R.id.button_negative);
 
+        Paper.init(getContext());
+        language = Paper.book().read("language");
+
         checkEd();
         mBtnback.setOnClickListener(view1 -> { createLoad.setBack(); });
         mBtnSubmit.setOnClickListener(v -> {
             if (checkEd()){
-                Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
-                putapi();
+                Log.e("FromeLoan",String.valueOf(itemTwo.getItemOne().isFromLoan()));
+                if (itemTwo.getItemOne().isFromLoan()){
+                    Editloan();
+                    Log.d("909090909090909",loanItem.getLoan_amount()+"");
+                }else {
+                    Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
+                    putapi();
+                }
             }
         });
 
@@ -228,8 +238,8 @@ public class three extends Fragment {
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which == 0)
-                mPhoto = true;
-            else mPhoto = false;
+                mPhoto1 = true;
+            else mPhoto1 = false;
 //            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
@@ -256,28 +266,46 @@ public class three extends Fragment {
     }
     private void putapi(){
         Service api1 = Client.getClient().create(Service.class);
-        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,1,itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),0,itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),0,mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period());
+        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
 //        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
         Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
 //                try {
-//                    Log.d("Bodybody","jjjjjjj"+ response.errorBody().string());
+//                    Log.d("Bodybody", response.errorBody().string());
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
                 if (response.isSuccessful()){
                     MaterialDialog();
                 }
-                if (!response.isSuccessful()){
-                    Log.d("Error121212", response.code() +"  "+ response.message());
-                }
             }
 
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) {
                 Log.d("ErroronFailure121212", t.getMessage());
+            }
+        });
+    }
+    private void Editloan(){
+        Service api = Client.getClient().create(Service.class);
+        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
+        Call<loan_item> call = api.getEditLoan(itemTwo.getItemOne().getmLoanID(),loanItem,basicEncode);
+        call.enqueue(new Callback<loan_item>() {
+            @Override
+            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                if (!response.isSuccessful()){
+                    Log.e("EditLoan Error",response.code()+"");
+                }
+//                try {
+//                    Log.e("EditLoan",response.errorBody().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+            }
+            @Override
+            public void onFailure(Call<loan_item> call, Throwable t) {
             }
         });
     }
@@ -322,6 +350,9 @@ public class three extends Fragment {
         }else {
             linearLayout.setVisibility(View.VISIBLE);
         }
+        if (itemTwo.getItemOne().isFromLoan()){
+            GetLoan();
+        }
 
         img1 = view.findViewById(R.id.img_1);
         img2 = view.findViewById(R.id.img_2);
@@ -337,7 +368,7 @@ public class three extends Fragment {
 
         bID_Card = createLoad.CheckedYear(etID_card);
         bFramily_Book = createLoad.CheckedYear(etFamily_book);
-        bPhotos = createLoad.Checked(etPhotos);
+        bPhotos = createLoad.CheckedYear(etPhotos);
         bEmployment_card = createLoad.CheckedYear(etEmployment_card);
 
 //        bNumber_institution = createLoad.CheckedYear(mNumber_institution);
@@ -345,12 +376,12 @@ public class three extends Fragment {
 
         createLoad.ConditionYear(img1,etID_card);
         createLoad.ConditionYear(img2,etFamily_book);
-        createLoad.Condition(img3,etPhotos);
+        createLoad.ConditionYear(img3,etPhotos);
         createLoad.ConditionYear(img4,etEmployment_card);
 
         createLoad.ConditionYear(img5,etID_card1);
         createLoad.ConditionYear(img6,etFamily_book1);
-        createLoad.Condition(img7,etPhotos1);
+        createLoad.ConditionYear(img7,etPhotos1);
         createLoad.ConditionYear(img8,etEmployment_card1);
 
         return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
@@ -370,5 +401,34 @@ public class three extends Fragment {
                     }
                 });
         alertDialog.show();
+    }
+    private void GetLoan(){
+        Service api = Client.getClient().create(Service.class);
+        Call<loan_item> call = api.getDeailLoan(itemTwo.getItemOne().getmLoanID(),basicEncode);
+        call.enqueue(new Callback<loan_item>() {
+            @Override
+            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                if (!response.isSuccessful()){
+                    Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
+                }
+               if (response.body().isState_id()){
+                   etID_card.setText("Yes");
+               } else etID_card.setText("No");
+
+                if (response.body().isFamily_book()){
+                    etFamily_book.setText("Yes");
+                } else etFamily_book.setText("No");
+
+                if (response.body().isIs_borrower_photo()){
+                    etPhotos.setText("Yes");
+                } else etPhotos.setText("No");
+
+                if (response.body().isStaff_id()){
+                    etEmployment_card.setText("Yes");
+                } else etEmployment_card.setText("No");
+            }
+            @Override
+            public void onFailure(Call<loan_item> call, Throwable t) { }
+        });
     }
 }

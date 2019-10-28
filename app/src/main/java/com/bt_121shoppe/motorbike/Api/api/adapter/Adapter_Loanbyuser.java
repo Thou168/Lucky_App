@@ -30,6 +30,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -106,9 +107,10 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
 //            }
 //        });
         view.btn_edit.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, LoanCreateActivity.class);
-            intent.putExtra("id",Integer.parseInt(loanid));
-            intent.putExtra("post",Integer.parseInt(postid));
+            Intent intent = new Intent(mContext, Create_Load.class);
+            intent.putExtra("LoanEdit",true);
+            intent.putExtra("LoanID",Integer.parseInt(loanid));
+            intent.putExtra("product_id",Integer.parseInt(postid));
             mContext.startActivity(intent);
         });
 

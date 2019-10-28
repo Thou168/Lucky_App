@@ -6,13 +6,13 @@ import android.preference.DialogPreference;
 
 public class item_one implements Parcelable {
     private String Name,Phone_Number,Job,Relationship,Co_borrower_Job,Net_Income,Province,District,Commune,Village;
-    private int Job_Period,Co_Job_Period,Index,mProductId,mProvinceID;
+    private int Job_Period,Co_Job_Period,Index,mProductId,mProvinceID,mLoanID;
     private float Total_Income,Total_Expense;
     private String Price;
-    private boolean Co_borrower;
+    private boolean Co_borrower,FromLoan;
     public item_one(String name, String phone_Number, String province,String district,String commune,String village, String job, boolean co_borrower,int index, String relationship,
                     String co_borrower_Job, float total_Income, float total_Expense, String net_Income, int job_Period,
-                    int co_Job_Period,int ProductId,int provinceID,String price) {
+                    int co_Job_Period,int ProductId,int provinceID,String price,int mloanID,boolean fromLoan) {
         Name = name;
         Phone_Number = phone_Number;
         Province = province;
@@ -32,6 +32,24 @@ public class item_one implements Parcelable {
         mProductId = ProductId;
         mProvinceID = provinceID;
         Price = price;
+        mLoanID = mloanID;
+        FromLoan = fromLoan;
+    }
+
+    public int getmLoanID() {
+        return mLoanID;
+    }
+
+    public void setmLoanID(int mLoanID) {
+        this.mLoanID = mLoanID;
+    }
+
+    public boolean isFromLoan() {
+        return FromLoan;
+    }
+
+    public void setFromLoan(boolean fromLoan) {
+        FromLoan = fromLoan;
     }
 
     public String getPrice() {

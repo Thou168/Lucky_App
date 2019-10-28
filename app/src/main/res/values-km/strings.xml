@@ -207,7 +207,6 @@
         <item>អ្នកលក់ដូរ</item>
         <item>បុគ្គលិករដ្ឋ</item>
         <item>បុគ្គលិកឯកជន</item>
-        <item>កម្មកររោងចក្រ</item>
         <item>អ្នកផ្តល់សេវាផ្សេងៗ</item>
         <item>ផ្សេងៗ</item>
     </string-array>
@@ -234,7 +233,7 @@
         <item>០</item>
         <item>១</item>
         <item>២</item>
-        <item>ច្រើនជាង២</item>
+        <item>៣</item>
     </string-array>
 
     <!-- button part -->

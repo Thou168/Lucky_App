@@ -113,16 +113,16 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         String fullTitle= CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
         if(model.getPost_sub_title()== null){
 
-            if(lang.equals("View:"))
-                strPostTitle=fullTitle.split(",")[0];
-            else
-                strPostTitle=fullTitle.split(",")[1];
-        }else {
-            if (lang.equals("View:")) {
-                strPostTitle = model.getPost_sub_title().split(",")[0];
-            } else {
-                strPostTitle = model.getPost_sub_title().split(",")[1];
-            }
+//            if(lang.equals("View:"))
+//                strPostTitle=fullTitle.split(",")[0];
+//            else
+//                strPostTitle=fullTitle.split(",")[1];
+//        }else {
+//            if (lang.equals("View:")) {
+//                strPostTitle = model.getPost_sub_title().split(",")[0];
+//            } else {
+//                strPostTitle = model.getPost_sub_title().split(",")[1];
+//            }
         }
         String jok=strPostTitle;
         if (jok.length()>37){

@@ -33,9 +33,9 @@ public class Create_Load extends AppCompatActivity {
     CustomViewPager viewPager;
     int count=0;
     AlertDialog dialog;
-    boolean check = false,mBook_familiy,mPhoto,mCard_work;
+    boolean check=false,mBook_familiy,mPhoto,mCard_work,From_Loan;
     RadioButton radio3;
-    int product_id,mCardID;
+    int product_id,mCardID,mLoandID;
     String price;
     Boolean dialogpress;
     @Override
@@ -44,19 +44,16 @@ public class Create_Load extends AppCompatActivity {
         setContentView(R.layout.activity_create__load);
         Intent intent = getIntent();
         product_id = intent.getIntExtra("product_id",0);
+        mLoandID = intent.getIntExtra("LoanID",0);
+        From_Loan = intent.getBooleanExtra("LoanEdit",false);
         price = intent.getStringExtra("price");
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id,price)).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id,price,mLoandID,From_Loan)).commit();
         }
 
         back = findViewById(R.id.tv_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog_leaveLoan();
-            }
-        });
+        back.setOnClickListener(v -> dialog_leaveLoan());
 
 //        viewPager = findViewById(R.id.viewPager);
 //        setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment

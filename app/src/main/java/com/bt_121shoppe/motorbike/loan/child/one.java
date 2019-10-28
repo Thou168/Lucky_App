@@ -32,6 +32,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.loan.model.province_Item;
@@ -49,6 +50,8 @@ import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 public class one extends Fragment{
     private static final String ARG_NUMBER = "arg_number";
     private static final String PRICE = "price";
+    private static final String LOANID = "loanid";
+    private static final String FROMLOAN = "fromloan";
 
     private Toolbar mToolbar;
     private TextView mTvName;
@@ -66,9 +69,9 @@ public class one extends Fragment{
     String mPrice;
     private Create_Load createLoad;
     private item_one itemOne;
-    int index,indextJom,indexRela,indexCoborow_job,mProvinceID;
+    int index,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
     Button next;
-    boolean radioCheck = false,Co_borrower;
+    boolean radioCheck = false,Co_borrower,mFromLoan;
 
     private SharedPreferences preferences;
     private String username,password,Encode;
@@ -80,12 +83,14 @@ public class one extends Fragment{
     final Handler handler = new Handler();
     AlertDialog dialog;
     String[] values1 = {"seller","state staff","private company staff","service provider","other"};
-    String[] Rela = {"husband", "wife", "father", "mother", "son","daughter","brother","sister","other"};
-    public static one newInstance(int number,String price) {
+    String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other"};
+    public static one newInstance(int number,String price,int loanid,boolean fromLoan) {
         one fragment = new one();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
         args.putString(PRICE,price);
+        args.putInt(LOANID,loanid);
+        args.putBoolean(FROMLOAN,fromLoan);
         fragment.setArguments(args);
         return fragment;
     }
@@ -97,6 +102,8 @@ public class one extends Fragment{
         if (args != null) {
             mProductID = args.getInt(ARG_NUMBER);
             mPrice = args.getString(PRICE);
+            mLoanID = args.getInt(LOANID);
+            mFromLoan = args.getBoolean(FROMLOAN);
         }
     }
 
@@ -198,6 +205,9 @@ public class one extends Fragment{
 ////            putapi();
 //        });
         getDetailUser();
+        if (mFromLoan){
+            GetLoan();
+        }
         return view;
     }
     public String method(String str) {
@@ -351,6 +361,8 @@ public class one extends Fragment{
                     view_3.setVisibility(View.GONE);
 
                     mRelationship.setText(null);
+                    img7.setImageResource(R.drawable.ic_error_black_24dp);
+                    img8.setImageResource(R.drawable.ic_error_black_24dp);
                     mCo_borrower_Job.setText(null);
                     mCo_Job_Period.setText("0");
                     radioCheck = true;
@@ -423,7 +435,9 @@ public class one extends Fragment{
             if (editext()){
                 itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),values1[indextJom],
                         Co_borrower,index,Rela[indexRela],values1[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
-                        mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID,mPrice);
+                        mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),
+                        Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID,mPrice,
+                        mLoanID,mFromLoan);
                 two fragment = two.newInstance(itemOne);
 //            fragment.setArguments(bundle);
                 createLoad.loadFragment(fragment);
@@ -494,5 +508,52 @@ public class one extends Fragment{
             return b > a ? c >= a && c <= b : c >= b && c <= a;
         }
     }
+    private void GetLoan(){
+        Service api = Client.getClient().create(Service.class);
+        Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
+        call.enqueue(new Callback<loan_item>() {
+            @Override
+            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                if (!response.isSuccessful()){
+                    Log.d("5555555555555555",response.code()+"");
+                }
+                mDistrict.setText(response.body().getDistrmict());
+                mCommune.setText(response.body().getCommune());
+                mVillage.setText(response.body().getVillage());
+                mJob.setText(response.body().getJob());
+                mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
+                if (response.body().ismIs_Co_borrower()){
+                    mCo_borrower.check(R.id.radial);
+                    radio1.toggle();
+                    mRelationship.setText(response.body().getmRelationship());
+                    mCo_borrower_Job.setText(response.body().getmCoborrower_job());
+                    mCo_Job_Period.setText(String.valueOf(response.body().getmCoborrower_job_period()));
+                }else {
+                    mCo_borrower.check(R.id.radio2);
+                    radio2.toggle();
+                }
+                mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
+                mTotal_Expense.setText(String.valueOf(response.body().getAverage_expense()));
+                mProvinceID = response.body().getProvince_id();
+                Call<Province> call1 = api.getProvince(response.body().getProvince_id());
+                call1.enqueue(new Callback<Province>() {
+                    @Override
+                    public void onResponse(Call<Province> call, Response<Province> response) {
+                        if (!response.isSuccessful()){
+                            Log.e("ONRESPONSE Province", String.valueOf(response.code()));
+                        }
+                        mAddress.setText(response.body().getProvince());
+                    }
+                    @Override
+                    public void onFailure(Call<Province> call, Throwable t) { }
+                });
 
+            }
+
+            @Override
+            public void onFailure(Call<loan_item> call, Throwable t) {
+
+            }
+        });
+    }
 }
