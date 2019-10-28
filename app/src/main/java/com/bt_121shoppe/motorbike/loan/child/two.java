@@ -238,7 +238,7 @@ public class two extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (mNumber_institution.getText().toString().equals("0")||mNumber_institution.getText().toString().equals("០")){
                     relati_Contributors.setVisibility(View.GONE);
-                    mMonthly_Amount_Paid.setText(null);
+                    mMonthly_Amount_Paid.setText("0");
                     check_return = false;
                 }else {
                     relati_Contributors.setVisibility(View.VISIBLE);

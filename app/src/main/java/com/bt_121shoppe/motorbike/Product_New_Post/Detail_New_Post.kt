@@ -270,8 +270,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             }else{
                 val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
                 intent.putExtra("product_id",postId)
-                Log.e("343434343",postDetail.cost)
-                intent.putExtra("price",postDetail.cost)
+//                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
+                intent.putExtra("price",cuteString(tvPrice.text.toString(),1))
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
                 finish()
@@ -464,6 +464,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        startActivity(sendIntent)
 //    }
 
+    fun cuteString(st: String, indext: Int): String {
+        val separated = st.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        return separated[indext]
+    }
     fun initialProductPostDetail(encode: String){
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
