@@ -208,7 +208,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
 //End
 //Add by Raksmey
 
-        String strPostTitle="";
+        String strPostTitle;
         String lang = view.strView.getText().toString();
         int year =Integer.valueOf(model.getYear());
         String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());

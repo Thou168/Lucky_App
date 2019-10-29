@@ -141,17 +141,17 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
         //getUserPosts()
     }
 
-    override fun onBackPressed() {
-        if (haha){
-            tvBack_post.visibility = View.GONE
-            tvBack.visibility = View.VISIBLE
-            title.setText(R.string.post)
-            recyclrview.visibility = View.VISIBLE
-            linearLayout.visibility = View.GONE
-        }else{
-            finish()
-        }
-    }
+//    override fun onBackPressed() {
+//        if (haha){
+//            tvBack_post.visibility = View.GONE
+//            tvBack.visibility = View.VISIBLE
+//            title.setText(R.string.post)
+//            recyclrview.visibility = View.VISIBLE
+//            linearLayout.visibility = View.GONE
+//        }else{
+//            finish()
+//        }
+//    }
     //    private fun configureTabLayout() {
 //        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.post)))
 //        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.contact)))

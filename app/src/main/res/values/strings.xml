@@ -14,7 +14,7 @@
     <string name="action_settings">Settings</string>
 
     //Detail
-    <string name="deposit_message">should lower than price!</string>
+    <string name="deposit_message">Withdrawal must be less than the value!</string>
     <string name="nav_detail">Detail</string>
     <string name="detail">DETAIL</string>
     <string name="description">DESCRIPTION</string>

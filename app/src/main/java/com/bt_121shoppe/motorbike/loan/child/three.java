@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.bt_121shoppe.motorbike.Activity.Account1;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
@@ -111,7 +112,7 @@ public class three extends Fragment {
                 Log.e("FromeLoan",String.valueOf(itemTwo.getItemOne().isFromLoan()));
                 if (itemTwo.getItemOne().isFromLoan()){
 //                    Editloan();
-                    dialog_leaveLoan();
+                    dialog_Editloan();
 //                    Log.d("909090909090909",loanItem.getLoan_amount()+"");
                 }else {
                     Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
@@ -310,27 +311,31 @@ public class three extends Fragment {
             }
         });
     }
-    private void dialog_leaveLoan() {
+    private void dialog_Editloan() {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
         final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
         clearDialog.setView(clearDialogView);
         TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
-        Mssloan.setText(R.string.back_message);
+        Mssloan.setText(R.string.loan_edit_m);
         Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
         btnYes.setText(R.string.yes_leave);
         Button btnNo = clearDialogView.findViewById(R.id.button_negative);
         btnNo.setText(R.string.no_leave);
         clearDialogView.findViewById(R.id.button_negative).setOnClickListener(v -> {
-
+            clearDialog.dismiss();
         });
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
             Editloan();
-            clearDialog.dismiss();
+//            clearDialog.dismiss();
+            getActivity().finish();
+
         });
 
         clearDialog.show();
     }
+
+
     private void initView(View view) {
         String[] values = getResources().getStringArray(R.array.choose);
         etID_card = view.findViewById(R.id.etID_card);
