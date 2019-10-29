@@ -403,8 +403,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             if (cate == 1) {
                                 icType_elec.setVisibility(View.VISIBLE);
                                 tvType_elec.setVisibility(View.VISIBLE);
-                                relative_used.setVisibility(View.GONE);
                                 Call_Type(Encode);
+                                relative_used.setVisibility(View.GONE);
                             } else {
                                 if (strCondition=="used"){
                                     validationforused();
@@ -1318,6 +1318,19 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("category", cate);
             post.put("status", 3);
             post.put("condition",strCondition);
+            if (strCondition.equals("used")) {
+                if (cate!=1) {
+                    post.put("used_eta1", edwhole_int.getText().toString());
+                    post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
+                    post.put("used_eta3", edThe_whole_screw.getText().toString());
+                    post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
+                    post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
+                    post.put("used_machine2", edEngine_head.getText().toString());
+                    post.put("used_machine3", edMachine_Assembly.getText().toString());
+                    post.put("used_machine4", edConsole.getText().toString());
+                    post.put("used_other1", edAccessories.getText().toString());
+                }
+            }
 
             //post.put("discount", 0);
             post.put("user",pk );
@@ -1452,17 +1465,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             //enhance sep 19 2019
             post.put("post_code", CommonFunction.generateRandomDigits(9));
             post.put("post_sub_title",CommonFunction.generatePostSubTitle(brand,model,year,strColor,strColorKH));
-            if(strCondition.equals("used")) {
-                post.put("used_eta1", edwhole_int.getText().toString());
-                post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
-                post.put("used_eta3", edThe_whole_screw.getText().toString());
-                post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
-                post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
-                post.put("used_machine2", edEngine_head.getText().toString());
-                post.put("used_machine3", edMachine_Assembly.getText().toString());
-                post.put("used_machine4", edConsole.getText().toString());
-                post.put("used_other1", edAccessories.getText().toString());
-            }
             switch (strPostType){
                 case "លក់":
                 case "sell":

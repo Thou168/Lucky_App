@@ -335,7 +335,6 @@ public class three extends Fragment {
         clearDialog.show();
     }
 
-
     private void initView(View view) {
         String[] values = getResources().getStringArray(R.array.choose);
         etID_card = view.findViewById(R.id.etID_card);
