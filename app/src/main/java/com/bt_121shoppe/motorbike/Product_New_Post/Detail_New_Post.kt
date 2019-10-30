@@ -214,7 +214,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener {
             if (postId!= null) {
-                startActivity(Intent(this@Detail_New_Post, Home::class.java))
+//                startActivity(Intent(this@Detail_New_Post, Home::class.java))
+                finish()
             } else finish()
         }
         //Slider
@@ -465,8 +466,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //    }
 
     override fun onBackPressed() {
-        val intent = Intent (this, Home::class.java)
-        startActivity(intent)
+//        val intent = Intent (this, Home::class.java)
+//        startActivity(intent)
         finish()
     }
 
@@ -667,8 +668,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                                 calculateLoanMonthlyPayment()
                                 var jk:String = "$0.0"
-//                                var str:String = "."
-//                                str = String.format("%08d")
                                 st = p0.toString()
                                 if (st.isEmpty()){
                                     st = "0"
