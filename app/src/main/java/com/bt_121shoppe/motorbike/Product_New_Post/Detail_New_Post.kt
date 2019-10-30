@@ -464,6 +464,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        startActivity(sendIntent)
 //    }
 
+    override fun onBackPressed() {
+        val intent = Intent (this, Home::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     fun cuteString(st: String, indext: Int): String {
         val separated = st.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         return separated[indext]
@@ -660,8 +666,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                                 calculateLoanMonthlyPayment()
-                                var ds:Double = discount.toDouble()
                                 var jk:String = "$0.0"
+//                                var str:String = "."
+//                                str = String.format("%08d")
                                 st = p0.toString()
                                 if (st.isEmpty()){
                                     st = "0"

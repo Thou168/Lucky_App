@@ -747,7 +747,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     image_value = 0;
                 }else image_value = 1;
 
-               if (tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||
+               if (tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||tvColor.getText().toString().length()==0
+                   ||
                   tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                    || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                    ||  image_value == 0) {
@@ -784,6 +785,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         tvPostType.requestFocus();
                         icPostType.setImageResource(R.drawable.ic_error_black_24dp);
                     }
+                   if (tvPostType.getText().toString().length()==0){
+                       tvPostType.requestFocus();
+                       icPostType.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
+                   if (tvColor.getText().toString().length()==0){
+                       tvColor.requestFocus();
+                       icColor.setImageResource(R.drawable.ic_error_black_24dp);
+                   }
 //                    if (etTitle.getText().toString().length()<3) {
 //                        etTitle.requestFocus();
 //                        icTitile.setImageResource(R.drawable.ic_error_black_24dp);
@@ -957,8 +966,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 year = object.getInt("year");
 
                                 strCondition = object.getString("condition");
-
                                 strColor = object.getString("color");
+
                                 strDiscountType = object.getString("discount_type");
 
 
@@ -1295,10 +1304,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             strDiscountType="amount";
         if(strCondition==null || strCondition.isEmpty())
             strCondition="new";
-        if(strColor==null || strColor.isEmpty()) {
-            strColor = "black";
-            strColorKH="ខ្មៅ";
-        }
+//        if(strColor==null || strColor.isEmpty()) {
+//            strColor = "black";
+//            strColorKH="ខ្មៅ";
+//        }
         String str_dis=etDiscount_amount.getText().toString();
         if(str_dis==null || str_dis.isEmpty())
             str_dis="0";

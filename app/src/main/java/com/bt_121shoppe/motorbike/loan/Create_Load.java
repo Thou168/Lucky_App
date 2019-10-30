@@ -220,6 +220,7 @@ public class Create_Load extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                clearDialog.dismiss();
             }
         });
         clearDialog.show();
