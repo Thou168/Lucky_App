@@ -1695,15 +1695,17 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("condition",strCondition);
 
             if(strCondition.equals("used")) {
-                post.put("used_eta1", edwhole_int.getText().toString());
-                post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
-                post.put("used_eta3", edThe_whole_screw.getText().toString());
-                post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
-                post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
-                post.put("used_machine2", edEngine_head.getText().toString());
-                post.put("used_machine3", edMachine_Assembly.getText().toString());
-                post.put("used_machine4", edConsole.getText().toString());
-                post.put("used_other1", edAccessories.getText().toString());
+                if (cate!=1) {
+                    post.put("used_eta1", edwhole_int.getText().toString());
+                    post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
+                    post.put("used_eta3", edThe_whole_screw.getText().toString());
+                    post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
+                    post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
+                    post.put("used_machine2", edEngine_head.getText().toString());
+                    post.put("used_machine3", edMachine_Assembly.getText().toString());
+                    post.put("used_machine4", edConsole.getText().toString());
+                    post.put("used_other1", edAccessories.getText().toString());
+                }
             }
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
@@ -1924,9 +1926,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
-                                                        Intent intent = new Intent(Camera.this,Home.class);
-                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        startActivity(intent);
+//                                                        Intent intent = new Intent(Camera.this,Home.class);
+//                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                                        startActivity(intent);
                                                         finish();
                                                         dialog.dismiss();
                                                     }

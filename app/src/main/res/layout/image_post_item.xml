@@ -10,7 +10,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/icons8_add_camera_96" />
     <ImageButton
         android:visibility="gone"
@@ -25,7 +25,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/add_box_black_24dp" />
     <ImageButton
         android:visibility="gone"
@@ -40,7 +40,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/add_box_black_24dp" />
     <ImageButton
         android:visibility="gone"
@@ -55,7 +55,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/add_box_black_24dp" />
     <ImageButton
         android:visibility="gone"
@@ -70,7 +70,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/add_box_black_24dp" />
     <ImageButton
         android:visibility="gone"
@@ -85,7 +85,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/add_box_black_24dp" />
     <ImageButton
         android:visibility="gone"

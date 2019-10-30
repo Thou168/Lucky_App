@@ -106,8 +106,8 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
 //            typeImageView=itemView.findViewById(R.id.thumbnailType);
             postTitle=itemView.findViewById(R.id.title);
             postLocationDT=itemView.findViewById(R.id.location);
-            postPrice=itemView.findViewById(R.id.tv_discount);
-            postOriginalPrice=itemView.findViewById(R.id.tv_price);
+            postPrice=itemView.findViewById(R.id.tv_price);
+            postOriginalPrice=itemView.findViewById(R.id.tv_discount);
             postView=itemView.findViewById(R.id.view);
             postProfile=itemView.findViewById(R.id.img_user);
             postLang=itemView.findViewById(R.id.user_view);

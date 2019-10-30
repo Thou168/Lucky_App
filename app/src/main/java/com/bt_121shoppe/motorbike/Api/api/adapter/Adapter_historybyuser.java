@@ -111,7 +111,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         String lang = view.strView.getText().toString();
         int year =Integer.valueOf(model.getYear());
         String fullTitle= CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
-        if(model.getPost_sub_title()== null){
+        if(model.getPost_sub_title() == null || model.getPost_sub_title().isEmpty()){
             if(lang.equals("View:"))
                 strPostTitle=fullTitle.split(",")[0];
             else
@@ -129,6 +129,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
 //            rs_price = Double.parseDouble(model.getCost());
+            view.txt_discount.setVisibility(View.INVISIBLE);
         }else {
             rs_price = Double.parseDouble(model.getCost());
             if (model.getDiscount_type().equals("amount")){
