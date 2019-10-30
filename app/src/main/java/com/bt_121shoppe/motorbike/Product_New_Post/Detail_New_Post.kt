@@ -667,23 +667,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     st = "0"
                                     Log.d("vetaneateanea","oracle")
                                     st2  = st.toDouble()
-                                    return
                                 }else{
                                     Log.d("hamehameha",st)
                                     st2  = st.toDouble()
-                                    return
                                 }
 
 //                                Log.d("jakata",ds.toString())
                                 Log.d("jakata", "212121$st2")
-                                if(st2 > ds){
+                                if(st2 > discount){
                                     show_deposit.setTextColor(resources.getColor(R.color.red))
                                     show_deposit.setText(R.string.deposit_message)
                                     tvMonthlyPayment.text = "$0.00"
                                     tvMonthlyPayment.setTextColor(resources.getColor(R.color.red))
-
                                 }
-                                else if (st2 <= ds){
+                                else if (st2 <= discount){
                                     show_deposit.setText("")
                                     tvMonthlyPayment.setTextColor(resources.getColor(R.color.colorSubmitButton))
                                     tvMonthlyPayment.visibility = View.VISIBLE
