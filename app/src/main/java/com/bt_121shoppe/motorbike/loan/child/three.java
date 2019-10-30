@@ -299,6 +299,11 @@ public class three extends Fragment {
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
                 if (!response.isSuccessful()){
                     Log.e("EditLoan Error",response.code()+"");
+                    try {
+                        Log.d("121212",response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 //                try {
 //                    Log.e("EditLoan",response.errorBody().string());
@@ -417,15 +422,12 @@ public class three extends Fragment {
         androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
         alertDialog.setTitle(getString(R.string.title_create_loan));
         alertDialog.setMessage(getString(R.string.loan_message));
-        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getContext(), Detail_New_Post.class);
-                        intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
-                        startActivity(intent);
-                        dialog.dismiss();
-                    }
-                });
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
+            Intent intent = new Intent(getContext(), Detail_New_Post.class);
+            intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
+            startActivity(intent);
+            dialog.dismiss();
+        });
         alertDialog.show();
     }
     private void GetLoan(){

@@ -121,48 +121,52 @@ public class one extends Fragment{
         SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         currentLanguage = preferences.getString("My_Lang", "");
 
-        mTotal_Income.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().isEmpty()){
-                    mTotal_Income.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
-                    if (mTotal_Expense.getText().toString().isEmpty()){
-                        mNet_Income.setText(s.toString());
-                    }else {
+        if (mFromLoan){
+            GetLoan();
+            }else {
+            mTotal_Income.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (!s.toString().isEmpty()) {
+                        mTotal_Income.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
+                        if (mTotal_Expense.getText().toString().isEmpty()) {
+                            mNet_Income.setText(s.toString());
+                        } else {
 //                        if (Double.parseDouble(s.toString())<Double.parseDouble(mTotal_Expense.getText().toString())){
 //                            mTotal_Expense.setText(null);
 //                        }else {
-                            mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())-Double.parseDouble(mTotal_Expense.getText().toString())+"");
+                            mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString()) - Double.parseDouble(mTotal_Expense.getText().toString()) + "");
 //                        }
+                        }
+                    } else {
+                        mNet_Income.setText(null);
                     }
-                }else {
-                    mNet_Income.setText(null);
                 }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
 
-            }
-        });
-        mTotal_Expense.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().isEmpty()&&!mTotal_Income.getText().toString().isEmpty()){
+                }
+            });
+            mTotal_Expense.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (!s.toString().isEmpty() && !mTotal_Income.getText().toString().isEmpty()) {
 //                    mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(mTotal_Income.getText().toString()))});
-                    mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())- Double.parseDouble(s.toString())+"");
-                }else {
-                    if (!mTotal_Income.getText().toString().isEmpty())
-                    mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString())+"");
-                    else mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
-                }
+                        mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString()) - Double.parseDouble(s.toString()) + "");
+                    } else {
+                        if (!mTotal_Income.getText().toString().isEmpty())
+                            mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString()) + "");
+                        else
+                            mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
+                    }
 
 //                int incom;
 //                if (s.length() == 0||mTotal_Income.getText().length() == 0){
@@ -173,13 +177,14 @@ public class one extends Fragment{
 //                incom = Integer.parseInt(mTotal_Income.getText().toString());
 //                int borrow = Integer.parseInt(s.toString());
 //                mNet_Income.setText(""+(incom-borrow));
-            }
+                }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-        });
+                }
+            });
+        }
         getprovince();
         view1 = view.findViewById(R.id.view_1);
         view2 = view.findViewById(R.id.view_2);
@@ -206,9 +211,6 @@ public class one extends Fragment{
 ////            putapi();
 //        });
         getDetailUser();
-        if (mFromLoan){
-            GetLoan();
-        }
         return view;
     }
     public String method(String str) {
@@ -269,30 +271,6 @@ public class one extends Fragment{
             }
         });
     }
-//    private void putapi(){
-//        Service api1 = Client.getClient().create(Service.class);
-//        loanItem = new loan_item(6000,0,2,400,300,1,1,pk,mProductID,pk,pk,null,mName.getText().toString(),null,0,"student","0123456789","#Strees 273",true,false,true,false,7,"seller",3,"Eykor ban",0,true,true,0,false,true,true,false,true);
-////        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
-//        Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
-//        call.enqueue(new Callback<loan_item>() {
-//            @Override
-//            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-//                try {
-//                    Log.d("Bodybody", response.errorBody().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                if (!response.isSuccessful()){
-//                    Log.d("Error121212", response.code() +"  "+ response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<loan_item> call, Throwable t) {
-//                Log.d("ErroronFailure121212", t.getMessage());
-//            }
-//        });
-//    }
 
     private void initView(View view) {
 
@@ -479,7 +457,7 @@ public class one extends Fragment{
         builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            mProvinceID = which;
+            mProvinceID = which+1;
 //            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
@@ -537,8 +515,10 @@ public class one extends Fragment{
                     mCo_borrower.check(R.id.radio2);
                     radio2.toggle();
                 }
+
                 mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
                 mTotal_Expense.setText(String.valueOf(response.body().getAverage_expense()));
+                mNet_Income.setText(response.body().getAverage_income()- response.body().getAverage_expense()+"");
                 mProvinceID = response.body().getProvince_id();
                 Call<Province> call1 = api.getProvince(response.body().getProvince_id());
                 call1.enqueue(new Callback<Province>() {

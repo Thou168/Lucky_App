@@ -489,7 +489,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@null"
-                                android:focusable="false"
                                 android:hint="@string/net_income"
                                 android:inputType="number"
                                 android:paddingLeft="5dp"
