@@ -214,7 +214,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener {
             if (postId!= null) {
-//                startActivity(Intent(this@Detail_New_Post, Home::class.java))
+                startActivity(Intent(this@Detail_New_Post, Home::class.java))
                 finish()
             } else finish()
         }
