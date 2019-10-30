@@ -4,7 +4,7 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_margin="2dp"
     card_view:cardCornerRadius="4dp">
     <LinearLayout
         android:orientation="vertical"
@@ -14,7 +14,7 @@
             android:orientation="horizontal"
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="120dp">
+            android:layout_height="85dp">
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="160dp"
@@ -85,7 +85,7 @@
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="30dp">
             <View
                 android:layout_alignParentTop="true"
                 style="@style/line"/>

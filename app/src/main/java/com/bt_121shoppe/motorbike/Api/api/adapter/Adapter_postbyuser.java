@@ -223,7 +223,14 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
                 strPostTitle = model.getPost_sub_title().split(",")[1];
             }
         }
-        view.title.setText(strPostTitle);
+        String jok=strPostTitle;
+        if (jok.length()>37){
+            jok=jok.substring(0,37)+"...";
+            view.title.setText(jok);
+        }else {
+            view.title.setText(jok);
+        }
+//        view.title.setText(strPostTitle);
 
 //Endd
         if (model.getDiscount().equals("0.00")){

@@ -158,6 +158,9 @@ public class Search1 extends AppCompatActivity {
                         String post_type = object.getString("post_type");
                         String discount_type = object.getString("discount_type");
                         Double discount = object.getDouble("discount");
+                        String color = object.getString("color");
+                        int model = object.getInt("modeling");
+                        int year = object.getInt("year");
 
                         //
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -189,7 +192,7 @@ public class Search1 extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,discount_type,discount,postsubtitle));
+                                            item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color,model,year,discount_type,discount,postsubtitle));
                                             MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                             rv.setAdapter(adapterUserPost);
                                             rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));

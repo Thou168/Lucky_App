@@ -70,9 +70,9 @@ class fragment_buy_vehicle : Fragment() {
     private fun Listmoto_buy (context1: Context) {
 
         var item=ArrayList<Item_API>()
-        var posts= PostViewModel()
+//        var posts= PostViewModel()
         val url = ConsumeAPI.BASE_URL+"relatedpost/?post_type=buy&category=2&modeling=&min_price=&max_price="
-        var MEDIA_TYPE=MediaType.parse("application/json")
+//        var MEDIA_TYPE=MediaType.parse("application/json")
         val client = OkHttpClient()
         val request = Request.Builder()
                 .url(url)
@@ -94,7 +94,7 @@ class fragment_buy_vehicle : Fragment() {
                         val jsonArray = jsonObject.getJSONArray("results")
                         for (i in 0 until jsonArray.length()) {
                             val `object` = jsonArray.getJSONObject(i)
-                            val title = `object`.getString("title")
+//                            val title = `object`.getString("title")
                             val id = `object`.getInt("id")
                             val user_id = `object`.getInt("user")
                             val condition = `object`.getString("condition")
@@ -110,8 +110,11 @@ class fragment_buy_vehicle : Fragment() {
                             val discount_type = `object`.getString("discount_type")
                             val discount = `object`.getDouble("discount")
                             val postsubtitle = `object`.getString("post_sub_title")
+                            val color = `object`.getString("color")
+                            val model = `object`.getInt("modeling")
+                            val year = `object`.getInt("year")
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
-                            var MEDIA_TYPE=MediaType.parse("application/json")
+//                            var MEDIA_TYPE=MediaType.parse("application/json")
                             val client1= OkHttpClient()
                             //val auth = "Basic $encode"
                             val request1=Request.Builder()
@@ -129,13 +132,13 @@ class fragment_buy_vehicle : Fragment() {
                                 @Throws(IOException::class)
                                 override fun onResponse(call: Call, response: Response) {
                                     val mMessage = response.body()!!.string()
-                                    val gson = Gson()
+//                                    val gson = Gson()
                                     try {
                                         Log.d("FRAGMENT 1",mMessage)
-                                        val jsonObject= JSONObject(mMessage)
+//                                        val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                             item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
+                                             item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
                                             Log.d("Item: ", item.size.toString())
                                             reecycleview!!.layoutManager = GridLayoutManager(context, 1)
                                             reecycleview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)

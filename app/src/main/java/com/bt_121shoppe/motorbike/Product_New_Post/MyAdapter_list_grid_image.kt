@@ -111,22 +111,18 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             }
             language=lang.text.toString()
             var strPostTitle:String = ""
-//            if (item.postsubtitle.isEmpty()){
-//                if (language.equals("View:")){
-//                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-//                }else{
-//                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
-//                }
-//            }
             if (item.postsubtitle.isNotEmpty()){
                 if (language.equals("View:")){
                     strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                 }else{
                     strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                 }
-            }
-            else{
-
+            } else{
+                val postTitle=CommonFunction.generatePostSubTitle(item.modeling,item.year,item.color)
+                if (language.equals("en"))
+                    strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                else
+                    strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
             }
             title.text = strPostTitle
 //            if (strPostTitle.length > 36) {

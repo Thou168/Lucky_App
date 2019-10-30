@@ -96,7 +96,7 @@
     <string name="next">បន្ទាប់</string>
     <string name="user_message">លេខសម្ងាត់ត្រូវតែមាន ៤ ខ្ទង់ និង​លេខតែប៉ុណ្ណោះ</string>
     <string name="dealer_message">លេខសម្ងាត់អាចជា លេខ​​ អក្សរ និង តួអក្សរពិសេស</string>
-    <string name="valid_dealer_pass">លេខសម្ងាត់គួរតែមានយ៉ាងហោចណាស់ ៦ តួអក្សរ</string>
+    <string name="valid_dealer_pass">លេខសម្ងាត់គួរតែមានយ៉ាងហោចណាស់ ១ តួអក្សរ</string>
 
     //Setting
     <string name="change_password">ប្តូរលេខសម្ងាត់</string>
@@ -530,7 +530,7 @@
     <string name="title_unlike">លុបផលិតផលរក្សាទុក</string>
     <string name="unlike_message">តើអ្នកប្រាកដជាលុបចេញនូវផលិតផលរក្សាទុកនេះ?</string>
     <string name="like_post">អ្នកចូលចិត្តផលិតផលនេះ។</string>
-    <string name="post_message">ការប្រកាសរបស់លោក-អ្នកកំពុងរងចាំការអនុម័ត</string>
+    <string name="post_message">ការប្រកាសរបស់លោក-អ្នកកំពុងរង់ចាំការអនុម័ត</string>
     <string name="title_edit_loan">កែសម្រួលឥណទានរបស់អ្នក</string>
     <string name="loan_edit_m">តើអ្នកប្រាកដជាមួយការកែរបស់អ្នកទេ?</string>
 

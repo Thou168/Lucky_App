@@ -135,6 +135,9 @@ class fragment_rent_vehicle : Fragment() {
                             val discount_type = `object`.getString("discount_type")
                             val discount = `object`.getDouble("discount")
                             val postsubtitle = `object`.getString("post_sub_title")
+                            val color = `object`.getString("color")
+                            val model = `object`.getInt("modeling")
+                            val year = `object`.getInt("year")
 
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                             var MEDIA_TYPE=MediaType.parse("application/json")
@@ -160,7 +163,7 @@ class fragment_rent_vehicle : Fragment() {
                                         val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                            item.add(Item_API(id,user_id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
+                                            item.add(Item_API(id,user_id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
                                             Log.d("Item: ", item.size.toString())
                                             recyclerView!!.layoutManager = GridLayoutManager(context, 1)
                                             recyclerView!!.adapter = MyAdapter_list_grid_image(item, "List",context1)

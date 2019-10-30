@@ -1231,6 +1231,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val discount_type = obj.getString("discount_type")
                             val discount = obj.getDouble("discount")
                             val postsubtitle = obj.getString("post_sub_title")
+                            val color = obj.getString("color")
+                            val model = obj.getInt("modeling")
+                            val year = obj.getInt("year")
                             var location_duration = ""
                             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -1240,7 +1243,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             Log.d("1212121UserId ",user_id.toString())
                             if(postId != id) {
 
-                                itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),discount_type,discount,postsubtitle))
+                                itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)

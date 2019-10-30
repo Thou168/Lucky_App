@@ -22,8 +22,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
@@ -281,6 +283,9 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                 val discount_type = obj.getString("discount_type")
                                 val discount = obj.getDouble("discount")
                                 val postsubtitle = obj.getString("post_sub_title")
+                                val color = obj.getString("color")
+                                val model = obj.getInt("modeling")
+                                val year = obj.getInt("year")
 
                                 val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                                 var MEDIA_TYPE=MediaType.parse("application/json")
@@ -305,12 +310,12 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),discount_type,discount,postsubtitle))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
                                                 recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "image",context1)
-                                                val dividerItemDecoration = DividerItemDecoration(recyclrview.getContext(), DividerItemDecoration.VERTICAL)
+                                                recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
+                                                val dividerItemDecoration = DividerItemDecoration(this@User_post,DividerItemDecoration.VERTICAL)
                                                 dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this@User_post, R.drawable.divider_drawable)!!)
                                                 recyclrview.addItemDecoration(dividerItemDecoration)
-                                                recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                             }
 
                                         } catch (e: JsonParseException) {
