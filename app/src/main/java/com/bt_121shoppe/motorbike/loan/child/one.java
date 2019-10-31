@@ -490,8 +490,6 @@ public class one extends Fragment{
         }
     }
     private void GetLoan(){
-        String[] values = getResources().getStringArray(R.array.job);
-        String[] listItems = getResources().getStringArray(R.array.relationship);
         Service api = Client.getClient().create(Service.class);
         Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
         call.enqueue(new Callback<loan_item>() {

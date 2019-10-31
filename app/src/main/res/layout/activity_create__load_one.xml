@@ -42,7 +42,6 @@
                             android:layout_toEndOf="@+id/img_1">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/etName"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -76,7 +75,6 @@
                             android:layout_toEndOf="@+id/img_2">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/etPhone"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -116,7 +114,6 @@
                             android:layout_marginBottom="5dp"
                             android:orientation="vertical">
                             <EditText
-                                android:focusable="false"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:inputType="numberDecimal"
@@ -127,7 +124,6 @@
                                 android:drawableEnd="@drawable/arrow_down_black_24dp"
                                 android:textSize="14dp"/>
                             <EditText
-                                android:focusable="false"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:inputType="text"
@@ -137,7 +133,6 @@
                                 android:id="@+id/edDistrict"
                                 android:textSize="14dp"/>
                             <EditText
-                                android:focusable="false"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:inputType="text"
@@ -147,7 +142,6 @@
                                 android:background="@null"
                                 android:textSize="14dp"/>
                             <EditText
-                                android:focusable="false"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:inputType="text"
@@ -217,7 +211,6 @@
                             android:layout_toEndOf="@+id/img_5">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/etTime_Practicing"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -389,7 +382,6 @@
                             android:layout_toEndOf="@+id/img_9">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/etTime_Practicing1"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -426,7 +418,6 @@
                             android:layout_toEndOf="@+id/img_10">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/etTotal_income_borrowers"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -460,7 +451,6 @@
                             android:layout_toEndOf="@+id/img_11">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/etTotal_cost_borrowers"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -494,7 +484,6 @@
                             android:layout_toEndOf="@+id/img_12">
 
                             <EditText
-                                android:focusable="false"
                                 android:id="@+id/et_total"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
