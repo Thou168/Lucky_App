@@ -402,7 +402,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             cate = categoryIdListItems[i];
                             if (cate == 1) {
                                 icType_elec.setVisibility(View.VISIBLE);
+                                icType_elec.setImageResource(R.drawable.icon_null);
                                 tvType_elec.setVisibility(View.VISIBLE);
+                                tvType_elec.setText("");
                                 Call_Type(Encode);
                                 relative_used.setVisibility(View.GONE);
                             } else {
@@ -416,6 +418,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             }
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             icBrand.setImageResource(R.drawable.icon_null);
+                            icModel.setImageResource(R.drawable.icon_null);
+                            tvBrand.setText("");
+                            tvModel.setText("");
                             Call_Brand(Encode, cate);
                             dialogInterface.dismiss();
                         }
@@ -429,7 +434,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             cate = categoryIdListItems[i];
                             if (cate == 1) {
                                 icType_elec.setVisibility(View.VISIBLE);
+                                icType_elec.setImageResource(R.drawable.icon_null);
                                 tvType_elec.setVisibility(View.VISIBLE);
+                                tvType_elec.setText("");
                                 relative_used.setVisibility(View.GONE);
                                 Call_Type(Encode);
                             } else {
@@ -443,6 +450,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             }
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             icBrand.setImageResource(R.drawable.icon_null);
+                            icModel.setImageResource(R.drawable.icon_null);
+                            tvBrand.setText("");
+                            tvModel.setText("");
                             Call_Brand(Encode, cate);
                             dialogInterface.dismiss();
                         }

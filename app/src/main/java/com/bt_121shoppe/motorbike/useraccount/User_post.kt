@@ -207,7 +207,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                     user1= gson.fromJson(mMessage, User::class.java)
                     runOnUiThread {
 
-                            val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
+//                            val profilepicture: String=if(user1.profile.profile_photo==null) "" else user1.profile.base64_profile_image
 //                            val coverpicture: String= if(user1.profile.cover_photo==null) "" else user1.profile.base64_cover_photo_image
                             if(user1.getFirst_name().isEmpty())
                             {
@@ -223,7 +223,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
 //                            }else {
 //                                val decodedString = Base64.decode(coverpicture, Base64.DEFAULT)
 //                                var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-////                                imgCover!!.setImageBitmap(decodedByte)
+//                                imgCover!!.setImageBitmap(decodedByte)
 //                            }
 
                     }
