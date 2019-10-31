@@ -203,6 +203,23 @@
     <string name="district">ស្រុក/ខណ្ឌ</string>
     <string name="commune">ឃុំ/សង្កាត់</string>
     <string name="village">ភូមិ</string>
+    <string name="seller">អ្នកលក់ដូរ</string>
+    <string name="state_staff">បុគ្គលិករដ្ឋ</string>
+    <string name="private_company_staff">បុគ្គលិកឯកជន</string>
+    <string name="service_provider">អ្នកផ្តល់សេវាផ្សេងៗ</string>
+    <string name="other1">ផ្សេងៗ</string>
+    <string name="husband">ប្តី</string>
+    <string name="wife">ប្រពន្ធ</string>
+    <string name="father">ឪពុក</string>
+    <string name="mather">ម្តាយ</string>
+    <string name="son">កូនប្រុស</string>
+    <string name="daughter">កូនស្រី</string>
+    <string name="brother">បងប្អូនប្រុស</string>
+    <string name="sister">បងប្អូនស្រី</string>
+    <string name="monthly_annuity_repay">បង់រំលោះប្រចាំខែថេរ</string>
+    <string name="monlthly_declining_repay">បង់រំលោះប្រចាំខែថយចុះជាលំដាប់</string>
+    <string name="yes">មាន</string>
+    <string name="no">មិនមាន</string>
     <string-array name="job">
         <item>អ្នកលក់ដូរ</item>
         <item>បុគ្គលិករដ្ឋ</item>

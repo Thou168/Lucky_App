@@ -490,6 +490,8 @@ public class one extends Fragment{
         }
     }
     private void GetLoan(){
+        String[] values = getResources().getStringArray(R.array.job);
+        String[] listItems = getResources().getStringArray(R.array.relationship);
         Service api = Client.getClient().create(Service.class);
         Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
         call.enqueue(new Callback<loan_item>() {
@@ -503,13 +505,57 @@ public class one extends Fragment{
                 mDistrict.setText(response.body().getDistrmict());
                 mCommune.setText(response.body().getCommune());
                 mVillage.setText(response.body().getVillage());
-                mJob.setText(response.body().getJob());
+//                mJob.setText(response.body().getJob());
+                String job = response.body().getJob();
+                if (job.equals("seller")){
+                    mJob.setText(getString(R.string.seller));
+                }else if (job.equals("state staff")) {
+                    mJob.setText(getString(R.string.state_staff));
+                }if (job.equals("private company staff")){
+                    mJob.setText(getString(R.string.private_company_staff));
+                }else if (job.equals("service provider")) {
+                    mJob.setText(getString(R.string.service_provider));
+                }else if (job.equals("other")){
+                    mJob.setText(getString(R.string.other1));
+                }
                 mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
                 if (response.body().ismIs_Co_borrower()){
                     mCo_borrower.check(R.id.radial);
                     radio1.toggle();
-                    mRelationship.setText(response.body().getmRelationship());
-                    mCo_borrower_Job.setText(response.body().getmCoborrower_job());
+//                    mRelationship.setText(response.body().getmRelationship());
+                    String relation = response.body().getmRelationship();
+                    if (relation.equals("husband")){
+                        mRelationship.setText(getString(R.string.husband));
+                    }else if (relation.equals("wife")) {
+                        mRelationship.setText(getString(R.string.wife));
+                    }if (relation.equals("father")){
+                        mRelationship.setText(getString(R.string.father));
+                    }else if (relation.equals("mather")) {
+                        mRelationship.setText(getString(R.string.mather));
+                    }else if (relation.equals("other")){
+                        mRelationship.setText(getString(R.string.other1));
+                    }else if (relation.equals("son")){
+                        mRelationship.setText(getString(R.string.son));
+                    }else if (relation.equals("daugther")){
+                        mRelationship.setText(getString(R.string.daughter));
+                    }else if (relation.equals("brother")){
+                        mRelationship.setText(getString(R.string.brother));
+                    }else if (relation.equals("sister")){
+                        mRelationship.setText(getString(R.string.sister));
+                    }
+//                    mCo_borrower_Job.setText(response.body().getmCoborrower_job());
+                    String co_job = response.body().getmCoborrower_job();
+                    if (co_job.equals("seller")){
+                        mCo_borrower_Job.setText(getString(R.string.seller));
+                    }else if (co_job.equals("state staff")) {
+                        mCo_borrower_Job.setText(getString(R.string.state_staff));
+                    }if (co_job.equals("private company staff")){
+                        mCo_borrower_Job.setText(getString(R.string.private_company_staff));
+                    }else if (co_job.equals("service provider")) {
+                        mCo_borrower_Job.setText(getString(R.string.service_provider));
+                    }else if (co_job.equals("other")){
+                        mCo_borrower_Job.setText(getString(R.string.other1));
+                    }
                     mCo_Job_Period.setText(String.valueOf(response.body().getmCoborrower_job_period()));
                 }else {
                     mCo_borrower.check(R.id.radio2);
@@ -527,7 +573,10 @@ public class one extends Fragment{
                         if (!response.isSuccessful()){
                             Log.e("ONRESPONSE Province", String.valueOf(response.code()));
                         }
-                        mAddress.setText(response.body().getProvince());
+                        if (currentLanguage.equals("en")){
+                            mAddress.setText(response.body().getProvince());
+                        }else mAddress.setText(response.body().getProvince_kh());
+
                     }
                     @Override
                     public void onFailure(Call<Province> call, Throwable t) { }

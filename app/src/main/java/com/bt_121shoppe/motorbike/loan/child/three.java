@@ -440,35 +440,35 @@ public class three extends Fragment {
                     Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
                 }
                if (response.body().isState_id()){
-                   etID_card.setText("Yes");
+                   etID_card.setText(getString(R.string.yes));
                    mCard_ID = true;
-               } else {etID_card.setText("No"); mCard_ID = false;}
+               } else {etID_card.setText(getString(R.string.no)); mCard_ID = false;}
 
                 if (response.body().isFamily_book()){
-                    etFamily_book.setText("Yes"); mFamily_Book = true;
-                } else{ etFamily_book.setText("No");mFamily_Book =false;}
+                    etFamily_book.setText(getString(R.string.yes)); mFamily_Book = true;
+                } else{ etFamily_book.setText(getString(R.string.no));mFamily_Book =false;}
 
                 if (response.body().isIs_borrower_photo()){
-                    etPhotos.setText("Yes"); mPhoto = true;
-                } else {etPhotos.setText("No");mPhoto = false;}
+                    etPhotos.setText(getString(R.string.yes)); mPhoto = true;
+                } else {etPhotos.setText(getString(R.string.no));mPhoto = false;}
 
                 if (response.body().isStaff_id()){
-                    etEmployment_card.setText("Yes"); mCard_Work = true;
-                } else{ etEmployment_card.setText("No"); mCard_Work = false;}
+                    etEmployment_card.setText(getString(R.string.yes)); mCard_Work = true;
+                } else{ etEmployment_card.setText(getString(R.string.no)); mCard_Work = false;}
 
                 //co-borrow
                 if (response.body().isIs_coborrower_idcard()){
-                    etID_card1.setText("Yes"); mCard_ID1 = true;
-                }else {  etID_card1.setText("No"); mCard_ID1 = false;}
+                    etID_card1.setText(getString(R.string.yes)); mCard_ID1 = true;
+                }else {  etID_card1.setText(getString(R.string.no)); mCard_ID1 = false;}
                 if (response.body().isIs_coborrower_familybook()){
-                    etFamily_book1.setText("Yes"); mFamily_Book1 = true;
-                }else {etFamily_book1.setText("No"); mFamily_Book1 = false;}
+                    etFamily_book1.setText(getString(R.string.yes)); mFamily_Book1 = true;
+                }else {etFamily_book1.setText(getString(R.string.no)); mFamily_Book1 = false;}
                 if (response.body().isIs_coborrower_photo()){
-                    etPhotos1.setText("Yes"); mPhoto1= true;
-                }else {etPhotos1.setText("No"); mPhoto1 = false;}
+                    etPhotos1.setText(getString(R.string.yes)); mPhoto1= true;
+                }else {etPhotos1.setText(getString(R.string.no)); mPhoto1 = false;}
                 if (response.body().isIs_coborrower_payslip()){
-                    etEmployment_card1.setText("Yes"); mCard_Work1= true;
-                }else {etEmployment_card1.setText("No"); mCard_Work1= false;}
+                    etEmployment_card1.setText(getString(R.string.yes)); mCard_Work1= true;
+                }else {etEmployment_card1.setText(getString(R.string.no)); mCard_Work1= false;}
             }
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) { }

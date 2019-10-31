@@ -330,7 +330,11 @@ public class two extends Fragment {
                 }
                 mLoan_amount.setText(String.valueOf(response.body().getLoan_amount()));
                 mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
-                mloan_RepaymentType.setText(response.body().getLoan_repayment_type());
+//                mloan_RepaymentType.setText(response.body().getLoan_repayment_type());
+                String repay = response.body().getLoan_repayment_type();
+                if (repay.equals("monthly annuity repayment")){
+                    mloan_RepaymentType.setText(getString(R.string.monthly_annuity_repay));
+                }else mloan_RepaymentType.setText(getString(R.string.monlthly_declining_repay));
                 mLoan_Contributions.setText(String.valueOf(response.body().getLoan_deposit_amount()));
                 if (response.body().isIs_product_insurance()){
                     rgBuying_product_insurance.check(R.id.radial);

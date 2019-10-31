@@ -119,7 +119,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 }
             } else{
                 val postTitle=CommonFunction.generatePostSubTitle(item.modeling,item.year,item.color)
-                if (language.equals("en"))
+                if (language.equals("View:"))
                     strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 else
                     strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]

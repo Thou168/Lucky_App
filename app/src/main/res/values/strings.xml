@@ -340,6 +340,23 @@
     <string name="district">District/Khan</string>
     <string name="commune">Commune/Sangkat</string>
     <string name="village">Village</string>
+    <string name="seller">Seller</string>
+    <string name="state_staff">State Staff</string>
+    <string name="private_company_staff">Private Company Staff</string>
+    <string name="service_provider">Service Provider</string>
+    <string name="other1">Other</string>
+    <string name="husband">Husband</string>
+    <string name="wife">Wife</string>
+    <string name="father">Father</string>
+    <string name="mather">Mather</string>
+    <string name="son">Son</string>
+    <string name="daughter">Daughter</string>
+    <string name="brother">Brother</string>
+    <string name="sister">Sister</string>
+    <string name="monthly_annuity_repay">Monthly Annuity Repayment</string>
+    <string name="monlthly_declining_repay">Monthly Declining Repayment</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string-array name="job">
         <item>Seller</item>
         <item>State staff</item>
