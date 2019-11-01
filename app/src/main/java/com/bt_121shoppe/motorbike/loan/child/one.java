@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -83,8 +84,10 @@ public class one extends Fragment{
     private String[] provine = new String[28];
     final Handler handler = new Handler();
     AlertDialog dialog;
-    String[] values1 = {"seller","state staff","private company staff","service provider","other"};
-    String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other"};
+    String[] Job = {"seller","state staff","private company staff","service provider","other",""};
+    String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
+    String[] rJob ;
+    String[] rRela;
     public static one newInstance(int number,String price,int loanid,boolean fromLoan) {
         one fragment = new one();
         Bundle args = new Bundle();
@@ -113,6 +116,9 @@ public class one extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_create__load_one, container, false);
         createLoad = (Create_Load)getActivity();
+        rJob = getResources().getStringArray(R.array.job);
+        rRela = getResources().getStringArray(R.array.relationship);
+
         initView(view);
 //        next = view.findViewById(R.id.next);
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
@@ -278,9 +284,6 @@ public class one extends Fragment{
         String language = Paper.book().read("language");
         Log.e("90909090909","Current language is "+language);
 
-        String[] values = getResources().getStringArray(R.array.job);
-        String[] listItems = getResources().getStringArray(R.array.relationship);
-
         mName = view.findViewById(R.id.etName);
         mPhone_Number = view.findViewById(R.id.etPhone);
         mAddress = view.findViewById(R.id.etcity);
@@ -346,19 +349,21 @@ public class one extends Fragment{
                     img8.setImageResource(R.drawable.ic_error_black_24dp);
                     mCo_borrower_Job.setText(null);
                     mCo_Job_Period.setText("0");
+                    indexRela = 9;
+                    indexCoborow_job = 5;
                     radioCheck = true;
                     Co_borrower = false;
                     break;
             }
         });
         mJob.setOnClickListener(v -> {
-            createLoad.AlertDialog(values,mJob);
+            createLoad.AlertDialog(rJob,mJob);
         });
         mRelationship.setOnClickListener(v -> {
-           AlertDialog(listItems,mRelationship);
+            createLoad.AlertDialog(rRela,mRelationship);
         });
         mCo_borrower_Job.setOnClickListener(v -> {
-            createLoad.AlertDialog(values,mCo_borrower_Job);
+            createLoad.AlertDialog(rJob,mCo_borrower_Job);
         });
         mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
         mJob.addTextChangedListener(new TextWatcher() {
@@ -366,11 +371,9 @@ public class one extends Fragment{
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (language.equals("km")||language.equals("en")){
-                    for (int i=0;i<values.length;i++){
-                        if (mJob.getText().toString().equals(values[i])){
-                            indextJom = i;
-                        }
+                for (int i=0;i<rJob.length;i++){
+                    if (mJob.getText().toString().equals(rJob[i])){
+                        indextJom = i;
                     }
                 }
             }
@@ -382,27 +385,25 @@ public class one extends Fragment{
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (language.equals("km")||language.equals("en")){
-                    for (int i=0;i<listItems.length;i++){
-                        if (mJob.getText().toString().equals(Rela[i])){
-                            indexRela = i;
-                        }
+                for (int i=0;i<rRela.length;i++){
+                    if (s.toString().toLowerCase().equals(rRela[i].toLowerCase())){
+                        indexRela = i;
+                        Log.d("1212121255555",Rela[indexRela]+"indext"+indexRela);
                     }
                 }
             }
             @Override
             public void afterTextChanged(Editable s) { }
         });
+
         mCo_borrower_Job.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (language.equals("km")||language.equals("en")){
-                    for (int i=0;i<values.length;i++){
-                        if (mJob.getText().toString().equals(Rela[i])){
-                            indexCoborow_job = i;
-                        }
+                for (int i=0;i<rJob.length;i++){
+                    if (s.toString().toLowerCase().equals(rJob[i].toLowerCase())){
+                        indexCoborow_job = i;
                     }
                 }
             }
@@ -412,10 +413,10 @@ public class one extends Fragment{
         mBtnNext.setOnClickListener(view3 -> {
 //            Bundle bundle=new Bundle();
 //            boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
-//            Log.d("111111111111111","1111"+radio3.getText().toString());
+            Log.d("111111111111111","1111"+radio3.getText().toString()+"  "+mProvinceID);
             if (editext()){
-                itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),values1[indextJom],
-                        Co_borrower,index,Rela[indexRela],values1[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
+                itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),Job[indextJom],
+                        Co_borrower,index,Rela[indexRela],Job[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
                         mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),
                         Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID,mPrice,
                         mLoanID,mFromLoan);
@@ -458,7 +459,7 @@ public class one extends Fragment{
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which+1;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Position: " + mProvinceID + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
         });
@@ -503,61 +504,34 @@ public class one extends Fragment{
                 mDistrict.setText(response.body().getDistrmict());
                 mCommune.setText(response.body().getCommune());
                 mVillage.setText(response.body().getVillage());
-//                mJob.setText(response.body().getJob());
-                String job = response.body().getJob();
-                if (job.equals("seller")){
-                    mJob.setText(getString(R.string.seller));
-                }else if (job.equals("state staff")) {
-                    mJob.setText(getString(R.string.state_staff));
-                }if (job.equals("private company staff")){
-                    mJob.setText(getString(R.string.private_company_staff));
-                }else if (job.equals("service provider")) {
-                    mJob.setText(getString(R.string.service_provider));
-                }else if (job.equals("other")){
-                    mJob.setText(getString(R.string.other1));
+                for (int i=0;i<Job.length;i++){
+                    if (response.body().getJob().equals(Job[i])){
+                        mJob.setText(rJob[i]);
+                        indextJom = i;
+                    }
                 }
                 mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
                 if (response.body().ismIs_Co_borrower()){
                     mCo_borrower.check(R.id.radial);
                     radio1.toggle();
-//                    mRelationship.setText(response.body().getmRelationship());
-                    String relation = response.body().getmRelationship();
-                    if (relation.equals("husband")){
-                        mRelationship.setText(getString(R.string.husband));
-                    }else if (relation.equals("wife")) {
-                        mRelationship.setText(getString(R.string.wife));
-                    }if (relation.equals("father")){
-                        mRelationship.setText(getString(R.string.father));
-                    }else if (relation.equals("mather")) {
-                        mRelationship.setText(getString(R.string.mather));
-                    }else if (relation.equals("other")){
-                        mRelationship.setText(getString(R.string.other1));
-                    }else if (relation.equals("son")){
-                        mRelationship.setText(getString(R.string.son));
-                    }else if (relation.equals("daugther")){
-                        mRelationship.setText(getString(R.string.daughter));
-                    }else if (relation.equals("brother")){
-                        mRelationship.setText(getString(R.string.brother));
-                    }else if (relation.equals("sister")){
-                        mRelationship.setText(getString(R.string.sister));
+                    for (int i=0;i<rRela.length;i++){
+                        if (response.body().getmRelationship().equals(Rela[i].toLowerCase())) {
+                            mRelationship.setText(rRela[i]);
+                            indexRela = i;
+                        }
                     }
-//                    mCo_borrower_Job.setText(response.body().getmCoborrower_job());
-                    String co_job = response.body().getmCoborrower_job();
-                    if (co_job.equals("seller")){
-                        mCo_borrower_Job.setText(getString(R.string.seller));
-                    }else if (co_job.equals("state staff")) {
-                        mCo_borrower_Job.setText(getString(R.string.state_staff));
-                    }if (co_job.equals("private company staff")){
-                        mCo_borrower_Job.setText(getString(R.string.private_company_staff));
-                    }else if (co_job.equals("service provider")) {
-                        mCo_borrower_Job.setText(getString(R.string.service_provider));
-                    }else if (co_job.equals("other")){
-                        mCo_borrower_Job.setText(getString(R.string.other1));
+                    for (int i=0;i<rJob.length;i++){
+                        if (response.body().getmCoborrower_job().equals(Job[i].toLowerCase())){
+                            mCo_borrower_Job.setText(rJob[i]);
+                            indexCoborow_job = i;
+                        }
                     }
                     mCo_Job_Period.setText(String.valueOf(response.body().getmCoborrower_job_period()));
                 }else {
                     mCo_borrower.check(R.id.radio2);
                     radio2.toggle();
+//                    mRelationship.setText(null);
+//                    mCo_Job_Period.setText("0");
                 }
 
                 mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
@@ -571,10 +545,9 @@ public class one extends Fragment{
                         if (!response.isSuccessful()){
                             Log.e("ONRESPONSE Province", String.valueOf(response.code()));
                         }
-                        if (currentLanguage.equals("en")){
-                            mAddress.setText(response.body().getProvince());
-                        }else mAddress.setText(response.body().getProvince_kh());
-
+                        if (currentLanguage.equals("en"))
+                        mAddress.setText(response.body().getProvince());
+                        else  mAddress.setText(response.body().getProvince_kh());
                     }
                     @Override
                     public void onFailure(Call<Province> call, Throwable t) { }
