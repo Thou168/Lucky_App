@@ -332,8 +332,22 @@ public class HomeFilterConditionFragment extends Fragment {
         mSubmitFilterPriceRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                minPrice=Double.parseDouble(mFilterMinPrice.getText().toString());
-                maxPrice=Double.parseDouble(mFilterMaxPrice.getText().toString());
+                //thou
+                if (mFilterMinPrice.getText().toString().isEmpty()&&mFilterMaxPrice.getText().toString().isEmpty()){
+                    minPrice = 0;
+                    maxPrice = 0;
+                }else {
+                    if (!mFilterMinPrice.getText().toString().isEmpty()){
+                        minPrice=Double.parseDouble(mFilterMinPrice.getText().toString());
+                        if (mFilterMaxPrice.getText().toString().isEmpty())
+                            maxPrice = minPrice;
+                    }else {
+                        minPrice = 0;
+                        maxPrice = Double.parseDouble(mFilterMaxPrice.getText().toString());
+                    }
+                }
+//                minPrice=Double.parseDouble(mFilterMinPrice.getText().toString());
+//                maxPrice=Double.parseDouble(mFilterMaxPrice.getText().toString());
                 Bundle bundle=new Bundle();
                 bundle.putInt("postTypeId", postTypeId);
                 bundle.putInt("categoryId", categoryId);

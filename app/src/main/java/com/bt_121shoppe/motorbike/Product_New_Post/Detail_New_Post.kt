@@ -202,7 +202,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         }
         if (pk!=0) {
             encodeAuth = "Basic "+ getEncodedString(name,pass)
-//            getMyLoan()
+            getMyLoan()
         }
         p = intent.getIntExtra("ID",0)
         pt=intent.getIntExtra("postt",0)
@@ -262,22 +262,22 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
 //        }
         loan = findViewById(R.id.btn_loan)
-        loan.setOnClickListener{
-            if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
-                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
-                intent.putExtra("verify","detail")
-                intent.putExtra("product_id",postId)
-                startActivity(intent)
-            }else{
-                val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
-                intent.putExtra("product_id",postId)
-//                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
-                intent.putExtra("price",cuteString(tvPrice.text.toString(),1))
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
-                finish()
-            }
-        }
+//        loan.setOnClickListener{
+//            if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
+//                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
+//                intent.putExtra("verify","detail")
+//                intent.putExtra("product_id",postId)
+//                startActivity(intent)
+//            }else{
+//                val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
+//                intent.putExtra("product_id",postId)
+////                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
+//                intent.putExtra("price",cuteString(tvPrice.text.toString(),1))
+//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+//                startActivity(intent)
+//                finish()
+//            }
+//        }
         val chat = findViewById<ImageView>(R.id.btn_sms)
         chat.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
@@ -1503,9 +1503,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 withStyle()
 
                             }else{
-                                val intent = Intent(this@Detail_New_Post, LoanCreateActivity::class.java)
+                                val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
 //                                intent.putExtra("Show_amount",show_amount_loan)
-                                intent.putExtra("PutIDLoan",postId)
+//                                intent.putExtra("PutIDLoan",postId)
+                                intent.putExtra("product_id",postId)
+                                intent.putExtra("price",cuteString(tvPrice.text.toString(),1))
                                 startActivity(intent)
                             }
                         }

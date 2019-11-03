@@ -182,7 +182,7 @@ public class two extends Fragment {
         if (itemOne.isFromLoan()){
             GetLoan();
 
-//            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+//            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, )});
         }else {
             img1.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
