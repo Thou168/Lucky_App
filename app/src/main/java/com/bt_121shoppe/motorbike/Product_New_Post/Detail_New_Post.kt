@@ -213,10 +213,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         //Back
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener {
-            if (postId!= null) {
-                startActivity(Intent(this@Detail_New_Post, Home::class.java))
-                finish()
-            } else finish()
+            finish()
+//            if (postId!= null) {
+//                startActivity(Intent(this@Detail_New_Post, Home::class.java))
+//                finish()
+//            } else finish()
         }
         //Slider
 
@@ -1484,9 +1485,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
                             val post_id = obj.getInt("post")
+                            val record_status = obj.getInt("record_status");
 
                             Log.d("Status Id123",post_id.toString())
                             Log.d("Status 123",postId.toString())
+                            if (record_status != 12)
                             IDPOST.add(post_id)
 
                         }
