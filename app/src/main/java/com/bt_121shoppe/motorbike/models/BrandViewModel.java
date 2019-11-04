@@ -10,6 +10,7 @@ public class BrandViewModel {
     private int category;
     private String created;
     private String brand_name;
+    @SerializedName("brand_name_as_kh")
     private String brand_name_kh;
     private String description;
     private String brand_image_path;

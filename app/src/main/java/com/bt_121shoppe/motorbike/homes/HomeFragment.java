@@ -169,6 +169,7 @@ public class HomeFragment extends Fragment {
                 bundle.putInt("yearId",mYearId);
                 bundle.putDouble("minPrice",mMinPrice);
                 bundle.putDouble("maxPrice",mMaxPrice);
+                Log.d("12122 thou","fasdlfjksdl;"+mBrandId);
                 HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
                 fragment.setArguments(bundle);
                 loadFragment(fragment);

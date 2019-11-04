@@ -413,7 +413,8 @@ public class one extends Fragment{
         mBtnNext.setOnClickListener(view3 -> {
 //            Bundle bundle=new Bundle();
 //            boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
-            Log.d("111111111111111","1111"+radio3.getText().toString()+"  "+mProvinceID);
+            Log.d("343434343",String.valueOf(editext()));
+//            Log.d("111111111111111","1111"+radio3.getText().toString()+"  "+mProvinceID);
             if (editext()){
                 itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),Job[indextJom],
                         Co_borrower,index,Rela[indexRela],Job[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),

@@ -27,6 +27,7 @@ import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Breand;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
@@ -34,6 +35,7 @@ import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.YearViewModel;
 import com.bt_121shoppe.motorbike.searches.SearchTypeAdapter;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -42,7 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -164,11 +166,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                             mFilterBrand.setText(response.body().getBrand_name());
                     }
                 }
-
                 @Override
-                public void onFailure(Call<BrandViewModel> call, Throwable t) {
-
-                }
+                public void onFailure(Call<BrandViewModel> call, Throwable t) { }
             });
         }
         //Year
@@ -184,7 +183,6 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                         mFilterYear.setText(response.body().getYear());
                     }
                 }
-
                 @Override
                 public void onFailure(Call<YearViewModel> call, Throwable t) {
 
@@ -243,6 +241,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle=new Bundle();
+                Log.d("212121212 thou",CommonFunction.FILTERBRAND+"posttype"+mPostTypeId+"categortyID"+mCategoryId+"brandid"+mBrandId+"year"+mYearId+"minprice"+mMinPrice+"max"+mMaxPrice);
                 bundle.putInt("filterType",CommonFunction.FILTERBRAND);
                 bundle.putInt("postTypeId",mPostTypeId);
                 bundle.putInt("categoryId",mCategoryId);
@@ -451,6 +450,9 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider_drawable));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mAdapter=new SearchTypeAdapter(new ArrayList<>(),viewType);
+        for (int i=0;i<modelsId.length;i++){
+            Log.d("sljdflasdjfal",modelsId[i]+"go");
+        }
         readPosts(postType,categoryId,modelsId,yearId,minPrice,maxPrice);
         mProgressbar.setVisibility(View.GONE);
 
@@ -584,9 +586,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         try{
             response=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/models/");
             Log.e(TAG,response);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        }catch (IOException e){ e.printStackTrace(); }
         try{
             JSONObject obj=new JSONObject(response);
             JSONArray results=obj.getJSONArray("results");

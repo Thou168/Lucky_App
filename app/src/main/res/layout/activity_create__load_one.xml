@@ -119,6 +119,7 @@
                                 android:layout_height="40dp"
                                 android:inputType="numberDecimal"
                                 android:layout_weight="0.5"
+                                android:focusable="false"
                                 android:id="@+id/etcity"
                                 android:background="@null"
                                 android:hint="@string/city"

@@ -97,8 +97,8 @@ public interface Service {
 
     @GET("api/v1/categories/")
     Call<AllResponse> getCategories();
-    @GET("api/v1/brands/")
-    Call<AllResponse> getBrands();
+    @GET("api/v1/brands/{id}/")
+    Call<AllResponse> getBrands(@Path("id") int id);
     @GET("api/v1/years/")
     Call<AllResponse> getYear();
     @GET("api/v1/provinces/")
