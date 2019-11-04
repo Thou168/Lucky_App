@@ -42,7 +42,8 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".loan.LoanActivity"></activity>
         <!-- <activity android:name=".homes.HomeOldActivity"></activity> -->
-        <activity android:name=".loan.Create_Load">
+        <activity android:name=".loan.Create_Load"
+                  android:windowSoftInputMode="stateHidden">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
@@ -139,7 +140,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
         <activity android:name=".useraccount.User_post" />
-        <activity android:name=".Product_dicount.Detail_Discount" />
+        <activity android:name=".Product_dicount.Detail_Discount" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Startup.StartUp" />
         <activity android:name=".Startup.MainActivity" />
         <activity android:name=".loan.LoanCreateActivity" />

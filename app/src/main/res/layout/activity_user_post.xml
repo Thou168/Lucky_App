@@ -14,7 +14,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:id="@+id/relative"
                 android:gravity="center"
@@ -58,11 +58,9 @@
                 android:background="@color/colorLightGray"
                 android:gravity="center"/>
             <androidx.recyclerview.widget.RecyclerView
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/recycler_user_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
                 />
             <include
                 android:id="@+id/contact_user2"

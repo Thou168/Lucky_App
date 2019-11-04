@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.drawable.Drawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -311,11 +312,10 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
                                                 itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
-                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "image",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
-                                                val dividerItemDecoration = DividerItemDecoration(this@User_post,DividerItemDecoration.VERTICAL)
-                                                dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this@User_post, R.drawable.divider_drawable)!!)
-                                                recyclrview.addItemDecoration(dividerItemDecoration)
+                                                val dividerDrawable = ContextCompat.getDrawable(context1, R.drawable.divider)
+                                                recyclrview.addItemDecoration(com.bt_121shoppe.motorbike.classes.DividerItemDecoration(dividerDrawable))
+                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "image",context1)
                                             }
 
                                         } catch (e: JsonParseException) {
