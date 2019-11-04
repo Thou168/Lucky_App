@@ -288,12 +288,41 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.home:
-                    Intent intent = new Intent(getApplicationContext(),Home.class);
-                    startActivity(intent);
+                    android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
+                    builder.setMessage(getString(R.string.back_message));
+                    builder.setCancelable(false);
+                    builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    });
+                    builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            builder.dismiss();
+                        }
+                    });
+                    builder.show();
                     break;
                 case R.id.notification:
                     if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(getString(R.string.back_message));
+                        alertDialog.setCancelable(false);
+                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                            }
+                        });
+                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        alertDialog.show();
                     }else {
                         startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
@@ -308,14 +337,44 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     break;
                 case R.id.message:
                     if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(getString(R.string.back_message));
+                        alertDialog.setCancelable(false);
+                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                            }
+                        });
+                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        alertDialog.show();
                     }else {
                         startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
                     break;
                 case R.id.account :
                     if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), Account.class));
+                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(getString(R.string.back_message));
+                        alertDialog.setCancelable(false);
+                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(getApplicationContext(), Account.class));
+                            }
+                        });
+                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        alertDialog.show();
                     }else {
                         startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
                     }
