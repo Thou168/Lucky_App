@@ -2964,7 +2964,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgwhole_int.setImageResource(R.drawable.icon_null);
                     textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
@@ -2973,8 +2973,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     num_used1 = Integer.parseInt(num_used);
                     imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3000,17 +3001,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
                     textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1 > 0) {
                     textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3036,17 +3038,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgThe_whole_screw.setImageResource(R.drawable.icon_null);
                     textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3071,17 +3074,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
                     textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3106,17 +3110,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
                     textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3141,17 +3146,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgEngine_head.setImageResource(R.drawable.icon_null);
                     textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3176,17 +3182,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgMachine_Assembly.setImageResource(R.drawable.icon_null);
                     textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3211,17 +3218,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgConsole.setImageResource(R.drawable.icon_null);
                     textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
@@ -3246,17 +3254,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 num_used = s.toString();
                 if (num_used.isEmpty()) {
                     num_used = "0";
-                    Log.d("KOKO",num_used);
+//                    Log.d("KOKO",num_used);
                     num_used1 = Integer.parseInt(num_used);
                     imgAccessories.setImageResource(R.drawable.icon_null);
                     textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                    imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
-                if (num_used1<=num_use && num_used1!= 0) {
+                if (num_used1<=num_use && num_used1> 0) {
                     textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
+                    imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 else if (num_used1>num_use && num_used1!=0){
                     imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
