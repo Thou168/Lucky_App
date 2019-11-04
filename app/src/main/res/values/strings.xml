@@ -640,6 +640,8 @@
 
     <string name="other_sections">III. Other sections</string>
         <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
+
+    <string name="error_number">Cannot enter more than 100 entries</string>
     //edit account
     <string name="yellow">Yellow</string>
     <string name="pink">Pink</string>

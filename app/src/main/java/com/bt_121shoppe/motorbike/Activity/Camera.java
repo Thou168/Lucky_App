@@ -294,7 +294,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
+                            startActivity(new Intent(getApplicationContext(), Home.class));
                         }
                     });
                     builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
@@ -470,6 +470,42 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 if (strCondition=="used"){
                                     validationforused();
                                     relative_used.setVisibility(View.VISIBLE);
+                                    if (edwhole_int.getText().toString().length()==0){
+                                        edwhole_int.requestFocus();
+                                        imgwhole_int.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
+                                        edfront_and_rear_wheel_sets.requestFocus();
+                                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edThe_whole_screw.getText().toString().length()==0){
+                                        edThe_whole_screw.requestFocus();
+                                        imgThe_whole_screw.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edFront_and_rear_pumps.getText().toString().length()==0){
+                                        edFront_and_rear_pumps.requestFocus();
+                                        imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edLeft_and_right_engine_counter.getText().toString().length()==0){
+                                        edLeft_and_right_engine_counter.requestFocus();
+                                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edEngine_head.getText().toString().length()==0){
+                                        edEngine_head.requestFocus();
+                                        imgEngine_head.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edMachine_Assembly.getText().toString().length()==0){
+                                        edMachine_Assembly.requestFocus();
+                                        imgMachine_Assembly.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edConsole.getText().toString().length()==0){
+                                        edConsole.requestFocus();
+                                        imgConsole.setImageResource(R.drawable.icon_null);
+                                    }
+                                    if (edAccessories.getText().toString().length()==0){
+                                        edAccessories.requestFocus();
+                                        imgAccessories.setImageResource(R.drawable.icon_null);
+                                    }
                                 }
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
@@ -506,6 +542,42 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 icType_elec.setVisibility(View.GONE);
                                 tvType_elec.setVisibility(View.GONE);
                                 type = 3;
+                                if (edwhole_int.getText().toString().length()==0){
+                                    edwhole_int.requestFocus();
+                                    imgwhole_int.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
+                                    edfront_and_rear_wheel_sets.requestFocus();
+                                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edThe_whole_screw.getText().toString().length()==0){
+                                    edThe_whole_screw.requestFocus();
+                                    imgThe_whole_screw.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edFront_and_rear_pumps.getText().toString().length()==0){
+                                    edFront_and_rear_pumps.requestFocus();
+                                    imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edLeft_and_right_engine_counter.getText().toString().length()==0){
+                                    edLeft_and_right_engine_counter.requestFocus();
+                                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edEngine_head.getText().toString().length()==0){
+                                    edEngine_head.requestFocus();
+                                    imgEngine_head.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edMachine_Assembly.getText().toString().length()==0){
+                                    edMachine_Assembly.requestFocus();
+                                    imgMachine_Assembly.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edConsole.getText().toString().length()==0){
+                                    edConsole.requestFocus();
+                                    imgConsole.setImageResource(R.drawable.icon_null);
+                                }
+                                if (edAccessories.getText().toString().length()==0){
+                                    edAccessories.requestFocus();
+                                    imgAccessories.setImageResource(R.drawable.icon_null);
+                                }
                             }
                             icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             icBrand.setImageResource(R.drawable.icon_null);
@@ -867,44 +939,46 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                        icTitile.setImageResource(R.drawable.ic_error_black_24dp);
 //                    }
 
-//                   if (cate==2 && strCondition.equals("used")){
-//                       if (edwhole_int.getText().toString().length()==0 || num_used1>num_use){
-//                           edwhole_int.requestFocus();
-//                           imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edfront_and_rear_wheel_sets.getText().toString().length()==0 || num_used1>num_use){
-//                           edfront_and_rear_wheel_sets.requestFocus();
-//                           imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edThe_whole_screw.getText().toString().length()==0 || num_used1>num_use){
-//                           edThe_whole_screw.requestFocus();
-//                           imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edFront_and_rear_pumps.getText().toString().length()==0 || num_used1>num_use){
-//                           edFront_and_rear_pumps.requestFocus();
-//                           imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edLeft_and_right_engine_counter.getText().toString().length()==0 || num_used1>num_use){
-//                           edLeft_and_right_engine_counter.requestFocus();
-//                           imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edEngine_head.getText().toString().length()==0 || num_used1>num_use){
-//                           edEngine_head.requestFocus();
-//                           imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edMachine_Assembly.getText().toString().length()==0 || num_used1>num_use){
-//                           edMachine_Assembly.requestFocus();
-//                           imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edConsole.getText().toString().length()==0 || num_used1>num_use){
-//                           edConsole.requestFocus();
-//                           imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                       if (edAccessories.getText().toString().length()==0 || num_used1>num_use){
-//                           edAccessories.requestFocus();
-//                           imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
-//                       }
-//                   }
+                   if (cate!=1){
+                       if (strCondition=="used"){
+                           if (edwhole_int.getText().toString().length()==0){
+                               edwhole_int.requestFocus();
+                               imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
+                               edfront_and_rear_wheel_sets.requestFocus();
+                               imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edThe_whole_screw.getText().toString().length()==0){
+                               edThe_whole_screw.requestFocus();
+                               imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edFront_and_rear_pumps.getText().toString().length()==0){
+                               edFront_and_rear_pumps.requestFocus();
+                               imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edLeft_and_right_engine_counter.getText().toString().length()==0){
+                               edLeft_and_right_engine_counter.requestFocus();
+                               imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edEngine_head.getText().toString().length()==0){
+                               edEngine_head.requestFocus();
+                               imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edMachine_Assembly.getText().toString().length()==0){
+                               edMachine_Assembly.requestFocus();
+                               imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edConsole.getText().toString().length()==0){
+                               edConsole.requestFocus();
+                               imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                           if (edAccessories.getText().toString().length()==0){
+                               edAccessories.requestFocus();
+                               imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
+                           }
+                       }
+                   }
                    if (dbDis_percent >= 100){
                        etDiscount_amount.requestFocus();
                        icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
@@ -2876,7 +2950,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 mDialog.show();
             }
         });
-
     }
 
     private void validationforused(){
@@ -2898,9 +2971,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -2934,9 +3007,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -2970,9 +3043,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -3005,9 +3078,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -3040,9 +3113,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -3075,9 +3148,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -3110,9 +3183,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -3145,9 +3218,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){
@@ -3180,9 +3253,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else {
                     num_used1 = Integer.parseInt(num_used);
+                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }
                 if (num_used1<=num_use && num_used1!= 0) {
-                    imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
                     textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
                 }
                 else if (num_used1>num_use && num_used1!=0){

@@ -14,6 +14,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -74,6 +75,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.alert_dialog_activity.*
 import kotlinx.android.synthetic.main.content_home.*
 import okhttp3.*
 import org.json.JSONException
@@ -442,10 +444,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 }
                 else if (hamu.isEmpty()){
                     tvMonthlyPayment.setText("$0.00")
-                    tvMonthlyPayment.visibility = View.INVISIBLE
+                    tvMonthlyPayment.setTextColor(ContextCompat.getColor(applicationContext,R.color.red))
+//                    tvMonthlyPayment.visibility = View.INVISIBLE
                 }
                 else if (hamu.isNotEmpty()){
                     tvMonthlyPayment.visibility = View.VISIBLE
+                    tvMonthlyPayment.setTextColor(ContextCompat.getColor(applicationContext,R.color.colorSubmitButton))
                     Log.d("moskdadafa",hamu)
                 }
             }
@@ -647,7 +651,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                        }else{
 //                            tvPostTitle.setText(postDetail.post_sub_title.toString())
 //                        }
-//
+
                         tvPostTitle.setTextSize(22F)
                         tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
 
@@ -667,7 +671,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                                calculateLoanMonthlyPayment()
+//                                calculateLoanMonthlyPayment()
                                 var jk:String = "$0.0"
                                 st = p0.toString()
                                 if (st.isEmpty()){
@@ -676,7 +680,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     st2  = st.toDouble()
                                 }else{
                                     Log.d("hamehameha",st)
-                                    st2  = st.toDouble()
+//                                    st2  = st.toDouble()
                                 }
 
 //                                Log.d("jakata",ds.toString())

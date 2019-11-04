@@ -645,6 +645,7 @@
 
     <string name="other_sections">III. ផ្នែកផ្សេងៗ</string>
         <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
+    <string name="error_number">មិនអាចបញ្ចូលចំនួនលើសពី100បានទេ</string>
     //edit account
     <string name="male">ប្រុស</string>
     <string name="female">ស្រី</string>
