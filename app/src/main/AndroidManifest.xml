@@ -103,7 +103,7 @@
         <activity android:name=".Setting.TermPrivacyActivity" />
         <activity android:name=".Setting.AboutUsActivity" />
         <activity android:name=".Startup.Search1" />
-        <activity android:name=".useraccount.EditAccountActivity" />
+        <activity android:name=".useraccount.EditAccountActivity" android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Activity.NotificationActivity" />
         <activity android:name=".Setting.Setting" />
         <activity android:name=".Login_Register.UserAccountActivity" />
