@@ -8,6 +8,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
@@ -48,6 +49,9 @@ public interface Service {
     Call<AllResponse> getCount(@Query("post") String post, @Header("Authorization") String authorization);
     @GET("detailposts/{id}/")
     Call<Item> getDetailpost(@Path("id") String id, @Header("Authorization") String authorization);
+
+    @PATCH("postbyuser/{id}/")
+    Call<change_status_post> getMovehistory(@Path("id") int id, @Body change_status_post changeStatusPost, @Header("Authorization") String authorization);
 
     @GET("postbyuser/?status=")
     Call<AllResponse> getPostbyuser(@Header("Authorization") String authorization);

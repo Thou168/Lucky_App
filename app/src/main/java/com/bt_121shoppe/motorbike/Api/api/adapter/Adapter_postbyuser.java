@@ -30,6 +30,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
@@ -37,6 +38,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -110,34 +112,6 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             view.btn_renewal.setOnClickListener(v -> { });
         }
         else {
-            if(model.getStatus()==4){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-////        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-                sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-                long date = 0;
-                try {
-                    date = sdf.parse(model.getApproved_date()).getTime()+(4000*60*60*24)+43200000+36000000;
-                    Long now = System.currentTimeMillis();
-                    Long valida = now;
-                    CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-
-                    if (date <= valida){
-                        Log.d("555555555555","You are win");
-                    }
-
-                    SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    Date d = in.parse(model.getApproved_date());
-                    SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
-                    String outDate = out.format(date);
-                    String valida1 = out.format(valida);
-
-                    Log.d("3232323date1", String.valueOf(outDate));
-                    Log.d("Validd", String.valueOf(valida1));
-                    Log.d("3232323date", String.valueOf(date));
-                    Log.d("validate ",String.valueOf(valida));
-                    Log.d("3232323", String.valueOf(ago));
-                } catch (ParseException e) { e.printStackTrace(); }
-            }
             view.btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
             view.btn_renewal.setTextColor(Color.parseColor("#0A0909"));
             view.btn_renewal.setText(R.string.renew);

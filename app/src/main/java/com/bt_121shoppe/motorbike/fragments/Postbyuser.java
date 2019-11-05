@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,12 +24,18 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_postbyuser;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,6 +112,37 @@ public class Postbyuser extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         no_result.setVisibility(View.VISIBLE);
                     }
+                    for (int i=0;i<listData.size();i++){
+                        if(listData.get(i).getStatus()==4){
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+                            long date = 0;
+                            try {
+                                date = sdf.parse(listData.get(i).getApproved_date()).getTime()+(15000*60*60*24);
+                                Long now = System.currentTimeMillis();
+                                Long valida = now;
+                                CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
+
+                                if (date <= valida){
+                                    Log.d("555555555555","You are win"+(int)listData.get(i).getId());
+                                    change_status_post  ch = new change_status_post(2);
+                                    Movetohistory((int) listData.get(i).getId(),ch,basic_Encode);
+                                }
+
+//                                SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                                Date d = in.parse(listData.get(i).getApproved_date());
+//                                SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+//                                String outDate = out.format(date);
+//                                String valida1 = out.format(valida);
+//
+//                                Log.d("3232323date1", String.valueOf(outDate));
+//                                Log.d("Validd", String.valueOf(valida1));
+//                                Log.d("3232323date", String.valueOf(date));
+//                                Log.d("validate ",String.valueOf(valida));
+//                                Log.d("3232323", String.valueOf(ago));
+                            } catch (ParseException e) { e.printStackTrace(); }
+                        }
+                    }
                     progressBar.setVisibility(View.GONE);
                     mAdapter = new Adapter_postbyuser(listData, getContext());
                     recyclerView.setAdapter(mAdapter);
@@ -118,5 +156,23 @@ public class Postbyuser extends Fragment {
             }
         });
     }
+    private void Movetohistory(int id, change_status_post ch, String basic_Encode){
+        Service api = Client.getClient().create(Service.class);
+        Call call = api.getMovehistory(id,ch,basic_Encode);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (!response.isSuccessful()){
+                    try {
+                        Log.d("12121thou",response.errorBody().string());
+                    } catch (IOException e) { e.printStackTrace(); }
+                }
+            }
 
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("ONFAilure",t.getMessage());
+            }
+        });
+    }
 }
