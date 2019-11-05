@@ -1046,15 +1046,13 @@
         </ScrollView>
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        app:menu="@menu/bottom_navigation"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bnaviga"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        app:menu="@menu/bottom_navigation"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:id="@+id/bnaviga"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?android:attr/actionBarSize"-->
 
-        />
-
-
+<!--        />-->
 
 </RelativeLayout>
