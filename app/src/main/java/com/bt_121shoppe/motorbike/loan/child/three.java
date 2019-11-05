@@ -423,11 +423,12 @@ public class three extends Fragment {
         alertDialog.setTitle(getString(R.string.title_create_loan));
         alertDialog.setMessage(getString(R.string.loan_message));
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
-//            Intent intent = new Intent(getContext(), Detail_New_Post.class);
-//            intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
-//            startActivity(intent);
-            dialog.dismiss();
+            Intent intent = new Intent(getContext(), Detail_New_Post.class);
+            intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
+            startActivity(intent);
             getActivity().finish();
+            dialog.dismiss();
+//            getActivity().finish();
         });
         alertDialog.show();
     }

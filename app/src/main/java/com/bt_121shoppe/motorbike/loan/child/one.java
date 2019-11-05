@@ -435,6 +435,8 @@ public class one extends Fragment{
         baddress = createLoad.Checked(mAddress);
         bJob = createLoad.Checked(mJob);
         bJob_Period = createLoad.CheckedYear(mJob_Period);
+        bRelationship = createLoad.Checked(mRelationship);
+        bCo_borrower_Job = createLoad.CheckedYear(mCo_borrower_Job);
 //        bRelationship = createLoad.RadioCondition(img6,mCo_borrower);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);
         bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
@@ -450,8 +452,11 @@ public class one extends Fragment{
         createLoad.ConditionYear(img10,mTotal_Income);
         createLoad.ConditionYear(img11,mTotal_Expense);
         createLoad.ConditionYear(img12,mNet_Income);
-
-        return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
+        if (index == 0){
+            return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense&&bRelationship&&bCo_borrower_Job;
+        }else {
+            return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
+        }
 //           boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
     }
     public void AlertDialog(String[] items, EditText editText){

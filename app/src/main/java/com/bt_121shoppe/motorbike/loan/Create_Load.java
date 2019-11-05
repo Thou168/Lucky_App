@@ -116,7 +116,7 @@ public class Create_Load extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String st = s.toString();
                     //do your work here
-                if (!st.isEmpty()){
+                if (!st.isEmpty()&&s.toString().length()>2){
                     imageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
                 }else {
                     imageView.setImageResource(R.drawable.ic_error_black_24dp);
