@@ -265,13 +265,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //            startActivity(Intent.createChooser(shareIntent,getString(R.string.title_activity_account)))
 //        }
         loan = findViewById(R.id.btn_loan)
-//        loan.setOnClickListener{
-//            if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
-//                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
-//                intent.putExtra("verify","detail")
-//                intent.putExtra("product_id",postId)
-//                startActivity(intent)
-//            }else{
+        loan.setOnClickListener{
+            if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
+                val intent = Intent(this@Detail_New_Post, UserAccountActivity::class.java)
+                intent.putExtra("verify","detail")
+                intent.putExtra("product_id",postId)
+                startActivity(intent)
+            }
+//            else{
 //                val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
 //                intent.putExtra("product_id",postId)
 ////                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
@@ -280,7 +281,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                startActivity(intent)
 //                finish()
 //            }
-//        }
+        }
         val chat = findViewById<ImageView>(R.id.btn_sms)
         chat.setOnClickListener {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {

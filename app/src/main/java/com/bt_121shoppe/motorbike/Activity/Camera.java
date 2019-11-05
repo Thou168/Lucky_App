@@ -284,104 +284,105 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         String language = preferences.getString("My_Lang", "");
 
         bnavigation = findViewById(R.id.bnaviga);
-        bnavigation.getMenu().getItem(1).setChecked(true);
-        bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()){
-                case R.id.home:
-                    android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
-                    builder.setMessage(getString(R.string.back_message));
-                    builder.setCancelable(false);
-                    builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            startActivity(new Intent(getApplicationContext(), Home.class));
-                        }
-                    });
-                    builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            builder.dismiss();
-                        }
-                    });
-                    builder.show();
-                    break;
-                case R.id.notification:
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(getString(R.string.back_message));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                            }
-                        });
-                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                        alertDialog.show();
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-                case R.id.camera:
+        bnavigation.setVisibility(View.GONE);
+//        bnavigation.getMenu().getItem(1).setChecked(true);
+//        bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
+//            switch (menuItem.getItemId()){
+//                case R.id.home:
+//                    android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
+//                    builder.setMessage(getString(R.string.back_message));
+//                    builder.setCancelable(false);
+//                    builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            startActivity(new Intent(getApplicationContext(), Home.class));
+//                        }
+//                    });
+//                    builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            builder.dismiss();
+//                        }
+//                    });
+//                    builder.show();
+//                    break;
+//                case R.id.notification:
 //                    if (prefer.contains("token")||prefer.contains("id")) {
-//                        startActivity(new Intent(getApplicationContext(), Camera.class));
+//                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+//                        alertDialog.setMessage(getString(R.string.back_message));
+//                        alertDialog.setCancelable(false);
+//                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+//                            }
+//                        });
+//                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                alertDialog.dismiss();
+//                            }
+//                        });
+//                        alertDialog.show();
 //                    }else {
 //                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
 //                    }
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    break;
-                case R.id.message:
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(getString(R.string.back_message));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-                            }
-                        });
-                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                        alertDialog.show();
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-                case R.id.account :
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(getString(R.string.back_message));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                startActivity(new Intent(getApplicationContext(), Account.class));
-                            }
-                        });
-                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                        alertDialog.show();
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-            }
-            return false;
-        });
+//                    break;
+//                case R.id.camera:
+////                    if (prefer.contains("token")||prefer.contains("id")) {
+////                        startActivity(new Intent(getApplicationContext(), Camera.class));
+////                    }else {
+////                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
+////                    }
+//                    scrollView.fullScroll(ScrollView.FOCUS_UP);
+//                    break;
+//                case R.id.message:
+//                    if (prefer.contains("token")||prefer.contains("id")) {
+//                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+//                        alertDialog.setMessage(getString(R.string.back_message));
+//                        alertDialog.setCancelable(false);
+//                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+//                            }
+//                        });
+//                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                alertDialog.dismiss();
+//                            }
+//                        });
+//                        alertDialog.show();
+//                    }else {
+//                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
+//                    }
+//                    break;
+//                case R.id.account :
+//                    if (prefer.contains("token")||prefer.contains("id")) {
+//                        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+//                        alertDialog.setMessage(getString(R.string.back_message));
+//                        alertDialog.setCancelable(false);
+//                        alertDialog.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                startActivity(new Intent(getApplicationContext(), Account.class));
+//                            }
+//                        });
+//                        alertDialog.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                alertDialog.dismiss();
+//                            }
+//                        });
+//                        alertDialog.show();
+//                    }else {
+//                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
+//                    }
+//                    break;
+//            }
+//            return false;
+//        });
         Toolbar toolbar=findViewById(R.id.toolbar);
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
@@ -471,39 +472,30 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     validationforused();
                                     relative_used.setVisibility(View.VISIBLE);
                                     if (edwhole_int.getText().toString().length()==0){
-                                        edwhole_int.requestFocus();
                                         imgwhole_int.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
-                                        edfront_and_rear_wheel_sets.requestFocus();
                                         imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edThe_whole_screw.getText().toString().length()==0){
-                                        edThe_whole_screw.requestFocus();
                                         imgThe_whole_screw.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edFront_and_rear_pumps.getText().toString().length()==0){
-                                        edFront_and_rear_pumps.requestFocus();
                                         imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edLeft_and_right_engine_counter.getText().toString().length()==0){
-                                        edLeft_and_right_engine_counter.requestFocus();
                                         imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edEngine_head.getText().toString().length()==0){
-                                        edEngine_head.requestFocus();
                                         imgEngine_head.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edMachine_Assembly.getText().toString().length()==0){
-                                        edMachine_Assembly.requestFocus();
                                         imgMachine_Assembly.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edConsole.getText().toString().length()==0){
-                                        edConsole.requestFocus();
                                         imgConsole.setImageResource(R.drawable.icon_null);
                                     }
                                     if (edAccessories.getText().toString().length()==0){
-                                        edAccessories.requestFocus();
                                         imgAccessories.setImageResource(R.drawable.icon_null);
                                     }
                                 }
@@ -4345,11 +4337,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        bnavigation.getMenu().getItem(1).setChecked(true);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        bnavigation.getMenu().getItem(1).setChecked(true);
+//    }
 }
 
 
