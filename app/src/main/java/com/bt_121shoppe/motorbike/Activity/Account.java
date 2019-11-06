@@ -135,13 +135,14 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     String lang,tmppost,tmplike,tmploan;
     ImageView logo_kh,logo_en;
     String[] photo_select;
-    DrawerLayout drawer;
+    private DrawerLayout drawer;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
     Menu menu;
     MenuItem nav_profile,nav_post,nav_like,nav_loan,nav_setting,nav_about,nav_contact,nav_term;
     View view_header;
     CircleImageView img_profile;
+//    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         img_profile = headerView.findViewById(R.id.imageView);
 
         menu = navigationView.getMenu();
+
         nav_profile = menu.findItem(R.id.nav_profile);
         nav_post = menu.findItem(R.id.nav_post);
         nav_like = menu.findItem(R.id.nav_like);
@@ -672,28 +674,43 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
         if (id == R.id.nav_profile) {
             Intent intent = new Intent(this, EditAccountActivity.class);
+            drawer.closeDrawer(GravityCompat.START);
             startActivity(intent);
         } else if (id == R.id.nav_post) {
+            drawer.closeDrawer(GravityCompat.START);
             tabs.getTabAt(0).select();
         } else if (id == R.id.nav_like) {
+            drawer.closeDrawer(GravityCompat.START);
             tabs.getTabAt(1).select();
         } else if (id == R.id.nav_loan) {
+            drawer.closeDrawer(GravityCompat.START);
             tabs.getTabAt(2).select();
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, Setting.class);
+            drawer.closeDrawer(GravityCompat.START);
             startActivity(intent);
         }else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutUsActivity.class);
+            drawer.closeDrawer(GravityCompat.START);
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
             Intent intent = new Intent(this, ContactActivity.class);
+            drawer.closeDrawer(GravityCompat.START);
             startActivity(intent);
         } else if (id == R.id.nav_privacy) {
             Intent intent = new Intent(this, TermPrivacyActivity.class);
+            drawer.closeDrawer(GravityCompat.START);
             startActivity(intent);
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        im_back = findViewById(R.id.ib_back);
+//        im_back.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawer.closeDrawer(GravityCompat.START);
+//            }
+//        } );
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
