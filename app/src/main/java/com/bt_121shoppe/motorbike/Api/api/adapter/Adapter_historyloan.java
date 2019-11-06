@@ -72,9 +72,8 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final Item_loan model = datas.get(position);
-        String postid = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
-        String loanid = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
 
+        int postid=(int)model.getPost();
         view.txtview.setVisibility(View.GONE);
         view.userview.setVisibility(View.GONE);
         view.relativeLayout.setVisibility(View.GONE);
@@ -85,59 +84,39 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             itemCall.enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
+                    Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
 
-//                    String postid = String.valueOf(response.body().g).substring(0, String.valueOf(model.getPost()).indexOf("."));
-                    Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
-//Add by Raksmey
                     String strPostTitle="";
                     String lang = view.userview.getText().toString();
-                    int year =Integer.valueOf(response.body().getYear());
-                    String fullTitle= CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
-                    if(model.getPost_sub_title()== null){
 
-                        if(lang.equals("View:"))
-                            strPostTitle=fullTitle.split(",")[0];
-                        else
-                            strPostTitle=fullTitle.split(",")[1];
+                    if(response.body().getPost_sub_title()==null){
+//                        String fullTitle= CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
+//                        if(lang.equals("View:"))
+//                            strPostTitle=fullTitle.split(",")[0];
+//                        else
+//                            strPostTitle=fullTitle.split(",")[1];
                     }else {
+                        String[] splitTitle=response.body().getPost_sub_title().split(",");
                         if (lang.equals("View:")) {
-                            strPostTitle = model.getPost_sub_title().split(",")[0];
+                            strPostTitle = splitTitle[0];
                         } else {
-                            strPostTitle = model.getPost_sub_title().split(",")[1];
+                            strPostTitle = splitTitle.length==1?splitTitle[0]:splitTitle[1];
                         }
                     }
-                    String jok=strPostTitle;
-                    if (jok.length()>37){
-                        jok=jok.substring(0,37)+"...";
-                        view.title.setText(jok);
-                    }else {
-                        view.title.setText(jok);
-                    }
-//                    view.title.setText(response.body().getTitle());
-//End
+
+                    view.title.setText(strPostTitle);
                     view.cost.setText("$"+model.getLoan_amount());
 
-                    if (response.body().getPost_type().equals("sell")){
-                        view.item_type.setText(R.string.sell_t);
-                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
-                    }else if (response.body().getPost_type().equals("buy")){
-                        view.item_type.setText(R.string.buy_t);
-                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
-                    }else {
-                        view.item_type.setText(R.string.rent);
-                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
-                    }
-//Close by Raksmey
-//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-//                    long date = 0;
-//                    try {
-//                        date = sdf.parse(response.body().getCreated()).getTime();
-//                        Long now = System.currentTimeMillis();
-//                        CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-//                        view.date.setText(ago);
-//                    } catch (ParseException e) { e.printStackTrace(); }
-//End
+//                    if (response.body().getPost_type().equals("sell")){
+//                        view.item_type.setText(R.string.sell_t);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
+//                    }else if (response.body().getPost_type().equals("buy")){
+//                        view.item_type.setText(R.string.buy_t);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
+//                    }else {
+//                        view.item_type.setText(R.string.rent);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
+//                    }
                 }
 
                 @Override
@@ -170,7 +149,6 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             title = view.findViewById(R.id.title);
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);
-//            date = view.findViewById(R.id.date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.view);
             userview = view.findViewById(R.id.user_view);

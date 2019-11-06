@@ -90,6 +90,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postPrice;
         TextView postOriginalPrice;
         TextView postView;
+        TextView postLang;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +101,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postPrice=itemView.findViewById(R.id.tv_discount);
             postOriginalPrice=itemView.findViewById(R.id.tv_price);
             postView=itemView.findViewById(R.id.view);
+            postLang=itemView.findViewById(R.id.user_view);
         }
 
         @Override
@@ -125,7 +127,14 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            else if(mPost.getPostType().equals("buy"))
 //                Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
 
-            postTitle.setText(mPost.getPostTitle());
+            String lang=postLang.getText().toString();
+            String strPostTitle="";
+            if(lang.equals("View:"))
+                strPostTitle=mPost.getPostTitle().split(",")[0];
+            else
+                strPostTitle=mPost.getPostTitle().split(",")[1];
+            postTitle.setText(strPostTitle);
+
             postLocationDT.setText(mPost.getLocationDuration());
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {

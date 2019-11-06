@@ -113,18 +113,22 @@ public class HomeFilterConditionFragment extends Fragment {
         //Post Type
         switch (postTypeId){
             case 0:
-                mFilterPostType.setText(getString(R.string.all));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.all));
                 break;
             case 1:
-                mFilterPostType.setText(getString(R.string.sell));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.sell));
                 break;
             case 2:
-                mFilterPostType.setText(getString(R.string.rent));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.rent));
                 break;
         }
         //Category
         if(categoryId==0){
-            mFilterCategory.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterCategory.setText(getString(R.string.all));
         }else {
 //            try {
 //                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
@@ -163,7 +167,8 @@ public class HomeFilterConditionFragment extends Fragment {
         }
         //Brand
         if(brandId==0){
-            mFilterBrand.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterBrand.setText(getString(R.string.all));
         }else{
 //            try{
 //                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
@@ -200,7 +205,8 @@ public class HomeFilterConditionFragment extends Fragment {
         }
         //Year
         if(yearId==0){
-            mFilterYear.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterYear.setText(getString(R.string.all));
         }else{
 //            try{
 //                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
@@ -239,7 +245,8 @@ public class HomeFilterConditionFragment extends Fragment {
             else if(minPrice<1&&maxPrice>1)
                 mFilterPriceRange.setText("$0 - $"+maxPrice);
         }else
-            mFilterPriceRange.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterPriceRange.setText(getString(R.string.all));
 
         /* end initial value to filter control */
 
@@ -382,19 +389,24 @@ public class HomeFilterConditionFragment extends Fragment {
 
         switch (filterType){
             case CommonFunction.FILTERPOSTTYPE:
-                mFilterTitle.setText(getString(R.string.post_type));
+                if(isAdded())
+                    mFilterTitle.setText(getString(R.string.post_type));
                 break;
             case CommonFunction.FILTERCATEGORY:
-                mFilterTitle.setText(getString(R.string.category));
+                if(isAdded())
+                    mFilterTitle.setText(getString(R.string.category));
                 break;
             case CommonFunction.FILTERBRAND:
-                mFilterTitle.setText(getString(R.string.brand));
+                if(isAdded())
+                    mFilterTitle.setText(getString(R.string.brand));
                 break;
             case CommonFunction.FILTERYEAR:
-                mFilterTitle.setText(getString(R.string.year));
+                if(isAdded())
+                    mFilterTitle.setText(getString(R.string.year));
                 break;
                 default:
-                    mFilterTitle.setText(getString(R.string.price));
+                    if(isAdded())
+                        mFilterTitle.setText(getString(R.string.price));
         }
         setupFilterItemsList();
 
@@ -410,18 +422,22 @@ public class HomeFilterConditionFragment extends Fragment {
         //Post Type
         switch (postTypeId){
             case 0:
-                mFilterPostType.setText(getString(R.string.all));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.all));
                 break;
             case 1:
-                mFilterPostType.setText(getString(R.string.sell));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.sell));
                 break;
             case 2:
-                mFilterPostType.setText(getString(R.string.rent));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.rent));
                 break;
         }
         //Category
         if(categoryId==0){
-            mFilterCategory.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterCategory.setText(getString(R.string.all));
         }else {
 //            try {
 //                String responseCategory = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/categories/"+categoryId);
@@ -460,7 +476,8 @@ public class HomeFilterConditionFragment extends Fragment {
         }
         //Brand
         if(brandId==0){
-            mFilterBrand.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterBrand.setText(getString(R.string.all));
         }else{
 //            try{
 //                String responseBrand=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/brands/"+brandId);
@@ -497,7 +514,8 @@ public class HomeFilterConditionFragment extends Fragment {
         }
         //Year
         if(yearId==0){
-            mFilterYear.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterYear.setText(getString(R.string.all));
         }else{
 //            try{
 //                String responseYear=CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/years/"+yearId);
@@ -536,7 +554,8 @@ public class HomeFilterConditionFragment extends Fragment {
             else if(minPrice<1&&maxPrice>1)
                 mFilterPriceRange.setText("$0 - $"+maxPrice);
         }else
-            mFilterPriceRange.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterPriceRange.setText(getString(R.string.all));
 
         /* end initial value to filter control */
     }
@@ -634,7 +653,8 @@ public class HomeFilterConditionFragment extends Fragment {
                 if(response.isSuccessful()){
                     List<YearViewModel> mYearResponse=new ArrayList<>();
                     List<FilterConditionViewModel> mFilters=new ArrayList<>();
-                    mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+                    if(isAdded())
+                        mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
                     //Log.e(TAG,"Year Response Count "+response.body().getresults().size());
                     mYearResponse=response.body().getresults();
 
@@ -657,9 +677,11 @@ public class HomeFilterConditionFragment extends Fragment {
         new Handler().postDelayed(()->{
             mProgressbar.setVisibility(View.GONE);
             ArrayList<FilterConditionViewModel> mFilters=new ArrayList<>();
-            mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
-            mFilters.add(new FilterConditionViewModel(1,getString(R.string.sel)));
-            mFilters.add(new FilterConditionViewModel(2,getString(R.string.ren)));
+            if(isAdded()) {
+                mFilters.add(new FilterConditionViewModel(0, getString(R.string.all)));
+                mFilters.add(new FilterConditionViewModel(1, getString(R.string.sel)));
+                mFilters.add(new FilterConditionViewModel(2, getString(R.string.ren)));
+            }
             mAdapter.addItems(mFilters);
         },500);
     }
@@ -706,7 +728,9 @@ public class HomeFilterConditionFragment extends Fragment {
                 if(response.isSuccessful()){
                     List<CategoryViewModel> mResponse=new ArrayList<>();
                     List<FilterConditionViewModel> mFilters=new ArrayList<>();
-                    mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+                    if(isAdded()) {
+                        mFilters.add(new FilterConditionViewModel(0, getResources().getString(R.string.all)));
+                    }
                     //Log.e(TAG,"Year Response Count "+response.body().getresults().size());
                     mResponse=response.body().getresults();
 
@@ -788,7 +812,9 @@ public class HomeFilterConditionFragment extends Fragment {
                 if(response.isSuccessful()){
                     List<BrandViewModel> mResponse=new ArrayList<>();
                     List<FilterConditionViewModel> mFilters=new ArrayList<>();
-                    mFilters.add(new FilterConditionViewModel(0,getString(R.string.all)));
+                    if(isAdded()) {
+                        mFilters.add(new FilterConditionViewModel(0, getString(R.string.all)));
+                    }
                     Log.e(TAG,"Category Response Count "+response.body().getresults().size());
                     mResponse=response.body().getresults();
                     if(categoryId==0) {

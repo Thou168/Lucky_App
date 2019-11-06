@@ -118,11 +118,11 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                     strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                 }
             } else{
-                val postTitle=CommonFunction.generatePostSubTitle(item.modeling,item.year,item.color)
-                if (language.equals("View:"))
-                    strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                else
-                    strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+//                val postTitle=CommonFunction.generatePostSubTitle(item.modeling,item.year,item.color)
+//                if (language.equals("View:"))
+//                    strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+//                else
+//                    strPostTitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
             }
             title.text = strPostTitle
 //            if (strPostTitle.length > 36) {
@@ -132,7 +132,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //                title.setText(strPostTitle)
 //            }
 
-            location_duration.text=item.location_duration
+            //location_duration.text=item.location_duration
             show_view.text=" "+item.count_view
 
             var lang:String = tv_user_view.text as String

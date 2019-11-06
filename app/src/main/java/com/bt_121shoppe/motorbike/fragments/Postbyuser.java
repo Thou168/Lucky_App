@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Item_API;
+import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -27,6 +28,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 import java.io.IOException;
@@ -53,7 +55,7 @@ public class Postbyuser extends Fragment {
     Adapter_postbyuser mAdapter;
     ProgressBar progressBar;
     TextView no_result;
-    int pk;
+    int pk=0;
 
     public Postbyuser(){}
     @Override
@@ -67,12 +69,12 @@ public class Postbyuser extends Fragment {
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
-        Encode = CommonFunction.getEncodedString(name,pass);
         if (prefer.contains("token")) {
-            pk = prefer.getInt("Pk",0);
-        }else if (prefer.contains("id")) {
+            pk = prefer.getInt("Pk", 0);
+        } else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
+        Encode = CommonFunction.getEncodedString(name,pass);
 
         basic_Encode = "Basic "+getEncodedString(name,pass);
         getpostbyuser();
@@ -100,14 +102,15 @@ public class Postbyuser extends Fragment {
     private void getpostbyuser(){
         Service apiService = Client.getClient().create(Service.class);
         Call<AllResponse> call = apiService.getPostbyuser(basic_Encode);
+        //Call<AllResponse> call = apiService.getActivePostbyuser(pk);
         call.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                 if (!response.isSuccessful()){
                     Log.d("Response", String.valueOf(response.code()));
                 }else {
-                    listData = response.body().getresults();
-
+                    //Log.e("Post",response.body().toString());
+                    listData=response.body().getresults();
                     if (listData.size() == 0) {
                         progressBar.setVisibility(View.GONE);
                         no_result.setVisibility(View.VISIBLE);
@@ -144,7 +147,8 @@ public class Postbyuser extends Fragment {
                         }
                     }
                     progressBar.setVisibility(View.GONE);
-                    mAdapter = new Adapter_postbyuser(listData, getContext());
+                    //mAdapter = new Adapter_postbyuser(listData, getContext());
+                    UserPostActiveAdapter mAdapter=new UserPostActiveAdapter(listData);
                     recyclerView.setAdapter(mAdapter);
                 }
 

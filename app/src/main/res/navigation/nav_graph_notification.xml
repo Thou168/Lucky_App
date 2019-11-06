@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_library"
+    app:startDestination="@id/library_dest">
+
+    <fragment
+        android:id="@+id/library_dest"
+        android:name="com.bt_121shoppe.motorbike.viewpagernavigation.modules.notification.NotificationFragment"
+        android:label="@string/notification">
+        <action
+            android:id="@+id/action_read"
+            app:destination="@id/book_dest" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/book_dest"
+        android:name="com.bt_121shoppe.motorbike.viewpagernavigation.modules.notification.NotificationDetailFragment"
+        android:label="@string/notification">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="www.nav.viewpager.com/{title}/{date}" />
+    </fragment>
+
+</navigation>

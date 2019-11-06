@@ -54,9 +54,7 @@ public class history_postbyuser extends Fragment {
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode = CommonFunction.getEncodedString(name,pass);
-
         basic_Encode = "Basic "+getEncodedString(name,pass);
-
         gethistory();
 
         progressBar = view.findViewById(R.id.progress_bar);

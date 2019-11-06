@@ -6,6 +6,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Brand;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
@@ -16,6 +17,7 @@ import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
+import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.models.YearViewModel;
 
 import retrofit2.Call;
@@ -48,7 +50,7 @@ public interface Service {
     @GET("countview/?post=")
     Call<AllResponse> getCount(@Query("post") String post, @Header("Authorization") String authorization);
     @GET("detailposts/{id}/")
-    Call<Item> getDetailpost(@Path("id") String id, @Header("Authorization") String authorization);
+    Call<Item> getDetailpost(@Path("id") int id, @Header("Authorization") String authorization);
 
     @PATCH("postbyuser/{id}/")
     Call<change_status_post> getMovehistory(@Path("id") int id, @Body change_status_post changeStatusPost, @Header("Authorization") String authorization);
@@ -139,5 +141,9 @@ public interface Service {
     Call<BrandViewModel> getBrandFilter();
     @GET("api/v1/brands/{id}/")
     Call<BrandViewModel> getBrandDetail(@Path("id") int id);
+    @GET("api/v1/users/{pk}/")
+    Call<UserResponseModel> getUserProfile(@Path("pk") int pk);
+    @GET("postbyuserfilter/?created_by=&approved_by=&rejected_by=&modified_by=")
+    Call<AllResponse> getActivePostbyuser(@Query("created_by") int created_by);
 
 }

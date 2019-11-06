@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.newversion.MainActivity;
 
 public class Splash_screen extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 2000;
@@ -18,7 +19,7 @@ public class Splash_screen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splash_screen.this, Home.class);
+                Intent intent = new Intent(Splash_screen.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

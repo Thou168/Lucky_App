@@ -445,7 +445,7 @@
     In addition, This App shall not be responsible for any items sold/rent through it, for any damage to items during the inspection period, nor for misrepresentations or breaches of contract by either buyer, lessee, seller or lessor.
     This App shall not be responsible for the cost of procurement of substitute goods or any losses resulting from any goods purchased or obtained. This App assumes no liability for the content of the listings. However if you fall victim of a fraudulent transaction, we will assist you as much as we can.
     </string>
-    
+
     //contact us 121
     <string name="head_shop_121">121 Shoppe Co., Ltd</string>
     <string name="address_contact_us">Address :	LSI Building (3rd floor), Phnom Penh-Hanio Friendship Blvd.
@@ -624,21 +624,22 @@
     <string name="silver">Silver</string>
     <string name="red">Red</string>
     <string name="gray">Gray</string>
-    
+
     //for condition used
     <string name="moto_eta">I. Motorcycles (Eta)</string>
-        <string name="whole_int">Whole ink</string>
-        <string name="front_and_rear_wheel_sets">Front and rear wheel sets</string>
-        <string name="The_whole_screw">The whole screw</string>
-        <string name="Front_and_rear_pumps">Front and rear pumps</string>
+    <string name="whole_int">Whole ink</string>
+    <string name="front_and_rear_wheel_sets">Front and rear wheel sets</string>
+    <string name="The_whole_screw">The whole screw</string>
+    <string name="Front_and_rear_pumps">Front and rear pumps</string>
 
     <string name="machine_section">II. Machine section</string>
-        <string name="Left_and_right_engine_counter">Left and right engine counter</string>
-        <string name="Engine_head">Engine head</string>
-        <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
-        <string name="Console">Console</string>
+    <string name="Left_and_right_engine_counter">Left and right engine counter</string>
+    <string name="Engine_head">Engine head</string>
+    <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
+    <string name="Console">Console</string>
 
     <string name="other_sections">III. Other sections</string>
+
         <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
 
     <string name="error_number">Cannot enter more than 100 entries</string>
@@ -677,50 +678,50 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
-<!--    <string-array name="category">-->
-<!--        <item>Motorbike</item>-->
-<!--        <item>Electronic</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="brand">-->
-<!--        <item>Honda</item>-->
-<!--        <item>Yamaha</item>-->
-<!--        <item>Suzuki</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="category">-->
+    <!--        <item>Motorbike</item>-->
+    <!--        <item>Electronic</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="brand">-->
+    <!--        <item>Honda</item>-->
+    <!--        <item>Yamaha</item>-->
+    <!--        <item>Suzuki</item>-->
+    <!--    </string-array>-->
 
-<!--    <string-array name="year">-->
-<!--        <item>2019</item>-->
-<!--        <item>2018</item>-->
-<!--        <item>2017</item>-->
-<!--        <item>2016</item>-->
-<!--        <item>2015</item>-->
+    <!--    <string-array name="year">-->
+    <!--        <item>2019</item>-->
+    <!--        <item>2018</item>-->
+    <!--        <item>2017</item>-->
+    <!--        <item>2016</item>-->
+    <!--        <item>2015</item>-->
 
-<!--    </string-array>-->
-<!--    <string-array name="gender">-->
-<!--        <item>Gender</item>-->
-<!--        <item>Male</item>-->
-<!--        <item>Female</item>-->
-<!--        <item>Other</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="place">-->
-<!--        <item>Place of Birth</item>-->
-<!--        <item>Phnom Penh</item>-->
-<!--        <item>Kompong Cham</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="status">-->
-<!--        <item>Marital Status</item>-->
-<!--        <item>Single</item>-->
-<!--        <item>Married</item>-->
-<!--        <item>Separated</item>-->
-<!--        <item>Divorced</item>-->
-<!--        <item>Widowed</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="location">-->
-<!--        <item>Locations</item>-->
-<!--        <item>Phnom Penh</item>-->
-<!--        <item>Kompong Cham</item>-->
-<!--        <item>Kompong Thom</item>-->
-<!--        <item>Kompong Chhnang</item>-->
-<!--    </string-array>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="gender">-->
+    <!--        <item>Gender</item>-->
+    <!--        <item>Male</item>-->
+    <!--        <item>Female</item>-->
+    <!--        <item>Other</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="place">-->
+    <!--        <item>Place of Birth</item>-->
+    <!--        <item>Phnom Penh</item>-->
+    <!--        <item>Kompong Cham</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="status">-->
+    <!--        <item>Marital Status</item>-->
+    <!--        <item>Single</item>-->
+    <!--        <item>Married</item>-->
+    <!--        <item>Separated</item>-->
+    <!--        <item>Divorced</item>-->
+    <!--        <item>Widowed</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="location">-->
+    <!--        <item>Locations</item>-->
+    <!--        <item>Phnom Penh</item>-->
+    <!--        <item>Kompong Cham</item>-->
+    <!--        <item>Kompong Thom</item>-->
+    <!--        <item>Kompong Chhnang</item>-->
+    <!--    </string-array>-->
 
     <string-array name="groups_array">
         <item>Public User</item>

@@ -76,7 +76,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final Item model = datas.get(position);
-        String iditem = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
+        //String iditem = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
 //        view.linearLayout.setOnClickListener(v -> {
 //            Intent intent = new Intent(mContext, Detail_New_Post.class);
 //            intent.putExtra("Price", model.getCost());
@@ -84,6 +84,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 //            intent.putExtra("ID",Integer.parseInt(iditem));
 //            mContext.startActivity(intent);
 //        });
+        String iditem=String.valueOf((int)model.getId());
         view.btn_unlike.setVisibility(View.GONE);
 
         Double rs_price = 0.0;
@@ -110,12 +111,12 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         String strPostTitle="";
         String lang = view.strView.getText().toString();
         int year =Integer.valueOf(model.getYear());
-        String fullTitle= CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
-        if(model.getPost_sub_title() == null || model.getPost_sub_title().isEmpty()){
-            if(lang.equals("View:"))
-                strPostTitle=fullTitle.split(",")[0];
-            else
-                strPostTitle=fullTitle.split(",")[1];
+        if(model.getPost_sub_title()== null){
+//            String fullTitle= CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
+//            if(lang.equals("View:"))
+//                strPostTitle=fullTitle.split(",")[0];
+//            else
+//                strPostTitle=fullTitle.split(",")[1];
         }else {
             if (lang.equals("View:")) {
                 strPostTitle = model.getPost_sub_title().split(",")[0];
@@ -129,6 +130,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
 //            rs_price = Double.parseDouble(model.getCost());
+            view.txt_discount.setVisibility(View.INVISIBLE);
         }else {
             rs_price = Double.parseDouble(model.getCost());
             if (model.getDiscount_type().equals("amount")){

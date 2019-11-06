@@ -63,7 +63,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
     TextView mBestDealNoResult;
     ArrayList<PostProduct> mPostBestDeals;
     ArrayList<PostProduct> mAllPosts;
-    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=1";
+    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=2";
     String mAllPostUrl=ConsumeAPI.BASE_URL+"allposts/?page=1";
     boolean isLoading=false,isAPLoading=false;
     int itemCount=0;
@@ -213,28 +213,28 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             String discountAmount=object.getString("discount");
                             int pstatus=object.getInt("status");
 
-                            String eta1 = obj.getString("used_eta1");
-                            String eta2 = obj.getString("used_eta2");
-                            String eta3 = obj.getString("used_eta3");
-                            String eta4 = obj.getString("used_eta4");
-                            String machine1 = obj.getString("used_machine1");
-                            String machine2 = obj.getString("used_machine2");
-                            String machine3 = obj.getString("used_machine3");
-                            String machine4 = obj.getString("used_machine4");
-                            String other1 = obj.getString("used_other1");
+//                            String eta1 = obj.getString("used_eta1");
+//                            String eta2 = obj.getString("used_eta2");
+//                            String eta3 = obj.getString("used_eta3");
+//                            String eta4 = obj.getString("used_eta4");
+//                            String machine1 = obj.getString("used_machine1");
+//                            String machine2 = obj.getString("used_machine2");
+//                            String machine3 = obj.getString("used_machine3");
+//                            String machine4 = obj.getString("used_machine4");
+//                            String other1 = obj.getString("used_other1");
 
                             int pcreatedby=object.getInt("created_by");
                             String frontImage=object.getString("front_image_path");
                             String[] splitPath=frontImage.split("/");
                             String imageUrl=ConsumeAPI.IMAGE_STRING_PATH+splitPath[splitPath.length-1];
                             String postSubTitle=CommonFunction.generatePostSubTitle(object.getInt("modeling"),object.getInt("year"),object.getString("color"));
-                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby,postSubTitle,"",eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1);
+                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby,postSubTitle,"");
 
-                            if(!address.isEmpty()){
-                                String[] lateLong=address.split(",");
-                                address=CommonFunction.getAddressFromMap(this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));
-                                locationDT=address+" - ";
-                            }
+//                            if(!address.isEmpty()){
+//                                String[] lateLong=address.split(",");
+//                                address=CommonFunction.getAddressFromMap(this,Double.parseDouble(lateLong[0]),Double.parseDouble(lateLong[1]));
+//                                locationDT=address+" - ";
+//                            }
 
                             /*
                             if(!approvedDate.equals("null")){

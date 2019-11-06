@@ -116,7 +116,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private TextView mUserNameDrawer;
 
     private String myReferences="mypref";
-    private String name="",pass="",Encode="",mViewType="List",mPostType="";
+    private String name="",pass="",Encode="",mViewType=
+            "List",mPostType="";
     private Bundle bundle;
     private int pk=0,mPostTypeId=0,mCategoryId=0,mBrandId=0,mYearId=0;
     private double mMinPrice=0,mMaxPrice=0;
@@ -613,18 +614,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //                mImageViewEnglish.setVisibility(View.VISIBLE);
 //                break;
 //        }
+
         Context context= LocaleHapler.setLocale(this,language);
         Resources resources=context.getResources();
         //title menu
         if(context!=null && resources!=null) {
-//            nav_profile.setTitle(R.string.menu_profile);
-//            nav_post.setTitle(resources.getString(R.string.menu_post));
-//            nav_like.setTitle(resources.getString(R.string.menu_like));
-//            nav_loan.setTitle(resources.getString(R.string.menu_loan));
-//            nav_setting.setTitle(resources.getString(R.string.menu_setting));
-//            nav_about.setTitle(resources.getString(R.string.menu_about));
-//            nav_contact.setTitle(resources.getString(R.string.menu_contact));
-//            nav_term.setTitle(resources.getString(R.string.menu_privacy));
+            nav_profile.setTitle(resources.getString(R.string.menu_profile));
+            nav_post.setTitle(resources.getString(R.string.menu_post));
+            nav_like.setTitle(resources.getString(R.string.menu_like));
+            nav_loan.setTitle(resources.getString(R.string.menu_loan));
+            nav_setting.setTitle(resources.getString(R.string.menu_setting));
+            nav_about.setTitle(resources.getString(R.string.menu_about));
+            nav_contact.setTitle(resources.getString(R.string.menu_contact));
+            nav_term.setTitle(resources.getString(R.string.menu_privacy));
         }
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
         if(currentFragment!=null) {

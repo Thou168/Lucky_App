@@ -225,8 +225,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_camera2);
 
     // end
-
-
         scrollView = findViewById(R.id.scroll_post);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -1637,7 +1635,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             String auth = "Basic " + encode;
             Request request = new Request.Builder()
                     .url(url)
-                    .post(body)
+
+                   .post(body)
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
                     .header("Authorization",auth)
@@ -1683,7 +1682,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String other1 = obj.getString("used_other1");
 
                                             int pStatus=obj.getInt("status");
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1);
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }

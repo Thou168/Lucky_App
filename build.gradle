@@ -28,6 +28,11 @@ allprojects {
         google()
         jcenter()
     }
+
+    ext {
+        navigation_version = "1.0.0"
+        retrofit_version = "2.5.0"
+    }
 }
 
 task clean(type: Delete) {

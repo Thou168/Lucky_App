@@ -45,11 +45,11 @@ public class MainPostList extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        //Log.d(TAG, "onCreate: ");
 
         Paper.init(getContext());
         String language = Paper.book().read("language");
-        Log.d("44444444","MainPostList"+language);
+        //Log.d("44444444","MainPostList"+language);
         if (language == null)
             Paper.book().write("language","en");
         updateView(language);

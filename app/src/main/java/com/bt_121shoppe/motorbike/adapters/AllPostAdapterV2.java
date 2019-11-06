@@ -172,11 +172,11 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
 //            typeImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             if(mPost.getPost_sub_title().isEmpty()){
-                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-                if(lang.equals("View:"))
-                    strPostTitle=fullTitle.split(",")[0];
-                else
-                    strPostTitle=fullTitle.split(",")[1];
+//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+//                if(lang.equals("View:"))
+//                    strPostTitle=fullTitle.split(",")[0];
+//                else
+//                    strPostTitle=fullTitle.split(",")[1];
             }else {
                 if (lang.equals("View:")) {
                     strPostTitle = mPost.getPost_sub_title().split(",")[0];
@@ -185,14 +185,15 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
                 }
             }
 
-            jok=strPostTitle;
-            if (jok.length()>36){
-                jok=jok.substring(0,36)+"...";
-                postTitle.setText(jok);
-            }else {
-                postTitle.setText(jok);
-
-            }
+//            jok=strPostTitle;
+//            if (jok.length()>36){
+//                jok=jok.substring(0,36)+"...";
+//                postTitle.setText(jok);
+//            }else {
+//                postTitle.setText(jok);
+//
+//            }
+            postTitle.setText(strPostTitle);
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setVisibility(View.INVISIBLE);

@@ -52,7 +52,7 @@ public class Like_byuser extends Fragment {
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
-        Log.d("Pass and name","123456786"+name+","+pass);
+        //Log.d("Pass and name","123456786"+name+","+pass);
         Encode = CommonFunction.getEncodedString(name,pass);
 
         basic_Encode = "Basic "+getEncodedString(name,pass);

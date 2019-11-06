@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,6 +61,10 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
     FirebaseUser fuser;
     DatabaseReference reference;
 
+    public static ChatAllFragment newInstance(){
+        return new ChatAllFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,56 +82,64 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mNoChat=view.findViewById(R.id.rl_noResult);
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         userChatList=new ArrayList<>();
-        reference= FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
-        reference.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userChatList.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    Chat chat=snapshot.getValue(Chat.class);
-                    if(chat.getSender().equals(fuser.getUid())){
-                        userChatList.add(new UserChat(chat.getReceiver(),chat.getPost()));
+        if(fuser!=null) {
+            reference = FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
+            reference.addValueEventListener(new ValueEventListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    userChatList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Chat chat = snapshot.getValue(Chat.class);
+                        if (chat.getSender().equals(fuser.getUid())) {
+                            userChatList.add(new UserChat(chat.getReceiver(), chat.getPost()));
+                        }
+
+                        if (chat.getReceiver().equals(fuser.getUid())) {
+                            userChatList.add(new UserChat(chat.getSender(), chat.getPost()));
+                        }
+                        Log.d("ERROR Receiver", chat.getReceiver() + "," + fuser.getUid());
                     }
 
-                    if(chat.getReceiver().equals(fuser.getUid())){
-                        userChatList.add(new UserChat(chat.getSender(),chat.getPost()));
+                    userList = new ArrayList<>();
+                    Map<String, Map<String, List<UserChat>>> map = userChatList.stream().collect(Collectors.groupingBy(UserChat::getUserId, Collectors.groupingBy(UserChat::getPostId)));
+                    //Log.d("CHAT","Map "+map.toString());
+
+                    Set keys = map.keySet();
+                    for (Object key : keys) {
+                        Map<String, List<UserChat>> keys1 = map.get(key);
+                        Set keyss = keys1.keySet();
+                        for (Object key1 : keyss) {
+                            //Log.d("Chat value ","User "+key+" Post: "+key1);
+                            userList.add(new UserChat(key.toString(), key1.toString()));
+                        }
+                        //Log.d("Chat value ","C "+map.get(key));
                     }
-                    Log.d("ERROR Receiver",chat.getReceiver()+","+fuser.getUid());
+
+                    recyclerViewAdapter.setUserList(userList);
+
+                    if (userList.size() > 0)
+                        mNoChat.setVisibility(View.GONE);
+                    else
+                        mNoChat.setVisibility(View.VISIBLE);
                 }
 
-                userList=new ArrayList<>();
-                Map<String, Map<String,List<UserChat>>> map=userChatList.stream().collect(Collectors.groupingBy(UserChat::getUserId,Collectors.groupingBy(UserChat::getPostId)));
-                //Log.d("CHAT","Map "+map.toString());
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                Set keys=map.keySet();
-                for(Object key:keys){
-                    Map<String,List<UserChat>>keys1= map.get(key);
-                    Set keyss=keys1.keySet();
-                    for(Object key1:keyss){
-                        //Log.d("Chat value ","User "+key+" Post: "+key1);
-                        userList.add(new UserChat(key.toString(),key1.toString()));
-                    }
-                    //Log.d("Chat value ","C "+map.get(key));
                 }
+            });
 
-                recyclerViewAdapter.setUserList(userList);
-
-                if(userList.size()>0)
-                    mNoChat.setVisibility(View.GONE);
-                else
-                    mNoChat.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        updateToken(FirebaseInstanceId.getInstance().getToken());
-
+            updateToken(FirebaseInstanceId.getInstance().getToken());
+        }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view,Bundle savedStateInstance){
+        super.onViewCreated(view,savedStateInstance);
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("");
     }
 
     private void updateToken(String token){

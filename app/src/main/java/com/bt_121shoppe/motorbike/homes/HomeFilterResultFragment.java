@@ -90,7 +90,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         Log.d(TAG,"post="+mPostTypeId+" cat= "+mCategoryId+" brand="+mBrandId+" year="+mYearId+"  current language is"+mCurrentLanguage);
 
         mProgress=new ProgressDialog(getContext());
-        mProgress.setMessage(getString(R.string.please_wait));
+        if(isAdded())
+            mProgress.setMessage(getString(R.string.please_wait));
         mProgress.show();
 
         mRecyclerView=view.findViewById(R.id.RecylerView);
@@ -117,18 +118,22 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         //Post Type
         switch (mPostTypeId){
             case 0:
-                mFilterPostType.setText(getString(R.string.all));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.all));
                 break;
             case 1:
-                mFilterPostType.setText(getString(R.string.sell));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.sell));
                 break;
             case 2:
-                mFilterPostType.setText(getString(R.string.rent));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.rent));
                 break;
         }
         //Category
         if(mCategoryId==0){
-            mFilterCategory.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterCategory.setText(getString(R.string.all));
         }else {
             Service apiService=Client.getClient().create(Service.class);
             Call<CategoryViewModel> call=apiService.getCategoryDetail(mCategoryId);
@@ -152,7 +157,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         }
         //Brand
         if(mBrandId==0){
-            mFilterBrand.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterBrand.setText(getString(R.string.all));
         }else{
             Service apiService=Client.getClient().create(Service.class);
             Call<BrandViewModel> call=apiService.getBrandDetail(mBrandId);
@@ -172,7 +178,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         }
         //Year
         if(mYearId==0){
-            mFilterYear.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterYear.setText(getString(R.string.all));
         }else{
             Service apiService=Client.getClient().create(Service.class);
             Call<YearViewModel> call=apiService.getYearDetail(mYearId);
@@ -198,7 +205,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             else if(mMinPrice<1&&mMaxPrice>1)
                 mFilterPriceRange.setText("$0 - $"+mMaxPrice);
         }else
-            mFilterPriceRange.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterPriceRange.setText(getString(R.string.all));
 
         /* end initial value to filter control */
 
@@ -341,18 +349,22 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         //Post Type
         switch (mPostTypeId){
             case 0:
-                mFilterPostType.setText(getString(R.string.all));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.all));
                 break;
             case 1:
-                mFilterPostType.setText(getString(R.string.sell));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.sell));
                 break;
             case 2:
-                mFilterPostType.setText(getString(R.string.rent));
+                if(isAdded())
+                    mFilterPostType.setText(getString(R.string.rent));
                 break;
         }
         //Category
         if(mCategoryId==0){
-            mFilterCategory.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterCategory.setText(getString(R.string.all));
         }else {
             Service apiService=Client.getClient().create(Service.class);
             Call<CategoryViewModel> call=apiService.getCategoryDetail(mCategoryId);
@@ -376,7 +388,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         }
         //Brand
         if(mBrandId==0){
-            mFilterBrand.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterBrand.setText(getString(R.string.all));
         }else{
             Service apiService=Client.getClient().create(Service.class);
             Call<BrandViewModel> call=apiService.getBrandDetail(mBrandId);
@@ -399,7 +412,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         }
         //Year
         if(mYearId==0){
-            mFilterYear.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterYear.setText(getString(R.string.all));
         }else{
             Service apiService=Client.getClient().create(Service.class);
             Call<YearViewModel> call=apiService.getYearDetail(mYearId);
@@ -426,7 +440,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             else if(mMinPrice<1&&mMaxPrice>1)
                 mFilterPriceRange.setText("$0 - $"+mMaxPrice);
         }else
-            mFilterPriceRange.setText(getString(R.string.all));
+            if(isAdded())
+                mFilterPriceRange.setText(getString(R.string.all));
 
         /* end initial value to filter control */
 
@@ -466,7 +481,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
         String type=postType.equals("1")?"sell":postType.equals("2")?"rent":"";
 
         //Log.d(TAG,"model id "+modelIdList.length);
-        if(modelIdList.length==0) {
+        if(modelIdList.length==0 && mBrandId==0) {
             mPosts = new ArrayList<>();
             //old process
             /*
@@ -498,7 +513,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                         mPosts=response.body().getresults();
                         mAdapter.addItems(mPosts);
                         countresult =mPosts.size();
-                        mCountResultTextView.setText(mPosts.size()+" "+getString(R.string.result_name));
+                        if(isAdded())
+                            mCountResultTextView.setText(mPosts.size()+" "+getString(R.string.result_name));
                         if(countresult ==0)
                             mNoResultTextView.setVisibility(View.VISIBLE);
                         else
@@ -514,7 +530,7 @@ public class HomeFilterResultFragment extends android.app.Fragment {
 
 
 
-        }else{
+        }else if(modelIdList.length>0){
             for(int i=0;i<modelIdList.length;i++){
                 //String modelId=String.valueOf(modelIdList[i]);
                 int modelId=modelIdList[i];
@@ -548,7 +564,8 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                             mPosts=response.body().getresults();
                             mAdapter.addItems(mPosts);
                             countresult =countresult+mPosts.size();
-                            mCountResultTextView.setText(countresult+" "+getString(R.string.result_name));
+                            if(isAdded())
+                                mCountResultTextView.setText(countresult+" "+getString(R.string.result_name));
 
                             if(countresult ==0)
                                 mNoResultTextView.setVisibility(View.VISIBLE);
@@ -564,6 +581,11 @@ public class HomeFilterResultFragment extends android.app.Fragment {
                 });
 
             }
+        }else{
+            mProgress.dismiss();
+            mPosts = new ArrayList<>();
+            mAdapter.addItems(mPosts);
+            mNoResultTextView.setVisibility(View.VISIBLE);
         }
         //mCountResultTextView.setText(countresult+" "+getString(R.string.result_name));
         mRecyclerView.setAdapter(mAdapter);

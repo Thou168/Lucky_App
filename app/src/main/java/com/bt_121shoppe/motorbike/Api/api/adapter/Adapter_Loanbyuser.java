@@ -84,110 +84,49 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final Item_loan model = datas.get(position);
-        String postid = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
-        String loanid = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
-
-        view.linearLayout.setOnClickListener(v -> {
-            Log.d("idpost",postid);
-            Log.d("idloan",loanid);
-            Intent intent = new Intent(mContext, Detail_New_Post.class);
-            intent.putExtra("id",Integer.parseInt(loanid));
-            intent.putExtra("ID",Integer.parseInt(postid));
-            mContext.startActivity(intent);
-        });
-
-//        view.linearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, Detail_New_Post.class);
-//                intent.putExtra("Price", model.getCost());
-//                intent.putExtra("postt", 1);
-//                intent.putExtra("ID",Integer.parseInt(loanid));
-//                mContext.startActivity(intent);
-//            }
-//        });
-        view.btn_edit.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, Create_Load.class);
-            intent.putExtra("LoanEdit",true);
-            intent.putExtra("LoanID",Integer.parseInt(loanid));
-            intent.putExtra("product_id",Integer.parseInt(postid));
-            mContext.startActivity(intent);
-        });
-
+        String loanid = String.valueOf((int)model.getId());
+        int postid=(int)model.getPost();
         try{
             Service api = Client.getClient().create(Service.class);
             Call<Item> itemCall = api.getDetailpost(postid,basic_Encode);
             itemCall.enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
-//                    String postid = String.valueOf(response.body().g).substring(0, String.valueOf(model.getPost()).indexOf("."));
-                    Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
-//Add by Raksmey
+                    Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
+                    //Add by Raksmey
                     String strPostTitle="";
                     String lang = view.textview1.getText().toString();
-                    int year =Integer.valueOf(response.body().getYear());
-                    String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
-                    if(model.getPost_sub_title()== null){
-
-                        if(lang.equals("View:"))
-                            strPostTitle=fullTitle.split(",")[0];
-                        else
-                            strPostTitle=fullTitle.split(",")[1];
+                    if(response.body().getPost_sub_title()== null){
+//                        String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
+//                        if(lang.equals("View:"))
+//                            strPostTitle=fullTitle.split(",")[0];
+//                        else
+//                            strPostTitle=fullTitle.split(",")[1];
                     }else {
+                        String[] splitTitle=response.body().getPost_sub_title().split(",");
                         if (lang.equals("View:")) {
-                            strPostTitle = model.getPost_sub_title().split(",")[0];
+                            strPostTitle = splitTitle[0];
                         } else {
-                            strPostTitle = model.getPost_sub_title().split(",")[1];
+                            strPostTitle = splitTitle.length==1?splitTitle[0]:splitTitle[1];
                         }
                     }
-
-                    String jok=strPostTitle;
-                    if (jok.length()>37){
-                        jok=jok.substring(0,37)+"...";
-                        view.title.setText(jok);
-                    }else {
-                        view.title.setText(jok);
-                    }
-//                    view.title.setText(response.body().getTitle());
-//End
+                    view.title.setText(strPostTitle);
                     view.cost.setText("$"+model.getLoan_amount());
-//Close by Raksmey
-//                    SimpleDateFormat sdf;
-//                    String create,approved_date,date_time;
-//                    create = model.getCreated();
-//                    approved_date = model.getApproved_date();
-//                    Log.d("131313",create+"44444"+approved_date);
-//                    if (approved_date == null){
-//                        date_time = create;
-//                        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//                        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+//                    view.txtview.setVisibility(View.GONE);
+//                    view.item_type.setVisibility(View.GONE);
+//                    view.textview1.setVisibility(View.GONE);
+//                    if (response.body().getPost_type().equals("sell")){
+//                        view.item_type.setText(R.string.sell_t);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
+//                    }else if (response.body().getPost_type().equals("buy")){
+//                        view.item_type.setText(R.string.buy_t);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
 //                    }else {
-//                        date_time = approved_date;
-//                        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                        view.item_type.setText(R.string.rent);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
 //                    }
 
-//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-//                    long date = 0;
-//                    try {
-//                        date = sdf.parse(date_time).getTime();
-//                        Long now = System.currentTimeMillis();
-//                        CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
-//                        view.date.setText(ago);
-//                    } catch (ParseException e) { e.printStackTrace(); }
-//End
-                    view.txtview.setVisibility(View.GONE);
-                    view.item_type.setVisibility(View.GONE);
-                    view.textview1.setVisibility(View.GONE);
-                    if (response.body().getPost_type().equals("sell")){
-                        view.item_type.setText(R.string.sell_t);
-                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
-                    }else if (response.body().getPost_type().equals("buy")){
-                        view.item_type.setText(R.string.buy_t);
-                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
-                    }else {
-                        view.item_type.setText(R.string.rent);
-                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
-                    }
                     view.btn_cancel.setOnClickListener(v -> {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                         dialog.setTitle(R.string.cancel_loan)
@@ -198,8 +137,6 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                                     public void onClick(DialogInterface dialog, int which) {
                                         try{
                                             Service api1 = Client.getClient().create(Service.class);
-//                                                String created_by = String.valueOf(model.getCreated_by()).substring(0, String.valueOf(model.getCreated_by()).indexOf("."));
-//                                                int Created_by = Integer.parseInt(created_by);
                                             String post = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
                                             int Post_by = Integer.parseInt(post);
                                             Item_loan item_loan = new Item_loan(model.getLoan_to(),model.getLoan_amount(),model.getLoan_interest_rate(),model.getLoan_duration(),model.getLoan_purpose(),2,12,model.getUsername(),model.getGender(),model.getAge(),model.getJob(),model.getAverage_income(),model.getAverage_expense(),model.getTelephone(),model.getAddress(),true,model.isFamily_book(),model.isStaff_id(),model.isHouse_plant(),model.getMfi(),model.getCreated(),model.getCreated_by(),model.getModified(),model.getModified_by(),model.getReceived_date(),model.getReceived_by(),model.getRejected_date(),model.getRejected_by(),model.getRejected_comments(),Post_by);
@@ -238,20 +175,20 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                                 }).setNegativeButton(android.R.string.no, null).show();
                     });
 
-//count View
-//                    try{
-//                        Service apiServiece = Client.getClient().create(Service.class);
-//                        Call<AllResponse> call_view = apiServiece.getCount(postid,basic_Encode);
-//                        call_view.enqueue(new Callback<AllResponse>() {
-//                            @Override
-//                            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-//                                view.txtview.setText(String.valueOf(response.body().getCount()));
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
-//                        });
-//                    }catch (Exception e){Log.d("Error e",e.getMessage());}
+                    view.linearLayout.setOnClickListener(v -> {
+                        Intent intent = new Intent(mContext, Detail_New_Post.class);
+                        intent.putExtra("id",Integer.parseInt(loanid));
+                        intent.putExtra("ID",postid);
+                        mContext.startActivity(intent);
+                    });
+
+                    view.btn_edit.setOnClickListener(v -> {
+                        Intent intent = new Intent(mContext, Create_Load.class);
+                        intent.putExtra("LoanEdit",true);
+                        intent.putExtra("LoanID",Integer.parseInt(loanid));
+                        intent.putExtra("product_id",postid);
+                        mContext.startActivity(intent);
+                    });
 
                 }
 

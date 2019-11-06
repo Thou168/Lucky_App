@@ -35,35 +35,53 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@drawable/logo121final"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".loan.LoanActivity"></activity>
-        <!-- <activity android:name=".homes.HomeOldActivity"></activity> -->
-        <activity android:name=".loan.Create_Load"
-                  android:windowSoftInputMode="stateHidden">
+
+<!--        <activity android:name=".newversion.MainActivity"-->
+<!--            android:screenOrientation="portrait">-->
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
-
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
-<!--            </intent-filter>-->
-        </activity>
-        <!-- <activity android:name=".homes.HomeOldActivity"></activity> -->
-        <activity android:name=".Login_Register.SelectUserTypeActivity" />
-        <activity android:name=".Setting.ContactActivity" />
-        <activity android:name=".firebases.activities.PostListActivity" />
-        <activity android:name=".searches.SearchTypeActivity" />
-        <activity android:name=".post.PostGallaryActivity" />
-        <activity android:name=".Splash_screen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--        </activity>-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".newversion.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".loan.LoanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".loan.Create_Load"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Login_Register.SelectUserTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.ContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".firebases.activities.PostListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".searches.SearchTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".post.PostGallaryActivity"
+            android:screenOrientation="portrait" />
+
+         <activity
+             android:name=".Splash_screen"
+             android:screenOrientation="portrait">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -75,10 +93,13 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -86,65 +107,157 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.HomeOldActivity" />
-        <activity android:name=".Login_Register.ResetPasswordActivity" />
-        <activity android:name=".Login_Register.SearchAccountActivity" />
-        <activity android:name=".Login_Register.ConfirmMobileNumberActivity" />
-        <activity android:name=".Startup.Filter" />
-        <activity android:name=".chats.ChatActivity" />
-        <activity android:name=".Activity.Account" />
-        <activity android:name=".Login_Register.FacebookLoginActivity" />
-        <activity android:name=".Activity.SpinnerActivity" />
-        <activity android:name=".chats.MessageActivity" />
-        <activity android:name=".chats.ChatMainActivity" />
-        <activity android:name=".Login_Register.VerifyMobileActivity" />
-        <activity android:name=".Login_Register.RegisterPhoneNumberActivity" />
-        <activity android:name=".Setting.ChangePassword" />
-        <activity android:name=".Setting.TermPrivacyActivity" />
-        <activity android:name=".Setting.AboutUsActivity" />
-        <activity android:name=".Startup.Search1" />
-        <activity android:name=".useraccount.EditAccountActivity" android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".Activity.NotificationActivity" />
-        <activity android:name=".Setting.Setting" />
-        <activity android:name=".Login_Register.UserAccountActivity" />
-        <activity android:name=".Login_Register.RegisterActivity" />
-        <activity android:name=".Login_Register.LoginActivity" />
-        <activity android:name=".Activity.Home" />
-        <activity android:name=".Startup.Your_Post" />
-        <activity android:name=".post.CameraActivity" />
+<!--        <activity-->
+<!--            android:name=".Activity.HomeOldActivity"-->
+<!--            android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".Login_Register.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.SearchAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.ConfirmMobileNumberActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Startup.Filter"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chats.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.FacebookLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.SpinnerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chats.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chats.ChatMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.VerifyMobileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.RegisterPhoneNumberActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.ChangePassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.TermPrivacyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Startup.Search1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".useraccount.EditAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.Setting"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.UserAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Startup.Your_Post"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".post.CameraActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Camera"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
-        <activity android:name=".Activity.AccountActivity" />
-        <activity android:name=".notifications.NotificationActivity" />
+        <activity
+            android:name=".Activity.AccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notifications.NotificationActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="7f07b09034fb44879e413e1314e73b0b" />
 
-        <activity android:name=".Activity.Message" />
-        <activity android:name=".Product_New_Post.Detail_New_Post" />
-        <activity android:name=".Buy_Sell_Rent.Sell.Sell" />
-        <activity android:name=".Buy_Sell_Rent.New_Main1" />
-        <activity android:name=".Buy_Sell_Rent.New_Main2" />
-        <activity android:name=".Buy_Sell_Rent.Sell_Main1" />
-        <activity android:name=".Buy_Sell_Rent.Sell_Main2" />
-        <activity android:name=".Buy_Sell_Rent.Rent.Rent" />
-        <activity android:name=".Buy_Sell_Rent.Rent_Main1" />
-        <activity android:name=".Buy_Sell_Rent.Rent_Main2" />
+        <activity
+            android:name=".Activity.Message"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Product_New_Post.Detail_New_Post"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.Sell.Sell"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.New_Main1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.New_Main2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.Sell_Main1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.Sell_Main2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.Rent.Rent"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.Rent_Main1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Buy_Sell_Rent.Rent_Main2"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Startup.New_Main"
             android:label="@string/title_activity_new__main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Buy_Sell_Rent.Buy.Buy" />
-        <activity android:name=".useraccount.User_post" />
-        <activity android:name=".Product_dicount.Detail_Discount" android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Startup.StartUp" />
-        <activity android:name=".Startup.MainActivity" />
-        <activity android:name=".loan.LoanCreateActivity" />
-        <activity android:name=".AccountTab.MainAccountTabs" />
+        <activity
+            android:name=".Buy_Sell_Rent.Buy.Buy"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".useraccount.User_post"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Product_dicount.Detail_Discount"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Startup.StartUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Startup.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".loan.LoanCreateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AccountTab.MainAccountTabs"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

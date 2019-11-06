@@ -45,6 +45,9 @@ import com.bt_121shoppe.motorbike.AccountTab.MainLoanList;
 import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
@@ -55,6 +58,7 @@ import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
 import com.bt_121shoppe.motorbike.models.User;
+import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bumptech.glide.Glide;
@@ -95,12 +99,12 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Account extends AppCompatActivity  implements TabLayout.OnTabSelectedListener, NavigationView.OnNavigationItemSelectedListener{
 
@@ -207,14 +211,14 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             pk = preferences.getInt("id",0);
         }
 
-//check active and deactive account by samang 2/09/19
+        //check active and deactive account by samang 2/09/19
         Active_user activeUser = new Active_user();
         String active;
         active = activeUser.isUserActive(pk,this);
         if (active.equals("false")){
             activeUser.clear_session(this);
         }
-// end
+        // end
         //Log.d("Account","Breand pk"+pk);
         if (pk==0){
             Intent intent = new Intent(Account.this, UserAccountActivity.class);
@@ -234,7 +238,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         //Log.d("Acc",inttab+" "+tabs);
         //tabs.getTabAt(inttab).select();
 
-
         mCompressor = new FileCompressor(this);
         setUpPager();
         inttab = getIntent().getIntExtra("Tab",0);
@@ -253,21 +256,18 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 User user=dataSnapshot.getValue(User.class);
 
                 if(user.getImageURL().equals("default")){
-//                    Glide.with(Account.this).load("http://www.seedcoworking.com/wp-content/uploads/2018/06/placeholder.jpg").into(upload);
                     Glide.with(Account.this).load(R.drawable.square_logo).thumbnail(0.1f).into(upload);
+                    img_profile.setImageResource(R.drawable.square_logo);
                 }else{
-//                    Glide.with(Account.this).load(user.getImageURL()).thumbnail(0.1f).into(upload);
                     Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(upload);
+                    Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(img_profile);
                 }
                 if(user.getCoverURL().equals("default")){
-//                    Glide.with(Account.this).load("https://www.templaza.com/blog/components/com_easyblog/themes/wireframe/images/placeholder-image.png").into(imgCover);
-                    Glide.with(Account.this).load(R.drawable.logo_121).into(imgCover);
+                    Glide.with(Account.this).load(R.drawable.logo_121).thumbnail(0.1f).into(imgCover);
                 }else{
-//                    Glide.with(Account.this).load(user.getCoverURL()).into(imgCover);
                     Glide.with(getBaseContext()).load(user.getCoverURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(imgCover);
                 }
             }
@@ -389,7 +389,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 imageUri=Uri.fromFile(mPhotoFile);
 
             }
-            Log.d(TAG,"RUN IMAGE RUL"+imageUri);
+            //Log.d(TAG,"RUN IMAGE RUL"+imageUri);
             if(uploadTask !=null && uploadTask.isInProgress()){
                 Toast.makeText(Account.this,"Upload in progress.",Toast.LENGTH_LONG).show();
             }else{
@@ -410,68 +410,92 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     }
 
     private void getUserProfile(){
-
-        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
-        MediaType MEDIA_TYPE=MediaType.parse("application/json");
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",encodeAuth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        //get username
+        Service apiService= Client.getClient().create(Service.class);
+        Call<UserResponseModel> call=apiService.getUserProfile(pk);
+        call.enqueue(new Callback<UserResponseModel>() {
             @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                Gson gson = new Gson();
-                User user = new User();
-                try{
-                    user = gson.fromJson(respon, User.class);
-                    runOnUiThread(() -> {
-
-                        FirebaseUser fuser =  FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
-
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                User ffuser = dataSnapshot.getValue(User.class);
-                                if (ffuser.getImageURL().equals("default")) {
-                                    img_profile.setImageResource(R.drawable.square_logo);
-                                } else {
-                                    Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(img_profile);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
-                        converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
-                        if(converJsonJava.getFirst_name()==null || converJsonJava.getFirst_name().isEmpty()) {
-                            tvUsername.setText(converJsonJava.getUsername());
-                            tvusername_drawer.setText(converJsonJava.getUsername());
-                        }
-                        else {
-                            tvUsername.setText(converJsonJava.getFirst_name());
-                            tvusername_drawer.setText(converJsonJava.getFirst_name());
-                        }
-                    });
-                }catch (JsonParseException e){
-                    e.printStackTrace();
+            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getFirst_name()==null || response.body().getFirst_name().isEmpty()){
+                        tvUsername.setText(response.body().getUsername());
+                        tvusername_drawer.setText(response.body().getUsername());
+                    }else{
+                        tvUsername.setText(response.body().getFirst_name());
+                        tvusername_drawer.setText(response.body().getFirst_name());
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call<UserResponseModel> call, Throwable t) {
 
             }
         });
+
+
+//        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL,"api/v1/users/",pk);
+//        MediaType MEDIA_TYPE=MediaType.parse("application/json");
+//        OkHttpClient client = new OkHttpClient();
+//
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .header("Accept","application/json")
+//                .header("Content-Type","application/json")
+//                .header("Authorization",encodeAuth)
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+//                String respon = response.body().string();
+//                Gson gson = new Gson();
+//                User user = new User();
+//                try{
+//                    user = gson.fromJson(respon, User.class);
+//                    runOnUiThread(() -> {
+//
+//                        FirebaseUser fuser =  FirebaseAuth.getInstance().getCurrentUser();
+//                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+//
+//                        reference.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                User ffuser = dataSnapshot.getValue(User.class);
+//                                if (ffuser.getImageURL().equals("default")) {
+//                                    img_profile.setImageResource(R.drawable.square_logo);
+//                                } else {
+//                                    Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(img_profile);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//
+//                        com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
+//                        converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
+//                        if(converJsonJava.getFirst_name()==null || converJsonJava.getFirst_name().isEmpty()) {
+//                            tvUsername.setText(converJsonJava.getUsername());
+//                            tvusername_drawer.setText(converJsonJava.getUsername());
+//                        }
+//                        else {
+//                            tvUsername.setText(converJsonJava.getFirst_name());
+//                            tvusername_drawer.setText(converJsonJava.getFirst_name());
+//                        }
+//                    });
+//                }catch (JsonParseException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//        });
     }
 
     private void selectImage(){
@@ -526,8 +550,8 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         break;
                 }
             });
-            Log.d("6767676767","SelectImage");
-        dialogBuilder.create().show();
+            //Log.d("6767676767","SelectImage");
+            dialogBuilder.create().show();
 //        }
 //        else if (language.equals("en")){
 //            dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {

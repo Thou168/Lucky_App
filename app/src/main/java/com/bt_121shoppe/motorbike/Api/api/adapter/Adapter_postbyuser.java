@@ -212,8 +212,9 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         String strPostTitle;
         String lang = view.strView.getText().toString();
         int year =Integer.valueOf(model.getYear());
-        String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
-        if(model.getPost_sub_title() == null || model.getPost_sub_title().isEmpty()){
+
+        if(model.getPost_sub_title()== null|| model.getPost_sub_title().isEmpty()){
+            String fullTitle=CommonFunction.generatePostSubTitle(model.getModeling(),year,model.getColor());
             if(lang.equals("View:"))
                 strPostTitle=fullTitle.split(",")[0];
             else
@@ -279,7 +280,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             Service apiServiece = Client.getClient().create(Service.class);
 
             Call<AllResponse> call = apiServiece.getCount(iditem,basic_Encode);
-            Log.d("111111",basic_Encode);
+            //Log.d("111111",basic_Encode);
             call.enqueue(new Callback<AllResponse>() {
                 @Override
                 public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
@@ -326,9 +327,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
     }
 
     public interface OnItemClickListener {
-
         void onItemClick(View view, ViewModel viewModel);
-
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title,cost,date,item_type,txtview,txt_discount,strView;

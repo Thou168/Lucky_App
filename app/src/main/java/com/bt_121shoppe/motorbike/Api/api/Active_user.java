@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 import org.json.JSONException;
@@ -25,33 +27,52 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Active_user extends AppCompatActivity {
     static SharedPreferences prefer;
     boolean isActive;
+    String isActiveResult="";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefer = getSharedPreferences("RegisterActivity", MODE_PRIVATE);
-
     }
 
     public String isUserActive(int userId, Context context){
         String result="";
         String re = "";
+
         try{
             result= CommonFunction.doGetRequest(ConsumeAPI.BASE_URL+"api/v1/users/"+userId);
         }catch (IOException ex){
             ex.printStackTrace();
         }
         try{
-
             JSONObject obj=new JSONObject(result);
              isActive=obj.getBoolean("is_active");
              re = String.valueOf(isActive);
-
         }catch (JSONException e){
             e.printStackTrace();
         }
-        Log.d("ACCOUNT","return is:"+ String.valueOf(re));
+        //Log.d("ACCOUNT","return is:"+ String.valueOf(re));
+//        Service apiService=Client.getClient().create(Service.class);
+//        Call<UserResponseModel> call=apiService.getUserProfile(userId);
+//        call.enqueue(new Callback<UserResponseModel>() {
+//            @Override
+//            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
+//                if(response.isSuccessful()){
+//                    isActiveResult=String.valueOf(response.body().isIs_active());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserResponseModel> call, Throwable t) {
+//
+//            }
+//        });
         return re;
     }
 

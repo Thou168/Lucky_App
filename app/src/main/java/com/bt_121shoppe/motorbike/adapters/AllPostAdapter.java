@@ -143,8 +143,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position){
             super.onBind(position);
             final PostProduct mPost=mPostList.get(position);
-
-            postView.setText(String.valueOf(mPost.getCountView()));
+            String strPostTitle="";
             Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
@@ -154,6 +153,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
                 else if (mPost.getPostType().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
+                strPostTitle = mPost.getPostTitle().split(",")[0];
             }else{
                 if (mPost.getPostType().equals("sell"))
                     Glide.with(itemView.getContext()).load(R.drawable.sell_kh).thumbnail(0.1f).into(typeImageView);
@@ -161,8 +161,12 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     Glide.with(itemView.getContext()).load(R.drawable.rent_kh).thumbnail(0.1f).into(typeImageView);
                 else if (mPost.getPostType().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
+                strPostTitle = mPost.getPostTitle().split(",").length>1?mPost.getPostTitle().split(",")[1]:mPost.getPostTitle().split(",")[0];
+//                if(strPostTitle.split(",").length>1)
+//                    strPostTitle=mPost.getPostTitle().split(",")[1];
             }
-            postTitle.setText(mPost.getPostTitle());
+            postTitle.setText(strPostTitle);
+
 //            jok = mPost.getPostTitle();
 //            if (jok.length() > 10){
 //                jok=jok.substring(0,10)+"...";
@@ -172,7 +176,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //                postTitle.setText(mPost.getPostTitle());
 //            }
 
-            postLocationDT.setText(mPost.getLocationDuration());
+            //postLocationDT.setText(mPost.getLocationDuration());
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {
@@ -214,7 +218,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (!response.isSuccessful()){
-                            Log.d("12122121", String.valueOf(response.code()));
+                            //Log.d("12122121", String.valueOf(response.code()));
                         }
                         CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
                     }

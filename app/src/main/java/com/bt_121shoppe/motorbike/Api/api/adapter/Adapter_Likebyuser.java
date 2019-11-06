@@ -83,7 +83,6 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
         if (language == null)
             Paper.book().write("language","km");
 
-
         return new ViewHolder(view);
     }
     private void updateView(String language,ViewHolder view) {
@@ -99,26 +98,26 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 
         updateView(Paper.book().read("language"),view);
 
-        String iditem = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
-        String itemid_like = String.valueOf(model.getId()).substring(0, String.valueOf(model.getId()).indexOf("."));
+
+        String iditem=String.valueOf((int)model.getPost());
+        String itemid_like=String.valueOf((int)model.getId());
+
         try{
             Service api = Client.getClient().create(Service.class);
-            Call<Item> call = api.getDetailpost(iditem,basic_Encode);
+            Call<Item> call = api.getDetailpost(Integer.parseInt(iditem),basic_Encode);
             call.enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
-                    Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
-//Add by Raksmey
+                    Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
+                    //Add by Raksmey
                     String strPostTitle="";
                     String lang = view.txtview1.getText().toString();
-                    int year =Integer.valueOf(response.body().getYear());
-                    String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
                     if(model.getPost_sub_title()== null){
-
-                        if(lang.equals("View:"))
-                            strPostTitle=fullTitle.split(",")[0];
-                        else
-                            strPostTitle=fullTitle.split(",")[1];
+//                        String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
+//                        if(lang.equals("View:"))
+//                            strPostTitle=fullTitle.split(",")[0];
+//                        else
+//                            strPostTitle=fullTitle.split(",")[1];
                     }else {
                         if (lang.equals("View:")) {
                             strPostTitle = model.getPost_sub_title().split(",")[0];
@@ -126,15 +125,15 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                             strPostTitle = model.getPost_sub_title().split(",")[1];
                         }
                     }
-
-                    String jok=strPostTitle;
-                    if (jok.length()>37){
-                        jok=jok.substring(0,37)+"...";
-                        view.title.setText(jok);
-                    }else {
-                        view.title.setText(jok);
-                    }
-//                    view.title.setText(response.body().getTitle());
+                    view.title.setText(strPostTitle);
+//                    String jok=strPostTitle;
+//                    if (jok.length()>37){
+//                        jok=jok.substring(0,37)+"...";
+//                        view.title.setText(jok);
+//                    }else {
+//                        view.title.setText(jok);
+//                    }
+//
 //End
                     Double rs_price=0.0;
                     if (response.body().getDiscount().equals("0.00")){

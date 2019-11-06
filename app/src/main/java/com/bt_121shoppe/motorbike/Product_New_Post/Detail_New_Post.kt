@@ -323,7 +323,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         edLoanDeposit.setHint("0.0")
         edLoanInterestRate.setText("1.5")
         edLoanTerm.setText("24")
-
         tvMonthlyPayment.setText("$ 0.00")
 
         edLoanPrice.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
@@ -376,14 +375,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 jakl = p0.toString()
                 if (jakl.isEmpty()){
                     jakl = "0"
-                    Log.d("When empty",jakl)
+                    //Log.d("When empty",jakl)
                 }
 
                 var lol:Double = jakl.toDouble()
                 var dota:Double = ko.toDouble() // =0
-
-//                var koca:String = lol.toString()
-//                var kaca:String = dota.toString()
 
                 if (lol.equals(dota)){
                     tvMonthlyPayment.text = "$0"
@@ -825,20 +821,20 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.timeZone = TimeZone.getTimeZone("GMT+7")
-                        if (pt == 1){
-                            time = sdf.parse(postDetail.created).time
-                        }else if(pt == 2){ //pt = 2 for detail history post user
-                            if (postDetail.modified == null){
-                                time = sdf.parse(postDetail.created).time
-                            }else{
-                                val mdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                                mdf.timeZone = TimeZone.getTimeZone("GMT")
-                                time = mdf.parse(postDetail.modified).time
-                            }
-                        } else{
-                            time = sdf.parse(postDetail.approved_date).time
-                            //time=0\
-                        }
+//                        if (pt == 1){
+//                            time = sdf.parse(postDetail.created).time
+//                        }else if(pt == 2){ //pt = 2 for detail history post user
+//                            if (postDetail.modified == null){
+//                                time = sdf.parse(postDetail.created).time
+//                            }else{
+//                                val mdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+//                                mdf.timeZone = TimeZone.getTimeZone("GMT")
+//                                time = mdf.parse(postDetail.modified).time
+//                            }
+//                        } else{
+//                            time = sdf.parse(postDetail.approved_date).time
+//                            //time=0\
+//                        }
 //closed post date by Raksmey 11/09/2019
 //                        val now:Long = System.currentTimeMillis()
 //                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
@@ -1240,12 +1236,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val model = obj.getInt("modeling")
                             val year = obj.getInt("year")
                             var location_duration = ""
-                            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                            val time: Long = sdf.parse(obj.getString("approved_date")).getTime()
-                            val now: Long = System.currentTimeMillis()
-                            val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-                            Log.d("1212121UserId ",user_id.toString())
+//                            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+//                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+//                            val time: Long = sdf.parse(obj.getString("approved_date")).getTime()
+//                            val now: Long = System.currentTimeMillis()
+//                            val ago: CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+//                            Log.d("1212121UserId ",user_id.toString())
+                            var ago=""
                             if(postId != id) {
 
                                 itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
@@ -1276,18 +1273,16 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         client.newCall(request).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
                 val mMessage = e.message.toString()
-                Log.w("failure Response", mMessage)
+                //Log.w("failure Response", mMessage)
             }
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val mMessage = response.body()!!.string()
-                Log.d("JJJJJJJJJJJJJ",mMessage)
+                //Log.d("JJJJJJJJJJJJJ",mMessage)
                 val gson = Gson()
                 try {
                     val jsonObject = JSONObject(mMessage)
                     val jsonCount=jsonObject.getInt("count")
-                    Log.d("1212121 id",postId.toString())
-                    Log.d("121212121view",jsonCount.toString())
                     runOnUiThread {
                         tv_count_view.setText(""+jsonCount)
                         //submit count view to firebase
@@ -1465,7 +1460,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private fun getMyLoan() {
         val IDPOST = ArrayList<Int>()
         var loaned = false
-        Log.d("12345","Hello90"+encodeAuth)
         val URL_ENDPOINT= ConsumeAPI.BASE_URL+"loanbyuser/"
         val client= OkHttpClient()
         val request= Request.Builder()
@@ -1504,16 +1498,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                loaned = true
                             }
                         loan.setOnClickListener {
-//                            Log.d("IDFOR","Loanded"+loaned.toString())
-//                            Log.d("IDPOST","HeyPro"+postId.toString())
                             if (loaned){
 //                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
                                 withStyle()
-
                             }else{
                                 val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
-//                                intent.putExtra("Show_amount",show_amount_loan)
-//                                intent.putExtra("PutIDLoan",postId)
                                 intent.putExtra("product_id",postId)
                                 intent.putExtra("price",cuteString(tvPrice.text.toString(),1))
                                 startActivity(intent)
