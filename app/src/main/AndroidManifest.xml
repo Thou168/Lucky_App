@@ -57,6 +57,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".loan.Create_Load"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Login_Register.SelectUserTypeActivity"
@@ -160,6 +161,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".useraccount.EditAccountActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.NotificationActivity"

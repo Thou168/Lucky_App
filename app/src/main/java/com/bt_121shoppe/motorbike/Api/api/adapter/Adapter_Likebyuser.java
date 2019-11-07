@@ -112,7 +112,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                     //Add by Raksmey
                     String strPostTitle="";
                     String lang = view.txtview1.getText().toString();
-                    if(model.getPost_sub_title()== null){
+                    if(response.body().getPost_sub_title()== null){
 //                        String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
 //                        if(lang.equals("View:"))
 //                            strPostTitle=fullTitle.split(",")[0];
@@ -120,9 +120,9 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                            strPostTitle=fullTitle.split(",")[1];
                     }else {
                         if (lang.equals("View:")) {
-                            strPostTitle = model.getPost_sub_title().split(",")[0];
+                            strPostTitle = response.body().getPost_sub_title().split(",")[0];
                         } else {
-                            strPostTitle = model.getPost_sub_title().split(",")[1];
+                            strPostTitle = response.body().getPost_sub_title().split(",")[1];
                         }
                     }
                     view.title.setText(strPostTitle);

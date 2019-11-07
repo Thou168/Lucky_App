@@ -278,9 +278,9 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                 val postType = obj.getString("post_type")
                                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                                val time:Long = sdf.parse(obj.getString("created")).getTime()
-                                val now:Long = System.currentTimeMillis()
-                                val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+//                                val time:Long = sdf.parse(obj.getString("created")).getTime()
+//                                val now:Long = System.currentTimeMillis()
+//                                val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
                                 val discount_type = obj.getString("discount_type")
                                 val discount = obj.getDouble("discount")
                                 val postsubtitle = obj.getString("post_sub_title")
@@ -311,7 +311,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,"",jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                                 val dividerDrawable = ContextCompat.getDrawable(context1, R.drawable.divider)
                                                 recyclrview.addItemDecoration(com.bt_121shoppe.motorbike.classes.DividerItemDecoration(dividerDrawable))
