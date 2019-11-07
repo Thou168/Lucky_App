@@ -240,7 +240,7 @@ public class one extends Fragment{
                 }
                 String stphone = response.body().getProfile().getTelephone();
 
-                mPhone_Number.setText(method(stphone));
+//                mPhone_Number.setText(method(stphone));
 //               mPhone_Number.setText(response.body().getProfile().getTelephone());
             }
 
@@ -481,7 +481,7 @@ public class one extends Fragment{
         int checkedItem = 0; //this will checked the item when user open the dialog
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which+1;
-            Toast.makeText(getContext(), "Position: " + mProvinceID + " Value: " + items[which], Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "Position: " + mProvinceID + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
         });
@@ -523,6 +523,7 @@ public class one extends Fragment{
                 }
 //                mName.setText(response.body());
                 mName.setText(response.body().getUsername());
+                mPhone_Number.setText(response.body().getTelephone());
                 mDistrict.setText(response.body().getDistrmict());
                 mCommune.setText(response.body().getCommune());
                 mVillage.setText(response.body().getVillage());

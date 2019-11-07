@@ -159,6 +159,7 @@ public class two extends Fragment {
 
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
+        mLoan_Term.setFilters(new InputFilter[]{new InputFilterMinMax(1,36)});
         mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);
         relati_Contributors = view.findViewById(R.id.relati_Contributors);
 
@@ -230,7 +231,11 @@ public class two extends Fragment {
             img4.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mLoan_Contributions.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
+                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(cuteString(itemOne.getPrice(),0))-Integer.parseInt(mLoan_amount.getText().toString()))});
+                    }
+                }
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
