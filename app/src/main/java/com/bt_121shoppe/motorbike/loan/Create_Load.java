@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -142,7 +143,8 @@ public class Create_Load extends AppCompatActivity {
 //                    } else {
 //                        imageView.setImageResource(R.drawable.ic_error_black_24dp);
 //                    }
-                }else {
+                }
+                else {
                     imageView.setImageResource(R.drawable.ic_error_black_24dp);
                 }
             }
@@ -224,6 +226,13 @@ public class Create_Load extends AppCompatActivity {
             }
         });
         clearDialog.show();
+    }
+    public void requstFocus(boolean b,ImageView img,EditText editText){
+        if (!b) {
+            img.setImageResource(R.drawable.ic_error_black_24dp);
+            if(!(editText ==null))
+                editText.requestFocus();
+        }
     }
 
     //    public boolean Checked(ImageView imageView,EditText editText){

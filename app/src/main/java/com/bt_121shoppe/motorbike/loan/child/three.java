@@ -72,6 +72,7 @@ public class three extends Fragment {
     String basicEncode;
     boolean ischeck;
     boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
+    boolean bID_Card,bFramily_Book,bPhotos,bEmployment_card,bID_Card1,bFramily_Book1,bPhotos1,bEmployment_card1;
     public static three newInstance(item_two itemTwo) {
         Bundle args = new Bundle();
 //        args.putParcelable(ARG_NUMBER,itemOne);
@@ -108,8 +109,27 @@ public class three extends Fragment {
         checkEd();
         mBtnback.setOnClickListener(view1 -> { createLoad.setBack(); });
         mBtnSubmit.setOnClickListener(v -> {
+            checkEd();
+            if (itemTwo.getItemOne().getIndex()==1){
+                createLoad.requstFocus(bID_Card,img1,null);
+                createLoad.requstFocus(bFramily_Book,img2,null);
+                createLoad.requstFocus(bPhotos,img3,null);
+                createLoad.requstFocus(bEmployment_card,img4,null);
+            }else {
+                createLoad.requstFocus(bID_Card,img1,null);
+                createLoad.requstFocus(bFramily_Book,img2,null);
+                createLoad.requstFocus(bPhotos,img3,null);
+                createLoad.requstFocus(bEmployment_card,img4,null);
+
+                createLoad.requstFocus(bID_Card1,img5,null);
+                createLoad.requstFocus(bFramily_Book1,img6,null);
+                createLoad.requstFocus(bPhotos1,img7,null);
+                createLoad.requstFocus(bEmployment_card1,img8,null);
+            }
+
             if (checkEd()){
                 Log.e("FromeLoan",String.valueOf(itemTwo.getItemOne().isFromLoan()));
+
                 if (itemTwo.getItemOne().isFromLoan()){
 //                    Editloan();
                     dialog_Editloan();
@@ -395,12 +415,17 @@ public class three extends Fragment {
         img8 = view.findViewById(R.id.img_8);
     }
     private boolean checkEd(){
-        boolean bID_Card,bFramily_Book,bPhotos,bEmployment_card,bNumber_institution,bMonthly_Amount_Paid;
 
         bID_Card = createLoad.CheckedYear(etID_card);
         bFramily_Book = createLoad.CheckedYear(etFamily_book);
         bPhotos = createLoad.CheckedYear(etPhotos);
         bEmployment_card = createLoad.CheckedYear(etEmployment_card);
+
+        bID_Card1 = createLoad.CheckedYear(etID_card1);
+        bFramily_Book1 = createLoad.CheckedYear(etFamily_book1);
+        bPhotos1 = createLoad.CheckedYear(etPhotos1);
+        bEmployment_card1 = createLoad.CheckedYear(etEmployment_card1);
+
 
 //        bNumber_institution = createLoad.CheckedYear(mNumber_institution);
 //        bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
@@ -415,7 +440,11 @@ public class three extends Fragment {
         createLoad.ConditionYear(img7,etPhotos1);
         createLoad.ConditionYear(img8,etEmployment_card1);
 
-        return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
+        if (itemTwo.getItemOne().getIndex()==1){
+            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
+        }else {
+            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card&&bID_Card1&&bFramily_Book1&&bPhotos1&&bEmployment_card1;
+        }
     }
 
     private void MaterialDialog(){

@@ -71,10 +71,10 @@ public class two extends Fragment {
     private boolean mVisit_home,mBuy_product_insurance,check_return;
     AlertDialog dialog;
     RelativeLayout relati_Contributors;
-    private int index;
+    private int index=3,index1 = 3;
     String basicEncode;
     String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
-
+    private boolean bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid;
     public static two newInstance(item_one itemOne) {
         Bundle args = new Bundle();
 //        args.putParcelable(ARG_NUMBER,itemOne);
@@ -121,8 +121,23 @@ public class two extends Fragment {
 
         mBtnback.setOnClickListener(view1 -> createLoad.setBack());
         mBtnNext.setOnClickListener(view12 -> {
+            checkEd();
 //            Bundle bundle=new Bundle();
 //            fragment.setArguments(bundle);
+            if (!(index == 0|| index == 1)){
+                img5.setImageResource(R.drawable.ic_error_black_24dp);
+            }
+            if (!(index1 == 0|| index1 == 1)){
+                img6.setImageResource(R.drawable.ic_error_black_24dp);
+            }
+            createLoad.requstFocus(bLoand_amount,img1,mLoan_amount);
+            createLoad.requstFocus(bLoan_Period,img2,mLoan_Term);
+            createLoad.requstFocus(bPayment_Method,img3,mloan_RepaymentType);
+            createLoad.requstFocus(bLoan_Contributions,img4,mLoan_Contributions);
+            createLoad.requstFocus(bNumber_institution,img7,mNumber_institution);
+            createLoad.requstFocus(bMonthly_Amount_Paid,img8,mMonthly_Amount_Paid);
+
+
             if (checkEd()){
                 itemTwo = new item_two(Float.parseFloat(mLoan_amount.getText().toString()),mLoan_Term.getText().toString(),values1[index],Float.parseFloat(mLoan_Contributions.getText().toString()),
                         mBuy_product_insurance,mVisit_home,mNumber_institution.getText().toString(),mMonthly_Amount_Paid.getText().toString(),itemOne);
@@ -155,8 +170,7 @@ public class two extends Fragment {
         img6 = view.findViewById(R.id.img_6);
         img7 = view.findViewById(R.id.img_7);
         img8 = view.findViewById(R.id.img_8);
-        img9 = view.findViewById(R.id.img_9);
-        img10 = view.findViewById(R.id.img_10);
+
 
         mloan_RepaymentType.setOnClickListener(v -> {
            createLoad.AlertDialog(values,mloan_RepaymentType);
@@ -181,19 +195,58 @@ public class two extends Fragment {
 
         if (itemOne.isFromLoan()){
             GetLoan();
+//             mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+//                @Override
+//                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                    if (!s.toString().isEmpty()){
+//                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(mLoan_amount.getText().toString())-Integer.parseInt(s.toString()))});
+//                    }
+//                }
+//                @Override
+//                public void afterTextChanged(Editable s) { }
+//            });
 
 //            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, )});
         }else {
             img1.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
-            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+            mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+            mLoan_amount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
+                        mLoan_Contributions.setText("0");
+                    }else mLoan_Contributions.setText(null);
+                }
+                @Override
+                public void afterTextChanged(Editable s) { }
+            });
+//            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+            mLoan_Contributions.setText("0");
+            img4.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
+                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(cuteString(itemOne.getPrice(),0))-Integer.parseInt(mLoan_amount.getText().toString()))});
+                    }
+                }
+                @Override
+                public void afterTextChanged(Editable s) { }
+            });
         }
 
 //        mBtnNextWithFinish = view.findViewById(R.id.btn_next_with_finish);
         rgBuying_product_insurance = view.findViewById(R.id.radio_group);
         rgBuying_product_insurance.setOnCheckedChangeListener((group, checkedId) -> {
             View radioButton = rgBuying_product_insurance.findViewById(checkedId);
-            int index = rgBuying_product_insurance.indexOfChild(radioButton);
+            index = rgBuying_product_insurance.indexOfChild(radioButton);
             radio2 = rgBuying_product_insurance.findViewById(checkedId);
             img5.setImageResource(R.drawable.ic_check_circle_black_24dp);
             // Add logic here
@@ -211,7 +264,7 @@ public class two extends Fragment {
         mAllowto_visit_home = view.findViewById(R.id.radio_group1);
         mAllowto_visit_home.setOnCheckedChangeListener((group, checkedId) -> {
             View radioButton = mAllowto_visit_home.findViewById(checkedId);
-            int index = mAllowto_visit_home.indexOfChild(radioButton);
+            index1 = mAllowto_visit_home.indexOfChild(radioButton);
             radio3 = mAllowto_visit_home.findViewById(checkedId);
             img6.setImageResource(R.drawable.ic_check_circle_black_24dp);
             // Add logic here
@@ -274,7 +327,6 @@ public class two extends Fragment {
         return separated[indext];
     }
     private boolean checkEd(){
-        boolean bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid;
 
         bLoand_amount = createLoad.CheckedYear(mLoan_amount);
         bLoan_Period = createLoad.CheckedYear(mLoan_Term);
@@ -328,14 +380,39 @@ public class two extends Fragment {
                 if (!response.isSuccessful()){
                     Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
                 }
-                mLoan_amount.setText(String.valueOf(response.body().getLoan_amount()));
+                mLoan_amount.setText(cuteString(String.valueOf(response.body().getLoan_amount()),0));
                 mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
+                mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)response.body().getLoan_amount())});
+                mLoan_amount.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
+                            mLoan_Contributions.setText("0");
+                        }else mLoan_Contributions.setText(null);
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) { }
+                });
 //                mloan_RepaymentType.setText(response.body().getLoan_repayment_type());
                 String repay = response.body().getLoan_repayment_type();
                 if (repay.equals("monthly annuity repayment")){
                     mloan_RepaymentType.setText(getString(R.string.monthly_annuity_repay));
                 }else mloan_RepaymentType.setText(getString(R.string.monlthly_declining_repay));
                 mLoan_Contributions.setText(String.valueOf(response.body().getLoan_deposit_amount()));
+                mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
+                            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,(int)response.body().getLoan_amount()-Integer.parseInt(mLoan_amount.getText().toString()))});
+                        }
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) { }
+                });
                 if (response.body().isIs_product_insurance()){
                     rgBuying_product_insurance.check(R.id.radial);
                     radio1.toggle();

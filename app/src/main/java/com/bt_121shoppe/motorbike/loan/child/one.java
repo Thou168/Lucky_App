@@ -71,7 +71,7 @@ public class one extends Fragment{
     String mPrice;
     private Create_Load createLoad;
     private item_one itemOne;
-    int index,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
+    int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
     Button next;
     boolean radioCheck = false,Co_borrower,mFromLoan;
 
@@ -88,6 +88,8 @@ public class one extends Fragment{
     String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
     String[] rJob ;
     String[] rRela;
+    boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
+
     public static one newInstance(int number,String price,int loanid,boolean fromLoan) {
         one fragment = new one();
         Bundle args = new Bundle();
@@ -413,8 +415,23 @@ public class one extends Fragment{
         mBtnNext.setOnClickListener(view3 -> {
 //            Bundle bundle=new Bundle();
 //            boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
-            Log.d("343434343",String.valueOf(editext()));
+            Log.d("343434343",String.valueOf(editext())+"    "+index);
 //            Log.d("111111111111111","1111"+radio3.getText().toString()+"  "+mProvinceID);
+            if (index == 1){
+                createLoad.requstFocus(bRelationship,img7,null);
+                createLoad.requstFocus(bCo_borrower_Job,img8,null);
+                createLoad.requstFocus(bCo_Job_Period,img9,mCo_Job_Period);
+            }
+            if (!(index == 0|| index == 1)){
+                img6.setImageResource(R.drawable.ic_error_black_24dp);
+            }
+            createLoad.requstFocus(bname,img1,mName);
+            createLoad.requstFocus(baddress,img3,mAddress);
+            createLoad.requstFocus(bJob,img4,mJob);
+            createLoad.requstFocus(bJob_Period,img5,mJob_Period);
+//            createLoad.requstFocus(bRelationship,img6,null);
+            createLoad.requstFocus(bTotal_Income,img10,mTotal_Income);
+            createLoad.requstFocus(bmTotal_Expense,img11,mTotal_Expense);
             if (editext()){
                 itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),Job[indextJom],
                         Co_borrower,index,Rela[indexRela],Job[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
@@ -429,7 +446,6 @@ public class one extends Fragment{
 
     }
     private boolean editext(){
-        boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
         bname = createLoad.Checked(mName);
         bphone = createLoad.Checked(mPhone_Number);
         baddress = createLoad.Checked(mAddress);
