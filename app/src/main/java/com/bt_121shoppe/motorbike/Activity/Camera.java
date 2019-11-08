@@ -150,7 +150,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private Button submit_post;
     private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
-    private String user_name,user_email,user_phone,user_address,user_address_name,edit_name,edit_email,edit_phone,edit_address,edit_address_name;
+    private String user_name,user_email,user_phone,user_address,user_address_name;
+    private String edit_name,edit_email,edit_phone,edit_address,edit_address_name;
     private String name,pass,Encode;
     private int pk;
     private ArrayAdapter<String> brands,models;
@@ -183,6 +184,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     int edit_id,status;
     Bundle bundle;
     int mmodel=1;
+    Boolean my_name = true;
 
 //for condition used
     private TextInputLayout textInputWholeint;
@@ -391,10 +393,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         Call_category(Encode);
         Call_Type(Encode);
         Call_years(Encode);
-        initialUserInformation(pk,Encode);
         Log.d("User information",user_name+","+user_email+","+user_phone+","+user_address+","+user_address_name);
         TextChange();
         add_Phone();
+        initialUserInformation(pk,Encode);
         bundle = getIntent().getExtras();
         if (bundle!=null) {
             login_verify = bundle.getString("Login_verify");
@@ -405,11 +407,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 cate=bundle.getInt("category",0);
 
                 Log.d("Post_Type and Category",strPostType+","+cate);
-                if(strPostType.equals("buy")){
-                    tvPostType.setText(R.string.bu);
-                    relatve_discount.setVisibility(View.GONE);
-                    toolbar.setBackgroundColor(getColor(R.color.logo_orange));
-                }else if(strPostType.equals("sell")){
+//                if(strPostType.equals("buy")){
+//                    tvPostType.setText(R.string.bu);
+//                    relatve_discount.setVisibility(View.GONE);
+//                    toolbar.setBackgroundColor(getColor(R.color.logo_orange));
+//                }else
+                if(strPostType.equals("sell")){
                     tvPostType.setText(R.string.sel);
                     toolbar.setBackgroundColor(getColor(R.color.logo_green));
                 }else if(strPostType.equals("rent")){
@@ -1044,7 +1047,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                 String phone = object.getString("contact_phone");
 
-
                                 if (cate == 2) {
                                     type = 3;
                                     icType_elec.setVisibility(View.GONE);
@@ -1090,9 +1092,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         etDescription.setText(description);
                                         etPrice.setText(String.valueOf(price));
                                         etName.setText(name);
-//                                        etPhone1.setText(phone);
                                         etEmail.setText(email);
-
+//                                        etPhone1.setText(phone);
 
                                         String[] splitPhone = phone.split(",");
                                         if (splitPhone.length == 1){
@@ -1103,7 +1104,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             tilPhone2.setVisibility(View.VISIBLE);
                                             btnImagePhone2.setVisibility(View.VISIBLE);
                                             btnImagePhone1.setVisibility(View.GONE);
-
                                             etPhone1.setText(String.valueOf(splitPhone[0]));
                                             etPhone2.setText(String.valueOf(splitPhone[1]));
                                         }else if (splitPhone.length == 3){
@@ -1300,7 +1300,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void initialUserInformation(int pk, String encode) {
-        if (bundle==null) {
+//        if (bundle==null || bundle.isEmpty()) {
             final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "api/v1/users/", pk);
             MediaType MEDIA_TYPE = MediaType.parse("application/json");
             //Log.d(TAG,"tt"+url);
@@ -1322,56 +1322,58 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                User converJsonJava = new User();
-                                converJsonJava = gson.fromJson(respon, User.class);
+//                                User converJsonJava = new User();
+                                if (bundle == null || bundle.isEmpty()) {
+                                    User converJsonJava = gson.fromJson(respon, User.class);
+////                                user_name = converJsonJava.getFirst_name();
+////                                user_email= converJsonJava.getEmail();
+////                                etName.setText(user_name);
+////                                etEmail.setText(user_email);
+                                    etName.setText(converJsonJava.getFirst_name());
+                                    etEmail.setText(converJsonJava.getEmail());
 
-                                user_name = converJsonJava.getFirst_name();
-                                user_email= converJsonJava.getEmail();
-                            etName.setText(user_name);
-                            etEmail.setText(user_email);
-
-                                if (converJsonJava.getProfile().getTelephone()!=null){
-                                    user_phone= converJsonJava.getProfile().getTelephone();
-                                    String[] splitPhone = user_phone.split(",");
-                                    if (splitPhone.length == 1){
-                                        etPhone1.setText(String.valueOf(splitPhone[0]));
-                                        btnImagePhone1.setVisibility(View.VISIBLE);
-                                    }else if (splitPhone.length == 2){
-                                        icPhone2.setVisibility(View.VISIBLE);
-                                        tilPhone2.setVisibility(View.VISIBLE);
-                                        btnImagePhone2.setVisibility(View.VISIBLE);
-                                        btnImagePhone1.setVisibility(View.GONE);
-
-                                        etPhone1.setText(String.valueOf(splitPhone[0]));
-                                        etPhone2.setText(String.valueOf(splitPhone[1]));
-                                    }else if (splitPhone.length == 3){
-                                        icPhone2.setVisibility(View.VISIBLE);
-                                        tilPhone2.setVisibility(View.VISIBLE);
-                                        icPhone3.setVisibility(View.VISIBLE);
-                                        tilphone3.setVisibility(View.VISIBLE);
-                                        btnImagePhone2.setVisibility(View.GONE);
-                                        btnImagePhone1.setVisibility(View.GONE);
-                                        etPhone1.setText(String.valueOf(splitPhone[0]));
-                                        etPhone2.setText(String.valueOf(splitPhone[1]));
-                                        etPhone3.setText(String.valueOf(splitPhone[2]));
+                                    if (converJsonJava.getProfile().getTelephone()!=null){
+                                        user_phone = converJsonJava.getProfile().getTelephone();
+                                        String[] splitPhone = user_phone.split(",");
+                                        if (splitPhone.length == 1){
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            btnImagePhone1.setVisibility(View.VISIBLE);
+                                        }else if (splitPhone.length == 2){
+                                            icPhone2.setVisibility(View.VISIBLE);
+                                            tilPhone2.setVisibility(View.VISIBLE);
+                                            btnImagePhone2.setVisibility(View.VISIBLE);
+                                            btnImagePhone1.setVisibility(View.GONE);
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                                        }else if (splitPhone.length == 3){
+                                            icPhone2.setVisibility(View.VISIBLE);
+                                            tilPhone2.setVisibility(View.VISIBLE);
+                                            icPhone3.setVisibility(View.VISIBLE);
+                                            tilphone3.setVisibility(View.VISIBLE);
+                                            btnImagePhone2.setVisibility(View.GONE);
+                                            btnImagePhone1.setVisibility(View.GONE);
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                                            etPhone3.setText(String.valueOf(splitPhone[2]));
+                                        }
                                     }
-                                }
-                                user_address = converJsonJava.getProfile().getAddress();
-                                if(user_address.isEmpty()){
-                                    get_location(true);
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
-                                }else {
-                                    String[] splitAddr = user_address.split(",");
-                                    latitude = Double.valueOf(splitAddr[0]);
-                                    longtitude = Double.valueOf(splitAddr[1]);
-                                    get_location(false);
+                                    user_address = converJsonJava.getProfile().getAddress();
+                                    if(user_address.isEmpty()){
+                                        get_location(true);
+                                        mapFragment.getMapAsync(Camera.this::onMapReady);
+                                    }else {
+                                        String[] splitAddr = user_address.split(",");
+                                        latitude = Double.valueOf(splitAddr[0]);
+                                        longtitude = Double.valueOf(splitAddr[1]);
+                                        get_location(false);
 
-                                    if (converJsonJava.getProfile().getResponsible_officer()!=null){
-                                        user_address_name = converJsonJava.getProfile().getResponsible_officer();
-                                        tvAddress.setQuery(user_address_name,false);
+                                        if (converJsonJava.getProfile().getResponsible_officer()!=null){
+                                            user_address_name = converJsonJava.getProfile().getResponsible_officer();
+                                            tvAddress.setQuery(user_address_name,false);
+                                        }
+                                        mapFragment.getMapAsync(Camera.this::onMapReady);
+
                                     }
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
-
                                 }
                             }
                         });
@@ -1386,7 +1388,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
             });
 
-        } // end if
+//        } // end if
     }
 
     private void PostData(String encode) {
@@ -1572,6 +1574,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             if (etName.getText().toString().isEmpty() || etName.getText().toString() == null){
                 post.put("machine_code", user_name);
             }else {
+                etName.getText().toString();
                 post.put("machine_code", etName.getText().toString());
             }
             if (etPhone1.getText().toString().isEmpty() || etPhone1.getText().toString() == null){
@@ -1807,10 +1810,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             strDiscountType="amount";
         if(strCondition==null || strCondition.isEmpty())
             strCondition="new";
-        if(strColor==null || strColor.isEmpty()) {
-            strColor = "black";
-            strColorKH="ខ្មៅ";
-        }
+//        if(strColor==null || strColor.isEmpty()) {
+//            strColor = "black";
+//            strColorKH="ខ្មៅ";
+//        }
         if (edwhole_int.getText().toString().length()==0) {
             edwhole_int.setText("0");
         }
@@ -1838,6 +1841,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         if (edAccessories.getText().toString().length()==0) {
             edAccessories.setText("0");
         }
+//        if (etPhone2.getText().toString().length()==0){
+//            etPhone2.setText("");
+//        }
+//        if (etPhone3.getText().toString().length()==0){
+//            etPhone3.setText("");
+//        }
         String str_dis=etDiscount_amount.getText().toString();
         if(str_dis==null || str_dis.isEmpty())
             str_dis="0";
@@ -1954,6 +1963,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             if (etName.getText().toString().isEmpty() || etName.getText().toString() == null){
                 post.put("machine_code", edit_name);
             }else {
+                etName.getText().toString();
                 post.put("machine_code", etName.getText().toString());
             }
             if (etPhone1.getText().toString().isEmpty() || etPhone1.getText().toString() == null){
@@ -2002,14 +2012,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     post.put("rent_post",new JSONArray("["+rent+"]"));
                     break;
 
-                case "ទិញ":
-                case "buy":
-                    url = ConsumeAPI.BASE_URL+"api/v1/postbuys/"+ edit_id + "/";
-                    JSONObject buy=new JSONObject();
-                    buy.put("buy_status",3);
-                    buy.put("record_status",1);
-                    post.put("buy_post",new JSONArray("["+buy+"]"));
-                    break;
+//                case "ទិញ":
+//                case "buy":
+//                    url = ConsumeAPI.BASE_URL+"api/v1/postbuys/"+ edit_id + "/";
+//                    JSONObject buy=new JSONObject();
+//                    buy.put("buy_status",3);
+//                    buy.put("record_status",1);
+//                    post.put("buy_post",new JSONArray("["+buy+"]"));
+//                    break;
             }
 
             //Log.d("URLLLLLLL Edit",url);
@@ -4229,7 +4239,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                    String city    = addressList.get(0).getLocality();
                         String road = addressList.get(0).getAddressLine(0);
 
-                        tvAddress.setQuery( road , false );
+                        tvAddress.setQuery( road , true );
                     }catch (IOException e){
                         e.printStackTrace();
                     }

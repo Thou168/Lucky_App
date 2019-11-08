@@ -11,7 +11,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -80,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog.Builder dialog;
 
     private FirebaseAuth auth;
+//    InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         Password = (EditText)findViewById(R.id.editPasswordLogin);
         btnSubmit = (Button)findViewById(R.id.btnSubmitLogin);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
+//        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.please_wait));
@@ -120,6 +125,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(LoginActivity.this,SearchAccountActivity.class);
                 startActivity(intent);
+            }
+        });
+        Password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    btnSubmit.performClick();
+                }
+                return false;
             }
         });
 
@@ -210,7 +224,8 @@ public class LoginActivity extends AppCompatActivity {
         dialog.setPositiveButton(R.string.btn_alert, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                Password.requestFocus();
+//                imm.showSoftInput(Password,InputMethodManager.SHOW_IMPLICIT);
             }
         });
         dialog.create();
