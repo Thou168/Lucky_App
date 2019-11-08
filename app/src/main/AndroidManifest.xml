@@ -209,6 +209,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Product_New_Post.Detail_New_Post"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Buy_Sell_Rent.Sell.Sell"

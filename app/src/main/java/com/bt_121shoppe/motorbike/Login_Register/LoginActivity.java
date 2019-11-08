@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgress.dismiss();
+                mProgress.show();
                 postRequest();
                 jilapatitus();
             }
@@ -164,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("ajdmsamwjdjansmd","mgnnwejwgwekfkk");
                     }
                 }
+                mProgress.dismiss();
 
             }
 
@@ -311,7 +312,6 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("pass",Password.getText().toString());
                         editor.putInt("Pk",pk);
                         editor.apply();
-                        mProgress.dismiss();
 
                         loginEmailWithFirebase(user.getUsername());
 
@@ -390,6 +390,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     finish();
                                                     break;
                                             }
+                                            mProgress.dismiss();
                                         }
                                         else{
                                             Toast.makeText(LoginActivity.this,"You cannot register with email or password.",Toast.LENGTH_SHORT).show();

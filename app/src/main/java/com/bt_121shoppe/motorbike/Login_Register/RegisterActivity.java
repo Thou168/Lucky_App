@@ -269,7 +269,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 final String mMessage = response.body().string();
                 Log.d(TAG,mMessage);
-                mProgress.dismiss();
                 convertUser(mMessage);
             }
             @Override
@@ -422,6 +421,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
+                            mProgress.dismiss();
                         }else{
                             Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
 
@@ -460,6 +460,7 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.putExtra("ID",product_id);
                             intent.putExtra("Register_verify",register_verify);
                             startActivity(intent);
+                            mProgress.dismiss();
 
                         }else{
                             Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
