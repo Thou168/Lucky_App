@@ -1212,13 +1212,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount=jsonObject.getInt("count")
-                        Log.w("Related show",mMessage)
+                        Log.w("Related",mMessage)
                         if (jsonCount == 0){
-                            mprocessBar.visibility = View.GONE
                             tex_noresult.visibility = View.VISIBLE
+                        }else{
+                            tex_noresult.visibility = View.GONE
                         }
                         mprocessBar.visibility = View.GONE
-
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
                             val title = obj.getString("title")

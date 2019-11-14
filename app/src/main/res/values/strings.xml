@@ -400,7 +400,7 @@
     <string name="inputComfirm">Invalid Confirm Password</string>
     <string name="invalidPassword">Comfirm Password is Invalid</string>
     <string name="next">Next</string>
-    <string name="user_message">Password must be 4 digits and Number only</string>
+    <string name="user_message">Password must be 4 digits</string>
     <string name="dealer_message">Password can be Numbers,Letters and Special Characters</string>
 
     <string name="valid_dealer_pass">Password should be at least 1 characters</string>

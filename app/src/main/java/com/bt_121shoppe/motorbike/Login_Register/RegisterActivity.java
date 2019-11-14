@@ -10,8 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -105,11 +108,23 @@ public class RegisterActivity extends AppCompatActivity {
         if (user_group == 1){
             PasswordError.setText(R.string.user_message);
             ComfirmPassError.setText(R.string.user_message);
+            editPassword.setInputType(InputType.TYPE_CLASS_NUMBER);
+            editComfirmPass.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         }else {
             PasswordError.setText(R.string.dealer_message);
             ComfirmPassError.setText(R.string.dealer_message);
         }
+
+        editComfirmPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    btnSubmit.performClick();
+                }
+                return false;
+            }
+        });
         btnSubmit = (Button)findViewById(R.id.btnSub);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
