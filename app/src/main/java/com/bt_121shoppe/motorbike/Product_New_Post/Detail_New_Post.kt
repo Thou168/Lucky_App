@@ -429,7 +429,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         edLoanTerm.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                calculateLoanMonthlyPayment()
+//                calculateLoanMonthlyPayment()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -1212,7 +1212,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val jsonObject = JSONObject(mMessage)
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount=jsonObject.getInt("count")
-                        if (jsonCount == 1 || jsonCount == 0){
+                        Log.w("Related show",mMessage)
+                        if (jsonCount == 0){
                             mprocessBar.visibility = View.GONE
                             tex_noresult.visibility = View.VISIBLE
                         }
