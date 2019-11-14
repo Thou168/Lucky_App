@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -137,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String ComfirmPass = editComfirmPass.getText().toString();
                 if (user_group == 1){
                     if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)) {
-//                    register_error();
+                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(R.string.inputPhone);
@@ -192,7 +193,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Pattern lowerCasePatten = Pattern.compile("[a-z ]");
                     Pattern digitCasePatten = Pattern.compile("[0-9 ]");
                     if (Number_Phone.length()<9 || !lowerCasePatten.matcher(Password).find() || !lowerCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
-//                    register_error();
+                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(R.string.inputPhone);
@@ -242,7 +243,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void register_error(){
         dialog = new AlertDialog.Builder(RegisterActivity.this,R.style.AlertDialogCustom);
         dialog.setTitle(R.string.head_dialog_register);
-//        dialog.setMessage(R.string.wrong_pass_phone);
+        dialog.setMessage(R.string.wrong_pass_phone);
         dialog.setCancelable(false);
         dialog.setIcon(android.R.drawable.ic_delete);
         dialog.setPositiveButton(R.string.btn_alert, new DialogInterface.OnClickListener() {
@@ -251,7 +252,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-        dialog.create();
         dialog.show();
     }
 

@@ -146,7 +146,7 @@
     <string name="secret_number">Wrong password</string>
     <string name="secret_number1">Password is empty</string>
     <string name="head_dialog_login">Login failure!</string>
-    <string name="wrong_pass_phone">Your password or your phone went wrong!</string>
+    <string name="wrong_pass_phone">Your password or your phone number went wrong!</string>
 
     <string name="confirm">Confirm Password</string>
     <string name="or">Or</string>
@@ -391,7 +391,7 @@
     </string-array>
 
     //dialog error register
-    <string name="head_dialog_register">Register failure!</string>
+    <string name="head_dialog_register">Register failure</string>
     <string name="inputPhone">Please input the Phone Numbers</string>
     <string name="inputPhoneWrong">Invalid Phone Number</string>
     <string name="inputPassword">Please input the Password</string>
