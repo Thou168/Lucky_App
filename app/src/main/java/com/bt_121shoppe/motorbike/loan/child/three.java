@@ -2,6 +2,7 @@ package com.bt_121shoppe.motorbike.loan.child;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,8 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.fragments.FragmentC1;
+import com.bt_121shoppe.motorbike.fragments.Loadbyuser;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
@@ -73,6 +76,7 @@ public class three extends Fragment {
     boolean ischeck;
     boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
     boolean bID_Card,bFramily_Book,bPhotos,bEmployment_card,bID_Card1,bFramily_Book1,bPhotos1,bEmployment_card1;
+    private ProgressDialog mProgress;
     public static three newInstance(item_two itemTwo) {
         Bundle args = new Bundle();
 //        args.putParcelable(ARG_NUMBER,itemOne);
@@ -102,6 +106,10 @@ public class three extends Fragment {
         mBtnSubmit = view.findViewById(R.id.btn_submit);
         btn_positive = view.findViewById(R.id.button_positive);
         btn_negative = view.findViewById(R.id.button_negative);
+        mProgress = new ProgressDialog(getContext());
+        mProgress.setMessage(getString(R.string.update));
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         Paper.init(getContext());
         language = Paper.book().read("language");
@@ -353,10 +361,10 @@ public class three extends Fragment {
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
             Editloan();
 //            clearDialog.dismiss();
+            mProgress.show();
             getActivity().finish();
-
         });
-
+        mProgress.dismiss();
         clearDialog.show();
     }
 
@@ -455,9 +463,9 @@ public class three extends Fragment {
             Intent intent = new Intent(getContext(), Detail_New_Post.class);
             intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
             startActivity(intent);
+            mProgress.show();
             getActivity().finish();
             dialog.dismiss();
-//            getActivity().finish();
         });
         alertDialog.show();
     }
