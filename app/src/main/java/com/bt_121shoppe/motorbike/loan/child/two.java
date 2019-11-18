@@ -385,9 +385,10 @@ public class two extends Fragment {
                 if (!response.isSuccessful()){
                     Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
                 }
+
                 mLoan_amount.setText(cuteString(String.valueOf(response.body().getLoan_amount()),0));
                 mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
-                mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)response.body().getLoan_amount())});
+                mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)response.body().getLoan_amount()+(int)response.body().getLoan_deposit_amount())});
                 mLoan_amount.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -412,7 +413,7 @@ public class two extends Fragment {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
-                            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,(int)response.body().getLoan_amount()-Integer.parseInt(mLoan_amount.getText().toString()))});
+                            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,(int)response.body().getLoan_amount()+(int)response.body().getLoan_deposit_amount()-Integer.parseInt(mLoan_amount.getText().toString()))});
                         }
                     }
                     @Override
