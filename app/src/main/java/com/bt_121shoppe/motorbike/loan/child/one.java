@@ -240,7 +240,7 @@ public class one extends Fragment{
                 }
                 String stphone = response.body().getProfile().getTelephone();
 
-//                mPhone_Number.setText(method(stphone));
+                mPhone_Number.setText(method(stphone));
 //               mPhone_Number.setText(response.body().getProfile().getTelephone());
             }
 

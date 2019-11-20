@@ -95,9 +95,9 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             userChatList.add(new UserChat(chat.getReceiver(), chat.getPost()));
                         }
 
-                        if (chat.getReceiver().equals(fuser.getUid())) {
-                            userChatList.add(new UserChat(chat.getSender(), chat.getPost()));
-                        }
+//                        if (chat.getReceiver().equals(fuser.getUid())) {
+//                            userChatList.add(new UserChat(chat.getSender(), chat.getPost()));
+//                        }
                         Log.d("ERROR Receiver", chat.getReceiver() + "," + fuser.getUid());
                     }
 

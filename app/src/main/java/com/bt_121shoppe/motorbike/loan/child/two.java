@@ -214,32 +214,37 @@ public class two extends Fragment {
             img1.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
             mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
-            mLoan_amount.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
-                        mLoan_Contributions.setText("0");
-                    }else mLoan_Contributions.setText(null);
-                }
-                @Override
-                public void afterTextChanged(Editable s) { }
-            });
+            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+//            mLoan_amount.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+//                @Override
+//                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                    if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
+//                        mLoan_Contributions.setText("0");
+//                    }else mLoan_Contributions.setText(null);
+//                }
+//                @Override
+//                public void afterTextChanged(Editable s) { }
+//            });
 //            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+            mLoan_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        mLoan_Contributions.setText(cuteString(String.valueOf(Double.parseDouble(itemOne.getPrice())- Double.parseDouble(mLoan_amount.getText().toString())),0));
+                    }
+                }
+            });
             mLoan_Contributions.setText("0");
             img4.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mLoan_Contributions.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
-                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(cuteString(itemOne.getPrice(),0))-Integer.parseInt(mLoan_amount.getText().toString()))});
-                    }
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
-                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(cuteString(itemOne.getPrice(),0))-Integer.parseInt(mLoan_amount.getText().toString()))});
+                        mLoan_amount.setText(cuteString(String.valueOf(Double.parseDouble(itemOne.getPrice())- Double.parseDouble(s.toString())),0));
                     }
                 }
                 @Override
