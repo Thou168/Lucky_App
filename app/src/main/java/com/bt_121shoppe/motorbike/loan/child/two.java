@@ -357,6 +357,7 @@ public class two extends Fragment {
             return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution;
         }
     }
+
     public class InputFilterMinMax implements InputFilter {
         private int min;
         private int max;
@@ -408,7 +409,6 @@ public class two extends Fragment {
 //                    public void afterTextChanged(Editable s) { }
 //                });
                 double price = response.body().getLoan_amount() + response.body().getLoan_deposit_amount();
-                Log.d("233333333333333333333",price+" ");
                 mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
                 mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
 
@@ -420,17 +420,25 @@ public class two extends Fragment {
                         }
                     }
                 });
+
                 mLoan_Contributions.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
+
+                        if (!s.toString().isEmpty()&&!s.toString().equals("0")){
+                            mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(15)});
+                            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
                             mLoan_amount.setText(cuteString(String.valueOf(price - Double.parseDouble(s.toString())),0));
                         }
                     }
                     @Override
-                    public void afterTextChanged(Editable s) { }
+                    public void afterTextChanged(Editable s) {
+                        if (s.toString().equals("0") || s.toString().equals("0.0")){
+                            mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
+                        }
+                    }
                 });
 //                mloan_RepaymentType.setText(response.body().getLoan_repayment_type());
                 String repay = response.body().getLoan_repayment_type();
