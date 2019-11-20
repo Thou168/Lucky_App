@@ -122,6 +122,20 @@ public class one extends Fragment{
         rRela = getResources().getStringArray(R.array.relationship);
 
         initView(view);
+
+        preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
+        username=preferences.getString("name","");
+        password=preferences.getString("pass","");
+        Encode = getEncodedString(username,password);
+        basicEncode = "Basic "+Encode;
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
+        Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
+
+
 //        next = view.findViewById(R.id.next);
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
         relati_Contributors = view.findViewById(R.id.relati_Contributors);
@@ -132,6 +146,7 @@ public class one extends Fragment{
         if (mFromLoan){
             GetLoan();
             }else {
+            getDetailUser();
             mTotal_Income.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -201,24 +216,12 @@ public class one extends Fragment{
         radio2 = view.findViewById(R.id.radio2);
 ////        next.setOnClickListener(v -> frm_on.setViewPager(1));
 
-        preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
-        username=preferences.getString("name","");
-        password=preferences.getString("pass","");
-        Encode = getEncodedString(username,password);
-        basicEncode = "Basic "+Encode;
-        if (preferences.contains("token")) {
-            pk = preferences.getInt("Pk",0);
-        }else if (preferences.contains("id")) {
-            pk = preferences.getInt("id", 0);
-        }
-        Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 
 //        Button btn = view.findViewById(R.id.btn);
 //        btn.setOnClickListener(v -> {
 //            Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 ////            putapi();
 //        });
-        getDetailUser();
         return view;
     }
     public String method(String str) {
