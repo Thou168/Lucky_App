@@ -6,6 +6,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Brand;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
+import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
@@ -145,5 +146,8 @@ public interface Service {
     Call<UserResponseModel> getUserProfile(@Path("pk") int pk);
     @GET("postbyuserfilter/?created_by=&approved_by=&rejected_by=&modified_by=")
     Call<AllResponse> getActivePostbyuser(@Query("created_by") int created_by);
+
+    @GET("api/v1/wallpaper/")
+    Call<AllResponse> getSliderImage();
 
 }

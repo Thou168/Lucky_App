@@ -40,6 +40,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
@@ -181,14 +185,17 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
 
         /* start implementation slider navigation */
         SliderImage mSliderImages=findViewById(R.id.slider);
-        List<String> mImages=new ArrayList<>();
-        mImages.add("https://www.allkpop.com/upload/2018/12/content/131156/rv-1jpg.jpg");
-        mImages.add("https://www.sbs.com.au/popasia/sites/sbs.com.au.popasia/files/styles/full/public/redvelvet_1.jpg?itok=0ZNzn25v&mtime=1522728750");
-        mImages.add("https://sa.kapamilya.com/absnews/abscbnnews/media/2019/news/05/27/korean.jpg");
-        mImages.add("https://akns-images.eonline.com/eol_images/Entire_Site/2019719/rs_1024x576-190819194533-e-asia-red-velvet-umpah-umpah.jpg?fit=inside|900:auto&output-quality=90");
-        mSliderImages.setItems(mImages);
-        mSliderImages.addTimerToSlide(3000);
-        mSliderImages.getIndicator();
+        List<String> mImages1 =new ArrayList<>();
+//        mImages.add("https://www.allkpop.com/upload/2018/12/content/131156/rv-1jpg.jpg");
+//        mImages.add("https://www.sbs.com.au/popasia/sites/sbs.com.au.popasia/files/styles/full/public/redvelvet_1.jpg?itok=0ZNzn25v&mtime=1522728750");
+//        mImages.add("https://sa.kapamilya.com/absnews/abscbnnews/media/2019/news/05/27/korean.jpg");
+//        mImages.add("https://akns-images.eonline.com/eol_images/Entire_Site/2019719/rs_1024x576-190819194533-e-asia-red-velvet-umpah-umpah.jpg?fit=inside|900:auto&output-quality=90");
+//        mSliderImages.setItems(mImages);
+//        mSliderImages.addTimerToSlide(3000);
+//        mSliderImages.getIndicator();
+
+
+
         /* end implementation slider navigation */
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mProgressbar.setVisibility(View.VISIBLE);

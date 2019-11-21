@@ -50,6 +50,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
@@ -80,6 +84,8 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import org.checkerframework.checker.index.qual.LengthOf;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,6 +128,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private int pk=0,mPostTypeId=0,mCategoryId=0,mBrandId=0,mYearId=0;
     private double mMinPrice=0,mMaxPrice=0;
     private Fragment currentFragment;
+
+    private List<Slider> mImages=new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -280,14 +288,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         /* start implementation slider navigation */
         SliderImage mSliderImages=findViewById(R.id.slider);
-        List<String> mImages=new ArrayList<>();
-        mImages.add("http://cambo-report.com/storage/0MX5fa6STYIdLNYePG9x1rQHKPYWQSxazY8rRI1S.jpeg");
-        mImages.add("https://i.ytimg.com/vi/iAkUDrdAmUU/maxresdefault.jpg");
-        mImages.add("https://www.tracker.co.uk/application/files/thumbnails/hero_banner_small/6015/4867/2711/motorbike-banner.jpg");
-        mImages.add("https://www.coxmotorgroup.com/images/cmg/new-motorcycles/new-motorcycle-banner.jpg");
-        mSliderImages.setItems(mImages);
-        mSliderImages.addTimerToSlide(3000);
-        mSliderImages.getIndicator();
+        List<String> mImages1=new ArrayList<>();
+//        mImages.add("http://cambo-report.com/storage/0MX5fa6STYIdLNYePG9x1rQHKPYWQSxazY8rRI1S.jpeg");
+//        mImages.add("https://i.ytimg.com/vi/iAkUDrdAmUU/maxresdefault.jpg");
+//        mImages.add("https://www.tracker.co.uk/application/files/thumbnails/hero_banner_small/6015/4867/2711/motorbike-banner.jpg");
+//        mImages.add("https://www.coxmotorgroup.com/images/cmg/new-motorcycles/new-motorcycle-banner.jpg");
+//        mSliderImages.setItems(mImages);
+//        mSliderImages.addTimerToSlide(3000);
+//        mSliderImages.getIndicator();
+
         /* end implementation slider navigation */
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mProgressbar.setVisibility(View.VISIBLE);

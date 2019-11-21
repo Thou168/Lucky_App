@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.*;
 
-public class Item {
+public class Item implements Serializable {
 
     private float id;
     private String title;
