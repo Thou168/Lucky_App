@@ -138,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String ComfirmPass = editComfirmPass.getText().toString();
                 if (user_group == 1){
                     if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)) {
-                    register_error();
+//                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(R.string.inputPhone);
@@ -193,7 +193,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Pattern lowerCasePatten = Pattern.compile("[a-z ]");
                     Pattern digitCasePatten = Pattern.compile("[0-9 ]");
                     if (Number_Phone.length()<9 || !lowerCasePatten.matcher(Password).find() || !lowerCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
-                    register_error();
+//                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(R.string.inputPhone);

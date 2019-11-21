@@ -410,6 +410,12 @@
     <string name="type">Type</string>
     <string name="model">Model</string>
 
+    //other_dealer_in_camera
+    <string name="other_dealer_ca">OTHER DEALER</string>
+    <string name="shop_other1">Shop Name 1</string>
+    <string name="shop_other2">Shop Name 2</string>
+    <string name="shop_other3">Shop Name 3</string>
+
     //Loan
     <string name="address">Address</string>
     <string name="name">Name</string>

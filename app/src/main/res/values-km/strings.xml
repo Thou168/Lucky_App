@@ -428,6 +428,12 @@
     <string name="choose_language">ជ្រើសរើសភាសា</string>
     <string name="upload">បញ្ចូល</string>
 
+    //other_dealer_in_camera
+    <string name="other_dealer_ca">អ្នកចែកចាយផ្សេងទៀត</string>
+    <string name="shop_other1">ឈ្មោះហាងទី១</string>
+    <string name="shop_other2">ឈ្មោះហាងទី២</string>
+    <string name="shop_other3">ឈ្មោះហាងទី៣</string>
+
     //post ad
     <string name="post_type">ប្រភេទប្រកាស</string>
     <string name="title">ចំណងជើង</string>

@@ -140,7 +140,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     private String[] genderListItems,genderListItemkh,maritalStatusListItems,yearListItems,provinceListItems,provinceItemkh,type_userListItem,usertpyeItem,photoChooseOption;
     private int[] provinceIdListItems,yearIdListItems,type_userid;
     private String strGender,strMaritalStatus,strDob,strYob,strPob,strLocation;
-    private TextInputLayout input_user, input_wingname,input_wingnum;
+    private TextInputLayout input_user, input_wingname,input_wingnum,input_phone,input_email;
     private Button btUpgrade,Cancle,Submit;
     private CircleImageView btnlogo;
     private String register_intent;
@@ -1013,14 +1013,13 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             }
                             //dealer shop section
                             if(convertJsonJava.getShops().size()>0){
-
                                 for(int i=0;i<convertJsonJava.getShops().size();i++){
                                     ShopViewModel shopViewModel=convertJsonJava.getShops().get(i);
                                     switch (i){
                                         case 0:
                                             Log.e(TAG,"Here first shop");
                                             etShop_name.setText(shopViewModel.getShop_name());
-                                            //mDealerShop1.setText(shopViewModel.getId());
+//                                            mDealerShop1.setText(shopViewModel.getId());
                                             mDealerShopId1=shopViewModel.getId();
                                             userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
@@ -1032,7 +1031,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                             tilShop_name1.setVisibility(View.VISIBLE);
                                             btnShopname1.setVisibility(View.VISIBLE);
                                             btnShopname.setVisibility(View.GONE);
-                                            //mDealerShop2.setText(shopViewModel.getId());
+//                                            mDealerShop2.setText(shopViewModel.getId());
                                             mDealerShopId2=shopViewModel.getId();
                                             userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
@@ -1782,6 +1781,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 }else if (s.length()<9){
                     imgPhone.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgPhone.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_phone.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_phone.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -1845,6 +1846,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                 }else if (s.length()<3){
                     imgEmail.setImageResource(R.drawable.ic_error_black_24dp);
                 }else imgEmail.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                input_email.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+                input_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
             }
 
             @Override
@@ -2028,6 +2031,8 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
         tilShop_name  = (TextInputLayout)findViewById(R.id.tilShop_name);
         tilShop_name1  = (TextInputLayout)findViewById(R.id.tilShop_name1);
         tilShop_name2  = (TextInputLayout)findViewById(R.id.tilShop_name2);
+        input_email = (TextInputLayout)findViewById(R.id.tilEmail_account);
+        input_phone = (TextInputLayout)findViewById(R.id.tilPhone_account);
         tilPhone2     = (TextInputLayout)findViewById(R.id.tilPhone_account2);
         tilPhone3     = (TextInputLayout)findViewById(R.id.tilPhone_account3);
         btUpgrade    = (Button)findViewById(R.id.btn_upgrade);
