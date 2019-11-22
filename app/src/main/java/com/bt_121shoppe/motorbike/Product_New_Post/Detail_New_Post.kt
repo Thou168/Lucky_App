@@ -19,6 +19,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
 import android.net.Uri
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -40,6 +41,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Home
 import com.custom.sliderimage.logic.SliderImage
@@ -50,11 +52,13 @@ import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount
 import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.adapters.ShopAdapter
 import com.bt_121shoppe.motorbike.chats.ChatActivity
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction
 import com.bt_121shoppe.motorbike.loan.Create_Load
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity
 import com.bt_121shoppe.motorbike.models.PostViewModel
+import com.bt_121shoppe.motorbike.models.ShopViewModel
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
 import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bt_121shoppe.motorbike.utils.LoanCalculator
@@ -161,6 +165,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     var encodeAuth:String = ""
     lateinit var sharedPref: SharedPreferences
     lateinit var loan:ImageView
+    lateinit var listShop: RecyclerView
+    lateinit var customAdapter:ShopAdapter
+    lateinit var mLayoutManager: RecyclerView.LayoutManager
+    lateinit var textdealershop: TextView
 
     var postDetail = PostViewModel()
     lateinit var mprgressbar: ProgressBar
@@ -254,7 +262,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         mprocessBar = findViewById(R.id.mprogressbar)
         mprocessBar.visibility = View.VISIBLE
         tex_noresult = findViewById(R.id.txt_noresult)
+        textdealershop = findViewById(R.id.ln1)
 
+        listShop = findViewById(R.id.list_shop)
         //Button Share
         val share = findViewById<ImageButton>(R.id.btn_share)
 //        share.setOnClickListener{
@@ -455,6 +465,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         })
 
     }  // oncreate
+
 
 //    fun dialContactPhone(phoneNumber:String) {
 //        startActivity( Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)))
@@ -938,6 +949,14 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     user1= gson.fromJson(mMessage, User::class.java)
                     Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
+
+                        if (user1.shops.size != 0){
+                            textdealershop.visibility = View.VISIBLE
+                            customAdapter = ShopAdapter(this@Detail_New_Post, user1.shops)
+                            mLayoutManager = LinearLayoutManager(getApplicationContext())
+                            listShop.setLayoutManager(mLayoutManager)
+                            listShop.setAdapter(customAdapter)
+                        }
 
 //                        val profilepicture: String=if(user1.profile.base64_profile_image==null) "" else user1.profile.base64_profile_image
 //                        if(profilepicture.isNullOrEmpty()){

@@ -13,11 +13,12 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.custom.sliderimage.logic.SliderImage
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
-            </com.custom.sliderimage.logic.SliderImage>
+                android:layout_height="280dp"></com.custom.sliderimage.logic.SliderImage>
+
             <View style="@style/line"/>
             <TextView
                 android:id="@+id/title"
@@ -291,13 +292,29 @@
                         android:text="@string/description"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_8dp"
+                        android:paddingBottom="@dimen/dp_8dp"
+                        android:id="@+id/ln1"
+                        android:gravity="center"
+                        android:background="@color/colorLightGray"
+                        android:textSize="@dimen/dp_16"
+                        android:text="Dealer Shop"
+                        android:layout_below="@+id/tv_Description" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_below="@+id/ln1"
+                        android:id="@+id/list_shop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relative"
-                    android:background="#CECECE"
+                    android:background="#00CECECE"
                     android:id="@+id/text"/>
                 <RelativeLayout
                     android:id="@+id/rlLoanCalculation"

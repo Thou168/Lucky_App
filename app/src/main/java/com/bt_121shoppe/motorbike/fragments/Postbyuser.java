@@ -147,7 +147,7 @@ public class Postbyuser extends Fragment {
                         }
                     }
                     progressBar.setVisibility(View.GONE);
-                    //mAdapter = new Adapter_postbyuser(listData, getContext());
+//                    mAdapter = new Adapter_postbyuser(listData, getContext());
                     UserPostActiveAdapter mAdapter=new UserPostActiveAdapter(listData);
                     recyclerView.setAdapter(mAdapter);
                 }
