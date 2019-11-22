@@ -131,8 +131,8 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             String strPostTitle="";
             if(lang.equals("View:"))
                 strPostTitle=mPost.getPostTitle().split(",")[0];
-            else
-                strPostTitle=mPost.getPostTitle().split(",")[1];
+//            else
+//                strPostTitle=mPost.getPostTitle().split(",")[1];
             postTitle.setText(strPostTitle);
 
             postLocationDT.setText(mPost.getLocationDuration());

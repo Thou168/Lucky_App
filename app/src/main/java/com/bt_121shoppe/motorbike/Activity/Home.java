@@ -288,7 +288,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         /* start implementation slider navigation */
         SliderImage mSliderImages=findViewById(R.id.slider);
-        List<String> mImages1=new ArrayList<>();
+//        List<String> mImages=new ArrayList<>();
+        List<String> mImages1 =new ArrayList<>();
 //        mImages.add("http://cambo-report.com/storage/0MX5fa6STYIdLNYePG9x1rQHKPYWQSxazY8rRI1S.jpeg");
 //        mImages.add("https://i.ytimg.com/vi/iAkUDrdAmUU/maxresdefault.jpg");
 //        mImages.add("https://www.tracker.co.uk/application/files/thumbnails/hero_banner_small/6015/4867/2711/motorbike-banner.jpg");
@@ -296,6 +297,29 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //        mSliderImages.setItems(mImages);
 //        mSliderImages.addTimerToSlide(3000);
 //        mSliderImages.getIndicator();
+
+        Service apiService = Client.getClient().create(Service.class);
+        retrofit2.Call<AllResponse> call = apiService.getSliderImage();
+        call.enqueue(new retrofit2.Callback<AllResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                mImages = response.body().getresults();
+                if (!response.isSuccessful()){
+                    Log.d("211111111111111212", String.valueOf(response.code()));
+                }
+                for (int i=0;i<mImages.size();i++){
+                    mImages1.add(mImages.get(i).getImg());
+                }
+                mSliderImages.setItems(mImages1);
+                mSliderImages.addTimerToSlide(3000);
+                mSliderImages.getIndicator();
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+
+            }
+        });
 
         /* end implementation slider navigation */
         mSwipeRefreshLayout.setOnRefreshListener(this);
