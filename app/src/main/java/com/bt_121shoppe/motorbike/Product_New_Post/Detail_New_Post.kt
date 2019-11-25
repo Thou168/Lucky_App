@@ -262,6 +262,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         mprocessBar = findViewById(R.id.mprogressbar)
         mprocessBar.visibility = View.VISIBLE
         tex_noresult = findViewById(R.id.txt_noresult)
+        tex_noresult.visibility = View.VISIBLE
         textdealershop = findViewById(R.id.ln1)
 
         listShop = findViewById(R.id.list_shop)
@@ -1243,11 +1244,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         val jsonArray = jsonObject.getJSONArray("results")
                         val jsonCount=jsonObject.getInt("count")
                         Log.w("Related",mMessage)
-                        if (jsonCount == 0){
-                            tex_noresult.visibility = View.VISIBLE
-                        }else{
-                            tex_noresult.visibility = View.GONE
-                        }
+//                        if (jsonCount == 0){
+//                            tex_noresult.visibility = View.VISIBLE
+//                        }else{
+//                            tex_noresult.visibility = View.GONE
+//                        }
                         mprocessBar.visibility = View.GONE
                         for (i in 0 until jsonArray.length()) {
                             val obj = jsonArray.getJSONObject(i)
@@ -1278,6 +1279,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                                 itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
+                                tex_noresult.visibility = View.GONE
                             }
                             list_rela!!.adapter = MyAdapter_list_grid_image(itemApi, "Grid",this@Detail_New_Post)
                             list_rela!!.layoutManager = GridLayoutManager(this@Detail_New_Post,2) as RecyclerView.LayoutManager?

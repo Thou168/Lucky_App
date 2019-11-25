@@ -903,4 +903,5 @@
     <string name="back_ok">Yes</string>
     <string name="deleting">Deleting...</string>
     <string name="no_notification">No Notification</string>
+    <string name="dealer_shop">Dealer Shop</string>
 </resources>

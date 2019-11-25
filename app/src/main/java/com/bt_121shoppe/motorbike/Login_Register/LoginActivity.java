@@ -268,7 +268,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 //                            login_wrong();
-                            login_error();
+//                            login_error();
                             error = 1;
                             Toast.makeText(LoginActivity.this,getResources().getString(R.string.login_failure),Toast.LENGTH_SHORT).show();
                         }
