@@ -55,6 +55,9 @@ import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.Profile;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
@@ -2202,6 +2205,25 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             int pStatus=obj.getInt("status");
                                             FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);
+
+//                                            Log.d("1212121121121","Run");
+//                                            Service api = Client.getClient().create(Service.class);
+//                                            dealershop ds = new dealershop(id,2,1);
+//                                            retrofit2.Call<dealershop> call1 = api.pushdealershop(ds);
+//                                            call1.enqueue(new retrofit2.Callback<dealershop>() {
+//                                                @Override
+//                                                public void onResponse(retrofit2.Call<dealershop> call, retrofit2.Response<dealershop> response) {
+//                                                    if (!response.isSuccessful()){
+//                                                        Log.d("1212121121121","21"+response.errorBody());
+//                                                    }
+//                                                }
+//
+//                                                @Override
+//                                                public void onFailure(retrofit2.Call<dealershop> call, Throwable t) {
+//
+//                                                }
+//                                            });
+
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }

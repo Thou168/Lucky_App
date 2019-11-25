@@ -1,5 +1,7 @@
 package com.bt_121shoppe.motorbike.models;
 
+import java.util.List;
+
 public class PostViewModel {
     private int id;
     private String title;
@@ -41,6 +43,96 @@ public class PostViewModel {
     private RentViewModel[] rents;
     private String post_code;
     private String post_sub_title;
+    private String used_eta1;
+    private String used_eta2;
+    private String used_eta3;
+    private String used_eta4;
+    private String used_machine1;
+    private String used_machine2;
+    private String used_machine3;
+    private String used_machine4;
+    private String used_other1;
+    private List<ShopViewModel> dealer_shops;
+
+    public String getUsed_eta1() {
+        return used_eta1;
+    }
+
+    public void setUsed_eta1(String used_eta1) {
+        this.used_eta1 = used_eta1;
+    }
+
+    public String getUsed_eta2() {
+        return used_eta2;
+    }
+
+    public void setUsed_eta2(String used_eta2) {
+        this.used_eta2 = used_eta2;
+    }
+
+    public String getUsed_eta3() {
+        return used_eta3;
+    }
+
+    public void setUsed_eta3(String used_eta3) {
+        this.used_eta3 = used_eta3;
+    }
+
+    public String getUsed_eta4() {
+        return used_eta4;
+    }
+
+    public void setUsed_eta4(String used_eta4) {
+        this.used_eta4 = used_eta4;
+    }
+
+    public String getUsed_machine1() {
+        return used_machine1;
+    }
+
+    public void setUsed_machine1(String used_machine1) {
+        this.used_machine1 = used_machine1;
+    }
+
+    public String getUsed_machine2() {
+        return used_machine2;
+    }
+
+    public void setUsed_machine2(String used_machine2) {
+        this.used_machine2 = used_machine2;
+    }
+
+    public String getUsed_machine3() {
+        return used_machine3;
+    }
+
+    public void setUsed_machine3(String used_machine3) {
+        this.used_machine3 = used_machine3;
+    }
+
+    public String getUsed_machine4() {
+        return used_machine4;
+    }
+
+    public void setUsed_machine4(String used_machine4) {
+        this.used_machine4 = used_machine4;
+    }
+
+    public String getUsed_other1() {
+        return used_other1;
+    }
+
+    public void setUsed_other1(String used_other1) {
+        this.used_other1 = used_other1;
+    }
+
+    public List<ShopViewModel> getDealer_shops() {
+        return dealer_shops;
+    }
+
+    public void setDealer_shops(List<ShopViewModel> dealer_shops) {
+        this.dealer_shops = dealer_shops;
+    }
 
     public int getId() {
         return id;
@@ -360,6 +452,7 @@ public class PostViewModel {
     public void setPost_sub_title(String post_sub_title) {
         this.post_sub_title = post_sub_title;
     }
+
 
 }
 

@@ -12,6 +12,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
+import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
@@ -38,6 +39,12 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/renewaldelete/{id}/")
     Call<change_status_delete> getputStatus(@Path("id") int id, @Body change_status_delete change_status, @Header("Authorization") String authorization);
+
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("api/v1/postdealershop/")
+    Call<dealershop> pushdealershop (@Body dealershop change_status);
+
 
     @PATCH("api/v1/renewaldelete/{id}/")
     Call<change_status_delete> getpathStatus(@Path("id") int id, @Body change_status_delete change_status, @Header("Authorization") String authorization);

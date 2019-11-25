@@ -292,7 +292,11 @@
                         android:text="@string/description"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+                    <View
+                        android:layout_below="@+id/tv_Description"
+                        style="@style/line"/>
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/dp_8dp"

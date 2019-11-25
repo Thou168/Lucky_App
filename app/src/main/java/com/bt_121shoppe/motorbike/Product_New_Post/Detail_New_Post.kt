@@ -530,7 +530,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         postDetail = gson.fromJson(mMessage, PostViewModel::class.java)
                         Log.e(TAG,"D"+ mMessage)
- // hide button call chat like loan by samang 27/08/19
+
+                        Log.d("54554545454detail","Size"+postDetail.dealer_shops.size.toString())
+                        if (postDetail.dealer_shops.size != 0){
+                            textdealershop.visibility = View.VISIBLE
+                            customAdapter = ShopAdapter(this@Detail_New_Post, postDetail.dealer_shops)
+                            mLayoutManager = LinearLayoutManager(getApplicationContext())
+                            listShop.setLayoutManager(mLayoutManager)
+                            listShop.setAdapter(customAdapter)
+                        }
+
+
+                        // hide button call chat like loan by samang 27/08/19
 
                         var create_by =  postDetail.created_by.toInt()
                         if (create_by == pk){
@@ -950,13 +961,13 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                     Log.d(TAG,"TAH"+mMessage)
                     runOnUiThread {
 
-                        if (user1.shops.size != 0){
-                            textdealershop.visibility = View.VISIBLE
-                            customAdapter = ShopAdapter(this@Detail_New_Post, user1.shops)
-                            mLayoutManager = LinearLayoutManager(getApplicationContext())
-                            listShop.setLayoutManager(mLayoutManager)
-                            listShop.setAdapter(customAdapter)
-                        }
+//                        if (user1.shops.size != 0){
+//                            textdealershop.visibility = View.VISIBLE
+//                            customAdapter = ShopAdapter(this@Detail_New_Post, user1.shops)
+//                            mLayoutManager = LinearLayoutManager(getApplicationContext())
+//                            listShop.setLayoutManager(mLayoutManager)
+//                            listShop.setAdapter(customAdapter)
+//                        }
 
 //                        val profilepicture: String=if(user1.profile.base64_profile_image==null) "" else user1.profile.base64_profile_image
 //                        if(profilepicture.isNullOrEmpty()){
