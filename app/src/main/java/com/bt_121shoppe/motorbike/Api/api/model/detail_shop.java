@@ -1,17 +1,24 @@
 package com.bt_121shoppe.motorbike.Api.api.model;
 
-import com.google.gson.annotations.SerializedName;
-
-public class dealershop {
+public class detail_shop {
     private int id;
     private int post;
     private int shop;
     private int record_status;
 
-    public dealershop(int post, int shop, int record_status) {
+    public detail_shop(int id,int post, int shop, int record_status) {
+        this.id = id;
         this.post = post;
         this.shop = shop;
         this.record_status = record_status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPost() {

@@ -13,12 +13,14 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
+import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.models.YearViewModel;
 
@@ -33,6 +35,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import java.util.*;
 
 public interface Service {
 
@@ -45,6 +48,8 @@ public interface Service {
     @POST("api/v1/postdealershop/")
     Call<dealershop> pushdealershop (@Body dealershop change_status);
 
+    @GET("api/v1/shop/{id}/")
+    Call<ShopViewModel> getDealerShop(@Path("id") int id);
 
     @PATCH("api/v1/renewaldelete/{id}/")
     Call<change_status_delete> getpathStatus(@Path("id") int id, @Body change_status_delete change_status, @Header("Authorization") String authorization);

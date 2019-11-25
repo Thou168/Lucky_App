@@ -14,13 +14,20 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import java.util.*;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> {
 
-    private List<ShopViewModel> moviesList;
+    private List<detail_shop> moviesList;
     private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -29,13 +36,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.name);
-            genre = (TextView) view.findViewById(R.id.idshop);
+            genre = view.findViewById(R.id.idshop);
 //            year = (TextView) view.findViewById(R.id.year);
         }
     }
 
 
-    public ShopAdapter(Context mContext,List<ShopViewModel> moviesList) {
+    public ShopAdapter(Context mContext,List<detail_shop> moviesList) {
         this.moviesList = moviesList;
         this.context = mContext;
     }
@@ -49,10 +56,28 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ShopViewModel movie = moviesList.get(position);
-        holder.title.setText(movie.getShop_name());
+        detail_shop shop = moviesList.get(position);
+//        holder.title.setText(shop.getShop_name());
         holder.genre.setText("Shop "+(position+1));
 //        holder.year.setText(movie.getYear());
+        Service api = Client.getClient().create(Service.class);
+        Call<ShopViewModel> call = api.getDealerShop(shop.getShop());
+        call.enqueue(new Callback<ShopViewModel>() {
+            @Override
+            public void onResponse(Call<ShopViewModel> call, Response<ShopViewModel> response) {
+                if (!response.isSuccessful()){
+                    Log.d("323232323232","32 "+response.code());
+                }
+                Log.d("323232323232","32 "+response.body().getShop_name());
+                holder.title.setText(response.body().getShop_name());
+            }
+
+            @Override
+            public void onFailure(Call<ShopViewModel> call, Throwable t) {
+                Log.d("323232323232","Failure"+t.getMessage());
+            }
+        });
+
     }
 
     @Override

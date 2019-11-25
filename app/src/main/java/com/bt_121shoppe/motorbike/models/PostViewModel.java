@@ -1,5 +1,7 @@
 package com.bt_121shoppe.motorbike.models;
 
+import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
+
 import java.util.List;
 
 public class PostViewModel {
@@ -52,7 +54,7 @@ public class PostViewModel {
     private String used_machine3;
     private String used_machine4;
     private String used_other1;
-    private List<ShopViewModel> dealer_shops;
+    private List<detail_shop> dealer_shops;
 
     public String getUsed_eta1() {
         return used_eta1;
@@ -126,11 +128,11 @@ public class PostViewModel {
         this.used_other1 = used_other1;
     }
 
-    public List<ShopViewModel> getDealer_shops() {
+    public List<detail_shop> getDealer_shops() {
         return dealer_shops;
     }
 
-    public void setDealer_shops(List<ShopViewModel> dealer_shops) {
+    public void setDealer_shops(List<detail_shop> dealer_shops) {
         this.dealer_shops = dealer_shops;
     }
 
