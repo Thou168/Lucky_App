@@ -1337,7 +1337,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }  //getextra
     }
 
-    private void for_otherdealer(){
+//    private void for_otherdealer(){
 //        photoChooseOption=getResources().getStringArray(R.array.select_photo);
 //        edShopName.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -1556,7 +1556,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                alertDialog.show();
 //            }
 //        });
-    }
+//    }
 
     private void initialUserInformation(int pk, String encode) {
 //        if (bundle==null || bundle.isEmpty()) {
@@ -1683,7 +1683,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                                     icShop_name2.setVisibility(View.VISIBLE);
                                                                     inputShop_name2.setVisibility(View.VISIBLE);
                                                                     inputShop_name2.setHint(getString(R.string.shop_other2));
-                                                                    delete_dealer2.setVisibility(View.VISIBLE);
+                                                                    delete_dealer2.setVisibility(View.GONE);
                                                                     btnShop_name.setVisibility(View.GONE);
 //                                                                       mDealerShop2.setText(shopViewModel.getId());
                                                                     btnShop_name2.setVisibility(View.VISIBLE);
@@ -1828,84 +1828,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                                                        }
 //                                                    });
                                                 }
-//                                                if (i == 1){
-//                                                    btnShop_name.setOnClickListener(new View.OnClickListener() {
-//                                                        @Override
-//                                                        public void onClick(View v) {
-//                                                            final AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-//                                                            LayoutInflater inflater = Camera.this.getLayoutInflater();
-//                                                            View dialog = inflater.inflate(R.layout.dialog_for_otherdealer, null);
-//                                                            shopname2 = dialog.findViewById(R.id.shop_name2);
-//                                                            shopname3 = dialog.findViewById(R.id.shop_name3);
-////                                                            inputshopname2 = dialog.findViewById(R.id.inputShop_Name2);
-////                                                            inputshopname3 = dialog.findViewById(R.id.inputShop_Name3);
-//
-//                                                            shopname3.setVisibility(View.GONE);
-//                                                            shopname2.setText(shopViewModel.getShop_name());
-//                                                            shopname2.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    edShopName2.setText(shopViewModel.getShop_name());
-//                                                                    edShopName2.setVisibility(View.VISIBLE);
-//                                                                    icShop_name2.setVisibility(View.VISIBLE);
-//                                                                    inputShop_name2.setVisibility(View.VISIBLE);
-//                                                                    btnShop_name2.setVisibility(View.VISIBLE);
-//                                                                    btnShop_name.setVisibility(View.GONE);
-////                                                            mDealerShop2.setText(shopViewModel.getId());
-//                                                                    mDealerShopId2 = shopViewModel.getId();
-//                                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-//                                                                    alertDialog.dismiss();
-//                                                                }
-//                                                            });
-////                                                            shopname3.setOnClickListener(new View.OnClickListener() {
-////                                                                @Override
-////                                                                public void onClick(View v) {
-////                                                                    alertDialog.dismiss();
-////                                                                }
-////                                                            });
-//                                                            alertDialog.setView(dialog);
-//                                                            alertDialog.show();
-//                                                        }
-//                                                    });
-//                                                }else btnShop_name.setClickable(false);
-//                                                if (i == 2){
-//                                                    btnShop_name2.setOnClickListener(new View.OnClickListener() {
-//                                                        @Override
-//                                                        public void onClick(View v) {
-//                                                            final AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-//                                                            LayoutInflater inflater = Camera.this.getLayoutInflater();
-//                                                            View dialog = inflater.inflate(R.layout.dialog_for_otherdealer, null);
-//                                                            shopname2 = dialog.findViewById(R.id.shop_name2);
-//                                                            shopname3 = dialog.findViewById(R.id.shop_name3);
-////                                                            inputshopname2 = dialog.findViewById(R.id.inputShop_Name2);
-////                                                            inputShop_name3 = dialog.findViewById(R.id.inputShop_Name3);
-//                                                            shopname3.setText(shopViewModel.getShop_name());
-//                                                            shopname2.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    edShopName3.setText(shopViewModel.getShop_name());
-//                                                                    edShopName3.setVisibility(View.VISIBLE);
-//                                                                    icShop_name3.setVisibility(View.VISIBLE);
-//                                                                    inputShop_name3.setVisibility(View.VISIBLE);
-//                                                                    btnShop_name2.setVisibility(View.GONE);
-//                                                                    btnShop_name.setVisibility(View.GONE);
-////                                                            mDealerShop2.setText(shopViewModel.getId());
-//                                                                    mDealerShopId3 = shopViewModel.getId();
-//                                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-//                                                                    alertDialog.dismiss();
-//                                                                }
-//                                                            });
-//                                                            shopname3.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    alertDialog.dismiss();
-//                                                                }
-//                                                            });
-//                                                            alertDialog.setView(dialog);
-//                                                            alertDialog.show();
-//                                                        }
-//                                                    });
-//                                                }else btnShop_name2.setClickable(false);
                                             }
                                         }
                                     }
@@ -4447,7 +4369,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
         userShops=new ArrayList<>();
-        for_otherdealer();
+//        for_otherdealer();
     } // text change
 
     private void add_Phone(){
