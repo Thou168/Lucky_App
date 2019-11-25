@@ -17,7 +17,9 @@
             <com.custom.sliderimage.logic.SliderImage
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"></com.custom.sliderimage.logic.SliderImage>
+                android:layout_height="280dp">
+
+            </com.custom.sliderimage.logic.SliderImage>
 
             <View style="@style/line"/>
             <TextView

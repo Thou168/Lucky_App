@@ -28,6 +28,7 @@ import retrofit2.Response;
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> {
 
     private List<detail_shop> moviesList;
+    private List<detail_shop> moviesList1;
     private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,7 +60,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
         detail_shop shop = moviesList.get(position);
 //        holder.title.setText(shop.getShop_name());
         holder.genre.setText("Shop "+(position+1));
-//        holder.year.setText(movie.getYear());
         Service api = Client.getClient().create(Service.class);
         Call<ShopViewModel> call = api.getDealerShop(shop.getShop());
         call.enqueue(new Callback<ShopViewModel>() {
