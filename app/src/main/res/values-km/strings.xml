@@ -513,6 +513,9 @@
     <string name="name_officer">ឈ្មោះអ្នកទទួលខុសត្រូវ</string>
     <string name="shop_address">ទីតាំងហាង</string>
     <string name="shop_name">ឈ្មោះហាង</string>
+    <string name="shop_name1">ឈ្មោះហាងទី១</string>
+    <string name="shop_name2">ឈ្មោះហាង</string>
+    <string name="shop_name3">ឈ្មោះហាង</string>
 
     //verify
     <string name="dont_receive">មិនទទួលបានលេខកូដ?</string>

@@ -469,6 +469,9 @@
 
     //Camera post
     <string name="shop_name">Shop Name</string>
+    <string name="shop_name1">Shop Name1</string>
+    <string name="shop_name2">Shop Name</string>
+    <string name="shop_name3">Shop Name</string>
     <string name="bt_verify">Verify</string>
     <string name="verify_code">Verify Code</string>
     //post ad
