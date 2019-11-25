@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -109,8 +110,10 @@ public class RegisterActivity extends AppCompatActivity {
         if (user_group == 1){
             PasswordError.setText(R.string.user_message);
             ComfirmPassError.setText(R.string.user_message);
-            editPassword.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editComfirmPass.setInputType(InputType.TYPE_CLASS_NUMBER);
+            editPassword.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            editComfirmPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            editPassword.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(4)});
+            editComfirmPass.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(4)});
 
         }else {
             PasswordError.setText(R.string.dealer_message);

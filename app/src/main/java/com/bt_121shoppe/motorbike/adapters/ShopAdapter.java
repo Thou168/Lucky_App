@@ -59,7 +59,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         detail_shop shop = moviesList.get(position);
 //        holder.title.setText(shop.getShop_name());
-        holder.genre.setText("Shop "+(position+1));
+        String text = holder.itemView.getContext().getString(R.string.shop);
+        holder.genre.setText(text+(position+1));
         Service api = Client.getClient().create(Service.class);
         Call<ShopViewModel> call = api.getDealerShop(shop.getShop());
         call.enqueue(new Callback<ShopViewModel>() {

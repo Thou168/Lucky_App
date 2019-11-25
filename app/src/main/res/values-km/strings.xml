@@ -562,7 +562,7 @@
 
     <string name="loan_title_leave">ចាកចេញ</string>
     <string name="loan_mss_leave">អ្នកចង់ចាកចេញពីការកម្ចីនេះរឺ?</string>
-    <string name="yes_leave">បាទ រឺ​ ចាស!</string>
+    <string name="yes_leave">បាទ/ចាស</string>
     <string name="no_leave">ទេ</string>
     <string name="title_create_loan">បង្កើតឥណទានរបស់អ្នក</string>
     <string name="loan_feedback">សូមពិនិត្យម្តងទៀត !!</string>
@@ -740,4 +740,5 @@
     <string name="deleting">កំពុងធ្វើការលុប ...</string>
     <string name="no_notification">គ្មានការជូនដំណឹងទេ</string>
     <string name="dealer_shop">ហាងចែកចាយ</string>
+    <string name="shop">ហាងទី</string>
 </resources>
