@@ -972,6 +972,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 cate = object.getInt("category");
                                 type = object.getInt("type");
 
+//                                if (userShops.size()>0){
+//                                    for (int i=0 ;i<userShops.size();i++){
+//                                        if ()
+//                                    }
+//                                }
+
                                 int eta1 = object.getInt("used_eta1");
                                 int eta2 = object.getInt("used_eta2");
                                 int eta3 = object.getInt("used_eta3");
@@ -1030,7 +1036,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         etPrice.setText(String.valueOf(price));
                                         etName.setText(name);
                                         etEmail.setText(email);
-                                        edShopName.setText(other_dealer);
 //                                        etPhone1.setText(phone);
 
                                         String[] splitPhone = phone.split(",");
@@ -2034,6 +2039,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("status", 3);
             post.put("condition",strCondition);
 
+//            post.put("dealer_shops",)
+
             if(strCondition.equals("used")) {
                 if (cate == 2) {
                     post.put("used_eta1", edwhole_int.getText().toString());
@@ -2129,7 +2136,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("vin_code", tvAddress.getQuery().toString());
             post.put("machine_code", etName.getText().toString());
             post.put("type", type);
-
 //check empty field user for detail by samang 28/08
             if (tvAddress.getQuery().toString().isEmpty() || tvAddress.getQuery().toString() == null){
                 post.put("vin_code", edit_address_name);

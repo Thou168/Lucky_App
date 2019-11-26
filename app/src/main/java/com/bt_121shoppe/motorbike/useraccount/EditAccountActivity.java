@@ -659,7 +659,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                         if(!shop.isEmpty()) {
                             if(mDealerShopId1>0){
                                 for(int i=0;i<userShops.size();i++){
-                                    UserShopViewModel findShopObj=userShops.get(i);
+                                    UserShopViewModel findShopObj=userShops.get(0);
                                     if(findShopObj.getId()==mDealerShopId1){
                                         findShopObj.setShop_name(shop);
                                         findShopObj.setShop_address(addr);
@@ -1012,38 +1012,42 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                 }
                             }
                             //dealer shop section
+                            List<String>models = new ArrayList<>();
+                            List<Integer>id_models = new ArrayList<>();
                             if(convertJsonJava.getShops().size()>0){
                                 for(int i=0;i<convertJsonJava.getShops().size();i++){
                                     ShopViewModel shopViewModel=convertJsonJava.getShops().get(i);
+                                    models.add(shopViewModel.getShop_name());
+                                    id_models.add(shopViewModel.getId());
                                     switch (i){
                                         case 0:
                                             Log.e(TAG,"Here first shop");
-                                            etShop_name.setText(shopViewModel.getShop_name());
+                                            etShop_name.setText(models.get(0));
 //                                            mDealerShop1.setText(shopViewModel.getId());
-                                            mDealerShopId1=shopViewModel.getId();
+                                            mDealerShopId1=id_models.get(0);
                                             userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                         case 1:
                                             Log.e(TAG,"Here second shop");
-                                            etShop_name1.setText(shopViewModel.getShop_name());
+                                            etShop_name1.setText(models.get(1));
                                             etShop_name1.setVisibility(View.VISIBLE);
                                             imgShopname1.setVisibility(View.VISIBLE);
                                             tilShop_name1.setVisibility(View.VISIBLE);
                                             btnShopname1.setVisibility(View.VISIBLE);
                                             btnShopname.setVisibility(View.GONE);
 //                                            mDealerShop2.setText(shopViewModel.getId());
-                                            mDealerShopId2=shopViewModel.getId();
+                                            mDealerShopId2=id_models.get(1);
                                             userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                         case 2:
-                                            etShop_name2.setText(shopViewModel.getShop_name());
+                                            etShop_name2.setText(models.get(2));
                                             etShop_name2.setVisibility(View.VISIBLE);
                                             imgShopname2.setVisibility(View.VISIBLE);
                                             tilShop_name2.setVisibility(View.VISIBLE);
                                             btnShopname1.setVisibility(View.GONE);
                                             btnShopname.setVisibility(View.GONE);
                                             //mDealerShop3.setText(shopViewModel.getId());
-                                            mDealerShopId3=shopViewModel.getId();
+                                            mDealerShopId3=id_models.get(2);
                                             userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                     }
