@@ -63,7 +63,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
     TextView mBestDealNoResult;
     ArrayList<PostProduct> mPostBestDeals;
     ArrayList<PostProduct> mAllPosts;
-    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=2";
+    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=3";
     String mAllPostUrl=ConsumeAPI.BASE_URL+"allposts/?page=1";
     boolean isLoading=false,isAPLoading=false;
     int itemCount=0;
@@ -189,7 +189,9 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                     String response = CommonFunction.doGetRequest(mBestDealUrl);
                     try {
                         JSONObject obj = new JSONObject(response);
-                        int count=obj.getInt("count");
+                        int count=0;
+                        if(obj!=null)
+                            count=obj.getInt("count");
                         if(count==0){
                             mProgressbar.setVisibility(View.GONE);
                             mBestDealNoResult.setVisibility(View.VISIBLE);

@@ -23,15 +23,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Activity.Camera;
 import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.Activity.Message;
 import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +46,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -48,6 +55,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -81,6 +89,9 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference reference;
 
     private AlertDialog.Builder dialog;
+    private String FCM_API="https://fcm.googleapis.com/fcm/send";
+    private String serverKey="key=AAAAc-OYK_o:APA91bFUyiHEPdYUjVatqxaVzfLPwVcd090bMY5emPPh-ubQtu76mEDAdmthgR03jYwhClbDqy0lqbSr_HAAvD0vnTqigM16YH4x-Xr1TMb3q_sz9PLtjNLpfnLi6NdCI-v6dyX6-5jB";
+    private String contentType = "application/json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         auth=FirebaseAuth.getInstance();
         reference= FirebaseDatabase.getInstance().getReference();
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/"+ConsumeAPI.FB_Notification);
 
         Intent intent = getIntent();
         register_verify = intent.getStringExtra("Register_verify");
@@ -323,7 +335,7 @@ public class RegisterActivity extends AppCompatActivity {
                         editor.commit();
 
                         userEmail=ConsumeAPI.PREFIX_EMAIL+id+"@email.com";
-                        Log.d(TAG,"2221111@@---- "+userEmail+" "+username+" "+pass+","+user_group);
+                        //Log.d(TAG,"2221111@@---- "+userEmail+" "+username+" "+pass+","+user_group);
                         if (user_group == 1) {
                             registerUserFirebase(username, userEmail, pass, String.valueOf(1));
                         }else if (user_group == 3){
@@ -391,6 +403,27 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("group",group);
                             reference.child("users").child(userId).setValue(hashMap);
 
+                            //start send notification
+
+                            String topic="/topics/"+ConsumeAPI.FB_Notification;
+                            JSONObject notification=new JSONObject();
+                            JSONObject notifcationBody=new JSONObject();
+
+                            try
+                            {
+                                notifcationBody.put("title", "Register");
+                                notifcationBody.put("message", "Register successfully.");  //Enter your notification message
+                                notifcationBody.put("to",firebaseUser.getUid());
+                                notification.put("to", topic);
+                                notification.put("data", notifcationBody);
+                                FBPostCommonFunction.submitNofitication(firebaseUser.getUid(),notifcationBody.toString());
+                                Log.e("TAG", "try");
+                            }catch (JSONException e){
+                                Log.e("TAG","onCreate: "+e.getMessage());
+                            }
+                            sendNotification(notification);
+                            //end send notification
+
                             Intent intent;
                             if(register_verify!=null) {
                                 switch (register_verify) {
@@ -439,6 +472,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
+
                             mProgress.dismiss();
                         }else{
                             Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
@@ -473,6 +507,28 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("group",group);
                             reference.child("users").child(userId).setValue(hashMap);
 
+                            //start send notification
+
+                            String topic="/topics/"+ConsumeAPI.FB_Notification;
+                            JSONObject notification=new JSONObject();
+                            JSONObject notifcationBody=new JSONObject();
+
+                            try
+                            {
+                                notifcationBody.put("title", "Register");
+                                notifcationBody.put("message", "Register successfully.");  //Enter your notification message
+                                notifcationBody.put("to",firebaseUser.getUid());
+                                notification.put("to", topic);
+                                notification.put("data", notifcationBody);
+                                FBPostCommonFunction.submitNofitication(firebaseUser.getUid(),notifcationBody.toString());
+                                Log.e("TAG", "try");
+                            }catch (JSONException e){
+                                Log.e("TAG","onCreate: "+e.getMessage());
+                            }
+                            sendNotification(notification);
+                            //end send notification
+
+
                             Intent intent = new Intent(RegisterActivity.this, EditAccountActivity.class);
                             intent.putExtra("id_register",id);
                             intent.putExtra("ID",product_id);
@@ -482,7 +538,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }else{
                             Toast.makeText(RegisterActivity.this,"You cannot register with email or password."+task.getException(),Toast.LENGTH_SHORT).show();
-                            Log.d(TAG,"Error "+task.getException()+" "+task.getResult());
+                            //Log.d(TAG,"Error "+task.getException()+" "+task.getResult());
                         }
                     }
                 });
@@ -499,5 +555,35 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return check;
 
+    }
+
+    private RequestQueue requestQueue(){
+        return Volley.newRequestQueue(this.getApplicationContext());
+    }
+
+    private void sendNotification(JSONObject notification){
+        Log.e("TAG", "sendNotification"+notification);
+        RequestQueue requestQueue=Volley.newRequestQueue(this.getApplicationContext());
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(FCM_API, notification, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("TAG", "onResponse: "+response);
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(RegisterActivity.this, "Request error", Toast.LENGTH_LONG).show();
+                Log.i("TAG", "onErrorResponse: Didn't work");
+            }
+        }){
+            @Override
+            public Map getHeaders() {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", serverKey);
+                headers.put("Content-Type", contentType);
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
     }
 }

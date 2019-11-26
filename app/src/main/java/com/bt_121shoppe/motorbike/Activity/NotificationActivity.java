@@ -100,11 +100,12 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                     break;
                 case R.id.notification:
                     if(prefs.contains("token") || prefs.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(NotificationActivity.this, NotificationActivity.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(NotificationActivity.this, NotificationActivity.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(NotificationActivity.this, NotificationActivity.class));
                     }else{
                         Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
                         intent1.putExtra("verify","camera");
@@ -113,11 +114,12 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                     break;
                 case R.id.camera:
                     if(prefs.contains("token") || prefs.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(NotificationActivity.this, Camera.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(NotificationActivity.this, Camera.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(NotificationActivity.this, Camera.class));
                     }else{
                         Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
                         intent1.putExtra("verify","camera");
@@ -126,11 +128,12 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                     break;
                 case R.id.message:
                     if(prefs.contains("token") || prefs.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
                     }else{
                         Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
                         intent1.putExtra("verify","camera");
@@ -139,11 +142,12 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                     break;
                 case R.id.account:
                     if(prefs.contains("token") || prefs.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(NotificationActivity.this, Account.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(NotificationActivity.this, Account.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(NotificationActivity.this, Account.class));
                     }else{
                         Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
                         intent1.putExtra("verify","camera");

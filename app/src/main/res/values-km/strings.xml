@@ -9,7 +9,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">ការកំណត់</string>
-
+    <string name="update_now">ធ្វើបច្ចុប្បន្នភាព</string>
+    <string name="update_message">សូមធ្វើបច្ចប្បន្នភាពលើកម្មវិធីរបស់លោកអ្នក។</string>
     //deposit message
     <string name="deposit_message">ការដកប្រាក់ត្រូវតែមានចំនួនតិចជាងតម្លៃ!</string>
 

@@ -58,7 +58,8 @@
     <string name="login_password">Password</string>
     //search
     <string name="title_activity_account"></string>
-
+    <string name="update_now">Update Now</string>
+    <string name="update_message">Your application update is available.</string>
     //loancreateactivity
 
     <string name="search_all">Search All Products</string>
@@ -649,7 +650,7 @@
 
     <string name="other_sections">III. Other sections</string>
 
-        <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
+    <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
 
     <string name="error_number">Cannot enter more than 100 entries</string>
     //edit account

@@ -20,12 +20,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,12 +58,16 @@ import com.bt_121shoppe.motorbike.Setting.Setting;
 import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatAllFragment;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
+import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.newversion.accounts.AccountFragment;
 import com.bt_121shoppe.motorbike.newversion.accounts.AccountLikeFragment;
+import com.bt_121shoppe.motorbike.newversion.accounts.MyAccountFragment;
 import com.bt_121shoppe.motorbike.newversion.chats.ChatFragment;
 import com.bt_121shoppe.motorbike.newversion.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.newversion.notifications.NotificationFragment;
+import com.bt_121shoppe.motorbike.nointernet.NoInternetActivity;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
@@ -90,7 +97,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements WSCallerVersionListener {
 
     private static final String TAG=MainActivity.class.getSimpleName();
     private static final String PROFILE_IMAGE="profile_image";
@@ -111,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment;
     private SharedPreferences mSharedPreferences;
     private String myReferences="mypref";
+    boolean isForceUpdate = true;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -211,6 +219,15 @@ public class MainActivity extends AppCompatActivity {
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_main4);
+        //check internet connection
+        if(!haveNetwork()){
+            // App has internet connection
+            Intent intent = new Intent(MainActivity.this, NoInternetActivity.class);
+            startActivity(intent);
+        }
+        //check app version update from playstore
+        new GooglePlayStoreAppVersionNameLoader(getApplicationContext(), this).execute();
+
         mAppLogo=findViewById(R.id.applogo);
         mImageViewEnglish=findViewById(R.id.english);
         mImageViewKhmer =findViewById(R.id.khmer);
@@ -286,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -555,6 +573,14 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    public void onGetResponse(boolean isUpdateAvailable) {
+        //Log.e("ResultAPPMAIN", String.valueOf(isUpdateAvailable));
+        if (isUpdateAvailable) {
+            showUpdateDialog();
+        }
+    }
+
     private static class GooglePlusFragmentPageAdapter extends FragmentPagerAdapter {
 
         public GooglePlusFragmentPageAdapter(FragmentManager fm) {
@@ -591,5 +617,48 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void showUpdateDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+        alertDialogBuilder.setTitle(MainActivity.this.getString(R.string.app_name));
+        alertDialogBuilder.setMessage(MainActivity.this.getString(R.string.update_message));
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton(R.string.update_now, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+                dialog.cancel();
+            }
+        });
+        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (isForceUpdate) {
+                    //finish();
+                }
+                dialog.dismiss();
+            }
+        });
+        alertDialogBuilder.show();
+    }
+
+    private boolean haveNetwork() {
+        boolean has_wifi = false;
+        boolean has_mobile_data = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos= connectivityManager.getAllNetworkInfo();
+        for(NetworkInfo info: networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("Wifi")){
+                if(info.isConnected()){
+                    has_wifi=true;
+                }
+            }
+            if(info.getTypeName().equalsIgnoreCase("Mobile")){
+                if(info.isConnected()){
+                    has_mobile_data=true;
+                }
+            }
+        }
+        return has_wifi || has_mobile_data;
+    }
 
 }

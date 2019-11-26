@@ -101,7 +101,7 @@ public class UserAccountActivity extends AppCompatActivity {
                 intent.putExtra("product_id",product_id);
                 startActivity(intent);
 
-                Log.d("LoginActivity Verify",verify);
+                //Log.d("LoginActivity Verify",verify);
             //    startActivity(new Intent(v.getContext(), LoginActivity.class));
             }
         });
@@ -354,44 +354,51 @@ public class UserAccountActivity extends AppCompatActivity {
                         editor.commit();
                         //mProgress.dismiss();
                         Intent intent;
-                        switch (verify){
-                            case "notification":
-                                intent=new Intent(UserAccountActivity.this, NotificationActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            case "camera":
-                                intent=new Intent(UserAccountActivity.this, Camera.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            case "message":
-                                intent=new Intent(UserAccountActivity.this, ChatMainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            case "account":
-                                intent=new Intent(UserAccountActivity.this, Account.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            case "detail":
-                                intent=new Intent(UserAccountActivity.this, Detail_New_Post.class);
-                                intent.putExtra("ID",product_id);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            default:
-                                intent=new Intent(UserAccountActivity.this, Home.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                                break;
+                        if(verify==null){
+                            intent = new Intent(UserAccountActivity.this, Home.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            switch (verify) {
+                                case "notification":
+                                    intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "camera":
+                                    intent = new Intent(UserAccountActivity.this, Camera.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "message":
+                                    intent = new Intent(UserAccountActivity.this, ChatMainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "account":
+                                    intent = new Intent(UserAccountActivity.this, Account.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "detail":
+                                    intent = new Intent(UserAccountActivity.this, Detail_New_Post.class);
+                                    intent.putExtra("ID", product_id);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                default:
+                                    intent = new Intent(UserAccountActivity.this, Home.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                            }
                         }
                     }else {
                         Toast.makeText(getApplicationContext(),"LoginActivity failure",Toast.LENGTH_SHORT).show();

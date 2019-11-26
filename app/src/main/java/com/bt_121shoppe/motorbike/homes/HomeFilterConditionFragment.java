@@ -285,23 +285,23 @@ public class HomeFilterConditionFragment extends Fragment {
             }
         });
 
-//        mFilterBrand.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("212121212 thou","Sen thou HomeFilter ConditiontFragment");
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("filterType",CommonFunction.FILTERBRAND);
-//                bundle.putInt("postTypeId",postTypeId);
-//                bundle.putInt("categoryId",categoryId);
-//                bundle.putInt("brandId",brandId);
-//                bundle.putInt("yearId",yearId);
-//                bundle.putDouble("minPrice",minPrice);
-//                bundle.putDouble("maxPrice",maxPrice);
-//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-//                fragment.setArguments(bundle);
-//                loadFragment(fragment);
-//            }
-//        });
+        mFilterBrand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("212121212 thou","Sen thou HomeFilter ConditiontFragment");
+                Bundle bundle=new Bundle();
+                bundle.putInt("filterType",CommonFunction.FILTERBRAND);
+                bundle.putInt("postTypeId",postTypeId);
+                bundle.putInt("categoryId",categoryId);
+                bundle.putInt("brandId",brandId);
+                bundle.putInt("yearId",yearId);
+                bundle.putDouble("minPrice",minPrice);
+                bundle.putDouble("maxPrice",maxPrice);
+                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+        });
 
         mFilterYear.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -195,6 +195,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 if (lang.equals("View:"))
                     strPostTitle = mPost.getPost_sub_title().split(",")[0];
                 else
+
                     strPostTitle = mPost.getPost_sub_title().split(",")[1];
             }
 

@@ -97,8 +97,6 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
         final LikebyUser model = datas.get(position);
 
         updateView(Paper.book().read("language"),view);
-
-
         String iditem=String.valueOf((int)model.getPost());
         String itemid_like=String.valueOf((int)model.getId());
 
@@ -122,7 +120,10 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         if (lang.equals("View:")) {
                             strPostTitle = response.body().getPost_sub_title().split(",")[0];
                         } else {
-                            strPostTitle = response.body().getPost_sub_title().split(",")[1];
+                            if(strPostTitle.length()>1)
+                                strPostTitle = response.body().getPost_sub_title().split(",")[1];
+                            else
+                                strPostTitle = response.body().getPost_sub_title().split(",")[0];
                         }
                     }
                     view.title.setText(strPostTitle);

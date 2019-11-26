@@ -62,8 +62,11 @@ import com.bt_121shoppe.motorbike.Setting.ContactActivity;
 import com.bt_121shoppe.motorbike.Setting.Setting;
 import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
+import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.models.User;
+import com.bt_121shoppe.motorbike.newversion.MainActivity;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
@@ -100,7 +103,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, WSCallerVersionListener {
 
     private static final String TAG= Home.class.getSimpleName();
     private static final int REQUEST_PHONE_CALL =1;
@@ -128,6 +131,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private int pk=0,mPostTypeId=0,mCategoryId=0,mBrandId=0,mYearId=0;
     private double mMinPrice=0,mMaxPrice=0;
     private Fragment currentFragment;
+    boolean isForceUpdate = true;
 
     private List<Slider> mImages=new ArrayList<>();
 
@@ -139,7 +143,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_search_type);
-
+//check app version update from playstore
+        new GooglePlayStoreAppVersionNameLoader(getApplicationContext(), this).execute();
         SharedPreferences prefer=getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language=prefer.getString("My_Lang","");
 
@@ -231,11 +236,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     break;
                 case R.id.notification:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(Home.this, NotificationActivity.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(Home.this, NotificationActivity.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(Home.this, NotificationActivity.class));
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
                         intent.putExtra("verify","notification");
@@ -244,11 +250,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     break;
                 case R.id.camera:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(Home.this, Camera.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(Home.this, Camera.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(Home.this, Camera.class));
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
                         intent.putExtra("verify","camera");
@@ -257,11 +264,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     break;
                 case R.id.message:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(Home.this, ChatMainActivity.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(Home.this, ChatMainActivity.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(Home.this, ChatMainActivity.class));
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
                         intent.putExtra("verify","message");
@@ -270,16 +278,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     break;
                 case R.id.account:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        if(Active_user.isUserActive(this,pk)){
-                            startActivity(new Intent(Home.this, Account.class));
-                        }else{
-                            Active_user.clearSession(this);
-                        }
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(Home.this, Account.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                        startActivity(new Intent(Home.this, Account.class));
                     }else{
                         Intent intent=new Intent(Home.this, UserAccountActivity.class);
                         intent.putExtra("verify","account");
                         startActivity(intent);
                     }
+
+                    startActivity(new Intent(Home.this, Account.class));
+
                     break;
             }
             return false;
@@ -483,6 +495,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Log.e(TAG,"current Fragment onStart "+currentFragment);
     }
 
+    @Override
+    public void onGetResponse(boolean isUpdateAvailable) {
+        //Log.e("ResultAPPMAIN", String.valueOf(isUpdateAvailable));
+        if (isUpdateAvailable) {
+            showUpdateDialog();
+        }
+    }
 
     private void language(String lang){
         Locale locale=new Locale(lang);
@@ -694,26 +713,27 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     runOnUiThread(() -> {
 
                         FirebaseUser fuser =  FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                        if(fuser!=null) {
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
 
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                User ffuser = dataSnapshot.getValue(User.class);
-                                Log.d(TAG,"User "+ffuser.getImageURL());
-                                if (ffuser.getImageURL().equals("default")) {
-                                    mProfileImageDrawer.setImageResource(R.drawable.square_logo);
-                                } else {
-                                    Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(mProfileImageDrawer);
+                            reference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    User ffuser = dataSnapshot.getValue(User.class);
+                                    Log.d(TAG, "User " + ffuser.getImageURL());
+                                    if (ffuser.getImageURL().equals("default")) {
+                                        mProfileImageDrawer.setImageResource(R.drawable.square_logo);
+                                    } else {
+                                        Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(mProfileImageDrawer);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
-
+                                }
+                            });
+                        }
                         com.bt_121shoppe.motorbike.Api.User converJsonJava = new com.bt_121shoppe.motorbike.Api.User();
                         Log.d(TAG,respon);
                         converJsonJava = gson.fromJson(respon, com.bt_121shoppe.motorbike.Api.User.class);
@@ -735,6 +755,30 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             }
         });
+    }
+
+    public void showUpdateDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Home.this);
+
+        alertDialogBuilder.setTitle(Home.this.getString(R.string.app_name));
+        alertDialogBuilder.setMessage(Home.this.getString(R.string.update_message));
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton(R.string.update_now, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Home.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+                dialog.cancel();
+            }
+        });
+        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (isForceUpdate) {
+                    //finish();
+                }
+                dialog.dismiss();
+            }
+        });
+        alertDialogBuilder.show();
     }
 
 }

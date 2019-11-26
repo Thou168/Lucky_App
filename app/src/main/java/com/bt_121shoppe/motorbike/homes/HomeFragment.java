@@ -319,33 +319,35 @@ public class HomeFragment extends Fragment {
         myQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mPostBestDeals=new ArrayList<>();
+                mPostBestDealAdpater=new PostBestDealAdapter(new ArrayList<>());
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     try{
                         JSONObject obj=new JSONObject((Map) snapshot.getValue());
                         int status=obj.getInt("status");
                         String discountAmount=obj.getString("discountAmount");
+                        String type = obj.getString("type");
+                        if(status==4 && Double.parseDouble(discountAmount)>0 && !type.equals("buy")){
+                            String createdAt = obj.getString("createdAt");
+                            long diffInDays=0;
+                            if(createdAt!=null) {
+                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                Date date = utcFormat.parse(createdAt);
+//                              DateFormat pstFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+//                              pstFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+                                Date currentdate = new Date();
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                String ccdate=utcFormat.format(currentdate);
+                                Date startDate = date;
+                                Date endDate   = utcFormat.parse(ccdate);
+                                long duration  = endDate.getTime() - startDate.getTime();
+                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
 
-                        if(status==4 && Double.parseDouble(discountAmount)>0 ){
-//                            String createdAt = obj.getString("createdAt");
-//                            long diffInDays=0;
-//                            if(createdAt!=null) {
-//                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-//                                Date date = utcFormat.parse(createdAt);
-////                              DateFormat pstFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-////                              pstFormat.setTimeZone(TimeZone.getTimeZone("PST"));
-//                                Date currentdate = new Date();
-//                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-//                                String ccdate=utcFormat.format(currentdate);
-//                                Date startDate = date;
-//                                Date endDate   = utcFormat.parse(ccdate);
-//                                long duration  = endDate.getTime() - startDate.getTime();
-//                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
-//
-//                            }
-//                            //Log.d(TAG,"Days "+diffInDays);
-//                            if(diffInDays<=7) {
+                            }
+                            //Log.d(TAG,"Days "+diffInDays);
+                            if(diffInDays<=7) {
                                 String id = obj.getString("id");
                                 int user_id = obj.getInt("createdBy");
                                 String coverUrl = obj.getString("coverUrl");
@@ -353,17 +355,17 @@ public class HomeFragment extends Fragment {
                                 String discountType = obj.getString("discountType");
                                 int viewCount = obj.getInt("viewCount");
                                 String title = obj.getString("subTitle");
-                                String type = obj.getString("type");
+
                                 //String[] splitTitle=title.split(",");
                                 mPostBestDeals.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount));
-                            //}
+                            }
                         }
                     }catch (JSONException je){
                         je.printStackTrace();
                     }
-//                    catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
+                    catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if(mPostBestDeals.size()==0)
@@ -552,28 +554,31 @@ public class HomeFragment extends Fragment {
         myQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mAllPosts=new ArrayList<>();
+                mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     try{
                         JSONObject obj=new JSONObject((Map) snapshot.getValue());
+                        String type=obj.getString("type");
                         int status=obj.getInt("status");
                         String discountAmount=obj.getString("discountAmount");
-                        if(status==4 && Double.parseDouble(discountAmount)<=0){
-//                            String createdAt = obj.getString("createdAt");
-//                            long diffInDays=0;
-//                            if(createdAt!=null) {
-//                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-//                                Date date = utcFormat.parse(createdAt);
-//                                Date currentdate = new Date();
-//                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-//                                String ccdate=utcFormat.format(currentdate);
-//                                Date startDate = date;
-//                                Date endDate   = utcFormat.parse(ccdate);
-//                                long duration  = endDate.getTime() - startDate.getTime();
-//                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
-//                            }
-//                            if(diffInDays<=15) {
+                        if(status==4 && Double.parseDouble(discountAmount)<=0 && !type.equals("buy")){
+                            String createdAt = obj.getString("createdAt");
+                            long diffInDays=0;
+                            if(createdAt!=null) {
+                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                Date date = utcFormat.parse(createdAt);
+                                Date currentdate = new Date();
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                String ccdate=utcFormat.format(currentdate);
+                                Date startDate = date;
+                                Date endDate   = utcFormat.parse(ccdate);
+                                long duration  = endDate.getTime() - startDate.getTime();
+                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+                            }
+                            if(diffInDays<=15) {
                                 String id = obj.getString("id");
                                 int user_id = obj.getInt("createdBy");
                                 String coverUrl = obj.getString("coverUrl");
@@ -581,17 +586,17 @@ public class HomeFragment extends Fragment {
                                 String discountType = obj.getString("discountType");
                                 int viewCount = obj.getInt("viewCount");
                                 String title = obj.getString("subTitle");
-                                String type = obj.getString("type");
+                                //String type = obj.getString("type");
                                 //String[] splitTitle=title.split(",");
                                 mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount));
-                            //}
+                            }
                         }
                     }catch (JSONException je) {
                         je.printStackTrace();
                     }
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
+                    catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if(mAllPosts.size()==0){

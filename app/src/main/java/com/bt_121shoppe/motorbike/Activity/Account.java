@@ -249,34 +249,36 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
         storageReference= FirebaseStorage.getInstance().getReference("uploads");
         fuser= FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+        if(fuser!=null) {
+            reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
 
 //        com.bt_121shoppe.motorbike.utils.Notification.sendNotification(fuser.getUid());
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user=dataSnapshot.getValue(User.class);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
 
-                if(user.getImageURL().equals("default")){
-                    Glide.with(Account.this).load(R.drawable.square_logo).thumbnail(0.1f).into(upload);
-                    img_profile.setImageResource(R.drawable.square_logo);
-                }else{
-                    Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(upload);
-                    Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(img_profile);
+                    if (user.getImageURL().equals("default")) {
+                        Glide.with(Account.this).load(R.drawable.square_logo).thumbnail(0.1f).into(upload);
+                        img_profile.setImageResource(R.drawable.square_logo);
+                    } else {
+                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(upload);
+                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(img_profile);
+                    }
+                    if (user.getCoverURL().equals("default")) {
+                        Glide.with(Account.this).load(R.drawable.logo_121).thumbnail(0.1f).into(imgCover);
+                    } else {
+                        Glide.with(getBaseContext()).load(user.getCoverURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(imgCover);
+                    }
                 }
-                if(user.getCoverURL().equals("default")){
-                    Glide.with(Account.this).load(R.drawable.logo_121).thumbnail(0.1f).into(imgCover);
-                }else{
-                    Glide.with(getBaseContext()).load(user.getCoverURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(imgCover);
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+            });
+        }
         getUserProfile();
 
         edit_account = findViewById(R.id.btn_edit);
@@ -499,10 +501,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     }
 
     private void selectImage(){
-//        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-//        String language = preferences.getString("My_Lang", "");
-//        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
-//        final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Account.this);
 //        if (language.equals("km")){
             dialogBuilder.setItems(photo_select, (dialog, which) -> {
@@ -550,7 +548,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         break;
                 }
             });
-            //Log.d("6767676767","SelectImage");
             dialogBuilder.create().show();
 //        }
 //        else if (language.equals("en")){

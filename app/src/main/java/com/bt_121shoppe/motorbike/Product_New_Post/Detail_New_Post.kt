@@ -199,7 +199,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        checkPermission()
         postId = intent.getIntExtra("ID",0)
         discount = intent.getDoubleExtra("Discount",0.0)
-        Log.d("123456789 :",discount.toString())
         sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE)
         name = sharedPref.getString("name", "")
         pass = sharedPref.getString("pass", "")
@@ -224,15 +223,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val back = findViewById<TextView>(R.id.tv_back)
         back.setOnClickListener {
             finish()
-//            if (postId!= null) {
-//                startActivity(Intent(this@Detail_New_Post, Home::class.java))
-//                finish()
-//            } else finish()
         }
         //Slider
 
         Layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan)
-
         sliderImage = findViewById(R.id.slider)
         tvPostTitle = findViewById(R.id.title)
         tvPrice = findViewById(R.id.tv_price)
@@ -258,7 +252,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        tv_location_duration=findViewById(R.id.tv_location_duration)
         address_detial = findViewById(R.id.address)
         call_phone = findViewById(R.id.btn_call)
-
         mprocessBar = findViewById(R.id.mprogressbar)
         mprocessBar.visibility = View.VISIBLE
         tex_noresult = findViewById(R.id.txt_noresult)
@@ -318,7 +311,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
         val like = findViewById<ImageView>(R.id.btn_like)
         like.setOnClickListener {
-
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
                 Like_post(Encode)
             }else{
@@ -382,13 +374,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 calculateLoanMonthlyPayment()
-
                 jakl = p0.toString()
                 if (jakl.isEmpty()){
                     jakl = "0"
                     //Log.d("When empty",jakl)
                 }
-
                 var lol:Double = jakl.toDouble()
                 var dota:Double = ko.toDouble() // =0
 
@@ -549,6 +539,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             Layout_call_chat_like_loan.visibility = View.GONE
                         }
 
+                        /*
                         val url1=ConsumeAPI.BASE_URL+"api/v1/years/"+postDetail.year
                         var client1=OkHttpClient()
                         val request1 = Request.Builder()
@@ -575,6 +566,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                             }
                         })
+                        */
+                        /*
                         val url2=ConsumeAPI.BASE_URL+"api/v1/models/"+postDetail.modeling
                         val client2=OkHttpClient()
                         val request2 = Request.Builder()
@@ -643,7 +636,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         })
-//Add by Raksmey 02/10/2019
+                        */
+                        //Add by Raksmey 02/10/2019
                         var ptitle:String
                         if (postDetail.post_sub_title.isEmpty()){
                             postTitle=CommonFunction.generatePostSubTitle(postDetail.modeling,postDetail.year,postDetail.color)
@@ -657,11 +651,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             else
                                 ptitle = postDetail.getPost_sub_title().split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                         tvPostTitle.setText(ptitle)
-
                         postTitle=ptitle
-
                         postPrice=discount.toString()
-
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
 //                        tvPostTitle.setText(postDetail.title.toString())
@@ -674,15 +665,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         tvPostTitle.setTextSize(22F)
                         tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
-
                         tvPrice.setText("$ "+ discount)
-
                         edLoanPrice.setText(""+discount)
                         tvPostCode.setText(postDetail.post_code.toString())
 //                        tvPostCode.setText(postDetail.id.toString())
-
                         show_amount = "$"+discount.toString()
-
 //                        tvPrice1.setText("$"+ postDetail.cost)
 
                         edLoanDeposit.addTextChangedListener(object: TextWatcher {
@@ -696,15 +683,15 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 st = p0.toString()
                                 if (st.isEmpty()){
                                     st = "0"
-                                    Log.d("vetaneateanea","oracle")
+                                    //Log.d("vetaneateanea","oracle")
                                     st2  = st.toDouble()
                                 }else{
-                                    Log.d("hamehameha",st)
+                                    //Log.d("hamehameha",st)
 //                                    st2  = st.toDouble()
                                 }
 
 //                                Log.d("jakata",ds.toString())
-                                Log.d("jakata", "212121$st2")
+                                //Log.d("jakata", "212121$st2")
                                 if(st2 > discount){
                                     show_deposit.setTextColor(resources.getColor(R.color.red))
                                     show_deposit.setText(R.string.deposit_message)
@@ -749,8 +736,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                         st2  = st.toDouble()
                                     }
 
-                                    Log.d("jakata",ds.toString())
-                                    Log.d("jakata","212121"+st2)
                                     if(st2 > ds){
                                         show_deposit.setTextColor(resources.getColor(R.color.red))
                                         show_deposit.setText(R.string.deposit_message)

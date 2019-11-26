@@ -127,7 +127,7 @@ public class Postbyuser extends Fragment {
                                 CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
 
                                 if (date <= valida){
-                                    Log.d("555555555555","You are win"+(int)listData.get(i).getId());
+                                    //Log.d("555555555555","You are win"+(int)listData.get(i).getId());
                                     change_status_post  ch = new change_status_post(2);
                                     Movetohistory((int) listData.get(i).getId(),ch,basic_Encode);
                                 }

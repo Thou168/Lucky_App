@@ -17,10 +17,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bt_121shoppe.motorbike.Activity.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -39,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,6 +68,9 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
     private SharedPreferences prefer;
     private FirebaseAuth auth;
     private DatabaseReference reference;
+    private String FCM_API="https://fcm.googleapis.com/fcm/send";
+    private String serverKey="key=AAAAc-OYK_o:APA91bFUyiHEPdYUjVatqxaVzfLPwVcd090bMY5emPPh-ubQtu76mEDAdmthgR03jYwhClbDqy0lqbSr_HAAvD0vnTqigM16YH4x-Xr1TMb3q_sz9PLtjNLpfnLi6NdCI-v6dyX6-5jB";
+    private String contentType = "application/json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +83,7 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         auth=FirebaseAuth.getInstance();
         reference= FirebaseDatabase.getInstance().getReference();
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/"+ConsumeAPI.FB_Notification);
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.progress_waiting));
@@ -313,6 +324,27 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
                             hashMap.put("group",usergroup);
                             reference.child("users").child(userid).setValue(hashMap);
 
+                            //start send notification
+
+                            String topic="/topics/"+ConsumeAPI.FB_Notification;
+                            JSONObject notification=new JSONObject();
+                            JSONObject notifcationBody=new JSONObject();
+
+                            try
+                            {
+                                notifcationBody.put("title", "Register");
+                                notifcationBody.put("message", "Register successfully.");  //Enter your notification message
+                                notifcationBody.put("to",firebaseUser.getUid());
+                                notification.put("to", topic);
+                                notification.put("data", notifcationBody);
+                                FBPostCommonFunction.submitNofitication(firebaseUser.getUid(),notifcationBody.toString());
+                                Log.e("TAG", "try");
+                            }catch (JSONException e){
+                                Log.e("TAG","onCreate: "+e.getMessage());
+                            }
+                            sendNotification(notification);
+                            //end send notification
+
                             if(usergroup.equals("1")) {
                                 Intent intent = new Intent(ConfirmMobileNumberActivity.this, Home.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -329,6 +361,32 @@ public class ConfirmMobileNumberActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void sendNotification(JSONObject notification){
+        Log.e("TAG", "sendNotification"+notification);
+        RequestQueue requestQueue= Volley.newRequestQueue(this.getApplicationContext());
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(FCM_API, notification, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("TAG", "onResponse: "+response);
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ConfirmMobileNumberActivity.this, "Request error", Toast.LENGTH_LONG).show();
+                Log.i("TAG", "onErrorResponse: Didn't work");
+            }
+        }){
+            @Override
+            public Map getHeaders() {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", serverKey);
+                headers.put("Content-Type", contentType);
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
     }
 
 }

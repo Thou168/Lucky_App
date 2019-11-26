@@ -8,19 +8,20 @@
     <LinearLayout
         android:layout_above="@+id/bnaviga"
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
-        <TextView
-            android:gravity="center"
-            android:text="@string/chat"
+
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:id="@+id/text_message"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnsend"
+            android:text="Send"/>
 
     </LinearLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:id="@+id/bnaviga"
-        app:menu="@menu/bottom_navigation"
-        android:layout_height="40dp"/>
 
 </RelativeLayout>

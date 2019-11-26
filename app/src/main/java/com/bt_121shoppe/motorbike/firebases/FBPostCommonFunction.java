@@ -4,6 +4,9 @@ import android.os.Build;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.json.JSONObject;
+
 import java.time.Instant;
 import java.util.HashMap;
 
@@ -90,4 +93,16 @@ public class FBPostCommonFunction {
         hashMap.put("status",2);
         reference.updateChildren(hashMap);
     }
+
+    public static void submitNofitication(String to, String data){
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("datetime","");
+        hashMap.put("isSeen",false);
+        hashMap.put("notifyType","Register");
+        hashMap.put("data",data);
+        hashMap.put("to",to);
+        reference.child(ConsumeAPI.FB_Notification).push().setValue(hashMap);
+    }
+
 }
