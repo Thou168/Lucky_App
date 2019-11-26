@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.Constraints;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.Activity;
@@ -1295,16 +1296,19 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                                                    listid_shop.add(shopViewModel.getId());
 //                                                    dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
 //                                                    list_shop.add(ds);
-
                                                     listid_shop.add(idshop.get(i));
                                                     edShopName.setText(shopViewModel.getShop_name());
                                                     mDealerShopId1 = shopViewModel.getId();
-                                                    btnShop_name.setVisibility(View.VISIBLE);
+                                                    btnShop_name.setVisibility(View.GONE);
+                                                    btnShop_name3.setVisibility(View.GONE);
+                                                    btnShop_name2.setVisibility(View.GONE);
                                                     inputShop_name.setVisibility(View.VISIBLE);
                                                     icShop_name.setVisibility(View.VISIBLE);
                                                     userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
                                                 }
-//                                                else {
+                                                else {
+                                                    btnShop_name.setVisibility(View.VISIBLE);
+                                                    btnShop_name2.setVisibility(View.GONE);
 //                                                    delete_dealer2.setOnClickListener(new View.OnClickListener() {
 //                                                        @Override
 //                                                        public void onClick(View v) {
@@ -1367,7 +1371,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                                                            deleteshop3.show();
 //                                                        }
 //                                                    });
-//                                                }
+                                                }
                                             }
                                             btnShop_name.setOnClickListener(v -> {
                                                 final AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
@@ -1393,7 +1397,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                     icShop_name2.setVisibility(View.VISIBLE);
                                                     inputShop_name2.setVisibility(View.VISIBLE);
                                                     inputShop_name2.setHint(getString(R.string.shop_other2));
-                                                    btnShop_name2.setVisibility(View.VISIBLE);
+                                                    if (shopname.size() == 3)
+                                                        btnShop_name2.setVisibility(View.VISIBLE);
 //                                                                    delete_dealer2.setVisibility(View.VISIBLE);
                                                     btnShop_name.setVisibility(View.GONE);
 //                                                                       mDealerShop2.setText(shopViewModel.getId());
@@ -1413,7 +1418,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                     delete_dealer2.setVisibility(View.GONE);
                                                     btnShop_name.setVisibility(View.GONE);
 //                                                                       mDealerShop2.setText(shopViewModel.getId());
-                                                    btnShop_name2.setVisibility(View.VISIBLE);
+                                                    if (shopname.size() == 3)
+                                                        btnShop_name2.setVisibility(View.VISIBLE);
 //                                                    mDealerShopId2 = shopViewModel.getId();
                                                     shopname.remove(2);
 //                                                            dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
@@ -1486,6 +1492,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 alertDialog.setView(dialog);
                                                 alertDialog.show();
                                             });
+
                                         }
                                     }
                                     user_address = converJsonJava.getProfile().getAddress();
@@ -1825,6 +1832,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             Service api = Client.getClient().create(Service.class);
                                             dealershop ds;
                                             for (int i=0;i<listid_shop.size();i++){
+                                                Log.d("Listid Shop1212 ",listid_shop.get(i)+" indext: "+i);
                                                 ds = new dealershop(id,listid_shop.get(i),1);
                                                 list_shop.add(ds);
                                             }
