@@ -1292,7 +1292,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 shopname.add(shopViewModel.getShop_name());
                                                 idshop.add(shopViewModel.getId());
                                                 if (i == 0) {
-                                                    listid_shop.add(shopViewModel.getId());
+//                                                    listid_shop.add(shopViewModel.getId());
+//                                                    dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
+//                                                    list_shop.add(ds);
+
+                                                    listid_shop.add(idshop.get(i));
                                                     edShopName.setText(shopViewModel.getShop_name());
                                                     mDealerShopId1 = shopViewModel.getId();
                                                     btnShop_name.setVisibility(View.VISIBLE);
@@ -1332,7 +1336,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                             shopname.remove(1);
 //                                                            dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
 //                                                            list_shop.add(ds);
-                                                            listid_shop.add(shopViewModel.getId());
+                                                            listid_shop.add(idshop.get(1));
                                                             userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
                                                             alertDialog.dismiss();
                                                         });
@@ -1349,7 +1353,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                             shopname.remove(2);
 //                                                            dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
 //                                                            list_shop.add(ds);
-                                                            listid_shop.add(shopViewModel.getId());
+                                                            listid_shop.add(idshop.get(2));
                                                             userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
                                                             alertDialog.dismiss();
                                                         });
@@ -1485,19 +1489,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         }
                                     }
                                     user_address = converJsonJava.getProfile().getAddress();
-
-                                    if (user_address.isEmpty()) {
+                                    if(user_address.isEmpty()){
                                         get_location(true);
                                         mapFragment.getMapAsync(Camera.this::onMapReady);
-                                    } else {
+                                    }else {
                                         String[] splitAddr = user_address.split(",");
                                         latitude = Double.valueOf(splitAddr[0]);
                                         longtitude = Double.valueOf(splitAddr[1]);
                                         get_location(false);
 
-                                        if (converJsonJava.getProfile().getResponsible_officer() != null) {
+                                        if (converJsonJava.getProfile().getResponsible_officer()!=null){
                                             user_address_name = converJsonJava.getProfile().getResponsible_officer();
-                                            tvAddress.setQuery(user_address_name, false);
+                                            tvAddress.setQuery(user_address_name,false);
                                         }
                                         mapFragment.getMapAsync(Camera.this::onMapReady);
 
@@ -1821,8 +1824,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                                            Log.d("1212121121121","Run");
                                             Service api = Client.getClient().create(Service.class);
                                             dealershop ds;
-                                            for (int i=0;i<idshop.size();i++){
-                                                ds = new dealershop(id,idshop.get(i),1);
+                                            for (int i=0;i<listid_shop.size();i++){
+                                                ds = new dealershop(id,listid_shop.get(i),1);
                                                 list_shop.add(ds);
                                             }
 //                                            dealershop ds = new dealershop(id,2,1);
@@ -4036,7 +4039,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
         userShops=new ArrayList<>();
-        //for_otherdealer();
+//        for_otherdealer();
     } // text change
 
     private void add_Phone(){
