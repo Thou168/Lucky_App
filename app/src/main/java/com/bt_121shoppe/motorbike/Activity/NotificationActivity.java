@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Activity;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -22,13 +24,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
+import com.bt_121shoppe.motorbike.adapters.UserAdapter;
+import com.bt_121shoppe.motorbike.notifications.DetailNotification;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.models.Chat;
 import com.bt_121shoppe.motorbike.notifications.Token;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
-import com.bt_121shoppe.motorbike.utils.Notification;
+import com.esotericsoftware.kryo.util.IntMap;
+import com.esotericsoftware.kryo.util.ObjectMap;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,6 +43,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -44,6 +52,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -172,23 +181,24 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         mRecyclerView.setAdapter(mAdapter);
 
         fuser= FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference("Notification");
-        reference.addValueEventListener(new ValueEventListener() {
+        reference= FirebaseDatabase.getInstance().getReference();
+        Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(fuser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mNotifications.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    try{
-                        JSONObject obj=new JSONObject((Map) snapshot.getValue());
-                        String userId=obj.getString("userId");
-                        if(userId.equals(fuser.getUid())) {
-                            String body = obj.getString("body");
-                            String datetime = obj.getString("datetime");
-                            String notifyType = obj.getString("notifyType");
-                            String title = obj.getString("title");
-                            mNotifications.add(new NotificationViewModel(body, datetime, notifyType, title, userId));
-                        }
-                    }catch (JSONException e){
+                    JSONObject obj1=new JSONObject((Map) snapshot.getValue());
+                    DataSnapshot meta = snapshot.child("data");
+                    try {
+                        JSONObject obj = new JSONObject((String) meta.getValue());
+                        String userId = obj.getString("to");
+                        String title=obj.getString("title");
+                        String message=obj.getString("message");
+                        String datetime = obj1.getString("datetime");
+                        Boolean isSeen = obj1.getBoolean("isSeen");
+                        mNotifications.add(new NotificationViewModel(message,title,userId,datetime,isSeen));
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -198,7 +208,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                 else
                     mNoNotification.setVisibility(View.VISIBLE);
 
-                mAdapter.setNotificationList(mNotifications);
+                mAdapter.setNotificationList(getBaseContext(),mNotifications);
             }
 
             @Override
@@ -236,17 +246,19 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
     private class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder>{
 
         private List<NotificationViewModel> notificationList;
-        private Context context;
+        private Context mContext;
 
-        public void setNotificationList(List<NotificationViewModel> notificationList){
-            this.notificationList=notificationList;
+        public void setNotificationList(Context mContext,List<NotificationViewModel> notificationList){
+            this.mContext = mContext;
+            this.notificationList = notificationList;
             notifyDataSetChanged();
         }
 
 
         @Override
         public NotificationAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification,parent,false));
+            View view= LayoutInflater.from(mContext).inflate(R.layout.item_notification,parent,false);
+            return new NotificationAdapter.MyViewHolder(view);
         }
 
         @Override
@@ -255,6 +267,18 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
             holder.tvTitle.setText(notification.getTitle());
             holder.tvDescription.setText(notification.getBody());
             holder.tvDatetime.setText(notification.getDatetime());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, DetailNotification.class);
+                    intent.putExtra("userId",notification.getUserId());
+                    intent.putExtra("title",notification.getTitle());
+                    intent.putExtra("message",notification.getBody());
+                    intent.putExtra("datetime",notification.getDatetime());
+                    intent.putExtra("isSeen",notification.getisSeen());
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -276,7 +300,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                 imageView=itemView.findViewById(R.id.notification_image);
                 tvTitle=itemView.findViewById(R.id.tvTitle);
                 tvDescription=itemView.findViewById(R.id.Description);
-                tvDatetime=itemView.findViewById(R.id.tvDate);
+                tvDatetime=itemView.findViewById(R.id.datetime);
             }
         }
     }
@@ -285,20 +309,18 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
 
         private String body;
         private String datetime;
-        private String notifyType;
         private String title;
         private String userId;
         private boolean isSeen;
 
         public NotificationViewModel(){ }
 
-        public NotificationViewModel(String body,String datetime,String notifyType,String title,String userId){
+        public NotificationViewModel(String body,String title,String userId,String datetime, Boolean isSeen){
             this.body=body;
             this.datetime=datetime;
-            this.notifyType=notifyType;
             this.title=title;
             this.userId=userId;
-            //this.isSeen=isSeen;
+            this.isSeen=isSeen;
         }
 
         public String getUserId() {
@@ -317,11 +339,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
             return body;
         }
 
-        public String getNotifyType() {
-            return notifyType;
-        }
-
-        public boolean isSeen() {
+        public boolean getisSeen() {
             return isSeen;
         }
 
@@ -333,7 +351,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
             this.title = title;
         }
 
-        public void setSeen(boolean seen) {
+        public void setisSeen(boolean seen) {
             isSeen = seen;
         }
 
@@ -343,10 +361,6 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
 
         public void setDatetime(String datetime) {
             this.datetime = datetime;
-        }
-
-        public void setNotifyType(String notifyType) {
-            this.notifyType = notifyType;
         }
     }
 
