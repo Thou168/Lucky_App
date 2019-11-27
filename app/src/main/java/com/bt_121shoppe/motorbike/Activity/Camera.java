@@ -1036,6 +1036,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         etPrice.setText(String.valueOf(price));
                                         etName.setText(name);
                                         etEmail.setText(email);
+//                                        edShopName.setText(other_dealer);
 //                                        etPhone1.setText(phone);
 
                                         String[] splitPhone = phone.split(",");
@@ -2038,8 +2039,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("category", cate );
             post.put("status", 3);
             post.put("condition",strCondition);
-
-//            post.put("dealer_shops",)
 
             if(strCondition.equals("used")) {
                 if (cate == 2) {
