@@ -43,7 +43,6 @@ public interface Service {
     @PUT("api/v1/renewaldelete/{id}/")
     Call<change_status_delete> getputStatus(@Path("id") int id, @Body change_status_delete change_status, @Header("Authorization") String authorization);
 
-
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("api/v1/postdealershop/")
     Call<dealershop> pushdealershop (@Body dealershop change_status);
@@ -56,6 +55,10 @@ public interface Service {
 
     @GET("api/v1/users/{pk}/")
     Call<AllResponse> getProfile(@Path("pk") int pk, @Header("Authorization") String authorization);
+
+    @GET("api/v1/users/{pk}/")
+    Call<User> getProfile1(@Path("pk") int pk, @Header("Authorization") String authorization);
+
     @GET("api/v1/users/{pk}/")
     Call<User_Detail> getDetailUser(@Path("pk") int pk, @Header("Authorization") String authorization);
     //    @GET("/bestdeal/")

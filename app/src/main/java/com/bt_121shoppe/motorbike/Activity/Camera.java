@@ -51,6 +51,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
@@ -164,6 +165,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private TextInputLayout inputShop_name,inputShop_name2,inputShop_name3;
     private TextView txtOther_main;
     RelativeLayout relative_othermain;
+    private LinearLayout linear_shop1,linear_shop2,linear_shop3;
+    private EditText dealershop1,dealershop2,dealershop3;
+    private View dealer_view1,dealer_view2,dealer_view3;
     //end
     private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_email,input_phone, tilPhone2,tilphone3;
     private ImageButton btnImagePhone1,btnImagePhone2,btremove_pic1,btremove_pic2,btremove_pic3,btremove_pic4,btremove_pic5,btremove_pic6;
@@ -933,6 +937,67 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         builder.show();
     }
 
+    private void setDealerShop(List<Integer> list){
+        Service api = Client.getClient().create(Service.class);
+        for (int i=0;i<list.size();i++){
+            retrofit2.Call<ShopViewModel> modelCall = api.getDealerShop(list.get(i));
+            if (i==0) {
+                dealer_view1.setVisibility(View.VISIBLE);
+                linear_shop1.setVisibility(View.VISIBLE);
+                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                        if (!response.isSuccessful()){
+                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
+                        }
+                        dealershop1.setText(response.body().getShop_name());
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                    }
+                });
+            }
+            else if (i==1) {
+                dealer_view2.setVisibility(View.VISIBLE);
+                linear_shop2.setVisibility(View.VISIBLE);
+                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                        if (!response.isSuccessful()){
+                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
+                        }
+                        dealershop2.setText(response.body().getShop_name());
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                    }
+                });
+            }
+            else if (i==2) {
+                dealer_view3.setVisibility(View.VISIBLE);
+                linear_shop3.setVisibility(View.VISIBLE);
+                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                        if (!response.isSuccessful()){
+                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
+                        }
+                        dealershop3.setText(response.body().getShop_name());
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
+    }
+
     private void getData_Post(String encode, int id){
         if (bundle!=null) {
             final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "postbyuser/", id);
@@ -971,12 +1036,40 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 strPostType = object.getString("post_type");
                                 cate = object.getInt("category");
                                 type = object.getInt("type");
+                                JSONArray dsa = object.getJSONArray("dealer_shops");
 
-//                                if (userShops.size()>0){
-//                                    for (int i=0 ;i<userShops.size();i++){
-//                                        if ()
-//                                    }
-//                                }
+                                List<Integer> adlist = new ArrayList<>();
+                                Service api = Client.getClient().create(Service.class);
+                                retrofit2.Call<User> userCall = api.getProfile1(pk,auth);
+                                userCall.enqueue(new retrofit2.Callback<User>() {
+                                    @Override
+                                    public void onResponse(retrofit2.Call<User> call, retrofit2.Response<User> response) {
+                                        if (!response.isSuccessful()){
+                                            Log.d("111111111111112", String.valueOf(response.code()));
+                                        }
+                                        Log.d("111111111111112", "Group"+response.body().getProfile().getGroup());
+                                        int Group = response.body().getProfile().getGroup();
+                                        if (Group == 3){
+                                            Log.d("321324234234Edit","Edit "+dsa.length()+"other "+id_typeother);
+                                            txtOther_main.setVisibility(View.VISIBLE);
+                                            for (int i = 0; i < dsa.length(); i++) {
+
+                                                try {
+                                                    JSONObject dso = dsa.getJSONObject(i);
+                                                    adlist.add(dso.getInt("shop"));
+                                                    Log.d("55555555555","id "+dso.getInt("shop")+"size: "+adlist.size());
+
+                                                } catch (JSONException e) { e.printStackTrace(); }
+                                            }
+                                            setDealerShop(adlist);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(retrofit2.Call<User> call, Throwable t) {
+
+                                    }
+                                });
 
                                 int eta1 = object.getInt("used_eta1");
                                 int eta2 = object.getInt("used_eta2");
@@ -1306,7 +1399,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                     edShopName.setText(shopViewModel.getShop_name());
                                                     mDealerShopId1 = shopViewModel.getId();
                                                     btnShop_name.setVisibility(View.GONE);
-                                                    btnShop_name3.setVisibility(View.GONE);
+//                                                    btnShop_name3.setVisibility(View.GONE);
                                                     btnShop_name2.setVisibility(View.GONE);
                                                     inputShop_name.setVisibility(View.VISIBLE);
                                                     icShop_name.setVisibility(View.VISIBLE);
@@ -3486,7 +3579,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         relative_used.setVisibility(View.GONE);
 
         //other_dealer
-        txtOther_main = (TextView)findViewById(R.id.other_main);
+        txtOther_main = findViewById(R.id.other_main);
         relative_othermain = (RelativeLayout)findViewById(R.id.relative_other_main);
 
         icShop_name = (ImageView)findViewById(R.id.img_otherdealer);
@@ -3495,13 +3588,25 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
         btnShop_name = (ImageButton)findViewById(R.id.btn_other);
         btnShop_name2 = (ImageButton)findViewById(R.id.btn_other2);
-        btnShop_name3 = (ImageButton)findViewById(R.id.btn_other3);
+
+        linear_shop1 = findViewById(R.id.linear_shop1);
+        linear_shop2 = findViewById(R.id.linear_shop2);
+        linear_shop3 = findViewById(R.id.linear_shop3);
+
+        dealershop1 = findViewById(R.id.dealershop1);
+        dealershop2 = findViewById(R.id.dealershop2);
+        dealershop3 = findViewById(R.id.dealershop3);
+
+        dealer_view1 = findViewById(R.id.dealer_view1);
+        dealer_view2 = findViewById(R.id.dealer_view2);
+        dealer_view3 = findViewById(R.id.dealer_view3);
+//        btnShop_name3 = (ImageButton)findViewById(R.id.btn_other3);
 
         edShopName = (EditText)findViewById(R.id.et_other);
         edShopName2 = (EditText)findViewById(R.id.et_other2);
         edShopName3 = (EditText)findViewById(R.id.et_other3);
         delete_dealer2 = (Button)findViewById(R.id.delete_dealer2);
-        delete_dealer3 = (Button)findViewById(R.id.delete_dealer3);
+//        delete_dealer3 = (Button)findViewById(R.id.delete_dealer3);
 
         inputShop_name = (TextInputLayout)findViewById(R.id.til_other);
         inputShop_name2 = (TextInputLayout)findViewById(R.id.til_other2);

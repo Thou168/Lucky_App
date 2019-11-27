@@ -823,11 +823,11 @@
                     android:background="@color/grey_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <include layout="@layout/dealshop_deit"/>
                 <RelativeLayout
                     android:id="@+id/relative_other_main"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/img_otherdealer"
                         android:layout_width="15dp"
@@ -927,27 +927,27 @@
                         android:visibility="gone"
                         android:layout_below="@+id/img_otherdealer2"
                         android:background="@drawable/underline_gray"/>
-                    <ImageButton
-                        android:id="@+id/btn_other3"
-                        android:layout_width="40dp"
-                        android:layout_height="45dp"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_add_phone_24dp"
-                        android:layout_below="@id/img_otherdealer2"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/underline_gray"
-                        />
-                    <Button
-                        android:id="@+id/delete_dealer3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_below="@+id/img_otherdealer2"
-                        android:layout_alignLeft="@+id/btn_other3"
-                        android:layout_alignEnd="@+id/til_other3"
-                        android:visibility="gone"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/delete" />
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_other3"-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:src="@drawable/ic_add_phone_24dp"-->
+<!--                        android:layout_below="@id/img_otherdealer2"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:background="@drawable/underline_gray"-->
+<!--                        />-->
+<!--                    <Button-->
+<!--                        android:id="@+id/delete_dealer3"-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_below="@+id/img_otherdealer2"-->
+<!--                        android:layout_alignLeft="@+id/btn_other3"-->
+<!--                        android:layout_alignEnd="@+id/til_other3"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="@drawable/delete" />-->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_other3"
                         android:layout_width="match_parent"
