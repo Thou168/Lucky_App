@@ -290,8 +290,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         startActivity(intent);
                     }
 
-                    startActivity(new Intent(Home.this, Account.class));
-
                     break;
             }
             return false;
@@ -722,9 +720,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                     User ffuser = dataSnapshot.getValue(User.class);
                                     Log.d(TAG, "User " + ffuser.getImageURL());
                                     if (ffuser.getImageURL().equals("default")) {
-                                        mProfileImageDrawer.setImageResource(R.drawable.square_logo);
+                                        mProfileImageDrawer.setImageResource(R.mipmap.ic_launcher_round);
                                     } else {
-                                        Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.drawable.square_logo).thumbnail(0.1f).into(mProfileImageDrawer);
+                                        Glide.with(getBaseContext()).load(ffuser.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(mProfileImageDrawer);
                                     }
                                 }
 

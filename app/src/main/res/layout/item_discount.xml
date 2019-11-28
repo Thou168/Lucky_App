@@ -58,7 +58,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_gravity="right"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/logo"
+                    android:src="@mipmap/ic_launcher_round"
                     card_view:civ_border_width="2dp"
                     card_view:civ_border_color="@color/circle"
                     android:layout_width="25dp"
