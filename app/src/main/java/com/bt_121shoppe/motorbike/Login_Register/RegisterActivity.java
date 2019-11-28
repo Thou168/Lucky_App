@@ -222,10 +222,12 @@ public class RegisterActivity extends AppCompatActivity {
                         if (Password.isEmpty()) {
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.inputPassword);
-                        }else if (!lowerCasePatten.matcher(Password).find() || Password.trim().length()<6){
+                        }
+                        else if (Password.trim().length()<6){
                             PasswordError.setTextColor(getColor(R.color.red));
-                            PasswordError.setText(R.string.valid_dealer_pass);
-                        }else if (!digitCasePatten.matcher(Password).find()){
+                            PasswordError.setText(R.string.user_message_dealer);
+                        }
+                        else if (!lowerCasePatten.matcher(Password).find() || !digitCasePatten.matcher(Password).find()){
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.valid_dealer_pass);
                         }
