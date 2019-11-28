@@ -8,13 +8,13 @@
 
     <ImageView
         android:id="@+id/imgView"
-        android:layout_width="159dp"
+        android:layout_width="250dp"
         android:layout_height="81dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo_motobike" />
 
     <TextView
         android:id="@+id/textView2"

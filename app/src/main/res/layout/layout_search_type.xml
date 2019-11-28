@@ -43,11 +43,11 @@
             </androidx.appcompat.widget.Toolbar>
             <ImageView
                 android:layout_centerVertical="true"
-                android:layout_width="40dp"
+                android:layout_width="70dp"
                 android:layout_marginStart="50dp"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo_moto" />
 
         </RelativeLayout>
 

@@ -480,10 +480,7 @@
     <string name="dont_receive">Do not Receive the Code?</string>
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
-    <string name="verify_code_message">"User with this username already exists.
-
-
-        Please create new for register!"</string>
+    <string name="verify_code_message">User with this username already exists.Please create new for register!</string>
     //message
     <string name="type_message">Type a message...</string>
     <string name="username">Username</string>
@@ -492,10 +489,10 @@
     <string name="choose_model">Choose Model</string>
 
     <string name="choose_color">Choose color</string>
-    <string name="choose_discount">Choose type discount</string>
+    <string name="choose_discount">Choose Discount Type</string>
     <string name="choose_condition">Choose condition</string>
 
-    <string name="choose_type_post">Choose type post</string>
+    <string name="choose_type_post">Choose Post Type</string>
     <string name="choose_category">Choose Category</string>
     <string name="choose_brand">Choose Brand</string>
     <string name="choose_year">Choose Year</string>
@@ -883,7 +880,7 @@
     <string name="shop_logo">Shop Logo</string>
 
     //new string dialog
-    <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_default_title">Here is a message!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="LOADING">Loading…</string>

@@ -22,7 +22,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/notification_image"
-            android:src="@drawable/square_logo"/>
+            android:src="@mipmap/ic_launcher_round"/>
 
         <RelativeLayout
             android:layout_toRightOf="@id/imageView"
