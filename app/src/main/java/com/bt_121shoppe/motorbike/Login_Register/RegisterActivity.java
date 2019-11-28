@@ -372,6 +372,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     dialog.dismiss();
                                 }
                             });
+                    PhoneError.setText(R.string.verify_code_message);
+                    PhoneError.setTextColor(getColor(R.color.red));
                     alertDialog.show();
                     mProgress.dismiss();
                 }

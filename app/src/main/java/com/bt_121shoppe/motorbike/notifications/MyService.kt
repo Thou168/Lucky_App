@@ -67,7 +67,7 @@ class MyService : FirebaseMessagingService() {
             notificationBuilder.color = resources.getColor(R.color.black)
         }
         val uid=p0?.data?.get("to")
-        Log.e("TAG",uid)
+        Log.e("TAG",uid.toString())
         if(fuser!=null) {
             if (uid!!.equals(fuser!!.uid))
                 notificationManager.notify(notificationID, notificationBuilder.build())

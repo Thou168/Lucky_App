@@ -1350,7 +1350,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     User converJsonJava = gson.fromJson(respon, User.class);
                                     int g = converJsonJava.getProfile().getGroup();
                                     id_typeother = g;
-                                    Profile convertJsonJava = gson.fromJson(respon, Profile.class);
                                     etName.setText(converJsonJava.getFirst_name());
                                     etEmail.setText(converJsonJava.getEmail());
 
@@ -1382,8 +1381,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     }
                                     //dealer shop section
                                     if (g == 3) {
-                                        txtOther_main.setVisibility(View.VISIBLE);
-                                        relative_othermain.setVisibility(View.VISIBLE);
+//                                        txtOther_main.setVisibility(View.VISIBLE);
+//                                        relative_othermain.setVisibility(View.VISIBLE);
 
                                         List<String> shopname = new ArrayList<>();
                                         if (converJsonJava.getShops().size() > 0) {
@@ -1395,6 +1394,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                                                    listid_shop.add(shopViewModel.getId());
 //                                                    dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
 //                                                    list_shop.add(ds);
+                                                    txtOther_main.setVisibility(View.VISIBLE);
+                                                    relative_othermain.setVisibility(View.VISIBLE);
                                                     listid_shop.add(idshop.get(i));
                                                     edShopName.setText(shopViewModel.getShop_name());
                                                     mDealerShopId1 = shopViewModel.getId();
@@ -1406,6 +1407,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                     userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
                                                 }
                                                 else {
+                                                    txtOther_main.setVisibility(View.VISIBLE);
+                                                    relative_othermain.setVisibility(View.VISIBLE);
                                                     btnShop_name.setVisibility(View.VISIBLE);
                                                     btnShop_name2.setVisibility(View.GONE);
 //                                                    delete_dealer2.setOnClickListener(new View.OnClickListener() {
@@ -1823,10 +1826,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }else {
                 post.put("contact_email", etEmail.getText().toString());
             }
-            if (!edShopName.getText().toString().isEmpty()) {
-                post.put("dealer_shops",edShopName.getText().toString());
-            }
-
 
              post.put("contact_address", latlng);
 // end check

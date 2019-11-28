@@ -659,7 +659,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                         if(!shop.isEmpty()) {
                             if(mDealerShopId1>0){
                                 for(int i=0;i<userShops.size();i++){
-                                    UserShopViewModel findShopObj=userShops.get(0);
+                                    UserShopViewModel findShopObj=userShops.get(i);
                                     if(findShopObj.getId()==mDealerShopId1){
                                         findShopObj.setShop_name(shop);
                                         findShopObj.setShop_address(addr);

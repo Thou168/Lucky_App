@@ -276,7 +276,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                     intent.putExtra("message",notification.getBody());
                     intent.putExtra("datetime",notification.getDatetime());
                     intent.putExtra("isSeen",notification.getisSeen());
-                    mContext.startActivity(intent);
+                    startActivity(intent);
                 }
             });
         }
