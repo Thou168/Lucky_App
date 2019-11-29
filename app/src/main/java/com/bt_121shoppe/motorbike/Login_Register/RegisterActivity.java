@@ -203,9 +203,10 @@ public class RegisterActivity extends AppCompatActivity {
                         mProgress.dismiss();
                     }
                 }else {
-                    Pattern lowerCasePatten = Pattern.compile("[a-zA-Z ]");
+                    Pattern lowerCasePatten = Pattern.compile("[a-zA-Z]");
                     Pattern digitCasePatten = Pattern.compile("[0-9 ]");
-                    if (Number_Phone.length()<9 || !lowerCasePatten.matcher(Password).find() || Password.trim().length()<6 || !digitCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
+                    Pattern white_space = Pattern.compile("[\\s]");
+                    if (Number_Phone.length()<9 || white_space.matcher(Password).find() || !lowerCasePatten.matcher(Password).find() || Password.trim().length()<6 || !digitCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
 //                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
@@ -228,6 +229,10 @@ public class RegisterActivity extends AppCompatActivity {
                         else if (!lowerCasePatten.matcher(Password).find() || !digitCasePatten.matcher(Password).find()){
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.valid_dealer_pass);
+                        }
+                        else if (white_space.matcher(Password).find()){
+                            PasswordError.setText(R.string.no_whitespace_pass);
+                            PasswordError.setTextColor(getColor(R.color.red));
                         }
                         else {
                             PasswordError.setText("");

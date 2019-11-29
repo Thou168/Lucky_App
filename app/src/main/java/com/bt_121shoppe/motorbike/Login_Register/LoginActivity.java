@@ -415,7 +415,7 @@ public class LoginActivity extends AppCompatActivity {
                                             mProgress.dismiss();
                                         }
                                         else{
-                                            Toast.makeText(LoginActivity.this,"You cannot register with email or password.",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this,"You cannot login with email or password.",Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });

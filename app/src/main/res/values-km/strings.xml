@@ -99,6 +99,7 @@
     <string name="dealer_message">លេខសម្ងាត់អាចជា លេខ​​ អក្សរ និង តួអក្សរពិសេស</string>
     <string name="valid_dealer_pass">លេខសម្ងាត់គួរតែមានយ៉ាងហោចណាស់ ១ តួអក្សរ</string>
     <string name="user_message_dealer">លេខសម្ងាត់ត្រូវតែមាន ៦ តួជាមួយអក្សរ និង លេខឡើងទៅ</string>
+    <string name="no_whitespace_pass">សូមលុបចន្លោះតួអក្សរ</string>
 
     //Setting
     <string name="change_password">ប្តូរលេខសម្ងាត់</string>

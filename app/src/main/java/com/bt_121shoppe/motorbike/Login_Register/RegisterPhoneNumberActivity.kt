@@ -2,8 +2,11 @@ package com.bt_121shoppe.motorbike.Login_Register
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bt_121shoppe.motorbike.R
@@ -30,6 +33,12 @@ class RegisterPhoneNumberActivity : AppCompatActivity() {
             startActivity(intent)
             Toast.makeText(this@RegisterPhoneNumberActivity, no, Toast.LENGTH_LONG).show()
         }
+        mobile.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                button.performClick()
+            }
+            false
+        })
     }
 
     private fun validNo(no: String) {

@@ -169,6 +169,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
                 else if (mPost.getPost_type().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
+                strPostTitle = mPost.getPost_sub_title().split(",")[0];
             }else{
                 if (mPost.getPost_type().equals("sell"))
                     Glide.with(itemView.getContext()).load(R.drawable.sell_kh).thumbnail(0.1f).into(typeImageView);
@@ -176,6 +177,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     Glide.with(itemView.getContext()).load(R.drawable.rent_kh).thumbnail(0.1f).into(typeImageView);
                 else if (mPost.getPost_type().equals("buy"))
                     Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
+                strPostTitle = mPost.getPost_sub_title().split(",").length>1?mPost.getPost_sub_title().split(",")[1]:mPost.getPost_sub_title().split(",")[0];
             }
 
 
@@ -185,19 +187,19 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //                strPostTitle=mPost.getPost_sub_title().split(",")[0];
 //            postTitle.setText(strPostTitle);
 
-            if(mPost.getPost_sub_title().isEmpty()){
-                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
-                if(lang.equals("View:"))
-                    strPostTitle=fullTitle.split(",")[0];
-                else
-                    strPostTitle=fullTitle.split(",")[1];
-            }else {
-                if (lang.equals("View:"))
-                    strPostTitle = mPost.getPost_sub_title().split(",")[0];
-                else
-
-                    strPostTitle = mPost.getPost_sub_title().split(",")[1];
-            }
+//            if(mPost.getPost_sub_title().isEmpty()){
+//                String fullTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor());
+//                if(lang.equals("View:"))
+//                    strPostTitle=fullTitle.split(",")[0];
+//                else
+//                    strPostTitle=fullTitle.split(",")[1];
+//            }else {
+//                if (lang.equals("View:"))
+//                    strPostTitle = mPost.getPost_sub_title().split(",")[0];
+//                else
+//
+//                    strPostTitle = mPost.getPost_sub_title().split(",")[1];
+//            }
 
             postTitle.setText(strPostTitle);
             postLocationDT.setText("");
