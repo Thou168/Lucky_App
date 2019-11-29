@@ -258,7 +258,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         img_profile.setImageResource(R.mipmap.ic_launcher_round);
                     } else {
                         Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(upload);
-                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.logo_motobike).thumbnail(0.1f).into(img_profile);
+                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(img_profile);
                     }
                     if (user.getCoverURL().equals("default")) {
                         Glide.with(Account.this).load(R.drawable.logo_motobike).thumbnail(0.1f).into(imgCover);
