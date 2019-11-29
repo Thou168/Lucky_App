@@ -170,7 +170,6 @@ public class RegisterActivity extends AppCompatActivity {
                         } else if (Password.length() != 4) {
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.user_message);
-                            Log.d("Jajaja", "Nanano");
                         } else {
                             PasswordError.setText("");
                         }
@@ -181,7 +180,6 @@ public class RegisterActivity extends AppCompatActivity {
                         } else if (!Password.equals(ComfirmPass)) {
                             ComfirmPassError.setTextColor(getColor(R.color.red));
                             ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
-                            Log.d("Kokoko", "Konoha");
                         } else {
                             ComfirmPassError.setText("");
                         }
@@ -207,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else {
                     Pattern lowerCasePatten = Pattern.compile("[a-zA-Z ]");
                     Pattern digitCasePatten = Pattern.compile("[0-9 ]");
-                    if (Number_Phone.length()<9 || !lowerCasePatten.matcher(Password).find() || Password.trim().length()<6 || !lowerCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
+                    if (Number_Phone.length()<9 || !lowerCasePatten.matcher(Password).find() || Password.trim().length()<6 || !digitCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
 //                    register_error();
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
@@ -241,7 +239,6 @@ public class RegisterActivity extends AppCompatActivity {
                         } else if (!Password.equals(ComfirmPass)) {
                             ComfirmPassError.setTextColor(getColor(R.color.red));
                             ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
-                            Log.d("Kokoko", "Konoha");
                         } else {
                             ComfirmPassError.setText("");
                         }
