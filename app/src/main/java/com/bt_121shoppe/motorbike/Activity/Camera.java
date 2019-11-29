@@ -1189,9 +1189,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         int Group = response.body().getProfile().getGroup();
                                         if (Group == 3){
                                             Log.d("321324234234Edit","Edit "+dsa.length()+"other "+id_typeother);
-                                            txtOther_main.setVisibility(View.VISIBLE);
                                             for (int i = 0; i < dsa.length(); i++) {
-
+                                                txtOther_main.setVisibility(View.VISIBLE);
                                                 try {
                                                     JSONObject dso = dsa.getJSONObject(i);
                                                     adlist.add(dso.getInt("shop"));
@@ -1537,6 +1536,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 shopIdListItems[i]=shopViewModel.getId();
                                             }
                                             edShopName.setText(converJsonJava.getShops().get(0).getShop_name());
+                                            txtOther_main.setVisibility(View.VISIBLE);
                                             mDealerShopId1 = converJsonJava.getShops().get(0).getId();
                                             btnShop_name2.setVisibility(View.GONE);
                                             inputShop_name.setVisibility(View.VISIBLE);
