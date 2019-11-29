@@ -422,6 +422,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 }
                 else if (hamu.isEmpty()){
                     tvMonthlyPayment.setText("$0.00")
+                    edLoanTerm.setHint("0")
                     tvMonthlyPayment.setTextColor(ContextCompat.getColor(applicationContext,R.color.red))
 //                    tvMonthlyPayment.visibility = View.INVISIBLE
                 }
@@ -554,8 +555,8 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                                calculateLoanMonthlyPayment()
-                                var jk:String = "$0.0"
+                                calculateLoanMonthlyPayment()
+
                                 st = p0.toString()
                                 if (st.isEmpty()){
                                     st = "0"
@@ -563,7 +564,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                     st2  = st.toDouble()
                                 }else{
                                     //Log.d("hamehameha",st)
-//                                    st2  = st.toDouble()
+                                    st2  = st.toDouble()
                                 }
 
 //                                Log.d("jakata",ds.toString())
