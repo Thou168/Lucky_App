@@ -30,7 +30,7 @@ import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.Setting.Setting;
+import com.bt_121shoppe.motorbike.settings.Setting;
 import com.bt_121shoppe.motorbike.fragments.FragmentB1;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;

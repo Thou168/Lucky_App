@@ -4,10 +4,12 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Base64;
+import android.util.Log;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -295,6 +297,10 @@ public class CommonFunction {
         postSubTitleEN=postSubTitleEN+" "+strColor;
         postSubTitleKH=postSubTitleKH+" "+strColorKH;
         return postSubTitleEN+","+postSubTitleKH;
+    }
+
+    public static void initialDealer(List<ShopViewModel> shops){
+        Log.e("TAG","user dealer "+shops.size());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Activity;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,6 @@ import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.AccountTab.MainLoanList;
 import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
-import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -51,14 +51,13 @@ import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.Setting.AboutUsActivity;
-import com.bt_121shoppe.motorbike.Setting.ContactActivity;
-import com.bt_121shoppe.motorbike.Setting.Setting;
-import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity;
+import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
+import com.bt_121shoppe.motorbike.settings.ContactActivity;
+import com.bt_121shoppe.motorbike.settings.Setting;
+import com.bt_121shoppe.motorbike.settings.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
 import com.bt_121shoppe.motorbike.models.User;
-import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bumptech.glide.Glide;
@@ -80,8 +79,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -99,9 +96,6 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -506,9 +500,11 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             dialogBuilder.setItems(photo_select, (dialog, which) -> {
                 switch (which){
                     case 0:
+                        Log.e("TAG","here request camera");
                         requestStoragePermission(true);
                         break;
                     case 1:
+                        Log.e("TAG","here request photo");
                         requestStoragePermission(false);
                         break;
   //Add case 2 by Raksmey
@@ -570,12 +566,14 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
     }
     private void requestStoragePermission(boolean isCamera) {
+
         Dexter.withActivity(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
+                            Log.e("TAG","It's allow permiision");
                             if (isCamera) {
                                 dispatchTakePictureIntent();
                             } else {
@@ -598,6 +596,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 .check();
     }
     private void dispatchTakePictureIntent(){
+        Log.e("TAG","y not show");
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go

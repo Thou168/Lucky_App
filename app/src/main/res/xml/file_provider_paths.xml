@@ -5,3 +5,6 @@
         path="Android/data/com.bt_121shoppe.motorbike/files/Pictures" />
     <!-- replace com.androidwave.filepicker with your package name -->
 </paths>
+<!--<paths xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <external-path name="external_files" path="."/>-->
+<!--</paths>-->

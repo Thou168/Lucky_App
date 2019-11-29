@@ -394,26 +394,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //                    jakl = "0"
                 }
 
-//                if (jakl != null) {
-//
-//                    if (jakl.isEmpty()){
-//                        st2 = jakl.toDouble()
-//                        tvMonthlyPayment.setText("$0")
-//                    }
-//                    else if (jakl.equals("0".toString())){
-//                        jakl = "0"
-//                        Log.d("Dota2esports",jakl)
-//                        st2 = jakl.toDouble()
-//                        tvMonthlyPayment.setText("$0")
-//                        Log.d("kaksdnansh",jakl)
-//                    }
-//                    else {
-//                        st2 = jakl.toDouble()
-//                        Log.d("lolesports",jakl)
-//                        tvMonthlyPayment.visibility = View.VISIBLE
-//                    }
-//                }
-
             }
             override fun afterTextChanged(p0: Editable?) {
             }
@@ -539,104 +519,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             Layout_call_chat_like_loan.visibility = View.GONE
                         }
 
-                        /*
-                        val url1=ConsumeAPI.BASE_URL+"api/v1/years/"+postDetail.year
-                        var client1=OkHttpClient()
-                        val request1 = Request.Builder()
-                                .url(url1)
-                                .header("Accept", "application/json")
-                                .header("Content-Type", "application/json")
-                                .header("Authorization", auth)
-                                .build()
-                        client1.newCall(request1).enqueue(object : Callback {
-                            @Throws(IOException::class)
-                            override fun onResponse(call: Call, response: Response) {
-                                val mMessage = response.body()!!.string()
-                                runOnUiThread {
-                                    try {
-                                        val jsonObject = JSONObject(mMessage)
-//                                        tvYear.setText(jsonObject.getString("year"))
-                                    } catch (e: JSONException) {
-                                        e.printStackTrace()
-                                    }
-                                }
-                            }
 
-                            override fun onFailure(call: Call, e: IOException) {
-
-                            }
-                        })
-                        */
-                        /*
-                        val url2=ConsumeAPI.BASE_URL+"api/v1/models/"+postDetail.modeling
-                        val client2=OkHttpClient()
-                        val request2 = Request.Builder()
-                                .url(url2)
-                                .header("Accept", "application/json")
-                                .header("Content-Type", "application/json")
-//                                .header("Authorization", auth)
-                                .build()
-                        client2.newCall(request2).enqueue(object : Callback {
-                            @Throws(IOException::class)
-                            override fun onResponse(call: Call, response: Response) {
-                                val mMessage = response.body()!!.string()
-                                runOnUiThread {
-                                    try {
-                                        val jsonObject = JSONObject(mMessage)
-                                        Log.d("modeling_name",jsonObject.getString("modeling_name"))
-                                        Log.d("Language",language)
-                                        if(language.equals("km")){
-//                                            tvModel.setText(jsonObject.getString("modeling_name_kh"))
-                                        }else if(language.equals("en")){
-//                                            tvModel.setText(jsonObject.getString("modeling_name"))
-                                        }
-
-                                        val url3=ConsumeAPI.BASE_URL+"api/v1/brands/"+jsonObject.getString("brand")
-                                        val client3=OkHttpClient()
-                                        val request3 = Request.Builder()
-                                                .url(url3)
-                                                .header("Accept", "application/json")
-                                                .header("Content-Type", "application/json")
-//                                                .header("Authorization", auth)
-                                                .build()
-                                        client3.newCall(request3).enqueue(object : Callback {
-                                            @Throws(IOException::class)
-                                            override fun onResponse(call: Call, response: Response) {
-                                                val mMessage = response.body()!!.string()
-                                                runOnUiThread {
-                                                    try {
-                                                        val jsonObject = JSONObject(mMessage)
-                                                        //Log.d(TAG,"Year "+jsonObject.getString("year"))
-                                                        if(language.equals("km")){
-//                                                            tvBrand.setText(jsonObject.getString("brand_name_as_kh"))
-                                                        }else if(language.equals("en")){
-//                                                            tvBrand.setText(jsonObject.getString("brand_name"))
-                                                        }
-
-                                                    } catch (e: JSONException) {
-                                                        e.printStackTrace()
-                                                    }
-                                                }
-                                            }
-
-                                            override fun onFailure(call: Call, e: IOException) {
-
-                                            }
-
-                                        })
-
-                                    } catch (e: JSONException) {
-                                        e.printStackTrace()
-                                    }
-                                }
-                            }
-
-                            override fun onFailure(call: Call, e: IOException) {
-
-                            }
-
-                        })
-                        */
                         //Add by Raksmey 02/10/2019
                         var ptitle:String
                         if (postDetail.post_sub_title.isEmpty()){
@@ -655,13 +538,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         postPrice=discount.toString()
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
-//                        tvPostTitle.setText(postDetail.title.toString())
-
-//                        if (postDetail.title.toString().isNotEmpty()){
-//                            tvPostTitle.setText(postDetail.title.toString())
-//                        }else{
-//                            tvPostTitle.setText(postDetail.post_sub_title.toString())
-//                        }
 
                         tvPostTitle.setTextSize(22F)
                         tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
@@ -829,24 +705,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
                         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                         sdf.timeZone = TimeZone.getTimeZone("GMT+7")
-//                        if (pt == 1){
-//                            time = sdf.parse(postDetail.created).time
-//                        }else if(pt == 2){ //pt = 2 for detail history post user
-//                            if (postDetail.modified == null){
-//                                time = sdf.parse(postDetail.created).time
-//                            }else{
-//                                val mdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-//                                mdf.timeZone = TimeZone.getTimeZone("GMT")
-//                                time = mdf.parse(postDetail.modified).time
-//                            }
-//                        } else{
-//                            time = sdf.parse(postDetail.approved_date).time
-//                            //time=0\
-//                        }
-//closed post date by Raksmey 11/09/2019
-//                        val now:Long = System.currentTimeMillis()
-//                        val ago:CharSequence = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
-//                        tv_location_duration.setText(ago)
+
 
                         val base64_front_image=postDetail.front_image_path.toString()
                         val base64_right_image=postDetail.right_image_path.toString()

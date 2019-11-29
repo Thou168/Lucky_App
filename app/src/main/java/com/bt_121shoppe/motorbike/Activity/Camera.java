@@ -267,8 +267,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private static final int REQUEST_TAKE_PHOTO=1;
     private Uri imageUri;
 
-    private String[] postTypeListItems,conditionListItems,modelListItemkh,discountTypeListItems,brandListItemkh,typeListItemkh,categoryListItemkh,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems;
-    private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems;
+    private String[] postTypeListItems,conditionListItems,modelListItemkh,discountTypeListItems,brandListItemkh,typeListItemkh,categoryListItemkh,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems,shopListItems;
+    private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems,shopIdListItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -288,14 +288,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         }
         Log.d("Pk",""+pk);
         //ButterKnife.bind(this);
-//check active and deactive account by samang 2/09/19
+        //check active and deactive account by samang 2/09/19
         Active_user activeUser = new Active_user();
         String active;
         active = activeUser.isUserActive(pk,this);
         if (active.equals("false")){
             activeUser.clear_session(this);
         }
-// end
+    // end
         mCompressor = new FileCompressor(this);
    //     Log.d(TAG,"time"+Instant.now().toString());
 
@@ -342,10 +342,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         Call_category(Encode);
         Call_Type(Encode);
         Call_years(Encode);
-        Log.d("User information",user_name+","+user_email+","+user_phone+","+user_address+","+user_address_name);
+
         TextChange();
         add_Phone();
         initialUserInformation(pk,Encode);
+
         bundle = getIntent().getExtras();
         if (bundle!=null) {
             login_verify = bundle.getString("Login_verify");
@@ -650,6 +651,143 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 mDialog.show();
             }
         });
+
+        edShopName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                //mBuilder.setTitle(getString(R.string.choose_year));
+                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(shopIdListItems[i]==mDealerShopId2 || shopIdListItems[i]==mDealerShopId3){
+                            //show alert message is chosen already here
+
+                        }
+                        else {
+                            edShopName.setText(shopListItems[i]);
+                            mDealerShopId1 = shopIdListItems[i];
+                            icShop_name.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        edShopName2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                //mBuilder.setTitle(getString(R.string.choose_year));
+                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId3){
+                            //show alert message is chosen already here
+
+                        }
+                        else {
+                            edShopName2.setText(shopListItems[i]);
+                            mDealerShopId2 = shopIdListItems[i];
+                            icShop_name2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        edShopName3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                //mBuilder.setTitle(getString(R.string.choose_year));
+                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId2){
+                            //show alert message is chosen already here
+
+                        }
+                        else {
+                            edShopName3.setText(shopListItems[i]);
+                            mDealerShopId3 = shopIdListItems[i];
+                            icShop_name3.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        btnShop_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                //mBuilder.setTitle(getString(R.string.choose_year));
+                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId3){
+                            //show alert message is chosen already here
+
+                        }else{
+                            inputShop_name2.setVisibility(View.VISIBLE);
+                            icShop_name2.setVisibility(View.VISIBLE);
+                            edShopName2.setText(shopListItems[i]);
+                            mDealerShopId2 = shopIdListItems[i];
+                            icShop_name2.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            if(shopIdListItems.length>2)
+                                btnShop_name3.setVisibility(View.VISIBLE);
+                            btnShop_name.setVisibility(View.GONE);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        btnShop_name2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                //mBuilder.setTitle(getString(R.string.choose_year));
+                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId2){
+                            //show alert message is chosen already here
+
+                        }else{
+                            inputShop_name3.setVisibility(View.VISIBLE);
+                            icShop_name3.setVisibility(View.VISIBLE);
+                            edShopName3.setText(shopListItems[i]);
+                            mDealerShopId3 = shopIdListItems[i];
+                            icShop_name3.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                            btnShop_name2.setVisibility(View.GONE);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1384,12 +1522,36 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                                        txtOther_main.setVisibility(View.VISIBLE);
 //                                        relative_othermain.setVisibility(View.VISIBLE);
 
+                                        /* dealer shop */
+                                        //CommonFunction.initialDealer(converJsonJava.getShops());
+
                                         List<String> shopname = new ArrayList<>();
                                         if (converJsonJava.getShops().size() > 0) {
+
+                                            shopListItems=new String[converJsonJava.getShops().size()];
+                                            shopIdListItems=new int[converJsonJava.getShops().size()];
+
+                                            for(int i=0;i<converJsonJava.getShops().size();i++){
+                                                ShopViewModel shopViewModel = converJsonJava.getShops().get(i);
+                                                shopListItems[i]=shopViewModel.getShop_name();
+                                                shopIdListItems[i]=shopViewModel.getId();
+                                            }
+                                            edShopName.setText(converJsonJava.getShops().get(0).getShop_name());
+                                            mDealerShopId1 = converJsonJava.getShops().get(0).getId();
+                                            btnShop_name2.setVisibility(View.GONE);
+                                            inputShop_name.setVisibility(View.VISIBLE);
+                                            icShop_name.setVisibility(View.VISIBLE);
+                                            if(converJsonJava.getShops().size()>1)
+                                                btnShop_name.setVisibility(View.VISIBLE);
+                                            else
+                                                btnShop_name.setVisibility(View.GONE);
+
+                                            /*
                                             for (int i = 0; i < converJsonJava.getShops().size(); i++) {
                                                 ShopViewModel shopViewModel = converJsonJava.getShops().get(i);
                                                 shopname.add(shopViewModel.getShop_name());
                                                 idshop.add(shopViewModel.getId());
+
                                                 if (i == 0) {
 //                                                    listid_shop.add(shopViewModel.getId());
 //                                                    dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
@@ -1594,9 +1756,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 alertDialog.setView(dialog);
                                                 alertDialog.show();
                                             });
+                                            */
 
                                         }
                                     }
+
+
                                     user_address = converJsonJava.getProfile().getAddress();
                                     if(user_address.isEmpty()){
                                         get_location(true);
@@ -1826,6 +1991,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }else {
                 post.put("contact_email", etEmail.getText().toString());
             }
+            if (!edShopName.getText().toString().isEmpty()) {
+                post.put("dealer_shops",edShopName.getText().toString());
+            }
 
              post.put("contact_address", latlng);
 // end check
@@ -1926,17 +2094,25 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             int pStatus=obj.getInt("status");
                                             FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);
 
-//                                            Log.d("1212121121121","Run");
                                             Service api = Client.getClient().create(Service.class);
                                             dealershop ds;
-                                            for (int i=0;i<listid_shop.size();i++){
-                                                Log.d("Listid Shop1212 ",listid_shop.get(i)+" indext: "+i);
-                                                ds = new dealershop(id,listid_shop.get(i),1);
-                                                list_shop.add(ds);
-                                            }
+
+//                                            for (int i=0;i<listid_shop.size();i++){
+//                                                //Log.d("Listid Shop1212 ",listid_shop.get(i)+" indext: "+i);
+//                                                ds = new dealershop(id,listid_shop.get(i),1);
+//                                                list_shop.add(ds);
+//                                            }
 //                                            dealershop ds = new dealershop(id,2,1);
 //                                            getUser_dealShop(pk,Encode,id);
 //                                            Log.d("Size 1212121212","323"+list_shop.size());
+
+                                            if(mDealerShopId1>0)
+                                                list_shop.add(new dealershop(id,mDealerShopId1,1));
+                                            if(mDealerShopId2>0)
+                                                list_shop.add(new dealershop(id,mDealerShopId2,1));
+                                            if(mDealerShopId3>0)
+                                                list_shop.add(new dealershop(id,mDealerShopId3,1));
+
                                             for (int i=0;i<list_shop.size();i++){
                                                 retrofit2.Call<dealershop> call1 = api.pushdealershop(list_shop.get(i));
                                                 call1.enqueue(new retrofit2.Callback<dealershop>() {
@@ -4233,7 +4409,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
                             // show alert dialog navigating to Settings
-                            showSettingsDialog();
+                            //showSettingsDialog();
                         }
                     }
 

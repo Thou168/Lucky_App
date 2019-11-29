@@ -114,6 +114,7 @@ public class ChatActivity extends AppCompatActivity {
 
         bundle=getIntent().getExtras();
         if(bundle!=null){
+
             postId=String.valueOf(bundle.getInt("postId",0));
             postTitle=bundle.getString("postTitle");
             postPrice=bundle.getString("postPrice");
@@ -122,6 +123,8 @@ public class ChatActivity extends AppCompatActivity {
             postUserId=bundle.getString("postUserId");
             userPk=bundle.getInt("postUserPk",0);
             postType=bundle.getString("postType");
+
+            Log.e("TAG",postId);
 
             tvusername.setText(postUsername);
             tvposttitle.setText(postTitle);
@@ -169,31 +172,31 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.chat_menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.menuAbout:
-                Toast.makeText(this, "You clicked about", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.menuSettings:
-                Toast.makeText(this, "You clicked settings", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.menuLogout:
-                Toast.makeText(this, "You clicked logout", Toast.LENGTH_SHORT).show();
-                break;
-
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater=getMenuInflater();
+//        menuInflater.inflate(R.menu.chat_menu,menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch(item.getItemId()){
+//            case R.id.menuAbout:
+//                Toast.makeText(this, "You clicked about", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.menuSettings:
+//                Toast.makeText(this, "You clicked settings", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.menuLogout:
+//                Toast.makeText(this, "You clicked logout", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//        }
+//        return true;
+//    }
 
     private User getUserToInformation(){
         User user=new User();

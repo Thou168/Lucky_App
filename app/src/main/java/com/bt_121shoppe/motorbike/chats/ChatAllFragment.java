@@ -302,6 +302,7 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 tvDate=itemView.findViewById(R.id.tvDate);
                 tvTitle=itemView.findViewById(R.id.tvTitle);
                 tvLastChat=itemView.findViewById(R.id.tvLastChat);
+
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

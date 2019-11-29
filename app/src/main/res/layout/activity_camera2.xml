@@ -842,8 +842,7 @@
                         android:src="@drawable/ic_add_phone_24dp"
                         android:visibility="gone"
                         android:layout_alignParentEnd="true"
-                        android:background="@drawable/underline_gray"
-                        />
+                        android:background="@drawable/underline_gray" />
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_other"
                         android:layout_width="match_parent"

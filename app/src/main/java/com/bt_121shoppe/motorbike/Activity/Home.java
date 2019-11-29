@@ -18,7 +18,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -49,7 +48,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
-import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -57,16 +55,15 @@ import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.Setting.AboutUsActivity;
-import com.bt_121shoppe.motorbike.Setting.ContactActivity;
-import com.bt_121shoppe.motorbike.Setting.Setting;
-import com.bt_121shoppe.motorbike.Setting.TermPrivacyActivity;
+import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
+import com.bt_121shoppe.motorbike.settings.ContactActivity;
+import com.bt_121shoppe.motorbike.settings.Setting;
+import com.bt_121shoppe.motorbike.settings.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
 import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.models.User;
-import com.bt_121shoppe.motorbike.newversion.MainActivity;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
@@ -87,8 +84,6 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-
-import org.checkerframework.checker.index.qual.LengthOf;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -547,7 +542,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
                             // show alert dialog navigating to Settings
-                            showSettingsDialog();
+                            //showSettingsDialog();
                         }
                         // add call requestpermission by samang 27/08
                         if (ContextCompat.checkSelfPermission(Home.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -669,14 +664,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Resources resources=context.getResources();
         //title menu
         if(context!=null && resources!=null) {
-            nav_profile.setTitle(resources.getString(R.string.menu_profile));
-            nav_post.setTitle(resources.getString(R.string.menu_post));
-            nav_like.setTitle(resources.getString(R.string.menu_like));
-            nav_loan.setTitle(resources.getString(R.string.menu_loan));
-            nav_setting.setTitle(resources.getString(R.string.menu_setting));
-            nav_about.setTitle(resources.getString(R.string.menu_about));
-            nav_contact.setTitle(resources.getString(R.string.menu_contact));
-            nav_term.setTitle(resources.getString(R.string.menu_privacy));
+            //nav_profile.setTitle(resources.getString(R.string.menu_profile));
+            //nav_post.setTitle(resources.getString(R.string.menu_post));
+            //nav_like.setTitle(resources.getString(R.string.menu_like));
+//            nav_loan.setTitle(resources.getString(R.string.menu_loan));
+//            nav_setting.setTitle(resources.getString(R.string.menu_setting));
+//            nav_about.setTitle(resources.getString(R.string.menu_about));
+//            nav_contact.setTitle(resources.getString(R.string.menu_contact));
+//            nav_term.setTitle(resources.getString(R.string.menu_privacy));
         }
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
         if(currentFragment!=null) {

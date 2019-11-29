@@ -1,4 +1,4 @@
-package com.bt_121shoppe.motorbike.Setting
+package com.bt_121shoppe.motorbike.settings
 
 import android.content.Context
 import android.os.Bundle

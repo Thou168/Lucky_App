@@ -282,7 +282,6 @@ public class HomeFragment extends Fragment {
 
     private void prepareBestDealContent(){
 
-        //From API
 //        Service apiService= Client.getClient().create(Service.class);
 //        Call<APIResponse> call=apiService.getPostBestDeal();
 //        call.enqueue(new Callback<APIResponse>() {

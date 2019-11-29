@@ -12,7 +12,7 @@
         android:id="@+id/toolbar_Account"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorSubmitButton">
+        android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/tv_Back"
             android:layout_width="wrap_content"
