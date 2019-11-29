@@ -748,7 +748,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             mDealerShopId2 = shopIdListItems[i];
                             icShop_name2.setImageResource(R.drawable.ic_check_circle_black_24dp);
                             if(shopIdListItems.length>2)
-                                btnShop_name3.setVisibility(View.VISIBLE);
+                                btnShop_name2.setVisibility(View.VISIBLE);
                             btnShop_name.setVisibility(View.GONE);
                         }
                         dialogInterface.dismiss();
