@@ -1183,9 +1183,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     @Override
                                     public void onResponse(retrofit2.Call<User> call, retrofit2.Response<User> response) {
                                         if (!response.isSuccessful()){
-                                            Log.d("111111111111112", String.valueOf(response.code()));
+                                            //Log.d("111111111111112", String.valueOf(response.code()));
                                         }
-                                        Log.d("111111111111112", "Group"+response.body().getProfile().getGroup());
+                                        //Log.d("111111111111112", "Group"+response.body().getProfile().getGroup());
                                         int Group = response.body().getProfile().getGroup();
                                         if (Group == 3){
                                             Log.d("321324234234Edit","Edit "+dsa.length()+"other "+id_typeother);
@@ -1194,7 +1194,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 try {
                                                     JSONObject dso = dsa.getJSONObject(i);
                                                     adlist.add(dso.getInt("shop"));
-                                                    Log.d("55555555555","id "+dso.getInt("shop")+"size: "+adlist.size());
+                                                    //Log.d("55555555555","id "+dso.getInt("shop")+"size: "+adlist.size());
 
                                                 } catch (JSONException e) { e.printStackTrace(); }
                                             }
@@ -1237,7 +1237,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 strColor = object.getString("color");
 
                                 strDiscountType = object.getString("discount_type");
-
 
                                 String addr = object.getString("contact_address");
                                 if(!addr.isEmpty()) {

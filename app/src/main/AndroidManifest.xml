@@ -26,8 +26,6 @@
         android:required="false" />
 
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
-
-
 <!--    <dist:module dist:instant="true" />-->
 
     <application

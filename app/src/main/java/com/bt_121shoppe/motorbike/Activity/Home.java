@@ -198,17 +198,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //            mImageViewKhmer.setVisibility(View.GONE);
 //        }
 
-        requestStoragePermission(false);
-        requestStoragePermission(true);
-        mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        if(mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //buildAlertMessageNoGps();
-                }
-            });
-        }
+        //block dec 02 2019
+//        requestStoragePermission(false);
+//        requestStoragePermission(true);
+//        mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+//        if(mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    //buildAlertMessageNoGps();
+//                }
+//            });
+//        }
+        //end block
 
         mNavigationView.setNavigationItemSelectedListener(this);
         menu = mNavigationView.getMenu();
