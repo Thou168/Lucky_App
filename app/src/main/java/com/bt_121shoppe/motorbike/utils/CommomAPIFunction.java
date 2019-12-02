@@ -48,9 +48,9 @@ public class CommomAPIFunction {
                     if(user.getUsername().equals(username)){
                         if(user.getImageURL().equals("default"))
                         {
-                            Glide.with(context.getApplicationContext()).load(R.drawable.logo121final).thumbnail(0.1f).into(imageView);
+                            Glide.with(context.getApplicationContext()).load(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imageView);
                         }else{
-                            Glide.with(context.getApplicationContext()).load(user.getImageURL()).placeholder(R.drawable.logo121final).thumbnail(0.1f).into(imageView);
+                            Glide.with(context.getApplicationContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imageView);
                         }
                         return;
                     }

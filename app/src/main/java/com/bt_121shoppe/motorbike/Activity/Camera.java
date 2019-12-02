@@ -4404,6 +4404,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             } else {
                                 dispatchGalleryIntent();
                             }
+                        }else {
+                            if (isCamera) {
+                                dispatchTakePictureIntent();
+                            } else {
+                                dispatchGalleryIntent();
+                            }
                         }
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
