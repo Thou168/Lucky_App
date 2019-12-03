@@ -67,6 +67,7 @@ import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
+import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
@@ -268,7 +269,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private Uri imageUri;
 
     private String[] postTypeListItems,conditionListItems,modelListItemkh,discountTypeListItems,brandListItemkh,typeListItemkh,categoryListItemkh,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems,shopListItems;
-    private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems,shopIdListItems;
+    private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems,shopIdListItems,postShopListItems;
+    private List<PostDealerShopViewModel> postShops;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -384,9 +386,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }else {
                 edit_id = bundle.getInt("id_product", 0);
                 getData_Post(Encode,edit_id);
-                Log.d("Edit_id:", String.valueOf(edit_id));
+                //Log.d("Edit_id:", String.valueOf(edit_id));
             }
-            Log.d("Type ID", String.valueOf(type));
+            //Log.d("Type ID", String.valueOf(type));
 
         }
 
@@ -699,6 +701,30 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 });
 
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        if(mDealerShopId3>0){
+
+                            mDealerShopId2=mDealerShopId3;
+                            edShopName2.setText(edShopName3.getText());
+
+                            inputShop_name3.setVisibility(View.GONE);
+                            icShop_name3.setVisibility(View.GONE);
+                            edShopName3.setText("");
+                            mDealerShopId3 = 0;
+                            btnShop_name2.setVisibility(View.VISIBLE);
+                        }else{
+                            inputShop_name2.setVisibility(View.GONE);
+                            icShop_name2.setVisibility(View.GONE);
+                            edShopName2.setText("");
+                            mDealerShopId2 = 0;
+                            btnShop_name.setVisibility(View.VISIBLE);
+                            btnShop_name2.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
@@ -722,6 +748,17 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             icShop_name3.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         }
                         dialogInterface.dismiss();
+                    }
+                });
+
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        inputShop_name3.setVisibility(View.GONE);
+                        icShop_name3.setVisibility(View.GONE);
+                        edShopName3.setText("");
+                        mDealerShopId3 = 0;
+                        btnShop_name2.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -763,6 +800,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         btnShop_name2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Log.e("TAG",shopListItems.toString());
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
                 //mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
@@ -787,7 +825,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 mDialog.show();
             }
         });
-
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1075,67 +1112,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         builder.show();
     }
 
-    private void setDealerShop(List<Integer> list){
-        Service api = Client.getClient().create(Service.class);
-        for (int i=0;i<list.size();i++){
-            retrofit2.Call<ShopViewModel> modelCall = api.getDealerShop(list.get(i));
-            if (i==0) {
-                dealer_view1.setVisibility(View.VISIBLE);
-                linear_shop1.setVisibility(View.VISIBLE);
-                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                        if (!response.isSuccessful()){
-                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
-                        }
-                        dealershop1.setText(response.body().getShop_name());
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-
-                    }
-                });
-            }
-            else if (i==1) {
-                dealer_view2.setVisibility(View.VISIBLE);
-                linear_shop2.setVisibility(View.VISIBLE);
-                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                        if (!response.isSuccessful()){
-                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
-                        }
-                        dealershop2.setText(response.body().getShop_name());
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-
-                    }
-                });
-            }
-            else if (i==2) {
-                dealer_view3.setVisibility(View.VISIBLE);
-                linear_shop3.setVisibility(View.VISIBLE);
-                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                        if (!response.isSuccessful()){
-                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
-                        }
-                        dealershop3.setText(response.body().getShop_name());
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-
-                    }
-                });
-            }
-        }
-    }
-
     private void getData_Post(String encode, int id){
         if (bundle!=null) {
             final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "postbyuser/", id);
@@ -1189,13 +1165,29 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         int Group = response.body().getProfile().getGroup();
                                         if (Group == 3){
                                             Log.d("321324234234Edit","Edit "+dsa.length()+"other "+id_typeother);
+
+                                            if(response.body().getShops().size()>0){
+                                                shopListItems=new String[response.body().getShops().size()];
+                                                shopIdListItems=new int[response.body().getShops().size()];
+
+                                                for(int i=0;i<response.body().getShops().size();i++){
+                                                    ShopViewModel shopViewModel = response.body().getShops().get(i);
+                                                    shopListItems[i]=shopViewModel.getShop_name();
+                                                    shopIdListItems[i]=shopViewModel.getId();
+                                                }
+                                            }
+                                            postShops=new ArrayList<>();
+                                            postShopListItems=new int[dsa.length()];
                                             for (int i = 0; i < dsa.length(); i++) {
                                                 txtOther_main.setVisibility(View.VISIBLE);
                                                 try {
                                                     JSONObject dso = dsa.getJSONObject(i);
-                                                    adlist.add(dso.getInt("shop"));
-                                                    //Log.d("55555555555","id "+dso.getInt("shop")+"size: "+adlist.size());
-
+                                                    if(dso.getInt("record_status")==1) {
+                                                        adlist.add(dso.getInt("shop"));
+                                                        postShopListItems[i] = dso.getInt("id");
+                                                        postShops.add(new PostDealerShopViewModel(dso.getInt("id"), dso.getInt("post"), dso.getInt("shop"), dso.getInt("record_status")));
+                                                        //Log.d("55555555555","id "+dso.getInt("shop")+"size: "+adlist.size());
+                                                    }
                                                 } catch (JSONException e) { e.printStackTrace(); }
                                             }
                                             setDealerShop(adlist);
@@ -1534,6 +1526,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                                 shopListItems[i]=shopViewModel.getShop_name();
                                                 shopIdListItems[i]=shopViewModel.getId();
                                             }
+
                                             edShopName.setText(converJsonJava.getShops().get(0).getShop_name());
                                             txtOther_main.setVisibility(View.VISIBLE);
                                             mDealerShopId1 = converJsonJava.getShops().get(0).getId();
@@ -1545,219 +1538,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             else
                                                 btnShop_name.setVisibility(View.GONE);
 
-                                            /*
-                                            for (int i = 0; i < converJsonJava.getShops().size(); i++) {
-                                                ShopViewModel shopViewModel = converJsonJava.getShops().get(i);
-                                                shopname.add(shopViewModel.getShop_name());
-                                                idshop.add(shopViewModel.getId());
-
-                                                if (i == 0) {
-//                                                    listid_shop.add(shopViewModel.getId());
-//                                                    dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
-//                                                    list_shop.add(ds);
-                                                    txtOther_main.setVisibility(View.VISIBLE);
-                                                    relative_othermain.setVisibility(View.VISIBLE);
-                                                    listid_shop.add(idshop.get(i));
-                                                    edShopName.setText(shopViewModel.getShop_name());
-                                                    mDealerShopId1 = shopViewModel.getId();
-                                                    btnShop_name.setVisibility(View.GONE);
-//                                                    btnShop_name3.setVisibility(View.GONE);
-                                                    btnShop_name2.setVisibility(View.GONE);
-                                                    inputShop_name.setVisibility(View.VISIBLE);
-                                                    icShop_name.setVisibility(View.VISIBLE);
-                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-                                                }
-                                                else {
-                                                    txtOther_main.setVisibility(View.VISIBLE);
-                                                    relative_othermain.setVisibility(View.VISIBLE);
-                                                    btnShop_name.setVisibility(View.VISIBLE);
-                                                    btnShop_name2.setVisibility(View.GONE);
-//                                                    delete_dealer2.setOnClickListener(new View.OnClickListener() {
-//                                                        @Override
-//                                                        public void onClick(View v) {
-//                                                            final AlertDialog deleteshop2 = new AlertDialog.Builder(Camera.this).create();
-//                                                            LayoutInflater inflater = Camera.this.getLayoutInflater();
-//                                                            View dialog = inflater.inflate(R.layout.layout_alert_dialog,null);
-//                                                            delete_massage = dialog.findViewById(R.id.textView_message);
-//                                                            btnPos = dialog.findViewById(R.id.button_positive);
-//                                                            btnNag = dialog.findViewById(R.id.button_negative);
-//                                                            delete_massage.setText("You want to delete this item?");
-//                                                            btnPos.setText("Yes");
-//                                                            btnPos.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    deleteshop2.dismiss();
-//                                                                    Toast.makeText(getApplicationContext(),"Delete shop 2",Toast.LENGTH_SHORT).show();
-//                                                                }
-//                                                            });
-//                                                            btnNag.setText("No");
-//                                                            btnNag.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    Toast.makeText(getApplicationContext(),"Nooooooo",Toast.LENGTH_SHORT).show();
-//                                                                    deleteshop2.dismiss();
-//                                                                }
-//                                                            });
-//
-//                                                            deleteshop2.setView(dialog);
-//                                                            deleteshop2.show();
-//                                                        }
-//                                                    });
-//                                                    delete_dealer3.setOnClickListener(new View.OnClickListener() {
-//                                                        @Override
-//                                                        public void onClick(View v) {
-//                                                            final AlertDialog deleteshop3 = new AlertDialog.Builder(Camera.this).create();
-//                                                            LayoutInflater inflater = Camera.this.getLayoutInflater();
-//                                                            View dialog = inflater.inflate(R.layout.layout_alert_dialog,null);
-//                                                            delete_massage = dialog.findViewById(R.id.textView_message);
-//                                                            btnPos = dialog.findViewById(R.id.button_positive);
-//                                                            btnNag = dialog.findViewById(R.id.button_negative);
-//                                                            delete_massage.setText("You want to delete this item?");
-//                                                            btnPos.setText("Yes");
-//                                                            btnPos.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    deleteshop3.dismiss();
-//                                                                    Toast.makeText(getApplicationContext(),"Delete shop 3",Toast.LENGTH_SHORT).show();
-//                                                                }
-//                                                            });
-//                                                            btnNag.setText("No");
-//                                                            btnNag.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    Toast.makeText(getApplicationContext(),"Nooooooo",Toast.LENGTH_SHORT).show();
-//                                                                    deleteshop3.dismiss();
-//                                                                }
-//                                                            });
-//
-//                                                            deleteshop3.setView(dialog);
-//                                                            deleteshop3.show();
-//                                                        }
-//                                                    });
-                                                }
-                                            }
-                                            btnShop_name.setOnClickListener(v -> {
-                                                final AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                                LayoutInflater inflater = Camera.this.getLayoutInflater();
-                                                View dialog = inflater.inflate(R.layout.dialog_for_otherdealer, null);
-                                                shopname2 = dialog.findViewById(R.id.shop_name2);
-                                                shopname3 = dialog.findViewById(R.id.shop_name3);
-                                                inputshopname2 = dialog.findViewById(R.id.inputShop_Name2);
-                                                inputshopname3 = dialog.findViewById(R.id.inputShop_Name3);
-
-                                                if (!(shopname.size()==1)) {
-                                                    shopname2.setText(shopname.get(1));
-                                                    inputshopname3.setVisibility(View.GONE);
-                                                }
-                                                if (!(shopname.size()==2)) {
-                                                    shopname2.setText(shopname.get(1));
-                                                    shopname3.setText(shopname.get(2));
-                                                    inputshopname3.setVisibility(View.VISIBLE);
-                                                }
-
-                                                shopname2.setOnClickListener(v1 -> {
-                                                    edShopName2.setText(shopname.get(1));
-                                                    icShop_name2.setVisibility(View.VISIBLE);
-                                                    inputShop_name2.setVisibility(View.VISIBLE);
-                                                    inputShop_name2.setHint(getString(R.string.shop_other2));
-                                                    if (shopname.size() == 3)
-                                                        btnShop_name2.setVisibility(View.VISIBLE);
-//                                                                    delete_dealer2.setVisibility(View.VISIBLE);
-                                                    btnShop_name.setVisibility(View.GONE);
-//                                                                       mDealerShop2.setText(shopViewModel.getId());
-//                                                    mDealerShopId2 = shopViewModel.getId();
-                                                    shopname.remove(1);
-//                                                            dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
-//                                                            list_shop.add(ds);
-                                                    listid_shop.add(idshop.get(1));
-//                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-                                                    alertDialog.dismiss();
-                                                });
-                                                shopname3.setOnClickListener(v12 -> {
-                                                    edShopName2.setText(shopname.get(2));
-                                                    icShop_name2.setVisibility(View.VISIBLE);
-                                                    inputShop_name2.setVisibility(View.VISIBLE);
-                                                    inputShop_name2.setHint(getString(R.string.shop_other2));
-                                                    delete_dealer2.setVisibility(View.GONE);
-                                                    btnShop_name.setVisibility(View.GONE);
-//                                                                       mDealerShop2.setText(shopViewModel.getId());
-                                                    if (shopname.size() == 3)
-                                                        btnShop_name2.setVisibility(View.VISIBLE);
-//                                                    mDealerShopId2 = shopViewModel.getId();
-                                                    shopname.remove(2);
-//                                                            dealershop ds = new dealershop(responPost_Id,shopViewModel.getId(),1);
-//                                                            list_shop.add(ds);
-                                                    listid_shop.add(idshop.get(2));
-//                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-                                                    alertDialog.dismiss();
-                                                });
-                                                alertDialog.setView(dialog);
-                                                alertDialog.show();
-                                            });
-                                            btnShop_name2.setOnClickListener(v -> {
-                                                final AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                                                LayoutInflater inflater = Camera.this.getLayoutInflater();
-                                                View dialog = inflater.inflate(R.layout.dialog_for_otherdealer, null);
-                                                shopname2 = dialog.findViewById(R.id.shop_name2);
-                                                shopname3 = dialog.findViewById(R.id.shop_name3);
-                                                inputshopname2 = dialog.findViewById(R.id.inputShop_Name2);
-                                                inputshopname3 = dialog.findViewById(R.id.inputShop_Name3);
-
-//                                                            if (!(shopname.size()==1)) {
-//                                                                shopname2.setText(shopname.get(1));
-//                                                                inputshopname3.setVisibility(View.GONE);
-//                                                                if (!(shopname.size()==2)) {
-//                                                                    shopname2.setText(shopname.get(1));
-//                                                                    shopname3.setText(shopname.get(2));
-//                                                                    inputshopname3.setVisibility(View.VISIBLE);
-//                                                                }
-//                                                            }
-                                                if (!(shopname.size()==1)) {
-                                                    shopname2.setText(shopname.get(1));
-                                                    inputshopname3.setVisibility(View.GONE);
-                                                }
-                                                if (!(shopname.size()==2)) {
-                                                    shopname2.setText(shopname.get(1));
-                                                    shopname3.setText(shopname.get(2));
-                                                    inputshopname3.setVisibility(View.VISIBLE);
-                                                }
-
-                                                shopname2.setOnClickListener(v13 -> {
-                                                    edShopName3.setText(shopname.get(1));
-                                                    icShop_name3.setVisibility(View.VISIBLE);
-                                                    inputShop_name3.setVisibility(View.VISIBLE);
-                                                    inputShop_name3.setHint(getString(R.string.shop_other3));
-//                                                                    delete_dealer3.setVisibility(View.VISIBLE);
-                                                    btnShop_name2.setVisibility(View.GONE);
-                                                    btnShop_name.setVisibility(View.GONE);
-
-                                                    listid_shop.add(idshop.get(1));
-//                                                                       mDealerShop2.setText(shopViewModel.getId());
-//                                                    mDealerShopId3 = shopViewModel.getId();
-//                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-                                                    alertDialog.dismiss();
-                                                });
-                                                shopname3.setOnClickListener(v14 -> {
-                                                    edShopName3.setText(shopname.get(2));
-                                                    icShop_name3.setVisibility(View.VISIBLE);
-                                                    inputShop_name3.setVisibility(View.VISIBLE);
-                                                    inputShop_name2.setHint(getString(R.string.shop_other3));
-//                                                                    delete_dealer3.setVisibility(View.VISIBLE);
-                                                    btnShop_name2.setVisibility(View.GONE);
-                                                    btnShop_name.setVisibility(View.GONE);
-
-                                                    listid_shop.add(idshop.get(2));
-//                                                                      mDealerShop2.setText(shopViewModel.getId());
-//                                                    mDealerShopId3 = shopViewModel.getId();
-//                                                    userShops.add(new UserShopViewModel(shopViewModel.getId(), shopViewModel.getUser(), shopViewModel.getShop_name(), shopViewModel.getShop_address(), null, shopViewModel.getRecord_status(), shopViewModel.getShop_image(), false, false));
-                                                    alertDialog.dismiss();
-                                                });
-                                                alertDialog.setView(dialog);
-                                                alertDialog.show();
-                                            });
-                                            */
-
                                         }
+
+                                        Log.e("TAG",shopListItems.toString());
                                     }
 
 
@@ -2470,9 +2253,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 //                    break;
             }
 
-            //Log.d("URLLLLLLL Edit",url);
-            //url=ConsumeAPI.BASE_URL+"detailposts/"+edit_id+"/";
-            //Log.d(TAG,tvAddress.getQuery().toString()+","+etName.getText().toString());
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;
             Request request = new Request.Builder()
@@ -2489,12 +2269,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 public void onResponse(Call call, Response response) throws IOException {
                     String respon = response.body().string();
                     Log.d(TAG, "Edit TTTT" + respon);
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getApplicationContext(),respon,Toast.LENGTH_LONG).show();
-//                        }
-//                    });
+
                     Gson gson = new Gson();
                     CreatePostModel createPostModel = new CreatePostModel();
                     try{
@@ -2529,6 +2304,47 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String machine4 = obj.getString("used_machine4");
                                             String other1 = obj.getString("used_other1");
                                             FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1);
+
+                                            //delete old dealer shop
+                                            if(postShops.size()>0) {
+                                                for (int i = 0; i < postShops.size(); i++) {
+                                                    PostDealerShopViewModel pshop=postShops.get(i);
+                                                    Log.e("TAG", "de-active old dealer " + pshop.getId());
+                                                    putPostShop(pshop, auth);
+                                                }
+                                            }
+
+                                            //submit dealer
+                                            Service api = Client.getClient().create(Service.class);
+                                            if(mDealerShopId1>0)
+                                                list_shop.add(new dealershop(id,mDealerShopId1,1));
+                                            if(mDealerShopId2>0)
+                                                list_shop.add(new dealershop(id,mDealerShopId2,1));
+                                            if(mDealerShopId3>0)
+                                                list_shop.add(new dealershop(id,mDealerShopId3,1));
+
+                                            for (int i=0;i<list_shop.size();i++){
+                                                retrofit2.Call<dealershop> call1 = api.pushdealershop(list_shop.get(i));
+                                                call1.enqueue(new retrofit2.Callback<dealershop>() {
+                                                    @Override
+                                                    public void onResponse(retrofit2.Call<dealershop> call, retrofit2.Response<dealershop> response) {
+                                                        if (!response.isSuccessful()){
+                                                            Log.d("444444444444","42"+response.code());
+                                                            try {
+                                                                Log.d("1212121121121","21"+response.errorBody().string());
+                                                            } catch (IOException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(retrofit2.Call<dealershop> call, Throwable t) {
+
+                                                    }
+                                                });
+                                            }
+
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
@@ -4385,6 +4201,84 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         builder.create().show();
     }
 
+    private void setDealerShop(List<Integer> list){
+        Service api = Client.getClient().create(Service.class);
+        for (int i=0;i<list.size();i++){
+            retrofit2.Call<ShopViewModel> modelCall = api.getDealerShop(list.get(i));
+            if (i==0) {
+//                dealer_view1.setVisibility(View.VISIBLE);
+//                linear_shop1.setVisibility(View.VISIBLE);
+                txtOther_main.setVisibility(View.VISIBLE);
+                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                        if (!response.isSuccessful()){
+                            Log.d("TAG","55"+response.code()+": "+response.errorBody());
+                        }
+                        //dealershop1.setText(response.body().getShop_name());
+                        edShopName.setText(response.body().getShop_name());
+                        mDealerShopId1=response.body().getId();
+                        icShop_name.setVisibility(View.VISIBLE);
+                        inputShop_name.setVisibility(View.VISIBLE);
+
+                        if(list.size()==1)
+                            btnShop_name.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                    }
+                });
+            }
+            else if (i==1) {
+//                dealer_view2.setVisibility(View.VISIBLE);
+//                linear_shop2.setVisibility(View.VISIBLE);
+                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                        if (!response.isSuccessful()){
+                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
+                        }
+                        //dealershop2.setText(response.body().getShop_name());
+                        inputShop_name2.setVisibility(View.VISIBLE);
+                        icShop_name2.setVisibility(View.VISIBLE);
+                        mDealerShopId2=response.body().getId();
+                        edShopName2.setText(response.body().getShop_name());
+                        if(list.size()==2)
+                            btnShop_name2.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                    }
+                });
+            }
+            else if (i==2) {
+                dealer_view3.setVisibility(View.VISIBLE);
+                linear_shop3.setVisibility(View.VISIBLE);
+                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                        if (!response.isSuccessful()){
+                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
+                        }
+                        //dealershop3.setText(response.body().getShop_name());
+                        inputShop_name3.setVisibility(View.VISIBLE);
+                        icShop_name3.setVisibility(View.VISIBLE);
+                        mDealerShopId3=response.body().getId();
+                        edShopName3.setText(response.body().getShop_name());
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
+    }
 
     /**
      * Requesting multiple permissions (storage and camera) at once
@@ -4928,6 +4822,57 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+    }
+
+    private void putPostShop(PostDealerShopViewModel pshop,String encode){
+        String usershopurl= ConsumeAPI.BASE_URL+"api/v1/postdealershop/"+pshop.getId()+"/";
+        OkHttpClient client1=new OkHttpClient();
+        JSONObject post1=new JSONObject();
+        try{
+            post1.put("post",pshop.getPost());
+            post1.put("shop",pshop.getShop());
+            post1.put("record_status",2);
+
+            RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
+            //String auth = "Basic " + encode;
+            Request request1 = new Request.Builder()
+                    .url(usershopurl)
+                    .put(body1)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",encode)
+                    .build();
+            client1.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String message = e.getMessage().toString();
+                    Log.e("failure Response",message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                    mProgress.dismiss();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String message = response.body().string();
+                    Log.e(TAG,"User shop success"+ message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgress.dismiss();
+
+                        }
+                    });
+                    //finish();
+                }
+            });
+        }catch (JSONException je){
+            je.printStackTrace();
+        }
     }
 
 }
