@@ -81,6 +81,7 @@ import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.alert_dialog_activity.*
 import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.fragment_list.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -504,14 +505,18 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         Log.e(TAG,"D"+ mMessage)
 
                         Log.d("54554545454detail","Size"+postDetail.dealer_shops.size.toString())
-                        if (postDetail.dealer_shops.size != 0){
-                            textdealershop.visibility = View.VISIBLE
-                            customAdapter = ShopAdapter(this@Detail_New_Post, postDetail.dealer_shops)
-                            mLayoutManager = LinearLayoutManager(getApplicationContext())
-                            listShop.setLayoutManager(mLayoutManager)
-                            listShop.setAdapter(customAdapter)
-                        }
+                        for (i in 0 until postDetail.dealer_shops.size){
+                            if (postDetail.dealer_shops.get(i).record_status==1){
+                                if (postDetail.dealer_shops.size != 0){
+                                    textdealershop.visibility = View.VISIBLE
+                                    customAdapter = ShopAdapter(this@Detail_New_Post, postDetail.dealer_shops)
+                                    mLayoutManager = LinearLayoutManager(this@Detail_New_Post)
+                                    listShop.setLayoutManager(mLayoutManager)
+                                    listShop.setAdapter(customAdapter)
+                                }
+                            }
 
+                        }
 
                         // hide button call chat like loan by samang 27/08/19
 

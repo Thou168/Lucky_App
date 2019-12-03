@@ -56,29 +56,34 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder,int position) {
         detail_shop shop = moviesList.get(position);
+        if (shop.getRecord_status()==1){
 //        holder.title.setText(shop.getShop_name());
-        String text = holder.itemView.getContext().getString(R.string.shop);
-        holder.genre.setText(text+(position+1));
-        Service api = Client.getClient().create(Service.class);
-        Call<ShopViewModel> call = api.getDealerShop(shop.getShop());
-        call.enqueue(new Callback<ShopViewModel>() {
-            @Override
-            public void onResponse(Call<ShopViewModel> call, Response<ShopViewModel> response) {
-                if (!response.isSuccessful()){
-                    Log.d("323232323232","32 "+response.code());
+            String text = holder.itemView.getContext().getString(R.string.shop);
+            holder.genre.setText(text+(position+1));
+            Service api = Client.getClient().create(Service.class);
+            Call<ShopViewModel> call = api.getDealerShop(shop.getShop());
+            call.enqueue(new Callback<ShopViewModel>() {
+                @Override
+                public void onResponse(Call<ShopViewModel> call, Response<ShopViewModel> response) {
+                    if (!response.isSuccessful()){
+                        Log.d("323232323232","32 "+response.code());
+                    }
+                    Log.d("323232323232","32 "+response.body().getShop_name());
+                    holder.title.setText(response.body().getShop_name());
                 }
-                Log.d("323232323232","32 "+response.body().getShop_name());
-                holder.title.setText(response.body().getShop_name());
-            }
 
-            @Override
-            public void onFailure(Call<ShopViewModel> call, Throwable t) {
-                Log.d("323232323232","Failure"+t.getMessage());
-            }
-        });
-
+                @Override
+                public void onFailure(Call<ShopViewModel> call, Throwable t) {
+                    Log.d("323232323232","Failure"+t.getMessage());
+                }
+            });
+        }else if (shop.getRecord_status()==2){
+            holder.genre.setVisibility(View.GONE);
+            holder.itemView.setVisibility(View.GONE);
+            holder.title.setVisibility(View.GONE);
+        }
     }
 
     @Override

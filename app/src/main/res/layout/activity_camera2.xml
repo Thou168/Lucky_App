@@ -884,17 +884,17 @@
                         android:layout_alignParentEnd="true"
                         android:background="@drawable/underline_gray"
                         />
-                    <Button
-                        android:id="@+id/delete_dealer2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_below="@+id/img_otherdealer"
-                        android:layout_alignLeft="@+id/btn_other2"
-                        android:layout_alignEnd="@+id/til_other2"
-                        android:visibility="gone"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/delete" />
+<!--                    <Button-->
+<!--                        android:id="@+id/delete_dealer2"-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_below="@+id/img_otherdealer"-->
+<!--                        android:layout_alignLeft="@+id/btn_other2"-->
+<!--                        android:layout_alignEnd="@+id/til_other2"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="@drawable/delete" />-->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_other2"
                         android:layout_width="match_parent"
