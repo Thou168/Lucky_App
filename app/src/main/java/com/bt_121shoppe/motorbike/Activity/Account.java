@@ -574,11 +574,11 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
                             Log.e("TAG","It's allow permiision");
-                            if (isCamera) {
-                                dispatchTakePictureIntent();
-                            } else {
-                                dispatchGalleryIntent();
-                            }
+//                            if (isCamera) {
+//                                dispatchTakePictureIntent();
+//                            } else {
+//                                dispatchGalleryIntent();
+//                            }
                         }else {
                             if (isCamera) {
                                 dispatchTakePictureIntent();

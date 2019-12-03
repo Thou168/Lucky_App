@@ -4292,12 +4292,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
-                            if (isCamera) {
-                                dispatchTakePictureIntent();
-//                                dispatchTakePictureIntentdealer();
-                            } else {
-                                dispatchGalleryIntent();
-                            }
+                            Log.e("TAG","It's allow permiision");
+//                            if (isCamera) {
+//                                dispatchTakePictureIntent();
+////                                dispatchTakePictureIntentdealer();
+//                            } else {
+//                                dispatchGalleryIntent();
+//                            }
                         }else {
                             if (isCamera) {
                                 dispatchTakePictureIntent();
