@@ -121,6 +121,7 @@
     <string name="hit_wingnumber">លេខគណនីវីង</string>
     <string name="hit_wingaccount">ឈ្មោះគណនីវីង</string>
     <string name="hit_dealer">អ្នកចែកចាយ</string>
+    <string name="already_select_shop">អ្នកបានជ្រើសរើសរួចហើយ</string>
 
     //delete and edit
     <string name="button_edit">កែប្រែ</string>

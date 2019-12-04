@@ -407,6 +407,7 @@
     <string name="valid_dealer_pass">Password should be at least 1 characters</string>
     <string name="user_message_dealer">Password must be 6 characters with letters and numbers</string>
     <string name="no_whitespace_pass">Please remove whitespace of characters</string>
+    <string name="already_select_shop">You already selected</string>
     <!-- End Loan Information String -->
 
     //delete and edit

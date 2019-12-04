@@ -41,6 +41,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -664,7 +665,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(shopIdListItems[i]==mDealerShopId2 || shopIdListItems[i]==mDealerShopId3){
                             //show alert message is chosen already here
-
+                            dialog_dealer();
                         }
                         else {
                             edShopName.setText(shopListItems[i]);
@@ -690,7 +691,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId3){
                             //show alert message is chosen already here
-
+                            dialog_dealer();
                         }
                         else {
                             edShopName2.setText(shopListItems[i]);
@@ -740,6 +741,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId2){
                             //show alert message is chosen already here
+                            dialog_dealer();
 
                         }
                         else {
@@ -777,6 +779,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId3){
                             //show alert message is chosen already here
+                            dialog_dealer();
 
                         }else{
                             inputShop_name2.setVisibility(View.VISIBLE);
@@ -808,6 +811,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId2){
                             //show alert message is chosen already here
+                            dialog_dealer();
 
                         }else{
                             inputShop_name3.setVisibility(View.VISIBLE);
@@ -1086,6 +1090,21 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         });
 
     } // create
+
+    private void dialog_dealer(){
+        AlertDialog dialog = new AlertDialog.Builder(Camera.this).create();
+        dialog.setTitle(R.string.for_loan_title);
+        dialog.setIcon(R.drawable.ic_check_circle_black_24dp);
+        dialog.setMessage(getString(R.string.already_select_shop));
+        dialog.setCancelable(false);
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog.show();
+    }
 
     @Override
     public void onBackPressed() {
