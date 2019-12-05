@@ -55,6 +55,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.Startup.Search1;
 import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
 import com.bt_121shoppe.motorbike.settings.ContactActivity;
 import com.bt_121shoppe.motorbike.settings.Setting;
@@ -128,6 +129,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Fragment currentFragment;
     boolean isForceUpdate = true;
 
+    private ImageView search_homepage;
+
     private List<Slider> mImages=new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -155,6 +158,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Toolbar mToolbar=findViewById(R.id.toolbar);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
+
+        search_homepage = findViewById(R.id.search_homepage);
+        setSearch_homepage();
 
         mImageViewEnglish=findViewById(R.id.english);
         mImageViewKhmer =findViewById(R.id.khmer);
@@ -369,6 +375,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //            }
 //        });
 
+    }
+
+    private void setSearch_homepage(){
+        search_homepage.setOnClickListener(v -> {
+//            Toast.makeText(getApplicationContext(),"Search_button",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Home.this, Search1.class);
+            startActivity(intent);
+        });
     }
 
     @Override

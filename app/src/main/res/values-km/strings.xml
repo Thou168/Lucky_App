@@ -412,6 +412,7 @@
     </string-array>
     //Discount type
     <string name="clear_all_label">លុប</string>
+    <string name="closed_search">ចាកចេញ</string>
     <string-array name="discount_type">
         <item> $</item>
         <item> %</item>

@@ -50,26 +50,26 @@ public class Search1 extends AppCompatActivity {
     SearchView sv;
     RecyclerView rv;
     ArrayList<Item> items;
-    Bundle bundle;
+//    Bundle bundle;
     String category,model,year,title_filter;
     TextView not_found,tv_filter;
     ProgressBar mProgress;
-    ImageView viewlist;
-    LinearLayoutManager manager;
-    String view = "list";
+//    ImageView viewlist;
+//    LinearLayoutManager manager;
+//    String view = "list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         locale();
-        TextView back = findViewById(R.id.back);
+        TextView back = findViewById(R.id.Closed_activity);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        viewlist = findViewById(R.id.viewlist);
+//        viewlist = findViewById(R.id.viewlist);
 
         mProgress = findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
@@ -78,12 +78,11 @@ public class Search1 extends AppCompatActivity {
         sv= (SearchView) findViewById(R.id.mSearch);
         rv = (RecyclerView)findViewById(R.id.myRecycler) ;
         sv.setFocusable(true);
-        sv.setIconified(false);
         sv.requestFocusFromTouch();
         items = new ArrayList<Item>();
         items.addAll(Item.Companion.getList());
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getBaseContext(), RecyclerView.VERTICAL, false);
-        final MyAdapter adapter1 = new MyAdapter(getBaseContext(),items);
+//        final MyAdapter adapter1 = new MyAdapter(getBaseContext(),items);
 //        RecyclerView recy_horizontal1 = (RecyclerView) view.findViewById(R.id.list_new_post);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(layoutManager1);
@@ -104,7 +103,7 @@ public class Search1 extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty())
-                    tv_filter.setVisibility(View.GONE);
+                    tv_filter.setVisibility(View.VISIBLE);
                 return false;
             }
         });
@@ -196,31 +195,31 @@ public class Search1 extends AppCompatActivity {
                                             MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                             rv.setAdapter(adapterUserPost);
                                             rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-                                            viewlist.setImageResource(R.drawable.icon_list);
-                                            viewlist.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    if(view.equals("list")){
-                                                        viewlist.setImageResource(R.drawable.icon_grid);
-                                                        view = "grid";
-                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Grid",Search1.this);
-                                                        rv.setAdapter(adapterUserPost);
-                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 2));
-                                                    }else if (view.equals("grid")){
-                                                        viewlist.setImageResource(R.drawable.icon_image);
-                                                        view = "image";
-                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Image",Search1.this);
-                                                        rv.setAdapter(adapterUserPost);
-                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-                                                    }else {
-                                                        viewlist.setImageResource(R.drawable.icon_list);
-                                                        view = "list";
-                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
-                                                        rv.setAdapter(adapterUserPost);
-                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-                                                    }
-                                                }
-                                            });
+//                                            viewlist.setImageResource(R.drawable.icon_list);
+//                                            viewlist.setOnClickListener(new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View v) {
+//                                                    if(view.equals("list")){
+//                                                        viewlist.setImageResource(R.drawable.icon_grid);
+//                                                        view = "grid";
+//                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Grid",Search1.this);
+//                                                        rv.setAdapter(adapterUserPost);
+//                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 2));
+//                                                    }else if (view.equals("grid")){
+//                                                        viewlist.setImageResource(R.drawable.icon_image);
+//                                                        view = "image";
+//                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Image",Search1.this);
+//                                                        rv.setAdapter(adapterUserPost);
+//                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+//                                                    }else {
+//                                                        viewlist.setImageResource(R.drawable.icon_list);
+//                                                        view = "list";
+//                                                        MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
+//                                                        rv.setAdapter(adapterUserPost);
+//                                                        rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+//                                                    }
+//                                                }
+//                                            });
                                         }
                                     });
 

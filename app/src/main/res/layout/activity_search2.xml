@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/activity_search2"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#0F65E6"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:iconifiedByDefault="false"
+            android:searchIcon="@drawable/ic_search_black_24dp"
+            android:queryHint="@string/search_here"
+            android:closeIcon="@drawable/met_ic_clear"/>
+        <TextView
+            android:id="@+id/filter_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableEnd="@drawable/ic_filter_list_black_24dp"/>
+        <TextView
+            android:id="@+id/Closed_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="normal"
+            android:textSize="25sp"
+            android:paddingStart="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/clear_all_label"
+            android:textColor="@color/black"/>
+
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_search" />
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tvSearch_notFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:text="@string/not_found"
+        android:visibility="gone"
+        android:textSize="25dp" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/progress_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

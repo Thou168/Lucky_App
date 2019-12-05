@@ -9,9 +9,9 @@
     android:background="#EFEEF4"
     tools:context=".Startup.Filter">
     <androidx.appcompat.widget.Toolbar
-        android:background="#1A7EBB"
+        android:background="#0F65E6"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="?android:attr/actionBarSize">
         <TextView
             android:textSize="@dimen/dp_18"
             android:gravity="center"

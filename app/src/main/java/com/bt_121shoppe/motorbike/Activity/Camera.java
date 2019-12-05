@@ -1097,7 +1097,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         dialog.setIcon(R.drawable.ic_check_circle_black_24dp);
         dialog.setMessage(getString(R.string.already_select_shop));
         dialog.setCancelable(false);
-        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

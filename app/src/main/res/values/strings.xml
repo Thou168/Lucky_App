@@ -220,6 +220,7 @@
     //Tab
     <string name="login_button">Login</string>
     <string name="clear_all_label">Clear</string>
+    <string name="closed_search">BACK</string>
 
     //change password
 
