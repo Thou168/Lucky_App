@@ -8,63 +8,75 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="#0F65E6">
-
-        <TextView
-            android:id="@+id/Closed_activity"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#0F65E6"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="0dp"
-            android:layout_marginStart="0dp"
-            android:text="@string/closed_search"
-            android:drawableStart="@drawable/icon_back"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/Closed_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginStart="0dp"
+                android:text="@string/closed_search"
+                android:drawableStart="@drawable/icon_back"
+                android:textStyle="bold" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/mSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:textAlignment="textStart"
-            android:layout_toStartOf="@+id/tv_filter"
-            app:closeIcon="@drawable/met_ic_clear"
-            app:iconifiedByDefault="false"
-            app:queryHint="@string/search_here"
-            app:searchHintIcon="@drawable/ic_search_black_24dp">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/mSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:closeIcon="@drawable/met_ic_clear"
+                app:iconifiedByDefault="false"
+                app:queryHint="@string/search_here"
+                app:searchHintIcon="@drawable/ic_search_black_24dp">
 
-        </androidx.appcompat.widget.SearchView>
+            </androidx.appcompat.widget.SearchView>
 
-        <TextView
-            android:id="@+id/tv_filter"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_filter_list_black_24dp"
-            android:gravity="center"
-            android:visibility="visible" />
+            <TextView
+                android:id="@+id/tv_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="0dp"
+                android:text="@string/filter"
+                android:drawableEnd="@drawable/ic_filter_list_black_24dp"
+                android:textStyle="bold" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/back"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/back"-->
-        <!--            android:drawableStart="@drawable/icon_back"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content" />-->
-        <!--        <TextView-->
-        <!--            android:layout_gravity="center"-->
-        <!--            android:textSize="@dimen/dp_16"-->
-        <!--            android:text="@string/search_all"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content" />-->
-        <!--        <ImageView-->
-        <!--            android:background="#00999999"-->
-        <!--            android:id="@+id/viewlist"-->
-        <!--            android:layout_marginEnd="@dimen/dp_8dp"-->
-        <!--            android:src="@drawable/icon_list"-->
-        <!--            android:layout_gravity="right"-->
-        <!--            android:layout_width="25dp"-->
-        <!--            android:layout_height="25dp"/>-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_filter"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:drawableEnd="@drawable/ic_filter_list_black_24dp"-->
+<!--                android:layout_gravity="center_horizontal"/>-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/back"-->
+            <!--            android:gravity="center"-->
+            <!--            android:text="@string/back"-->
+            <!--            android:drawableStart="@drawable/icon_back"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content" />-->
+            <!--        <TextView-->
+            <!--            android:layout_gravity="center"-->
+            <!--            android:textSize="@dimen/dp_16"-->
+            <!--            android:text="@string/search_all"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content" />-->
+            <!--        <ImageView-->
+            <!--            android:background="#00999999"-->
+            <!--            android:id="@+id/viewlist"-->
+            <!--            android:layout_marginEnd="@dimen/dp_8dp"-->
+            <!--            android:src="@drawable/icon_list"-->
+            <!--            android:layout_gravity="right"-->
+            <!--            android:layout_width="25dp"-->
+            <!--            android:layout_height="25dp"/>-->
+        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -83,7 +95,7 @@
         android:layout_gravity="center_vertical"
         android:text="@string/not_found"
         android:visibility="gone"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
     <ProgressBar
         android:visibility="gone"
