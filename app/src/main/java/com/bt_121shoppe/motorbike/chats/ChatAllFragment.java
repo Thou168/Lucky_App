@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.chats;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -22,9 +23,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.Chat;
+import com.bt_121shoppe.motorbike.models.NotificationDataViewModel;
 import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.models.UserChat;
 import com.bt_121shoppe.motorbike.notifications.Token;
@@ -36,6 +39,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -45,6 +49,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -275,6 +280,7 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 }
             });
 
+            Check_seen_unseen(user.getUserId(),user.getPostId(),holder.tvUsername);
             lastMessage(user.getUserId(),user.getPostId(),holder.tvLastChat);
         }
 
@@ -307,6 +313,23 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        reference= FirebaseDatabase.getInstance().getReference();
+                        Query query = reference.child(ConsumeAPI.FB_CHAT).orderByChild("to").equalTo(userChat.getUserId());
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                                    String key= snapshot.getKey();
+                                    Log.e("jjjjjjj",key);
+                                    updateData(key);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         Intent intent=new Intent(ChatAllFragment.this.getContext(),ChatActivity.class);
                         intent.putExtra("postId",userChat.getPostIdd());
                         intent.putExtra("postTitle",userChat.getPostTitle());
@@ -356,6 +379,48 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
             });
         }
 
+    }
+    private void Check_seen_unseen(String userid,String postid,TextView title){
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
+        reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e(TAG,dataSnapshot.toString());
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat=snapshot.getValue(Chat.class);
+                    Log.e("isSeen", String.valueOf(chat.isIsseen()));
+                    if((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) && chat.getPost().equals(postid)){
+                        if (!chat.isIsseen()){
+                            title.setTextAppearance(ChatAllFragment.this.getContext(), R.style.ListnUnseen);
+                        }else {
+                            title.setTextAppearance(ChatAllFragment.this.getContext(), R.style.ListSeen);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void updateData(String key) {
+        FirebaseDatabase fuser = FirebaseDatabase.getInstance();
+        DatabaseReference reference = fuser.getReference();
+        reference.child(ConsumeAPI.FB_CHAT).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("isseen").setValue(true);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("User", databaseError.getMessage());
+            }
+        });
     }
 
 }

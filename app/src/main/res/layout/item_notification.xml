@@ -37,7 +37,7 @@
                 android:text="Notification Title"
                 android:gravity="left"
                 android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:layout_width="match_parent"

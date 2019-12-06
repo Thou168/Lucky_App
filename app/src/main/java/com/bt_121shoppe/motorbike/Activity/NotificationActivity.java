@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
@@ -270,6 +271,22 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    reference= FirebaseDatabase.getInstance().getReference();
+                    Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(notification.getUserId());
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                                String key= snapshot.getKey();
+                                updateData(key);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     Intent intent=new Intent(mContext, DetailNotification.class);
                     intent.putExtra("userId",notification.getUserId());
                     intent.putExtra("title",notification.getTitle());
@@ -279,6 +296,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                     startActivity(intent);
                 }
             });
+            Check_seen_unseen(holder.tvTitle);
         }
 
         @Override
@@ -364,4 +382,47 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         }
     }
 
+    private void Check_seen_unseen(TextView title){
+        fuser= FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference();
+        Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(fuser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    JSONObject obj=new JSONObject((Map) snapshot.getValue());
+                    try {
+                        Boolean isSeen = obj.getBoolean("isSeen");
+                        if (isSeen.equals(false)){
+                            title.setTextAppearance(NotificationActivity.this, R.style.ListnUnseen);
+                        }else {
+                            title.setTextAppearance(NotificationActivity.this, R.style.ListSeen);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void updateData(String key) {
+        FirebaseDatabase fuser = FirebaseDatabase.getInstance();
+        DatabaseReference reference = fuser.getReference();
+        reference.child(ConsumeAPI.FB_Notification).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("isSeen").setValue(true);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("User", databaseError.getMessage());
+            }
+        });
+    }
 }
