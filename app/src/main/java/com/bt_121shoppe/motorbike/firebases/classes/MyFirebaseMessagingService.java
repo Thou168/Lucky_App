@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatActivity;
+import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -26,9 +27,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: Handle FCM messages here.
         Log.d(TAG,"Helllo "+remoteMessage.getData());
         String sented=remoteMessage.getData().get("sented");
+        String to = remoteMessage.getData().get("to");
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        if(firebaseUser!=null && sented.equals(firebaseUser.getUid())){
-            sendNotification(remoteMessage);
+//        if(firebaseUser!=null && sented.equals(firebaseUser.getUid())){
+//            sendNotification(remoteMessage);
+//        }
+        if (firebaseUser != null){
+            if (sented !=null){
+                if (sented.equals(firebaseUser.getUid())) {
+                    sendNotification(remoteMessage);
+                }
+            } else if (to != null){
+                if (to.equals(firebaseUser.getUid())) {
+                    sendRegisterNotification(remoteMessage);
+                }
+            }
         }
 //        Log.d(TAG, "From: " + remoteMessage.getFrom());
 //        Log.d(TAG, "NotificationActivity Message Body: " + remoteMessage.getNotification().getBody());
@@ -131,5 +144,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //            i=j;
 //        }
 //        noti.notify(i,builder.build());
+    }
+    private void sendRegisterNotification(RemoteMessage remoteMessage) {
+        String user = remoteMessage.getData().get("to");
+        String icon = remoteMessage.getData().get("icon");
+        String title = remoteMessage.getData().get("title");
+        String body = remoteMessage.getData().get("message");
+
+        RemoteMessage.Notification notification = remoteMessage.getNotification();
+        int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
+
+        Intent intent = new Intent(this, NotificationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("userid", user);
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setStyle(new NotificationCompat.BigTextStyle())
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId("com.bt_121shoppe");
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    "com.bt_121shoppe",
+                    "My App",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+        notificationManager.notify(2, builder.build());
     }
 }

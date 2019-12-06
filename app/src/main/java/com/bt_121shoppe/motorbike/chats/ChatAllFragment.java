@@ -192,7 +192,7 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                     //initial user information
                     int userPK=0,postId=0;
-                    String postUsername="",postTitle="",postPrice="",postFrontImage="",postType="";
+                    String postUsername="",postTitle="",postPrice="",postFrontImage="",postType="",title="";
                     String username=fuser.getUsername();
                     String userRespone="";
                     try{
@@ -206,7 +206,7 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         if(count>0){
                             JSONArray results=obj.getJSONArray("results");
                             JSONObject auser=results.getJSONObject(0);
-                            //Log.d(TAG,"User "+auser);
+//                            Log.d(TAG,"User "+auser);
                             userPK=auser.getInt("id");
                             if(auser.getString("first_name").isEmpty()||auser.getString("first_name")==null)
                                 postUsername=auser.getString("username");
@@ -226,18 +226,19 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     try{
                         JSONObject object=new JSONObject(postResult);
                         postId=object.getInt("id");
-                        postTitle=object.getString("title");
-                        postFrontImage=object.getString("front_image_base64");
+                        postTitle=object.getString("post_sub_title");
+                        postFrontImage=object.getString("front_image_path");
                         postPrice=object.getString("cost");
                         postType=object.getString("post_type");
 
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
+                    title = postTitle.split(",").length>1?postTitle.split(",")[1]:postTitle.split(",")[0];
 
                     holder.tvUsername.setText(postUsername);
-                    holder.tvTitle.setText(postTitle);
-                    holder.userChat=new UserChat(postId,postTitle,postPrice,postFrontImage,postType,userPK,postUsername,username);
+                    holder.tvTitle.setText(title);
+                    holder.userChat=new UserChat(postId,title,postPrice,postFrontImage,postType,userPK,postUsername,username);
                 }
 
                 @Override
