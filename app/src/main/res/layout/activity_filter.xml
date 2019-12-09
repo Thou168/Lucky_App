@@ -31,8 +31,9 @@
         <TextView
             android:id="@+id/tv_done"
             android:text="@string/done"
-            android:layout_gravity="right"
-            android:paddingEnd="@dimen/dp_8"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_16"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
