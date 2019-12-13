@@ -95,7 +95,7 @@ public class ChatMainActivity extends AppCompatActivity {
         }
 // end
         bnavigation = findViewById(R.id.bnaviga);
-        bnavigation.getMenu().getItem(2).setChecked(true);
+        bnavigation.getMenu().getItem(3).setChecked(true);
         bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.home:
@@ -257,7 +257,7 @@ public class ChatMainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bnavigation.getMenu().getItem(2).setChecked(true);
+        bnavigation.getMenu().getItem(3).setChecked(true);
     }
 
     private void getUserProfile() {

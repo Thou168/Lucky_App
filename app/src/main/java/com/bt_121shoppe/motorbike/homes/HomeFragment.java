@@ -104,16 +104,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_home_frist, container, false);
-        mFilterCategory=view.findViewById(R.id.CategoryLayout);
-        mFilterBrand=view.findViewById(R.id.BrandLayout);
-        mFilterYear=view.findViewById(R.id.YearLayout);
-        mFilterPriceRange=view.findViewById(R.id.PriceRangeLayout);
-        mFilterPostType=view.findViewById(R.id.PostTypeLayout);
-        mETFilterPostType=view.findViewById(R.id.editTextPostType);
-        mETFilterCategory=view.findViewById(R.id.editTextCategory);
-        mETFilterBrandET=view.findViewById(R.id.editTextBrand);
-        mETFilterYear=view.findViewById(R.id.editTextYear);
-        mETFilterPriceRange=view.findViewById(R.id.editTextPriceRange);
+//        mFilterCategory=view.findViewById(R.id.CategoryLayout);
+//        mFilterBrand=view.findViewById(R.id.BrandLayout);
+//        mFilterYear=view.findViewById(R.id.YearLayout);
+//        mFilterPriceRange=view.findViewById(R.id.PriceRangeLayout);
+//        mFilterPostType=view.findViewById(R.id.PostTypeLayout);
+//        mETFilterPostType=view.findViewById(R.id.editTextPostType);
+//        mETFilterCategory=view.findViewById(R.id.editTextCategory);
+//        mETFilterBrandET=view.findViewById(R.id.editTextBrand);
+//        mETFilterYear=view.findViewById(R.id.editTextYear);
+//        mETFilterPriceRange=view.findViewById(R.id.editTextPriceRange);
         mBestDealRecyclerView=view.findViewById(R.id.horizontal);
         mBestDealNoResult=view.findViewById(R.id.text);
         mBestDealProgressbar=view.findViewById(R.id.progress_bar);
@@ -125,15 +125,15 @@ public class HomeFragment extends Fragment {
         mGridView=view.findViewById(R.id.grid);
         mGallaryView=view.findViewById(R.id.btn_image);
         mBestDealText=view.findViewById(R.id.bestDeal);
-
-        mETFilterPostType.setFocusable(false);
-        mETFilterCategory.setFocusable(false);
-        mETFilterBrandET.setFocusable(false);
-        mETFilterYear.setFocusable(false);
-        mETFilterPriceRange.setFocusable(false);
-        if(isAdded()) {
-            mETFilterPostType.setText(getString(R.string.all));
-        }
+//
+//        mETFilterPostType.setFocusable(false);
+//        mETFilterCategory.setFocusable(false);
+//        mETFilterBrandET.setFocusable(false);
+//        mETFilterYear.setFocusable(false);
+//        mETFilterPriceRange.setFocusable(false);
+//        if(isAdded()) {
+//            mETFilterPostType.setText(getString(R.string.all));
+//        }
 
 //        mBestDealProgressbar.setVisibility(View.VISIBLE);
 //        mAllPostProgressbar.setVisibility(View.VISIBLE);
@@ -142,109 +142,109 @@ public class HomeFragment extends Fragment {
         setupAllPosts();
 
         /* start action event listener */
-        mETFilterPostType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("filterType", CommonFunction.FILTERPOSTTYPE);
-                bundle.putInt("postTypeId",mPostTypeId);
-                bundle.putInt("categoryId",mCategoryId);
-                bundle.putInt("brandId",mBrandId);
-                bundle.putInt("yearId",mYearId);
-                bundle.putDouble("minPrice",mMinPrice);
-                bundle.putDouble("maxPrice",mMaxPrice);
-                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-                fragment.setArguments(bundle);
-                loadFragment(fragment);
-            }
-        });
-
-        mETFilterCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("filterType",CommonFunction.FILTERCATEGORY);
-                bundle.putInt("postTypeId",mPostTypeId);
-                bundle.putInt("categoryId",mCategoryId);
-                bundle.putInt("brandId",mBrandId);
-                bundle.putInt("yearId",mYearId);
-                bundle.putDouble("minPrice",mMinPrice);
-                bundle.putDouble("maxPrice",mMaxPrice);
-                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-                fragment.setArguments(bundle);
-                loadFragment(fragment);
-            }
-        });
-
-        mETFilterBrandET.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("filterType",CommonFunction.FILTERBRAND);
-                bundle.putInt("postTypeId",mPostTypeId);
-                bundle.putInt("categoryId",mCategoryId);
-                bundle.putInt("brandId",mBrandId);
-                bundle.putInt("yearId",mYearId);
-                bundle.putDouble("minPrice",mMinPrice);
-                bundle.putDouble("maxPrice",mMaxPrice);
-                Log.d("12122 thou","fasdlfjksdl;"+mBrandId);
-                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-                fragment.setArguments(bundle);
-                loadFragment(fragment);
-            }
-        });
-
-        mETFilterYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("filterType",CommonFunction.FILTERYEAR);
-                bundle.putInt("postTypeId",mPostTypeId);
-                bundle.putInt("categoryId",mCategoryId);
-                bundle.putInt("brandId",mBrandId);
-                bundle.putInt("yearId",mYearId);
-                bundle.putDouble("minPrice",mMinPrice);
-                bundle.putDouble("maxPrice",mMaxPrice);
-                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-                fragment.setArguments(bundle);
-                loadFragment(fragment);
-            }
-        });
-
-        mETFilterPriceRange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("filterType",CommonFunction.FILTERPRICERANGE);
-                bundle.putInt("postTypeId",mPostTypeId);
-                bundle.putInt("categoryId",mCategoryId);
-                bundle.putInt("brandId",mBrandId);
-                bundle.putInt("yearId",mYearId);
-                bundle.putDouble("minPrice",mMinPrice);
-                bundle.putDouble("maxPrice",mMaxPrice);
-                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-                fragment.setArguments(bundle);
-                loadFragment(fragment);
-            }
-        });
+//        mETFilterPostType.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle=new Bundle();
+//                bundle.putInt("filterType", CommonFunction.FILTERPOSTTYPE);
+//                bundle.putInt("postTypeId",mPostTypeId);
+//                bundle.putInt("categoryId",mCategoryId);
+//                bundle.putInt("brandId",mBrandId);
+//                bundle.putInt("yearId",mYearId);
+//                bundle.putDouble("minPrice",mMinPrice);
+//                bundle.putDouble("maxPrice",mMaxPrice);
+//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
+//                fragment.setArguments(bundle);
+//                loadFragment(fragment);
+//            }
+//        });
+//
+//        mETFilterCategory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle=new Bundle();
+//                bundle.putInt("filterType",CommonFunction.FILTERCATEGORY);
+//                bundle.putInt("postTypeId",mPostTypeId);
+//                bundle.putInt("categoryId",mCategoryId);
+//                bundle.putInt("brandId",mBrandId);
+//                bundle.putInt("yearId",mYearId);
+//                bundle.putDouble("minPrice",mMinPrice);
+//                bundle.putDouble("maxPrice",mMaxPrice);
+//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
+//                fragment.setArguments(bundle);
+//                loadFragment(fragment);
+//            }
+//        });
+//
+//        mETFilterBrandET.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle=new Bundle();
+//                bundle.putInt("filterType",CommonFunction.FILTERBRAND);
+//                bundle.putInt("postTypeId",mPostTypeId);
+//                bundle.putInt("categoryId",mCategoryId);
+//                bundle.putInt("brandId",mBrandId);
+//                bundle.putInt("yearId",mYearId);
+//                bundle.putDouble("minPrice",mMinPrice);
+//                bundle.putDouble("maxPrice",mMaxPrice);
+//                Log.d("12122 thou","fasdlfjksdl;"+mBrandId);
+//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
+//                fragment.setArguments(bundle);
+//                loadFragment(fragment);
+//            }
+//        });
+//
+//        mETFilterYear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle=new Bundle();
+//                bundle.putInt("filterType",CommonFunction.FILTERYEAR);
+//                bundle.putInt("postTypeId",mPostTypeId);
+//                bundle.putInt("categoryId",mCategoryId);
+//                bundle.putInt("brandId",mBrandId);
+//                bundle.putInt("yearId",mYearId);
+//                bundle.putDouble("minPrice",mMinPrice);
+//                bundle.putDouble("maxPrice",mMaxPrice);
+//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
+//                fragment.setArguments(bundle);
+//                loadFragment(fragment);
+//            }
+//        });
+//
+//        mETFilterPriceRange.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle=new Bundle();
+//                bundle.putInt("filterType",CommonFunction.FILTERPRICERANGE);
+//                bundle.putInt("postTypeId",mPostTypeId);
+//                bundle.putInt("categoryId",mCategoryId);
+//                bundle.putInt("brandId",mBrandId);
+//                bundle.putInt("yearId",mYearId);
+//                bundle.putDouble("minPrice",mMinPrice);
+//                bundle.putDouble("maxPrice",mMaxPrice);
+//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
+//                fragment.setArguments(bundle);
+//                loadFragment(fragment);
+//            }
+//        });
         /* end action event lister */
 
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(isAdded()) {
-            mETFilterPostType.setText(getString(R.string.all));
-            mETFilterCategory.setText(getString(R.string.all));
-            mETFilterBrandET.setText(getString(R.string.all));
-            mETFilterYear.setText(getString(R.string.all));
-            mETFilterPriceRange.setText(getString(R.string.all));
-            //setupAllPosts();
-        }
-
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if(isAdded()) {
+//            mETFilterPostType.setText(getString(R.string.all));
+//            mETFilterCategory.setText(getString(R.string.all));
+//            mETFilterBrandET.setText(getString(R.string.all));
+//            mETFilterYear.setText(getString(R.string.all));
+//            mETFilterPriceRange.setText(getString(R.string.all));
+//            //setupAllPosts();
+//        }
+//
+//    }
 
     private void loadFragment(Fragment fragment){
         FragmentManager fm=getFragmentManager();
@@ -612,9 +612,9 @@ public class HomeFragment extends Fragment {
                 mListView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list_c);
-                        mGridView.setImageResource(R.drawable.icon_grid);
-                        mGallaryView.setImageResource(R.drawable.icon_image);
+                        mListView.setImageResource(R.drawable.list_brown);
+                        mGridView.setImageResource(R.drawable.grid);
+                        mGallaryView.setImageResource(R.drawable.image);
                         //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
                         mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"List"));
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
@@ -624,9 +624,9 @@ public class HomeFragment extends Fragment {
                 mGridView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list);
-                        mGridView.setImageResource(R.drawable.icon_grid_c);
-                        mGallaryView.setImageResource(R.drawable.icon_image);
+                        mListView.setImageResource(R.drawable.list);
+                        mGridView.setImageResource(R.drawable.grid_brown);
+                        mGallaryView.setImageResource(R.drawable.image);
                         //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
                         mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Grid"));
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -636,9 +636,9 @@ public class HomeFragment extends Fragment {
                 mGallaryView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.icon_list);
-                        mGridView.setImageResource(R.drawable.icon_grid);
-                        mGallaryView.setImageResource(R.drawable.icon_image_c);
+                        mListView.setImageResource(R.drawable.list);
+                        mGridView.setImageResource(R.drawable.grid);
+                        mGallaryView.setImageResource(R.drawable.image_brown);
                         //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
                         mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Image"));
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));

@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/content_search_buy_sell_rent"/>
+<!--        <include layout="@layout/content_search_buy_sell_rent"/>-->
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:background="@color/colorLightGray"
+            android:layout_height="35dp"
             android:gravity="center|left"
-            android:paddingStart="@dimen/dp_16"
+            android:paddingStart="@dimen/dp_8"
+            android:textStyle="bold"
             android:text="@string/product_discount"
             android:id="@+id/bestDeal"
             android:textSize="15dp" />
@@ -30,6 +30,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/horizontal"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <ProgressBar
@@ -49,40 +51,41 @@
                 android:layout_height="50dp"/>
         </RelativeLayout>
         <RelativeLayout
-            android:background="@color/colorLightGray"
             android:layout_width="match_parent"
-            android:layout_height="25dp">
+            android:layout_height="35dp">
             <TextView
                 android:gravity="center"
-                android:paddingStart="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_8"
                 android:textSize="15dp"
-                android:text="@string/new_post"
+                android:text="Best match"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:drawableRight="@drawable/ic_arrow_drop_down_gray"/>
             <ImageView
                 android:layout_centerInParent="true"
-                android:id="@+id/btn_image"
-                android:src="@drawable/icon_image"
+                android:id="@+id/img_list"
+                android:src="@drawable/list_brown"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/grid" />
             <ImageView
                 android:layout_centerInParent="true"
-                android:id="@+id/img_list"
+                android:id="@+id/grid"
                 android:layout_marginEnd="10dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/icon_list_c"
+                android:src="@drawable/grid"
                 android:layout_width="27dp"
+                android:layout_toStartOf="@+id/btn_image"
                 android:layout_height="27dp" />
             <ImageView
                 android:layout_centerInParent="true"
-                android:id="@+id/grid"
+                android:id="@+id/btn_image"
                 android:layout_marginEnd="10dp"
                 android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_toStartOf="@+id/img_list"
-                android:src="@drawable/icon_grid" />
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/image" />
+
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,6 +97,9 @@
                 android:id="@+id/list_new_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
+                android:layout_marginTop="5dp"
                 tools:ignore="MissingConstraints" />
 
             <TextView

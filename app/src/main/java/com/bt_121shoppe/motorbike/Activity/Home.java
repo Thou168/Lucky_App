@@ -99,7 +99,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, WSCallerVersionListener {
+public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, WSCallerVersionListener {
 
     private static final String TAG= Home.class.getSimpleName();
     private static final int REQUEST_PHONE_CALL =1;
@@ -165,36 +165,36 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mImageViewEnglish=findViewById(R.id.english);
         mImageViewKhmer =findViewById(R.id.khmer);
         mDrawerLayout=findViewById(R.id.drawer_layout);
-        NavigationView mNavigationView=findViewById(R.id.nav_view);
+//        NavigationView mNavigationView=findViewById(R.id.nav_view);
         mSwipeRefreshLayout=findViewById(R.id.refresh);
         mRecyclerView=findViewById(R.id.list_new_post);
         mProgressbar=findViewById(R.id.progress_bar1);
         mNestedScrollView=findViewById(R.id.nestedScrollView);
-        View headerView = mNavigationView.getHeaderView(0);
-        mUserNameDrawer=headerView.findViewById(R.id.drawer_username);
-        mProfileImageDrawer=headerView.findViewById(R.id.imageView);
+//        View headerView = mNavigationView.getHeaderView(0);
+//        mUserNameDrawer=headerView.findViewById(R.id.drawer_username);
+//        mProfileImageDrawer=headerView.findViewById(R.id.imageView);
 
         SwitchLanguage();
         SharedPreferences sharedPref=getSharedPreferences("Register",Context.MODE_PRIVATE);
-        ActionBarDrawerToggle mToggle=new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
+//        ActionBarDrawerToggle mToggle=new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        mDrawerLayout.addDrawerListener(mToggle);
+//        mToggle.syncState();
 
-        if(sharedPref.contains("token") || sharedPref.contains("id")){
-            mNavigationView.setVisibility(View.VISIBLE);
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            name=sharedPref.getString("name","");
-            pass=sharedPref.getString("pass","");
-            Encode= "Basic "+CommonFunction.getEncodedString(name,pass);
-            if(sharedPref.contains("token"))
-                pk=sharedPref.getInt("Pk",0);
-            else if (sharedPref.contains("id"))
-                pk=sharedPref.getInt("id",0);
-            //get navigation user profiler here
-            getUserProfile();
-        }else {
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
+//        if(sharedPref.contains("token") || sharedPref.contains("id")){
+//            mNavigationView.setVisibility(View.VISIBLE);
+//            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+//            name=sharedPref.getString("name","");
+//            pass=sharedPref.getString("pass","");
+//            Encode= "Basic "+CommonFunction.getEncodedString(name,pass);
+//            if(sharedPref.contains("token"))
+//                pk=sharedPref.getInt("Pk",0);
+//            else if (sharedPref.contains("id"))
+//                pk=sharedPref.getInt("id",0);
+//            //get navigation user profiler here
+//            getUserProfile();
+//        }else {
+//            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//        }
 
 //        if(language.equals("km")){
 //            mImageViewEnglish.setVisibility(View.GONE);
@@ -218,16 +218,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //        }
         //end block
 
-        mNavigationView.setNavigationItemSelectedListener(this);
-        menu = mNavigationView.getMenu();
-        nav_profile = menu.findItem(R.id.nav_profile);
-        nav_post = menu.findItem(R.id.nav_post);
-        nav_like = menu.findItem(R.id.nav_like);
-        nav_loan = menu.findItem(R.id.nav_loan);
-        nav_setting = menu.findItem(R.id.nav_setting);
-        nav_about = menu.findItem(R.id.nav_about);
-        nav_contact = menu.findItem(R.id.nav_contact);
-        nav_term = menu.findItem(R.id.nav_privacy);
+//        mNavigationView.setNavigationItemSelectedListener(this);
+//        menu = mNavigationView.getMenu();
+//        nav_profile = menu.findItem(R.id.nav_profile);
+//        nav_post = menu.findItem(R.id.nav_post);
+//        nav_like = menu.findItem(R.id.nav_like);
+//        nav_loan = menu.findItem(R.id.nav_loan);
+//        nav_setting = menu.findItem(R.id.nav_setting);
+//        nav_about = menu.findItem(R.id.nav_about);
+//        nav_contact = menu.findItem(R.id.nav_contact);
+//        nav_term = menu.findItem(R.id.nav_privacy);
 
         /* start implementation bottom navigation */
         mBottomNavigation=findViewById(R.id.bnaviga);
@@ -325,7 +325,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 }
                 mSliderImages.setItems(mImages1);
                 mSliderImages.addTimerToSlide(3000);
-                mSliderImages.getIndicator();
+                mSliderImages.getIndicator().setPaddingRelative(400,60,10,10);
             }
 
             @Override
@@ -385,42 +385,42 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
     }
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_profile) {
-            Intent intent = new Intent(this, EditAccountActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_post) {
-            Intent intent = new Intent(this, Account.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_like) {
-            Intent intent = new Intent(this, Account.class);
-            intent.putExtra("Tab",1);
-            startActivity(intent);
-        } else if (id == R.id.nav_loan) {
-            Intent intent = new Intent(this, Account.class);
-            intent.putExtra("Tab",2);
-            startActivity(intent);
-        } else if (id == R.id.nav_setting) {
-            Intent intent = new Intent(this, Setting.class);
-            startActivity(intent);
-        }else if (id == R.id.nav_about) {
-            Intent intent = new Intent(this, AboutUsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_contact) {
-            Intent intent = new Intent(this, ContactActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_privacy) {
-            Intent intent = new Intent(this, TermPrivacyActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_profile) {
+//            Intent intent = new Intent(this, EditAccountActivity.class);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_post) {
+//            Intent intent = new Intent(this, Account.class);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_like) {
+//            Intent intent = new Intent(this, Account.class);
+//            intent.putExtra("Tab",1);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_loan) {
+//            Intent intent = new Intent(this, Account.class);
+//            intent.putExtra("Tab",2);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_setting) {
+//            Intent intent = new Intent(this, Setting.class);
+//            startActivity(intent);
+//        }else if (id == R.id.nav_about) {
+//            Intent intent = new Intent(this, AboutUsActivity.class);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_contact) {
+//            Intent intent = new Intent(this, ContactActivity.class);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_privacy) {
+//            Intent intent = new Intent(this, TermPrivacyActivity.class);
+//            startActivity(intent);
+//        }
+//
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
     private void buildAlertMessageNoGps(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

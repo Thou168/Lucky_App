@@ -101,7 +101,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
 
         /* start implementation bottom navigation */
         mBottomNavigation=findViewById(R.id.bnaviga);
-        mBottomNavigation.getMenu().getItem(0).setChecked(true);
+        mBottomNavigation.getMenu().getItem(1).setChecked(true);
         mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.home:
@@ -224,7 +224,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
     @Override
     public void onStart(){
         super.onStart();
-        mBottomNavigation.getMenu().getItem(3).setChecked(true);
+        mBottomNavigation.getMenu().getItem(1).setChecked(true);
     }
 
     @Override

@@ -20,23 +20,34 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.custom.sliderimage.logic.SliderImage
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp">
+                    android:layout_height="170dp">
                 </com.custom.sliderimage.logic.SliderImage>
+                <TextView
+                    android:id="@+id/post_type"
+                    android:layout_width="110dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/background_button"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginTop="120dp"
+                    android:text="Start Buying"/>
 
 <!--                <include layout="@layout/content_search_buy_sell_rent"/>-->
 
                 <FrameLayout
                     android:id="@+id/frameLayout"
+                    android:layout_below="@+id/slider"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
 
                 <RelativeLayout
                     android:visibility="gone"
@@ -118,7 +129,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

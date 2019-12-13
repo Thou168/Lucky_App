@@ -100,7 +100,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Account extends AppCompatActivity  implements TabLayout.OnTabSelectedListener, NavigationView.OnNavigationItemSelectedListener{
+public class Account extends AppCompatActivity  implements TabLayout.OnTabSelectedListener{
 
     private final static String TAG= Account.class.getSimpleName();
     private static final int REQUEST_TAKE_PHOTO=1;
@@ -157,28 +157,28 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         viewPager = findViewById(R.id.pagerMain);
         uploadcover = findViewById(R.id.btnUpload_Cover);
 
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+//        drawer = findViewById(R.id.drawer_layout);
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
+//        navigationView.setNavigationItemSelectedListener(this);
 //        view_header = navigationView.getHeaderView(0);
 
-        View headerView = navigationView.getHeaderView(0);
-        tvusername_drawer =  headerView.findViewById(R.id.drawer_username);
-        img_profile = headerView.findViewById(R.id.imageView);
+//        View headerView = navigationView.getHeaderView(0);
+//        tvusername_drawer =  headerView.findViewById(R.id.drawer_username);
+//        img_profile = headerView.findViewById(R.id.imageView);
+//
+//        menu = navigationView.getMenu();
 
-        menu = navigationView.getMenu();
-
-        nav_profile = menu.findItem(R.id.nav_profile);
-        nav_post = menu.findItem(R.id.nav_post);
-        nav_like = menu.findItem(R.id.nav_like);
-        nav_loan = menu.findItem(R.id.nav_loan);
-        nav_setting = menu.findItem(R.id.nav_setting);
-        nav_about = menu.findItem(R.id.nav_about);
-        nav_contact = menu.findItem(R.id.nav_contact);
-        nav_term = menu.findItem(R.id.nav_privacy);
+//        nav_profile = menu.findItem(R.id.nav_profile);
+//        nav_post = menu.findItem(R.id.nav_post);
+//        nav_like = menu.findItem(R.id.nav_like);
+//        nav_loan = menu.findItem(R.id.nav_loan);
+//        nav_setting = menu.findItem(R.id.nav_setting);
+//        nav_about = menu.findItem(R.id.nav_about);
+//        nav_contact = menu.findItem(R.id.nav_contact);
+//        nav_term = menu.findItem(R.id.nav_privacy);
         Switch_language();
 //        lanugau_pre = getSharedPreferences("Settings",Context.MODE_PRIVATE);
 //        lang = lanugau_pre.getString("My_Lang","");
@@ -255,10 +255,10 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
                     if (user.getImageURL().equals("default")) {
                         Glide.with(Account.this).load(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(upload);
-                        img_profile.setImageResource(R.mipmap.ic_launcher_round);
+//                        img_profile.setImageResource(R.mipmap.ic_launcher_round);
                     } else {
                         Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(upload);
-                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(img_profile);
+//                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(img_profile);
                     }
                     if (user.getCoverURL().equals("default")) {
                         Glide.with(Account.this).load(R.drawable.logo_motobike).thumbnail(0.1f).into(imgCover);
@@ -349,14 +349,14 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
         viewPager.setAdapter(adapter);
         //title menu
-        nav_profile.setTitle(resources.getString(R.string.menu_profile));
-        nav_post.setTitle(resources.getString(R.string.menu_post));
-        nav_like.setTitle(resources.getString(R.string.menu_like));
-        nav_loan.setTitle(resources.getString(R.string.menu_loan));
-        nav_setting.setTitle(resources.getString(R.string.menu_setting));
-        nav_about.setTitle(resources.getString(R.string.menu_about));
-        nav_contact.setTitle(resources.getString(R.string.menu_contact));
-        nav_term.setTitle(resources.getString(R.string.menu_privacy));
+//        nav_profile.setTitle(resources.getString(R.string.menu_profile));
+//        nav_post.setTitle(resources.getString(R.string.menu_post));
+//        nav_like.setTitle(resources.getString(R.string.menu_like));
+//        nav_loan.setTitle(resources.getString(R.string.menu_loan));
+//        nav_setting.setTitle(resources.getString(R.string.menu_setting));
+//        nav_about.setTitle(resources.getString(R.string.menu_about));
+//        nav_contact.setTitle(resources.getString(R.string.menu_contact));
+//        nav_term.setTitle(resources.getString(R.string.menu_privacy));
 
     }
 
@@ -415,10 +415,10 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 if(response.isSuccessful()){
                     if(response.body().getFirst_name()==null || response.body().getFirst_name().isEmpty()){
                         tvUsername.setText(response.body().getUsername());
-                        tvusername_drawer.setText(response.body().getUsername());
+//                        tvusername_drawer.setText(response.body().getUsername());
                     }else{
                         tvUsername.setText(response.body().getFirst_name());
-                        tvusername_drawer.setText(response.body().getFirst_name());
+//                        tvusername_drawer.setText(response.body().getFirst_name());
                     }
                 }
             }
@@ -694,52 +694,52 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_profile) {
-            Intent intent = new Intent(this, EditAccountActivity.class);
-            drawer.closeDrawer(GravityCompat.START);
-            startActivity(intent);
-        } else if (id == R.id.nav_post) {
-            drawer.closeDrawer(GravityCompat.START);
-            tabs.getTabAt(0).select();
-        } else if (id == R.id.nav_like) {
-            drawer.closeDrawer(GravityCompat.START);
-            tabs.getTabAt(1).select();
-        } else if (id == R.id.nav_loan) {
-            drawer.closeDrawer(GravityCompat.START);
-            tabs.getTabAt(2).select();
-        } else if (id == R.id.nav_setting) {
-            Intent intent = new Intent(this, Setting.class);
-            drawer.closeDrawer(GravityCompat.START);
-            startActivity(intent);
-        }else if (id == R.id.nav_about) {
-            Intent intent = new Intent(this, AboutUsActivity.class);
-            drawer.closeDrawer(GravityCompat.START);
-            startActivity(intent);
-        } else if (id == R.id.nav_contact) {
-            Intent intent = new Intent(this, ContactActivity.class);
-            drawer.closeDrawer(GravityCompat.START);
-            startActivity(intent);
-        } else if (id == R.id.nav_privacy) {
-            Intent intent = new Intent(this, TermPrivacyActivity.class);
-            drawer.closeDrawer(GravityCompat.START);
-            startActivity(intent);
-        }
-
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        im_back = findViewById(R.id.ib_back);
-//        im_back.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                drawer.closeDrawer(GravityCompat.START);
-//            }
-//        } );
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_profile) {
+//            Intent intent = new Intent(this, EditAccountActivity.class);
+//            drawer.closeDrawer(GravityCompat.START);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_post) {
+//            drawer.closeDrawer(GravityCompat.START);
+//            tabs.getTabAt(0).select();
+//        } else if (id == R.id.nav_like) {
+//            drawer.closeDrawer(GravityCompat.START);
+//            tabs.getTabAt(1).select();
+//        } else if (id == R.id.nav_loan) {
+//            drawer.closeDrawer(GravityCompat.START);
+//            tabs.getTabAt(2).select();
+//        } else if (id == R.id.nav_setting) {
+//            Intent intent = new Intent(this, Setting.class);
+//            drawer.closeDrawer(GravityCompat.START);
+//            startActivity(intent);
+//        }else if (id == R.id.nav_about) {
+//            Intent intent = new Intent(this, AboutUsActivity.class);
+//            drawer.closeDrawer(GravityCompat.START);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_contact) {
+//            Intent intent = new Intent(this, ContactActivity.class);
+//            drawer.closeDrawer(GravityCompat.START);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_privacy) {
+//            Intent intent = new Intent(this, TermPrivacyActivity.class);
+//            drawer.closeDrawer(GravityCompat.START);
+//            startActivity(intent);
+//        }
+//
+////        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+////        im_back = findViewById(R.id.ib_back);
+////        im_back.setOnClickListener( new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                drawer.closeDrawer(GravityCompat.START);
+////            }
+////        } );
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
     public class Pager extends FragmentStatePagerAdapter {
         int tabCount;
