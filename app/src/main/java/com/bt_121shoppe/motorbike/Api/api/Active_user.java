@@ -1,35 +1,24 @@
 package com.bt_121shoppe.motorbike.Api.api;
 
-import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
-import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Active_user extends AppCompatActivity {
     static SharedPreferences prefer;

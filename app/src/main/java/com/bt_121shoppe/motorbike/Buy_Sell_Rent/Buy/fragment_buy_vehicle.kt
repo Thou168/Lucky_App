@@ -14,12 +14,10 @@ import com.bt_121shoppe.motorbike.R
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.sliderimage.logic.SliderImage
-import com.bt_121shoppe.motorbike.Activity.Item_API
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
-import com.bt_121shoppe.motorbike.models.PostViewModel
 import com.bt_121shoppe.motorbike.utils.CommonFunction
-import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import okhttp3.*
 import org.json.JSONException

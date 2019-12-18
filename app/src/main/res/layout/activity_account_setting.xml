@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AccountSettingActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:titleTextColor="#ffffff">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <Button
+        android:id="@+id/btnProfile"
+        android:layout_below="@id/appToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:text="Profile"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:background="@null" />
+
+    <Button
+        android:id="@+id/btnSetting"
+        android:layout_below="@id/btnProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:text="@string/setting"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:background="@null" />
+
+    <Button
+        android:id="@+id/btnNotification"
+        android:layout_below="@id/btnSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_notifications_active_black_24dp"
+        android:text="@string/notification"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:background="@null" />
+
+    <Button
+        android:id="@+id/btnAbout"
+        android:layout_below="@id/btnNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:text="@string/menu_about"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:background="@null" />
+
+    <Button
+        android:id="@+id/btnContact"
+        android:layout_below="@id/btnAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_phone_black_24dp"
+        android:text="@string/contact"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:background="@null" />
+
+    <Button
+        android:id="@+id/btnTermOfPrivacy"
+        android:layout_below="@id/btnContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:text="@string/term_privacy_heading"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:background="@null" />
+
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:padding="@dimen/dp_16"
+        android:textAlignment="center"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:background="@null"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

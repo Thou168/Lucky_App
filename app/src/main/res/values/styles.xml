@@ -3,8 +3,8 @@
     <!-- BaseExampleFragment application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ac7339</item>
-        <item name="colorPrimaryDark">#ac7339</item>
+        <item name="colorPrimary">#E5A74F</item>
+        <item name="colorPrimaryDark">#E5A74F</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/customActivityAnimation</item>
     </style>

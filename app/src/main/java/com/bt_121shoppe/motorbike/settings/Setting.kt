@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.bt_121shoppe.motorbike.Activity.Home
+import com.bt_121shoppe.motorbike.activities.Home
 import com.bt_121shoppe.motorbike.R
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth

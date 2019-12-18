@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/refresh"
+    tools:context=".stores.StoreListActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/layoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:padding="@dimen/dp_8dp">
+
+            <Button
+                android:id="@+id/button_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textAlignment="textStart"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutfiler"
+            android:layout_below="@+id/layoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/white"
+                android:textAlignment="textStart"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/layoutfiler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/recyclerview_store_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bnaviga"
+            app:menu="@menu/bottom_navigation"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </RelativeLayout>
+
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
-import com.bt_121shoppe.motorbike.Activity.*
+import com.bt_121shoppe.motorbike.activities.*
 import com.bt_121shoppe.motorbike.Api.api.Active_user
 import com.bt_121shoppe.motorbike.Buy_Sell_Rent.Buy.Buy_vehicle
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity

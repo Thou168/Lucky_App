@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bt_121shoppe.motorbike.Activity.Account;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;

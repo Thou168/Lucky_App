@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.motorbike.Activity.Account
+import com.bt_121shoppe.motorbike.activities.Account
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.R
 import com.bt_121shoppe.motorbike.Startup.Unlike_api

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/swipeRefresh"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Activity.HomeOldActivity">
+    tools:context=".activities.HomeOldActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

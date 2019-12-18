@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/refresh"
-    tools:context=".Activity.Home"
+    tools:context=".activities.Home"
     android:scrollbarStyle="insideOverlay"
     tools:showIn="@layout/app_bar_home">
 

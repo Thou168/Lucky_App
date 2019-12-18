@@ -1,7 +1,6 @@
 package com.bt_121shoppe.motorbike.newversion;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -39,7 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bt_121shoppe.motorbike.Activity.Camera;
+import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -47,25 +46,18 @@ import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
-import com.bt_121shoppe.motorbike.settings.ContactActivity;
-import com.bt_121shoppe.motorbike.settings.Setting;
-import com.bt_121shoppe.motorbike.settings.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.chats.ChatAllFragment;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
 import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.newversion.accounts.AccountFragment;
-import com.bt_121shoppe.motorbike.newversion.accounts.AccountLikeFragment;
 import com.bt_121shoppe.motorbike.newversion.chats.ChatFragment;
 import com.bt_121shoppe.motorbike.newversion.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.newversion.notifications.NotificationFragment;
 import com.bt_121shoppe.motorbike.nointernet.NoInternetActivity;
-import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -234,18 +226,7 @@ public class MainActivity extends AppCompatActivity implements WSCallerVersionLi
         GooglePlusFragmentPageAdapter adapter = new GooglePlusFragmentPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(adapter.getCount() - 1);
-        navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        NavigationView nav = findViewById(R.id.nav_view);
-        menu = nav.getMenu();
-        nav_profile = menu.findItem(R.id.nav_profile);
-        nav_post = menu.findItem(R.id.nav_post);
-        nav_like = menu.findItem(R.id.nav_like);
-        nav_loan = menu.findItem(R.id.nav_loan);
-        nav_setting = menu.findItem(R.id.nav_setting);
-        nav_about = menu.findItem(R.id.nav_about);
-        nav_contact = menu.findItem(R.id.nav_contact);
-        nav_term = menu.findItem(R.id.nav_privacy);
+
 
         requestStoragePermission(false);
         requestStoragePermission(true);
@@ -253,8 +234,6 @@ public class MainActivity extends AppCompatActivity implements WSCallerVersionLi
         SwitchLanguage();
         sharedPref=getSharedPreferences("Register",MODE_PRIVATE);
         if(sharedPref.contains("token")||sharedPref.contains("id")){
-            navigation.setVisibility(View.VISIBLE);
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             username=sharedPref.getString("name","");
             password=sharedPref.getString("pass","");
             encode= "Basic "+ CommonFunction.getEncodedString(username,password);
@@ -262,12 +241,7 @@ public class MainActivity extends AppCompatActivity implements WSCallerVersionLi
                 pk=sharedPref.getInt("Pk",0);
             else if (sharedPref.contains("id"))
                 pk=sharedPref.getInt("id",0);
-            bindNavigationDrawer();
-        }else {
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
-
-
         viewPager.setCurrentItem(0);
         navigation.getMenu().getItem(0).setChecked(true);
 
@@ -355,64 +329,6 @@ public class MainActivity extends AppCompatActivity implements WSCallerVersionLi
         });
     }
 
-    private void bindNavigationDrawer() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View view=navigationView.getHeaderView(0);
-        TextView tvusername=view.findViewById(R.id.tv_username);
-        CircleImageView imgprofile=view.findViewById(R.id.img_profile_image);
-
-        initialUserInformation(imgprofile,tvusername);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // Handle navigation view item clicks here.
-                int id = item.getItemId();
-                if (id == R.id.nav_profile) {
-                    Intent intent = new Intent(MainActivity.this, EditAccountActivity.class);
-                    startActivity(intent);
-                }
-                else if (id == R.id.nav_post) {
-                    viewPager.setCurrentItem(4);
-                    navigation.getMenu().getItem(4).setChecked(true);
-                }
-                else if (id == R.id.nav_like){
-                    viewPager.setCurrentItem(4);
-                    navigation.getMenu().getItem(4).setChecked(true);
-                    AccountLikeFragment.newInstance(0);
-                }
-                else if(id==R.id.nav_loan){
-                    viewPager.setCurrentItem(4);
-                    navigation.getMenu().getItem(4).setChecked(true);
-
-                }else if(id==R.id.nav_setting){
-                    Intent intent = new Intent(MainActivity.this, Setting.class);
-                    startActivity(intent);
-                }else if(id==R.id.nav_about){
-                    Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
-                    startActivity(intent);
-                }else if(id==R.id.nav_contact){
-                    Intent intent = new Intent(MainActivity.this, ContactActivity.class);
-                    startActivity(intent);
-                }else if (id == R.id.nav_privacy){
-                    Intent intent = new Intent(MainActivity.this, TermPrivacyActivity.class);
-                    startActivity(intent);
-                }
-
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-            }
-
-
-        });
-    }
-
     private void language(String lang){
         Locale locale=new Locale(lang);
         Locale.setDefault(locale);
@@ -477,16 +393,7 @@ public class MainActivity extends AppCompatActivity implements WSCallerVersionLi
         Context context= LocaleHapler.setLocale(this,language);
         Resources resources=context.getResources();
         //title menu
-        if(context!=null && resources!=null) {
-            nav_profile.setTitle(resources.getString(R.string.menu_profile));
-            nav_post.setTitle(resources.getString(R.string.menu_post));
-            nav_like.setTitle(resources.getString(R.string.menu_like));
-            nav_loan.setTitle(resources.getString(R.string.menu_loan));
-            nav_setting.setTitle(resources.getString(R.string.menu_setting));
-            nav_about.setTitle(resources.getString(R.string.menu_about));
-            nav_contact.setTitle(resources.getString(R.string.menu_contact));
-            nav_term.setTitle(resources.getString(R.string.menu_privacy));
-        }
+
         viewPager.getAdapter().notifyDataSetChanged();
     }
 

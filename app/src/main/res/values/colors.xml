@@ -3,8 +3,9 @@
 <!--    <color name="colorPrimary">#008577</color>-->
 <!--    <color name="colorPrimaryDark">#00574B</color>-->
 <!--    <color name="colorAccent">#D81B60</color>-->
-    <color name="colorPrimary">#ac7339</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#E5A74F</color>
+    <color name="colorPrimaryDark">#E5A74F</color>
+    <color name="tabColor">#393939</color>
 
     <color name="colorAccent">#FF4081</color>
     <color name="tab_selected">#23B8FF</color>
@@ -77,5 +78,5 @@
     <color name="sunflower_white">#deffffff</color>
     <color name="sunflower_yellow_300">#f8f99f</color>
     <color name="sunflower_yellow_500">#ffff63</color>
-    <color name="color_background">#ac7339</color>
+    <color name="color_background">#E5A74F</color>
 </resources>

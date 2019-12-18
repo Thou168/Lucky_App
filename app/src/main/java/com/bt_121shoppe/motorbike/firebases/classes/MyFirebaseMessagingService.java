@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatActivity;
-import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
+import com.bt_121shoppe.motorbike.activities.NotificationActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessagingService;

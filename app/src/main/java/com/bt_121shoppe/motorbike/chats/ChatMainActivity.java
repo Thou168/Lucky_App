@@ -18,10 +18,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bt_121shoppe.motorbike.Activity.Account;
-import com.bt_121shoppe.motorbike.Activity.Camera;
-import com.bt_121shoppe.motorbike.Activity.Home;
-import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
+import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.activities.Camera;
+import com.bt_121shoppe.motorbike.activities.Home;
+import com.bt_121shoppe.motorbike.activities.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;

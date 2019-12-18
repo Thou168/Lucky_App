@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.motorbike.Activity.Camera
+import com.bt_121shoppe.motorbike.activities.Camera
 
 import com.bt_121shoppe.motorbike.R
 import java.io.ByteArrayOutputStream
@@ -23,7 +23,7 @@ import android.graphics.Color
 import android.os.Build
 //import javax.swing.text.StyleConstants.setIcon
 import androidx.appcompat.app.AlertDialog
-import com.bt_121shoppe.motorbike.Activity.Account
+import com.bt_121shoppe.motorbike.activities.Account
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.api.TabA1_api
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction

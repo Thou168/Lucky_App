@@ -1,10 +1,6 @@
 package com.bt_121shoppe.motorbike.Product_New_Post
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
@@ -14,27 +10,20 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
 import android.net.Uri
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.*
-import android.text.format.DateUtils
-import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.KeyEvent
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.BounceInterpolator
-import android.view.animation.ScaleAnimation
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -43,9 +32,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.motorbike.Activity.Home
 import com.custom.sliderimage.logic.SliderImage
-import com.bt_121shoppe.motorbike.Activity.Item_API
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
@@ -56,9 +44,7 @@ import com.bt_121shoppe.motorbike.adapters.ShopAdapter
 import com.bt_121shoppe.motorbike.chats.ChatActivity
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction
 import com.bt_121shoppe.motorbike.loan.Create_Load
-import com.bt_121shoppe.motorbike.loan.LoanCreateActivity
 import com.bt_121shoppe.motorbike.models.PostViewModel
-import com.bt_121shoppe.motorbike.models.ShopViewModel
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
 import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bt_121shoppe.motorbike.utils.LoanCalculator
@@ -79,26 +65,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.alert_dialog_activity.*
 import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
-import org.w3c.dom.CharacterData
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.io.StringWriter
-import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.CharacterIterator
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.EventListener
 import kotlin.collections.ArrayList
-import kotlin.math.round
 
 class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private val TAG = Detail_Discount::class.java.simpleName

@@ -1,9 +1,7 @@
 package com.bt_121shoppe.motorbike.loan.child;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,19 +19,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.bt_121shoppe.motorbike.Activity.Account1;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.fragments.FragmentC1;
-import com.bt_121shoppe.motorbike.fragments.Loadbyuser;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
-import com.bt_121shoppe.motorbike.loan.LoanCreateActivity;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
-import com.bt_121shoppe.motorbike.loan.model.item_one;
-import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 

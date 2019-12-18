@@ -1,11 +1,9 @@
 package com.bt_121shoppe.motorbike.Product_New_Post
 
-import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.opengl.Visibility
 import android.provider.MediaStore
 import android.text.SpannableString
 import android.text.Spanned
@@ -18,17 +16,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.motorbike.Activity.Item_API
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
-import com.bt_121shoppe.motorbike.Api.api.model.Item
 import com.bt_121shoppe.motorbike.R
-import com.bt_121shoppe.motorbike.models.PostViewModel
-import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
-import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.JsonParseException

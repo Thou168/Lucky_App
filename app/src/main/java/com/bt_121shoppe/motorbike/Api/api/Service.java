@@ -14,6 +14,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
 import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
+import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
@@ -164,5 +165,8 @@ public interface Service {
 
     @GET("api/v1/wallpaper/")
     Call<AllResponse> getSliderImage();
+
+    @GET("api/v1/shop/")
+    Call<APIShopResponse> GetStoreList();
 
 }

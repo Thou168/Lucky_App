@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.ChangepassModel;

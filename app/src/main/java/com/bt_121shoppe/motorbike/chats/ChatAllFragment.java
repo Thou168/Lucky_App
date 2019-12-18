@@ -23,11 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bt_121shoppe.motorbike.Activity.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.Chat;
-import com.bt_121shoppe.motorbike.models.NotificationDataViewModel;
 import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.models.UserChat;
 import com.bt_121shoppe.motorbike.notifications.Token;
@@ -49,7 +47,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

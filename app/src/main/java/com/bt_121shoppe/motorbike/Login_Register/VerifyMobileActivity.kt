@@ -15,10 +15,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.bt_121shoppe.motorbike.Activity.Account
-import com.bt_121shoppe.motorbike.Activity.Camera
-import com.bt_121shoppe.motorbike.Activity.Home
-import com.bt_121shoppe.motorbike.Activity.NotificationActivity
+import com.bt_121shoppe.motorbike.activities.Account
+import com.bt_121shoppe.motorbike.activities.Camera
+import com.bt_121shoppe.motorbike.activities.Home
+import com.bt_121shoppe.motorbike.activities.NotificationActivity
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post

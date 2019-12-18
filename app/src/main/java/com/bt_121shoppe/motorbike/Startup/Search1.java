@@ -8,23 +8,25 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bt_121shoppe.motorbike.Activity.Item_API;
+import com.bt_121shoppe.motorbike.activities.Item_API;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.searches.SearchConditionFragment;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
@@ -57,6 +59,8 @@ public class Search1 extends AppCompatActivity {
 //    ImageView viewlist;
 //    LinearLayoutManager manager;
 //    String view = "list";
+    Fragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +73,17 @@ public class Search1 extends AppCompatActivity {
                 finish();
             }
         });
-//        viewlist = findViewById(R.id.viewlist);
+
+        currentFragment=new SearchConditionFragment();
+        if(savedInstanceState==null){
+            SearchConditionFragment details=new SearchConditionFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout,details).commit();
+        }
 
         mProgress = findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
         not_found.setVisibility(View.GONE);
-        tv_filter = findViewById(R.id.tv_filter);
+        //tv_filter = findViewById(R.id.tv_filter);
         sv= (SearchView) findViewById(R.id.mSearch);
         rv = (RecyclerView)findViewById(R.id.myRecycler) ;
         sv.setFocusable(true);
@@ -108,13 +117,19 @@ public class Search1 extends AppCompatActivity {
             }
         });
 
-        tv_filter.setOnClickListener(v -> {
-            Intent intent1 = new Intent(Search1.this,Filter.class);
-            intent1.putExtra("title",sv.getQuery().toString());
-            startActivityForResult(intent1,1);
-
-        });
+//        tv_filter.setOnClickListener(v -> {
+//            Intent intent1 = new Intent(Search1.this,Filter.class);
+//            intent1.putExtra("title",sv.getQuery().toString());
+//            startActivityForResult(intent1,1);
+//
+//        });
     }  // create
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        currentFragment = this.getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+    }
 
     private  void Search_data(String title, String category, String model, String year){
         String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
@@ -287,5 +302,12 @@ public class Search1 extends AppCompatActivity {
         String language = prefer.getString("My_Lang","");
         Log.d("language",language);
         language(language);
+    }
+
+    private void loadFragment(Fragment fragment){
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fm.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
     }
 }

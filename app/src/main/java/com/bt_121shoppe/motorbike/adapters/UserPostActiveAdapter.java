@@ -16,11 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bt_121shoppe.motorbike.Activity.Account;
-import com.bt_121shoppe.motorbike.Activity.Camera;
+import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -34,11 +33,9 @@ import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> {

@@ -1,103 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context="io.anycopy.googleplusdemo.MainActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="io.anycopy.googleplusdemo.MainActivity">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:elevation="0dp">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            android:visibility="gone"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+        <RelativeLayout
+            android:id="@+id/rltoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar1"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                android:visibility="gone"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-            <RelativeLayout
-                android:id="@+id/rltoolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                    <ImageView
-                        android:id="@+id/khmer"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="right"
-                        android:layout_marginEnd="@dimen/dp_16"
-                        android:src="@drawable/flag_khmer" />
-                    <ImageView
-                        android:id="@+id/english"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="right"
-                        android:layout_marginEnd="@dimen/dp_16"
-                        android:src="@drawable/flag_english" />
-                </androidx.appcompat.widget.Toolbar>
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <ImageView
-                    android:id="@+id/applogo"
-                    android:layout_centerVertical="true"
-                    android:layout_width="40dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="40dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/logo" />
+                    android:id="@+id/khmer"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/flag_khmer" />
+                <ImageView
+                    android:id="@+id/english"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/flag_english" />
+            </androidx.appcompat.widget.Toolbar>
 
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/applogo"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="40dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/logo" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
 
-        <com.bt_121shoppe.motorbike.newversion.CustomViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            app:labelVisibilityMode="auto"
-            app:menu="@menu/navigation_version2"/>
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+    <com.bt_121shoppe.motorbike.newversion.CustomViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main_ver2"
-        app:menu="@menu/activity_main_drawer"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="auto"
+        app:menu="@menu/navigation_version2"/>
 
 
-</androidx.drawerlayout.widget.DrawerLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

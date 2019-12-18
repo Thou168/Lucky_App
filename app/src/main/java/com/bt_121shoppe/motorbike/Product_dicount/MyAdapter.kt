@@ -1,7 +1,5 @@
 package com.bt_121shoppe.motorbike.Product_dicount
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.text.SpannableString
@@ -16,7 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.motorbike.Activity.Item_discount
+import com.bt_121shoppe.motorbike.activities.Item_discount
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post

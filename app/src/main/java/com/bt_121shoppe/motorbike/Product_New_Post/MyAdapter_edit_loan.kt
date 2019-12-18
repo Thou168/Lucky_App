@@ -20,7 +20,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 //import javax.swing.text.StyleConstants.setIcon
 import androidx.appcompat.app.AlertDialog
-import com.bt_121shoppe.motorbike.Activity.*
+import com.bt_121shoppe.motorbike.activities.*
 import com.bt_121shoppe.motorbike.loan.LoanCreateActivity
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.fragments.LoanItemAPI

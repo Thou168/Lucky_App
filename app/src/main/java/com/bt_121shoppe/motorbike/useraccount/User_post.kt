@@ -4,17 +4,14 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.drawable.Drawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
@@ -22,13 +19,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.*
 import androidx.recyclerview.widget.RecyclerView
-import com.bt_121shoppe.motorbike.Activity.Item_API
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.R
@@ -47,8 +40,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import java.security.AccessController.getContext
-import java.text.SimpleDateFormat
 import java.util.*
 
 class User_post : AppCompatActivity() , OnMapReadyCallback{

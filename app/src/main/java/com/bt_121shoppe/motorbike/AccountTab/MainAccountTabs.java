@@ -23,8 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.bt_121shoppe.motorbike.Activity.Account;
-import com.bt_121shoppe.motorbike.Activity.Home;
+import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;

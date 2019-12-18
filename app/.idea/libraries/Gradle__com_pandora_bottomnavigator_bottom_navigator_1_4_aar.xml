@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.pandora.bottomnavigator:bottom-navigator:1.4@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7b62281c9a416dcfedd79bd769c48f8e/bottom-navigator-1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7b62281c9a416dcfedd79bd769c48f8e/bottom-navigator-1.4/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pandora.bottomnavigator/bottom-navigator/1.4/ede64c2d5963bd9d01a802b88c919f3bbb6c8d49/bottom-navigator-1.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pandora.bottomnavigator/bottom-navigator/1.4/297c865a4f423eb23f5ea00cc2eb36918163371d/bottom-navigator-1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

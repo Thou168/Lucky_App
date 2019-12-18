@@ -28,17 +28,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="170dp">
                 </com.custom.sliderimage.logic.SliderImage>
-                <TextView
-                    android:id="@+id/post_type"
-                    android:layout_width="110dp"
-                    android:layout_height="34dp"
-                    android:background="@drawable/background_button"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="@dimen/dp_24"
-                    android:layout_marginTop="120dp"
-                    android:text="Start Buying"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/post_type"-->
+<!--                    android:layout_width="110dp"-->
+<!--                    android:layout_height="34dp"-->
+<!--                    android:background="@drawable/background_button"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:layout_marginStart="@dimen/dp_24"-->
+<!--                    android:layout_marginTop="120dp"-->
+<!--                    android:text="Start Buying"/>-->
 
 <!--                <include layout="@layout/content_search_buy_sell_rent"/>-->
 
