@@ -107,7 +107,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data android:scheme="@string/fb_login_protocol_scheme"
+                    tools:ignore="ManifestResource" />
             </intent-filter>
         </activity> <!-- <activity -->
         <!-- android:name=".Activity.HomeOldActivity" -->
@@ -129,6 +130,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Dealerstore"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login_Register.FacebookLoginActivity"

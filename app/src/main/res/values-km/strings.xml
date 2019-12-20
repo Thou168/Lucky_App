@@ -603,6 +603,7 @@
     <string name="cancel">បោះបង់</string>
 
     <string name="facebook_login_register">ចុះឈ្មោះឬចូលជាមួយ Facebook</string>
+    <string name="facebook_login">  ចូលជាមួយ Facebook</string>
     <string name="confirm_phone_number_title">បញ្ចូលលេខទូរស័ព្ទ</string>
     <string name="confirm_phone_number_text">សូមបញ្ចូលលេខទូរស័ព្ទរបស់អ្នកនៅក្នុងប្រអប់ខាងក្រោមដើម្បីផ្ទៀងផ្ទាត់លេខទូរស័ព្ទរបស់អ្នក។ យើងនឹងផ្ញើលេខកូដផ្ទៀងផ្ទាត់ទៅទូរស័ព្ទរបស់អ្នក។</string>
     <string name="confirm_phone_number_hint">លេខទូរស័ព្ទរបស់អ្នក</string>
@@ -747,4 +748,13 @@
     <string name="dealer_shop">ហាងចែកចាយ</string>
     <string name="shop">ហាងទី</string>
     <string name="store">ហាង</string>
+    <string name="dealer_store">Dealer Store</string>
+    <string name="tab_postlist">Post List</string>
+    <string name="tab_store">Store</string>
+    <string name="add_store">Add store</string>
+    <string name="countview">ចំនួនអ្នកមើល</string>
+    <string name="signin">Sign in</string>
+    <string name="welcome">Welcome</string>
+    <string name="signup">Sign up</string>
+    <string name="continue_signin">Sign in to continue</string>
 </resources>

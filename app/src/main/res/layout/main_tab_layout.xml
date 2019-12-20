@@ -211,11 +211,21 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:visibility="gone"
         android:id="@+id/bnaviga"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@color/white"
         app:menu="@menu/bottom_navigation" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:visibility="gone"
+        android:id="@+id/bottom_nav"
+        app:menu="@menu/dealer_nav"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:layout_height="?android:attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

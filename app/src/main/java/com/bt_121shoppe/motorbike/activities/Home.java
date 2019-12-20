@@ -78,6 +78,8 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +93,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
+
 public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, WSCallerVersionListener {
 
     private static final String TAG= Home.class.getSimpleName();
@@ -100,7 +104,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     private DrawerLayout mDrawerLayout;
     private ImageView mImageViewEnglish, mImageViewKhmer,mProfileImageDrawer;
     private RecyclerView mRecyclerView;
-    private BottomNavigationView mBottomNavigation;
+    private BottomNavigationView mBottomNavigation,mBottomNavigation1;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressBar mProgressbar;
     private Button mFilterCategory,mFilterBrand,mFilterYear,mFilterPriceRange,mFilterPostType;
@@ -112,7 +116,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     private MenuItem nav_profile,nav_post,nav_like,nav_loan,nav_setting,nav_about,nav_contact,nav_term;
     private TextView mUserNameDrawer;
 
-    private String myReferences="mypref";
+    private String myReferences="mypref",username,password,basicEncode;
     private String name="",pass="",Encode="",mViewType=
             "List",mPostType="";
     private Bundle bundle;
@@ -145,6 +149,14 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         Toolbar mToolbar=findViewById(R.id.toolbar);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
+
+        SharedPreferences preferences= getApplication().getSharedPreferences("Register",MODE_PRIVATE);
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
+        Log.e("pk", String.valueOf(pk));
 
         search_homepage = findViewById(R.id.search_homepage);
         setSearch_homepage();
@@ -216,14 +228,60 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 //        nav_term = menu.findItem(R.id.nav_privacy);
 
         /* start implementation bottom navigation */
-        mBottomNavigation=findViewById(R.id.bnaviga);
-        mBottomNavigation.getMenu().getItem(0).setChecked(true);
-        mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()){
-                case R.id.home:
-                    mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
-                    break;
-                case R.id.notification:
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            mBottomNavigation1=findViewById(R.id.bottom_nav);
+            mBottomNavigation1.setVisibility(View.VISIBLE);
+            mBottomNavigation1.getMenu().getItem(0).setChecked(true);
+            mBottomNavigation1.setOnNavigationItemSelectedListener(menuItem -> {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
+                        break;
+                    case R.id.notification:
+                        startActivity(new Intent(Home.this, StoreListActivity.class));
+                        break;
+                    case R.id.dealer:
+                        if(sharedPref.contains("token") || sharedPref.contains("id")){
+                            startActivity(new Intent(Home.this, Dealerstore.class));
+                        }else{
+                            Intent intent=new Intent(Home.this, LoginActivity.class);
+                            intent.putExtra("verify","camera");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.message:
+                        if(sharedPref.contains("token") || sharedPref.contains("id")){
+                            startActivity(new Intent(Home.this, ChatMainActivity.class));
+                        }else{
+                            Intent intent=new Intent(Home.this, LoginActivity.class);
+                            intent.putExtra("verify","message");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.account:
+                        if(sharedPref.contains("token") || sharedPref.contains("id")){
+                            startActivity(new Intent(Home.this, Account.class));
+                        }else{
+                            Intent intent=new Intent(Home.this, LoginActivity.class);
+                            intent.putExtra("verify","account");
+                            startActivity(intent);
+                        }
+                        break;
+                }
+                return false;
+            });
+        }else {
+            mBottomNavigation=findViewById(R.id.bnaviga);
+            mBottomNavigation.setVisibility(View.VISIBLE);
+            mBottomNavigation.getMenu().getItem(0).setChecked(true);
+            mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
+                        break;
+                    case R.id.notification:
 //                    if(sharedPref.contains("token") || sharedPref.contains("id")){
 ////                        if(Active_user.isUserActive(this,pk)){
 ////                            startActivity(new Intent(Home.this, NotificationActivity.class));
@@ -236,54 +294,55 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 //                        intent.putExtra("verify","notification");
 //                        startActivity(intent);
 //                    }
-                    startActivity(new Intent(Home.this, StoreListActivity.class));
-                    break;
-                case R.id.camera:
-                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                        startActivity(new Intent(Home.this, StoreListActivity.class));
+                        break;
+                    case R.id.camera:
+                        if(sharedPref.contains("token") || sharedPref.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(Home.this, Camera.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(Home.this, Camera.class));
-                    }else{
-                        Intent intent=new Intent(Home.this, UserAccountActivity.class);
-                        intent.putExtra("verify","camera");
-                        startActivity(intent);
-                    }
-                    break;
-                case R.id.message:
-                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                            startActivity(new Intent(Home.this, Camera.class));
+                        }else{
+                            Intent intent=new Intent(Home.this, LoginActivity.class);
+                            intent.putExtra("verify","camera");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.message:
+                        if(sharedPref.contains("token") || sharedPref.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(Home.this, ChatMainActivity.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(Home.this, ChatMainActivity.class));
-                    }else{
-                        Intent intent=new Intent(Home.this, UserAccountActivity.class);
-                        intent.putExtra("verify","message");
-                        startActivity(intent);
-                    }
-                    break;
-                case R.id.account:
-                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                            startActivity(new Intent(Home.this, ChatMainActivity.class));
+                        }else{
+                            Intent intent=new Intent(Home.this, LoginActivity.class);
+                            intent.putExtra("verify","message");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.account:
+                        if(sharedPref.contains("token") || sharedPref.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(Home.this, Account.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(Home.this, Account.class));
-                    }else{
-                        Intent intent=new Intent(Home.this, UserAccountActivity.class);
-                        intent.putExtra("verify","account");
-                        startActivity(intent);
-                    }
+                            startActivity(new Intent(Home.this, Account.class));
+                        }else{
+                            Intent intent=new Intent(Home.this, LoginActivity.class);
+                            intent.putExtra("verify","account");
+                            startActivity(intent);
+                        }
 
-                    break;
-            }
-            return false;
-        });
+                        break;
+                }
+                return false;
+            });
+        }
         /*end implementation bottom navigation */
 
         /* start implementation slider navigation */
@@ -441,7 +500,13 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     @Override
     public void onStart(){
         super.onStart();
-        mBottomNavigation.getMenu().getItem(0).setChecked(true);
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            mBottomNavigation1.getMenu().getItem(0).setChecked(true);
+        }else {
+            mBottomNavigation.getMenu().getItem(0).setChecked(true);
+        }
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
         Log.e(TAG,"current Fragment onStart "+currentFragment);
     }

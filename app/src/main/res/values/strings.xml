@@ -561,6 +561,7 @@
     <string name="go_setting">GOTO SETTINGS</string>
     <string name="cancel">Cancel</string>
     <string name="facebook_login_register">Register or Login with Facebook</string>
+    <string name="facebook_login">  Login with Facebook</string>
     <string name="confirm_phone_number_title">Set Phone</string>
     <string name="confirm_phone_number_text">Please enter your phone number in the box below to verify your phone number. We will send the verification code to your phone.</string>
     <string name="confirm_phone_number_hint">Your Phone Number</string>
@@ -908,4 +909,13 @@
     <string name="dealer_shop">Dealer Shop</string>
     <string name="shop">Shop</string>
     <string name="store">Store</string>
+    <string name="dealer_store">Dealer Store</string>
+    <string name="tab_postlist">Post list</string>
+    <string name="tab_store">Stores</string>
+    <string name="add_store">Add Store</string>
+    <string name="countview">View</string>
+    <string name="signin">Sign in</string>
+    <string name="welcome">Welcome</string>
+    <string name="signup">Sign up</string>
+    <string name="continue_signin">Sign in to continue</string>
 </resources>

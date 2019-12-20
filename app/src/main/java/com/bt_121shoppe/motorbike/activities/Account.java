@@ -52,6 +52,7 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
 import com.bt_121shoppe.motorbike.models.User;
+import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -76,6 +77,8 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -112,7 +115,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     private Uri imageUri;
     private StorageReference storageReference;
     private StorageTask uploadTask;
-    private  BottomNavigationView bnavigation;
+    private  BottomNavigationView bnavigation,bnavigation1;
     String username,password,encodeAuth,type,API_ENDPOINT="";
     int pk=0,PICK_IMAGE=1;
 
@@ -131,6 +134,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     MenuItem nav_profile,nav_post,nav_like,nav_loan,nav_setting,nav_about,nav_contact,nav_term;
     View view_header;
     CircleImageView img_profile;
+    Bundle bundle;
 //    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +210,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         // end
         //Log.d("Account","Breand pk"+pk);
         if (pk==0){
-            Intent intent = new Intent(Account.this, UserAccountActivity.class);
+            Intent intent = new Intent(Account.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -228,9 +232,19 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         inttab = getIntent().getIntExtra("Tab",0);
         tabs.getTabAt(inttab).select();
 
-        bnavigation = findViewById(R.id.bnaviga);
-        bnavigation.getMenu().getItem(4).setChecked(true);
-        bnavigation.setOnNavigationItemSelectedListener(mlistener);
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            bnavigation1 = findViewById(R.id.bottom_nav);
+            bnavigation1.setVisibility(View.VISIBLE);
+            bnavigation1.getMenu().getItem(4).setChecked(true);
+            bnavigation1.setOnNavigationItemSelectedListener(mlistener1);
+        }else {
+            bnavigation = findViewById(R.id.bnaviga);
+            bnavigation.setVisibility(View.VISIBLE);
+            bnavigation.getMenu().getItem(4).setChecked(true);
+            bnavigation.setOnNavigationItemSelectedListener(mlistener);
+        }
 
         ImageButton imgSetting=findViewById(R.id.btnsetting);
         imgSetting.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +265,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
-tvFullname.setText(user.getUsername());
+                        tvFullname.setText(user.getUsername());
                     if (user.getImageURL().equals("default")) {
                         Glide.with(Account.this).load(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(upload);
 //                        img_profile.setImageResource(R.mipmap.ic_launcher_round);
@@ -650,7 +664,7 @@ tvFullname.setText(user.getUsername());
                         startActivity(myIntent);
                         break;
                     case R.id.notification:
-                        Intent myIntent2 = new Intent(Account.this, NotificationActivity.class);
+                        Intent myIntent2 = new Intent(Account.this, StoreListActivity.class);
                         startActivity(myIntent2);
                         break;
                     case R.id.camera:
@@ -668,6 +682,26 @@ tvFullname.setText(user.getUsername());
                 }
                 return true;
             };
+    private BottomNavigationView.OnNavigationItemSelectedListener mlistener1
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(Account.this, Home.class));
+                break;
+            case R.id.notification:
+                startActivity(new Intent(Account.this, StoreListActivity.class));
+                break;
+            case R.id.dealer:
+                startActivity(new Intent(Account.this, Dealerstore.class));
+                break;
+            case R.id.message:
+                startActivity(new Intent(Account.this, ChatMainActivity.class));
+                break;
+            case R.id.account:
+                break;
+        }
+        return true;
+    };
 
     private void setUpPager(){
         tabs.addTab(tabs.newTab().setText(R.string.tab_post));
@@ -883,7 +917,13 @@ tvFullname.setText(user.getUsername());
     @Override
     protected void onStart() {
         super.onStart();
-        bnavigation.getMenu().getItem(4).setChecked(true);
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            bnavigation1.getMenu().getItem(4).setChecked(true);
+        }else {
+            bnavigation.getMenu().getItem(4).setChecked(true);
+        }
     }
     private void language(String lang) {
         Locale locale = new Locale(lang);

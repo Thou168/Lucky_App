@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.Login_Register;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -10,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,6 +34,16 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -47,10 +59,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import okhttp3.Call;
@@ -70,17 +84,18 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     ProgressDialog mProgress;
     SharedPreferences prefer;
-    private String login_verify;
+    private String login_verify,verify;
     private int product_id;
     private String username_message;
     private String password_message;
-    private TextView alert_phone;
+    private TextView alert_phone,back,tv_signup;
     private TextView alert_password;
+    private LoginButton facebook_login;
     int error = 0;
     String encode;
 
     private AlertDialog.Builder dialog;
-
+    private CallbackManager callbackManager;
     private FirebaseAuth auth;
 //    InputMethodManager imm;
 
@@ -88,12 +103,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        LoginManager.getInstance().logOut();
+
         encode = "Basic "+com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString(username_message,password_message);
         alert_phone = (TextView)findViewById(R.id.phone_alert);
         alert_password = (TextView)findViewById(R.id.password_alert);
         Username = (EditText)findViewById(R.id.editPhoneLogin);
         Password = (EditText)findViewById(R.id.editPasswordLogin);
         btnSubmit = (Button)findViewById(R.id.btnSubmitLogin);
+        back = (TextView) findViewById(R.id.tv_back);
+        tv_signup = findViewById(R.id.sign_up);
+        facebook_login = findViewById(R.id.login_button);
+        facebook_login.setReadPermissions(Arrays.asList("public_profile","email","user_birthday","user_gender","user_location"));
+
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
 //        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -106,8 +131,26 @@ public class LoginActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
+        verify = intent.getStringExtra("verify");
         login_verify = intent.getStringExtra("Login_verify");
         product_id   = intent.getIntExtra("product_id",0);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        tv_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), SelectUserTypeActivity.class);
+                intent.putExtra("Register_verify",verify);
+                intent.putExtra("product_id",product_id);
+                intent.putExtra("processtype", CommonFunction.ProcessType.MobileRegister.toString());
+                startActivity(intent);
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,8 +178,302 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+        callbackManager= CallbackManager.Factory.create();
+        facebook_login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken=loginResult.getAccessToken();
+                userLoginInformation(accessToken);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("Facebook login error",error.getMessage());
+                //Toast.makeText(UserAccountActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
 
     } //create
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void userLoginInformation(AccessToken accessToken){
+        //Toast.makeText(UserAccountActivity.this,accessToken.toString(),Toast.LENGTH_LONG).show();
+        GraphRequest request=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                Log.d("bjfjfjfjjfjjj",response.toString());
+                try{
+                    String name=object.getString("name");
+                    String facebookid=object.getString("id");
+//                    String gender=object.getString("gender");
+//                    String birth=object.getString("birthday");
+                    String image=object.getJSONObject("picture").getJSONObject("data").getString("url");
+//                    displayName.setText(name);
+//                    emailId.setText(email);
+//                    Glide.with(getApplicationContext()).load(image).into(displayImage);
+                    String url= ConsumeAPI.BASE_URL+"api/v1/userfilter/?last_name="+facebookid;
+                    String result="";
+                    try {
+                        result = CommonFunction.doGetRequest(url);
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    try{
+                        JSONObject obj=new JSONObject(result);
+                        int count=obj.getInt("count");
+                        if(count==0){
+                            //register user
+                            /* old proccess  sep 12 2019  */
+//                            Intent intent=new Intent(UserAccountActivity.this,ConfirmMobileNumberActivity.class);
+//                            intent.putExtra("facebooktokenkey",accessToken.toString());
+//                            intent.putExtra("facebookid",facebookid);
+////                            intent.putExtra("gender",gender);
+////                            intent.putExtra("birthday",birth);
+//                            intent.putExtra("facebookname",name);
+//                            intent.putExtra("imageurl",image);
+//                            startActivity(intent);
+
+                            Intent intent=new Intent(LoginActivity.this, SelectUserTypeActivity.class);
+                            intent.putExtra("processtype",CommonFunction.ProcessType.FacebookRegister.toString());
+                            intent.putExtra("facebooktokenkey",accessToken.toString());
+                            intent.putExtra("facebookid",facebookid);
+                            intent.putExtra("facebookname",name);
+                            intent.putExtra("imageurl",image);
+                            intent.putExtra("Register_verify",verify);
+                            intent.putExtra("product_id",product_id);
+                            startActivity(intent);
+                        }
+                        else{
+                            //login user
+                            Log.d(TAG,"RUN RESULT "+result);
+                            JSONArray jsonArray=obj.getJSONArray("results");
+                            JSONObject obj1=jsonArray.getJSONObject(0);
+                            int apiUserId=obj1.getInt("id");
+                            String apiUsername=obj1.getString("username");
+
+                            /* old process sep 12 2019 */
+//                            Intent intent=new Intent(UserAccountActivity.this,VerifyMobileActivity.class);
+//                            intent.putExtra("Register_verify",verify);
+//                            intent.putExtra("Login_verify",verify);
+//                            intent.putExtra("authType",4);
+//                            intent.putExtra("phoneNumber",apiUsername);
+//                            intent.putExtra("password",apiUsername);
+//                            intent.putExtra("facebooktokenkey",accessToken.toString());
+////                            intent.putExtra("gender",gender);
+////                            intent.putExtra("birthday",birth);
+//                            intent.putExtra("facebookid",facebookid);
+//                            intent.putExtra("facebookname",name);
+//                            intent.putExtra("imageurl",image);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            startActivity(intent);
+
+                            searchFBUser(apiUsername);
+
+                        }
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        // We set parameters to the GraphRequest using a Bundle.
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,gender,birthday,email,picture.width(200)");
+        request.setParameters(parameters);
+        // Initiate the GraphRequest
+        request.executeAsync();
+    }
+    private void searchFBUser(String username){
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
+                    if(user.getUsername().equals(username)){
+                        String group=user.getGroup();
+                        String password=user.getPassword();
+                        String email=user.getEmail();
+                        if(group.equals("1"))
+                            password=password.substring(0,4);
+
+                        String finalPassword = password;
+                        auth.signInWithEmailAndPassword(email,user.getPassword())
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            loginWithAPI(username, finalPassword);
+                                        }
+                                    }
+                                });
+
+                        Log.d(TAG,"Group "+group+" password "+password);
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void loginWithAPI(String username,String password){
+        String url = String.format("%s%s", ConsumeAPI.BASE_URL, "api/v1/rest-auth/login/");
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        OkHttpClient client = new OkHttpClient();
+        JSONObject postdata = new JSONObject();
+        try {
+            postdata.put("username", username);
+            postdata.put("password", password);
+
+        } catch(JSONException e){
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(MEDIA_TYPE, postdata.toString());
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if(response.isSuccessful()) {
+                    final String mMessage = response.body().string();
+                    Log.d(TAG,mMessage);
+                    converting(mMessage,username,password);
+                }else {
+                    //mProgress.dismiss();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //error = 1;
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                final String mMessage = e.getMessage().toString();
+                Log.w("failure Response", mMessage);
+                //mProgress.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"failure Response:"+ mMessage,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void converting(String mMessage,String username,String password) {
+        Gson gson = new Gson();
+        Convert_Json_Java convertJsonJava = new Convert_Json_Java();
+        try{
+            convertJsonJava = gson.fromJson(mMessage,Convert_Json_Java.class);
+            Log.d(TAG, convertJsonJava.getUsername()   + "\t" + convertJsonJava.getToken() + "\t" + convertJsonJava.getStatus());
+            final String key = convertJsonJava.getToken();
+            com.bt_121shoppe.motorbike.Api.User user = convertJsonJava.getUser();
+            final int pk = user.getPk();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (key!=null){
+                        Log.d("Get Key",key.toString());
+
+                        SharedPreferences.Editor editor = prefer.edit();
+                        editor.putString("token",key);
+                        editor.putString("name",username);
+                        editor.putString("pass",password);
+                        editor.putInt("Pk",pk);
+                        editor.commit();
+                        //mProgress.dismiss();
+                        Intent intent;
+                        if(verify==null){
+                            intent = new Intent(LoginActivity.this, Home.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            switch (verify) {
+                                case "notification":
+                                    intent = new Intent(LoginActivity.this, NotificationActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "camera":
+                                    intent = new Intent(LoginActivity.this, Camera.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "message":
+                                    intent = new Intent(LoginActivity.this, ChatMainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "account":
+                                    intent = new Intent(LoginActivity.this, Account.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                case "detail":
+                                    intent = new Intent(LoginActivity.this, Detail_New_Post.class);
+                                    intent.putExtra("ID", product_id);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                default:
+                                    intent = new Intent(LoginActivity.this, Home.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                            }
+                        }
+                    }else {
+                        Toast.makeText(getApplicationContext(),"LoginActivity failure",Toast.LENGTH_SHORT).show();
+                        //mProgress.dismiss();
+                    }
+                }
+            });
+        }catch (JsonParseException e){
+            e.printStackTrace();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(),"LoginActivity failure",Toast.LENGTH_SHORT).show();
+                    //mProgress.dismiss();
+                }
+            });
+        }
+    }
 
     private void jilapatitus(){
         String tpm = Username.getText().toString();

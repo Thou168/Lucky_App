@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.Dealerstore">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_bar"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <TextView
+                        android:id="@+id/khmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="right"
+                        android:gravity="center"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:textSize="@dimen/dp_16"
+                        android:textColor="@color/white"
+                        android:text="@string/add_store" />
+                </androidx.appcompat.widget.Toolbar>
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_width="120dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_height="45dp"
+                    android:scaleType="fitXY"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="@string/dealer_store"/>
+
+            </RelativeLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                style="@style/MyStyle"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/tabColor"
+                app:tabGravity="fill"
+                app:tabMode="fixed"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pagerDealer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="?android:attr/actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+           android:layout_gravity="bottom"
+            android:id="@+id/bottom_nav"
+            app:menu="@menu/dealer_nav"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="?android:attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

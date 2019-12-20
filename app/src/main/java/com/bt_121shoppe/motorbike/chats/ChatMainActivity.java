@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
+import com.bt_121shoppe.motorbike.activities.CheckGroup;
+import com.bt_121shoppe.motorbike.activities.Dealerstore;
 import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.activities.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
@@ -27,6 +30,7 @@ import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,6 +45,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,7 +77,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
     private CircleImageView profile_image;
     private TextView username;
-    private  BottomNavigationView bnavigation;
+    private  BottomNavigationView bnavigation,bnavigation1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,45 +100,90 @@ public class ChatMainActivity extends AppCompatActivity {
             activeUser.clear_session(this);
         }
 // end
-        bnavigation = findViewById(R.id.bnaviga);
-        bnavigation.getMenu().getItem(3).setChecked(true);
-        bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()){
-                case R.id.home:
-                    Intent intent = new Intent(getApplicationContext(), Home.class);
-                    startActivity(intent);
-                    break;
-                case R.id.notification:
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-                case R.id.camera:
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), Camera.class));
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-                case R.id.message:
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-                case R.id.account :
-                    if (prefer.contains("token")||prefer.contains("id")) {
-                        startActivity(new Intent(getApplicationContext(), Account.class));
-                    }else {
-                        startActivity(new Intent(getApplicationContext(), UserAccountActivity.class));
-                    }
-                    break;
-            }
-            return false;
-        });
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            bnavigation1 = findViewById(R.id.bottom_nav);
+            bnavigation1.setVisibility(View.VISIBLE);
+            bnavigation1.getMenu().getItem(3).setChecked(true);
+            bnavigation1.setOnNavigationItemSelectedListener(menuItem -> {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), Home.class));
+                        break;
+                    case R.id.notification:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                    case R.id.dealer:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Dealerstore.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                    case R.id.message:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                    case R.id.account :
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Account.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                }
+                return false;
+            });
+        }else {
+            bnavigation = findViewById(R.id.bnaviga);
+            bnavigation.setVisibility(View.VISIBLE);
+            bnavigation.getMenu().getItem(3).setChecked(true);
+            bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.notification:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                    case R.id.camera:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Camera.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                    case R.id.message:
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                    case R.id.account :
+                        if (prefer.contains("token")||prefer.contains("id")) {
+                            startActivity(new Intent(getApplicationContext(), Account.class));
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        break;
+                }
+                return false;
+            });
+        }
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,7 +195,7 @@ public class ChatMainActivity extends AppCompatActivity {
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser==null){
-            Intent intent =new Intent(ChatMainActivity.this, UserAccountActivity.class);
+            Intent intent =new Intent(ChatMainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }else
@@ -257,7 +308,13 @@ public class ChatMainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bnavigation.getMenu().getItem(3).setChecked(true);
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            bnavigation1.getMenu().getItem(3).setChecked(true);
+        }else {
+            bnavigation.getMenu().getItem(3).setChecked(true);
+        }
     }
 
     private void getUserProfile() {

@@ -29,6 +29,7 @@ import com.bt_121shoppe.motorbike.notifications.DetailNotification;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.notifications.Token;
+import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,13 +58,14 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
     private String username="",password="",encodeAuth="";
 
     private SharedPreferences prefs=null;
-    private BottomNavigationView mBottomNavigation;
+    private BottomNavigationView mBottomNavigation,mBottomNavigation1;
     private RelativeLayout mNoNotification;
     private RecyclerView mRecyclerView;
     private ArrayList<NotificationViewModel> mNotifications;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     FirebaseUser fuser;
     DatabaseReference reference;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -91,73 +95,126 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
             activeUser.clear_session(this);
 
         /* start implementation bottom navigation */
-        mBottomNavigation=findViewById(R.id.bnaviga);
-        mBottomNavigation.getMenu().getItem(1).setChecked(true);
-        mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()){
-                case R.id.home:
-                    Intent intent=new Intent(NotificationActivity.this,Home.class);
-                    startActivity(intent);
-                    break;
-                case R.id.notification:
-                    if(prefs.contains("token") || prefs.contains("id")){
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            mBottomNavigation1=findViewById(R.id.bottom_nav);
+            mBottomNavigation1.setVisibility(View.VISIBLE);
+            mBottomNavigation1.getMenu().getItem(1).setChecked(true);
+            mBottomNavigation1.setOnNavigationItemSelectedListener(menuItem -> {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(NotificationActivity.this, Home.class));
+                        break;
+                    case R.id.notification:
+                        if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, StoreListActivity.class));
+                        }else{
+                            Intent intent=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent.putExtra("verify","camera");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.dealer:
+                        if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, Dealerstore.class));
+                        }else{
+                            Intent intent=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent.putExtra("verify","camera");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.message:
+                        if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
+                        }else{
+                            Intent intent=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent.putExtra("verify","camera");
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.account:
+                        if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, Account.class));
+                        }else{
+                            Intent intent=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent.putExtra("verify","camera");
+                            startActivity(intent);
+                        }
+                        break;
+                }
+                return false;
+            });
+        }else {
+            mBottomNavigation=findViewById(R.id.bnaviga);
+            mBottomNavigation.setVisibility(View.VISIBLE);
+            mBottomNavigation.getMenu().getItem(1).setChecked(true);
+            mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        Intent intent=new Intent(NotificationActivity.this,Home.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.notification:
+                        if(prefs.contains("token") || prefs.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(NotificationActivity.this, NotificationActivity.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(NotificationActivity.this, NotificationActivity.class));
-                    }else{
-                        Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
-                        intent1.putExtra("verify","camera");
-                        startActivity(intent1);
-                    }
-                    break;
-                case R.id.camera:
-                    if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, NotificationActivity.class));
+                        }else{
+                            Intent intent1=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent1.putExtra("verify","camera");
+                            startActivity(intent1);
+                        }
+                        break;
+                    case R.id.camera:
+                        if(prefs.contains("token") || prefs.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(NotificationActivity.this, Camera.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(NotificationActivity.this, Camera.class));
-                    }else{
-                        Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
-                        intent1.putExtra("verify","camera");
-                        startActivity(intent1);
-                    }
-                    break;
-                case R.id.message:
-                    if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, Camera.class));
+                        }else{
+                            Intent intent1=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent1.putExtra("verify","camera");
+                            startActivity(intent1);
+                        }
+                        break;
+                    case R.id.message:
+                        if(prefs.contains("token") || prefs.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
-                    }else{
-                        Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
-                        intent1.putExtra("verify","camera");
-                        startActivity(intent1);
-                    }
-                    break;
-                case R.id.account:
-                    if(prefs.contains("token") || prefs.contains("id")){
+                            startActivity(new Intent(NotificationActivity.this, ChatMainActivity.class));
+                        }else{
+                            Intent intent1=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent1.putExtra("verify","camera");
+                            startActivity(intent1);
+                        }
+                        break;
+                    case R.id.account:
+                        if(prefs.contains("token") || prefs.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(NotificationActivity.this, Account.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                        startActivity(new Intent(NotificationActivity.this, Account.class));
-                    }else{
-                        Intent intent1=new Intent(NotificationActivity.this, UserAccountActivity.class);
-                        intent1.putExtra("verify","camera");
-                        startActivity(intent1);
-                    }
-                    break;
-            }
-            return false;
-        });
+                            startActivity(new Intent(NotificationActivity.this, Account.class));
+                        }else{
+                            Intent intent1=new Intent(NotificationActivity.this, LoginActivity.class);
+                            intent1.putExtra("verify","camera");
+                            startActivity(intent1);
+                        }
+                        break;
+                }
+                return false;
+            });
+        }
         /*end implementation bottom navigation */
 
          mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
@@ -215,7 +272,14 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
     @Override
     public void onStart(){
         super.onStart();
-        mBottomNavigation.getMenu().getItem(1).setChecked(true);
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            mBottomNavigation1.getMenu().getItem(1).setChecked(true);
+        }else {
+            mBottomNavigation.getMenu().getItem(1).setChecked(true);
+        }
+
     }
 
     @Override
