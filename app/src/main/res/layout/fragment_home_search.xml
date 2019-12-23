@@ -41,7 +41,7 @@
                 android:id="@+id/img_list"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_list_c"
+                android:src="@drawable/path_3930"
                 android:layout_width="27dp"
                 android:layout_height="27dp" />
             <ImageView

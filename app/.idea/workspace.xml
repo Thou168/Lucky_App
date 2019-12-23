@@ -13,260 +13,215 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2f9b0df-44e8-4b4f-a85b-945da936516e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_common_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_common_ktx_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_fragment_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_fragment_ktx_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_runtime_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_runtime_ktx_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_ui_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_navigation_navigation_ui_ktx_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_akarnokd_rxjava2_extensions_0_20_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_pandora_bottomnavigator_bottom_navigator_1_4_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_2_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_40_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_3_40_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsoup_jsoup_1_10_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/responses/APIShopResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchConditionFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_back_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_back_white_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_drop_down_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_white_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_phone_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_place_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_store_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_setting2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_store_detail.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_search_condition.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/item_store_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v13_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v13_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_extensions_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_extensions_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_bartoszlipinski_viewpropertyobjectanimator_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_bartoszlipinski_viewpropertyobjectanimator_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_codesgood_justifiedtextview_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_codesgood_justifiedtextview_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_android_sdk_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_android_sdk_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_applinks_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_applinks_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_common_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_common_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_core_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_core_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_login_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_login_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_messenger_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_messenger_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_places_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_places_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_share_5_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_share_5_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_drawee_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_drawee_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_fbcore_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_fbcore_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_fresco_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_fresco_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_imagepipeline_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_imagepipeline_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_imagepipeline_base_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_imagepipeline_base_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_nativeimagefilters_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_nativeimagefilters_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_nativeimagetranscoder_1_13_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_fresco_nativeimagetranscoder_1_13_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_shimmer_shimmer_0_4_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_shimmer_shimmer_0_4_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_arimorty_floatingsearchview_2_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_arimorty_floatingsearchview_2_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ganfra_material_spinner_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ganfra_material_spinner_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_16_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_16_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_api_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_api_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_impl_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_impl_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_api_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_api_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_18_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_18_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_18_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_18_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_19_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_19_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_18_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_19_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_19_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_storage_18_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_storage_18_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jaredrummler_material_spinner_1_2_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jaredrummler_material_spinner_1_2_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_karumi_dexter_4_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_karumi_dexter_4_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_michaelgarnerdev_materialsearchview_materialsearchview_0_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_michaelgarnerdev_materialsearchview_materialsearchview_0_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_mikhaellopez_circularimageview_3_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_mikhaellopez_circularimageview_3_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_rengwuxian_materialedittext_library_2_1_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_rengwuxian_materialedittext_library_2_1_4_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_shagi_material_datepicker_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_shagi_material_datepicker_1_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ss_bannerslider_bannerslider_1_8_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ss_bannerslider_bannerslider_1_8_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_weiwangcn_betterspinner_library_material_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_weiwangcn_betterspinner_library_material_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_whiteelephant_monthandyearpicker_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_whiteelephant_monthandyearpicker_1_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_3_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_3_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_ivanespitiac_imageslider_1_0_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_ivanespitiac_imageslider_1_0_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_paperdb_paperdb_2_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_paperdb_paperdb_2_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_2_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_relex_circleindicator_1_2_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_relex_circleindicator_1_2_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_hockeyapp_android_HockeySDK_5_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_hockeyapp_android_HockeySDK_5_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_3_31_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_3_40_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_31_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_31_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_40_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_31_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_40_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/release/app-release.apk" beforeDir="false" afterPath="$PROJECT_DIR$/release/release/app-release.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/release/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/release/release/output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/release/release/app-release.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/release/release/output.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ic_launcher-web.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ic_launcher-web.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainAccountTabs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainAccountTabs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainPostList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainPostList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Account1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account1.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/AccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/DashboardActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/DashboardActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/HomeOldActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/HomeOldActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Item_API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Item_API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Item_discount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Item_discount.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Message.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/NotificationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/NotificationActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/SpinnerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SpinnerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Active_user.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Active_user.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_postbyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_postbyuser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/New_Main1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/New_Main1.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/New_Main2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/New_Main2.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/fragment_buy_eletronics.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/fragment_buy_eletronics.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/fragment_buy_vehicle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Buy/fragment_buy_vehicle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/Rent_Main1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/Rent_Main1.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/Rent_Main2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/Rent_Main2.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/fragment_rent_eletronics.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/fragment_rent_eletronics.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/fragment_rent_vehicle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Rent/fragment_rent_vehicle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/Sell_Main1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/Sell_Main1.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/Sell_Main2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/Sell_Main2.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/fragment_sell_eletronics.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/fragment_sell_eletronics.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/fragment_sell_vehicle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Buy_Sell_Rent/Sell/fragment_sell_vehicle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/AccountFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/AccountFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/user_post_list.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/user_post_list.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ConfirmMobileNumberActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ConfirmMobileNumberActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/RegisterActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ResetPasswordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ResetPasswordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/UserAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/UserAccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/VerifyMobileActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/VerifyMobileActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/Detail_New_Post.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/Detail_New_Post.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_edit_loan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_edit_loan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_post_history.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_post_history.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_user_like.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_user_like.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_user_post.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_user_post.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_dicount/MyAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_dicount/MyAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/SplashScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/SplashScreenActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_dicount/Detail_Discount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_dicount/Detail_Discount.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account1.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/HomeOldActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/HomeOldActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/MessageAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/MessageAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatAllFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatAllFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/firebases/classes/MyFirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/firebases/classes/MyFirebaseMessagingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Fragment_history.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Fragment_history.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Postbyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Postbyuser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/three.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/three.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/accounts/AccountFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/accounts/AccountFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/notifications/NotificationFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/notifications/NotificationFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/MessageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/MessageActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/firebases/activities/PostListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/firebases/activities/PostListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFilterResultFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFilterResultFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/Create_Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/Create_Load.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/two.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/two.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/notifications/MyService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/notifications/MyService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchTypeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchTypeActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/settings/Setting.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/settings/Setting.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/EditAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/EditAccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/User_post.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/User_post.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/lucky_app/Product_New_Post/MyAdapter_user_post.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/lucky_app/Product_New_Post/MyAdapter_user_post.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_settings_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_settings_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/action_buy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/camera.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/camera1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/chat_sample.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/default_profile_pic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/eletronic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/email.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/facebook123.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/facebook_f_100px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/fan.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/fan1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/flash_screen1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/honda_dream.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_account_circle_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_add_phone_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_back_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_back_white_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_drop_down_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_white_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_autorenew_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_brightness_1_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_camera_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_cancel_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_chat_bubble_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_close_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_default_author.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_delete_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_done_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_edit_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_email_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_favorite_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_filter_list_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_grid_on_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_home_selected.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_home_vector.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_image_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_info_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_keyboard_arrow_down_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_local_phone_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_menu_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_menu_camera.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_menu_gallery.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_menu_manage.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_menu_send.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_menu_slideshow.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_message_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_messages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_messages_selected.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_my_location_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_notifications.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_notifications_active_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_notifications_selected.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_phone_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_photo_camera_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_place_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_search_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_settings_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_settings_white_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_share_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_store_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_warning_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_buy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_camera.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_camera_selected.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_email.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_grid.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_grid_c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_image_c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_language.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_list.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_list_c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_phone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_rent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_sell.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_user_edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icon_user_selected.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_add_camera_96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_expand_arrow_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_expand_arrow_24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_map_pin_48px_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_retro_tv_32_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_scooter_32_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/icons8_scooter_32_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/image_honda_dream.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/image_suzuki.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/like.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/loan.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/loan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/logo121final.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/map_contact.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/messaging.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/motorcycle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/notification_sample.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/phone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/phone_contact.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/refresh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/slash_screen.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/square_logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/tab_account_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/tab_account_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/tab_home_camera.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/tab_home_camera.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/tab_home_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/tab_home_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/tab_message_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/tab_message_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/tab_notification_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/tab_notification_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/wifi.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_account.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_account1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_account1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_account_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_account_setting.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_account_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_account_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_buy_sell_rent.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_buy_sell_rent.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_camera2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_camera2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_home2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_home2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_contact_user2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_contact_user2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_create__load_one.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_create__load_one.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_detail_discount.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_detail_discount.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_detail_new_post.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_detail_new_post.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_filter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_filter.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_home_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_home_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_no_internet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_no_internet.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_notification.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_search.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_spinner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_spinner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_search2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_search2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/call_sheet_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/call_sheet_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/chat_item_left.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_item_left.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/contact_seller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/contact_seller.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/contact_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/contact_user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_home.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_search_type.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_search_type.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_snipper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_snipper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/detail_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/detail_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/custom_dialog_deactive.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/custom_dialog_deactive.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/dealshop_deit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/dealshop_deit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/dialog_custom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_custom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_acount.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_acount.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_chat2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_chat2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_chat_all.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_chat_all.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home_frist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home_frist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home_search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_notification2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_notification2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/image_post_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/image_post_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_chat_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_chat_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_discount.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_discount.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_filter_condition.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_filter_condition.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_grid.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_grid.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_image.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_image.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_list1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_list1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_list1t.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_list1t.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_list2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_list2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_list_rent.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_list_rent.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_loan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_loan.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/test_camera.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/test_camera.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/sell_buy_rent.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/sell_buy_rent.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/sheet_view_upload.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/sheet_view_upload.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/type_public_user1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/type_public_user1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/user_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/user_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/menu/bottom_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/bottom_navigation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-km/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-km/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/bottom_navigation1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/bottom_navigation1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/dealer_nav.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/dealer_nav.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/language.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/language.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/menu_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/menu_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/navigation_version2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/navigation_version2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/search_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/search_menu.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -329,216 +284,102 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1116">
-                  <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_edit_account.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="918">
-                  <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/settings/Setting.kt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="31" column="57" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_setting.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="234">
-                  <caret line="153" column="55" selection-start-line="153" selection-start-column="55" selection-end-line="153" selection-end-column="55" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_search_type.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/layout_search_type.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="900">
-                  <caret line="50" column="13" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/content_search_type.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="936">
-                  <caret line="52" column="45" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="45" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/SplashScreenActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_setting2.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="14" selection-end-column="54" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/values-km/strings.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="13266">
-                  <caret line="737" column="18" selection-start-line="737" selection-start-column="18" selection-end-line="737" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="28">
-                  <caret line="58" column="25" lean-forward="true" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
-                  <folding>
-                    <element signature="method#onCreate#0;class#Search1#0" />
-                    <element signature="method#Search_data#0;class#Search1#0" />
-                    <element signature="method#onActivityResult#0;class#Search1#0" />
-                    <element signature="method#language#0;class#Search1#0" />
-                    <element signature="method#locale#0;class#Search1#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_search.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1512">
-                  <caret line="84" column="18" selection-start-line="84" selection-start-column="18" selection-end-line="84" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFilterConditionFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="14508">
-                  <caret line="851" column="4" selection-start-line="851" selection-start-column="4" selection-end-line="856" selection-end-column="5" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_search_condition.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor" />
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchConditionFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="108">
-                  <caret line="13" selection-start-line="13" selection-end-line="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1134">
-                  <caret line="88" column="47" selection-start-line="88" selection-start-column="47" selection-end-line="88" selection-end-column="47" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_select_user_type.xml">
-              <provider editor-type-id="android-designer2" />
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1044">
-                  <caret line="58" column="17" selection-start-line="30" selection-start-column="4" selection-end-line="58" selection-end-column="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/FilterConditionAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1512">
+              <caret line="110" column="62" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2772">
+              <caret line="194" column="18" selection-start-line="194" selection-start-column="18" selection-end-line="194" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_postbyuser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1206">
+              <caret line="107" column="14" selection-start-line="107" selection-start-column="14" selection-end-line="107" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="93">
+              <caret line="324" column="69" selection-start-line="324" selection-start-column="69" selection-end-line="324" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/res/menu/dealer_nav.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+              <folding>
+                <element signature="e#209#223#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/Create_Load.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1746">
+              <caret line="122" column="62" selection-start-line="122" selection-start-column="62" selection-end-line="122" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/two.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1440">
+              <caret line="127" column="48" selection-start-line="127" selection-start-column="48" selection-end-line="127" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/LoanCreateActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4752">
+              <caret line="305" column="53" selection-start-line="305" selection-start-column="53" selection-end-line="305" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="48" column="90" selection-start-line="48" selection-start-column="90" selection-end-line="48" selection-end-column="90" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/EditAccountActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6282">
+              <caret line="452" selection-start-line="452" selection-end-line="452" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -600,63 +441,63 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/MessageAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatAllFragment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/MessageActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/firebases/activities/PostListActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/ProfileFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFilterResultFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historyloan.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Like_byuser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/res/menu/navigation.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/contain_main.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_dashboard.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainPostList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/Item.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Postbyuser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchTypeActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/EditAccountActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/res/menu/bottom_navigation.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/drawable/tab_home_selector.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/drawable/tab_message_selector.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/drawable/tab_notification_selector.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_account.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_account_setting.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_account_user.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_camera2.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_create__load_one.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_detail_discount.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_detail_new_post.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_filter.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_search.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_search2.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_user_information.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/call_sheet_dialog.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/custom_dialog_deactive.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/dealshop_deit.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/dialog_custom.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_acount.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_home1.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/item_filter_condition.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/item_list1.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/item_list1t.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/item_list2.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/item_loan.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/sheet_view_upload.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/type_public_user1.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/menu/bottom_navigation1.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/menu/menu_main.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/menu/navigation_version2.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/menu/search_menu.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/Detail_New_Post.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_postbyuser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/AccountFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/ChatFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment/NotificationFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_chat2.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_notification2.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/DashboardActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_main4.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/newversion/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/HomeOldActivity.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Home.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/content_search_type.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Account.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_account_setting.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/AccountSettingActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/settings/Setting.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values-km/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/menu/bottom_navigation.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_setting2.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_search.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchConditionFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java" />
+        <option value="$PROJECT_DIR$/src/main/res/menu/dealer_nav.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="950" />
-    <option name="width" value="979" />
+    <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -668,10 +509,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -684,7 +525,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="R58M225JS3Y" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../ProjectSourceCode/Android/MotorBike121Shoppe/app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../121backup_dec132019(fix vivo crash)/app" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -823,13 +664,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1561799883606</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Update for take photo on post">
-      <created>1562549405183</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1562549405183</updated>
     </task>
     <task id="LOCAL-00004" summary="Update for take photo on post">
       <created>1562557216037</created>
@@ -1167,7 +1001,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571363221226</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="update new feature version 1">
+      <created>1576633157067</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1576633157067</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1181,6 +1022,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="Structure" order="1" sideWeight="0.5053996" side_tool="true" weight="0.26070663" />
@@ -1190,16 +1032,16 @@
       <window_info id="Resources Explorer" order="5" weight="0.3261745" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Captures" order="7" sideWeight="0.50708216" side_tool="true" weight="0.5696118" />
-      <window_info content_ui="combo" id="Project" order="8" sideWeight="0.49291784" weight="0.2771812" />
+      <window_info content_ui="combo" id="Project" order="8" sideWeight="0.49291784" weight="0.7077562" />
       <window_info anchor="bottom" id="TODO" order="0" weight="0.32719547" />
       <window_info anchor="bottom" id="Debug" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.32857144" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.2852349" side_tool="true" weight="0.31303117" />
       <window_info anchor="bottom" id="Flutter Performance" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" sideWeight="0.4962527" weight="0.39548022" />
+      <window_info anchor="bottom" id="Android Profiler" order="5" sideWeight="0.4962527" weight="0.39548022" />
       <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49731544" weight="0.5339943" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.490604" visible="true" weight="0.29886687" />
-      <window_info anchor="bottom" id="Find" order="8" weight="0.51862466" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.490604" visible="true" weight="0.47450426" />
+      <window_info anchor="bottom" id="Find" order="8" weight="0.5184136" />
       <window_info anchor="bottom" id="Logcat" order="9" weight="0.30736545" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32909605" />
       <window_info anchor="bottom" id="Run" order="11" sideWeight="0.7147651" weight="0.3569405" />
@@ -1209,7 +1051,7 @@
       <window_info anchor="right" id="Gradle" order="3" weight="0.3295302" />
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info anchor="right" id="Flutter Inspector" order="5" />
-      <window_info anchor="right" id="Preview" order="6" weight="0.27114093" />
+      <window_info anchor="right" id="Preview" order="6" visible="true" weight="0.1704698" />
       <window_info anchor="right" id="Flutter Outline" order="7" weight="0.32929516" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Assistant" order="9" weight="0.33221477" />
@@ -1256,7 +1098,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="some clean up on post screen" />
     <MESSAGE value="some clean up on screen" />
     <MESSAGE value="update some process" />
     <MESSAGE value="chat" />
@@ -1281,7 +1122,8 @@
     <MESSAGE value="fix when first install" />
     <MESSAGE value="fix post bug" />
     <MESSAGE value="fix post bug 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix post bug 1" />
+    <MESSAGE value="update new feature version 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="update new feature version 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1304,383 +1146,403 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchTypeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_round.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_foreground.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_foreground.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_round.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/main_tab_layout1.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="278" column="39" selection-start-line="278" selection-start-column="39" selection-end-line="278" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_camera2.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="34" column="44" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="72" column="41" selection-start-line="72" selection-start-column="41" selection-end-line="72" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/notifications/DetailNotification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/detail_notification.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="55" lean-forward="true" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-251">
-          <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="133" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b1c865f179cf30d3ebf7f0a60aea1836/material-1.0.0/jars/classes.jar!/com/google/android/material/bottomnavigation/BottomNavigationView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_account_setting.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="24" selection-end-column="54" />
-          <folding>
-            <element signature="e#1441#1455#0" expanded="true" />
-            <element signature="e#1844#1861#0" expanded="true" />
-            <element signature="e#1878#1892#0" expanded="true" />
-            <element signature="e#2294#2316#0" expanded="true" />
-            <element signature="e#2315#2329#0" expanded="true" />
-            <element signature="e#2747#2773#0" expanded="true" />
-            <element signature="e#2752#2766#0" expanded="true" />
-            <element signature="e#3199#3216#0" expanded="true" />
-            <element signature="e#3189#3203#0" expanded="true" />
-            <element signature="e#3598#3628#0" expanded="true" />
-            <element signature="e#3626#3640#0" expanded="true" />
-            <element signature="e#3913#3929#0" expanded="true" />
-            <element signature="e#3954#3968#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="760" column="26" selection-start-line="760" selection-start-column="26" selection-end-line="760" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainLoanList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="53" column="12" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Loadbyuser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="92" column="41" selection-start-line="92" selection-start-column="41" selection-end-line="92" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="161" column="74" selection-start-line="161" selection-start-column="74" selection-end-line="161" selection-end-column="74" />
-          <folding>
-            <element signature="e#5440#5460#0" expanded="true" />
-            <element signature="e#5506#5526#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding>
-            <element signature="e#618#645#0" expanded="true" />
-            <element signature="e#900#901#0" expanded="true" />
-            <element signature="e#940#941#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/EditAccountActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="157" column="43" selection-start-line="157" selection-start-column="43" selection-end-line="157" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/UserInformationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-378">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/SelectUserTypeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="901" column="39" lean-forward="true" selection-start-line="901" selection-start-column="39" selection-end-line="901" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="45" column="44" lean-forward="true" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
-          <folding>
-            <element signature="e#1769#1787#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-285">
+          <caret line="554" column="66" selection-start-line="554" selection-start-column="66" selection-end-line="554" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/menu/bottom_navigation.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        <state relative-caret-position="147">
+          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/tab_home_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/tab_message_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/tab_notification_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_account.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="28" column="48" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_account_setting.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_account_user.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="33" column="48" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_camera2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-248">
+          <caret line="1108" column="16" selection-start-line="1108" selection-start-column="16" selection-end-line="1108" selection-end-column="16" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_create__load_one.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="100" column="33" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_detail_discount.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="328" column="32" selection-start-line="328" selection-start-column="32" selection-end-line="328" selection-end-column="32" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_detail_new_post.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="603" column="55" selection-start-line="603" selection-start-column="55" selection-end-line="603" selection-end-column="55" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_filter.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_search.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="88" column="39" selection-start-line="88" selection-start-column="39" selection-end-line="88" selection-end-column="39" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_search2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_user_information.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="64" column="44" lean-forward="true" selection-start-line="64" selection-start-column="44" selection-end-line="64" selection-end-column="44" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/call_sheet_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="36" column="43" lean-forward="true" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/custom_dialog_deactive.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="36" column="37" lean-forward="true" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/dealshop_deit.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="112" column="38" lean-forward="true" selection-start-line="112" selection-start-column="38" selection-end-line="112" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/dialog_custom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_acount.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_home.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="63" column="54" selection-start-line="63" selection-start-column="54" selection-end-line="63" selection-end-column="54" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_home1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_filter_condition.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_list1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="132" column="50" selection-start-line="132" selection-start-column="50" selection-end-line="132" selection-end-column="50" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_list1t.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="132" column="46" selection-start-line="132" selection-start-column="46" selection-end-line="132" selection-end-column="46" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_list2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="67" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_loan.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="138" column="50" selection-start-line="138" selection-start-column="50" selection-end-line="138" selection-end-column="50" />
           <folding>
-            <element signature="e#773#790#0" expanded="true" />
+            <element signature="e#6077#6091#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="179" selection-start-line="179" selection-end-line="179" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/sheet_view_upload.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="47" column="10" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/type_public_user1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="428" column="48" selection-start-line="428" selection-start-column="48" selection-end-line="428" selection-end-column="48" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/menu/bottom_navigation1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+          <folding>
+            <element signature="e#337#359#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/menu/menu_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/menu/navigation_version2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/menu/search_menu.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="66" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/Detail_New_Post.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="1386" column="39" selection-start-line="1386" selection-start-column="39" selection-end-line="1386" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="163">
+          <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_edit_account.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
+        <state relative-caret-position="-321">
+          <caret line="1004" column="76" selection-start-line="1004" selection-start-column="76" selection-end-line="1004" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/settings/Setting.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="31" column="57" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
+        <state relative-caret-position="306">
+          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_setting.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_search_type.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/layout_search_type.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="50" column="13" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/content_search_type.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="936">
-          <caret line="52" column="45" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/SplashScreenActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="153" column="55" selection-start-line="153" selection-start-column="55" selection-end-line="153" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_setting2.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="14" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values-km/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13266">
-          <caret line="737" column="18" selection-start-line="737" selection-start-column="18" selection-end-line="737" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_search.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/FilterConditionAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1512">
-          <caret line="84" column="18" selection-start-line="84" selection-start-column="18" selection-end-line="84" selection-end-column="18" />
+          <caret line="110" column="62" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFilterConditionFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14508">
-          <caret line="851" column="4" selection-start-line="851" selection-start-column="4" selection-end-line="856" selection-end-column="5" />
+        <state relative-caret-position="2772">
+          <caret line="194" column="18" selection-start-line="194" selection-start-column="18" selection-end-line="194" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_search_condition.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/searches/SearchConditionFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_postbyuser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1206">
+          <caret line="107" column="14" selection-start-line="107" selection-start-column="14" selection-end-line="107" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/Create_Load.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1746">
+          <caret line="122" column="62" selection-start-line="122" selection-start-column="62" selection-end-line="122" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/two.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="127" column="48" selection-start-line="127" selection-start-column="48" selection-end-line="127" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/LoanCreateActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4752">
+          <caret line="305" column="53" selection-start-line="305" selection-start-column="53" selection-end-line="305" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="88" column="47" selection-start-line="88" selection-start-column="47" selection-end-line="88" selection-end-column="47" />
+        <state relative-caret-position="432">
+          <caret line="48" column="90" selection-start-line="48" selection-start-column="90" selection-end-line="48" selection-end-column="90" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/useraccount/EditAccountActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+        <state relative-caret-position="6282">
+          <caret line="452" selection-start-line="452" selection-end-line="452" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_select_user_type.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="58" column="17" selection-start-line="30" selection-start-column="4" selection-end-line="58" selection-end-column="17" />
+        <state relative-caret-position="93">
+          <caret line="324" column="69" selection-start-line="324" selection-start-column="69" selection-end-line="324" selection-end-column="69" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java">
+    <entry file="file://$PROJECT_DIR$/src/main/res/menu/dealer_nav.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="58" column="25" lean-forward="true" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
+        <state relative-caret-position="396">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
           <folding>
-            <element signature="method#onCreate#0;class#Search1#0" />
-            <element signature="method#Search_data#0;class#Search1#0" />
-            <element signature="method#onActivityResult#0;class#Search1#0" />
-            <element signature="method#language#0;class#Search1#0" />
-            <element signature="method#locale#0;class#Search1#0" />
+            <element signature="e#209#223#0" expanded="true" />
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
   <component name="masterDetails">

@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/home"
-        android:icon="@drawable/ic_home_vector"
+        android:icon="@drawable/home_nav"
         android:title="@string/home"/>
     <item
         android:id="@+id/notification"
-        android:icon="@drawable/ic_store_black_24dp"
+        android:icon="@drawable/store_nav"
         android:title="@string/notification"/>
     <item
         android:id="@+id/dealer"
-        android:icon="@drawable/store"
+        android:icon="@drawable/post_nav"
         android:title="@string/dealer_store"/>
     <item
         android:id="@+id/message"
-        android:icon="@drawable/icon_chat"
+        android:icon="@drawable/chat_nav"
         android:title="@string/chat"/>
     <item
         android:id="@+id/account"
-        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:icon="@drawable/login_nav"
         android:title="@string/account"/>
 </menu>

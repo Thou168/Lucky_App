@@ -117,7 +117,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         mToolbar=findViewById(R.id.toolbar);
         mToolbar.setTitle("Account Settings");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationIcon(R.drawable.back_arrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

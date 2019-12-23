@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:drawable="@drawable/ic_notifications_selected"
+<item android:drawable="@drawable/path_88"
       android:state_selected="true" />
-<item android:drawable="@drawable/ic_notifications" />
+<item android:drawable="@drawable/store_nav" />
 </selector>

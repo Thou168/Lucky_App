@@ -83,7 +83,7 @@ public class Search1 extends AppCompatActivity {
         mProgress = findViewById(R.id.progress_search);
         not_found = (TextView) findViewById(R.id.tvSearch_notFound);
         not_found.setVisibility(View.GONE);
-        //tv_filter = findViewById(R.id.tv_filter);
+        tv_filter = findViewById(R.id.tv_filter);
         sv= (SearchView) findViewById(R.id.mSearch);
         rv = (RecyclerView)findViewById(R.id.myRecycler) ;
         sv.setFocusable(true);
@@ -117,12 +117,12 @@ public class Search1 extends AppCompatActivity {
             }
         });
 
-//        tv_filter.setOnClickListener(v -> {
-//            Intent intent1 = new Intent(Search1.this,Filter.class);
-//            intent1.putExtra("title",sv.getQuery().toString());
-//            startActivityForResult(intent1,1);
-//
-//        });
+        tv_filter.setOnClickListener(v -> {
+            Intent intent1 = new Intent(Search1.this,Filter.class);
+            intent1.putExtra("title",sv.getQuery().toString());
+            startActivityForResult(intent1,1);
+
+        });
     }  // create
 
     @Override

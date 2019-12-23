@@ -864,12 +864,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_6;
             }
         });
-        //Add by Raksmey
+        //dd by Raksmey
         btremove_pic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (imageView1 != null){
-                    imageView1.setImageResource(R.drawable.icons8_add_camera_96);
+                    imageView1.setImageResource(R.drawable.path_4);
                     bitmapImage1=null;
                     btremove_pic1.setVisibility(View.GONE);
                 }
@@ -4451,7 +4451,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
                 btremove_pic1.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4463,7 +4463,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
                 btremove_pic2.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4475,7 +4475,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
                 btremove_pic3.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4487,7 +4487,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
                 btremove_pic4.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4500,7 +4500,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView5);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_6;
                 btremove_pic5.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4512,7 +4512,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView6);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
                 btremove_pic6.setVisibility(View.VISIBLE);
             }
 //
@@ -4524,7 +4524,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView1);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
                 btremove_pic1.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_2) {
@@ -4535,7 +4535,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView2);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
                 btremove_pic2.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_3) {
@@ -4546,7 +4546,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView3);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
                 btremove_pic3.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_4) {
@@ -4557,7 +4557,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView4);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
                 btremove_pic4.setVisibility(View.VISIBLE);
 
             }
@@ -4570,7 +4570,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView5);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
                 btremove_pic5.setVisibility(View.VISIBLE);
 
             }
@@ -4582,7 +4582,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imageView6);
+                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
                 btremove_pic6.setVisibility(View.VISIBLE);
             }
             // end
@@ -4759,7 +4759,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
         mMap = googleMap;
         LatLng current_location = new LatLng(latitude, longtitude);
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
@@ -4779,7 +4779,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             public void onMapClick(LatLng latLng) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 latitude = latLng.latitude;
                 longtitude = latLng.longitude;

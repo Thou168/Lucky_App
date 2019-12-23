@@ -545,7 +545,7 @@
                         android:id="@+id/cr_img"
                         app:civ_border_width="2dp"
                         app:civ_border_color="@color/circle"
-                        android:src="@drawable/user"
+                        android:src="@drawable/group_2293"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
                     <TextView
@@ -575,7 +575,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/phone_contact"
+                            android:src="@drawable/call"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
                         <TextView
@@ -601,7 +601,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_email_black_24dp"
+                            android:src="@drawable/call"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
                         <TextView
@@ -629,7 +629,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/map_contact"
+                            android:src="@drawable/group_1"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
                         <TextView
@@ -734,7 +734,7 @@
             android:id="@+id/btn_call"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/phone"
+            android:src="@drawable/call"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_sms"
             app:layout_constraintStart_toStartOf="parent"
@@ -744,7 +744,7 @@
             android:id="@+id/btn_sms"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/messaging"
+            android:src="@drawable/group_2287"
             app:layout_constraintBottom_toBottomOf="@+id/btn_call"
             app:layout_constraintEnd_toStartOf="@+id/btn_like"
             app:layout_constraintStart_toEndOf="@+id/btn_call"

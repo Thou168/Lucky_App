@@ -321,7 +321,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().placeholder(R.drawable.group_2293)).into(imgProfile)
                             }
                             Log.d("Response", result)
                         }
@@ -355,7 +355,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().placeholder(R.drawable.default_profile_pic)).into(imgCover)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().placeholder(R.drawable.group_2293)).into(imgCover)
                             }
                             Log.d("Response", result)
                         }
@@ -400,7 +400,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgProfile)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imgProfile)
                             }
                             Log.d("Response", result)
                         }
@@ -434,7 +434,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                         override fun onResponse(call: Call, response: Response) {
                             val result = response.body()!!.string()
                             runOnUiThread {
-                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(imgCover)
+                                Glide.with(this@Account1).load(mPhotoFile).apply(RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imgCover)
                             }
                             Log.d("Response", result)
                         }
@@ -546,7 +546,7 @@ class Account1 : AppCompatActivity(){//}, Sheetviewupload.BottomSheetListener {
                             //Glide.with(this@Account).load(profilepicture).forImagePreview().into(imgCover)
 
                             if (profilepicture.isNullOrEmpty()) {
-                                imgProfile!!.setImageResource(R.drawable.user)
+                                imgProfile!!.setImageResource(R.drawable.group_2293)
                                 //Log.d("Profile", "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
                             } else {
                                 val decodedString = Base64.decode(profilepicture, Base64.DEFAULT)

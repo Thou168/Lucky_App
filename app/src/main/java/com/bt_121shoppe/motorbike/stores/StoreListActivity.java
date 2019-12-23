@@ -45,10 +45,10 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         mRecyclerViewStoreList=(RecyclerView) findViewById(R.id.recyclerview_store_list);
         mSwipeRefreshLayout=findViewById(R.id.refresh);
 
-        Drawable imgleft = getApplicationContext().getResources().getDrawable( R.drawable.ic_place_black_24dp );
-        Drawable imgright = getApplicationContext().getResources().getDrawable( R.drawable.ic_arrow_drop_down_black_24dp );
-        mButtonLocation.setCompoundDrawablesWithIntrinsicBounds( imgleft, null, imgright, null);
-        mButtonSort.setCompoundDrawablesWithIntrinsicBounds( null, null, imgright, null);
+        //Drawable imgleft = getApplicationContext().getResources().getDrawable( R.drawable.ic_place_black_24dp );
+        //Drawable imgright = getApplicationContext().getResources().getDrawable( R.drawable.ic_arrow_drop_down_black_24dp );
+        //mButtonLocation.setCompoundDrawablesWithIntrinsicBounds( imgleft, null, imgright, null);
+        //mButtonSort.setCompoundDrawablesWithIntrinsicBounds( null, null, imgright, null);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerViewStoreList.setHasFixedSize(true);

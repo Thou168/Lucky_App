@@ -32,7 +32,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:padding="2dp"
-                            android:src="@drawable/ic_null" />
+                            android:src="@drawable/icon_null" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilName"
@@ -65,7 +65,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:padding="2dp"
-                            android:src="@drawable/ic_null" />
+                            android:src="@drawable/icon_null" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilPhone"

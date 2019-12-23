@@ -30,7 +30,7 @@
         android:paddingLeft="10dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:drawableLeft="@drawable/ic_camera_black_24dp"
+        android:drawableLeft="@drawable/post_nav"
         />
     <View style="@style/line"/>
     <TextView
@@ -42,7 +42,7 @@
         android:textColor="#090000"
         android:background="#ffff"
         android:gravity="center_vertical"
-        android:drawableLeft="@drawable/ic_image_black_24dp"
+        android:drawableLeft="@drawable/path_18"
         android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         />

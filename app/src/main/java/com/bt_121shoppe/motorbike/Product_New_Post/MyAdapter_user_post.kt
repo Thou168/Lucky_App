@@ -247,7 +247,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
 
                 }
                 if (item.status_id == "4") {
-                    btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.refresh, 0, 0, 0)
+                    //btn_renewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.refresh, 0, 0, 0)
                     btn_renewal.setTextColor(Color.parseColor("#0A0909"))
                     btn_renewal.setText(R.string.renew)
 

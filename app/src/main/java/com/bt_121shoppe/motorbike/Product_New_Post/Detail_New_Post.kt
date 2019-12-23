@@ -504,7 +504,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         }
 
 
-                        //Add by Raksmey 02/10/2019
+                        //dd by Raksmey 02/10/2019
                         var ptitle:String
                         if (postDetail.post_sub_title.isEmpty()){
                             postTitle=CommonFunction.generatePostSubTitle(postDetail.modeling,postDetail.year,postDetail.color)
@@ -1384,7 +1384,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         with(builder)
         {
             setTitle(R.string.for_loan_title)
-            setIcon(R.drawable.ic_message_black_24dp)
+            setIcon(R.drawable.chat_nav)
             setMessage(R.string.already_created)
             setPositiveButton(getString(R.string.ok), DialogInterface.OnClickListener { dialog, which ->
                 refresh

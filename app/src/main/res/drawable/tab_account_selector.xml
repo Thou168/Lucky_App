@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:drawable="@drawable/icon_user_selected"
+<item android:drawable="@drawable/group_2288"
     android:state_selected="true" />
-<item android:drawable="@drawable/icon_user" />
+<item android:drawable="@drawable/login_nav" />
 </selector>

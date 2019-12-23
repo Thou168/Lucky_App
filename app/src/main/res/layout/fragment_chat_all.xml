@@ -19,7 +19,7 @@
             android:id="@+id/notification_empty_logo"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/chat_sample"/>
+            android:src="@drawable/group_2293"/>
 
         <TextView
             android:layout_width="match_parent"

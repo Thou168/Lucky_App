@@ -250,7 +250,7 @@ public class Create_Load extends AppCompatActivity {
 //    }
 //    public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
 //        FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
-//        //Add All Fragment To List
+//        //dd All Fragment To List
 //        Adapter.add(new one(), "null");
 //        Adapter.add(new two(), "null");
 //        Adapter.add(new three(), "null");

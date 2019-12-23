@@ -61,6 +61,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/ic_arrow_drop_down_gray"/>
+<!--            <TextView-->
+<!--                android:gravity="center"-->
+<!--                android:paddingStart="@dimen/dp_8"-->
+<!--                android:textSize="15dp"-->
+<!--                android:text="@string/new_post"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent" />-->
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/img_list"

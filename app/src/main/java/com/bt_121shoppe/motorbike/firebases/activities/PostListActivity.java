@@ -78,9 +78,9 @@ public class PostListActivity extends AppCompatActivity implements SportAdapter.
 //        ButterKnife.bind(this);
         mNestedScroll=findViewById(R.id.nestedScrollView);
 
-        Glide.with(this).load(R.drawable.icon_grid).into(mGridView);
-        Glide.with(this).load(R.drawable.icon_image).into(mGallaryView);
-        Glide.with(this).load(R.drawable.icon_list_c).into(mListView);
+        Glide.with(this).load(R.drawable.path_16).into(mGridView);
+        Glide.with(this).load(R.drawable.path_18).into(mGallaryView);
+        Glide.with(this).load(R.drawable.path_3930).into(mListView);
 
         setUp();
 

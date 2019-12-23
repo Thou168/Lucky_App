@@ -8,26 +8,27 @@
     android:orientation="vertical"
     android:background="#EFEEF4"
     tools:context=".Startup.Filter">
+
     <androidx.appcompat.widget.Toolbar
-        android:background="#0F65E6"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize">
         <TextView
             android:gravity="center"
             android:id="@+id/tv_result"
-            android:drawableStart="@drawable/icon_back"
-            android:text="@string/result"
+            android:drawableStart="@drawable/back_arrow"
+            android:text=""
             android:drawablePadding="0dp"
             android:layout_marginStart="0dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"/>
+            android:layout_height="wrap_content" />
         <TextView
             android:textSize="@dimen/dp_18"
             android:text="@string/filter"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"/>
         <TextView
             android:id="@+id/tv_done"
             android:text="@string/done"
@@ -35,6 +36,7 @@
             android:gravity="center"
             android:layout_marginEnd="@dimen/dp_16"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.appcompat.widget.Toolbar>
@@ -49,9 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#EFEEF4"
-        >
-
+        android:background="#EFEEF4">
 
         <LinearLayout
             android:id="@+id/linea_cate"

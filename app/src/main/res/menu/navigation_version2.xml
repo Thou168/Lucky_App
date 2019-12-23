@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_vector"
+        android:icon="@drawable/home_nav"
         android:title="@string/home"/>
 
     <item
         android:id="@+id/navigation_post"
-        android:icon="@drawable/ic_photo_camera_black_24dp"
+        android:icon="@drawable/post_nav"
         android:title="@string/post"/>
 
     <item
         android:id="@+id/navigation_chats"
-        android:icon="@drawable/ic_chat_bubble_black_24dp"
+        android:icon="@drawable/chat_nav"
         android:title="@string/chat"/>
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_active_black_24dp"
+        android:icon="@drawable/bell"
         android:title="@string/notification"/>
 
     <item
         android:id="@+id/navigation_accounts"
-        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:icon="@drawable/login_nav"
         android:title="@string/account"/>
 </menu>

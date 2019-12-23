@@ -96,9 +96,9 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
         mViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewImage.setImageResource(R.drawable.icon_image_c);
-                mViewGrid.setImageResource(R.drawable.icon_grid);
-                mViewList.setImageResource(R.drawable.icon_list);
+                mViewImage.setImageResource(R.drawable.path_3929);
+                mViewGrid.setImageResource(R.drawable.path_16);
+                mViewList.setImageResource(R.drawable.path_17);
                 //Collections.sort(mAllPosts, (s1,s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
                 mAllPostAdapter=new AllPostAdapter(mAllPosts,"Image");
                 mAllPostRecyclerView.setAdapter(mAllPostAdapter);
@@ -110,9 +110,9 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
         mViewGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewImage.setImageResource(R.drawable.icon_image);
-                mViewGrid.setImageResource(R.drawable.icon_grid_c);
-                mViewList.setImageResource(R.drawable.icon_list);
+                mViewImage.setImageResource(R.drawable.path_18);
+                mViewGrid.setImageResource(R.drawable.path_3928);
+                mViewList.setImageResource(R.drawable.path_17);
                 //Collections.sort(mAllPosts, (s1,s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
                 mAllPostAdapter=new AllPostAdapter(mAllPosts,"Grid");
                 mAllPostRecyclerView.setAdapter(mAllPostAdapter);
@@ -124,9 +124,9 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
         mViewList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewImage.setImageResource(R.drawable.icon_image);
-                mViewGrid.setImageResource(R.drawable.icon_grid);
-                mViewList.setImageResource(R.drawable.icon_list_c);
+                mViewImage.setImageResource(R.drawable.path_18);
+                mViewGrid.setImageResource(R.drawable.path_16);
+                mViewList.setImageResource(R.drawable.path_3930);
                 //Collections.sort(mAllPosts, (s1,s2)->Integer.compare(s2.getPostId(),s1.getPostId()));
                 mAllPostAdapter=new AllPostAdapter(mAllPosts,"List");
                 mAllPostRecyclerView.setAdapter(mAllPostAdapter);

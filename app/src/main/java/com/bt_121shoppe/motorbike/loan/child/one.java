@@ -329,7 +329,7 @@ public class one extends Fragment{
            index = mCo_borrower.indexOfChild(radioButton);
             radio3 = mCo_borrower.findViewById(checkedId);
             img6.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            // Add logic here
+            // dd logic here
             switch (index) {
                 case 0: // first button
                     relative_conspirator.setVisibility(View.VISIBLE);

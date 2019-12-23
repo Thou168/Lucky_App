@@ -23,7 +23,7 @@
             android:id="@+id/filter_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableEnd="@drawable/ic_filter_list_black_24dp"/>
+            android:drawableEnd="@drawable/filter_1"/>
         <TextView
             android:id="@+id/Closed_activity"
             android:layout_width="wrap_content"

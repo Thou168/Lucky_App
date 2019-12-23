@@ -37,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/btn_list"
                     android:layout_gravity="left"
-                    android:src="@drawable/icon_list"/>
+                    android:src="@drawable/path_17"/>
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_gravity="left"

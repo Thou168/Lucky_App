@@ -51,6 +51,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Startup.Search1;

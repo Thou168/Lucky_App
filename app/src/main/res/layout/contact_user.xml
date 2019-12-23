@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_gravity="center"
-            android:src="@drawable/phone_contact"
+            android:src="@drawable/group_2229"
             android:layout_width="20dp"
             android:layout_height="20dp" />
         <TextView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:src="@drawable/map_contact"
+                android:src="@drawable/group_1"
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
             <TextView

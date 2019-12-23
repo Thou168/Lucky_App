@@ -300,9 +300,9 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             @Override
             public void onClick(View view) {
                 mViewType="List";
-                mListView.setImageResource(R.drawable.icon_list_c);
-                mGridView.setImageResource(R.drawable.icon_grid);
-                mGallaryView.setImageResource(R.drawable.icon_image);
+                mListView.setImageResource(R.drawable.path_3930);
+                mGridView.setImageResource(R.drawable.path_16);
+                mGallaryView.setImageResource(R.drawable.path_18);
                 mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"List"));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
             }
@@ -312,9 +312,9 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             @Override
             public void onClick(View view) {
                 mViewType="Grid";
-                mListView.setImageResource(R.drawable.icon_list);
-                mGridView.setImageResource(R.drawable.icon_grid_c);
-                mGallaryView.setImageResource(R.drawable.icon_image);
+                mListView.setImageResource(R.drawable.path_17);
+                mGridView.setImageResource(R.drawable.path_3928);
+                mGallaryView.setImageResource(R.drawable.path_18);
                 mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Grid"));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
             }
@@ -324,9 +324,9 @@ public class HomeFilterResultFragment extends android.app.Fragment {
             @Override
             public void onClick(View view) {
                 mViewType="Image";
-                mListView.setImageResource(R.drawable.icon_list);
-                mGridView.setImageResource(R.drawable.icon_grid);
-                mGallaryView.setImageResource(R.drawable.icon_image_c);
+                mListView.setImageResource(R.drawable.path_17);
+                mGridView.setImageResource(R.drawable.path_16);
+                mGallaryView.setImageResource(R.drawable.path_3929);
                 mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Image"));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
             }

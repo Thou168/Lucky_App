@@ -21,7 +21,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/profile_image"
-            android:src="@drawable/user"/>
+            android:src="@drawable/group_2293"/>
 
         <RelativeLayout
             android:layout_toRightOf="@id/imageView"

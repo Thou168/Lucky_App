@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:drawable="@drawable/icon_camera_selected"
+<item android:drawable="@drawable/group_2286"
     android:state_selected="true" />
-<item android:drawable="@drawable/icon_camera" />
+<item android:drawable="@drawable/post_nav" />
 </selector>

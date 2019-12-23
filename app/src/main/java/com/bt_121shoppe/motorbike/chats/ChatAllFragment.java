@@ -188,7 +188,7 @@ public class ChatAllFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     User fuser=dataSnapshot.getValue(User.class);
 
                     if(fuser.getImageURL().equals("default"))
-                        holder.profileImage.setImageResource(R.drawable.user);
+                        holder.profileImage.setImageResource(R.drawable.group_2293);
                     else
                         Glide.with(context).load(fuser.getImageURL()).into(holder.profileImage);
 

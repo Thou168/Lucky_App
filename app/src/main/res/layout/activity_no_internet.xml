@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/wifi" />
+        android:src="@drawable/group_2292" />
 
     <Button
         android:id="@+id/btntryagain"

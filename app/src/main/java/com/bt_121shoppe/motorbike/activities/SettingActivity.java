@@ -21,7 +21,7 @@ public class SettingActivity extends AppCompatActivity {
         mToolbar=findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.setting));
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationIcon(R.drawable.back_arrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

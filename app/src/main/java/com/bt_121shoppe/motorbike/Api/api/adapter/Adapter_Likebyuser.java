@@ -100,7 +100,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
-                    //Add by Raksmey
+                    //dd by Raksmey
                     String strPostTitle="";
                     String lang = view.txtview1.getText().toString();
                     if(response.body().getPost_sub_title()== null){

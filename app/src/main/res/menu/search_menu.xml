@@ -7,7 +7,7 @@
         app:actionViewClass="android.widget.SearchView"
         android:title="TODO" />
     <item android:id="@+id/filter_search"
-        android:icon="@drawable/ic_filter_list_black_24dp"
+        android:icon="@drawable/filter"
         app:showAsAction="always|collapseActionView"
         android:title="TODO" />
     <item android:id="@+id/clear_search"

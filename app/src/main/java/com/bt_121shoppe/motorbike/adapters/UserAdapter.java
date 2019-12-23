@@ -42,7 +42,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             User user=mUsers.get(position);
             holder.username.setText(user.getUsername());
             if(user.getImageURL().equals("default")){
-                holder.profile_image.setImageResource(R.drawable.user);
+                holder.profile_image.setImageResource(R.drawable.group_2293);
             }else{
                 Glide.with(mContext).load(user.getImageURL()).into(holder.profile_image);
             }

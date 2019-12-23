@@ -520,7 +520,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         Log.e("TAG","here request photo");
                         requestStoragePermission(false);
                         break;
-  //Add case 2 by Raksmey
+  //dd case 2 by Raksmey
                     case 2:
                         AlertDialog builder = new AlertDialog.Builder(Account.this).create();
                         builder.setMessage(getString(R.string.delete_photo));

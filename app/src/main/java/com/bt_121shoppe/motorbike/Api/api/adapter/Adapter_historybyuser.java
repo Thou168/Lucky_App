@@ -107,7 +107,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 //            e.printStackTrace();
 //        }
 //End
-//Add by Raksmey
+//dd by Raksmey
         String strPostTitle="";
         String lang = view.strView.getText().toString();
         int year =Integer.valueOf(model.getYear());

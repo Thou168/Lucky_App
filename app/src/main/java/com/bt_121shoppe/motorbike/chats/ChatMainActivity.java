@@ -218,7 +218,7 @@ public class ChatMainActivity extends AppCompatActivity {
                 com.bt_121shoppe.motorbike.models.User user=dataSnapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
                 //username.setText(user.getUsername());
                 if(user.getImageURL().equals("default")){
-                    profile_image.setImageResource(R.drawable.user);
+                    profile_image.setImageResource(R.drawable.group_2293);
                 }else{
                     Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
                 }
@@ -342,10 +342,10 @@ public class ChatMainActivity extends AppCompatActivity {
                             User converJsonJava = new User();
                             converJsonJava = gson.fromJson(respon,User.class);
                             if(converJsonJava==null){
-                                profile_image.setImageResource(R.drawable.user);
+                                profile_image.setImageResource(R.drawable.group_2293);
                             }else {
                                 if (converJsonJava.getProfile() == null) {
-                                    profile_image.setImageResource(R.drawable.user);
+                                    profile_image.setImageResource(R.drawable.group_2293);
                                 } else {
                                     //user1.profile.base64_profile_image
                                     byte[] decodedString = Base64.decode(converJsonJava.getProfile().getBase64_profile_image(), Base64.DEFAULT);
@@ -362,7 +362,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                profile_image.setImageResource(R.drawable.user);
+                profile_image.setImageResource(R.drawable.group_2293);
             }
         });
     }

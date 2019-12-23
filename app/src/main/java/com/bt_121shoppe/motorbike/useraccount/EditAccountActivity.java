@@ -2141,7 +2141,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
 
         mMap = googleMap;
         LatLng current_location = new LatLng(latitude, longtitude);
@@ -2162,7 +2162,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             public void onMapClick(LatLng latLng) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_map_pin_48px_3));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 latitude = latLng.latitude;
                 longtitude = latLng.longitude;
@@ -2226,7 +2226,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
 
             }
             bitmapImage= BitmapFactory.decodeFile(mPhotoFile.getPath());
-            Glide.with(EditAccountActivity.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.default_profile_pic)).into(btnlogo);
+            Glide.with(EditAccountActivity.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(btnlogo);
             Log.d(TAG,"IMage "+imageUri);
 
         }

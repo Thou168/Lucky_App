@@ -192,7 +192,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 btRenewal.setTextColor(Color.parseColor("#FF9400"));
                 btRenewal.setText(R.string.pending);
             }else{
-                btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
+                //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
                 btRenewal.setTextColor(Color.parseColor("#0A0909"));
                 btRenewal.setText(R.string.renew);
 

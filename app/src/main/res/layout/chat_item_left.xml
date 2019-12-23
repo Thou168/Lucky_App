@@ -10,7 +10,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/profile_image"
-        android:src="@drawable/user"/>
+        android:src="@drawable/group_2292"/>
 
     <TextView
         android:layout_width="wrap_content"

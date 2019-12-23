@@ -122,7 +122,6 @@
                 android:background="#00FFFFFF"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
-                android:drawableLeft="@drawable/ic_autorenew_black_24dp"
                 android:textAllCaps="false" />
 
             <Button
@@ -132,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="#00FFFFFF"
-                android:drawableLeft="@drawable/ic_edit_black_24dp"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:text="@string/button_edit"
@@ -148,7 +146,6 @@
                 android:gravity="center"
                 android:background="#00FFFFFF"
                 android:paddingLeft="@dimen/dp_16"
-                android:drawableLeft="@drawable/ic_delete_black_24dp"
                 android:text="@string/sold" />
         </RelativeLayout>
     </LinearLayout>

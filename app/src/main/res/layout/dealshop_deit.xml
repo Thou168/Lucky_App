@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:background="@null"
             android:paddingEnd="8dp"
-            android:src="@drawable/ic_add_phone_24dp"
+            android:src="@drawable/dd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageButton
@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:background="@null"
             android:paddingEnd="8dp"
-            android:src="@drawable/ic_cancel_black_24dp"
+            android:src="@drawable/close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -78,7 +78,7 @@
             android:layout_gravity="center"
             android:background="@null"
             android:paddingEnd="8dp"
-            android:src="@drawable/ic_add_phone_24dp"
+            android:src="@drawable/dd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -112,7 +112,7 @@
             android:layout_gravity="center"
             android:background="@null"
             android:paddingEnd="8dp"
-            android:src="@drawable/ic_add_phone_24dp"
+            android:src="@drawable/dd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

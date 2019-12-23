@@ -259,7 +259,7 @@ public class two extends Fragment {
             index = rgBuying_product_insurance.indexOfChild(radioButton);
             radio2 = rgBuying_product_insurance.findViewById(checkedId);
             img5.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            // Add logic here
+            // dd logic here
             switch (index) {
                 case 0: // first button
                     mBuy_product_insurance = true;
@@ -277,7 +277,7 @@ public class two extends Fragment {
             index1 = mAllowto_visit_home.indexOfChild(radioButton);
             radio3 = mAllowto_visit_home.findViewById(checkedId);
             img6.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            // Add logic here
+            // dd logic here
             switch (index) {
                 case 0: // first button
                     mVisit_home = true;

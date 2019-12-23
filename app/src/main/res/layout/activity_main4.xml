@@ -43,14 +43,14 @@
                     android:layout_height="25dp"
                     android:layout_gravity="right"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:src="@drawable/flag_khmer" />
+                    android:src="@drawable/language_1" />
                 <ImageView
                     android:id="@+id/english"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="right"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:src="@drawable/flag_english" />
+                    android:src="@drawable/language" />
             </androidx.appcompat.widget.Toolbar>
 
             <ImageView
@@ -60,7 +60,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="40dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/logo" />
+                android:src="@drawable/group_11" />
 
         </RelativeLayout>
 

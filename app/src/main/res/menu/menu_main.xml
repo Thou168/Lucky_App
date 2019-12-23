@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_home_vector"
+        android:icon="@drawable/home_nav"
         android:title="@string/home"
         tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/post"
-        android:icon="@drawable/ic_camera_black_24dp"
+        android:icon="@drawable/post_nav"
         android:title="@string/post"
         tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/chat"
-        android:icon="@drawable/ic_chat_bubble_black_24dp"
+        android:icon="@drawable/chat_nav"
         android:title="@string/chat"
         tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/notification"
-        android:icon="@drawable/ic_notifications_active_black_24dp"
+        android:icon="@drawable/bell"
         android:title="@string/notification"
         tools:ignore="HardcodedText"/>
     <item
         android:id="@+id/account"
-        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:icon="@drawable/group_2228"
         android:title="@string/account"
         tools:ignore="HardcodedText"/>
 </menu>

@@ -28,7 +28,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:layout_marginStart="0dp"
-                    android:drawableStart="@drawable/ic_arrow_back_white_24dp"
+                    android:drawableStart="@drawable/back_arrow"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.SearchView
@@ -43,15 +43,7 @@
 
                 </androidx.appcompat.widget.SearchView>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_filter"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:layout_marginEnd="@dimen/dp_16"-->
-<!--                    android:text="@string/filter"-->
-<!--                    android:drawableEnd="@drawable/ic_filter_list_black_24dp"-->
-<!--                    android:textStyle="bold" />-->
+
 
                 <!--            <TextView-->
                 <!--                android:id="@+id/tv_filter"-->
@@ -86,21 +78,40 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_below="@id/appToolbar">
+
+        <TextView
+            android:id="@+id/tv_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:drawableEnd="@drawable/filter_1"
+            android:gravity="center_vertical"
+            android:text="@string/filter" />
+
+    </RelativeLayout>
+
     <FrameLayout
+        android:visibility="gone"
         android:id="@+id/frameLayout"
-        android:layout_below="@+id/appToolbar"
+        android:layout_below="@+id/rl_filter"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_marginTop="5dp"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/myRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appToolbar" />
-
+        android:layout_below="@+id/rl_filter" />
 
     <TextView
         android:gravity="center"

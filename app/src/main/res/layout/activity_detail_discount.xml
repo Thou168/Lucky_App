@@ -294,7 +294,7 @@
                         android:id="@+id/txt_show_place"
                         android:layout_width="wrap_content"
                         android:layout_below="@+id/line10"
-                        android:drawableLeft="@drawable/ic_my_location_black_24dp"
+                        android:drawableLeft="@drawable/group_1"
                         android:paddingLeft="5dp"
                         android:layout_marginLeft="8dp"
                         android:text="@string/location"
@@ -332,7 +332,7 @@
         <ImageButton
             android:id="@+id/btn_share"
             android:background="#00FFFFFF"
-            android:src="@drawable/ic_share_black_24dp"
+            android:src="@drawable/group_2065"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_gravity="right"
             android:layout_width="wrap_content"

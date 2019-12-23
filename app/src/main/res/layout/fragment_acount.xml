@@ -11,14 +11,14 @@
        <ImageButton
            android:id="@+id/btn_edit"
            android:background="#00FFFFFF"
-           android:src="@drawable/ic_account_circle_black_24dp"
+           android:src="@drawable/login_nav"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
        <ImageButton
            android:layout_marginEnd="@dimen/dp_16"
            android:id="@+id/btn_setting"
            android:background="#00FFFFFF"
-           android:src="@drawable/ic_settings_black_24dp"
+           android:src="@drawable/path_3906"
            android:layout_gravity="right"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
@@ -63,7 +63,7 @@
                     android:orientation="vertical">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgProfile"
-                        android:src="@drawable/user"
+                        android:src="@drawable/group_2293"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:civ_border_width="2dp">

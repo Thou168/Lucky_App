@@ -526,9 +526,9 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onClick(View view) {
                 mViewType="List";
-                mListView.setImageResource(R.drawable.icon_list_c);
-                mGridView.setImageResource(R.drawable.icon_grid);
-                mGallaryVIew.setImageResource(R.drawable.icon_image);
+                mListView.setImageResource(R.drawable.path_3930);
+                mGridView.setImageResource(R.drawable.path_16);
+                mGallaryVIew.setImageResource(R.drawable.path_18);
                 mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"List"));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(SearchTypeActivity.this,1));
             }
@@ -538,9 +538,9 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onClick(View view) {
                 mViewType="Grid";
-                mListView.setImageResource(R.drawable.icon_list);
-                mGridView.setImageResource(R.drawable.icon_grid_c);
-                mGallaryVIew.setImageResource(R.drawable.icon_image);
+                mListView.setImageResource(R.drawable.path_17);
+                mGridView.setImageResource(R.drawable.path_3928);
+                mGallaryVIew.setImageResource(R.drawable.path_18);
                 mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Grid"));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(SearchTypeActivity.this,2));
             }
@@ -550,9 +550,9 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onClick(View view) {
                 mViewType="Image";
-                mListView.setImageResource(R.drawable.icon_list);
-                mGridView.setImageResource(R.drawable.icon_grid);
-                mGallaryVIew.setImageResource(R.drawable.icon_image_c);
+                mListView.setImageResource(R.drawable.path_17);
+                mGridView.setImageResource(R.drawable.path_16);
+                mGallaryVIew.setImageResource(R.drawable.path_3929);
                 mRecyclerView.setAdapter(new SearchTypeAdapter(mPosts,"Image"));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(SearchTypeActivity.this,1));
             }

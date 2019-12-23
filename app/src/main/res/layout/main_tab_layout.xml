@@ -180,7 +180,7 @@
                 <ImageButton
                     android:id="@+id/btnsetting"
                     android:textSize="14dp"
-                    android:src="@drawable/ic_settings_white_24dp"
+                    android:src="@drawable/path_3906"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:background="@null"

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../121backup_dec132019(fix vivo crash).iml" filepath="$PROJECT_DIR$/../121backup_dec132019(fix vivo crash).iml" />
+      <module fileurl="file://$PROJECT_DIR$/../121backup_dec202019(new ui).iml" filepath="$PROJECT_DIR$/../121backup_dec202019(new ui).iml" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" />
     </modules>
   </component>

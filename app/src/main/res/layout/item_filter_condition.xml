@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_circle_outline_24"/>
+            android:src="@drawable/icon_null"/>
 
     </RelativeLayout>
 
