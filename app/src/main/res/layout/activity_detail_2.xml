@@ -137,6 +137,7 @@
                 <TextView
                     android:layout_marginStart="@dimen/dp_4"
                     android:id="@+id/tv_phone"
+                    android:paddingStart="@dimen/dp_4"
                     android:textSize="14sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -167,6 +168,7 @@
                     android:id="@+id/tv_email"
                     android:text=""
                     android:textSize="14sp"
+                    android:paddingStart="@dimen/dp_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -195,6 +197,7 @@
                     android:id="@+id/address"
                     android:layout_marginStart="@dimen/dp_4"
                     android:textSize="14sp"
+                    android:paddingStart="@dimen/dp_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
