@@ -22,6 +22,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
@@ -226,11 +228,12 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         }else {
             view.title.setText(jok);
         }
-//        view.title.setText(strPostTitle);
+        view.title.setText(strPostTitle);
 
 //Endd
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
+            view.ds_price.setVisibility(View.GONE);
             view.txt_discount.setVisibility(View.INVISIBLE);
         }else {
             rs_price = Double.parseDouble(model.getCost());
@@ -242,13 +245,13 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             }
             view.cost.setText("$"+rs_price);
             view.txt_discount.setVisibility(View.VISIBLE);
-            Double co_price = Double.parseDouble(model.getCost());
+            double co_price = Double.parseDouble(model.getCost());
             view.txt_discount.setText("$"+co_price);
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         Double finalRs_price = rs_price;
         view.linearLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, Detail_New_Post.class);
+            Intent intent = new Intent(mContext, Detail_new_post_java.class);
             intent.putExtra("Price", model.getCost());
             intent.putExtra("Discount", finalRs_price);
             if (model.getStatus()==3){
@@ -323,12 +326,13 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         void onItemClick(View view, ViewModel viewModel);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,date,item_type,txtview,txt_discount,strView;
+        TextView ds_price,title,cost,date,item_type,txtview,txt_discount,strView;
         ImageView imageView;
         Button btn_renewal,btn_edit,btn_delete;
         LinearLayout linearLayout;
         ViewHolder(View view){
             super(view);
+            ds_price = view.findViewById(R.id.ds_price);
             title = view.findViewById(R.id.title);
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);

@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -222,10 +223,10 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         tvFullname=findViewById(R.id.tvFullname);
         inttab=0;
 
-        //tabs.setupWithViewPager(viewPager);
-        //inttab = getIntent().getIntExtra("Tab",0);
-        //Log.d("Acc",inttab+" "+tabs);
-        //tabs.getTabAt(inttab).select();
+//        tabs.setupWithViewPager(viewPager);
+//        inttab = getIntent().getIntExtra("Tab",0);
+//        Log.d("Acc",inttab+" "+tabs);
+//        tabs.getTabAt(inttab).select();
 
         mCompressor = new FileCompressor(this);
         setUpPager();
@@ -708,6 +709,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         tabs.addTab(tabs.newTab().setText(R.string.tab_like));
         tabs.addTab(tabs.newTab().setText(R.string.tab_loan));
         tabs.setOnTabSelectedListener(this);
+        tabs.setupWithViewPager(viewPager);
         Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
         viewPager.setAdapter(adapter);
     }
@@ -801,6 +803,17 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         @Override
         public int getCount() {
             return tabCount;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position==0) {
+                return getApplicationContext().getString(R.string.tab_post);
+            } else if (position==1) {
+                return getApplicationContext().getString(R.string.tab_like);
+            } else {
+                return getApplicationContext().getString(R.string.tab_loan);
+            }
         }
     }
 

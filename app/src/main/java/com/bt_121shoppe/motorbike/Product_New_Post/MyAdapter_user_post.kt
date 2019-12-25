@@ -23,6 +23,7 @@ import android.graphics.Color
 import android.os.Build
 //import javax.swing.text.StyleConstants.setIcon
 import androidx.appcompat.app.AlertDialog
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java
 import com.bt_121shoppe.motorbike.activities.Account
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.api.TabA1_api
@@ -102,7 +103,7 @@ class MyAdapter_user_post(private val itemList: ArrayList<TabA1_api>, val type: 
             }
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-                val intent = Intent(itemView.context, Detail_New_Post::class.java)
+                val intent = Intent(itemView.context, Detail_new_post_java::class.java)
                 intent.putExtra("Price", item.cost)
                 intent.putExtra("postt", 1)
                 intent.putExtra("ID", item.id)

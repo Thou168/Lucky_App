@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
@@ -31,7 +30,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
         this.items =players;
         this.filterList=players;
     }
-
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {

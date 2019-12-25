@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java
 import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
@@ -65,7 +66,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val post_type = itemView.findViewById<ImageView>(R.id.post_type)
+//        val post_type = itemView.findViewById<ImageView>(R.id.post_type)
+        val post_type = itemView.findViewById<TextView>(R.id.post_type)
         val imageView = itemView.findViewById<ImageView>(R.id.image)
         val title = itemView.findViewById<TextView>(R.id.title)
         val cost = itemView.findViewById<TextView>(R.id.tv_price)
@@ -131,22 +133,36 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             var lang:String = tv_user_view.text as String
             if(lang == "View:") {
                 if (item.postType.equals("sell")) {
-                    post_type.setImageResource(R.drawable.sell)
-                } else if (item.postType.equals("buy")) {
-                    post_type.setImageResource(R.drawable.buy)
-                } else
-                    post_type.setImageResource(R.drawable.rent)
+//                    post_type.setImageResource(R.drawable.sell)
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeView);
+                    post_type.setText(R.string.sell)
+                    post_type.setBackgroundResource(R.drawable.roundimage)
+                } else if (item.postType.equals("rent")) {
+//                    post_type.setImageResource(R.drawable.buy)
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeView);
+                    post_type.setText(R.string.ren)
+                    post_type.setBackgroundResource(R.drawable.roundimage_rent)
+                }
+//                } else
+//                    post_type.setImageResource(R.drawable.rent)
             }else {
                 if (item.postType.equals("sell")) {
-                    post_type.setImageResource(R.drawable.sell_kh)
-                } else if (item.postType.equals("buy")) {
-                    post_type.setImageResource(R.drawable.buy_kh)
-                } else
-                    post_type.setImageResource(R.drawable.rent_kh)
+//                    post_type.setImageResource(R.drawable.sell_kh)
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeView);
+                    post_type.setText(R.string.sell)
+                    post_type.setBackgroundResource(R.drawable.roundimage)
+                } else if (item.postType.equals("rent")) {
+//                    post_type.setImageResource(R.drawable.buy_kh)
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeView);
+                    post_type.setText(R.string.ren)
+                    post_type.setBackgroundResource(R.drawable.roundimage_rent)
+                }
+//                } else
+//                    post_type.setImageResource(R.drawable.rent_kh)
             }
 
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-                val intent = Intent(itemView.context, Detail_New_Post::class.java)
+                val intent = Intent(itemView.context, Detail_new_post_java::class.java)
                   intent.putExtra("Discount",price)
                   intent.putExtra("Price",item.cost)
                   intent.putExtra("ID",item.id)

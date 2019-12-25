@@ -121,9 +121,10 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public class ViewHolder extends BaseViewHolder{
 
         ImageView coverImageView;
-        ImageView typeImageView;
+//        ImageView typeImageView;
+        TextView typeView;
         TextView postTitle;
-        TextView postLocationDT;
+//        TextView postLocationDT;
         TextView postPrice;
         TextView postOriginalPrice;
         TextView postView;
@@ -133,9 +134,9 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             coverImageView=itemView.findViewById(R.id.image);
-            typeImageView=itemView.findViewById(R.id.post_type);
+            typeView=itemView.findViewById(R.id.post_type);
             postTitle=itemView.findViewById(R.id.title);
-            postLocationDT=itemView.findViewById(R.id.location);
+//            postLocationDT=itemView.findViewById(R.id.location);
             postPrice=itemView.findViewById(R.id.tv_price);
             postOriginalPrice=itemView.findViewById(R.id.tv_discount);
             postView=itemView.findViewById(R.id.user_view);
@@ -146,9 +147,9 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         protected void clear() {
             coverImageView.setImageDrawable(null);
-            typeImageView.setImageDrawable(null);
+//            typeView.setImageDrawable(null);
             postTitle.setText("");
-            postLocationDT.setText("");
+//            postLocationDT.setText("");
             postPrice.setText("");
             postOriginalPrice.setText("");
             postView.setText("");
@@ -163,23 +164,34 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
-                if (mPost.getPost_type().equals("sell"))
-                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPost_type().equals("rent"))
-                    Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPost_type().equals("buy"))
-                    Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
+                if (mPost.getPost_type().equals("sell")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeImageView);
+                    typeView.setText(R.string.sell);
+                    typeView.setBackgroundResource(R.drawable.roundimage);
+                }
+                else if (mPost.getPost_type().equals("rent")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
+                    typeView.setText(R.string.ren);
+                    typeView.setBackgroundResource(R.drawable.roundimage_rent);
+                }
+//                else if (mPost.getPost_type().equals("buy"))
+//                    Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
                 strPostTitle = mPost.getPost_sub_title().split(",")[0];
             }else{
-                if (mPost.getPost_type().equals("sell"))
-                    Glide.with(itemView.getContext()).load(R.drawable.sell_kh).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPost_type().equals("rent"))
-                    Glide.with(itemView.getContext()).load(R.drawable.rent_kh).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPost_type().equals("buy"))
-                    Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
+                if (mPost.getPost_type().equals("sell")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell_kh).thumbnail(0.1f).into(typeImageView);
+                    typeView.setText(R.string.sell);
+                    typeView.setBackgroundResource(R.drawable.roundimage);
+                }
+                else if (mPost.getPost_type().equals("rent")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.rent_kh).thumbnail(0.1f).into(typeImageView);
+                    typeView.setText(R.string.ren);
+                    typeView.setBackgroundResource(R.drawable.roundimage_rent);
+                }
+//                else if (mPost.getPost_type().equals("buy"))
+//                    Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
                 strPostTitle = mPost.getPost_sub_title().split(",").length>1?mPost.getPost_sub_title().split(",")[1]:mPost.getPost_sub_title().split(",")[0];
             }
-
 
 //            if(mPost.getPost_sub_title().isEmpty()){
 //                strPostTitle=CommonFunction.generatePostSubTitle(mPost.getModeling(),mPost.getYear(),mPost.getColor()).split(",")[0];
@@ -202,7 +214,7 @@ public class SearchTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            }
 
             postTitle.setText(strPostTitle);
-            postLocationDT.setText("");
+//            postLocationDT.setText("");
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {

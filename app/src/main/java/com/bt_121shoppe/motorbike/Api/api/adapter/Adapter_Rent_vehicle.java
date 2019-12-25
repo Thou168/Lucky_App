@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -76,7 +78,7 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
         view.title.setText(model.getTitle());
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         view.linearLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, Detail_New_Post.class);
+            Intent intent = new Intent(mContext, Detail_new_post_java.class);
             intent.putExtra("Price", model.getCost());
 //            intent.putExtra("postt", 1);
             intent.putExtra("ID",Integer.parseInt(iditem));
@@ -100,13 +102,15 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         if (model.getPost_type().equals("sell")){
             view.item_type.setText(R.string.sell_t);
-            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
+//            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
+            view.item_type.setBackgroundResource(R.drawable.roundimage);
         }else if (model.getPost_type().equals("buy")){
             view.item_type.setText(R.string.buy_t);
             view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
         }else {
             view.item_type.setText(R.string.rent);
-            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
+//            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
+            view.item_type.setBackgroundResource(R.drawable.roundimage_rent);
         }
         try{
             Service apiServiece = Client.getClient().create(Service.class);

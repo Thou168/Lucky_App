@@ -1,5 +1,9 @@
 package com.bt_121shoppe.motorbike.Product_New_Post
 
+//import com.google.android.gms.maps.GoogleMap
+//import com.google.android.gms.location.FusedLocationProviderClient
+//import com.google.android.gms.maps.GoogleMap
+//import com.google.android.material.bottomsheet.BottomSheetBehavior
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -8,16 +12,17 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.*
+import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextWatcher
 import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
@@ -26,42 +31,37 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.custom.sliderimage.logic.SliderImage
-import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount
-import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.adapters.ShopAdapter
 import com.bt_121shoppe.motorbike.chats.ChatActivity
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction
 import com.bt_121shoppe.motorbike.loan.Create_Load
 import com.bt_121shoppe.motorbike.models.PostViewModel
+import com.bt_121shoppe.motorbike.useraccount.User_post
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
 import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bt_121shoppe.motorbike.utils.LoanCalculator
-
-import com.google.android.gms.maps.GoogleMap
+import com.custom.sliderimage.logic.SliderImage
 import com.google.android.gms.maps.CameraUpdateFactory
-
-//import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
-//import com.google.android.gms.location.FusedLocationProviderClient
-//import com.google.android.gms.maps.GoogleMap
-//import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import de.hdodenhof.circleimageview.CircleImageView
@@ -77,6 +77,7 @@ import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.graphics.Bitmap as Bitmap1
 
 class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
     private val TAG = Detail_Discount::class.java.simpleName
@@ -193,7 +194,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
             getMyLoan()
         }
         p = intent.getIntExtra("ID",0)
-        pt=intent.getIntExtra("postt",0)
+        pt = intent.getIntExtra("postt",0)
         initialProductPostDetail(Encode)
         submitCountView(Encode)
         countPostView(Encode)
@@ -434,17 +435,12 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 //        startActivity(intent)
         finish()
     }
-
-    fun cuteString(st: String, indext: Int): String {
-        val separated = st.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        return separated[indext]
-    }
     fun initialProductPostDetail(encode: String){
         val prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = prefer.getString("My_Lang", "")
-        var url:String
-        var request:Request
-        val auth = "Basic $encode"
+        val url:String
+        val request:Request
+        val auth = "Basic$encode"
         if(pt==1) {
             url = ConsumeAPI.BASE_URL + "postbyuser/" + postId
             request=Request.Builder()
@@ -478,7 +474,6 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 val gson = Gson()
                 try {
                     runOnUiThread {
-
                         postDetail = gson.fromJson(mMessage, PostViewModel::class.java)
                         Log.e(TAG,"D"+ mMessage)
 
@@ -495,10 +490,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             }
 
                         }
-
-                        // hide button call chat like loan by samang 27/08/19
-
-                        var create_by =  postDetail.created_by.toInt()
+//
+//                        // hide button call chat like loan by samang 27/08/19
+//
+                        val create_by =  postDetail.created_by.toInt()
                         if (create_by == pk){
                             Layout_call_chat_like_loan.visibility = View.GONE
                         }
@@ -507,7 +502,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         //dd by Raksmey 02/10/2019
                         var ptitle:String
                         if (postDetail.post_sub_title.isEmpty()){
-                            postTitle=CommonFunction.generatePostSubTitle(postDetail.modeling,postDetail.year,postDetail.color)
+                            postTitle= CommonFunction.generatePostSubTitle(postDetail.modeling,postDetail.year,postDetail.color)
                             if (language.equals("en"))
                                 ptitle = postTitle.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                             else
@@ -519,17 +514,17 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                                 ptitle = postDetail.getPost_sub_title().split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                         tvPostTitle.setText(ptitle)
                         postTitle=ptitle
+                        tvPostTitle.setTextSize(22F)
+                        tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
                         postPrice=discount.toString()
                         postFrontImage=postDetail.front_image_path.toString()
                         postType=postDetail.post_type
 
-                        tvPostTitle.setTextSize(22F)
-                        tvPostTitle.setTextColor(getColor(R.color.sunflower_black))
                         tvPrice.setText("$ "+ discount)
                         edLoanPrice.setText(""+discount)
                         tvPostCode.setText(postDetail.post_code.toString())
-//                        tvPostCode.setText(postDetail.id.toString())
-                        show_amount = "$"+discount.toString()
+                        tvPostCode.setText(postDetail.id.toString())
+//                        show_amount = "$"+discount.toString()
 //                        tvPrice1.setText("$"+ postDetail.cost)
 
                         edLoanDeposit.addTextChangedListener(object: TextWatcher {
@@ -573,7 +568,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         if (discount == 0.00){
                             tvDiscount.visibility = View.GONE
 //                            tvPrice.visibility = View.GONE
-                            show_amount = "$"+postDetail.cost.toString()
+//                            show_amount = "$"+postDetail.cost.toString()
                             tvPrice.text ="$ "+postDetail.cost
 //                            show_amount_loan = postDetail.cost.toString()
                             edLoanPrice.setText(""+postDetail.cost)
@@ -680,8 +675,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             longtitude = java.lang.Double.valueOf(splitAddr[1])
 
                             get_location(latitude, longtitude)
-                            val mapFragment = supportFragmentManager
-                                    .findFragmentById(R.id.map_detail_newpost) as SupportMapFragment?
+                            val mapFragment = supportFragmentManager.findFragmentById(R.id.map_detail_newpost) as SupportMapFragment?
                             mapFragment?.getMapAsync(OnMapReadyCallback {
                                 this@Detail_New_Post.onMapReady(it)
                             })
@@ -691,10 +685,10 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         sdf.timeZone = TimeZone.getTimeZone("GMT+7")
 
 
-                        val base64_front_image=postDetail.front_image_path.toString()
-                        val base64_right_image=postDetail.right_image_path.toString()
-                        val base64_left_image=postDetail.left_image_path.toString()
-                        val base64_back_image=postDetail.back_image_path.toString()
+//                        val base64_front_image=postDetail.front_image_path.toString()
+//                        val base64_right_image=postDetail.right_image_path.toString()
+//                        val base64_left_image=postDetail.left_image_path.toString()
+//                        val base64_back_image=postDetail.back_image_path.toString()
                         var front_image:String=""
                         var right_image:String=""
                         var back_image:String=""
@@ -735,7 +729,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                         getUserProfile(created_by,auth)
 
                         //Initial Related Post
-                        var postType:String=""
+                        var postType=""
                         val rent=postDetail.rents
                         val sale=postDetail.sales
                         val buy=postDetail.buys
@@ -1193,11 +1187,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                 Base64.NO_WRAP)
     }
 
-    fun getImageLocal(filePath:String):Bitmap{
+    fun getImageLocal(filePath:String): Bitmap1 {
         return getImageLocal(filePath,BitmapUtil.REQUEST_WIDTH,BitmapUtil.REQUEST_HEIGHT)
     }
 
-    fun getImageLocal(filePath:String,reqWidth:Int, reqHeight:Int):Bitmap{
+    fun getImageLocal(filePath:String,reqWidth:Int, reqHeight:Int): Bitmap1 {
         if(reqWidth==-1||reqHeight==-1){ // no subsample and no
             return BitmapFactory.decodeFile(filePath)
         }else {
@@ -1247,9 +1241,9 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
 
     }
 
-    fun getImageUri(inContext:Context,inImage:Bitmap):Uri {
+    fun getImageUri(inContext:Context,inImage: Bitmap1):Uri {
         val bytes:ByteArrayOutputStream = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        inImage.compress(Bitmap1.CompressFormat.JPEG, 100, bytes)
         val path:String = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
         return Uri.parse(path)
     }
@@ -1316,6 +1310,11 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
         val language = prefer.getString("My_Lang", "")
         Log.d("language",language)
         language(language)
+    }
+
+    fun cuteString(st: String, indext: Int): String {
+        val separated = st.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        return separated[indext]
     }
 
     private fun getMyLoan() {

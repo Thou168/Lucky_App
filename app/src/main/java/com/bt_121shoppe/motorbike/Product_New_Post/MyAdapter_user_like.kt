@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java
 import com.bt_121shoppe.motorbike.activities.Account
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.R
@@ -91,7 +92,7 @@ class MyAdapter_user_like(private val itemList: ArrayList<Unlike_api>, val type:
 
             Log.d("Like by id", item.like_id.toString())
             itemView.findViewById<LinearLayout>(R.id.linearLayout).setOnClickListener {
-                val intent = Intent(itemView.context, Detail_New_Post::class.java)
+                val intent = Intent(itemView.context, Detail_new_post_java::class.java)
                 intent.putExtra("Price",item.cost)
                 intent.putExtra("ID",item.id)
                 itemView.context.startActivity(intent)

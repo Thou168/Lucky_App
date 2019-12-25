@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,7 +94,8 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public class ViewHolder extends BaseViewHolder{
 
         ImageView coverImageView;
-        ImageView typeImageView;
+//        ImageView typeImageView;
+        TextView typeView;
         TextView postTitle;
         TextView postLocationDT;
         TextView postPrice;
@@ -101,11 +103,14 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postView;
         TextView postLang;
         CircleImageView img_user;
+        RelativeLayout relativeLayout;
+        TextView ds_price;
 
         public ViewHolder(View itemView) {
             super(itemView);
             coverImageView=itemView.findViewById(R.id.image);
 //            typeImageView=itemView.findViewById(R.id.thumbnailType);
+            typeView=itemView.findViewById(R.id.post_type);
             postTitle=itemView.findViewById(R.id.title);
             postLocationDT=itemView.findViewById(R.id.location);
             postPrice=itemView.findViewById(R.id.tv_discount);
@@ -113,6 +118,8 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postView=itemView.findViewById(R.id.view);
             postLang=itemView.findViewById(R.id.user_view);
             img_user = itemView.findViewById(R.id.img_user);
+            relativeLayout = itemView.findViewById(R.id.relative_view);
+            ds_price = itemView.findViewById(R.id.ds_price);
         }
 
         @Override
@@ -120,7 +127,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             coverImageView.setImageDrawable(null);
 //            typeImageView.setImageDrawable(null);
             postTitle.setText("");
-            postLocationDT.setText("");
+//            postLocationDT.setText("");
             postPrice.setText("");
             postOriginalPrice.setText("");
             postView.setText("");
@@ -131,10 +138,16 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             final PostProduct mPost=mPostList.get(position);
 
             Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
-//            if(mPost.getPostType().equals("sell"))
+            if(mPost.getPostType().equals("sell")) {
 //                Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeImageView);
-//            else if(mPost.getPostType().equals("rent"))
+                typeView.setText(R.string.sell);
+                typeView.setBackgroundResource(R.drawable.roundimage);
+            }
+            else if(mPost.getPostType().equals("rent")) {
 //                Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
+                typeView.setText(R.string.ren);
+                typeView.setBackgroundResource(R.drawable.roundimage_rent);
+            }
 //            else if(mPost.getPostType().equals("buy"))
 //                Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
 
@@ -149,7 +162,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     strPostTitle=mPost.getPostTitle().split(",")[0];
             postTitle.setText(strPostTitle);
 
-            postLocationDT.setText(mPost.getLocationDuration());
+//            postLocationDT.setText(mPost.getLocationDuration());
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {
                 postOriginalPrice.setText("$ "+mPost.getPostPrice());
@@ -157,14 +170,19 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 Double cost=Double.parseDouble(mPost.getPostPrice());
                 if(mPost.getDiscountType().equals("amount")){
                     cost=cost-Double.parseDouble(mPost.getDiscountAmount());
+                    relativeLayout.setVisibility(View.GONE);
                 }else if(mPost.getDiscountType().equals("percent")){
                     Double discountPrice=cost*(Double.parseDouble(mPost.getDiscountAmount())/100);
+                    int per1 = (int) ( Double.parseDouble(mPost.getDiscountAmount()));
                     cost=cost-discountPrice;
+                    ds_price.setText(per1+"%");
+                    relativeLayout.setVisibility(View.VISIBLE);
                 }
                 mPrice=cost;
                 postPrice.setText("$ "+cost.toString());
             }else{
                 postOriginalPrice.setVisibility(View.GONE);
+                relativeLayout.setVisibility(View.GONE);
             }
             postView.setText(String.valueOf(mPost.getCountView()));
 

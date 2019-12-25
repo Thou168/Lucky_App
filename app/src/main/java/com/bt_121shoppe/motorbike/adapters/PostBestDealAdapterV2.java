@@ -144,7 +144,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
             }else {
                 if (lang.equals("View:")) {
                     strPostTitle = mPost.getPost_sub_title().split(",")[0];
-                    jok = strPostTitle;
+//                    jok = strPostTitle;
 //                    if (jok.length() > 15) {
 //                        jok = jok.substring(0, 15) + "...";
 //                        postTitle.setText(jok);

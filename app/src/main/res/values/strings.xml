@@ -17,7 +17,7 @@
     <string name="deposit_message">Withdrawal must be less than the value!</string>
     <string name="nav_detail">Detail</string>
     <string name="detail">DETAIL</string>
-    <string name="description">DESCRIPTION</string>
+    <string name="description">Detail info</string>
     <string name="Description">Description</string>
     <string name="tax">Tax Type</string>
     <string name="postcode">Post Code</string>
@@ -606,7 +606,7 @@
     <string name="history">History</string>
     <string name="history_loan">History</string>
     <string name="loan_active">Active Loan</string>
-    <string name="view">View: </string>
+    <string name="view">View </string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
@@ -648,11 +648,13 @@
     <string name="Left_and_right_engine_counter">Left and right engine counter</string>
     <string name="Engine_head">Engine head</string>
     <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
+    <string name="Assembly">Machine Assembly</string>
     <string name="Console">Console</string>
 
     <string name="other_sections">III. Other sections</string>
 
     <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
+    <string name="accessories">Accessories</string>
 
     <string name="error_number">Cannot enter more than 100 entries</string>
     //edit account

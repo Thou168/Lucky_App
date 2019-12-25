@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <ImageView
+                    android:id="@+id/khmer"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/flag_khmer" />
+                <ImageView
+                    android:id="@+id/english"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/flag_english" />
+                <ImageView
+                    android:id="@+id/search_homepage"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_search_black_24dp" />
+            </androidx.appcompat.widget.Toolbar>
+            <ImageView
+                android:id="@+id/src_logo_icon"
+                android:layout_centerVertical="true"
+                android:layout_width="70dp"
+                android:layout_marginStart="50dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/logo_moto" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include
+        android:layout_marginTop="?android:attr/actionBarSize"
+        layout="@layout/content_search_type_new"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -168,7 +169,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     });
 
                     view.linearLayout.setOnClickListener(v -> {
-                        Intent intent = new Intent(mContext, Detail_New_Post.class);
+                        Intent intent = new Intent(mContext, Detail_new_post_java.class);
                         intent.putExtra("id",Integer.parseInt(loanid));
                         intent.putExtra("ID",postid);
                         mContext.startActivity(intent);

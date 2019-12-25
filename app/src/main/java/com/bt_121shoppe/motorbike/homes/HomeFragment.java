@@ -319,13 +319,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mPostBestDeals=new ArrayList<>();
-                mPostBestDealAdpater=new PostBestDealAdapter(new ArrayList<>());
+                mPostBestDealAdpater= new PostBestDealAdapter(new ArrayList<>());
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     try{
                         JSONObject obj=new JSONObject((Map) snapshot.getValue());
                         int status=obj.getInt("status");
                         String discountAmount=obj.getString("discountAmount");
                         String type = obj.getString("type");
+//                        float category = obj.getInt("category");
                         if(status==4 && Double.parseDouble(discountAmount)>0 && !type.equals("buy")){
                             String createdAt = obj.getString("createdAt");
                             long diffInDays=0;
@@ -339,9 +340,8 @@ public class HomeFragment extends Fragment {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                                 dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
                                 String ccdate=utcFormat.format(currentdate);
-                                Date startDate = date;
                                 Date endDate   = utcFormat.parse(ccdate);
-                                long duration  = endDate.getTime() - startDate.getTime();
+                                long duration  = endDate.getTime() - date.getTime();
                                 diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
 
                             }
@@ -354,16 +354,12 @@ public class HomeFragment extends Fragment {
                                 String discountType = obj.getString("discountType");
                                 int viewCount = obj.getInt("viewCount");
                                 String title = obj.getString("subTitle");
-
                                 //String[] splitTitle=title.split(",");
                                 mPostBestDeals.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount));
                             }
                         }
-                    }catch (JSONException je){
+                    }catch (JSONException | ParseException je){
                         je.printStackTrace();
-                    }
-                    catch (ParseException e) {
-                        e.printStackTrace();
                     }
                 }
 
@@ -371,7 +367,7 @@ public class HomeFragment extends Fragment {
                     mBestDealNoResult.setVisibility(View.VISIBLE);
                 else {
                     //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                    Collections.sort(mPostBestDeals, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
+                    Collections.sort(mPostBestDeals, (s1, s2) -> Integer.compare(s1.getPostId(), s2.getPostId()));
                     mPostBestDealAdpater.addItems(mPostBestDeals);
                     mBestDealRecyclerView.setAdapter(mPostBestDealAdpater);
                     mPostBestDealAdpater.notifyDataSetChanged();
@@ -559,6 +555,7 @@ public class HomeFragment extends Fragment {
                     try{
                         JSONObject obj=new JSONObject((Map) snapshot.getValue());
                         String type=obj.getString("type");
+//                        float category = obj.getInt("category");
                         int status=obj.getInt("status");
                         String discountAmount=obj.getString("discountAmount");
                         if(status==4 && Double.parseDouble(discountAmount)<=0 && !type.equals("buy")){
@@ -590,11 +587,8 @@ public class HomeFragment extends Fragment {
                                 mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount));
                             }
                         }
-                    }catch (JSONException je) {
+                    }catch (JSONException | ParseException je) {
                         je.printStackTrace();
-                    }
-                    catch (ParseException e) {
-                        e.printStackTrace();
                     }
                 }
 

@@ -1,8 +1,10 @@
 package com.bt_121shoppe.motorbike.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,13 +16,16 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostProduct;
+import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
@@ -40,6 +45,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<PostProduct> mPostList;
     private String mView;
     private String jok;
+    Bundle bundle;
 
     public AllPostAdapter(List<PostProduct> postList,String view){
         this.mPostList=postList;
@@ -106,37 +112,41 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public class ViewHolder extends BaseViewHolder{
 
         ImageView coverImageView;
-        ImageView typeImageView;
+//        ImageView typeImageView;
+        TextView typeView;
         TextView postTitle;
-        TextView postLocationDT;
+//        TextView postLocationDT;
         TextView postPrice;
         TextView postOriginalPrice;
         TextView postView;
         TextView postLang;
         CircleImageView img_user;
+        TextView cate;
 
         public ViewHolder(View itemView) {
             super(itemView);
             coverImageView=itemView.findViewById(R.id.image);
-            typeImageView=itemView.findViewById(R.id.post_type);
+            typeView=itemView.findViewById(R.id.post_type);
             postTitle=itemView.findViewById(R.id.title);
-            postLocationDT=itemView.findViewById(R.id.location);
+//            postLocationDT=itemView.findViewById(R.id.location);
             postPrice=itemView.findViewById(R.id.tv_price);
             postOriginalPrice=itemView.findViewById(R.id.tv_discount);
             postView=itemView.findViewById(R.id.user_view);
             postLang=itemView.findViewById(R.id.user_view1);
             img_user = itemView.findViewById(R.id.img_user);
+            cate = itemView.findViewById(R.id.cate);
         }
 
         @Override
         protected void clear() {
             coverImageView.setImageDrawable(null);
-            typeImageView.setImageDrawable(null);
+//            typeImageView.setImageDrawable(null);
             postTitle.setText("");
-            postLocationDT.setText("");
+//            postLocationDT.setText("");
             postPrice.setText("");
             postOriginalPrice.setText("");
             postView.setText("");
+//            cate.setText("");
             //postLang.setText("");
         }
 
@@ -147,25 +157,46 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
             if(lang.equals("View:")) {
-                if (mPost.getPostType().equals("sell"))
-                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPostType().equals("rent"))
-                    Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPostType().equals("buy"))
-                    Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
+                if (mPost.getPostType().equals("sell")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeView);
+                    typeView.setText(R.string.sell);
+                    typeView.setBackgroundResource(R.drawable.roundimage);
+                }
+                else if (mPost.getPostType().equals("rent")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.rent).thumbnail(0.1f).into(typeView);
+                    typeView.setText(R.string.ren);
+                    typeView.setBackgroundResource(R.drawable.roundimage_rent);
+                }
+//                else if (mPost.getPostType().equals("buy"))
+//                    Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
                 strPostTitle = mPost.getPostTitle().split(",")[0];
             }else{
-                if (mPost.getPostType().equals("sell"))
-                    Glide.with(itemView.getContext()).load(R.drawable.sell_kh).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPostType().equals("rent"))
-                    Glide.with(itemView.getContext()).load(R.drawable.rent_kh).thumbnail(0.1f).into(typeImageView);
-                else if (mPost.getPostType().equals("buy"))
-                    Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
+                if (mPost.getPostType().equals("sell")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.sell_kh).thumbnail(0.1f).into(typeView);
+                    typeView.setText(R.string.sell);
+                    typeView.setBackgroundResource(R.drawable.roundimage);
+                }
+                else if (mPost.getPostType().equals("rent")) {
+//                    Glide.with(itemView.getContext()).load(R.drawable.rent_kh).thumbnail(0.1f).into(typeView);
+                    typeView.setText(R.string.ren);
+                    typeView.setBackgroundResource(R.drawable.roundimage_rent);
+                }
+//                else if (mPost.getPostType().equals("buy"))
+//                    Glide.with(itemView.getContext()).load(R.drawable.buy_kh).thumbnail(0.1f).into(typeImageView);
                 strPostTitle = mPost.getPostTitle().split(",").length>1?mPost.getPostTitle().split(",")[1]:mPost.getPostTitle().split(",")[0];
 //                if(strPostTitle.split(",").length>1)
 //                    strPostTitle=mPost.getPostTitle().split(",")[1];
             }
             postTitle.setText(strPostTitle);
+
+
+//            if (viewModel.getCategory()==1){
+//                cate.setText(R.string.electronic);
+//                cate.setVisibility(View.VISIBLE);
+//            }else if (vi==2){
+//                cate.setText(R.string.motor);
+//                cate.setVisibility(View.VISIBLE);
+//            }
 
 //            jok = mPost.getPostTitle();
 //            if (jok.length() > 10){
@@ -194,16 +225,14 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 postPrice.setText("$ "+cost.toString());
             }else{
                 postPrice.setText("$ "+mPost.getPostPrice());
-                postOriginalPrice.setVisibility(View.GONE);
             }
 
             postView.setText(String.valueOf(mPost.getCountView()));
-
             double finalMPrice = mPrice;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(itemView.getContext(), Detail_New_Post.class);
+                    Intent intent=new Intent(itemView.getContext(), Detail_new_post_java.class);
                     intent.putExtra("Discount", finalMPrice);
                     intent.putExtra("Price",mPost.getPostPrice());
                     intent.putExtra("ID",mPost.getPostId());

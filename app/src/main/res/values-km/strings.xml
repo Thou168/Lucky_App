@@ -17,7 +17,7 @@
     //Detail
     <string name="nav_detail">ព័ត៌មានលម្អិត</string>
     <string name="detail">ព័ត៌មានលម្អិត</string>
-    <string name="description">ការពណ៌នា</string>
+    <string name="description">ព័ត៌មានលំអិត</string>
     <string name="Description">ការពណ៌នា</string>
     <string name="tax">ប្រភេទពន្ធ</string>
     <string name="postcode">លេខកូដ</string>
@@ -643,7 +643,7 @@
     <string name="history">ប្រវត្តិការប្រកាស</string>
     <string name="history_loan">ប្រវត្តិស្នើសុំឥណទាន</string>
     <string name="loan_active">ឥណទានស្នើសុំថ្មី</string>
-    <string name="view">ចំនួនអ្នកមើលៈ</string>
+    <string name="view">ចំនួនអ្នកមើល</string>
 
     //for condition used
     <string name="moto_eta">I. ភិនភាគម៉ូតូ (អេតា)</string>
@@ -656,10 +656,12 @@
         <string name="Left_and_right_engine_counter">កាទែរម៉ាស៊ីនឆ្វេង និងស្តាំ</string>
         <string name="Engine_head">ក្បាលកន្លាស់ម៉ាស៊ីន</string>
         <string name="Machine_Assembly">គ្រឿងបង្គុំម៉ាស៊ីន(យ៉ុត អាគុយ ម៉ាញេតូ បេន ភ្លើងស្តុប …)</string>
+        <string name="Assembly">គ្រឿងបង្គុំម៉ាស៊ីន</string>
         <string name="Console">កុងទ័រ</string>
 
     <string name="other_sections">III. ផ្នែកផ្សេងៗ</string>
         <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
+    <string name="accessories">គ្រឿង</string>
     <string name="error_number">មិនអាចបញ្ចូលចំនួនលើសពី100បានទេ</string>
     //edit account
     <string name="male">ប្រុស</string>

@@ -55,6 +55,8 @@ import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
+import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
+import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
@@ -96,6 +98,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -1321,7 +1324,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         }else if (discountType.equals("Percent")){
                                             tvDiscount_type.setText(R.string.percent);
                                             etDiscount_amount.setText(discount);
-
                                         }
 
                                         if (color.equals("Blue")){
@@ -1861,15 +1863,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String postCode=obj.getString("post_code");
                                             String postSubTitle=obj.getString("post_sub_title");
 
-                                            String eta1 = obj.getString("used_eta1");
-                                            String eta2 = obj.getString("used_eta2");
-                                            String eta3 = obj.getString("used_eta3");
-                                            String eta4 = obj.getString("used_eta4");
-                                            String machine1 = obj.getString("used_machine1");
-                                            String machine2 = obj.getString("used_machine2");
-                                            String machine3 = obj.getString("used_machine3");
-                                            String machine4 = obj.getString("used_machine4");
-                                            String other1 = obj.getString("used_other1");
+//                                            String eta1 = obj.getString("used_eta1");
+//                                            String eta2 = obj.getString("used_eta2");
+//                                            String eta3 = obj.getString("used_eta3");
+//                                            String eta4 = obj.getString("used_eta4");
+//                                            String machine1 = obj.getString("used_machine1");
+//                                            String machine2 = obj.getString("used_machine2");
+//                                            String machine3 = obj.getString("used_machine3");
+//                                            String machine4 = obj.getString("used_machine4");
+//                                            String other1 = obj.getString("used_other1");
 
                                             int pStatus=obj.getInt("status");
                                             FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);

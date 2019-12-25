@@ -8,16 +8,20 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
@@ -99,12 +103,15 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
     public class ViewHolder extends BaseViewHolder{
 
-        TextView tvTitle,tvCost,tvDiscount,tvView,tvPostType,tvCountView;
+        TextView tvTitle,tvCost,tvDiscount,tvView,tvPostType,tvCountView,ds_price;
         ImageView ivPostImage;
         Button btRenewal,btEdit,btDelete;
+        RelativeLayout relativeLayout;
+        TextView cate;
 
         public ViewHolder(View itemView){
             super(itemView);
+            ds_price=itemView.findViewById(R.id.ds_price);
             ivPostImage=itemView.findViewById(R.id.image);
             tvTitle=itemView.findViewById(R.id.title);
             tvCost=itemView.findViewById(R.id.tv_price);
@@ -115,6 +122,8 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvView=itemView.findViewById(R.id.user_view1);
             tvPostType=itemView.findViewById(R.id.item_type);
             tvCountView=itemView.findViewById(R.id.user_view);
+            relativeLayout = itemView.findViewById(R.id.relative_view);
+            cate = itemView.findViewById(R.id.cate);
         }
 
         @Override
@@ -133,6 +142,11 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             //post image
             Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(ivPostImage);
             //post title
+//            if (mPost.getCategory()==1){
+//                cate.setText(R.string.electronic);
+//            }else {
+//                cate.setText(R.string.motor);
+//            }
             if(mPost.getPost_sub_title()==null||mPost.getPost_sub_title().isEmpty()){}
             else{
                 if(lang.equals("View:"))
@@ -145,23 +159,34 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             //post type icon
             if(mPost.getPost_type().equals("sell")){
                 tvPostType.setText(R.string.sell_t);
-                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_sell));
+//                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_sell));
+                tvPostType.setBackgroundResource(R.drawable.roundimage);
             }else if(mPost.getPost_type().equals("rent")){
                 tvPostType.setText(R.string.rent);
-                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_rent));
+                tvPostType.setBackgroundResource(R.drawable.roundimage_rent);
+//                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_rent));
             }
 
             //post price
             Double cost=0.0;
-            if(mPost.getDiscount().equals("0.00"))
-                tvCost.setText("$ "+mPost.getCost());
+            if(mPost.getDiscount().equals("0.00")) {
+                tvCost.setText("$ " + mPost.getCost());
+                ds_price.setVisibility(View.GONE);
+                relativeLayout.setVisibility(View.GONE);
+            }
             else{
                 cost=Double.parseDouble(mPost.getCost());
-                if(mPost.getDiscount_type().equals("amount"))
-                    cost=cost-Double.parseDouble(mPost.getDiscount());
+                if(mPost.getDiscount_type().equals("amount")) {
+                    cost = cost - Double.parseDouble(mPost.getDiscount());
+//                    double ds = Double.parseDouble(mPost.getDiscount());
+//                    ds_price.setText("$"+ds);
+//                    relativeLayout.setVisibility(View.GONE);
+                }
                 else if(mPost.getDiscount_type().equals("percent")){
                     Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
+//                    int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
                     cost = cost - per;
+//                    ds_price.setText(per1+"%");
                 }
                 tvCost.setText("$"+cost);
                 tvDiscount.setVisibility(View.VISIBLE);
@@ -279,7 +304,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(itemView.getContext(), Detail_New_Post.class);
+                    Intent intent=new Intent(itemView.getContext(), Detail_new_post_java.class);
                     intent.putExtra("Price", mPost.getCost());
                     intent.putExtra("Discount", finalPrice);
                     if (mPost.getStatus()==3){

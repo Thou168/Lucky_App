@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Detail_new_post_java">
+<!--    <ScrollView-->
+<!--        android:id="@+id/scroll_detail"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:fillViewport="true">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/app_bar_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/AppTheme.AppBarOverlay">
+
+                <com.custom.sliderimage.logic.SliderImage
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp" />
+                    <RelativeLayout
+                        android:background="@color/sunflower_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/title"
+                            android:paddingStart="16dp"
+                            android:textColor="@color/white"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp"
+                            android:text="Post Title"/>
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:textStyle="bold"
+                            android:text="1200"
+                            android:textSize="20sp"
+                            android:textColor="@android:color/holo_orange_dark"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textSize="14sp"
+                            android:layout_marginStart="16dp"
+                            android:id="@+id/tv_discount"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_price"
+                            android:textColor="@color/gray_btn_bg_pressed_color"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:text="1200"
+                            android:gravity="center" />
+                        <TextView
+                            android:id="@+id/style_dox"
+                            android:text="-"
+                            android:textColor="@color/gray_btn_bg_pressed_color"
+                            android:layout_toEndOf="@+id/tv_discount"
+                            android:layout_marginStart="4dp"
+                            android:textSize="@dimen/dp_16"
+                            android:textStyle="normal"
+                            android:layout_below="@id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_20"
+                            android:gravity="center"/>
+                        <TextView
+                            android:textSize="14sp"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:id="@+id/tv_discount_per"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_price"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:textColor="@color/gray_btn_bg_pressed_color"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toEndOf="@+id/style_dox"
+                            android:text="100%"
+                            android:gravity="center" />
+                        <TextView
+                            android:id="@+id/post_type"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:layout_alignParentEnd="true"
+                            android:text="SElllllll"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:gravity="center"
+                            android:background="@drawable/roundimage_sell_newpost" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="55dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/dp_18">
+                            <TextView
+                                android:id="@+id/view"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:text="12K"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="3dp"/>
+                            <TextView
+                                android:id="@+id/title_view"
+                                android:text="@string/view"
+                                android:textSize="12dp"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layout_detail"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            style="@style/MyStyle"
+                            app:tabMode="fixed"
+                            app:tabGravity="fill"
+                            app:layout_scrollFlags="scroll|enterAlways"
+                            android:background="@color/color_background" />
+                </com.google.android.material.appbar.AppBarLayout>
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pagerMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingBottom="?android:attr/actionBarSize"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+        </RelativeLayout>
+<!--    </ScrollView>-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@drawable/toolbar_dropshadow"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:titleTextAppearance="@color/white"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <TextView
+            android:gravity="center"
+            android:text="@string/back"
+            android:id="@+id/tv_back"
+            android:textColor="@android:color/white"
+            android:drawableStart="@drawable/icon_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/nav_detail"
+            android:textSize="@dimen/dp_18"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_gravity="right"
+            android:layout_width="40dp"
+            android:background="@drawable/roundimage_newpost"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/btn_like"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="6dp"
+                android:src="@drawable/heart_red" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_gravity="right"
+            android:layout_width="40dp"
+            android:background="@drawable/roundimage_newpost1"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_height="40dp">
+            <ImageButton
+                android:id="@+id/btn_share"
+                android:background="#00FFFFFF"
+                android:src="@drawable/share_variant_36"
+                android:padding="6dp"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Constrainlayout_call_chat_like_loan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:paddingBottom="@dimen/dp_4">
+
+        <ImageView
+            android:id="@+id/btn_call"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/call"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_sms"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_sms"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/chat"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_call"
+            app:layout_constraintEnd_toStartOf="@+id/btn_loan"
+            app:layout_constraintStart_toEndOf="@+id/btn_call"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_loan"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/loan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_sms"
+            app:layout_constraintTop_toTopOf="@+id/btn_sms" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
