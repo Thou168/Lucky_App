@@ -135,7 +135,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways">
 
@@ -143,12 +143,14 @@
                 android:id="@+id/profile_cover_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="24dp"
+                android:padding="15dp"
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgProfile"
                     android:src="@mipmap/ic_launcher_round"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="8dp">
@@ -160,10 +162,10 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/imgProfile"
                     android:text="User Name"
-                    android:layout_marginLeft="24dp"
                     android:layout_marginTop="24dp"
                     android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:fontFamily="@font/opensans_semibold"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/tvFullname"
@@ -172,20 +174,21 @@
                     android:layout_toRightOf="@id/imgProfile"
                     android:layout_below="@id/tvUsername"
                     android:text="User Name"
-                    android:layout_marginLeft="24dp"
                     android:layout_marginTop="8dp"
                     android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:fontFamily="@font/opensans_semibold"
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/btnsetting"
-                    android:textSize="14dp"
                     android:src="@drawable/path_3906"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="8dp"
                     android:background="@null"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
             </RelativeLayout>
 
@@ -195,7 +198,7 @@
             style="@style/MyStyle"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:background="@color/tabColor"
             app:tabGravity="fill"
             app:tabMode="fixed"/>
@@ -207,6 +210,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="?android:attr/actionBarSize"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

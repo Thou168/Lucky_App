@@ -74,6 +74,8 @@
         <item name="tabIndicatorHeight">5dp</item>
         <item name="tabPaddingStart">8dp</item>
         <item name="tabPaddingEnd">8dp</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
     <style name="MenuStyle" parent="Theme.AppCompat.Light">

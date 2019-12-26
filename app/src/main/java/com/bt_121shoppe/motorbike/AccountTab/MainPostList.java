@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.AccountTab;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,14 @@ public class MainPostList extends Fragment {
     ViewPager vpNews;
     Context context;
     Resources resources;
+    int group=0;
 
     public MainPostList(){}
+
+    public MainPostList(int group){
+        this.group=group;
+        Log.e("Main","Main Post List Group "+group);
+    }
 
     public static MainPostList newInstance(){
         MainPostList fragment=new MainPostList();
@@ -47,7 +54,6 @@ public class MainPostList extends Fragment {
 
         Paper.init(getContext());
         String language = Paper.book().read("language");
-        //Log.d("44444444","MainPostList"+language);
         if (language == null)
             Paper.book().write("language","en");
         updateView(language);
@@ -65,30 +71,24 @@ public class MainPostList extends Fragment {
     private void updateView(String language) {
         context = LocaleHapler.setLocale(getContext(),language);
         resources = context.getResources();
-
-//        NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
-//        Postbyuser n1 = new Postbyuser();
-//        history_postbyuser n2 = new history_postbyuser();
-//        adp.addFrag(n1, resources.getString(R.string.active));
-//        adp.addFrag(n2, resources.getString(R.string.history));
-//
-//        tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-//        vpNews.setAdapter(adp);
-//        vpNews.setOffscreenPageLimit(12);
-//        tabs.setupWithViewPager(vpNews);
     }
 
     private void setUpPager() {
-        NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
-        Postbyuser n1 = new Postbyuser();
-        history_postbyuser n2 = new history_postbyuser();
-        adp.addFrag(n1, resources.getString(R.string.active));
-        adp.addFrag(n2, resources.getString(R.string.history));
+        if(group==3){
 
-        tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        vpNews.setAdapter(adp);
-        vpNews.setOffscreenPageLimit(12);
-        tabs.setupWithViewPager(vpNews);
+        }
+        else {
+            NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
+            Postbyuser n1 = new Postbyuser();
+            history_postbyuser n2 = new history_postbyuser();
+            adp.addFrag(n1, resources.getString(R.string.active));
+            adp.addFrag(n2, resources.getString(R.string.history));
+
+            tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+            vpNews.setAdapter(adp);
+            vpNews.setOffscreenPageLimit(12);
+            tabs.setupWithViewPager(vpNews);
+        }
     }
 
     private class NewsPagerAdapter extends FragmentPagerAdapter {

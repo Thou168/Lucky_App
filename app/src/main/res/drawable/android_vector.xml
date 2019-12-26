@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="50dp"
-    android:height="50dp"
+    android:width="59dp"
+    android:height="59dp"
     android:viewportHeight="100"
     android:viewportWidth="100">
 <!--    <group-->
@@ -12,7 +12,7 @@
 <!--            android:fillColor="@color/warning_stroke_color"-->
 <!--            android:pathData="M 100,0 L 0,100 100,100 z"/>-->
         <path
-            android:fillColor="@color/warning_stroke_color"
+            android:fillColor="@color/colorPrimary"
             android:pathData="M 0,0 L 100,0 0,100 z" />
 <!--    </group>-->
 </vector>

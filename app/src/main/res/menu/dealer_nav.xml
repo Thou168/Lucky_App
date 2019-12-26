@@ -10,7 +10,7 @@
         android:title="@string/notification"/>
     <item
         android:id="@+id/dealer"
-        android:icon="@drawable/post_nav"
+        android:icon="@drawable/group_2225"
         android:title="@string/dealer_store"/>
     <item
         android:id="@+id/message"

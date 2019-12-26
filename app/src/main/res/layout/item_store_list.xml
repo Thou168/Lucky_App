@@ -20,14 +20,14 @@
             android:id="@+id/textview_posttitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/opensans_bold"
             android:text="Title"/>
         <TextView
             android:id="@+id/textview_shoplocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/locaion"
-            android:fontFamily="@font/poppins_regular"/>
+            android:fontFamily="@font/opensans_bold"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageview_shopprofile"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="View: 0"
             android:textAlignment="textEnd"
-            android:fontFamily="@font/poppins_regular"/>
+            android:fontFamily="@font/opensans_bold"/>
 
     </LinearLayout>
 

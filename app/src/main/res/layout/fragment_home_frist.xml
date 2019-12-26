@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".homes.HomeFragment">
@@ -10,27 +11,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
         android:orientation="vertical">
 
 <!--        <include layout="@layout/content_search_buy_sell_rent"/>-->
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:gravity="center|left"
-            android:paddingStart="@dimen/dp_8"
-            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="@dimen/dp_8dp"
             android:text="@string/product_discount"
             android:id="@+id/bestDeal"
-            android:textSize="15dp" />
+            android:textStyle="bold"
+            android:fontFamily="@font/opensans_semibold"
+            android:textSize="18dp" />
 
         <RelativeLayout
+            android:layout_marginBottom="34dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/horizontal"
-                android:paddingStart="@dimen/dp_8"
                 android:paddingEnd="@dimen/dp_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -50,48 +55,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp">
+            android:layout_height="40dp">
             <TextView
                 android:gravity="center"
-                android:paddingStart="@dimen/dp_8"
                 android:textSize="15dp"
                 android:text="Best match"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/opensans_regular"
                 android:drawableRight="@drawable/ic_arrow_drop_down_gray"/>
-<!--            <TextView-->
-<!--                android:gravity="center"-->
-<!--                android:paddingStart="@dimen/dp_8"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="@string/new_post"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent" />-->
+
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/img_list"
-                android:src="@drawable/list_brown"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="10dp"
+                android:src="@drawable/path_3930"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
                 android:layout_toStartOf="@+id/grid" />
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/grid"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/grid"
-                android:layout_width="27dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/path_16"
+                android:layout_width="18dp"
                 android:layout_toStartOf="@+id/btn_image"
-                android:layout_height="27dp" />
+                android:layout_height="18dp" />
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/btn_image"
                 android:layout_marginEnd="10dp"
-                android:layout_width="25dp"
-                android:layout_height="30dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/image" />
+                android:src="@drawable/path_18" />
 
         </RelativeLayout>
 
@@ -104,9 +104,7 @@
                 android:id="@+id/list_new_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dp_8"
                 android:paddingEnd="@dimen/dp_8"
-                android:layout_marginTop="5dp"
                 tools:ignore="MissingConstraints" />
 
             <TextView
