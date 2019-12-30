@@ -20,7 +20,7 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
 import com.bt_121shoppe.motorbike.settings.ContactActivity;
 import com.bt_121shoppe.motorbike.settings.TermPrivacyActivity;
-import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
+import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.facebook.login.LoginManager;
 import com.facebook.share.Share;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +44,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AccountSettingActivity.this, EditAccountActivity.class));
+                startActivity(new Intent(AccountSettingActivity.this, Register.class));
             }
         });
 

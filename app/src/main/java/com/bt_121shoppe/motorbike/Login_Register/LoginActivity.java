@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                startActivity(new Intent(LoginActivity.this, Home.class));
             }
         });
         tv_signup.setOnClickListener(new View.OnClickListener() {

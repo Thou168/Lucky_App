@@ -169,6 +169,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".fragments.FragmentMap"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activities.NotificationActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -180,6 +183,10 @@
         <activity
             android:name=".Login_Register.RegisterActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login_Register.Register"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Login_Register.LoginActivity"
             android:screenOrientation="portrait" />

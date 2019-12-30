@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login_Register.SelectUserTypeActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Option"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/arrow_backspace"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/public_user"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        android:padding="@dimen/dp_16"
+        android:background="@drawable/background_cardview">
+        <TextView
+            android:id="@+id/tv_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_16"
+            android:textColor="@color/colorPrimary"
+            android:text="Public"/>
+        <TextView
+            android:id="@+id/store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_public"
+            android:text="Phnom Penh"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_16"
+            android:src="@drawable/arrow_right_brown"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/other_dealer"
+        android:layout_below="@+id/public_user"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="@dimen/dp_16"
+        android:background="@drawable/background_cardview">
+        <TextView
+            android:id="@+id/tv_dealer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_16"
+            android:textColor="@color/colorPrimary"
+            android:text="Dealer"/>
+        <TextView
+            android:id="@+id/location_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_dealer"
+            android:text="Phnom Penh"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_16"
+            android:src="@drawable/arrow_right_brown"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

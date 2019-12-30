@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/bt_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/float_transparent"
+        android:layout_marginStart="@dimen/dp_20"
+        android:drawableLeft="@drawable/arrow_back_black_24dp"/>
+    <Button
+        android:id="@+id/pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:layout_alignParentRight="true"
+        android:textSize="@dimen/dp_16"
+        android:textColor="@color/colorPrimary"
+        android:background="@color/float_transparent"
+        android:text="Pin" />
+    <fragment
+        android:id="@+id/map_Account"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

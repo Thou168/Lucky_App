@@ -660,7 +660,7 @@
         <string name="Console">កុងទ័រ</string>
 
     <string name="other_sections">III. ផ្នែកផ្សេងៗ</string>
-        <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
+    <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
     <string name="accessories">គ្រឿង</string>
     <string name="error_number">មិនអាចបញ្ចូលចំនួនលើសពី100បានទេ</string>
     //edit account
@@ -738,6 +738,11 @@
         <item>លុបរូបភាព</item>
         <item>បោះបង់</item>
     </string-array>
+    <string-array name="select_option">
+        <item>ថតរូប</item>
+        <item>វិចិត្រសាល</item>
+        <item>បោះបង់</item>
+    </string-array>
     <string name="shopname2">ឈ្មោះហាងទី២</string>
     <string name="shopname3">ឈ្មោះហាងទី៣</string>
     <string name="sold">បានលក់</string>
@@ -750,13 +755,24 @@
     <string name="dealer_shop">ហាងចែកចាយ</string>
     <string name="shop">ហាងទី</string>
     <string name="store">ហាង</string>
-    <string name="dealer_store">Dealer Store</string>
-    <string name="tab_postlist">Post List</string>
-    <string name="tab_store">Store</string>
-    <string name="add_store">Add store</string>
+    <string name="dealer_store">ហាងចែកចាយ</string>
+    <string name="tab_postlist">បញ្ជីការប្រកាស</string>
+    <string name="tab_store">ហាង</string>
+    <string name="add_store">បន្ថែមហាង</string>
     <string name="countview">ចំនួនអ្នកមើល</string>
-    <string name="signin">Sign in</string>
-    <string name="welcome">Welcome</string>
-    <string name="signup">Sign up</string>
-    <string name="continue_signin">Sign in to continue</string>
+    <string name="signin">ចូល</string>
+    <string name="welcome">សូមស្វាគមន៍</string>
+    <string name="signup">ចុះ​ឈ្មោះ</string>
+    <string name="continue_signin">ចូលដើម្បីបន្ត</string>
+    <string name="best_match">Best match</string>
+    <string name="privacy">By tapping Register, Continue with Facebook or Continue with Google, you agrees to our Term and Conditions and Privacy Statement</string>
+    <string name="invalid_username">Invalid Username</string>
+    <string name="invalid_gender">Invalid Gender</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="invalid_date">Invalid Date of birth</string>
+    <string name="invalid_address">Invalid Address</string>
+    <string name="invalid_map">Invalid Map</string>
+    <string name="invalid_wing_number">Invalid Wing Number</string>
+    <string name="invalid_wing_account">Invalid Wing Account</string>
 </resources>

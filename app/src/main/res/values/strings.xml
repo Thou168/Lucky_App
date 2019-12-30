@@ -487,7 +487,7 @@
     <string name="verify_code_message">User with this username already exists.Please create new for register!</string>
     //message
     <string name="type_message">Type a message...</string>
-    <string name="username">Username</string>
+    <string name="username">User name</string>
     <string name="renew">Renew</string>
     <string name="choose_type">Choose Type</string>
     <string name="choose_model">Choose Model</string>
@@ -899,6 +899,11 @@
         <item>Delete Photo</item>
         <item>Cancel</item>
     </string-array>
+    <string-array name="select_option">
+        <item>Take Photo</item>
+        <item>Choose from Library</item>
+        <item>Cancel</item>
+    </string-array>
     <string name="shopname2">Shop name 2</string>
     <string name="shopname3">Shop name 3</string>
     <string name="sold">Sold</string>
@@ -920,4 +925,15 @@
     <string name="welcome">Welcome</string>
     <string name="signup">Sign up</string>
     <string name="continue_signin">Sign in to continue</string>
+    <string name="best_match">Best match</string>
+    <string name="privacy">By tapping Register, Continue with Facebook or Continue with Google, you agrees to our Term and Conditions and Privacy Statement</string>
+    <string name="invalid_username">Invalid Username</string>
+    <string name="invalid_gender">Invalid Gender</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="invalid_date">Invalid Date of birth</string>
+    <string name="invalid_address">Invalid Address</string>
+    <string name="invalid_map">Invalid Map</string>
+    <string name="invalid_wing_number">Invalid Wing Number</string>
+    <string name="invalid_wing_account">Invalid Wing Account</string>
 </resources>

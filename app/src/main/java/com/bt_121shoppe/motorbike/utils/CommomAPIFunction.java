@@ -44,16 +44,16 @@ public class CommomAPIFunction {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     //Log.d(TAG,"Firebase User "+snapshot);
 
-                    User user=snapshot.getValue(User.class);
-                    if(user.getUsername().equals(username)){
-                        if(user.getImageURL().equals("default"))
-                        {
-                            Glide.with(context.getApplicationContext()).load(R.drawable.group_2293).thumbnail(0.1f).into(imageView);
-                        }else{
-                            Glide.with(context.getApplicationContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(imageView);
-                        }
-                        return;
-                    }
+//                    User user=snapshot.getValue(User.class);
+//                    if(user.getUsername().equals(username)){
+//                        if(user.getImageURL().equals("default"))
+//                        {
+//                            Glide.with(context.getApplicationContext()).load(R.drawable.group_2293).thumbnail(0.1f).into(imageView);
+//                        }else{
+//                            Glide.with(context.getApplicationContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(imageView);
+//                        }
+//                        return;
+//                    }
                 }
             }
 
