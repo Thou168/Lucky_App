@@ -1,14 +1,4 @@
-package com.bt_121shoppe.motorbike.activities;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.Constraints;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
+package com.bt_121shoppe.motorbike.Activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -45,31 +35,40 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.Constraints;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
+import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
-import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
+import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
-import com.bt_121shoppe.motorbike.Api.User;
-import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -83,10 +82,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONArray;
@@ -98,12 +97,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-
-//import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -113,7 +109,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Camera extends AppCompatActivity implements OnMapReadyCallback {
+//import butterknife.ButterKnife;
+
+public class Camera_new extends AppCompatActivity implements OnMapReadyCallback {
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     double latitude,longtitude;
@@ -121,7 +119,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private String latlng;
     SupportMapFragment mapFragment;
     Constraints Layout_call_chat_like_loan;
-    private static final String TAG = Camera.class.getSimpleName();
+    private static final String TAG = Camera_new.class.getSimpleName();
     static final int REQUEST_TAKE_PHOTO_1=1;
     static final int REQUEST_TAKE_PHOTO_2=2;
     static final int REQUEST_TAKE_PHOTO_3=3;
@@ -260,7 +258,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera2);
+        setContentView(R.layout.activity_camera_new);
 
         // end
         scrollView = findViewById(R.id.scroll_post);
@@ -286,18 +284,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mCompressor = new FileCompressor(this);
         //     Log.d(TAG,"time"+Instant.now().toString());
 
-        TextView back = (TextView) findViewById(R.id.tv_back);
+        ImageView back = (ImageView) findViewById(R.id.tv_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
+                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera_new.this).create();
                 builder.setMessage(getString(R.string.back_message));
                 builder.setCancelable(false);
                 builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (register_intent!=null || login_verify!=null){
-                            startActivity(new Intent(Camera.this,Home.class));
+                            startActivity(new Intent(Camera_new.this,Home.class));
                         }else finish();
                     }
                 });
@@ -384,7 +382,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                 } else {
 
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                     mBuilder.setTitle(getString(R.string.choose_category));
                     if (language.equals("km")) {
                         mBuilder.setSingleChoiceItems(categoryListItemkh, -1, new DialogInterface.OnClickListener() {
@@ -523,7 +521,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvType_elec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 mBuilder.setTitle(getString(R.string.choose_type));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(typeListItemkh, -1, new DialogInterface.OnClickListener() {
@@ -555,7 +553,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvBrand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 mBuilder.setTitle(getString(R.string.choose_brand));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(brandListItemkh, -1, new DialogInterface.OnClickListener() {
@@ -589,7 +587,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 mBuilder.setTitle(getString(R.string.choose_model));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(modelListItemkh, -1, new DialogInterface.OnClickListener() {
@@ -621,7 +619,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         tvYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -642,7 +640,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         edShopName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 //mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -668,7 +666,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         edShopName2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 //mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -718,7 +716,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         edShopName3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 //mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -756,7 +754,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         btnShop_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 //mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -788,7 +786,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 //Log.e("TAG",shopListItems.toString());
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
                 //mBuilder.setTitle(getString(R.string.choose_year));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -1039,8 +1037,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     }
 
                     if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
-                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                        AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
+                        alertDialog.setMessage(Camera_new.this.getString(R.string.missing_image));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -1076,7 +1074,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     } // create
 
     private void dialog_dealer(){
-        AlertDialog dialog = new AlertDialog.Builder(Camera.this).create();
+        AlertDialog dialog = new AlertDialog.Builder(Camera_new.this).create();
         dialog.setTitle(R.string.for_loan_title);
         dialog.setIcon(R.drawable.ic_check_circle_black_24dp);
         dialog.setMessage(getString(R.string.already_select_shop));
@@ -1092,14 +1090,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onBackPressed() {
-        android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
+        android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera_new.this).create();
         builder.setMessage(getString(R.string.back_message));
         builder.setCancelable(false);
         builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (register_intent!=null || login_verify!=null){
-                    startActivity(new Intent(Camera.this,Home.class));
+                    startActivity(new Intent(Camera_new.this,Home.class));
                 }
                 else {
                     finish();
@@ -1241,7 +1239,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     longtitude = Double.valueOf(splitAddr[1]);
                                     getLocation_edit(latitude, longtitude);
                                     tvAddress.setQuery(search_title,false);
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
+                                    mapFragment.getMapAsync(Camera_new.this::onMapReady);
                                 }
 
                                 String fron = object.getString("front_image_path");
@@ -1356,7 +1354,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         getModelName(Encode,model);
                                         //Log.d(TAG,"Brand_id"+ brand);
 
-                                        Glide.with(Camera.this).asBitmap().load(fron).into(new CustomTarget<Bitmap>() {
+                                        Glide.with(Camera_new.this).asBitmap().load(fron).into(new CustomTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView1.setImageBitmap(resource);
@@ -1369,7 +1367,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
-                                        Glide.with(Camera.this).asBitmap().load(back).into(new CustomTarget<Bitmap>() {
+                                        Glide.with(Camera_new.this).asBitmap().load(back).into(new CustomTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView2.setImageBitmap(resource);
@@ -1383,7 +1381,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
-                                        Glide.with(Camera.this).asBitmap().load(left).into(new CustomTarget<Bitmap>() {
+                                        Glide.with(Camera_new.this).asBitmap().load(left).into(new CustomTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView3.setImageBitmap(resource);
@@ -1396,7 +1394,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
-                                        Glide.with(Camera.this).asBitmap().load(right).into(new CustomTarget<Bitmap>() {
+                                        Glide.with(Camera_new.this).asBitmap().load(right).into(new CustomTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView4.setImageBitmap(resource);
@@ -1409,7 +1407,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
-                                        Glide.with(Camera.this).asBitmap().load(extra1).into(new CustomTarget<Bitmap>() {
+                                        Glide.with(Camera_new.this).asBitmap().load(extra1).into(new CustomTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView5.setImageBitmap(resource);
@@ -1422,7 +1420,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                             }
                                         });
-                                        Glide.with(Camera.this).asBitmap().load(extra2).into(new CustomTarget<Bitmap>() {
+                                        Glide.with(Camera_new.this).asBitmap().load(extra2).into(new CustomTarget<Bitmap>() {
                                             @Override
                                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                                 imageView6.setImageBitmap(resource);
@@ -1512,7 +1510,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 user_address = converJsonJava.getProfile().getAddress();
                                 if(user_address.isEmpty()){
                                     get_location(true);
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
+                                    mapFragment.getMapAsync(Camera_new.this::onMapReady);
                                 }else {
                                     String[] splitAddr = user_address.split(",");
                                     latitude = Double.valueOf(splitAddr[0]);
@@ -1523,7 +1521,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         user_address_name = converJsonJava.getProfile().getResponsible_officer();
                                         tvAddress.setQuery(user_address_name,false);
                                     }
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
+                                    mapFragment.getMapAsync(Camera_new.this::onMapReady);
 
                                 }
                                 //dealer shop section
@@ -1922,14 +1920,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             e.printStackTrace();
                                         }
 
-                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.post_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
-                                                        Intent intent = new Intent(Camera.this,Home.class);
+                                                        Intent intent = new Intent(Camera_new.this,Home.class);
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                         startActivity(intent);
                                                         finish();
@@ -1945,7 +1943,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.post_fail_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -1967,7 +1965,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                                 alertDialog.setTitle(getString(R.string.title_post));
                                 alertDialog.setMessage(getString(R.string.post_fail_message));
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -1992,7 +1990,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         @Override
                         public void run() {
                             Log.d("Failure:",mMessage );
-                            AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                            AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                             alertDialog.setTitle(getString(R.string.title_post));
                             alertDialog.setMessage(getString(R.string.post_fail_message));
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -2013,7 +2011,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                     alertDialog.setTitle(getString(R.string.title_post));
                     alertDialog.setMessage(getString(R.string.post_fail_message));
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -2348,14 +2346,14 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                         }catch (JSONException e){
                                             e.printStackTrace();
                                         }
-                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.waiting_approval));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mProgress.dismiss();
-                                                        Intent intent = new Intent(Camera.this,Account.class);
+                                                        Intent intent = new Intent(Camera_new.this,Account.class);
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                         startActivity(intent);
 //                                                        finish();
@@ -2370,7 +2368,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.post_fail_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -2390,7 +2388,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                                 alertDialog.setTitle(getString(R.string.title_post));
                                 alertDialog.setMessage(getString(R.string.post_fail_message));
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -2413,7 +2411,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                            AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                             alertDialog.setTitle(getString(R.string.title_post));
                             alertDialog.setMessage(getString(R.string.post_fail_message));
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -2434,7 +2432,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(Camera_new.this).create();
                     alertDialog.setTitle(getString(R.string.title_post));
                     alertDialog.setMessage(getString(R.string.post_fail_message));
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -3026,207 +3024,207 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
         postTypeListItems=getResources().getStringArray(R.array.posty_type);
-        tvPostType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (bundle != null) {
-
-                } else {
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                    mBuilder.setTitle(getString(R.string.choose_type_post));
-                    mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvPostType.setText(postTypeListItems[i]);
-                            //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
-                            icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            //close option buy by Raksmey 9/9/2019
-                            switch (i) {
-                                case 0:
-                                    strPostType = "sell";
-                                    relatve_discount.setVisibility(View.VISIBLE);
-                                    break;
-//                                case 1:
-//                                    strPostType = "buy";
-//                                    relatve_discount.setVisibility(View.GONE);
+//        tvPostType.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (bundle != null) {
+//
+//                } else {
+//                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
+//                    mBuilder.setTitle(getString(R.string.choose_type_post));
+//                    mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            tvPostType.setText(postTypeListItems[i]);
+//                            //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
+//                            icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                            //close option buy by Raksmey 9/9/2019
+//                            switch (i) {
+//                                case 0:
+//                                    strPostType = "sell";
+//                                    relatve_discount.setVisibility(View.VISIBLE);
 //                                    break;
-                                case 1:
-                                    strPostType = "rent";
-                                    relatve_discount.setVisibility(View.VISIBLE);
-                                    break;
-                            }
-                            dialogInterface.dismiss();
-                            Log.d("Post_type:",strPostType);
-                        }
-                    });
-
-                    AlertDialog mDialog = mBuilder.create();
-                    mDialog.show();
-                }
-
-            }
-        });
+////                                case 1:
+////                                    strPostType = "buy";
+////                                    relatve_discount.setVisibility(View.GONE);
+////                                    break;
+//                                case 1:
+//                                    strPostType = "rent";
+//                                    relatve_discount.setVisibility(View.VISIBLE);
+//                                    break;
+//                            }
+//                            dialogInterface.dismiss();
+//                            Log.d("Post_type:",strPostType);
+//                        }
+//                    });
+//
+//                    AlertDialog mDialog = mBuilder.create();
+//                    mDialog.show();
+//                }
+//
+//            }
+//        });
 
         conditionListItems = getResources().getStringArray(R.array.condition);
-        tvCondition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_type));
-                mBuilder.setSingleChoiceItems(conditionListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvCondition.setText(conditionListItems[i]);
-                        icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        switch (i){
-                            case 0:
-                                strCondition="new";
-                                relative_used.setVisibility(View.GONE);
-                                break;
-                            case 1:
-                                strCondition="used";
-                                if(cate==2) {
-                                    validationforused();
-                                    relative_used.setVisibility(View.VISIBLE);
-                                    if (edwhole_int.getText().toString().length() == 0) {
-                                        imgwhole_int.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edfront_and_rear_wheel_sets.getText().toString().length() == 0) {
-                                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edThe_whole_screw.getText().toString().length() == 0) {
-                                        imgThe_whole_screw.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edFront_and_rear_pumps.getText().toString().length() == 0) {
-                                        imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edLeft_and_right_engine_counter.getText().toString().length() == 0) {
-                                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edEngine_head.getText().toString().length() == 0) {
-                                        imgEngine_head.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edMachine_Assembly.getText().toString().length() == 0) {
-                                        imgMachine_Assembly.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edConsole.getText().toString().length() == 0) {
-                                        imgConsole.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edAccessories.getText().toString().length() == 0) {
-                                        imgAccessories.setImageResource(R.drawable.icon_null);
-                                    }
-                                }
-                                break;
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
+//        tvCondition.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
+//                mBuilder.setTitle(getString(R.string.choose_condition));
+//                mBuilder.setSingleChoiceItems(conditionListItems, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        tvCondition.setText(conditionListItems[i]);
+//                        icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        switch (i){
+//                            case 0:
+//                                strCondition="new";
+//                                relative_used.setVisibility(View.GONE);
+//                                break;
+//                            case 1:
+//                                strCondition="used";
+//                                if(cate==2) {
+//                                    validationforused();
+//                                    relative_used.setVisibility(View.VISIBLE);
+//                                    if (edwhole_int.getText().toString().length() == 0) {
+//                                        imgwhole_int.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edfront_and_rear_wheel_sets.getText().toString().length() == 0) {
+//                                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edThe_whole_screw.getText().toString().length() == 0) {
+//                                        imgThe_whole_screw.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edFront_and_rear_pumps.getText().toString().length() == 0) {
+//                                        imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edLeft_and_right_engine_counter.getText().toString().length() == 0) {
+//                                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edEngine_head.getText().toString().length() == 0) {
+//                                        imgEngine_head.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edMachine_Assembly.getText().toString().length() == 0) {
+//                                        imgMachine_Assembly.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edConsole.getText().toString().length() == 0) {
+//                                        imgConsole.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                    if (edAccessories.getText().toString().length() == 0) {
+//                                        imgAccessories.setImageResource(R.drawable.icon_null);
+//                                    }
+//                                }
+//                                break;
+//                        }
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+//
+//                AlertDialog mDialog = mBuilder.create();
+//                mDialog.show();
+//            }
+//        });
 
         colorListItems = getResources().getStringArray(R.array.color);
-        tvColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_color));
-                mBuilder.setSingleChoiceItems(colorListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvColor.setText(colorListItems[i]);
-                        switch (i){
-                            case 0:
-                                strColor="blue";
-                                strColorKH="ខៀវ";
-                                break;
-                            case 1:
-                                strColor="black";
-                                strColorKH="ខ្មៅ";
-                                break;
-                            case 2:
-                                strColor="silver";
-                                strColorKH="ប្រាក់";
-                                break;
-                            case 3:
-                                strColor="red";
-                                strColorKH="ក្រហម";
-                                break;
-                            case 4:
-                                strColor="gray";
-                                strColorKH="ប្រផេះ";
-                                break;
-                            case 5:
-                                strColor="yellow";
-                                strColorKH="លឿង";
-                                break;
-                            case 6:
-                                strColor="pink";
-                                strColorKH="ផ្កាឈូក";
-                                break;
-                            case 7:
-                                strColor="purple";
-                                strColorKH="ស្វាយ";
-                                break;
-                            case 8:
-                                strColor="orange";
-                                strColorKH="ទឹកក្រូច";
-                                break;
-                            case 9:
-                                strColor="green";
-                                strColorKH="បៃតង";
-                                break;
-                        }
-                        icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
+//        tvColor.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
+//                mBuilder.setTitle(getString(R.string.choose_color));
+//                mBuilder.setSingleChoiceItems(colorListItems, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        tvColor.setText(colorListItems[i]);
+//                        switch (i){
+//                            case 0:
+//                                strColor="blue";
+//                                strColorKH="ខៀវ";
+//                                break;
+//                            case 1:
+//                                strColor="black";
+//                                strColorKH="ខ្មៅ";
+//                                break;
+//                            case 2:
+//                                strColor="silver";
+//                                strColorKH="ប្រាក់";
+//                                break;
+//                            case 3:
+//                                strColor="red";
+//                                strColorKH="ក្រហម";
+//                                break;
+//                            case 4:
+//                                strColor="gray";
+//                                strColorKH="ប្រផេះ";
+//                                break;
+//                            case 5:
+//                                strColor="yellow";
+//                                strColorKH="លឿង";
+//                                break;
+//                            case 6:
+//                                strColor="pink";
+//                                strColorKH="ផ្កាឈូក";
+//                                break;
+//                            case 7:
+//                                strColor="purple";
+//                                strColorKH="ស្វាយ";
+//                                break;
+//                            case 8:
+//                                strColor="orange";
+//                                strColorKH="ទឹកក្រូច";
+//                                break;
+//                            case 9:
+//                                strColor="green";
+//                                strColorKH="បៃតង";
+//                                break;
+//                        }
+//                        icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+//
+//                AlertDialog mDialog = mBuilder.create();
+//                mDialog.show();
+//            }
+//        });
 
         discountTypeListItems = getResources().getStringArray(R.array.discount_type);
-        tvDiscount_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_discount));
-                mBuilder.setSingleChoiceItems(discountTypeListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        etDiscount_amount.requestFocus();
-                        tvDiscount_type.setText(discountTypeListItems[i]);
-                        switch (i){
-                            case 0:
-                                strDiscountType="amount";
-                                break;
-                            case 1:
-                                strDiscountType="percent";
-                                break;
-                        }
-                        icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        etDiscount_amount.clearFocus();
-                        tvDiscount_type.setText("");
-                        etDiscount_amount.setText("");
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
+//        tvDiscount_type.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
+//                mBuilder.setTitle(getString(R.string.choose_discount));
+//                mBuilder.setSingleChoiceItems(discountTypeListItems, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        etDiscount_amount.requestFocus();
+//                        tvDiscount_type.setText(discountTypeListItems[i]);
+//                        switch (i){
+//                            case 0:
+//                                strDiscountType="amount";
+//                                break;
+//                            case 1:
+//                                strDiscountType="percent";
+//                                break;
+//                        }
+//                        icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+//
+//                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int which) {
+//                        etDiscount_amount.clearFocus();
+//                        tvDiscount_type.setText("");
+//                        etDiscount_amount.setText("");
+//                    }
+//                });
+//
+//                AlertDialog mDialog = mBuilder.create();
+//                mDialog.show();
+//            }
+//        });
     }
 
     private void validationforused(){
@@ -4176,7 +4174,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         String language = preferences.getString("My_Lang", "");
         final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};
         final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(Camera.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Camera_new.this);
         if (language.equals("km")){
             builder.setItems(itemkh, (dialog, item) -> {
                 if (itemkh[item].equals("ថតរូប")) {
@@ -4453,7 +4451,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
                 btremove_pic1.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4465,7 +4463,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
                 btremove_pic2.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4477,7 +4475,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
                 btremove_pic3.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4489,7 +4487,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
                 btremove_pic4.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4502,7 +4500,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_6;
                 btremove_pic5.setVisibility(View.VISIBLE);
                 requestStoragePermission(true);
@@ -4514,7 +4512,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
                 btremove_pic6.setVisibility(View.VISIBLE);
             }
 //
@@ -4526,7 +4524,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
                 btremove_pic1.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_2) {
@@ -4537,7 +4535,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
                 btremove_pic2.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_3) {
@@ -4548,7 +4546,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
                 btremove_pic3.setVisibility(View.VISIBLE);
             }
             else if (requestCode == REQUEST_GALLERY_PHOTO_4) {
@@ -4559,7 +4557,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
                 btremove_pic4.setVisibility(View.VISIBLE);
 
             }
@@ -4572,7 +4570,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
                 btremove_pic5.setVisibility(View.VISIBLE);
 
             }
@@ -4584,7 +4582,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
+                Glide.with(Camera_new.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
                 btremove_pic6.setVisibility(View.VISIBLE);
             }
             // end

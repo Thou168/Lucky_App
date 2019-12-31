@@ -14,24 +14,32 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary">
-            <TextView
+            <ImageView
                 android:id="@+id/tv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/back"
-                android:textStyle="bold"
-                android:textColor="#fff"
+                android:layout_width="30dp"
+                android:layout_height="@dimen/dp_20"
                 android:gravity="center_vertical"
-                android:drawableLeft="@drawable/chevron_left_36"/>
+                android:src="@drawable/back_arrow"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/camera"
                 android:textColor="#fff"
                 android:textSize="16dp"/>
+            <Button
+                android:id="@+id/post_prod"
+                android:text="Post"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_gravity="end"
+                android:layout_margin="10dp"
+                android:background="@drawable/post_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
@@ -42,7 +50,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
                     android:id="@+id/image_layout"
@@ -67,335 +75,248 @@
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:text="@string/txt_clr_detail"
-                    android:textSize="@dimen/dp_16"
-                    android:background="@color/grey_light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:background="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/post_info"
+                        android:textSize="@dimen/dp_18"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/post_id"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/post_id"
+                        android:textSize="@dimen/dp_16"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/show_id"
+                        android:text="@string/showid"
+                        android:textSize="@dimen/dp_16"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/post_id"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
                 <RelativeLayout
                     android:focusableInTouchMode="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imgTitle"-->
-<!--                        android:layout_width="15dp"-->
-<!--                        android:layout_height="45dp"-->
+                    <TextView
+                        android:id="@+id/title_price"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/price"/>
 
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:src="@drawable/icon_null"-->
-<!--                        android:background="@drawable/underline_gray"/>-->
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/tilTitle"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:layout_toRightOf="@+id/imgTitle"-->
-<!--                        app:hintTextAppearance="@style/CounterText"-->
-<!--                        android:background="@drawable/underline_gray">-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/etTitle"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="fill_parent"-->
-<!--                            android:textSize="14dp"-->
-<!--                            android:hint="@string/title"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:background="@null"-->
-<!--                            />-->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <ImageView
-                        android:id="@+id/imgPostType"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgPostType"
-                        android:background="@drawable/underline_gray">
-                        <EditText
-                            android:id="@+id/tvPostType"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/post_type"
-                            android:paddingLeft="10dp"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <ImageView
-                        android:id="@+id/imgCategory"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgPostType"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgCategory"
-                        android:layout_below="@+id/imgPostType"
-                        android:background="@drawable/underline_gray"
-                        >
-
-                        <EditText
-                            android:id="@+id/tvCategory"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/category"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                    <ImageView
-                        android:id="@+id/imgType_elec"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgCategory"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgType_elec"
-                        android:layout_below="@+id/imgCategory"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvType_elec"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/type"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
-
-                    <ImageView
-                        android:id="@+id/imgBrand"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgType_elec"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgType_elec"
-                        android:layout_toRightOf="@+id/imgBrand"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvBrand"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/brand"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:paddingLeft="10dp"
-                            android:drawableRight="@drawable/chevron_down_24"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <ImageView
-                        android:id="@+id/imgModel"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgBrand"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgBrand"
-                        android:layout_toRightOf="@+id/imgModel"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvModel"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/model"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-                    <ImageView
-                        android:id="@+id/imgYear"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgModel"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgModel"
-                        android:layout_toRightOf="@+id/imgModel"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvYears"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:paddingLeft="10dp"
-                            android:hint="@string/year"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:textSize="14dp"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-
-                    <ImageView
-                        android:id="@+id/imgCondition"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgYear"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgYear"
-                        android:layout_toRightOf="@+id/imgCondition"
-                        android:background="@drawable/underline_gray"
-                        >
-
-                        <EditText
-                            android:id="@+id/tvCondition"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/condition"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-                    <ImageView
-                        android:id="@+id/imgColor"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgCondition"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgCondition"
-                        android:layout_toRightOf="@+id/imgColor"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvColor"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/color"
-                            android:paddingLeft="10dp"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-
-
-                    <ImageView
-                        android:id="@+id/imgPrice"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgColor"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPrice"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgColor"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/title_price"
                         app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgPrice"
                         android:background="@drawable/underline_gray">
-
                         <EditText
                             android:id="@+id/etPrice"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:textSize="14dp"
-                            android:hint="@string/price"
+                            android:hint="$ 0.00"
                             android:inputType="number"
                             android:paddingLeft="10dp"
                             android:background="@null"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        android:id="@+id/title_dis_pri"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_below="@+id/tilPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/ds_pri_percent"/>
+                    <SeekBar
+                        android:id="@+id/seekbar_pri_per"
+                        android:layout_below="@+id/title_dis_pri"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                    <ImageView
-                        android:id="@+id/imgDescription"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPrice"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="#F9F9F9"/>
+                    <TextView
+                        android:id="@+id/title_amo_pri"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_below="@+id/seekbar_pri_per"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/ds_pri_amount"/>
+                    <EditText
+                        android:id="@+id/ed_price_amo"
+                        android:hint="$ 0.00"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/title_amo_pri"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                    <TextView
+                        android:id="@+id/title_brand"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:layout_below="@+id/ed_price_amo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/brand"/>
+
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilDescription"
+                        android:id="@+id/tilbrand"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@+id/imgPrice"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/title_brand"
                         app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgDescription"
-                        android:background="#F9F9F9">
-
+                        android:background="@drawable/underline_gray">
                         <EditText
-                            android:id="@+id/etDescription"
+                            android:id="@+id/et_brand"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:textSize="14dp"
-                            android:hint="@string/description"
-                            android:paddingLeft="10dp"
+                            android:hint="$ 0.00"
+                            android:inputType="number"
+                            android:paddingStart="10dp"
                             android:background="@null"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/title_type"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_below="@+id/tilbrand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/type"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilType"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/title_type"
+                        app:hintTextAppearance="@style/CounterText"
+                        android:background="@drawable/underline_gray">
+                        <EditText
+                            android:id="@+id/et_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:textSize="14dp"
+                            android:hint="$ 0.00"
+                            android:inputType="number"
+                            android:paddingStart="10dp"
+                            android:background="@null"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/title_model"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_below="@+id/tilType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/model"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilModel"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/title_model"
+                        app:hintTextAppearance="@style/CounterText"
+                        android:background="@drawable/underline_gray">
+                        <EditText
+                            android:id="@+id/et_model"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:textSize="14dp"
+                            android:hint="$ 0.00"
+                            android:inputType="number"
+                            android:paddingStart="10dp"
+                            android:background="@null"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/title_year"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_below="@+id/tilModel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/year"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@+id/title_year"
+                        app:hintTextAppearance="@style/CounterText"
+                        android:background="@drawable/underline_gray">
+                        <EditText
+                            android:id="@+id/et_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:textSize="14dp"
+                            android:hint="$ 0.00"
+                            android:inputType="number"
+                            android:paddingStart="10dp"
+                            android:background="@null"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/title_color"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_below="@+id/tilYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/color"/>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_color"
+                        android:layout_below="@+id/title_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 

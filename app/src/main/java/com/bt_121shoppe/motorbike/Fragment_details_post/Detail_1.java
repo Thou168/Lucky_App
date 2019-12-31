@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
@@ -153,6 +154,7 @@ public class Detail_1 extends Fragment {
     }
 
     private void detail_fragment_1(String encode){
+        final boolean keepRunning1 = true;
         String url;
         Request request;
         String auth = "Basic" + encode;
@@ -188,71 +190,65 @@ public class Detail_1 extends Fragment {
                 Log.d(TAG+"3333",mMessage);
                 Gson json = new Gson();
                 try {
-                    getActivity().runOnUiThread(() -> {
-                        postDetail = json.fromJson(mMessage,PostViewModel.class);
-                        Log.e(TAG,"D"+mMessage);
-                        description.setText(postDetail.getDescription().toString());
-
-                        postCode.setText(postDetail.getPost_code().toString());
-                        color.setText(postDetail.getColor().toString());
-                        con=postDetail.getCondition().toString();
-                        if (con.equals("new")) {
-                            condition.setText(R.string.newl);
-                        } else if (con.equals("used")) {
-                            condition.setText(R.string.used);
-                        }
-                        //type
-                        int inType = postDetail.getCategory();
-                        if (inType==1) {
-                            type.setText(R.string.electronic);
-                        }else if (inType==2){
-                            type.setText(R.string.motor);
-                            if (con.equals("used")){
-                                line_rela.setVisibility(View.VISIBLE);
-                                rela_eta.setVisibility(View.VISIBLE);
+                    if(getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            postDetail = json.fromJson(mMessage, PostViewModel.class);
+                            Log.e(TAG, "D" + mMessage);
+                            description.setText(postDetail.getDescription().toString());
+                            postCode.setText(postDetail.getPost_code().toString());
+                            color.setText(postDetail.getColor().toString());
+                            con = postDetail.getCondition().toString();
+                            if (con.equals("new")) {
+                                condition.setText(R.string.newl);
+                            } else if (con.equals("used")) {
+                                condition.setText(R.string.used);
                             }
-                        }
-                        //brand
-                        brand.setText(String.valueOf(postDetail.getModeling()));
-                        //year
-                        year.setText(String.valueOf(postDetail.getYear()));
-                        //model
-                        model.setText(String.valueOf(postDetail.getModeling()));
-
-                        //for section
-
-                        whole_ink.setText(postDetail.getUsed_eta1()+"%");
-                        wheel_sets.setText(postDetail.getUsed_eta2()+"%");
-                        the_whole_screw.setText(postDetail.getUsed_eta3()+"%");
-                        pumps.setText(postDetail.getUsed_eta4()+"%");
-
-                        engine_counter.setText(postDetail.getUsed_machine1()+"%");
-                        engine_head.setText(postDetail.getUsed_machine2()+"%");
-                        assembly.setText(postDetail.getUsed_machine3()+"%");
-                        console.setText(postDetail.getUsed_machine4()+"%");
-
-                        accessories.setText(postDetail.getUsed_other1()+"%");
-
-                        String postType="";
-                        RentViewModel[] rent=postDetail.getRents();
-                        SaleViewModel[] sale=postDetail.getSales();
-//                        BuyViewModel[] buy=postDetail.getBuys();
-                        if(rent.length>0) {
-                            postType = "rent";
-                        }
-                        if(sale.length>0) {
-                            postType = "sell";
-                        }
-//                        if(buy.length>0) {
-//                            postType = "buy";
-//
-//                        }
-                        initialRelatedPost(encode,postType,postDetail.getCategory(),postDetail.getModeling(), Float.parseFloat(postDetail.getCost()));
-                    });
+                            //type
+                            int inType = postDetail.getCategory();
+                            if (inType == 1) {
+                                type.setText(R.string.electronic);
+                            } else if (inType == 2) {
+                                type.setText(R.string.motor);
+                                if (con.equals("used")) {
+                                    line_rela.setVisibility(View.VISIBLE);
+                                    rela_eta.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            //brand
+                            brand.setText(String.valueOf(postDetail.getModeling()));
+                            //year
+                            year.setText(String.valueOf(postDetail.getYear()));
+                            //model
+                            model.setText(String.valueOf(postDetail.getModeling()));
+                            //for section
+                            whole_ink.setText(postDetail.getUsed_eta1() + "%");
+                            wheel_sets.setText(postDetail.getUsed_eta2() + "%");
+                            the_whole_screw.setText(postDetail.getUsed_eta3() + "%");
+                            pumps.setText(postDetail.getUsed_eta4() + "%");
+                            engine_counter.setText(postDetail.getUsed_machine1() + "%");
+                            engine_head.setText(postDetail.getUsed_machine2() + "%");
+                            assembly.setText(postDetail.getUsed_machine3() + "%");
+                            console.setText(postDetail.getUsed_machine4() + "%");
+                            accessories.setText(postDetail.getUsed_other1() + "%");
+                            String postType = "";
+                            RentViewModel[] rent = postDetail.getRents();
+                            SaleViewModel[] sale = postDetail.getSales();
+//                       BuyViewModel[] buy=postDetail.getBuys();
+                            if (rent.length > 0) {
+                                postType = "rent";
+                            }
+                            if (sale.length > 0) {
+                                postType = "sell";
+                            }
+//                       if(buy.length>0) {
+//                           postType = "buy";
+//                       }
+                            initialRelatedPost(encode, postType, postDetail.getCategory(), postDetail.getModeling(), Float.parseFloat(postDetail.getCost()));
+                        });
+                    }
                 } catch (JsonParseException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
@@ -278,49 +274,51 @@ public class Detail_1 extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String mMessage = response.body().string();
-                Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
-                    try {
-                        JSONObject object = new JSONObject(mMessage);
-                        JSONArray jsonArray = object.getJSONArray("results");
-                        int jsonCount = object.getInt("count");
-                        Log.w("Relate",mMessage);
-                        progressBar.setVisibility(View.GONE);
-                        if (jsonCount==0) {
-                            no_result.setVisibility(View.VISIBLE);
-                        }else {
-                            no_result.setVisibility(View.GONE);
-                        }
-                        for (int i=0;i<jsonArray.length();i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            String title = obj.getString("title");
-                            int id = obj.getInt("id");
-                            int user_id = obj.getInt("created_by");
-                            String condition = obj.getString("condition");
-                            double cost = obj.getDouble("cost");
-                            String image = obj.getString("front_image_path");
-                            String img_user = obj.getString("right_image_path");
-                            String postType = obj.getString("post_type");
-                            String phoneNumber = obj.getString("contact_phone");
-                            String discount_type = obj.getString("discount_type");
-                            double discount = obj.getDouble("discount");
-                            String postsubtitle = obj.getString("post_sub_title");
-                            String color = obj.getString("color");
-                            int model = obj.getInt("modeling");
-                            int year = obj.getInt("year");
-
-                            String ago="";
-                            if(postId != id) {
-                                itemApi.add(new Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount),color,model,year,discount_type,discount,postsubtitle));
-//                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
+                if (getActivity()!=null) {
+                    getActivity().runOnUiThread(() -> {
+                        try {
+                            JSONObject object = new JSONObject(mMessage);
+                            JSONArray jsonArray = object.getJSONArray("results");
+                            int jsonCount = object.getInt("count");
+                            Log.w("Relate", mMessage);
+                            progressBar.setVisibility(View.GONE);
+                            if (jsonCount == 0) {
+                                no_result.setVisibility(View.VISIBLE);
+                            } else {
                                 no_result.setVisibility(View.GONE);
-                                recyclerView.setAdapter( new MyAdapter_list_grid_image(itemApi,"Grid",getActivity()));
-                                recyclerView.setLayoutManager( new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                             }
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject obj = jsonArray.getJSONObject(i);
+                                String title = obj.getString("title");
+                                int id = obj.getInt("id");
+                                int user_id = obj.getInt("created_by");
+                                String condition = obj.getString("condition");
+                                double cost = obj.getDouble("cost");
+                                String image = obj.getString("front_image_path");
+                                String img_user = obj.getString("right_image_path");
+                                String postType = obj.getString("post_type");
+                                String phoneNumber = obj.getString("contact_phone");
+                                String discount_type = obj.getString("discount_type");
+                                double discount = obj.getDouble("discount");
+                                String postsubtitle = obj.getString("post_sub_title");
+                                String color = obj.getString("color");
+                                int model = obj.getInt("modeling");
+                                int year = obj.getInt("year");
+
+                                String ago = "";
+                                if (postId != id) {
+                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle));
+//                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
+                                    no_result.setVisibility(View.GONE);
+                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Grid", getActivity()));
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                }
+                            }
+                        } catch (JsonParseException | JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JsonParseException | JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
+                    });
+                }
             }
         });
     }

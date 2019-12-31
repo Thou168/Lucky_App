@@ -217,6 +217,9 @@
     <string name="back_button">Back</string>
     <string name="submit_button">Submit</string>
 
+    //select
+    <string name="select">Select</string>
+
     //Tab
     <string name="login_button">Login</string>
     <string name="clear_all_label">Clear</string>
@@ -392,6 +395,41 @@
         <item>3</item>
     </string-array>
 
+    //brand string
+    <string name="honda">Honda</string>
+    <string name="pcx">PCX</string>
+    <string name="lg">LG</string>
+    <string name="panasonic">Panasonic</string>
+    <string name="susuki">Susuki</string>
+
+    //year string
+    <string name="year1">2010</string>
+    <string name="year2">2011</string>
+    <string name="year3">2012</string>
+    <string name="year4">2013</string>
+    <string name="year5">2014</string>
+    <string name="year6">2015</string>
+    <string name="year7">2016</string>
+    <string name="year8">2017</string>
+    <string name="year9">2018</string>
+    <string name="year10">2019</string>
+    <string name="year11">2020</string>
+    <string name="year12">2009</string>
+    <string name="year13">2008</string>
+    <string name="year14">2007</string>
+    <string name="year15">2006</string>
+    <string name="year16">2005</string>
+    <string name="year17">2004</string>
+    <string name="year18">2003</string>
+    <string name="year19">2002</string>
+    <string name="year20">2001</string>
+    <string name="year21">2000</string>
+    <string name="year22">1999</string>
+    <string name="year23">1998</string>
+    <string name="year24">1997</string>
+    <string name="year25">1996</string>
+    <string name="year26">1995</string>
+
     //dialog error register
     <string name="head_dialog_register">Register failure</string>
     <string name="inputPhone">Please input the Phone Numbers</string>
@@ -472,6 +510,13 @@
     <string name="name_officer">Name of Responsible Officer</string>
     <string name="shop_address">Shop Address</string>
 
+    //public user string
+    <string name="post_info">Post Infomation</string>
+    <string name="post_id">Post ID</string>
+    <string name="showid">Show ID</string>
+    <string name="ds_pri_percent">Discount Price(%)</string>
+    <string name="ds_pri_amount">Discount Price($)</string>
+
     //Camera post
     <string name="shop_name">Shop Name</string>
     <string name="shop_name1">Shop Name1</string>
@@ -494,7 +539,7 @@
 
     <string name="choose_color">Choose color</string>
     <string name="choose_discount">Choose Discount Type</string>
-    <string name="choose_condition">Choose condition</string>
+    <string name="choose_type_filter">Choose type</string>
 
     <string name="choose_type_post">Choose Post Type</string>
     <string name="choose_category">Choose Category</string>
@@ -617,11 +662,11 @@
     <string name="widowed">Widowed</string>
     <string name="user_type">User Type</string>
     <string name="load_more_text">View more</string>
-    <string name="result">Result</string>
+    <string name="result">Results</string>
     <string name="filter">Filter</string>
     <string name="done">Done</string>
     //log
-    <string name="not_found">No Result Found...!</string>
+    <string name="not_found">No Data</string>
     <string name="all">All</string>
     //change password
     <string name="message">You can not send empty message</string>

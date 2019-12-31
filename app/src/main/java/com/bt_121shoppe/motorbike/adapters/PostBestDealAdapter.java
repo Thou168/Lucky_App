@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -210,7 +211,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(itemView.getContext(), Detail_New_Post.class);
+                    Intent intent=new Intent(itemView.getContext(), Detail_new_post_java.class);
                     intent.putExtra("Discount", finalMPrice);
                     intent.putExtra("Price",mPost.getPostPrice());
                     intent.putExtra("ID",mPost.getPostId());

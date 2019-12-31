@@ -35,11 +35,15 @@
                     android:id="@+id/mSearch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="1"
-                    app:closeIcon="@drawable/met_ic_clear"
+                    app:closeIcon="@drawable/ic_close"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:background="@drawable/search_background"
                     app:iconifiedByDefault="false"
-                    app:queryHint="@string/search_here"
-                    app:searchHintIcon="@drawable/ic_search_black_24dp">
+                    app:searchIcon="@drawable/android_search">
 
                 </androidx.appcompat.widget.SearchView>
 
@@ -81,21 +85,38 @@
     <RelativeLayout
         android:id="@+id/rl_filter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:visibility="visible"
         android:padding="8dp"
         android:layout_below="@id/appToolbar">
-
         <TextView
-            android:id="@+id/tv_filter"
+            android:id="@+id/show_view"
+            android:text="0"
+            android:textSize="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
+            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_24"/>
+        <TextView
+            android:id="@+id/result_view"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/show_view"
+            android:gravity="center"
+            android:textSize="@dimen/dp_16"
+            android:text="@string/result"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_24"/>
+
+        <ImageView
+            android:id="@+id/tv_filter"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:drawableEnd="@drawable/filter_1"
-            android:gravity="center_vertical"
-            android:text="@string/filter" />
+            android:src="@drawable/filter_1"
+            android:gravity="center" />
 
     </RelativeLayout>
 
@@ -109,9 +130,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecycler"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_filter" />
+        android:layout_below="@+id/frameLayout" />
 
     <TextView
         android:gravity="center"
@@ -131,4 +153,250 @@
         android:id="@+id/progress_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_filter"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_below="@+id/myRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="@dimen/dp_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:background="#EFEEF4">
+
+            <LinearLayout
+                android:id="@+id/linea_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rela_Type"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    >
+                    <ImageView
+                        android:id="@+id/icType_sr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_20"
+                        android:src="@drawable/icon_null"
+                        android:layout_marginTop="5dp"
+
+                        />
+                    <TextView
+                        android:id="@+id/title_type"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textSize="@dimen/dp_20"
+                        android:text="@string/type"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@+id/icType_sr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:id="@+id/search_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/white"
+                        android:text="@string/type"
+                        android:textAllCaps="false"
+                        android:gravity="left|center_vertical"
+                        android:layout_toRightOf="@id/icType_sr"
+                        android:layout_below="@+id/title_type"
+                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        >
+                    </TextView>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linea_cate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rela_Category"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rela_Type"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    >
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_null"
+                        android:id="@+id/icCategory_sr"
+                        android:layout_marginTop="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/title_cate"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textSize="@dimen/dp_20"
+                        android:text="@string/category"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@+id/icCategory_sr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:id="@+id/search_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/white"
+                        android:text="@string/choose_category"
+                        android:textAllCaps="false"
+                        android:gravity="left|center_vertical"
+                        android:layout_below="@+id/title_cate"
+                        android:layout_toRightOf="@+id/icCategory_sr"
+                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        >
+                    </TextView>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linea_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rela_brand"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rela_Brand"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_null"
+                        android:id="@+id/icBrand_sr"
+                        android:layout_marginTop="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/title_brand"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textSize="@dimen/dp_20"
+                        android:text="@string/brand"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@+id/icBrand_sr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:id="@+id/search_brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/white"
+                        android:text="@string/brand"
+                        android:textAllCaps="false"
+                        android:layout_toRightOf="@+id/icBrand_sr"
+                        android:layout_below="@+id/title_brand"
+                        android:gravity="left|center_vertical"
+                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        >
+                    </TextView>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linea_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rela_Year"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rela_Brand"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_null"
+                        android:id="@+id/icYear_sr"
+                        android:layout_marginTop="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/title_year"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textSize="@dimen/dp_20"
+                        android:text="@string/year"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@+id/icYear_sr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:id="@+id/search_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/white"
+                        android:text="@string/choose_year"
+                        android:textAllCaps="false"
+                        android:layout_toRightOf="@+id/icYear_sr"
+                        android:layout_below="@+id/title_year"
+                        android:gravity="left|center_vertical"
+                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        >
+                    </TextView>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rela_price"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rela_Condition"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white">
+                    <TextView
+                        android:id="@+id/title_price"
+                        android:textSize="@dimen/dp_20"
+                        android:textStyle="bold"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:text="@string/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <SeekBar
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_below="@+id/title_price"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSubmit_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit_button"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:background="@drawable/mybutton"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/rela_Year"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

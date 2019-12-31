@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="always"
+        android:orderInCategory="1"
+        app:iconTint="#008aff"
         app:actionViewClass="android.widget.SearchView"
-        android:title="TODO" />
-    <item android:id="@+id/filter_search"
-        android:icon="@drawable/filter"
-        app:showAsAction="always|collapseActionView"
-        android:title="TODO" />
-    <item android:id="@+id/clear_search"
-        android:icon="@drawable/close_36"
-        app:showAsAction="always|collapseActionView"
-        android:title="TODO" />
+        android:title="@string/search" />
+<!--    <item android:id="@+id/filter_search"-->
+<!--        android:icon="@drawable/filter"-->
+<!--        app:showAsAction="always|collapseActionView"-->
+<!--        android:title="TODO" />-->
+<!--    <item android:id="@+id/clear_search"-->
+<!--        android:icon="@drawable/close_36"-->
+<!--        app:showAsAction="always|collapseActionView"-->
+<!--        android:title="TODO" />-->
 </menu>

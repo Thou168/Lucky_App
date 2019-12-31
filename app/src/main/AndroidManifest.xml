@@ -206,6 +206,10 @@
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:value="AIzaSyA4GHayq3AVbLLaSeipU3lC63tzDF8DWY4" /> -->
         <activity
+            android:name=".Activity.Camera_new"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+        <activity
             android:name=".activities.AccountActivity"
             android:screenOrientation="portrait" />
         <activity

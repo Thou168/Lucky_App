@@ -195,41 +195,42 @@ public class Detail_2 extends Fragment {
                 Log.d(TAG+"3333",mMessage);
                 Gson json = new Gson();
                 try {
-                    getActivity().runOnUiThread(() -> {
-                        postDetail = json.fromJson(mMessage,PostViewModel.class);
-                        Log.e(TAG,"D"+mMessage);
-                        tv_email.setText(postDetail.getContact_email());
-                        username.setText(postDetail.getMachine_code());
-                        String contact_phone = postDetail.getContact_phone();
-                        tv_phone.setText(contact_phone);
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            postDetail = json.fromJson(mMessage, PostViewModel.class);
+                            Log.e(TAG, "D" + mMessage);
+                            tv_email.setText(postDetail.getContact_email());
+                            username.setText(postDetail.getMachine_code());
+                            String contact_phone = postDetail.getContact_phone();
+                            tv_phone.setText(contact_phone);
 
-                        //address
-                        String addr = postDetail.getContact_address();
-                        if (addr.isEmpty()){
+                            //address
+                            String addr = postDetail.getContact_address();
+                            if (addr.isEmpty()) {
 
-                        }else {
-                            String[] splitAddr = (addr.split(","));
-                            latitude = Double.valueOf(splitAddr[0]);
-                            longtitude = Double.valueOf(splitAddr[1]);
-                            try {
-                            Geocoder geo = new Geocoder(getActivity(), Locale.getDefault());
-                            List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
-                            if (addresses.isEmpty()){
-                                tv_address.setText("Waiting for Location");
-                            }else {
-                                if (addresses.size()>0) {
-                                    tv_address.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
+                            } else {
+                                String[] splitAddr = (addr.split(","));
+                                latitude = Double.valueOf(splitAddr[0]);
+                                longtitude = Double.valueOf(splitAddr[1]);
+                                try {
+                                    Geocoder geo = new Geocoder(getActivity(), Locale.getDefault());
+                                    List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+                                    if (addresses.isEmpty()) {
+                                        tv_address.setText("Waiting for Location");
+                                    } else {
+                                        if (addresses.size() > 0) {
+                                            tv_address.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
                             }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } catch (JsonParseException e) {
+                        });
+                    }
+                } catch(JsonParseException e){
                     e.printStackTrace();
                 }
-
             }
         });
     }

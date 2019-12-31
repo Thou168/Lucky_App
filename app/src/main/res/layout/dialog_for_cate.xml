@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title_select"
+        android:text="@string/select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="4dp"
+        android:textSize="@dimen/dp_24"/>
+    <ImageView
+        android:id="@+id/icon_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close"
+        android:layout_alignParentEnd="true"
+        android:textSize="15dp"
+        android:padding="10dp"
+        />
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_below="@+id/title_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layoutDirection="rtl"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:text="@string/all"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/electro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layoutDirection="rtl"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:text="@string/electronic"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/motor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layoutDirection="rtl"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:text="@string/motor"
+            android:textSize="14sp" />
+        </RadioGroup>
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_below="@+id/radio_group"
+        android:background="@drawable/shap_ratangle1"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

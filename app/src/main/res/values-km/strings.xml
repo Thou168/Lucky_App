@@ -46,6 +46,44 @@
     <string name="product_discount">ការផ្ដល់ជូនពិសេស</string>
     <string name="new_post">ការប្រកាសថ្មីៗ</string>
 
+    //year string
+    <string name="year1">2010</string>
+    <string name="year2">2011</string>
+    <string name="year3">2012</string>
+    <string name="year4">2013</string>
+    <string name="year5">2014</string>
+    <string name="year6">2015</string>
+    <string name="year7">2016</string>
+    <string name="year8">2017</string>
+    <string name="year9">2018</string>
+    <string name="year10">2019</string>
+    <string name="year11">2020</string>
+    <string name="year12">2009</string>
+    <string name="year13">2008</string>
+    <string name="year14">2007</string>
+    <string name="year15">2006</string>
+    <string name="year16">2005</string>
+    <string name="year17">2004</string>
+    <string name="year18">2003</string>
+    <string name="year19">2002</string>
+    <string name="year20">2001</string>
+    <string name="year21">2000</string>
+    <string name="year22">1999</string>
+    <string name="year23">1998</string>
+    <string name="year24">1997</string>
+    <string name="year25">1996</string>
+    <string name="year26">1995</string>
+
+    //select
+    <string name="select">ជ្រើសរើស</string>
+
+    //brand string
+    <string name="honda">ហុងដា</string>
+    <string name="pcx">ភីសុីអុិច</string>
+    <string name="lg">អិលជី</string>
+    <string name="panasonic">ប៉ាណាសូនិច</string>
+    <string name="susuki">សូស៊ូគី</string>
+
     //title
     <string name="home">ទំព័រដើម</string>
     <string name="notification">ការជូនដំណឹង</string>
@@ -439,6 +477,13 @@
     <string name="shop_other2">ឈ្មោះហាងទី២</string>
     <string name="shop_other3">ឈ្មោះហាងទី៣</string>
 
+    //public user string
+    <string name="post_info">Post Infomation</string>
+    <string name="post_id">Post ID</string>
+    <string name="showid">Show ID</string>
+    <string name="ds_pri_percent">Discount Price(%)</string>
+    <string name="ds_pri_amount">Discount Price($)</string>
+
     //post ad
     <string name="post_type">ប្រភេទប្រកាស</string>
     <string name="title">ចំណងជើង</string>
@@ -537,7 +582,7 @@
     <string name="choose_color">ជ្រើសរើសពណ៌</string>
     <string name="choose_discount">ជ្រើសរើសប្រភេទបញ្ចុះតម្លៃ</string>
     <string name="choose_category">ជ្រើសរើសប្រភេទទំនិញ</string>
-    <string name="choose_condition">ជ្រើសរើសលក្ខខណ្ឌ</string>
+    <string name="choose_type_filter">ជ្រើសរើសលក្ខខណ្ឌ</string>
     <string name="choose_type_post">ជ្រើសរើសប្រភេទប្រកាស</string>
     <string name="choose_brand">ជ្រើសរើសម៉ាកផលិតផល</string>
     <string name="choose_year">ជ្រើសរើសឆ្នាំផលិត</string>
@@ -680,7 +725,7 @@
     <string name="result">លទ្ធផល</string>
     <string name="filter">ច្រោះ</string>
     <string name="done">ធ្វើរួច</string>
-    <string name="not_found">រកមិនឃើញលទ្ធផលទេ ... </string>
+    <string name="not_found">រកមិនឃើញលទ្ធផលទេ</string>
     <string name="all">ទាំងអស់</string>
     <string name="message">អ្នកមិនអាចផ្ញើសារទទេបានទេ</string>
     //renew
