@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,10 +38,10 @@ public class AccountSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setting);
-        initToolbar();
+        //initToolbar();
 
 
-        Button btnProfile=findViewById(R.id.btnProfile);
+        LinearLayout btnProfile=findViewById(R.id.llProfile);
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +49,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-        Button btnSetting=findViewById(R.id.btnSetting);
+        LinearLayout btnSetting=findViewById(R.id.llSetting);
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +57,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-        Button btnNofitification=findViewById(R.id.btnNotification);
+        LinearLayout btnNofitification=findViewById(R.id.llNotification);
         btnNofitification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +65,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-        Button btnAbout=findViewById(R.id.btnAbout);
+        LinearLayout btnAbout=findViewById(R.id.llAbout);
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +73,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-        Button btnContact=findViewById(R.id.btnContact);
+        LinearLayout btnContact=findViewById(R.id.llContact);
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +81,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-        Button btnTermofPrivacy=findViewById(R.id.btnTermOfPrivacy);
+        LinearLayout btnTermofPrivacy=findViewById(R.id.llTerm);
         btnTermofPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +89,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-        Button btnSignout=findViewById(R.id.btnLogout);
+        LinearLayout btnSignout=findViewById(R.id.llSignOut);
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

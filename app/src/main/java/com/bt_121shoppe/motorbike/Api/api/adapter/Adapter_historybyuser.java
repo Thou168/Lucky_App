@@ -126,7 +126,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             }
         }
         view.title.setText(strPostTitle);
-
+        view.imgUserProfile.setVisibility(View.GONE);
 //End
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
@@ -200,7 +200,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title,cost,item_type,txtview,date,txt_discount,strView;
-        ImageView imageView;
+        ImageView imageView,imgUserProfile;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
         ViewHolder(View view){
@@ -216,6 +216,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             txt_discount = view.findViewById(R.id.tv_discount);
 //            btn_delete = view.findViewById(R.id.btndelete);
             linearLayout = view.findViewById(R.id.linearLayout);
+            imgUserProfile=view.findViewById(R.id.img_user);
         }
     }
 }

@@ -300,6 +300,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Log.e("LOG",snapshot.getKey());
                     com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
                     if(user.getUsername().equals(username)){
                         String group=user.getGroup();

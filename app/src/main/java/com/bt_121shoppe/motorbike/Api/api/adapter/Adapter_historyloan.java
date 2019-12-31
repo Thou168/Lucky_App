@@ -16,11 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.TimeZone;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,10 +78,10 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
         final Item_loan model = datas.get(position);
 
         int postid=(int)model.getPost();
-        view.txtview.setVisibility(View.GONE);
-        view.userview.setVisibility(View.GONE);
+        //view.txtview.setVisibility(View.GONE);
+        //view.userview.setVisibility(View.GONE);
         view.relativeLayout.setVisibility(View.GONE);
-        view.item_type.setVisibility(View.GONE);
+        //view.item_type.setVisibility(View.GONE);
         try{
             Service api = Client.getClient().create(Service.class);
             Call<Item> itemCall = api.getDetailpost(postid,basic_Encode);
@@ -106,6 +110,70 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
 
                     view.title.setText(strPostTitle);
                     view.cost.setText("$"+model.getLoan_amount());
+                    if (response.body().getPost_type().equals("sell")){
+                        view.item_type.setText(R.string.sell_t);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
+                        view.item_type.setBackgroundResource(R.drawable.roundimage);
+                    }else if (response.body().getPost_type().equals("buy")){
+                        view.item_type.setText(R.string.buy_t);
+                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
+                    }else {
+                        view.item_type.setText(R.string.rent);
+//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
+                        view.item_type.setBackgroundResource(R.drawable.roundimage_rent);
+                    }
+
+                    int status=model.getLoan_status();
+                    switch (status){
+                        case 2:
+                            view.textViewStatus.setText("Removed");
+                            break;
+                        case 9:
+                            view.textViewStatus.setText(R.string.pending);
+                            break;
+                        case 10:
+                            view.textViewStatus.setText("Approved");
+                            break;
+                        case 11:
+                            view.textViewStatus.setText("Rejected");
+                            break;
+                        case 12:
+                            view.textViewStatus.setText("Cancelled");
+                            break;
+                    }
+
+                    try{
+                        Service apiServiece = Client.getClient().create(Service.class);
+                        Call<AllResponse> call_view = apiServiece.getCount(String.valueOf(postid),basic_Encode);
+                        call_view.enqueue(new Callback<AllResponse>() {
+                            @Override
+                            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                                view.userview.setText(String.valueOf(response.body().getCount()));
+                            }
+
+                            @Override
+                            public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
+                        });
+                    }catch (Exception e){Log.d("Error e",e.getMessage());}
+
+                    try{
+                        Service api = Client.getClient().create(Service.class);
+                        Call<User> call1 = api.getuser(response.body().getCreated_by());
+                        call1.enqueue(new retrofit2.Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                if (!response.isSuccessful()){
+                                    //Log.d("12122121", String.valueOf(response.code()));
+                                }
+                                CommomAPIFunction.getUserProfileFB(mContext,view.imgUserProfile,response.body().getUsername());
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                                Log.d("Error",t.getMessage());
+                            }
+                        });
+                    }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
 
 //                    if (response.body().getPost_type().equals("sell")){
 //                        view.item_type.setText(R.string.sell_t);
@@ -141,9 +209,10 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,date,item_type,txtview,userview,itemtype;
+        TextView title,cost,date,item_type,txtview,userview,itemtype,textViewStatus;
         ImageView imageView;
         RelativeLayout relativeLayout;
+        CircleImageView imgUserProfile;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -154,6 +223,8 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             userview = view.findViewById(R.id.user_view);
             item_type = view.findViewById(R.id.item_type);
             relativeLayout = view.findViewById(R.id.relative);
+            imgUserProfile=view.findViewById(R.id.img_user);
+            textViewStatus=view.findViewById(R.id.tv_status);
         }
     }
 }

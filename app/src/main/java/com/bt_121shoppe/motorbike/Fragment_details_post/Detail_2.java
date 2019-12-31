@@ -99,7 +99,6 @@ public class Detail_2 extends Fragment {
         tv_email.setText("EMAIL");
         tv_address.setText("ADDRESS");
 
-
         //basic
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");

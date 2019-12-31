@@ -69,7 +69,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Detail_new_post_java extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
-    TextView back_view;
+    ImageView back_view;
     ImageButton btn_share;
     ImageView like,call,message,loan;
     private Integer postId = 0;
@@ -213,6 +213,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         tabLayout = findViewById(R.id.tab_layout_detail);
         tabLayout.setupWithViewPager(mViewPager);
         setUpPager();
+        setupTabIcons();
     }
 
     private void call_methot_id(){
@@ -222,8 +223,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         tvDiscountPer = findViewById(R.id.tv_discount_per);
         view = findViewById(R.id.view);
 
-        tv_dox = findViewById(R.id.style_dox);
-        tv_dox.setVisibility(View.GONE);
+//        tv_dox = findViewById(R.id.style_dox);
+//        tv_dox.setVisibility(View.GONE);
         typeView=findViewById(R.id.post_type);
 
         back_view = findViewById(R.id.tv_back);
@@ -298,16 +299,22 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             return tabCount;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            if (position==0) {
-                return getApplicationContext().getString(R.string.detail);
-            } else if (position==1) {
-                return getApplicationContext().getString(R.string.personal_info);
-            } else {
-                return getApplicationContext().getString(R.string.loan_calculation_title);
-            }
-        }
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            if (position==0) {
+//                return getApplicationContext().getString(R.string.detail);
+//            } else if (position==1) {
+//                return getApplicationContext().getString(R.string.personal_info);
+//            } else {
+//                return getApplicationContext().getString(R.string.loan_calculation_title);
+//            }
+//        }
+    }
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(R.drawable.path_3922);
+        tabLayout.getTabAt(1).setIcon(R.drawable.path_3903);
+        tabLayout.getTabAt(2).setIcon(R.drawable.path_3904);
     }
 
     private void Phone_call(String contactPhone) {
@@ -445,7 +452,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             tvPrice.setText("$ "+cost);
                             tvDiscount.setText("$"+postDetail.getDiscount());
                             tvDiscountPer.setText(per1+"%");
-                            tv_dox.setVisibility(View.VISIBLE);
+                            //tv_dox.setVisibility(View.VISIBLE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
                         }
                         if (discount == 0.00){
@@ -765,7 +772,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         return separated[indext];
     }
 
-
     private void getMyLoan(){
         ArrayList<Integer> IDPOST = new ArrayList<>();
         String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/";
@@ -843,7 +849,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             }
         });
     }
-
 
     private void withStyle() {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(),R.style.AppTheme);

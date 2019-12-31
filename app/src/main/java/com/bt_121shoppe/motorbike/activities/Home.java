@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -139,6 +140,9 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_search_type);
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
         //check app version update from playstore
         new GooglePlayStoreAppVersionNameLoader(getApplicationContext(), this).execute();
         SharedPreferences prefer=getSharedPreferences("Settings", Activity.MODE_PRIVATE);

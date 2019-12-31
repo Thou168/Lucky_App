@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -29,12 +31,14 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,19 +110,60 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     view.title.setText(strPostTitle);
                     view.cost.setText("$"+model.getLoan_amount());
 
-//                    view.txtview.setVisibility(View.GONE);
-//                    view.item_type.setVisibility(View.GONE);
-//                    view.textview1.setVisibility(View.GONE);
-//                    if (response.body().getPost_type().equals("sell")){
-//                        view.item_type.setText(R.string.sell_t);
+                    if (response.body().getPost_type().equals("sell")){
+                        view.item_type.setText(R.string.sell_t);
 //                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
-//                    }else if (response.body().getPost_type().equals("buy")){
-//                        view.item_type.setText(R.string.buy_t);
-//                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
-//                    }else {
-//                        view.item_type.setText(R.string.rent);
+                        view.item_type.setBackgroundResource(R.drawable.roundimage);
+                    }else if (response.body().getPost_type().equals("buy")){
+                        view.item_type.setText(R.string.buy_t);
+                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
+                    }else {
+                        view.item_type.setText(R.string.rent);
 //                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
-//                    }
+                        view.item_type.setBackgroundResource(R.drawable.roundimage_rent);
+                    }
+
+                    int status=(int)response.body().getStatus();
+                    switch (status){
+                        case 9:
+                            view.textViewStatus.setText(R.string.pending);
+                            break;
+                        case 10:
+                            break;
+                    }
+
+                    try{
+                        Service apiServiece = Client.getClient().create(Service.class);
+                        Call<AllResponse> call_view = apiServiece.getCount(String.valueOf(postid),basic_Encode);
+                        call_view.enqueue(new Callback<AllResponse>() {
+                            @Override
+                            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                                view.textview1.setText(String.valueOf(response.body().getCount()));
+                            }
+
+                            @Override
+                            public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
+                        });
+                    }catch (Exception e){Log.d("Error e",e.getMessage());}
+
+                    try{
+                        Service api = Client.getClient().create(Service.class);
+                        Call<User> call1 = api.getuser(response.body().getCreated_by());
+                        call1.enqueue(new retrofit2.Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                if (!response.isSuccessful()){
+                                    //Log.d("12122121", String.valueOf(response.code()));
+                                }
+                                CommomAPIFunction.getUserProfileFB(mContext,view.imgUserProfile,response.body().getUsername());
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                                Log.d("Error",t.getMessage());
+                            }
+                        });
+                    }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
 
                     view.btn_cancel.setOnClickListener(v -> {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
@@ -207,10 +252,11 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,cost,date,item_type,txtview,textview1;
+        TextView title,cost,date,item_type,txtview,textview1,textViewStatus;
         ImageView imageView;
         Button btn_edit,btn_cancel;
         LinearLayout linearLayout;
+        CircleImageView imgUserProfile;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -223,6 +269,8 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
             btn_cancel = view.findViewById(R.id.btndelete);
             linearLayout = view.findViewById(R.id.linearLayout);
             textview1 = view.findViewById(R.id.user_view);
+            textViewStatus=view.findViewById(R.id.tv_status);
+            imgUserProfile=view.findViewById(R.id.img_user);
         }
     }
 }

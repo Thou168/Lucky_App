@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
+import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -31,11 +32,13 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.*;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -204,6 +207,25 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                             public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
                         });
                     }catch (Exception e){Log.d("Error e",e.getMessage());}
+                    view.imgUserProfile.setVisibility(View.VISIBLE);
+                    try{
+                        Service api = Client.getClient().create(Service.class);
+                        Call<User> call1 = api.getuser(response.body().getCreated_by());
+                        call1.enqueue(new retrofit2.Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                if (!response.isSuccessful()){
+                                    //Log.d("12122121", String.valueOf(response.code()));
+                                }
+                                CommomAPIFunction.getUserProfileFB(mContext,view.imgUserProfile,response.body().getUsername());
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                                Log.d("Error",t.getMessage());
+                            }
+                        });
+                    }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
 //Button Unlike
                     view.btn_unlike.setOnClickListener(v -> {
 
@@ -264,6 +286,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title,cost,item_type,txtview,txtview1,date,txt_discount;
         ImageView imageView;
+        CircleImageView imgUserProfile;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
         ViewHolder(View view){
@@ -278,6 +301,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             btn_unlike = view.findViewById(R.id.imgbtn_unlike);
             linearLayout = view.findViewById(R.id.linearLayout);
             txt_discount = view.findViewById(R.id.tv_discount);
+            imgUserProfile=view.findViewById(R.id.img_user);
         }
     }
 }

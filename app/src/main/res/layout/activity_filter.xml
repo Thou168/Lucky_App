@@ -12,33 +12,42 @@
     <androidx.appcompat.widget.Toolbar
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
-        <TextView
-            android:gravity="center"
-            android:id="@+id/tv_result"
-            android:drawableStart="@drawable/back_arrow"
-            android:text=""
-            android:drawablePadding="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:textSize="@dimen/dp_18"
-            android:text="@string/filter"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"/>
-        <TextView
-            android:id="@+id/tv_done"
-            android:text="@string/done"
-            android:layout_gravity="end"
-            android:gravity="center"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="70dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/tv_result"
+                android:drawableStart="@drawable/back_arrow_x1"
+                android:layout_centerVertical="true"
+                android:layout_width="20.21dp"
+                android:layout_height="14dp" />
+            <TextView
+                android:visibility="gone"
+                android:textSize="@dimen/dp_18"
+                android:text="@string/filter"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tv_done"
+                android:text="@string/done"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:fontFamily="@font/opensans_semibold"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <androidx.cardview.widget.CardView
         android:id="@+id/card_filter"

@@ -12,104 +12,213 @@
         android:id="@+id/appToolbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:paddingRight="15dp"
         android:theme="@style/AppTheme.AppBarOverlay">
         <androidx.appcompat.widget.Toolbar
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="70dp"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:titleTextColor="#ffffff">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="21dp"
+                    android:layout_marginRight="14dp"
+                    android:src="@drawable/back_arrow"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"
+                    android:text="Account Setting"/>
+            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/btnProfile"
-        android:layout_below="@id/appToolbar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/group_2228"
-        android:text="Profile"
-        android:padding="@dimen/dp_16"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:background="@null" />
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_15"
+        android:layout_below="@id/appToolbar">
 
-    <Button
-        android:id="@+id/btnSetting"
-        android:layout_below="@id/btnProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/path_3925"
-        android:text="@string/setting"
-        android:padding="@dimen/dp_16"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:background="@null" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnNotification"
-        android:layout_below="@id/btnSetting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/bell"
-        android:text="@string/notification"
-        android:padding="@dimen/dp_16"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:background="@null" />
+            <LinearLayout
+                android:id="@+id/llProfile"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/group_2228"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="Profile"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAbout"
-        android:layout_below="@id/btnNotification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/group_2240"
-        android:text="@string/menu_about"
-        android:padding="@dimen/dp_16"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:background="@null" />
+            <LinearLayout
+                android:layout_below="@id/llProfile"
+                android:id="@+id/llSetting"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/path_3925"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="Setting"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnContact"
-        android:layout_below="@id/btnAbout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/group_2229"
-        android:text="@string/contact"
-        android:padding="@dimen/dp_16"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:background="@null" />
+            <LinearLayout
+                android:layout_below="@id/llSetting"
+                android:id="@+id/llNotification"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/bell"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="@string/notification"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnTermOfPrivacy"
-        android:layout_below="@id/btnContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/group_2234"
-        android:text="@string/term_privacy_heading"
-        android:padding="@dimen/dp_16"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:background="@null" />
+            <LinearLayout
+                android:layout_below="@id/llNotification"
+                android:id="@+id/llAbout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/group_2240"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="@string/menu_about"/>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_below="@id/llAbout"
+                android:id="@+id/llContact"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/group_2229"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="@string/contact"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_below="@id/llContact"
+                android:id="@+id/llTerm"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/group_2234"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="@string/term_privacy_heading"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_above="@id/llVersion"
+        android:id="@+id/llSignOut"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:padding="@dimen/dp_16"
+        android:gravity="center_vertical"
         android:textAlignment="center"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:background="@null"
-        android:layout_alignParentBottom="true"/>
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"
 
+            android:src="@drawable/path_3911"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_regular"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:text="@string/logout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="@dimen/dp_8dp"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="center"
+        android:orientation="horizontal">
+        <TextView
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_regular"
+            android:textColor="#333333"
+            android:textSize="15dp"
+            android:text="@string/version"/>
+    </LinearLayout>
 
 </RelativeLayout>

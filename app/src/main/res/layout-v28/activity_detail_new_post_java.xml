@@ -27,7 +27,8 @@
                 <com.custom.sliderimage.logic.SliderImage
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="280dp" />
+                    android:layout_height="220dp" />
+
                     <RelativeLayout
                         android:background="@color/sunflower_black"
                         android:layout_width="match_parent"
@@ -203,7 +204,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Constrainlayout_call_chat_like_loan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:visibility="visible"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
@@ -211,9 +212,9 @@
 
         <ImageView
             android:id="@+id/btn_call"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/icons8_call_100"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/call"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_sms"
             app:layout_constraintStart_toStartOf="parent"
@@ -221,9 +222,9 @@
 
         <ImageView
             android:id="@+id/btn_sms"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/icons8_chat_room_100"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/group_2287"
             app:layout_constraintBottom_toBottomOf="@+id/btn_call"
             app:layout_constraintEnd_toStartOf="@+id/btn_loan"
             app:layout_constraintStart_toEndOf="@+id/btn_call"
@@ -231,9 +232,9 @@
 
         <ImageView
             android:id="@+id/btn_loan"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/icons8_debt_100"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/loan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_sms"
             app:layout_constraintTop_toTopOf="@+id/btn_sms" />

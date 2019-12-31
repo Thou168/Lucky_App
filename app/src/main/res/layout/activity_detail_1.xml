@@ -4,26 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment_details_post.Detail_1">
+
     <androidx.core.widget.NestedScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <View
-                style="@style/line"
-                android:layout_height="@dimen/dp_4"/>
+<!--            <View-->
+<!--                style="@style/line"-->
+<!--                android:layout_height="@dimen/dp_4"/>-->
             <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:padding="@dimen/dp_8dp"
+                android:paddingTop="16dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="20dp"
                 android:text="@string/description"
-                android:textSize="@dimen/dp_16"
-                android:textStyle="bold" />
+                android:textSize="18dp"
+                android:textColor="#CCCCCC"
+                android:fontFamily="@font/opensans_semibold"/>
             <View
                 android:id="@+id/line0"
                 style="@style/line"
@@ -33,22 +37,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line0"
-                android:layout_marginStart="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="15dp"
                 android:text="@string/postcode"
-                android:textSize="14sp" />
+                android:textSize="15dp"
+                android:fontFamily="@font/opensans_semibold" />
             <TextView
                 android:id="@+id/bool1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
-                android:padding="@dimen/dp_8"
+                android:padding="15dp"
                 android:gravity="center"
-                android:textStyle="bold"
                 android:layout_below="@+id/line0"
                 android:layout_marginStart="@dimen/dp_8"
-                android:textSize="14sp"
+                android:textSize="15sp"
+                android:fontFamily="@font/opensans_regular"
                 android:text=":"/>
 
             <TextView
@@ -57,13 +61,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line0"
                 android:layout_toEndOf="@+id/bool1"
-                android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginTop="1dp"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="15dp"
                 android:text="@string/postcode"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="15sp"
+                android:fontFamily="@font/opensans_regular" />
+
             <View
                 android:id="@+id/line"
                 style="@style/line"
@@ -73,23 +77,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line"
-                android:layout_marginStart="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/brand"
-                android:textSize="14sp" />
+                android:fontFamily="@font/opensans_semibold"
+                android:textSize="@dimen/dp_15" />
             <TextView
                 android:id="@+id/bool2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
                 android:layout_marginStart="@dimen/dp_8"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:gravity="center"
                 android:layout_below="@+id/line"
-                android:textSize="14sp"
-                android:text=":"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/opensans_regular"
+                android:textSize="@dimen/dp_15"
+                android:text=":" />
 
             <TextView
                 android:id="@+id/tvBrand"
@@ -97,13 +101,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line"
                 android:layout_toEndOf="@+id/bool2"
-                android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginTop="1dp"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/brand"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/opensans_regular"
+                android:textSize="@dimen/dp_15" />
 
             <View
                 android:id="@+id/line2"
@@ -115,23 +118,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line2"
-                android:layout_marginStart="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/type"
-                android:textSize="14sp" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:id="@+id/bool3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_8"
                 android:gravity="center"
                 android:layout_below="@+id/line2"
-                android:textSize="14sp"
+                android:textSize="@dimen/dp_15"
                 android:text=":"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/opensans_regular"/>
 
             <TextView
                 android:id="@+id/type"
@@ -139,13 +142,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line2"
                 android:layout_toEndOf="@+id/bool3"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginTop="1dp"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/type"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_regular" />
 
             <View
                 android:id="@+id/line3"
@@ -157,23 +158,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line3"
-                android:layout_marginStart="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/model"
-                android:textSize="14sp" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:id="@+id/bool4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_8"
                 android:gravity="center"
                 android:layout_below="@+id/line3"
-                android:textSize="14sp"
+                android:textSize="15dp"
                 android:text=":"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/opensans_regular"/>
 
             <TextView
                 android:id="@+id/tv_Model"
@@ -182,11 +183,10 @@
                 android:layout_below="@+id/line3"
                 android:gravity="center_vertical"
                 android:layout_toEndOf="@+id/bool4"
-                android:layout_marginStart="@dimen/dp_16"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/model"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_regular" />
 
             <View
                 android:id="@+id/line4"
@@ -198,23 +198,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line4"
-                android:layout_marginLeft="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/year"
-                android:textSize="14sp" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:id="@+id/bool5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_8"
                 android:gravity="center"
                 android:layout_below="@+id/line4"
-                android:textSize="14sp"
+                android:textSize="@dimen/dp_15"
                 android:text=":"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/opensans_regular"/>
 
             <TextView
                 android:id="@+id/tv_Year"
@@ -223,11 +223,10 @@
                 android:layout_below="@+id/line4"
                 android:gravity="center_vertical"
                 android:layout_toEndOf="@+id/bool5"
-                android:layout_marginStart="@dimen/dp_16"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/year"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_regular"/>
 
             <View
                 android:id="@+id/line5"
@@ -238,23 +237,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line5"
-                android:layout_marginStart="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/color"
-                android:textSize="14sp" />
+                android:textSize="15dp"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:id="@+id/bool6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_8"
                 android:gravity="center"
                 android:layout_below="@+id/line5"
                 android:textSize="14sp"
-                android:text=":"
-                android:textStyle="bold"/>
+                android:text=":" />
 
             <TextView
                 android:id="@+id/tv_Color"
@@ -262,12 +260,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line5"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:layout_toEndOf="@+id/bool6"
-                android:layout_marginStart="@dimen/dp_16"
                 android:text="@string/color"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_regular" />
 
             <View
                 android:id="@+id/line6"
@@ -284,23 +281,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line6"
-                android:layout_marginStart="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:text="@string/condition"
-                android:textSize="14sp" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:id="@+id/bool7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/postCodeTitle"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_8"
                 android:gravity="center"
                 android:layout_below="@+id/line6"
-                android:textSize="14sp"
+                android:textSize="@dimen/dp_15"
                 android:text=":"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/opensans_regular"/>
 
             <TextView
                 android:id="@+id/tv_Condition"
@@ -308,14 +305,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line6"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
-                android:layout_marginStart="@dimen/dp_16"
+                android:padding="@dimen/dp_15"
                 android:layout_toEndOf="@+id/bool7"
                 android:text="@string/condition"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_regular" />
 
             <View
+                android:visibility="gone"
                 android:id="@+id/line11"
                 style="@style/line"
                 android:layout_below="@+id/tv_Condition" />
@@ -334,32 +331,36 @@
             <View
                 android:id="@+id/line_list"
                 style="@style/line"
+                android:visibility="gone"
                 android:layout_below="@+id/ln1"
                 android:layout_height="@dimen/dp_4"/>
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                 android:layout_below="@+id/line_list"
                 android:id="@+id/list_shop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <View
+                android:visibility="gone"
                 android:id="@+id/line_rela"
                 style="@style/line"
                 android:layout_below="@+id/list_shop"
                 android:layout_height="@dimen/dp_4"/>
+
             <RelativeLayout
-            android:id="@+id/relative_eta"
-            android:layout_below="@+id/line_rela"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:id="@+id/relative_eta"
+                android:layout_below="@+id/line_rela"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/eta_moto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:padding="@dimen/dp_8dp"
-                    android:text="@string/moto_eta"
-                    android:textSize="@dimen/dp_16"
-                    android:textStyle="bold" />
+                    android:textSize="18dp"
+                    android:textColor="#CCCCCC"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:padding="@dimen/dp_15"
+                    android:text="@string/moto_eta" />
                 <View
                     android:id="@+id/line_eta"
                     style="@style/line"
@@ -369,22 +370,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta"
-                    android:layout_marginLeft="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/whole_int"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_ink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvWholeInkTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_eta"
-                    android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/dp_15"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -393,13 +393,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta"
                     android:layout_toEndOf="@+id/bool_ink"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_eta1"
                     style="@style/line"
@@ -409,22 +407,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta1"
-                    android:layout_marginLeft="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/front_and_rear_wheel_sets"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_FrontReal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvFrontRealTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_eta1"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -433,13 +431,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta1"
                     android:layout_toEndOf="@+id/bool_FrontReal"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                   android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_eta2"
                     style="@style/line"
@@ -449,22 +445,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta2"
-                    android:layout_marginLeft="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/The_whole_screw"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_WholeScrew"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvWholeScrewTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_eta2"
-                    android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -473,13 +468,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta2"
                     android:layout_toEndOf="@+id/bool_WholeScrew"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_eta3"
                     style="@style/line"
@@ -489,22 +482,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta3"
-                    android:layout_marginStart="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/Front_and_rear_pumps"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_pump"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvPumpsTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_eta3"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -513,13 +506,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_eta3"
                     android:layout_toEndOf="@+id/bool_pump"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"/>
                 <View
                     android:id="@+id/line_eta4"
                     style="@style/line"
@@ -529,12 +520,13 @@
                     android:id="@+id/machin_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_below="@+id/line_eta4"
-                    android:padding="@dimen/dp_8dp"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/machine_section"
-                    android:textSize="@dimen/dp_16"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/opensans_semibold"
+                    android:textColor="#CCCCCC"
+                    android:textSize="18dp"
+                     />
                 <View
                     android:id="@+id/line_machine"
                     style="@style/line"
@@ -544,22 +536,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine"
-                    android:layout_marginStart="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/Left_and_right_engine_counter"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_Counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvCounterTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_machine"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -568,13 +560,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine"
                     android:layout_toEndOf="@+id/bool_Counter"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_machine1"
                     style="@style/line"
@@ -584,22 +574,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine1"
-                    android:layout_marginStart="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/Engine_head"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_Engine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvEngineTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_machine1"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/dp_15"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -608,13 +598,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine1"
                     android:layout_toEndOf="@+id/bool_Engine"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/dp_15"
+                    android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_machine2"
                     style="@style/line"
@@ -624,22 +612,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine2"
-                    android:layout_marginStart="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/Assembly"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_Assembly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvAssemblyTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_machine2"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -648,13 +636,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine2"
                     android:layout_toEndOf="@+id/bool_Assembly"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_machine3"
                     style="@style/line"
@@ -664,22 +650,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine3"
-                    android:layout_marginStart="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/Console"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_Console"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvConsoleTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:layout_below="@+id/line_machine3"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -688,13 +674,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_machine3"
                     android:layout_toEndOf="@+id/bool_Console"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"/>
                 <View
                     android:id="@+id/line_machine4"
                     style="@style/line"
@@ -704,12 +688,12 @@
                     android:id="@+id/other_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_below="@+id/line_machine4"
-                    android:padding="@dimen/dp_8dp"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/other_sections"
-                    android:textSize="@dimen/dp_16"
-                    android:textStyle="bold" />
+                    android:textSize="18dp"
+                    android:textColor="#CCCCCC"
+                    android:fontFamily="@font/opensans_semibold" />
                 <View
                     android:id="@+id/line_Accessories"
                     style="@style/line"
@@ -719,22 +703,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_Accessories"
-                    android:layout_marginStart="@dimen/dp_16"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/accessories"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_semibold"/>
                 <TextView
                     android:id="@+id/bool_Accessories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvAccessoriesTitle"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:layout_below="@+id/line_Accessories"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:text=":"/>
 
                 <TextView
@@ -743,70 +728,71 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_Accessories"
                     android:layout_toEndOf="@+id/bool_Accessories"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="1dp"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/dp_8"
+                    android:padding="@dimen/dp_15"
                     android:text="@string/postcode"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular" />
                 <View
                     android:id="@+id/line_Accessories1"
                     style="@style/line"
                     android:layout_below="@+id/tvAccessoriesTitle" />
             </RelativeLayout>
-            <View
-                android:id="@+id/line_des"
-                style="@style/line"
-                android:layout_below="@+id/relative_eta"
-                android:layout_height="@dimen/dp_4"/>
+<!--            <View-->
+<!--                android:id="@+id/line_des"-->
+<!--                style="@style/line"-->
+<!--                android:layout_below="@+id/relative_eta"-->
+<!--                android:layout_height="@dimen/dp_4"/>-->
             <TextView
                 android:id="@+id/tv_DescriptionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/line_des"
+                android:layout_below="@+id/relative_eta"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_15"
                 android:visibility="visible"
-                android:layout_marginStart="@dimen/dp_20"
                 android:text="@string/Description"
-                android:textSize="@dimen/dp_16"
-                android:textStyle="bold" />
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/dp_18"
+                android:fontFamily="@font/opensans_semibold" />
+
             <TextView
                 android:id="@+id/tv_Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_DescriptionTitle"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_8"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_8"
                 android:visibility="visible"
-                android:layout_marginStart="@dimen/dp_20"
                 android:text="@string/description"
-                android:textSize="@dimen/dp_16"
-                android:textStyle="normal" />
+                android:textSize="@dimen/dp_15"
+                android:fontFamily="@font/opensans_regular"
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_Description"
                 android:background="#00CECECE"
                 android:id="@+id/text"/>
-            <View
-                android:id="@+id/line_deal"
-                style="@style/line"
-                android:layout_below="@+id/tv_Description"
-                android:layout_height="@dimen/dp_8"/>
+<!--            <View-->
+<!--                android:id="@+id/line_deal"-->
+<!--                style="@style/line"-->
+<!--                android:layout_below="@+id/tv_Description"-->
+<!--                android:layout_height="@dimen/dp_8"/>-->
+
             <TextView
-                android:paddingTop="@dimen/dp_8dp"
-                android:paddingBottom="@dimen/dp_8dp"
-                android:paddingStart="@dimen/dp_16"
-                android:text="@string/related_poat"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/dp_16"
-                android:textStyle="bold"
                 android:id="@+id/text_rela"
-                android:layout_below="@id/line_deal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_Description"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="@string/related_poat"
+                android:textSize="@dimen/dp_18"
+                android:fontFamily="@font/opensans_semibold"
+                android:textColor="#CCCCCC"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_rela"
                 android:layout_below="@id/text_rela"
@@ -827,6 +813,7 @@
                 android:text="@string/no_result"
                 android:gravity="center"
                 android:textSize="18dp"
+                android:fontFamily="@font/opensans_semibold"
                 android:id="@+id/txt_noresult"
                 android:layout_below="@id/text_rela"
                 android:layout_width="match_parent"

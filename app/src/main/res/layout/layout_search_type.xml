@@ -56,7 +56,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logo_moto" />
+                android:src="@drawable/group_11" />
 
         </RelativeLayout>
 

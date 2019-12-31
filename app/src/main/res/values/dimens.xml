@@ -8,6 +8,7 @@
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
 
     <dimen name="dt_font">15dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
