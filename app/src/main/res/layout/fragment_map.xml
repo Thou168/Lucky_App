@@ -9,7 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/float_transparent"
-        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
         android:drawableLeft="@drawable/arrow_back_black_24dp"/>
     <Button
         android:id="@+id/pin"
@@ -18,15 +20,33 @@
         android:layout_gravity="right"
         android:gravity="center"
         android:textAllCaps="false"
+       android:paddingStart="@dimen/dp_20"
         android:layout_alignParentRight="true"
         android:textSize="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
         android:textColor="@color/colorPrimary"
         android:background="@color/float_transparent"
         android:text="Pin" />
+
     <fragment
         android:id="@+id/map_Account"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
+        android:gravity="center"
+        android:hint="Search"
+        android:textColorHint="@color/darkGrey"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:background="@drawable/search_background" />
 
 </RelativeLayout>

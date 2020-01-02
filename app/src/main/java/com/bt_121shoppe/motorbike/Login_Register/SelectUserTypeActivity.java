@@ -111,6 +111,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
                         intent.putExtra("user_group", 1);
                         intent.putExtra("product_id",product_id);
                         intent.putExtra("Register_verify", register_verify);
+                        intent.putExtra("Profile","Profile");
                         startActivity(intent);
             }
         });
@@ -121,6 +122,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
                         intent.putExtra("user_group", 3);
                         intent.putExtra("product_id",product_id);
                         intent.putExtra("Register_verify", register_verify);
+                        intent.putExtra("Profile","Profile");
                         startActivity(intent);
             }
         });

@@ -15,6 +15,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +64,7 @@ import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
+import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
@@ -76,8 +79,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -130,16 +136,16 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     private EditText editPhone1,editPhone2;
     private static final String TAG = Register.class.getSimpleName();
     private TextView PhoneError,PasswordError,ComfirmPassError,date_alert,username_alert,gender_alert,map_alert,email_alert,address_alert;
-    private TextView tv_wing_number,tv_wing_account,wing_number_alert,wing_account_alert,tv_add,tv_add1,tv_cancel;
+    private TextView tv_wing_number,tv_wing_account,wing_number_alert,wing_account_alert,tv_add,tv_add1,tv_cancel,tv_password,tv_re_password,tv_privacy;
     private CheckBox term_privacy;
     private ProgressDialog mProgress;
     SharedPreferences prefer;
+    Button btUpgrade,btUpdate;
     String pass,map,gender,email,address,url;
     ImageView date,img_map;
     String[] photo_select;
-    private String userEmail;
     private String register_verify,location,lat_long;
-    private int product_id,user_group,mYear,mMonth,mDay,group,pk=0;
+    private int product_id,user_group,mYear,mMonth,mDay,pk=0;
     private CircleImageView imgProfile;
     private static final int REQUEST_LOCATION = 1;
     private StorageReference storageReference;
@@ -152,14 +158,13 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     static final int REQUEST_GALLERY_PHOTO=2;
     private File mPhotoFile;
     private RelativeLayout layout_phone1,layout_phone2;
-    Bitmap bitmap,default_bitmap;
+    Bitmap bitmap;
     Uri image;
-    private String date1,re_password,password,email1,phone,gender1,username,image1,wing_account,wing_number;
+    private String date1,re_password,password,email1,phone,phone1,phone2,gender1,username,image1,wing_account,wing_number,mProfile;
     private FileCompressor mCompressor;
-    private SharedPreferences sharedpreferences;
     private String pass1,name,Encode;
+    private FirebaseUser fuser;
 
-    private AlertDialog.Builder dialog;
     private String FCM_API="https://fcm.googleapis.com/fcm/send";
     private String serverKey="key=AAAAc-OYK_o:APA91bFUyiHEPdYUjVatqxaVzfLPwVcd090bMY5emPPh-ubQtu76mEDAdmthgR03jYwhClbDqy0lqbSr_HAAvD0vnTqigM16YH4x-Xr1TMb3q_sz9PLtjNLpfnLi6NdCI-v6dyX6-5jB";
     private String contentType = "application/json";
@@ -185,13 +190,16 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         ComfirmPassError = findViewById(R.id.re_password_alert);
         date = findViewById(R.id.tv_cal);
         img_map = findViewById(R.id.map);
-        term_privacy = findViewById(R.id.term_privay);
+        term_privacy = findViewById(R.id.term_privacy);
+        tv_privacy = findViewById(R.id.tv_privacy);
         tv_add = findViewById(R.id.tv_add);
         tv_add1 = findViewById(R.id.tv_add1);
         tv_cancel = findViewById(R.id.tv_cancel);
         layout_phone1 = findViewById(R.id.layout_phone1);
         layout_phone2 = findViewById(R.id.layout_phone2);
         imgProfile = findViewById(R.id.imgProfile);
+        tv_password = findViewById(R.id.tv_password);
+        tv_re_password = findViewById(R.id.tv_re_password);
         tv_wing_number = findViewById(R.id.tv_wing_number);
         tv_wing_account = findViewById(R.id.tv_wing_account);
         editWing_account = findViewById(R.id.et_wing_account);
@@ -206,6 +214,12 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         address_alert = findViewById(R.id.address_alert);
         gender_alert = findViewById(R.id.gender_alert);
         map_alert = findViewById(R.id.map_alert);
+        btUpgrade = findViewById(R.id.btn_upgrade);
+        btUpdate = findViewById(R.id.update);
+        btnSubmit = (Button)findViewById(R.id.sign_up);
+        btnSubmit.setVisibility(View.VISIBLE);
+        term_privacy.setVisibility(View.VISIBLE);
+        tv_privacy.setVisibility(View.VISIBLE);
 
         editDate.setFocusable(false);
         editGender.setFocusable(false);
@@ -235,9 +249,18 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         Encode =getEncodedString(name,pass1);
         if (pk != 0) {
             initialUserInformation(url, Encode);
+            editPassword.setVisibility(View.GONE);
+            editComfirmPass.setVisibility(View.GONE);
+            tv_password.setVisibility(View.GONE);
+            tv_re_password.setVisibility(View.GONE);
+            btnSubmit.setVisibility(View.GONE);
+            btUpdate.setVisibility(View.VISIBLE);
+            tv_privacy.setVisibility(View.GONE);
+            term_privacy.setVisibility(View.GONE);
         }
 
         Intent intent = getIntent();
+        mProfile = intent.getStringExtra("Profile");
         location = intent.getStringExtra("road");
         lat_long = intent.getStringExtra("location");
         register_verify = intent.getStringExtra("Register_verify");
@@ -249,6 +272,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         password = intent.getStringExtra("password");
         email1 = intent.getStringExtra("email");
         phone = intent.getStringExtra("phone");
+        phone1 = intent.getStringExtra("phone1");
+        phone2 = intent.getStringExtra("phone2");
         gender1 = intent.getStringExtra("gender");
         username = intent.getStringExtra("username");
         image1 = intent.getStringExtra("image");
@@ -263,6 +288,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             editUsername.setText(username);
             editGender.setText(gender1);
             editPhone.setText(phone);
+            editPhone1.setText(phone1);
+            editPhone2.setText(phone2);
             editEmail.setText(email1);
             editPassword.setText(password);
             editComfirmPass.setText(re_password);
@@ -304,6 +331,13 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             wing_number_alert.setVisibility(View.VISIBLE);
         }
 
+        btUpgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Register.this,CreateShop.class));
+            }
+        });
+
         editComfirmPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -317,7 +351,11 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Register.this, SelectUserTypeActivity.class));
+                if (mProfile!=null){
+                    startActivity(new Intent(Register.this, SelectUserTypeActivity.class));
+                }else{
+                    finish();
+                }
             }
         });
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -391,6 +429,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     ActivityCompat.requestPermissions(Register.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
                 }else {
                     Intent intent = new Intent(Register.this, FragmentMap.class);
+                    intent.putExtra("register","register");
+                    intent.putExtra("Profile",mProfile);
                     intent.putExtra("Register_verify", register_verify);
                     intent.putExtra("group", user_group);
                     intent.putExtra("address", editAddress.getText().toString());
@@ -399,6 +439,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     intent.putExtra("password", editPassword.getText().toString());
                     intent.putExtra("email", editEmail.getText().toString());
                     intent.putExtra("phone", editPhone.getText().toString());
+                    intent.putExtra("phone1", editPhone1.getText().toString());
+                    intent.putExtra("phone2", editPhone2.getText().toString());
                     intent.putExtra("gender", editGender.getText().toString());
                     intent.putExtra("username", editUsername.getText().toString());
                     try {
@@ -417,7 +459,24 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 }
             }
         });
-        btnSubmit = (Button)findViewById(R.id.sign_up);
+        btUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(editUsername.getText().toString().length()<3 || editPhone.getText().toString().length()<9 ){
+                    if (editPhone.getText().toString().length()<9){
+                        editPhone.requestFocus();
+                    }
+                    if (editUsername.getText().toString().length()<3){
+                        editUsername.requestFocus();
+                    }
+                    mProgress.show();
+                    PutData(url, Encode);
+                }else {
+                    mProgress.show();
+                    PutData(url, Encode);
+                }
+            }
+        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -626,7 +685,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         });
     }
     private void registerAPIUser(String username,String email,String number_phone,String password,int group){
-        Log.e("location",lat_long+"-"+image+"-"+bitmap+"-"+gender+"-"+editDate.getText()+"-"+address);
         String url=ConsumeAPI.BASE_URL+"api/v1/users/";
         OkHttpClient client=new OkHttpClient();
         JSONObject postdata=new JSONObject();
@@ -698,8 +756,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         editor.putString("pass",editComfirmPass.getText().toString());
                         editor.putString("groups",String.valueOf(g));
                         editor.commit();
-
-                        Log.e("Data",lat_long+"-"+image+"-"+bitmap+"-"+gender+"-"+editDate.getText()+"-"+address);
 
                         if (user_group == 1) {
                             registerUserFirebase(username, pass, String.valueOf(1));
@@ -1173,14 +1229,23 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             User convertJsonJava = new User();
                             convertJsonJava = gson.fromJson(mMessage,User.class);
                             int g=convertJsonJava.getProfile().getGroup();
-                            if (g==2){
+                            if (g==1){
+                                btUpgrade.setVisibility(View.VISIBLE);
+                                tv_wing_account.setVisibility(View.GONE);
+                                editWing_account.setVisibility(View.GONE);
+                                wing_account_alert.setVisibility(View.GONE);
+                                tv_wing_number.setVisibility(View.GONE);
+                                editWing_number.setVisibility(View.GONE);
+                                wing_number_alert.setVisibility(View.GONE);
                             }else if (g==3){
-//                                btUpgrade.setVisibility(View.GONE);
-
-                            }else {
-//                                btUpgrade.setVisibility(View.VISIBLE);
+                                btUpgrade.setVisibility(View.GONE);
+                                tv_wing_account.setVisibility(View.VISIBLE);
+                                editWing_account.setVisibility(View.VISIBLE);
+                                wing_account_alert.setVisibility(View.VISIBLE);
+                                tv_wing_number.setVisibility(View.VISIBLE);
+                                editWing_number.setVisibility(View.VISIBLE);
+                                wing_number_alert.setVisibility(View.VISIBLE);
                             }
-
                             editUsername.setText(convertJsonJava.getFirst_name());
                             editEmail.setText(convertJsonJava.getEmail());
 
@@ -1217,46 +1282,159 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                         editGender.setText(R.string.male);
                                     }else if (s.equals("female")){
                                         editGender.setText(R.string.female);
-                                    }else {
-                                        Log.d(TAG,s);
+                                    }else if (s.equals("other")){
+                                        editGender.setText(getString(R.string.other));
                                     }
                                 }
 
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
                                     String d = convertJsonJava.getProfile().getDate_of_birth();
                                     String dd[] = d.split("-");
-                                    String strDob = dd[0];
+                                    String strDob=String.format("%s-%s-%s",dd[0],dd[1],dd[2]);
                                     editDate.setText(strDob);
 
                                     List<String> date = new ArrayList<>();
                                     date.add(0, d);
                                 }
 
-                                String addr = convertJsonJava.getProfile().getAddress();
-                                if (addr.isEmpty()) {
-//                                    get_location(true);
-//                                    mapFragment.getMapAsync(EditAccountActivity.this::onMapReady);
-                                }else {
-//                                    String[] splitAddr = addr.split(",");
-//                                    latitude = Double.valueOf(splitAddr[0]);
-//                                    longtitude = Double.valueOf(splitAddr[1]);
-//                                    get_location(false);
-//                                    if (convertJsonJava.getProfile().getResponsible_officer()!=null){
-//                                        String search_title = convertJsonJava.getProfile().getResponsible_officer().toString();
-//                                        tvAddress_account.setQuery(search_title,false);
-//                                    }
-//                                    mapFragment.getMapAsync(EditAccountActivity.this);
+                                Geocoder geocoder;
+                                List<Address> addresses;
+                                geocoder = new Geocoder(getApplication(), Locale.getDefault());
+                                String addr = convertJsonJava.getProfile().getResponsible_officer();
+                                if (!addr.isEmpty()) {
+                                    String add[] = addr.split(",");
+                                    Double latetitude = Double.parseDouble(add[0]);
+                                    Double longtitude = Double.parseDouble(add[1]);
+                                    try {
+                                        addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                                        String road = addresses.get(0).getAddressLine(0);
+                                        if (road.length() > 30) {
+                                            String loca = road.substring(0,30) + "...";
+                                            if (location != null){
+                                                if (location.length() > 30) {
+                                                    String locate = location.substring(0,30) + "...";
+                                                    editMap.setText(locate);
+                                                }
+                                            }else {
+                                                editMap.setText(loca);
+                                            }
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                                if(convertJsonJava.getProfile().getProvince()!=null) {
+                                if(convertJsonJava.getProfile().getAddress()!=null) {
                                     String address = convertJsonJava.getProfile().getAddress();
                                     editAddress.setText(address);
                                 }
+                            }
+                            storageReference= FirebaseStorage.getInstance().getReference("uploads");
+                            fuser= FirebaseAuth.getInstance().getCurrentUser();
+                            if(fuser!=null) {
+                                reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                                reference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        com.bt_121shoppe.motorbike.models.User user = dataSnapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
+                                        if (user.getImageURL().equals("default")) {
+                                            Glide.with(Register.this).load(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgProfile);
+                                        } else {
+                                            Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgProfile);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         }
                     });
                 }catch (JsonParseException e){
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+    private void PutData(String url,String encode) {
+        MediaType media = MediaType.parse("application/json");
+        OkHttpClient client = new OkHttpClient();
+        JSONObject data = new JSONObject();
+        JSONObject pro  = new JSONObject();
+        try{
+            data.put("username",name);
+            data.put("password",pass1);
+            data.put("email",editEmail.getText().toString());
+            data.put("first_name",editUsername.getText().toString());
+            pro.put("data_of_birth", editDate.getText().toString());
+            pro.put("address",editAddress.getText().toString());
+            pro.put("responsible_officer",lat_long);
+            pro.put("gender",editGender.getText().toString());
+            pro.put("telephone",editPhone.getText().toString()+","+editPhone1.getText().toString()+","+editPhone2.getText().toString());
+            pro.put("wing_account_number",editWing_number.getText().toString());
+            pro.put("wing_account_name",editWing_account.getText().toString());
+            data.put("profile",pro);
+            data.put("groups", new JSONArray("[\"1\"]"));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        Log.d(TAG,data.toString());
+        String auth = "Basic " + encode;
+        RequestBody body = RequestBody.create(media, data.toString());
+        Request request = new Request.Builder()
+                .url(url)
+                .put(body)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .header("Authorization",auth)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String message = e.getMessage().toString();
+                Log.d("failure Response",message);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+                        alertDialog.setTitle(getString(R.string.title_edit_account));
+                        alertDialog.setMessage(getString(R.string.edit_fail_message));
+                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                        mProgress.dismiss();
+                    }
+                });
+                mProgress.dismiss();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String message = response.body().string();
+                Log.d("Response EEEEE", message);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgress.dismiss();
+                        androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+                        alertDialog.setTitle(getString(R.string.title_edit_account));
+                        alertDialog.setMessage(getString(R.string.edit_success_message));
+                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mProgress.dismiss();
+                                        startActivity(new Intent(getApplicationContext(), Account.class));
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                });
             }
         });
     }

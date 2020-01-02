@@ -33,19 +33,19 @@
                 android:layout_height="match_parent"
                 android:checked="true"
                 android:padding="@dimen/dp_16"
-                android:text="Male"/>
+                android:text="male"/>
             <RadioButton
                 android:id="@+id/female"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/dp_16"
-                android:text="Female"/>
+                android:text="female"/>
             <RadioButton
                 android:id="@+id/other"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/dp_16"
-                android:text="Other"/>
+                android:text="other"/>
         </RadioGroup>
         <Button
             android:id="@+id/bt_ok"

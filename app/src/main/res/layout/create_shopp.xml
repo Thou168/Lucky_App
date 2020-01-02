@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="false"
     android:orientation="vertical"
-    tools:context=".Login_Register.Register">
+    tools:context=".stores.CreateShop">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,15 +17,13 @@
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
             android:textStyle="bold"
             android:textColor="#fff"
             android:gravity="center_vertical"
             android:drawableLeft="@drawable/arrow_backspace"/>
         <Button
-            android:visibility="gone"
-            android:id="@+id/sign_up"
-            android:layout_width="90dp"
+            android:id="@+id/bt_add"
+            android:layout_width="60dp"
             android:layout_height="35dp"
             android:layout_gravity="right"
             android:gravity="center"
@@ -35,21 +33,7 @@
             android:textSize="16sp"
             android:textColor="@color/white"
             android:background="@drawable/button_dealer"
-            android:text="Sign up" />
-        <Button
-            android:visibility="gone"
-            android:id="@+id/update"
-            android:layout_width="90dp"
-            android:layout_height="35dp"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:padding="@dimen/dp_4"
-            android:textAllCaps="false"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:background="@drawable/button_dealer"
-            android:text="Update" />
+            android:text="Add" />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -61,20 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="vertical">
-            <Button
-                android:id="@+id/btn_upgrade"
-                android:layout_width="350dp"
-                android:layout_height="45dp"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                android:text="@string/upgrade"
-                android:textAllCaps="false"
-                android:layout_margin="10dp"
-                android:background="@drawable/button"
-                android:textColor="#fff"
-                android:textSize="@dimen/dp_16"/>
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgProfile"
+                android:id="@+id/imgShop"
                 android:src="@drawable/icons_black"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
@@ -91,62 +63,28 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/tv_username"
+                android:id="@+id/tv_shopname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:text="@string/username"
+                android:text="Shop name"
                 android:textColor="#000"
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/et_username"
+                android:id="@+id/et_shopname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your name"
+                android:hint="Enter your shop name"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8" />
 
             <TextView
-                android:id="@+id/username_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp" />
-
-            <TextView
-                android:id="@+id/tv_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="@string/hit_gender"
-                android:textColor="#000"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/et_gender"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Select your gender"
-                android:layout_marginTop="@dimen/dp_8"
-                android:maxLength="10"
-                android:textSize="14sp"
-                android:drawableRight="@drawable/ic_arrow_drop_down_black"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
-
-            <TextView
-                android:id="@+id/gender_alert"
+                android:id="@+id/shopname_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginBottom="@dimen/dp_8dp"
@@ -323,153 +261,6 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="@string/email"
-                android:textColor="#000"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Enter your email"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="14sp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
-
-            <TextView
-                android:id="@+id/email_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp" />
-
-            <TextView
-                android:id="@+id/tv_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="@string/Password"
-                android:textColor="#000"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Enter your password"
-                android:layout_marginTop="@dimen/dp_8"
-                android:maxLength="10"
-                android:textSize="14sp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
-
-            <TextView
-                android:id="@+id/password_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp" />
-
-            <TextView
-                android:id="@+id/tv_re_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="Re-password"
-                android:textColor="#000"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/et_re_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Enter your re-password"
-                android:layout_marginTop="@dimen/dp_8"
-                android:maxLength="10"
-                android:textSize="14sp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
-
-            <TextView
-                android:id="@+id/re_password_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Date of birth"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:textColor="#000"
-                    android:textSize="12sp" />
-
-                <EditText
-                    android:id="@+id/et_date"
-                    android:layout_below="@+id/tv_date"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:hint="Select"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/dp_16" />
-                <ImageView
-                    android:id="@+id/tv_cal"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5.5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_date"
-                    android:gravity="right"
-                    android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:src="@drawable/calendar"
-                    android:background="@drawable/underline_gray"
-                    android:text="Add"/>
-                <TextView
-                    android:id="@+id/date_alert"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_below="@id/et_date"
-                    android:layout_marginBottom="@dimen/dp_8dp"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_8"
-                    android:text=""
-                    android:textColor="#000"
-                    android:textSize="8sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_wing_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -481,7 +272,6 @@
                 android:textSize="12sp" />
 
             <EditText
-                android:visibility="gone"
                 android:id="@+id/et_wing_account"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -492,7 +282,6 @@
                 android:layout_marginEnd="@dimen/dp_8" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/wing_account_acc_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
@@ -504,7 +293,6 @@
                 android:textSize="8sp" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_wing_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -516,7 +304,6 @@
                 android:textSize="12sp" />
 
             <EditText
-                android:visibility="gone"
                 android:id="@+id/et_wing_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -527,7 +314,6 @@
                 android:layout_marginEnd="@dimen/dp_8" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/wing_number_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
@@ -608,33 +394,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_below="@id/et_map"
-                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginBottom="50dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp" />
             </RelativeLayout>
-
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tv_privacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:text="@string/privacy"/>
-            <CheckBox
-                android:visibility="gone"
-                android:id="@+id/term_privacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_16"
-                android:layout_gravity="center"
-                android:text="Terms of service"/>
 
         </LinearLayout>
     </ScrollView>
