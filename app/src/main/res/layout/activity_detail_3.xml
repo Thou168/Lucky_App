@@ -48,6 +48,8 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/dp_16"/>
                 <EditText
+                    android:id="@+id/edPrice"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
@@ -74,10 +76,25 @@
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dp_16"/>
+                <TextView
+                    android:id="@+id/tvSb"
+                    android:text="0%"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/deposit_loan_title"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <SeekBar
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_below="@+id/deposit_loan_title"
+                    android:id="@+id/sbDeposit"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_below="@+id/tvSb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -102,6 +119,8 @@
                     android:textSize="@dimen/dp_16"/>
 
                 <EditText
+                    android:id="@+id/edDeposit"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
@@ -128,10 +147,26 @@
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dp_16"/>
+                <TextView
+                    android:id="@+id/tvSb_Rate"
+                    android:text="10%"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/interest_title"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <SeekBar
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_below="@+id/interest_title"
+                    android:id="@+id/sbInterestRate"
+                    android:progress="10"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_below="@+id/tvSb_Rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
@@ -149,18 +184,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:text="Term (%)"
+                    android:text="@string/term"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dp_16"/>
 
                 <EditText
+                    android:id="@+id/edTerm"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:hint="0"
+                    android:textColor="@color/black"
+                    android:maxLength="8"
+                    android:text="24"
                     android:layout_below="@+id/term_title"/>
             </RelativeLayout>
 
@@ -177,10 +216,12 @@
                 android:text="@string/Monthly_payment"
                 android:textStyle="bold"/>
             <TextView
+                android:id="@+id/tvMonthlyPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_payment_title"
                 android:textSize="@dimen/dp_24"
+                android:inputType="number"
                 android:textColor="@color/sunflower_green_500"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginStart="@dimen/dp_8"

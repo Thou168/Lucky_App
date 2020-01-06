@@ -17,12 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.models.PostProduct;
+import com.example.roman.thesimplerangebar.SimpleRangeBar;
+import com.example.roman.thesimplerangebar.SimpleRangeBarOnChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,11 +57,18 @@ public class Filter extends AppCompatActivity {
    private  TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter,tv_result,tv_done;
     private  int cate=0,brand=0,model_fil=0,year_fil=0,type=0; //model & year
     private  String stTitle="",stCategory="",stBrand="",stYear="",stType,st="";
+    double dbPrice = 0.0;
     private ImageView icCategory_fil,icBrand_fil,icYear_fil,icType_fil;
     private  String [] cateListItems,brandListItems,yearListItems,typeListItems,categoryItemkg,brandItemkh,yearlistItemkh;
     private  int [] cateIDlist,brandIDlist,yearIDlist;
     private LinearLayout rela_cate,rela_brand,rela_year,rela_type;
 
+    private SimpleRangeBar simpleRangeBar;
+    private TextView minText;
+    private TextView maxText;
+    private int mMinPrice = 0,mMaxPrice = 20000;
+    private String stPriceMin,stPriceMax;
+    private Integer postId = 0;
     //for bottomsheetdialog
 
     private int index=3,indexB=6,indexY=23;
@@ -64,7 +76,31 @@ public class Filter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
-        //bottomsheetdialog
+        //seekbar
+        simpleRangeBar = findViewById(R.id.rangeBar);
+        minText = findViewById(R.id.text_min);
+        maxText = findViewById(R.id.text_max);
+        postId = getIntent().getIntExtra("ID",0);
+        dbPrice = getIntent().getDoubleExtra("price",0);
+        simpleRangeBar.setOnSimpleRangeBarChangeListener(new SimpleRangeBarOnChangeListener() {
+            @Override
+            public void leftThumbValueChanged(long l) {
+                mMinPrice = Integer.valueOf(String.valueOf(l));
+                minText.setText(String.valueOf(mMinPrice));
+            }
+
+            @Override
+            public void rightThumbValueChanged(long l) {
+                mMaxPrice = Integer.valueOf(String.valueOf(l));
+                maxText.setText(String.valueOf(mMaxPrice));
+            }
+        });
+        simpleRangeBar.setRanges(mMinPrice,mMaxPrice);
+        simpleRangeBar.setThumbValues(mMinPrice, mMaxPrice);
+        simpleRangeBar.setThumbColor(getResources().getColor(R.color.colorPrimary));
+        simpleRangeBar.setRangeColor(getResources().getColor(R.color.colorPrimary));
+        simpleRangeBar.setThumbColorPressed(getResources().getColor(R.color.colorPrimary));
+
         locale();
         tv_result = findViewById(R.id.tv_result);
         tv_result.setOnClickListener(v -> finish());
@@ -156,36 +192,24 @@ public class Filter extends AppCompatActivity {
                             switch (cate) {
                                 case 0:
                                     index=0;
-                                    stCategory = String.valueOf(cate);
-                                    icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     break;
                                 case 1:
                                     index=1;
-                                    stCategory = String.valueOf(cate);
-                                    icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     break;
                                 case 2:
                                     index=2;
-                                    stCategory = String.valueOf(cate);
-                                    icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     break;
                             }
                         } else if (language.equals("en")) {
                             switch (cate) {
                                 case 0:
                                     index=0;
-                                    stCategory = String.valueOf(cate);
-                                    icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     break;
                                 case 1:
                                     index=1;
-                                    stCategory = String.valueOf(cate);
-                                    icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     break;
                                 case 2:
                                     index=2;
-                                    stCategory = String.valueOf(cate);
-                                    icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                                     break;
                             }
                         }
@@ -195,14 +219,17 @@ public class Filter extends AppCompatActivity {
                 ok.setOnClickListener(v12 -> {
                     if (cate==0){
                         stCategory = String.valueOf(cate);
+                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getCategory();
                         bottomSheetDialog.dismiss();
                     }else if (cate==1){
                         stCategory = String.valueOf(cate);
+                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getCategory();
                         bottomSheetDialog.dismiss();
                     }else if (cate==2){
                         stCategory = String.valueOf(cate);
+                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getCategory();
                         bottomSheetDialog.dismiss();
                     }
@@ -767,6 +794,8 @@ public class Filter extends AppCompatActivity {
         intent.putExtra("category",stCategory);
         intent.putExtra("brand",stBrand);
         intent.putExtra("year",stYear);
+        intent.putExtra("min_price",mMinPrice);
+        intent.putExtra("max_price",mMaxPrice);
         setResult(2,intent);
         finish();
 
@@ -811,6 +840,38 @@ public class Filter extends AppCompatActivity {
                         cateIDlist[i] = id;
 
                     }
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void getPrice(){
+        String url;
+        Request request;
+        url = ConsumeAPI.BASE_URL + "relatedpost/?post_type=&category=2&modeling=&min_price=&max_price=&year=";
+        request = new  Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String mMessage = e.getMessage();
+                Log.w("failure Request",mMessage);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                try{
+                    JSONObject jsonObject = new JSONObject(respon);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+
 
                 }catch (JSONException e){
                     e.printStackTrace();

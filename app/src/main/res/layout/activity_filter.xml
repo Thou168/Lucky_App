@@ -251,35 +251,50 @@
                     </TextView>
                 </RelativeLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:id="@+id/rela_price"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rela_Condition"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
-                    <TextView
-                        android:id="@+id/title_price"
-                        android:textSize="@dimen/dp_20"
-                        android:textStyle="bold"
-                        android:layout_marginStart="@dimen/dp_20"
-                        android:text="@string/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <SeekBar
-                        android:layout_marginTop="@dimen/dp_20"
-                        android:layout_below="@+id/title_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"/>
-                </RelativeLayout>
-            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/rela_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/title_price"
+                    android:textSize="@dimen/dp_20"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:text="@string/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/text_min"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title_price"
+                    android:text="Min price"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="@dimen/dp_16"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/text_max"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/title_price"
+                    android:text="Min price"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="@dimen/dp_16"
+                    android:layout_height="wrap_content"/>
+                <com.example.roman.thesimplerangebar.SimpleRangeBar
+                    android:layout_width="fill_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:id="@+id/rangeBar"
+                    app:colorRangeBar="@color/dark_gray"
+                    android:layout_below="@+id/text_min"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btnSubmit_filter"

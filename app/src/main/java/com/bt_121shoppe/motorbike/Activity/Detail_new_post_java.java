@@ -28,9 +28,11 @@ import android.text.style.StrikethroughSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +71,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Detail_new_post_java extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
-    ImageView back_view;
+    TextView back_view;
     ImageButton btn_share;
     ImageView like,call,message,loan;
     private Integer postId = 0;
@@ -210,6 +212,25 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
         mViewPager = findViewById(R.id.pagerMain);
 
+        ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        };
+        mViewPager.addOnPageChangeListener(onPageChangeListener);
+
+
         tabLayout = findViewById(R.id.tab_layout_detail);
         tabLayout.setupWithViewPager(mViewPager);
         setUpPager();
@@ -223,8 +244,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         tvDiscountPer = findViewById(R.id.tv_discount_per);
         view = findViewById(R.id.view);
 
-//        tv_dox = findViewById(R.id.style_dox);
-//        tv_dox.setVisibility(View.GONE);
+        tv_dox = findViewById(R.id.style_dox);
+        tv_dox.setVisibility(View.GONE);
         typeView=findViewById(R.id.post_type);
 
         back_view = findViewById(R.id.tv_back);
@@ -452,7 +473,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             tvPrice.setText("$ "+cost);
                             tvDiscount.setText("$"+postDetail.getDiscount());
                             tvDiscountPer.setText(per1+"%");
-                            //tv_dox.setVisibility(View.VISIBLE);
+                            tv_dox.setVisibility(View.VISIBLE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
                         }
                         if (discount == 0.00){

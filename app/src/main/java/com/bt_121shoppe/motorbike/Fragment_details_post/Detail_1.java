@@ -154,7 +154,6 @@ public class Detail_1 extends Fragment {
     }
 
     private void detail_fragment_1(String encode){
-        final boolean keepRunning1 = true;
         String url;
         Request request;
         String auth = "Basic" + encode;

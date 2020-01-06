@@ -43,7 +43,7 @@
                     android:layout_weight="1"
                     app:closeIcon="@drawable/ic_close"
                     android:layout_marginStart="6dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginLeft="13dp"
                     android:background="@drawable/search_background"
                     app:iconifiedByDefault="false"

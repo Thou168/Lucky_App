@@ -1,35 +1,21 @@
 package com.bt_121shoppe.motorbike.Startup;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
@@ -56,7 +42,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -85,6 +70,10 @@ public class Search1 extends AppCompatActivity {
 
     CardView cardView;
     RelativeLayout relative_view;
+
+    //seekbar
+    int min;
+    int max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +130,7 @@ public class Search1 extends AppCompatActivity {
                 cardView.setVisibility(View.GONE);
 
                 String title = sv.getQuery().toString();
-                Search_data(title,category,model,year);
-//                sv.setSuggestionsAdapter(title);
+                Search_data(title,category,model,year, min, max);
                 return false;
             }
 
@@ -169,12 +157,13 @@ public class Search1 extends AppCompatActivity {
         currentFragment = this.getSupportFragmentManager().findFragmentById(R.id.frameLayout);
     }
 
-    private  void Search_data(String title, String category, String model, String year){
-        String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year;
-        Log.d("Url:",url);
+    private  void Search_data(String title, String category, String model, String year, int min, int max){
+//        String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
+        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?post_type="+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
+        Log.d("Url:",url1);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url)
+                .url(url1)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
                 .build();
@@ -183,113 +172,110 @@ public class Search1 extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 Log.d("Search:",respon);
+                runOnUiThread(() -> {
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                    try {
+                        JSONObject jsonObject = new JSONObject(respon);
+                        JSONArray jsonArray = jsonObject.getJSONArray("results");
+                        int count = jsonObject.getInt("count");
+                        if (count == 0) {
+                            mProgress.setVisibility(View.GONE);
+                            not_found.setVisibility(View.VISIBLE);
+                            show_view.setText("0");
+                        }else {
+                            show_view.setText(String.valueOf(count));
+                            cardView.setVisibility(View.GONE);
+                            not_found.setVisibility(View.GONE);
+                            mProgress.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(),String.valueOf(count),Toast.LENGTH_SHORT).show();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int id = object.getInt("id");
+                                int user_id = object.getInt("user");
+                                String postsubtitle = object.getString("post_sub_title");
+                                double cost = object.getDouble("cost");
+                                String condition = object.getString("condition");
+                                String image = object.getString("front_image_path");
+                                String img_user = object.getString("right_image_path");
+                                String post_type = object.getString("post_type");
+                                String discount_type = object.getString("discount_type");
+                                Double discount = object.getDouble("discount");
+                                String color = object.getString("color");
+                                int model1 = object.getInt("modeling");
+                                int year1 = object.getInt("year");
 
-                try {
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    int count = jsonObject.getInt("count");
-                    if (count == 0) {
-                        mProgress.setVisibility(View.GONE);
-                        not_found.setVisibility(View.VISIBLE);
-                        show_view.setText("0");
-                    }else {
-                        show_view.setText(String.valueOf(count));
-                        cardView.setVisibility(View.GONE);
-                        not_found.setVisibility(View.GONE);
-                        mProgress.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(),String.valueOf(count),Toast.LENGTH_SHORT).show();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            int id = object.getInt("id");
-                            int user_id = object.getInt("user");
-                            String postsubtitle = object.getString("post_sub_title");
-                            double cost = object.getDouble("cost");
-                            String condition = object.getString("condition");
-                            String image = object.getString("front_image_path");
-                            String img_user = object.getString("right_image_path");
-                            String post_type = object.getString("post_type");
-                            String discount_type = object.getString("discount_type");
-                            Double discount = object.getDouble("discount");
-                            String color = object.getString("color");
-                            int model = object.getInt("modeling");
-                            int year = object.getInt("year");
-                            //
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                            sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-                            long time = sdf.parse(object.getString("approved_date")).getTime();
-                            long now = System.currentTimeMillis();
-                            CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
+                                //
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+                                long time = sdf.parse(object.getString("approved_date")).getTime();
+                                long now = System.currentTimeMillis();
+                                CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
 
-                            String url_endpoint = String.format("%s%s", ConsumeAPI.BASE_URL, "countview/?post=" + id);
-                            OkHttpClient client1 = new OkHttpClient();
-                            Request request1 = new Request.Builder()
-                                    .url(url_endpoint)
-                                    .header("Accept", "application/json")
-                                    .header("Content-Type", "application/json")
-                                    .build();
-                            client1.newCall(request1).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-                                    String message = e.getMessage().toString();
-                                    Log.d("failure Response", message);
-                                }
-
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    String mMessage = response.body().string();
-                                    try {
-                                        JSONObject object_count = new JSONObject(mMessage);
-                                        String json_count = object_count.getString("count");
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color,model,year,discount_type,discount,postsubtitle));
-                                                MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
-                                                rv.setAdapter(adapterUserPost);
-                                                rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-//                                                viewlist.setImageResource(R.drawable.icon_list);
-//                                                viewlist.setOnClickListener(new View.OnClickListener() {
-//                                                    @Override
-//                                                    public void onClick(View v) {
-//                                                        if(view.equals("list")){
-//                                                            viewlist.setImageResource(R.drawable.icon_grid);
-//                                                            view = "grid";
-//                                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Grid",Search1.this);
-//                                                            rv.setAdapter(adapterUserPost);
-//                                                            rv.setLayoutManager(new GridLayoutManager(Search1.this, 2));
-//                                                        }else if (view.equals("grid")){
-//                                                            viewlist.setImageResource(R.drawable.icon_image);
-//                                                            view = "image";
-//                                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Image",Search1.this);
-//                                                            rv.setAdapter(adapterUserPost);
-//                                                            rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-//                                                        }else {
-//                                                            viewlist.setImageResource(R.drawable.icon_list);
-//                                                            view = "list";
-//                                                            MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
-//                                                            rv.setAdapter(adapterUserPost);
-//                                                            rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-//                                                        }
-//                                                    }
-//                                                });
-                                            }
-                                        });
-
-                                    } catch (JsonParseException | JSONException e) {
-                                        e.printStackTrace();
+                                String url_endpoint = String.format("%s%s", ConsumeAPI.BASE_URL, "countview/?post=" + id);
+                                OkHttpClient client1 = new OkHttpClient();
+                                Request request1 = new Request.Builder()
+                                        .url(url_endpoint)
+                                        .header("Accept", "application/json")
+                                        .header("Content-Type", "application/json")
+                                        .build();
+                                client1.newCall(request1).enqueue(new Callback() {
+                                    @Override
+                                    public void onFailure(Call call1, IOException e) {
+                                        String message = e.getMessage().toString();
+                                        Log.d("failure Response", message);
                                     }
-                                }
-                            });
 
+                                    @Override
+                                    public void onResponse(Call call1, Response response1) throws IOException {
+                                        String mMessage = response1.body().string();
+                                        try {
+                                            JSONObject object_count = new JSONObject(mMessage);
+                                            String json_count = object_count.getString("count");
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle));
+                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
+                                                    rv.setAdapter(adapterUserPost);
+                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+//                                                        viewlist.setImageResource(R.drawable.icon_list);
+//                                                        viewlist.setOnClickListener(new View.OnClickListener() {
+//                                                            @Override
+//                                                            public void onClick(View v) {
+//                                                                if(view.equals("list")){
+//                                                                    viewlist.setImageResource(R.drawable.icon_grid);
+//                                                                    view = "grid";
+//                                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Grid",Search1.this);
+//                                                                    rv.setAdapter(adapterUserPost);
+//                                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 2));
+//                                                                }else if (view.equals("grid")){
+//                                                                    viewlist.setImageResource(R.drawable.icon_image);
+//                                                                    view = "image";
+//                                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Image",Search1.this);
+//                                                                    rv.setAdapter(adapterUserPost);
+//                                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+//                                                                }else {
+//                                                                    viewlist.setImageResource(R.drawable.icon_list);
+//                                                                    view = "list";
+//                                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
+//                                                                    rv.setAdapter(adapterUserPost);
+//                                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+//                                                                }
+//                                                            }
+//                                                        });
+                                                }
+                                            });
+
+                                        } catch (JsonParseException | JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                            }
                         }
-                    }
-                }catch (JSONException | ParseException e){
-                    e.printStackTrace();
-                }
+                    }catch (JSONException | ParseException e){
+                        e.printStackTrace();
                     }
                 });
 
@@ -313,11 +299,13 @@ public class Search1 extends AppCompatActivity {
                     category = data.getExtras().getString("category");
                     model = data.getStringExtra("brand");
                     year = data.getStringExtra("year");
+                    min = data.getIntExtra("min_price",0);
+                    max = data.getIntExtra("max_price",0);
                     sv.setQuery(title_filter, false);
 
                     mProgress.setVisibility(View.VISIBLE);
-                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year);
-                    Search_data(title_filter, category, model, year);
+                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+",");
+                    Search_data(title_filter, category, model, year,min,max);
                 }
             }
         }

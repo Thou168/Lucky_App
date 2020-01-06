@@ -396,7 +396,7 @@
                                 android:background="@drawable/rounded_border_edittext"
                                 android:textSize="12sp"/>
                             <EditText
-                                android:focusable="false"
+                                android:focusable="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal"
