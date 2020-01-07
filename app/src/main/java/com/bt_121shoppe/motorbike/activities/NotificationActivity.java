@@ -76,8 +76,8 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         setContentView(R.layout.activity_notification);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
-        TextView mTitle=toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(getString(R.string.notification));
+        //TextView mTitle=toolbar.findViewById(R.id.toolbar_title);
+        //mTitle.setText(getString(R.string.notification));
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         prefs=getSharedPreferences("Register", Context.MODE_PRIVATE);
@@ -94,7 +94,15 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         if(active.equals("false"))
             activeUser.clear_session(this);
 
-        /* start implementation bottom navigation */
+        TextView tvBack=findViewById(R.id.tvBack);
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        /* start implementation bottom navigation
         CheckGroup check = new CheckGroup();
         int g = check.getGroup(pk,this);
         if (g == 3){
@@ -272,13 +280,13 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
     @Override
     public void onStart(){
         super.onStart();
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
-        if (g == 3){
-            mBottomNavigation1.getMenu().getItem(1).setChecked(true);
-        }else {
-            mBottomNavigation.getMenu().getItem(1).setChecked(true);
-        }
+//        CheckGroup check = new CheckGroup();
+//        int g = check.getGroup(pk,this);
+//        if (g == 3){
+//            mBottomNavigation1.getMenu().getItem(1).setChecked(true);
+//        }else {
+//            mBottomNavigation.getMenu().getItem(1).setChecked(true);
+//        }
 
     }
 

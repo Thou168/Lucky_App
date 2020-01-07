@@ -10,27 +10,26 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="70dp"
         android:id="@+id/my_toolbar"
         android:background="?attr/colorPrimary">
+
         <TextView
             android:id="@+id/tvBack_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/chevron_left_36"
+            android:drawableLeft="@drawable/back_arrow_x1"
             android:gravity="center_vertical"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp_16"
-            android:text="@string/back_button"/>
+            android:layout_marginRight="14dp"
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="@string/menu_privacy"
-            android:textSize="@dimen/page_title"
+            android:textSize="18dp"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            android:fontFamily="@font/opensans_semibold"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:gravity="center_vertical"/>
     </androidx.appcompat.widget.Toolbar>
@@ -41,57 +40,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="15dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/term_privacy_heading"
-                android:paddingTop="16dp"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:paddingBottom="0dp"
-                android:textSize="20sp"/>
+                android:fontFamily="@font/opensans_semibold"
+                android:textSize="18dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_term_privacy_description"
-                android:padding="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:textSize="14sp"
+                android:textSize="15dp"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_marginTop="@dimen/dp_15"
                 android:text="@string/term_privacy_description"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/rigth_suspend"
-                android:paddingTop="16dp"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:paddingBottom="0dp"
-                android:textSize="20sp"/>
+                android:textSize="18dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_suspend_description"
-                android:padding="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:textSize="14sp"
+                android:textSize="15dp"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_marginTop="15dp"
                 android:text="@string/right_suspend_description"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/general_term"
-                android:paddingTop="16dp"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:paddingBottom="0dp"
-                android:textSize="20sp"/>
+                android:textSize="18dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/opensans_semibold"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_general_term_description"
-                android:padding="@dimen/dp_16"
                 android:gravity="center_vertical"
-                android:textSize="14sp"
+                android:textSize="@dimen/dp_15"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/opensans_regular"
                 android:text="@string/general_term_description"/>
         </LinearLayout>
     </ScrollView>

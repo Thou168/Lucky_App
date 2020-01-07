@@ -355,7 +355,8 @@ public class HomeFragment extends Fragment {
                                 int viewCount = obj.getInt("viewCount");
                                 String title = obj.getString("subTitle");
                                 //String[] splitTitle=title.split(",");
-                                mPostBestDeals.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount));
+                                String fcolor=obj.getString("color");
+                                mPostBestDeals.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
                             }
                         }
                     }catch (JSONException | ParseException je){
@@ -582,9 +583,10 @@ public class HomeFragment extends Fragment {
                                 String discountType = obj.getString("discountType");
                                 int viewCount = obj.getInt("viewCount");
                                 String title = obj.getString("subTitle");
+                                String fcolor=obj.getString("color");
                                 //String type = obj.getString("type");
                                 //String[] splitTitle=title.split(",");
-                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount));
+                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
                             }
                         }
                     }catch (JSONException | ParseException je) {

@@ -303,4 +303,40 @@ public class CommonFunction {
         Log.e("TAG","user dealer "+shops.size());
     }
 
+    public static String getColorHexbyColorName(String color){
+        String hexColor="";
+        switch (color){
+            case "blue":
+                hexColor="#0000FF";
+                break;
+            case "black":
+                hexColor="#000000";
+                break;
+            case "silver":
+                hexColor="#C0C0C0";
+                break;
+            case "red":
+                hexColor="#FF0000";
+                break;
+            case "gray":
+                hexColor="#808080";
+                break;
+            case "yellow":
+                hexColor="#FFFF00";
+                break;
+            case "pink":
+                hexColor="#FFC0CB";
+                break;
+            case "purple":
+                hexColor="#800080";
+                break;
+            case "orange":
+                hexColor="#FFA500";
+                break;
+            case "green":
+                hexColor="#008000";
+                break;
+        }
+        return hexColor;
+    }
 }

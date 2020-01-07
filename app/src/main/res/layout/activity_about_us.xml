@@ -10,55 +10,52 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="70dp"
         android:id="@+id/my_toolbar"
         android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/tvBack_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/chevron_left_36"
-            android:gravity="center_vertical"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp_16"
-            android:text="@string/back_button"/>
+            android:drawableLeft="@drawable/back_arrow_x1"
+            android:layout_marginRight="@dimen/dp_15"
+            android:gravity="center_vertical" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="@string/menu_about"
-            android:textSize="@dimen/page_title"
+            android:textSize="18dp"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            android:fontFamily="@font/opensans_semibold"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:gravity="center_vertical"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/about_us_heading"
-        android:paddingTop="16dp"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingBottom="0dp"
-        android:textSize="20sp"/>
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/about_us_heading"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:fontFamily="@font/opensans_semibold"-->
+<!--        android:textSize="@dimen/dp_18"/>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_us_heading_2"
-        android:textSize="16sp"
-        android:paddingTop="16dp"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingBottom="0dp" />
+        android:textSize="18dp"
+        android:fontFamily="@font/opensans_semibold"
+        android:textColor="#333333"
+        android:layout_margin="15dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/about_us_description"
-        android:padding="@dimen/dp_16"
-        android:textSize="14sp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:fontFamily="@font/opensans_regular"
+        android:textColor="#333333"
+        android:textSize="15dp"
         android:justificationMode="inter_word"
         android:text="@string/about_us_description"/>
 

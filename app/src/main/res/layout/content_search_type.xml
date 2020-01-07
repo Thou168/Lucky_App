@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -133,7 +134,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_alignParentBottom="true"
             android:id="@+id/bnaviga"
             app:menu="@menu/bottom_navigation"
@@ -151,5 +152,7 @@
             android:layout_height="?android:attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
     </RelativeLayout>
+
+
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

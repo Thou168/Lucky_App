@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class FBPostCommonFunction {
 
 //    public static void SubmitPost(String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby,String subTitle,String postCode,double eta1,double eta2, double eta3,double eta4,double machine1,double machine2,double machine3,double machine4,double other1){
-    public static void SubmitPost(String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby,String subTitle,String postCode){
+    public static void SubmitPost(String id,String title,String type,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,int status,int createdby,String subTitle,String postCode,String postColor){
 
             DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object> hashMap=new HashMap<>();
@@ -32,6 +32,7 @@ public class FBPostCommonFunction {
         hashMap.put("createdBy",createdby);
         hashMap.put("subTitle",subTitle);
         hashMap.put("postCode",postCode);
+        hashMap.put("color",postColor);
 
 //        hashMap.put("used_eta1",eta1);
 //        hashMap.put("used_eta2",eta2);
@@ -46,7 +47,7 @@ public class FBPostCommonFunction {
     }
 
 //    public static void modifiedPost(String id,String title,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,String subTitle,double eta1,double eta2, double eta3,double eta4,double machine1,double machine2,double machine3,double machine4,double other1){
-    public static void modifiedPost(String id,String title,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,String subTitle,String eta1,String eta2, String eta3,String eta4,String machine1,String machine2,String machine3,String machine4,String other1){
+    public static void modifiedPost(String id,String title,String coverUrl,String price,String discountAmount,String discountType,String location,String createdAt,String subTitle,String eta1,String eta2, String eta3,String eta4,String machine1,String machine2,String machine3,String machine4,String other1,String postColor){
 
             DatabaseReference reference=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_POST).child(id);
         HashMap<String,Object> hashMap=new HashMap<>();
@@ -59,7 +60,7 @@ public class FBPostCommonFunction {
         hashMap.put("price",price);
         hashMap.put("status",3);
         hashMap.put("subTitle",subTitle);
-
+        hashMap.put("color",postColor);
         hashMap.put("used_eta1",eta1);
         hashMap.put("used_eta2",eta2);
         hashMap.put("used_eta3",eta3);

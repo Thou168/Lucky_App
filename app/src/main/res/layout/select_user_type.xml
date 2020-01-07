@@ -9,35 +9,40 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="70dp"
         android:background="?attr/colorPrimary">
         <TextView
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Option"
-            android:textStyle="bold"
-            android:textColor="#fff"
             android:gravity="center_vertical"
-            android:drawableLeft="@drawable/arrow_backspace"/>
+            android:layout_marginRight="@dimen/dp_15"
+            android:drawableLeft="@drawable/back_arrow_x1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Option"
+            android:fontFamily="@font/opensans_semibold"
+            android:textSize="18dp"
+            android:textColor="#FFFFFF"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:gravity="center_vertical"/>
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/public_user"
         android:layout_below="@+id/toolbar"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp"
         android:padding="@dimen/dp_16"
+        android:layout_margin="15dp"
         android:background="@drawable/background_cardview">
         <TextView
             android:id="@+id/tv_public"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dp_16"
+            android:textSize="@dimen/dp_18"
+            android:fontFamily="@font/opensans_semibold"
             android:textColor="@color/colorPrimary"
             android:text="Public"/>
         <TextView
@@ -45,7 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_public"
-            android:text="Phnom Penh"/>
+            android:textSize="15dp"
+            android:fontFamily="@font/opensans_regular"
+            android:text=""/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="70dp"
@@ -59,18 +66,18 @@
     <RelativeLayout
         android:id="@+id/other_dealer"
         android:layout_below="@+id/public_user"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
         android:padding="@dimen/dp_16"
         android:background="@drawable/background_cardview">
         <TextView
             android:id="@+id/tv_dealer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dp_16"
+            android:textSize="@dimen/dp_18"
+            android:fontFamily="@font/opensans_semibold"
             android:textColor="@color/colorPrimary"
             android:text="Dealer"/>
         <TextView
@@ -78,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_dealer"
-            android:text="Phnom Penh"/>
+            android:text=""/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="70dp"

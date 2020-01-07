@@ -1860,6 +1860,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
                                             String createdAt=obj.getString("created");
                                             String postCode=obj.getString("post_code");
                                             String postSubTitle=obj.getString("post_sub_title");
+                                            String fcolor=obj.getString("color");
 
 //                                            String eta1 = obj.getString("used_eta1");
 //                                            String eta2 = obj.getString("used_eta2");
@@ -1872,7 +1873,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
 //                                            String other1 = obj.getString("used_other1");
 
                                             int pStatus=obj.getInt("status");
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode);
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,fcolor);
 
                                             Service api = Client.getClient().create(Service.class);
                                             dealershop ds;
@@ -2291,7 +2292,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
                                             String location = obj.getString("contact_address");
                                             String createdAt = obj.getString("created");
                                             String postSubTitle=obj.getString("post_sub_title");
-
+                                            String fcolor=obj.getString("color");
                                             String eta1 = obj.getString("used_eta1");
                                             String eta2 = obj.getString("used_eta2");
                                             String eta3 = obj.getString("used_eta3");
@@ -2301,7 +2302,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
                                             String machine3 = obj.getString("used_machine3");
                                             String machine4 = obj.getString("used_machine4");
                                             String other1 = obj.getString("used_other1");
-                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1);
+                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1,fcolor);
 
                                             //delete old dealer shop
                                             if(postShops.size()>0) {

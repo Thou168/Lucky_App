@@ -14,10 +14,11 @@ public class PostProduct implements Serializable {
     private int countView;
     private String discountType;
     private String discountAmount;
+    private String color;
 
     public PostProduct(){}
 
-    public PostProduct(int postId,int user_id,String postTitle,String postType,String postImage,String postPrice,String locationDuration,int countView,String discountType,String discountAmount){
+    public PostProduct(int postId,int user_id,String postTitle,String postType,String postImage,String postPrice,String locationDuration,int countView,String discountType,String discountAmount,String color){
         this.postId=postId;
         this.user_id = user_id;
         this.postTitle=postTitle;
@@ -28,6 +29,7 @@ public class PostProduct implements Serializable {
         this.countView=countView;
         this.discountType=discountType;
         this.discountAmount=discountAmount;
+        this.color=color;
     }
 
     public int getPostId() {
@@ -108,5 +110,13 @@ public class PostProduct implements Serializable {
 
     public void setPostType(String postType) {
         this.postType = postType;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

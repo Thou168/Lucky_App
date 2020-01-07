@@ -214,7 +214,8 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             String discountType=object.getString("discount_type");
                             String discountAmount=object.getString("discount");
                             int pstatus=object.getInt("status");
-
+                            String color=object.getString("color");
+                            String postCode=object.getString("post_code");
 //                            String eta1 = obj.getString("used_eta1");
 //                            String eta2 = obj.getString("used_eta2");
 //                            String eta3 = obj.getString("used_eta3");
@@ -230,7 +231,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             String[] splitPath=frontImage.split("/");
                             String imageUrl=ConsumeAPI.IMAGE_STRING_PATH+splitPath[splitPath.length-1];
                             String postSubTitle=CommonFunction.generatePostSubTitle(object.getInt("modeling"),object.getInt("year"),object.getString("color"));
-                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby,postSubTitle,"");
+                            FBPostCommonFunction.SubmitPost(String.valueOf(id),title,type,frontImage,cost,discountAmount,discountType,address,approvedDate,pstatus,pcreatedby,postSubTitle,postCode,color);
 
 //                            if(!address.isEmpty()){
 //                                String[] lateLong=address.split(",");
@@ -256,8 +257,8 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             }
                             */
 
-                            mPostBestDeals.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT, 0,discountType,discountAmount));
-                            mmPost.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT,0,discountType,discountAmount));
+                            mPostBestDeals.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT, 0,discountType,discountAmount,color));
+                            mmPost.add(new PostProduct(id,user_id,title,type,imageUrl,cost,locationDT,0,discountType,discountAmount,color));
 
                         }
                     } catch (JSONException ej) {
@@ -360,6 +361,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             int viewCount=obj.getInt("viewCount");
                             String title=obj.getString("title");
                             String type=obj.getString("type");
+                            String fcolor=obj.getString("color");
 
                             if(!location.isEmpty()){
                                 String[] lateLong=location.split(",");
@@ -382,8 +384,8 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                                 }
                             }
 
-                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,locationDT,viewCount ,discountType,discountAmount));
-                            mmPost.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,locationDT, viewCount,discountType,discountAmount));
+                            mAllPosts.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,locationDT,viewCount ,discountType,discountAmount,fcolor));
+                            mmPost.add(new PostProduct(Integer.parseInt(id),user_id,title,type,coverUrl,price,locationDT, viewCount,discountType,discountAmount,fcolor));
                             Log.d(TAG, "Result " + locationDT);
                         }
                     }catch (JSONException e){

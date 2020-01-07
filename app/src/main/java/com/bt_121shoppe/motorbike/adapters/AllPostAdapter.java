@@ -3,7 +3,10 @@ package com.bt_121shoppe.motorbike.adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -14,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
@@ -27,6 +32,7 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 import java.util.List;
@@ -122,6 +128,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView postLang;
         CircleImageView img_user;
         TextView cate;
+        TextView tvColor1,tvColor2;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -135,6 +142,8 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postLang=itemView.findViewById(R.id.user_view1);
             img_user = itemView.findViewById(R.id.img_user);
             cate = itemView.findViewById(R.id.cate);
+            tvColor1=itemView.findViewById(R.id.tv_color1);
+            tvColor2=itemView.findViewById(R.id.tv_color2);
         }
 
         @Override
@@ -189,25 +198,23 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
             postTitle.setText(strPostTitle);
 
+//            GradientDrawable backgroundGradient = (GradientDrawable)tvColor1.getBackground();
+//            backgroundGradient.setColor(itemView.getContext().getResources().getColor(R.color.logo_green));
 
-//            if (viewModel.getCategory()==1){
-//                cate.setText(R.string.electronic);
-//                cate.setVisibility(View.VISIBLE);
-//            }else if (vi==2){
-//                cate.setText(R.string.motor);
-//                cate.setVisibility(View.VISIBLE);
-//            }
+            String[] splitColor=mPost.getColor().split(",");
 
-//            jok = mPost.getPostTitle();
-//            if (jok.length() > 10){
-//                jok=jok.substring(0,10)+"...";
-//                postTitle.setText(jok);
-//            }
-//            else {
-//                postTitle.setText(mPost.getPostTitle());
-//            }
-
-            //postLocationDT.setText(mPost.getLocationDuration());
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
+            tvColor2.setVisibility(View.GONE);
+            if(splitColor.length>1){
+                tvColor2.setVisibility(View.VISIBLE);
+                GradientDrawable shape1 = new GradientDrawable();
+                shape1.setShape(GradientDrawable.OVAL);
+                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                tvColor2.setBackground(shape);
+            }
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {
