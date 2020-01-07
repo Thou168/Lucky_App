@@ -225,6 +225,16 @@
     <string name="clear_all_label">Clear</string>
     <string name="closed_search">BACK</string>
 
+    //brand name
+    <string name="scoopy">Scoopy</string>
+    <string name="icon">Icon</string>
+    <string name="dream">Dream</string>
+    <string name="panasonicc">Panasonic 3.5W</string>
+    <string name="lgg_4k_full">LG 4K Full HD</string>
+    <string name="lgg_86_4k">LG 86 4K</string>
+    <string name="smash_v">Smash-V</string>
+    <string name="zoomer_x">Zoomer X</string>
+
     //change password
 
     <string name="create_loan">Your create</string>

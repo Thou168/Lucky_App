@@ -27,6 +27,16 @@
     <string name="color">ពណ៌</string>
     <string name="condition">លក្ខខណ្ឌ</string>
 
+    //brand name
+    <string name="scoopy">Scoopy</string>
+    <string name="icon">Icon</string>
+    <string name="dream">Dream</string>
+    <string name="panasonicc">Panasonic 3.5W</string>
+    <string name="lgg_4k_full">LG 4K Full HD</string>
+    <string name="lgg_86_4k">LG 86 4K</string>
+    <string name="smash_v">Smash-V</string>
+    <string name="zoomer_x">Zoomer X</string>
+
     //loan_yes_or_no
     <string name="yes_loan">យល់ព្រម</string>
     <string name="no_loan">មិនយល់ព្រម</string>

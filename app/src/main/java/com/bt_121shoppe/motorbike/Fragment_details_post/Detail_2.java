@@ -201,7 +201,14 @@ public class Detail_2 extends Fragment {
                             tv_email.setText(postDetail.getContact_email());
                             username.setText(postDetail.getMachine_code());
                             String contact_phone = postDetail.getContact_phone();
-                            tv_phone.setText(contact_phone);
+                            String[] splitPhone = contact_phone.split(",");
+                            if (splitPhone.length ==1){
+                                tv_phone.setText(splitPhone[0]);
+                            }else if (splitPhone.length==2){
+                                tv_phone.setText(splitPhone[0]+" , "+splitPhone[1]);
+                            }else if (splitPhone.length==3){
+                                tv_phone.setText(splitPhone[0]+" , "+splitPhone[1]+" , "+splitPhone[2]);
+                            }
 
                             //address
                             String addr = postDetail.getContact_address();

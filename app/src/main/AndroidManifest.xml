@@ -232,6 +232,9 @@
         <activity android:name=".Activity.Detail_new_post_java"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".Activity.Postbyuser_Class"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".Buy_Sell_Rent.Sell.Sell"
             android:screenOrientation="portrait" />

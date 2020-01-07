@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
+import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
@@ -304,7 +305,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(itemView.getContext(), Detail_new_post_java.class);
+                    Intent intent=new Intent(itemView.getContext(), Postbyuser_Class.class);
                     intent.putExtra("Price", mPost.getCost());
                     intent.putExtra("Discount", finalPrice);
                     if (mPost.getStatus()==3){

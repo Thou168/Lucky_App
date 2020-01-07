@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
+import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -148,7 +149,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         }
         Double finalRs_price = rs_price;
         view.linearLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, Detail_new_post_java.class);
+            Intent intent = new Intent(mContext, Postbyuser_Class.class);
             intent.putExtra("Price", model.getCost());
             intent.putExtra("Discount", finalRs_price);
             if (model.getStatus() == 2){

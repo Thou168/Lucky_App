@@ -216,19 +216,116 @@ public class Detail_1 extends Fragment {
                             //brand
                             brand.setText(String.valueOf(postDetail.getModeling()));
                             //year
-                            year.setText(String.valueOf(postDetail.getYear()));
+                            if (postDetail.getYear()!=0) {
+                                if (postDetail.getYear() == 1) {
+                                    year.setText(R.string.year1);
+                                } else if (postDetail.getYear() == 2) {
+                                    year.setText(R.string.year2);
+                                } else if (postDetail.getYear() == 3) {
+                                    year.setText(R.string.year3);
+                                } else if (postDetail.getYear() == 4) {
+                                    year.setText(R.string.year4);
+                                } else if (postDetail.getYear() == 5) {
+                                    year.setText(R.string.year5);
+                                } else if (postDetail.getYear() == 6) {
+                                    year.setText(R.string.year6);
+                                } else if (postDetail.getYear() == 7) {
+                                    year.setText(R.string.year7);
+                                } else if (postDetail.getYear() == 8) {
+                                    year.setText(R.string.year8);
+                                } else if (postDetail.getYear() == 9) {
+                                    year.setText(R.string.year9);
+                                } else if (postDetail.getYear() == 10) {
+                                    year.setText(R.string.year10);
+                                } else if (postDetail.getYear() == 11) {
+                                    year.setText(R.string.year11);
+                                } else if (postDetail.getYear() == 12) {
+                                    year.setText(R.string.year12);
+                                } else if (postDetail.getYear() == 13) {
+                                    year.setText(R.string.year13);
+                                } else if (postDetail.getYear() == 14) {
+                                    year.setText(R.string.year14);
+                                } else if (postDetail.getYear() == 15) {
+                                    year.setText(R.string.year15);
+                                } else if (postDetail.getYear() == 16) {
+                                    year.setText(R.string.year16);
+                                } else if (postDetail.getYear() == 17) {
+                                    year.setText(R.string.year17);
+                                } else if (postDetail.getYear() == 18) {
+                                    year.setText(R.string.year18);
+                                } else if (postDetail.getYear() == 19) {
+                                    year.setText(R.string.year19);
+                                } else if (postDetail.getYear() == 20) {
+                                    year.setText(R.string.year20);
+                                }
+                            }
                             //model
-                            model.setText(String.valueOf(postDetail.getModeling()));
+                            if (postDetail.getModeling()!=0) {
+                                if (postDetail.getModeling() == 1) {
+                                    brand.setText(R.string.honda);
+                                    model.setText(R.string.dream);
+                                } else if (postDetail.getModeling() == 3) {
+                                    brand.setText(R.string.lg);
+                                    model.setText(R.string.lgg_86_4k);
+                                } else if (postDetail.getModeling() == 4) {
+                                    brand.setText(R.string.lg);
+                                    model.setText(R.string.lgg_4k_full);
+                                } else if (postDetail.getModeling() == 8) {
+                                    brand.setText(R.string.susuki);
+                                    model.setText(R.string.smash_v);
+                                } else if (postDetail.getModeling() == 7) {
+                                    brand.setText(R.string.panasonic);
+                                    model.setText(R.string.panasonicc);
+                                } else if (postDetail.getModeling() == 6) {
+                                    brand.setText(R.string.honda);
+                                    model.setText(R.string.scoopy);
+                                } else if (postDetail.getModeling() == 2) {
+                                    brand.setText(R.string.honda);
+                                    model.setText(R.string.icon);
+                                } else if (postDetail.getModeling() == 5) {
+                                    brand.setText(R.string.honda);
+                                    model.setText(R.string.zoomer_x);
+                                }
+                            }
                             //for section
-                            whole_ink.setText(postDetail.getUsed_eta1() + "%");
-                            wheel_sets.setText(postDetail.getUsed_eta2() + "%");
-                            the_whole_screw.setText(postDetail.getUsed_eta3() + "%");
-                            pumps.setText(postDetail.getUsed_eta4() + "%");
-                            engine_counter.setText(postDetail.getUsed_machine1() + "%");
-                            engine_head.setText(postDetail.getUsed_machine2() + "%");
-                            assembly.setText(postDetail.getUsed_machine3() + "%");
-                            console.setText(postDetail.getUsed_machine4() + "%");
-                            accessories.setText(postDetail.getUsed_other1() + "%");
+                            //Convert
+                            double db_e1 = Double.valueOf(postDetail.getUsed_eta1());
+                            int in_e1 = (int)db_e1;
+                            whole_ink.setText(in_e1 + "%");
+
+                            double db_e2 = Double.valueOf(postDetail.getUsed_eta2());
+                            int in_e2 = (int)db_e2;
+                            wheel_sets.setText(in_e2 + "%");
+
+                            double db_e3 = Double.valueOf(postDetail.getUsed_eta3());
+                            int in_e3 = (int)db_e3;
+                            the_whole_screw.setText(in_e3 + "%");
+
+                            double db_e4 = Double.valueOf(postDetail.getUsed_eta4());
+                            int in_e4 = (int)db_e4;
+                            pumps.setText(in_e4 + "%");
+
+                            double db_m1 = Double.valueOf(postDetail.getUsed_machine1());
+                            int in_m1 = (int)db_m1;
+                            engine_counter.setText(in_m1 + "%");
+
+                            double db_m2 = Double.valueOf(postDetail.getUsed_machine2());
+                            int in_m2 = (int)db_m2;
+                            engine_head.setText(in_m2 + "%");
+
+                            double db_m3 = Double.valueOf(postDetail.getUsed_machine3());
+                            int in_m3= (int)db_m3;
+                            assembly.setText(in_m3 + "%");
+
+                            double db_m4 = Double.valueOf(postDetail.getUsed_machine4());
+                            int in_m4 = (int)db_m4;
+                            console.setText(in_m4 + "%");
+
+                            double db_o1 = Double.valueOf(postDetail.getUsed_other1());
+                            int in_o1 = (int)db_o1;
+                            accessories.setText(in_o1 + "%");
+                            //end section
+
                             String postType = "";
                             RentViewModel[] rent = postDetail.getRents();
                             SaleViewModel[] sale = postDetail.getSales();
