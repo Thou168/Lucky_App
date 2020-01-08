@@ -35,6 +35,10 @@ import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -234,7 +238,13 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 postPrice.setText("$ "+mPost.getPostPrice());
             }
 
-            postView.setText(String.valueOf(mPost.getCountView()));
+//            postView.setText(String.valueOf(mPost.getCountView()));
+            if (mPost.getCountView()<50){
+                postView.setText("Toch Nas");
+            }else{
+                postView.setText(String.valueOf(mPost.getCountView()));
+            }
+
             double finalMPrice = mPrice;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

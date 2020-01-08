@@ -3,6 +3,8 @@ package com.bt_121shoppe.motorbike.Product_New_Post
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.text.SpannableString
@@ -18,11 +20,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java
-import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Api.User
 import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction
+import com.bt_121shoppe.motorbike.utils.CommonFunction
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -77,6 +80,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val tv_user_view = itemView.findViewById<TextView>(R.id.user_view1)
         val img_user = itemView.findViewById<CircleImageView>(R.id.img_user)
         val lang = itemView.findViewById<TextView>(R.id.user_view1)
+        var tvColor1 = itemView.findViewById<TextView>(R.id.tv_color1)
+        var tvColor2 = itemView.findViewById<TextView>(R.id.tv_color2)
 
         fun bindItems(item: Item_API,context: Context) {
 
@@ -129,6 +134,23 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
             //location_duration.text=item.location_duration
             show_view.text=" "+item.count_view
+
+            //            GradientDrawable backgroundGradient = (GradientDrawable)tvColor1.getBackground();
+//            backgroundGradient.setColor(itemView.getContext().getResources().getColor(R.color.logo_green));
+            val splitColor: Array<String> = item.color.split(",").toTypedArray()
+
+            val shape = GradientDrawable()
+            shape.shape = GradientDrawable.OVAL
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])))
+            tvColor1.background = shape
+            tvColor2.visibility = View.GONE
+            if (splitColor.size > 1) {
+                tvColor2.visibility = View.VISIBLE
+                val shape1 = GradientDrawable()
+                shape1.shape = GradientDrawable.OVAL
+                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])))
+                tvColor2.background = shape
+            }
 
             var lang:String = tv_user_view.text as String
             if(lang == "View:") {

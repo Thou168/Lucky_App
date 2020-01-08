@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.Startup.Filter;
 import com.bt_121shoppe.motorbike.Startup.Search1;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
@@ -66,6 +68,7 @@ import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bumptech.glide.Glide;
 import com.custom.sliderimage.logic.SliderImage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -87,6 +90,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.Inflater;
 
 import io.paperdb.Paper;
 import okhttp3.Call;
@@ -131,7 +135,6 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     private ImageView search_homepage;
 
     private List<Slider> mImages=new ArrayList<>();
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +176,8 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 //        NavigationView mNavigationView=findViewById(R.id.nav_view);
         mSwipeRefreshLayout=findViewById(R.id.refresh);
         mRecyclerView=findViewById(R.id.list_new_post);
+
+        //
         mProgressbar=findViewById(R.id.progress_bar1);
         mNestedScrollView=findViewById(R.id.nestedScrollView);
 //        View headerView = mNavigationView.getHeaderView(0);

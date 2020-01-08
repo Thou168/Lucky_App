@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -69,6 +71,7 @@ public class Detail_1 extends Fragment {
     private int inBrand;
     View line_rela;
     RelativeLayout rela_eta;
+    TextView tvColor1,tvColor2;
 
     @Nullable
     @Override
@@ -79,8 +82,10 @@ public class Detail_1 extends Fragment {
         type = view.findViewById(R.id.type);
         model = view.findViewById(R.id.tv_Model);
         year = view.findViewById(R.id.tv_Year);
-        color = view.findViewById(R.id.tv_Color);
+//        color = view.findViewById(R.id.tv_Color);
         condition = view.findViewById(R.id.tv_Condition);
+        tvColor1=view.findViewById(R.id.tv_color1);
+        tvColor2=view.findViewById(R.id.tv_color2);
 
         //basic
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
@@ -132,7 +137,7 @@ public class Detail_1 extends Fragment {
         type.setText("3");
         model.setText("4");
         year.setText("5");
-        color.setText("6");
+//        color.setText("6");
         condition.setText("7");
 
         whole_ink.setText("A");
@@ -195,7 +200,23 @@ public class Detail_1 extends Fragment {
                             Log.e(TAG, "D" + mMessage);
                             description.setText(postDetail.getDescription().toString());
                             postCode.setText(postDetail.getPost_code().toString());
-                            color.setText(postDetail.getColor().toString());
+
+                            //get color
+//                            color.setText(postDetail.getColor().toString());
+                            String[] splitColor=postDetail.getColor().split(",");
+                            GradientDrawable shape = new GradientDrawable();
+                            shape.setShape(GradientDrawable.OVAL);
+                            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                            tvColor1.setBackground(shape);
+                            tvColor2.setVisibility(View.GONE);
+                            if(splitColor.length>1){
+                                tvColor2.setVisibility(View.VISIBLE);
+                                GradientDrawable shape1 = new GradientDrawable();
+                                shape1.setShape(GradientDrawable.OVAL);
+                                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                                tvColor2.setBackground(shape);
+                            }
+                            //end
                             con = postDetail.getCondition().toString();
                             if (con.equals("new")) {
                                 condition.setText(R.string.newl);

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -109,7 +110,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         Button btRenewal,btEdit,btDelete;
         RelativeLayout relativeLayout;
         TextView cate;
-
+        TextView tvColor1,tvColor2;
         public ViewHolder(View itemView){
             super(itemView);
             ds_price=itemView.findViewById(R.id.ds_price);
@@ -125,6 +126,8 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvCountView=itemView.findViewById(R.id.user_view);
             relativeLayout = itemView.findViewById(R.id.relative_view);
             cate = itemView.findViewById(R.id.cate);
+            tvColor1=itemView.findViewById(R.id.tv_color1);
+            tvColor2=itemView.findViewById(R.id.tv_color2);
         }
 
         @Override
@@ -166,6 +169,21 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 tvPostType.setText(R.string.rent);
                 tvPostType.setBackgroundResource(R.drawable.roundimage_rent);
 //                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_rent));
+            }
+
+            String[] splitColor=mPost.getColor().split(",");
+
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
+            tvColor2.setVisibility(View.GONE);
+            if(splitColor.length>1){
+                tvColor2.setVisibility(View.VISIBLE);
+                GradientDrawable shape1 = new GradientDrawable();
+                shape1.setShape(GradientDrawable.OVAL);
+                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                tvColor2.setBackground(shape);
             }
 
             //post price

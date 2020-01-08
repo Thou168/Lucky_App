@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -109,6 +112,21 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     }
                     view.title.setText(strPostTitle);
                     view.cost.setText("$"+model.getLoan_amount());
+
+                    String[] splitColor=response.body().getColor().split(",");
+
+                    GradientDrawable shape = new GradientDrawable();
+                    shape.setShape(GradientDrawable.OVAL);
+                    shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                    view.tvColor1.setBackground(shape);
+                    view.tvColor2.setVisibility(View.GONE);
+                    if(splitColor.length>1){
+                        view.tvColor2.setVisibility(View.VISIBLE);
+                        GradientDrawable shape1 = new GradientDrawable();
+                        shape1.setShape(GradientDrawable.OVAL);
+                        shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                        view.tvColor2.setBackground(shape);
+                    }
 
                     if (response.body().getPost_type().equals("sell")){
                         view.item_type.setText(R.string.sell_t);
@@ -257,6 +275,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
         Button btn_edit,btn_cancel;
         LinearLayout linearLayout;
         CircleImageView imgUserProfile;
+        TextView tvColor1,tvColor2;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -271,6 +290,8 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
             textview1 = view.findViewById(R.id.user_view);
             textViewStatus=view.findViewById(R.id.tv_status);
             imgUserProfile=view.findViewById(R.id.img_user);
+            tvColor1=view.findViewById(R.id.tv_color1);
+            tvColor2=view.findViewById(R.id.tv_color2);
         }
     }
 }

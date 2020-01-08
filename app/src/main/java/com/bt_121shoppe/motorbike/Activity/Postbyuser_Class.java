@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.custom.sliderimage.logic.SliderImage;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -81,6 +84,7 @@ public class Postbyuser_Class extends AppCompatActivity {
 
     Double latitude= (double) 0;
     Double longtitude= (double) 0;
+    TextView tvColor1,tvColor2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +104,9 @@ public class Postbyuser_Class extends AppCompatActivity {
         tv_type = findViewById(R.id.type);
         tv_model = findViewById(R.id.tv_Model);
         tv_year = findViewById(R.id.tv_Year);
-        tv_color = findViewById(R.id.tv_Color);
+//        tv_color = findViewById(R.id.tv_Color);
+        tvColor1=findViewById(R.id.tv_color1);
+        tvColor2=findViewById(R.id.tv_color2);
         tv_condition = findViewById(R.id.tv_Condition);
 
         //motor machin and other
@@ -278,7 +284,22 @@ public class Postbyuser_Class extends AppCompatActivity {
                         slider.getIndicator();
 
                         tv_postcode.setText(postDetail.getPost_code().toString());
-                        tv_color.setText(postDetail.getColor().toString());
+                        //get color
+//                            color.setText(postDetail.getColor().toString());
+                        String[] splitColor=postDetail.getColor().split(",");
+                        GradientDrawable shape = new GradientDrawable();
+                        shape.setShape(GradientDrawable.OVAL);
+                        shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                        tvColor1.setBackground(shape);
+                        tvColor2.setVisibility(View.GONE);
+                        if(splitColor.length>1){
+                            tvColor2.setVisibility(View.VISIBLE);
+                            GradientDrawable shape1 = new GradientDrawable();
+                            shape1.setShape(GradientDrawable.OVAL);
+                            shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                            tvColor2.setBackground(shape);
+                        }
+                        //end
                         con = postDetail.getCondition().toString();
                         if (con.equals("new")) {
                             tv_condition.setText(R.string.newl);
@@ -292,7 +313,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         } else if (inType == 2) {
                             tv_type.setText(R.string.motor);
                             if (con.equals("used")) {
-                                line_rela.setVisibility(View.VISIBLE);
+//                                line_rela.setVisibility(View.VISIBLE);
                                 rela_eta.setVisibility(View.VISIBLE);
                             }
                         }
@@ -377,39 +398,39 @@ public class Postbyuser_Class extends AppCompatActivity {
                         //Convert
                         double db_e1 = Double.valueOf(postDetail.getUsed_eta1());
                         int in_e1 = (int)db_e1;
-                        whole_ink.setText(in_e1 + "%");
+                        whole_ink.setText(in_e1 + " %");
 
                         double db_e2 = Double.valueOf(postDetail.getUsed_eta2());
                         int in_e2 = (int)db_e2;
-                        wheel_sets.setText(in_e2 + "%");
+                        wheel_sets.setText(in_e2 + " %");
 
                         double db_e3 = Double.valueOf(postDetail.getUsed_eta3());
                         int in_e3 = (int)db_e3;
-                        the_whole_screw.setText(in_e3 + "%");
+                        the_whole_screw.setText(in_e3 + " %");
 
                         double db_e4 = Double.valueOf(postDetail.getUsed_eta4());
                         int in_e4 = (int)db_e4;
-                        pumps.setText(in_e4 + "%");
+                        pumps.setText(in_e4 + " %");
 
                         double db_m1 = Double.valueOf(postDetail.getUsed_machine1());
                         int in_m1 = (int)db_m1;
-                        engine_counter.setText(in_m1 + "%");
+                        engine_counter.setText(in_m1 + " %");
 
                         double db_m2 = Double.valueOf(postDetail.getUsed_machine2());
                         int in_m2 = (int)db_m2;
-                        engine_head.setText(in_m2 + "%");
+                        engine_head.setText(in_m2 + " %");
 
                         double db_m3 = Double.valueOf(postDetail.getUsed_machine3());
                         int in_m3= (int)db_m3;
-                        assembly.setText(in_m3 + "%");
+                        assembly.setText(in_m3 + " %");
 
                         double db_m4 = Double.valueOf(postDetail.getUsed_machine4());
                         int in_m4 = (int)db_m4;
-                        console.setText(in_m4 + "%");
+                        console.setText(in_m4 + " %");
 
                         double db_o1 = Double.valueOf(postDetail.getUsed_other1());
                         int in_o1 = (int)db_o1;
-                        accessories.setText(in_o1 + "%");
+                        accessories.setText(in_o1 + " %");
                         //end section
 
                         //contact

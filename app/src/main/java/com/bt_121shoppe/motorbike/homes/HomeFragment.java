@@ -14,9 +14,13 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
@@ -42,6 +46,7 @@ import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -64,6 +69,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +105,11 @@ public class HomeFragment extends Fragment {
     private List<PostProduct> mAllPosts;
     private List<PostProduct> mPostBestDeals;
 
+    TextView best_match;
+    int best_m = 0;
+    private int [] bestm;
+    int index = 4;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,6 +136,9 @@ public class HomeFragment extends Fragment {
         mGridView=view.findViewById(R.id.grid);
         mGallaryView=view.findViewById(R.id.btn_image);
         mBestDealText=view.findViewById(R.id.bestDeal);
+
+//        best match
+        best_match=view.findViewById(R.id.best_match);
 //
 //        mETFilterPostType.setFocusable(false);
 //        mETFilterCategory.setFocusable(false);
@@ -593,6 +607,75 @@ public class HomeFragment extends Fragment {
                         je.printStackTrace();
                     }
                 }
+                best_match.setOnClickListener(v -> {
+                    View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
+                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+                    bottomSheetDialog.setContentView(dialogView);
+                    bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    bottomSheetDialog.show();
+                    ImageView close = dialogView.findViewById(R.id.icon_close);
+                    RadioGroup group = dialogView.findViewById(R.id.radio_group);
+                    Button ok = dialogView.findViewById(R.id.btn_ok);
+                    close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
+                    group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            View radioButton = group.findViewById(checkedId);
+                            index = group.indexOfChild(radioButton);
+//                        best_m = bestm[index];
+                            switch (checkedId){
+                                case 0:
+                                    index=0;
+                                    break;
+                                case 1:
+                                    index=1;
+                                    break;
+                                case 2:
+                                    index=2;
+                                    break;
+                                case 3:
+                                    index=3;
+                                    break;
+                            }
+                        }
+                    });
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mAllPosts.size()!=0) {
+                                if (index == 0) {
+                                    Toast.makeText(getActivity(), "Index 0", Toast.LENGTH_SHORT).show();
+                                    mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts, "List"));
+                                    mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                                    bottomSheetDialog.dismiss();
+                                } else if (index == 1) {
+                                    Toast.makeText(getActivity(), "Index 1", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                } else if (index == 2) {
+                                    Toast.makeText(getActivity(), "Index 2", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                } else if (index == 3) {
+                                    Toast.makeText(getActivity(), "Index 3", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                }
+                            }else {
+                                if (index == 0) {
+                                    Toast.makeText(getActivity(), "Index 0", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                } else if (index == 1) {
+                                    Toast.makeText(getActivity(), "Index 1", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                } else if (index == 2) {
+                                    Toast.makeText(getActivity(), "Index 2", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                } else if (index == 3) {
+                                    Toast.makeText(getActivity(), "Index 3", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                }
+                            }
+                        }
+                    });
+                });
 
                 if(mAllPosts.size()==0){
                     mAllPostsNoResult.setVisibility(View.VISIBLE);
@@ -640,7 +723,6 @@ public class HomeFragment extends Fragment {
                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
                     }
                 });
-
             }
 
             @Override

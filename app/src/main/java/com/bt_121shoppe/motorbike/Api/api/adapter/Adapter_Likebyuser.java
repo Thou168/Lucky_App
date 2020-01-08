@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -133,6 +136,21 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                    }
 //
 //End
+                    String[] splitColor=response.body().getColor().split(",");
+
+                    GradientDrawable shape = new GradientDrawable();
+                    shape.setShape(GradientDrawable.OVAL);
+                    shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                    view.tvColor1.setBackground(shape);
+                    view.tvColor2.setVisibility(View.GONE);
+                    if(splitColor.length>1){
+                        view.tvColor2.setVisibility(View.VISIBLE);
+                        GradientDrawable shape1 = new GradientDrawable();
+                        shape1.setShape(GradientDrawable.OVAL);
+                        shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                        view.tvColor2.setBackground(shape);
+                    }
+
                     Double rs_price=0.0;
                     if (response.body().getDiscount().equals("0.00")){
                         Double co_cost = Double.parseDouble(response.body().getCost());
@@ -289,6 +307,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
         CircleImageView imgUserProfile;
         ImageButton btn_unlike;
         LinearLayout linearLayout;
+        TextView tvColor1,tvColor2;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -302,6 +321,8 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             linearLayout = view.findViewById(R.id.linearLayout);
             txt_discount = view.findViewById(R.id.tv_discount);
             imgUserProfile=view.findViewById(R.id.img_user);
+            tvColor1=view.findViewById(R.id.tv_color1);
+            tvColor2=view.findViewById(R.id.tv_color2);
         }
     }
 }

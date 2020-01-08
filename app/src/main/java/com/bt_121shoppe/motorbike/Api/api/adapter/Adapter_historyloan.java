@@ -3,6 +3,8 @@ package com.bt_121shoppe.motorbike.Api.api.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -106,6 +108,21 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                         } else {
                             strPostTitle = splitTitle.length==1?splitTitle[0]:splitTitle[1];
                         }
+                    }
+
+                    String[] splitColor=response.body().getColor().split(",");
+
+                    GradientDrawable shape = new GradientDrawable();
+                    shape.setShape(GradientDrawable.OVAL);
+                    shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                    view.tvColor1.setBackground(shape);
+                    view.tvColor2.setVisibility(View.GONE);
+                    if(splitColor.length>1){
+                        view.tvColor2.setVisibility(View.VISIBLE);
+                        GradientDrawable shape1 = new GradientDrawable();
+                        shape1.setShape(GradientDrawable.OVAL);
+                        shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                        view.tvColor2.setBackground(shape);
                     }
 
                     view.title.setText(strPostTitle);
@@ -213,6 +230,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
         ImageView imageView;
         RelativeLayout relativeLayout;
         CircleImageView imgUserProfile;
+        TextView tvColor1,tvColor2;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -225,6 +243,8 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             relativeLayout = view.findViewById(R.id.relative);
             imgUserProfile=view.findViewById(R.id.img_user);
             textViewStatus=view.findViewById(R.id.tv_status);
+            tvColor1=view.findViewById(R.id.tv_color1);
+            tvColor2=view.findViewById(R.id.tv_color2);
         }
     }
 }

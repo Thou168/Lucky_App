@@ -1,7 +1,9 @@
 package com.bt_121shoppe.motorbike.adapters;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
@@ -106,6 +109,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         CircleImageView img_user;
         RelativeLayout relativeLayout;
         TextView ds_price;
+        TextView tvColor1,tvColor2;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -121,6 +125,8 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             img_user = itemView.findViewById(R.id.img_user);
             relativeLayout = itemView.findViewById(R.id.relative_view);
             ds_price = itemView.findViewById(R.id.ds_price);
+            tvColor1=itemView.findViewById(R.id.tv_color1);
+            tvColor2=itemView.findViewById(R.id.tv_color2);
         }
 
         @Override
@@ -162,6 +168,21 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 else
                     strPostTitle=mPost.getPostTitle().split(",")[0];
             postTitle.setText(strPostTitle);
+
+            String[] splitColor=mPost.getColor().split(",");
+
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
+            tvColor2.setVisibility(View.GONE);
+            if(splitColor.length>1){
+                tvColor2.setVisibility(View.VISIBLE);
+                GradientDrawable shape1 = new GradientDrawable();
+                shape1.setShape(GradientDrawable.OVAL);
+                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                tvColor2.setBackground(shape);
+            }
 
 //            postLocationDT.setText(mPost.getLocationDuration());
             double mPrice=0;

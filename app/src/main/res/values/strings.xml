@@ -692,6 +692,12 @@
     <string name="red">Red</string>
     <string name="gray">Gray</string>
 
+    //best match
+    <string name="new_ads">New Ads</string>
+    <string name="most_hit_ads">Most Hit Ads</string>
+    <string name="low_to_high">Price: Low to High</string>
+    <string name="high_to_low">Price: High to Low</string>
+
     //for condition used
     <string name="moto_eta">I. Motorcycles (Eta)</string>
     <string name="whole_int">Whole ink</string>

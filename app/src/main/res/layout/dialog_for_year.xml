@@ -26,8 +26,7 @@
         android:layout_below="@+id/title_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nested_scroll_view"
-        >
+        android:id="@+id/nested_scroll_view">
         <RelativeLayout
             android:layout_marginTop="@dimen/dp_8"
             android:layout_width="match_parent"
@@ -53,7 +52,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year1"
                 android:textSize="14sp" />
 
@@ -63,7 +62,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year2"
                 android:textSize="14sp" />
             <RadioButton
@@ -72,7 +71,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year3"
                 android:textSize="14sp" />
             <RadioButton
@@ -81,7 +80,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year4"
                 android:textSize="14sp" />
             <RadioButton
@@ -90,7 +89,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year5"
                 android:textSize="14sp" />
             <RadioButton
@@ -99,7 +98,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year6"
                 android:textSize="14sp" />
             <RadioButton
@@ -108,7 +107,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year7"
                 android:textSize="14sp" />
             <RadioButton
@@ -117,7 +116,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year8"
                 android:textSize="14sp" />
             <RadioButton
@@ -126,7 +125,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year9"
                 android:textSize="14sp" />
             <RadioButton
@@ -135,7 +134,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year10"
                 android:textSize="14sp" />
             <RadioButton
@@ -144,7 +143,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year11"
                 android:textSize="14sp" />
             <RadioButton
@@ -153,7 +152,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year12"
                 android:textSize="14sp" />
             <RadioButton
@@ -162,7 +161,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year13"
                 android:textSize="14sp" />
             <RadioButton
@@ -171,7 +170,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year14"
                 android:textSize="14sp" />
             <RadioButton
@@ -180,7 +179,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year15"
                 android:textSize="14sp" />
             <RadioButton
@@ -189,7 +188,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year16"
                 android:textSize="14sp" />
             <RadioButton
@@ -198,7 +197,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year17"
                 android:textSize="14sp" />
             <RadioButton
@@ -207,7 +206,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year18"
                 android:textSize="14sp" />
             <RadioButton
@@ -216,7 +215,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year19"
                 android:textSize="14sp" />
             <RadioButton
@@ -225,7 +224,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year20"
                 android:textSize="14sp" />
             <RadioButton
@@ -234,7 +233,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year21"
                 android:textSize="14sp" />
             <RadioButton
@@ -243,7 +242,7 @@
                 android:layout_margin="4dp"
                 android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:text="@string/year22"
                 android:textSize="14sp" />
         </RadioGroup>

@@ -780,6 +780,12 @@
     <string name="result_name"> លទ្ធផល</string>
     <string name="shop_logo">Logo របស់ហាង</string>
 
+    //best match
+    <string name="new_ads">ការផ្សព្វផ្សាយថ្មី</string>
+    <string name="most_hit_ads">ការផ្សព្វផ្សាយច្រើនបំផុត</string>
+    <string name="low_to_high">តម្លៃ: ទាបទៅខ្ពស់</string>
+    <string name="high_to_low">តម្លៃ: ខ្ពស់ទៅទាប</string>
+
     //new string dialog
     <string name="dialog_default_title">នេះជាសារ!</string>
     <string name="dialog_ok">យល់ព្រម</string>
