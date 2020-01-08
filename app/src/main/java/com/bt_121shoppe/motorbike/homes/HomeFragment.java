@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.homes;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.icu.util.DateInterval;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -134,6 +136,10 @@ public class HomeFragment extends Fragment {
         setupAllPosts(index);
 
         best_match.setOnClickListener(v -> {
+            //hide keyboard
+            InputMethodManager mgr = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            mgr.showSoftInput(best_match, InputMethodManager.SHOW_FORCED);
+
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
             bottomSheetDialog.setContentView(dialogView);
@@ -168,6 +174,15 @@ public class HomeFragment extends Fragment {
             ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (index==0) {
+                        best_match.setText(R.string.new_ads);
+                    }else if (index==1){
+                        best_match.setText(R.string.most_hit_ads);
+                    }else if (index==2){
+                        best_match.setText(R.string.low_to_high);
+                    }else if (index==3){
+                        best_match.setText(R.string.high_to_low);
+                    }
                     setupAllPosts(index);
                     bottomSheetDialog.dismiss();
 //                    if (mAllPosts.size()!=0) {

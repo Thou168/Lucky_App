@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:id="@+id/refresh"
     tools:context=".stores.StoreListActivity">
 
@@ -16,16 +14,18 @@
         <RelativeLayout
             android:id="@+id/layoutToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@color/colorPrimaryDark"
             android:padding="@dimen/dp_8dp">
 
-            <Button
+            <TextView
+                android:paddingStart="@dimen/dp_8"
                 android:id="@+id/button_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textAlignment="textStart"/>
+                android:background="@color/white"
+                android:gravity="start|center_vertical"
+                android:layout_height="40dp"
+                android:text="@string/locaion" />
 
         </RelativeLayout>
 
@@ -35,15 +35,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/button_sort"
+<!--            <Button-->
+<!--                android:id="@+id/button_sort"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Location"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:background="@color/white"-->
+<!--                android:textAlignment="textStart"/>-->
+            <TextView
+                android:id="@+id/best_match"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:padding="@dimen/dp_8dp"
+                android:text="@string/new_ads"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:background="@color/white"
-                android:textAlignment="textStart"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_gray"/>
 
         </RelativeLayout>
 
@@ -56,10 +67,9 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/recyclerview_store_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
 
         </RelativeLayout>
-
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_alignParentBottom="true"
@@ -73,4 +83,4 @@
 
 
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>

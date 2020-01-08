@@ -1301,28 +1301,28 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                 List<Address> addresses;
                                 geocoder = new Geocoder(getApplication(), Locale.getDefault());
                                 String addr = convertJsonJava.getProfile().getResponsible_officer();
-                                if (!addr.isEmpty()) {
-                                    String add[] = addr.split(",");
-                                    Double latetitude = Double.parseDouble(add[0]);
-                                    Double longtitude = Double.parseDouble(add[1]);
-                                    try {
-                                        addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
-                                        String road = addresses.get(0).getAddressLine(0);
-                                        if (road.length() > 30) {
-                                            String loca = road.substring(0,30) + "...";
-                                            if (location != null){
-                                                if (location.length() > 30) {
-                                                    String locate = location.substring(0,30) + "...";
-                                                    editMap.setText(locate);
-                                                }
-                                            }else {
-                                                editMap.setText(loca);
-                                            }
-                                        }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
+//                                if (!addr.isEmpty()) {
+//                                    String add[] = addr.split(",");
+//                                    Double latetitude = Double.parseDouble(add[0]);
+//                                    Double longtitude = Double.parseDouble(add[1]);
+//                                    try {
+//                                        addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+//                                        String road = addresses.get(0).getAddressLine(0);
+//                                        if (road.length() > 30) {
+//                                            String loca = road.substring(0,30) + "...";
+//                                            if (location != null){
+//                                                if (location.length() > 30) {
+//                                                    String locate = location.substring(0,30) + "...";
+//                                                    editMap.setText(locate);
+//                                                }
+//                                            }else {
+//                                                editMap.setText(loca);
+//                                            }
+//                                        }
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
                                 if(convertJsonJava.getProfile().getAddress()!=null) {
                                     String address = convertJsonJava.getProfile().getAddress();
                                     editAddress.setText(address);

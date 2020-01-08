@@ -215,4 +215,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="RatingBar" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="colorControlNormal">@color/sunflower_yellow_500</item>
+        <item name="colorControlActivated">@color/sunflower_yellow_500</item>
+        <item name="android:colorActivatedHighlight">@color/sunflower_yellow_500</item>
+    </style>
+
 </resources>

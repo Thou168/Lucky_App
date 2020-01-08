@@ -28,26 +28,66 @@
             android:layout_height="wrap_content"
             android:text="@string/locaion"
             android:fontFamily="@font/opensans_bold"/>
+        <RelativeLayout
+            android:id="@+id/relative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RatingBar
+                android:id="@+id/rating_star"
+                style="@style/RatingBar"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:progressTint="@color/colorPrimary"
+                android:secondaryProgressTint="@color/sunflower_yellow_500"
+                android:rating="5"
+                android:stepSize="0.5" />
+            <TextView
+                android:id="@+id/number_of_rate"
+                android:text="number_rate"
+                android:layout_toEndOf="@+id/rating_star"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginTop="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageview_shopprofile"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:src="@mipmap/ic_launcher_round"
-            card_view:civ_border_width="2dp"
-            android:layout_gravity="right"
-            card_view:civ_border_color="@color/circle"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview_shopprofile"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/ic_launcher_round"
+                card_view:civ_border_width="2dp"
+                android:layout_gravity="right"
+                card_view:civ_border_color="@color/circle"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
 
-        <TextView
-            android:id="@+id/textview_countview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="View: 0"
-            android:textAlignment="textEnd"
-            android:fontFamily="@font/opensans_bold"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_below="@+id/imageview_shopprofile"
+                android:layout_marginEnd="5dp">
+                <TextView
+                    android:id="@+id/view"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:text="12K"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"/>
+                <TextView
+                    android:id="@+id/title_view"
+                    android:text="@string/view"
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -10,7 +10,6 @@ import com.bt_121shoppe.motorbike.R;
 
 public class StoreDetailActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
     private String mShopName;
 
     @Override
@@ -27,7 +26,8 @@ public class StoreDetailActivity extends AppCompatActivity {
     }
 
     private void initToolbar(String title){
-        mToolbar=findViewById(R.id.toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);

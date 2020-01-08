@@ -237,14 +237,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }else{
                 postPrice.setText("$ "+mPost.getPostPrice());
             }
-
-//            postView.setText(String.valueOf(mPost.getCountView()));
-            if (mPost.getCountView()<50){
-                postView.setText("Toch Nas");
-            }else{
-                postView.setText(String.valueOf(mPost.getCountView()));
-            }
-
+            postView.setText(String.valueOf(mPost.getCountView()));
             double finalMPrice = mPrice;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -62,7 +62,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(itemView);
             txtPostTitle=itemView.findViewById(R.id.textview_posttitle);
             txtShopLocation=itemView.findViewById(R.id.textview_shoplocation);
-            txtCountView=itemView.findViewById(R.id.textview_countview);
+            txtCountView=itemView.findViewById(R.id.view);
             imgShopProfile=itemView.findViewById(R.id.imageview_shopprofile);
         }
 
