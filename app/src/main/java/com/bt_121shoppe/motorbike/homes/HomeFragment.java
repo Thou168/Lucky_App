@@ -108,23 +108,13 @@ public class HomeFragment extends Fragment {
     TextView best_match;
     int best_m = 0;
     private int [] bestm;
-    int index = 4;
+    int index = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_home_frist, container, false);
-//        mFilterCategory=view.findViewById(R.id.CategoryLayout);
-//        mFilterBrand=view.findViewById(R.id.BrandLayout);
-//        mFilterYear=view.findViewById(R.id.YearLayout);
-//        mFilterPriceRange=view.findViewById(R.id.PriceRangeLayout);
-//        mFilterPostType=view.findViewById(R.id.PostTypeLayout);
-//        mETFilterPostType=view.findViewById(R.id.editTextPostType);
-//        mETFilterCategory=view.findViewById(R.id.editTextCategory);
-//        mETFilterBrandET=view.findViewById(R.id.editTextBrand);
-//        mETFilterYear=view.findViewById(R.id.editTextYear);
-//        mETFilterPriceRange=view.findViewById(R.id.editTextPriceRange);
         mBestDealRecyclerView=view.findViewById(R.id.horizontal);
         mBestDealNoResult=view.findViewById(R.id.text);
         mBestDealProgressbar=view.findViewById(R.id.progress_bar);
@@ -139,109 +129,83 @@ public class HomeFragment extends Fragment {
 
 //        best match
         best_match=view.findViewById(R.id.best_match);
-//
-//        mETFilterPostType.setFocusable(false);
-//        mETFilterCategory.setFocusable(false);
-//        mETFilterBrandET.setFocusable(false);
-//        mETFilterYear.setFocusable(false);
-//        mETFilterPriceRange.setFocusable(false);
-//        if(isAdded()) {
-//            mETFilterPostType.setText(getString(R.string.all));
-//        }
-
-//        mBestDealProgressbar.setVisibility(View.VISIBLE);
-//        mAllPostProgressbar.setVisibility(View.VISIBLE);
         //Log.e(TAG,"Before run best deal");
         setUpBestDeal();
-        setupAllPosts();
+        setupAllPosts(index);
 
-        /* start action event listener */
-//        mETFilterPostType.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("filterType", CommonFunction.FILTERPOSTTYPE);
-//                bundle.putInt("postTypeId",mPostTypeId);
-//                bundle.putInt("categoryId",mCategoryId);
-//                bundle.putInt("brandId",mBrandId);
-//                bundle.putInt("yearId",mYearId);
-//                bundle.putDouble("minPrice",mMinPrice);
-//                bundle.putDouble("maxPrice",mMaxPrice);
-//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-//                fragment.setArguments(bundle);
-//                loadFragment(fragment);
-//            }
-//        });
-//
-//        mETFilterCategory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("filterType",CommonFunction.FILTERCATEGORY);
-//                bundle.putInt("postTypeId",mPostTypeId);
-//                bundle.putInt("categoryId",mCategoryId);
-//                bundle.putInt("brandId",mBrandId);
-//                bundle.putInt("yearId",mYearId);
-//                bundle.putDouble("minPrice",mMinPrice);
-//                bundle.putDouble("maxPrice",mMaxPrice);
-//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-//                fragment.setArguments(bundle);
-//                loadFragment(fragment);
-//            }
-//        });
-//
-//        mETFilterBrandET.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("filterType",CommonFunction.FILTERBRAND);
-//                bundle.putInt("postTypeId",mPostTypeId);
-//                bundle.putInt("categoryId",mCategoryId);
-//                bundle.putInt("brandId",mBrandId);
-//                bundle.putInt("yearId",mYearId);
-//                bundle.putDouble("minPrice",mMinPrice);
-//                bundle.putDouble("maxPrice",mMaxPrice);
-//                Log.d("12122 thou","fasdlfjksdl;"+mBrandId);
-//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-//                fragment.setArguments(bundle);
-//                loadFragment(fragment);
-//            }
-//        });
-//
-//        mETFilterYear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("filterType",CommonFunction.FILTERYEAR);
-//                bundle.putInt("postTypeId",mPostTypeId);
-//                bundle.putInt("categoryId",mCategoryId);
-//                bundle.putInt("brandId",mBrandId);
-//                bundle.putInt("yearId",mYearId);
-//                bundle.putDouble("minPrice",mMinPrice);
-//                bundle.putDouble("maxPrice",mMaxPrice);
-//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-//                fragment.setArguments(bundle);
-//                loadFragment(fragment);
-//            }
-//        });
-//
-//        mETFilterPriceRange.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("filterType",CommonFunction.FILTERPRICERANGE);
-//                bundle.putInt("postTypeId",mPostTypeId);
-//                bundle.putInt("categoryId",mCategoryId);
-//                bundle.putInt("brandId",mBrandId);
-//                bundle.putInt("yearId",mYearId);
-//                bundle.putDouble("minPrice",mMinPrice);
-//                bundle.putDouble("maxPrice",mMaxPrice);
-//                HomeFilterConditionFragment fragment=new HomeFilterConditionFragment();
-//                fragment.setArguments(bundle);
-//                loadFragment(fragment);
-//            }
-//        });
-        /* end action event lister */
+        best_match.setOnClickListener(v -> {
+            View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+            bottomSheetDialog.setContentView(dialogView);
+            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            bottomSheetDialog.show();
+            ImageView close = dialogView.findViewById(R.id.icon_close);
+            RadioGroup group = dialogView.findViewById(R.id.radio_group);
+            Button ok = dialogView.findViewById(R.id.btn_ok);
+            close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    View radioButton = group.findViewById(checkedId);
+                    index = group.indexOfChild(radioButton);
+//                        best_m = bestm[index];
+                    switch (checkedId){
+                        case 0:
+                            index=0;
+                            break;
+                        case 1:
+                            index=1;
+                            break;
+                        case 2:
+                            index=2;
+                            break;
+                        case 3:
+                            index=3;
+                            break;
+                    }
+                }
+            });
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setupAllPosts(index);
+                    bottomSheetDialog.dismiss();
+//                    if (mAllPosts.size()!=0) {
+//                        if (index == 0) {
+//                            Toast.makeText(getActivity(), "Index 0", Toast.LENGTH_SHORT).show();
+//                            mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts, "List"));
+//                            mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+//                            bottomSheetDialog.dismiss();
+//                        } else if (index == 1) {
+//                            Toast.makeText(getActivity(), "Index 1", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        } else if (index == 2) {
+//                            Toast.makeText(getActivity(), "Index 2", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        } else if (index == 3) {
+//                            Toast.makeText(getActivity(), "Index 3", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    }else {
+//                        if (index == 0) {
+//                            Toast.makeText(getActivity(), "Index 0", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        } else if (index == 1) {
+//                            Toast.makeText(getActivity(), "Index 1", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        } else if (index == 2) {
+//                            Toast.makeText(getActivity(), "Index 2", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        } else if (index == 3) {
+//                            Toast.makeText(getActivity(), "Index 3", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    }
+                }
+            });
+        });
+
+
 
         return view;
     }
@@ -396,7 +360,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupAllPosts(){
+    private void setupAllPosts(int index){
         mAllPosts=new ArrayList<>();
         mAllPostLayoutManager=new GridLayoutManager(getContext(),1);
         mAllPostLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -413,11 +377,11 @@ public class HomeFragment extends Fragment {
         mAllPostsRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
         mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
         //mAllPostAdapter=new AllPostAdapterV2(new ArrayList<>(),"List");
-        prepareAllPostsContent();
+        prepareAllPostsContent(index);
         //mAllPostProgressbar.setVisibility(View.GONE);
     }
 
-    private void prepareAllPostsContent(){
+    private void prepareAllPostsContent(int index){
         //new process
         //new Handler().postDelayed(()-> {
 
@@ -607,82 +571,29 @@ public class HomeFragment extends Fragment {
                         je.printStackTrace();
                     }
                 }
-                best_match.setOnClickListener(v -> {
-                    View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
-                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
-                    bottomSheetDialog.setContentView(dialogView);
-                    bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                    bottomSheetDialog.show();
-                    ImageView close = dialogView.findViewById(R.id.icon_close);
-                    RadioGroup group = dialogView.findViewById(R.id.radio_group);
-                    Button ok = dialogView.findViewById(R.id.btn_ok);
-                    close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
-                    group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-                            View radioButton = group.findViewById(checkedId);
-                            index = group.indexOfChild(radioButton);
-//                        best_m = bestm[index];
-                            switch (checkedId){
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                                case 3:
-                                    index=3;
-                                    break;
-                            }
-                        }
-                    });
-                    ok.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (mAllPosts.size()!=0) {
-                                if (index == 0) {
-                                    Toast.makeText(getActivity(), "Index 0", Toast.LENGTH_SHORT).show();
-                                    mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts, "List"));
-                                    mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
-                                    bottomSheetDialog.dismiss();
-                                } else if (index == 1) {
-                                    Toast.makeText(getActivity(), "Index 1", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                } else if (index == 2) {
-                                    Toast.makeText(getActivity(), "Index 2", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                } else if (index == 3) {
-                                    Toast.makeText(getActivity(), "Index 3", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                }
-                            }else {
-                                if (index == 0) {
-                                    Toast.makeText(getActivity(), "Index 0", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                } else if (index == 1) {
-                                    Toast.makeText(getActivity(), "Index 1", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                } else if (index == 2) {
-                                    Toast.makeText(getActivity(), "Index 2", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                } else if (index == 3) {
-                                    Toast.makeText(getActivity(), "Index 3", Toast.LENGTH_SHORT).show();
-                                    bottomSheetDialog.dismiss();
-                                }
-                            }
-                        }
-                    });
-                });
+
 
                 if(mAllPosts.size()==0){
                     mAllPostsNoResult.setVisibility(View.VISIBLE);
                 }else {
                     mAllPostsNoResult.setVisibility(View.GONE);
                     //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                    Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
+                    switch (index){
+                        case 0:
+                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
+                            break;
+                        case 1:
+                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getCountView(), s1.getCountView()));
+                            break;
+                        case 2:
+                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getPostPrice()), Double.valueOf(s1.getPostPrice())));
+                            break;
+                        case 3:
+                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s2.getPostPrice()), Double.valueOf(s1.getPostPrice())));
+                            break;
+                    }
+
+
                     mAllPostAdapter.addItems(mAllPosts);
                     mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
                     ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);

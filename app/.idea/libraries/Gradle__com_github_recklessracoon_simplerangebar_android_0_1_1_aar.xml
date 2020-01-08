@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.recklessracoon:simplerangebar-android:0.1.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e25395e802efe9d5c1b8009e8fb1f31/jetified-simplerangebar-android-0.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e25395e802efe9d5c1b8009e8fb1f31/jetified-simplerangebar-android-0.1.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
