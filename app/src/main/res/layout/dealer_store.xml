@@ -25,17 +25,16 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay">
 
                     <Button
-                        android:id="@+id/khmer"
-                        android:layout_width="100dp"
+                        android:id="@+id/add_store"
+                        android:layout_width="90dp"
                         android:layout_height="40dp"
                         android:layout_gravity="right"
                         android:gravity="center"
                         android:padding="@dimen/dp_8"
                         android:textAllCaps="false"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:textSize="@dimen/dp_16"
                         android:textColor="@color/white"
-                        android:background="@drawable/button_dealer"
+                        android:background="@drawable/post_background"
                         android:text="@string/add_store" />
                 </androidx.appcompat.widget.Toolbar>
                 <TextView

@@ -386,216 +386,206 @@
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black" />
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_estimate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/titl_motorcycle"
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/moto_eta"
+                        android:textSize="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:background="@drawable/underline_gray"-->
-<!--                        >-->
-<!--                        <EditText-->
-<!--                            android:id="@+id/tvType_elec"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="fill_parent"-->
-<!--                            android:hint="@string/type"-->
-<!--                            android:textSize="14dp"-->
-<!--                            android:background="@null"-->
-<!--                            android:focusable="false"-->
-<!--                            android:drawableRight="@drawable/chevron_down_24"-->
-<!--                            android:paddingLeft="10dp" />-->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                    <TextView
+                        android:id="@+id/edwhole_int"
+                        android:padding="@dimen/dp_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="@string/whole_int" />
+                    <SeekBar
+                        android:id="@+id/seekbar_whole"
+                        android:max="100"
+                        android:padding="@dimen/dp_4"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:id="@+id/edfront_and_rear_wheel_sets"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="@string/front_and_rear_wheel_sets" />
+                    <SeekBar
+                        android:id="@+id/seekbar_rear"
+                        android:padding="@dimen/dp_4"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:max="100"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/titl_motorcycle"
-                    android:padding="@dimen/dp_8"
-                    android:text="@string/moto_eta"
-                    android:textSize="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:textStyle="bold"
+                        android:padding="@dimen/dp_8"
+                        android:id="@+id/edThe_whole_screw"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/The_whole_screw"/>
+                    <SeekBar
+                        android:id="@+id/seekbar_screw"
+                        android:padding="@dimen/dp_4"
+                        android:max="100"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/edwhole_int"
-                    android:padding="@dimen/dp_8"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:text="@string/whole_int" />
-                <SeekBar
-                    android:id="@+id/seekbar_whole"
-                    android:max="100"
-                    android:padding="@dimen/dp_4"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:padding="@dimen/dp_8"
+                        android:id="@+id/edFront_and_rear_pumps"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/Front_and_rear_pumps" />
+                    <SeekBar
+                        android:id="@+id/seekbar_pumps"
+                        android:thumbTint="@color/colorPrimary"
+                        android:max="100"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:id="@+id/edfront_and_rear_wheel_sets"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:text="@string/front_and_rear_wheel_sets" />
-                <SeekBar
-                    android:id="@+id/seekbar_rear"
-                    android:padding="@dimen/dp_4"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:max="100"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/mk"
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/machine_section"
+                        android:textSize="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:textStyle="bold"
-                    android:padding="@dimen/dp_8"
-                    android:id="@+id/edThe_whole_screw"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/The_whole_screw"/>
-                <SeekBar
-                    android:id="@+id/seekbar_screw"
-                    android:padding="@dimen/dp_4"
-                    android:max="100"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:padding="@dimen/dp_8"
+                        android:id="@+id/edLeft_and_right_engine_counter"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/Left_and_right_engine_counter" />
+                    <SeekBar
+                        android:id="@+id/seekbar_right_engine"
+                        android:max="100"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:padding="@dimen/dp_4"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:padding="@dimen/dp_8"
-                    android:id="@+id/edFront_and_rear_pumps"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/Front_and_rear_pumps" />
-                <SeekBar
-                    android:id="@+id/seekbar_pumps"
-                    android:thumbTint="@color/colorPrimary"
-                    android:max="100"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:textStyle="bold"
+                        android:id="@+id/edEngine_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/Engine_head" />
+                    <SeekBar
+                        android:id="@+id/seekbar_engine_head"
+                        android:padding="@dimen/dp_4"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:max="100"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/mk"
-                    android:padding="@dimen/dp_8"
-                    android:text="@string/machine_section"
-                    android:textSize="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:textStyle="bold"
+                        android:id="@+id/edMachine_Assembly"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/Machine_Assembly" />
+                    <SeekBar
+                        android:id="@+id/seekbar_assembly"
+                        android:padding="@dimen/dp_4"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:max="100"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:textStyle="bold"
+                        android:id="@+id/edConsole"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/Console" />
+                    <SeekBar
+                        android:id="@+id/seekbar_console"
+                        android:max="100"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:padding="@dimen/dp_4"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/la"
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/other_sections"
+                        android:textSize="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:textStyle="bold"
-                    android:padding="@dimen/dp_8"
-                    android:id="@+id/edLeft_and_right_engine_counter"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/Left_and_right_engine_counter" />
-                <SeekBar
-                    android:id="@+id/seekbar_right_engine"
-                    android:max="100"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:padding="@dimen/dp_4"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:textStyle="bold"
-                    android:id="@+id/edEngine_head"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/Engine_head" />
-                <SeekBar
-                    android:id="@+id/seekbar_engine_head"
-                    android:padding="@dimen/dp_4"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:max="100"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:textStyle="bold"
-                    android:id="@+id/edMachine_Assembly"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/Machine_Assembly" />
-                <SeekBar
-                    android:id="@+id/seekbar_assembly"
-                    android:padding="@dimen/dp_4"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:max="100"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:textStyle="bold"
-                    android:id="@+id/edConsole"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/Console" />
-                <SeekBar
-                    android:id="@+id/seekbar_console"
-                    android:max="100"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:padding="@dimen/dp_4"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:id="@+id/la"
-                    android:padding="@dimen/dp_8"
-                    android:text="@string/other_sections"
-                    android:textSize="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:textStyle="bold"
-                    android:id="@+id/edAccessories"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:text="@string/Accessories" />
-                <SeekBar
-                    android:id="@+id/seekbar_accessories"
-                    android:max="100"
-                    android:progress="5"
-                    android:progressTint="@color/colorPrimary"
-                    android:padding="@dimen/dp_4"
-                    android:thumbTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:textStyle="bold"
+                        android:id="@+id/edAccessories"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="12sp"
+                        android:text="@string/Accessories" />
+                    <SeekBar
+                        android:id="@+id/seekbar_accessories"
+                        android:max="100"
+                        android:progress="5"
+                        android:progressTint="@color/colorPrimary"
+                        android:padding="@dimen/dp_4"
+                        android:thumbTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/title_detail"

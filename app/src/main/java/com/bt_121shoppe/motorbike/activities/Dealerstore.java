@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.ListStore;
+import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bt_121shoppe.motorbike.fragments.Postbyuser;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,6 +46,7 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
     private Fragment currentFragment;
     private TabLayout tabs;
     private ViewPager viewPager;
+    private Button btAdd_store;
     int inttab = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -53,6 +57,8 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.dealer_store);
+        btAdd_store = findViewById(R.id.add_store);
+
 
         StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -65,6 +71,14 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         setUpPager();
 
         SharedPreferences sharedPref=getSharedPreferences("Register",Context.MODE_PRIVATE);
+
+        btAdd_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Dealerstore.this, CreateShop.class);
+                startActivity(intent);
+            }
+        });
 
         /* start implementation bottom navigation */
         mBottomNavigation=findViewById(R.id.bottom_nav);

@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -43,6 +44,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -213,6 +215,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     int mmodel=1;
     Boolean my_name = true;
     RelativeLayout layout_color;
+    LinearLayout layout_estimate;
 
     List<dealershop>list_shop = new ArrayList<>();
     List<Integer>listid_shop = new ArrayList<>();
@@ -226,7 +229,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private List<UserShopViewModel> userShops;
     private Button btnPos;
     private Button btnNag;
-    private TextView delete_massage,tv_add,tv_add1,tv_cancel,tvType_elec,tv_name;
+    private TextView delete_massage,tv_add,tv_add1,tv_cancel,tvType_elec,tv_name,title_dicount;
     private CircleImageView btnlogo;
     private Button Cancel,Submit;
     private String[] photoChooseOption;
@@ -601,7 +604,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     }
                     if (strColor.isEmpty() || strColor == null ){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                        alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -696,9 +699,9 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     if (tvPostType.getText().toString().length()==0){
                         tvPostType.requestFocus();
                     }
-                    if (strColor.isEmpty() || strColor == null ){
+                    if (color == null ){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                        alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -936,6 +939,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             tvCondition.setText(R.string.newl);
                                         }else if (condition.equals("Used")){
                                             tvCondition.setText(R.string.used);
+                                            layout_estimate.setVisibility(View.VISIBLE);
                                         }
 
                                         //Call_Model(Encode,brand);
@@ -1284,7 +1288,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             post.put("year", year); //year
             post.put("modeling",model);
             post.put("description", etDescription.getText().toString());
-            post.put("cost",price);
+            post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
             post.put("type", type);
 //check empty field user for detail by samang 28/08
@@ -2354,11 +2358,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     if (id_color == 0){
                         color = "white";
                     }else if (id_color == 1){
-                        color = "blue";
+                        color = "blue"+"black";
                     }else if (id_color == 2){
-                        color = "black";
+                        color = "black"+"red";
                     }else if (id_color == 3){
-                        color = "red";
+                        color = "red"+"yellow";
                     }else if (id_color == 4){
                         color = "yellow";
                     }else if (id_color == 5){
@@ -2523,6 +2527,9 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         submit_post = (Button) findViewById(R.id.btnSubmitPost);
         layout_color = findViewById(R.id.add_color);
         cancel_color = findViewById(R.id.cancel_color);
+        layout_estimate = findViewById(R.id.layout_estimate);
+        title_dicount = findViewById(R.id.title_dis_pri);
+
 
         etMap = findViewById(R.id.et_map);
         imageMap = findViewById(R.id.map);
@@ -2986,14 +2993,16 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 seekbar_price = progress;
+                @SuppressLint("DefaultLocale")
+                String title = String.format("Discount Price(%d%%)", seekbar_price);
+                title_dicount.setText(title);
                 try {
-                    double str_dis = 0, price1 = 0,result = 0;
+                    double str_dis = 0, price1 = 0;
                     String cost = "";
                     cost = etPrice.getText().toString();
                     price1 = Double.valueOf(cost);
                     str_dis = (price1 * seekbar_price) / 100;
-                    result = price1-str_dis;
-                    etDiscount_amount.setText(String.valueOf(result));
+                    etDiscount_amount.setText(String.valueOf(str_dis));
                 }catch (NumberFormatException e){
                     e.printStackTrace();
                 }
@@ -3006,7 +3015,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_price, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_whole.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3022,7 +3031,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + whole_ink, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_rear.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3038,7 +3047,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_rear, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_screw.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3054,7 +3063,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_screw, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_rigt_engine.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3070,7 +3079,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_engine, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_engine_head.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3086,7 +3095,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_head, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_pumps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3102,7 +3111,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_pumps, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_console.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3118,7 +3127,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_console, Toast.LENGTH_SHORT).show();
+
             }
         });
         seekbar_accessories.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3134,7 +3143,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_accessories, Toast.LENGTH_SHORT).show();
             }
         });
         seekbar_assmebly.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -3151,7 +3159,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Camera.this, "Seek bar progress is :" + assembly, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -3188,6 +3195,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     @Override
     public void onItemClick(String item) {
         tvCondition.setText(item);
+        if (item.equals("used")){
+            layout_estimate.setVisibility(View.VISIBLE);
+        }else {
+            layout_estimate.setVisibility(View.GONE);
+        }
     }
 
     @Override
