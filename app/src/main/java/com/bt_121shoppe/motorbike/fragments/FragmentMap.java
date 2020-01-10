@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -24,7 +25,8 @@ import androidx.core.app.ActivityCompat;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
+import com.bt_121shoppe.motorbike.activities.Camera;
+import com.bt_121shoppe.motorbike.utils.ImageUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,8 +50,10 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     private Button back,pin;
     private EditText et_search;
     private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,image,wing_account,wing_number,register_verify;
-    private int user_group;
-    private String register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile;
+    private int user_group,process_type;
+    private String name,register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile,post;
+    private int category_post, seekbar_price,seekbar_rearr,seekbar_screww, seekbar_engine, seekbar_head,assembly,seekbar_accessorie,seekbar_consolee,seekbar_pump,whole_ink;
+    private String location_post, year, model,discount_price,price,brand,category,post_type,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +93,42 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         phone_number = intent.getStringExtra("phone_number");
         phone_number1 = intent.getStringExtra("phone_number1");
         phone_number2 = intent.getStringExtra("phone_number2");
+        post = intent.getStringExtra("post");
+        price = intent.getStringExtra("price");
+        model = intent.getStringExtra("model");
+        brand = intent.getStringExtra("brand");
+        condition = intent.getStringExtra("condition");
+        description = intent.getStringExtra("description");
+        category = intent.getStringExtra("category");
+        post_type = intent.getStringExtra("post_type");
+        email_post = intent.getStringExtra("email_post");
+        address_post = intent.getStringExtra("address_post");
+        phone_number1_post = intent.getStringExtra("phone_number1_post");
+        phone_number2_post = intent.getStringExtra("phone_number2_post");
+        phone_number3_post = intent.getStringExtra("phone_number3_post");
+        discount_price = intent.getStringExtra("discount_amount");
+        seekbar_price = intent.getIntExtra("discount_percent",0);
+        year = intent.getStringExtra("year");
+        whole_ink = intent.getIntExtra("whole_ink",0);
+        seekbar_rearr = intent.getIntExtra("rear",0);
+        seekbar_screww = intent.getIntExtra("screw",0);
+        seekbar_pump = intent.getIntExtra("pumps",0);
+        seekbar_engine = intent.getIntExtra("right_engine",0);
+        seekbar_head = intent.getIntExtra("engine_head",0);
+        assembly = intent.getIntExtra("assembly",0);
+        seekbar_consolee = intent.getIntExtra("console",0);
+        seekbar_accessorie = intent.getIntExtra("accessories",0);
+        process_type = intent.getIntExtra("processs_type",0);
+        category_post = intent.getIntExtra("category_post",0);
+        name = intent.getStringExtra("name_post");
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (register == null){
+                if (register != null){
                     startActivity(new Intent(FragmentMap.this,CreateShop.class));
+                }else if (post.equals("post")){
+                    startActivity(new Intent(FragmentMap.this,Camera.class));
                 }else
                     finish();
             }
@@ -108,9 +142,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("Profile",mProfile);
                     intent.putExtra("Register_verify", register_verify);
                     intent.putExtra("road", et_search.getText().toString());
-                    Log.e("Location",et_search.getText().toString());
                     intent.putExtra("location", location1);
-                    Log.e("Current Location",""+location1);
                     intent.putExtra("address", address);
                     intent.putExtra("date", date);
                     intent.putExtra("re_password", re_password);
@@ -125,13 +157,45 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("wing_account_number", wing_number);
                     intent.putExtra("wing_account_name", wing_account);
                     startActivity(intent);
-                }else {
+                }else if (post.equals("post")){
+                    Intent intent = new Intent(FragmentMap.this, Camera.class);
+                    intent.putExtra("road", et_search.getText().toString());
+                    intent.putExtra("location", location1);
+                    intent.putExtra("name_post",name);
+                    intent.putExtra("process_type",process_type);
+                    intent.putExtra("price",price);
+                    intent.putExtra("post_type",post_type);
+                    intent.putExtra("category",category);
+                    intent.putExtra("brand",brand);
+                    intent.putExtra("model",model);
+                    intent.putExtra("year",year);
+                    intent.putExtra("condition",condition);
+                    intent.putExtra("description",description);
+                    intent.putExtra("email_post",email_post);
+                    intent.putExtra("address_post",address_post);
+                    intent.putExtra("phone_number1_post",phone_number1_post);
+                    intent.putExtra("phone_number2_post",phone_number2_post);
+                    intent.putExtra("phone_number3_post",phone_number3_post);
+                    intent.putExtra("discount_percent",seekbar_price);
+                    intent.putExtra("discount_amount",discount_price);
+                    intent.putExtra("whole_ink",whole_ink);
+                    intent.putExtra("rear",seekbar_rearr);
+                    intent.putExtra("screw",seekbar_screww);
+                    intent.putExtra("pumps",seekbar_pump);
+                    intent.putExtra("right_engine",seekbar_engine);
+                    intent.putExtra("engine_head",seekbar_head);
+                    intent.putExtra("assembly",assembly);
+                    intent.putExtra("console",seekbar_consolee);
+                    intent.putExtra("accessories",seekbar_accessorie);
+                    intent.putExtra("category_post",category_post);
+                    startActivity(intent);
+
+                } else {
                     Intent intent = new Intent(FragmentMap.this, CreateShop.class);
                     intent.putExtra("user_group", user_group);
                     intent.putExtra("Register_verify", register_verify);
                     intent.putExtra("road", et_search.getText().toString());
                     intent.putExtra("location", location1);
-                    Log.e("Current Location",""+location1);
                     intent.putExtra("addresses", addresses);
                     intent.putExtra("phone_number", phone_number);
                     intent.putExtra("phone_number1",phone_number1);

@@ -393,7 +393,7 @@ public class Filter extends AppCompatActivity {
 //            @Override
 //            public void onClick(View v) {
 //                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
-//                mBuilder.setTitle(R.string.choose_year);
+//                mBuilder.setTitle(R.string.choose_condition);
 //                if (language.equals("km")){
 //                    mBuilder.setSingleChoiceItems(yearlistItemkh, -1, new DialogInterface.OnClickListener() {
 //                        @Override

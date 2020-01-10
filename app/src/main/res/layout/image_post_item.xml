@@ -12,8 +12,8 @@
         android:layout_height="100dp"
         android:layout_margin="10dp"
         android:scaleType="center"
-        android:background="#E9E7E7"
-        android:src="@drawable/path_4" />
+        android:background="@color/colorLightGray"
+        android:src="@drawable/icon_camera" />
     <ImageButton
         android:visibility="gone"
         android:id="@+id/remove_pic1"
@@ -27,9 +27,9 @@
         android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="#E9E7E7"
+        android:background="@color/colorLightGray"
         android:scaleType="center"
-        android:src="@drawable/path_4" />
+        android:src="@drawable/icon_camera" />
     <ImageButton
         android:visibility="gone"
         android:id="@+id/remove_pic2"
@@ -43,9 +43,9 @@
         android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="#E9E7E7"
+        android:background="@color/colorLightGray"
         android:scaleType="center"
-        android:src="@drawable/path_4" />
+        android:src="@drawable/icon_camera" />
     <ImageButton
         android:visibility="gone"
         android:id="@+id/remove_pic3"
@@ -59,9 +59,9 @@
         android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="#E9E7E7"
+        android:background="@color/colorLightGray"
         android:scaleType="center"
-        android:src="@drawable/path_4" />
+        android:src="@drawable/icon_camera" />
     <ImageButton
         android:visibility="gone"
         android:id="@+id/remove_pic4"
@@ -76,9 +76,9 @@
         android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="#E9E7E7"
+        android:background="@color/colorLightGray"
         android:scaleType="center"
-        android:src="@drawable/path_4" />
+        android:src="@drawable/icon_camera" />
     <ImageButton
         android:visibility="gone"
         android:id="@+id/remove_pic5"
@@ -92,9 +92,9 @@
         android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="#E9E7E7"
+        android:background="@color/colorLightGray"
         android:scaleType="center"
-        android:src="@drawable/path_4" />
+        android:src="@drawable/icon_camera" />
     <ImageButton
         android:visibility="gone"
         android:id="@+id/remove_pic6"

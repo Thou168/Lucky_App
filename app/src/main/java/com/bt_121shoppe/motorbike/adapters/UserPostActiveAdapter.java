@@ -278,6 +278,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(itemView.getContext(), Camera.class);
+                    intent.putExtra("process_type",1);
                     intent.putExtra("id_product",Integer.parseInt(String.valueOf((int)mPost.getId())));
                     itemView.getContext().startActivity(intent);
                 }

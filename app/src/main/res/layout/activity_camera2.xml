@@ -25,13 +25,32 @@
                 android:textColor="#fff"
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/chevron_left_36"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/camera"
-                android:textColor="#fff"
-                android:textSize="16dp"/>
+
+            <Button
+                android:id="@+id/btnSubmitPost"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:textAllCaps="false"
+                android:text="@string/post"
+                android:layout_below="@+id/map_post"
+                android:textColor="#FFF"
+                android:background="@drawable/post_background"/>
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnupdate"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:textAllCaps="false"
+                android:text="Update"
+                android:layout_below="@+id/map_post"
+                android:textColor="#FFF"
+                android:background="@drawable/post_background"/>
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
@@ -67,1177 +86,842 @@
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:text="@string/txt_clr_detail"
-                    android:textSize="@dimen/dp_16"
-                    android:background="@color/grey_light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
                 <RelativeLayout
-                    android:focusableInTouchMode="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imgTitle"-->
-<!--                        android:layout_width="15dp"-->
-<!--                        android:layout_height="45dp"-->
-
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:src="@drawable/icon_null"-->
-<!--                        android:background="@drawable/underline_gray"/>-->
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/tilTitle"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:layout_toRightOf="@+id/imgTitle"-->
-<!--                        app:hintTextAppearance="@style/CounterText"-->
-<!--                        android:background="@drawable/underline_gray">-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/etTitle"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="fill_parent"-->
-<!--                            android:textSize="14dp"-->
-<!--                            android:hint="@string/title"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:background="@null"-->
-<!--                            />-->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <ImageView
-                        android:id="@+id/imgPostType"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgPostType"
-                        android:background="@drawable/underline_gray">
-                        <EditText
-                            android:id="@+id/tvPostType"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/post_type"
-                            android:paddingLeft="10dp"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <ImageView
-                        android:id="@+id/imgCategory"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgPostType"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgCategory"
-                        android:layout_below="@+id/imgPostType"
-                        android:background="@drawable/underline_gray"
-                        >
-
-                        <EditText
-                            android:id="@+id/tvCategory"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/category"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                    <ImageView
-                        android:id="@+id/imgType_elec"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgCategory"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_toRightOf="@+id/imgType_elec"
-                        android:layout_below="@+id/imgCategory"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvType_elec"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/type"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"/>-->
-
-                    <ImageView
-                        android:id="@+id/imgBrand"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgType_elec"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgType_elec"
-                        android:layout_toRightOf="@+id/imgBrand"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvBrand"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/brand"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:paddingLeft="10dp"
-                            android:drawableRight="@drawable/chevron_down_24"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <ImageView
-                        android:id="@+id/imgModel"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgBrand"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgBrand"
-                        android:layout_toRightOf="@+id/imgModel"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvModel"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/model"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-                    <ImageView
-                        android:id="@+id/imgYear"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgModel"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgModel"
-                        android:layout_toRightOf="@+id/imgModel"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvYears"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:paddingLeft="10dp"
-                            android:hint="@string/year"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:textSize="14dp"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-
-                    <ImageView
-                        android:id="@+id/imgCondition"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgYear"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgYear"
-                        android:layout_toRightOf="@+id/imgCondition"
-                        android:background="@drawable/underline_gray"
-                        >
-
-                        <EditText
-                            android:id="@+id/tvCondition"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/condition"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"
-                            android:paddingLeft="10dp"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-                    <ImageView
-                        android:id="@+id/imgColor"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgCondition"
-                        android:background="@drawable/underline_gray"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgCondition"
-                        android:layout_toRightOf="@+id/imgColor"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvColor"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:hint="@string/color"
-                            android:paddingLeft="10dp"
-                            android:textSize="14dp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
-
-
-                    <ImageView
-                        android:id="@+id/imgPrice"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgColor"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgColor"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgPrice"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/etPrice"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/price"
-                            android:inputType="number"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <ImageView
-                        android:id="@+id/imgDescription"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPrice"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="#F9F9F9"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPrice"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgDescription"
-                        android:background="#F9F9F9">
-
-                        <EditText
-                            android:id="@+id/etDescription"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/description"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </RelativeLayout>
-
-                <View
+                    android:background="@color/white"
+                    android:padding="@dimen/dp_8"
                     android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    style="@style/line2"/>
-
-                <RelativeLayout
-                    android:id="@+id/relative_Used"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:id="@+id/relative_motorcycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/titl_motorcycle"
-                            android:padding="@dimen/dp_8"
-                            android:text="@string/moto_eta"
-                            android:textSize="16dp"
-                            android:background="@color/grey_light"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <View
-                            android:id="@+id/view1"
-                            android:layout_width="wrap_content"
-                            android:layout_below="@id/titl_motorcycle"
-                            android:layout_height="1dp"
-                            style="@style/line1"/>
-
-                        <ImageView
-                            android:id="@+id/imgwhole_int"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_below="@id/view1"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputwhole_int"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/view1"
-                            android:layout_toEndOf="@+id/imgwhole_int"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edwhole_int"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/whole_int"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:id="@+id/imgfront_and_rear_wheel_sets"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgwhole_int"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputfront_and_rear_wheel_sets"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgwhole_int"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_toRightOf="@+id/imgfront_and_rear_wheel_sets"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edfront_and_rear_wheel_sets"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/front_and_rear_wheel_sets"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:id="@+id/imgThe_whole_screw"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgfront_and_rear_wheel_sets"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputThe_whole_screw"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/imgfront_and_rear_wheel_sets"
-                            android:layout_toRightOf="@+id/imgThe_whole_screw"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edThe_whole_screw"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/The_whole_screw"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:id="@+id/imgFront_and_rear_pumps"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgThe_whole_screw"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputFront_and_rear_pumps"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/imgThe_whole_screw"
-                            android:layout_toRightOf="@+id/imgFront_and_rear_pumps"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edFront_and_rear_pumps"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/Front_and_rear_pumps"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/relative_machinesection"
-                        android:layout_below="@+id/relative_motorcycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/mk"
-                            android:padding="@dimen/dp_8"
-                            android:text="@string/machine_section"
-                            android:textSize="16dp"
-                            android:background="@color/grey_light"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <View
-                            android:id="@+id/view2"
-                            android:layout_width="wrap_content"
-                            android:layout_below="@id/mk"
-                            android:layout_height="1dp"
-                            style="@style/line1"/>
-                        <ImageView
-                            android:id="@+id/imgLeft_and_right_engine_counter"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_below="@id/view2"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputLeft_and_right_engine_counter"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/view2"
-                            android:layout_toRightOf="@+id/imgLeft_and_right_engine_counter"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edLeft_and_right_engine_counter"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/Left_and_right_engine_counter"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:id="@+id/imgEngine_head"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgLeft_and_right_engine_counter"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputEngine_head"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/imgLeft_and_right_engine_counter"
-                            android:layout_toRightOf="@+id/imgEngine_head"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edEngine_head"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/Engine_head"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:id="@+id/imgMachine_Assembly"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgEngine_head"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputMachine_Assembly"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/imgEngine_head"
-                            android:layout_toRightOf="@+id/imgMachine_Assembly"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edMachine_Assembly"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/Machine_Assembly"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:id="@+id/imgConsole"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/imgMachine_Assembly"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputConsole"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_below="@+id/imgMachine_Assembly"
-                            android:layout_toRightOf="@+id/imgConsole"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edConsole"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/Console"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/relative_othersection"
-                        android:layout_below="@+id/relative_machinesection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/la"
-                            android:padding="@dimen/dp_8"
-                            android:text="@string/other_sections"
-                            android:textSize="16dp"
-                            android:background="@color/grey_light"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <View
-                            android:id="@+id/view3"
-                            android:layout_width="wrap_content"
-                            android:layout_below="@id/la"
-                            android:layout_height="1dp"
-                            style="@style/line1"/>
-                        <ImageView
-                            android:id="@+id/imgAccessories"
-                            android:layout_width="15dp"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_below="@id/view3"
-                            android:src="@drawable/icon_null"
-                            android:background="@drawable/underline_gray"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputAccessories"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_below="@+id/view3"
-                            app:counterOverflowTextAppearance="@style/TextLimitError"
-                            app:hintTextAppearance="@style/CounterText"
-                            android:layout_toRightOf="@+id/imgAccessories"
-                            android:background="@drawable/underline_gray">
-
-                            <EditText
-                                android:id="@+id/edAccessories"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="14dp"
-                                android:maxLength="8"
-                                android:hint="@string/Accessories"
-                                android:inputType="number"
-                                android:paddingLeft="10dp"
-                                android:background="@null" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                    </RelativeLayout>
+                    <TextView
+                        android:padding="@dimen/dp_8"
+                        android:text="@string/post_info"
+                        android:textSize="16sp"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/post_id"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/post_id"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/show_id"
+                        android:text="@string/showid"
+                        android:textSize="14sp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:layout_below="@+id/post_id"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/relative_discount"
+
+                <TextView
+                    android:id="@+id/title_price"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/price"/>
+                <EditText
+                    android:id="@+id/etPrice"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:hint="$0.00"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:inputType="number" />
 
-                    <TextView
-                        android:id="@+id/titl_discount"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/discount"
-                        android:textSize="16dp"
-                        android:background="@color/grey_light"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <ImageView
-                        android:id="@+id/imgDisType"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/titl_discount"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
+                <TextView
+                    android:id="@+id/title_dis_pri"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/ds_pri_percent"/>
+                <SeekBar
+                    android:id="@+id/seekbar_pri_per"
+                    android:padding="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:thumbTint="@color/colorPrimary"
+                    android:max="100"
+                    android:progress="5"
+                    android:progressTintMode="multiply"
+                    android:progressTint="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/titl_discount"
-                        android:layout_toRightOf="@+id/imgDisType"
-                        android:background="@drawable/underline_gray"
-                        >
-                        <EditText
-                            android:id="@+id/tvDisType"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:hint="@string/discount_type"
-                            android:paddingStart="10dp"
-                            android:textSize="14sp"
-                            android:background="@null"
-                            android:focusable="false"
-                            android:drawableRight="@drawable/chevron_down_24"/>
+                <TextView
+                    android:id="@+id/title_amo_pri"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_below="@+id/seekbar_pri_per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/ds_pri_amount"/>
+                <EditText
+                    android:id="@+id/etDisAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:textSize="12sp"
+                    android:hint="$ 0.00"
+                    android:inputType="number" />
+                <TextView
+                    android:id="@+id/title_postType"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/post_type"/>
+                <EditText
+                    android:id="@+id/tvPostType"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="Select"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black"/>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/title_type"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/type"/>
+                <EditText
+                    android:id="@+id/tvCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="Select"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/title_cate"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/category"/>
+                <EditText
+                    android:visibility="gone"
+                    android:id="@+id/tvType"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="Select"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black" />
 
-                        <!--android:drawableRight="@drawable/chevron_down_24"-->
 
+                <TextView
+                    android:id="@+id/title_brand"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/brand"/>
+                <EditText
+                    android:id="@+id/tvBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:hint="Select"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black"/>
 
-                    <ImageView
-                        android:id="@+id/imgDisAmount"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgDisType"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilDisAmout"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgDisType"
-                        android:layout_toRightOf="@+id/imgDisAmount"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:background="@drawable/underline_gray">
+                <TextView
+                    android:id="@+id/title_model"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/model"/>
+                <EditText
+                    android:id="@+id/tvModel"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:hint="Select"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black" />
 
-                        <EditText
-                            android:id="@+id/etDisAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/discountt"
-                            android:inputType="number"
-                            android:paddingLeft="10dp"
-                            android:background="@null" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/title_year"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/year"/>
+                <EditText
+                    android:id="@+id/tvYears"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="@string/year"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/title_color"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/color"/>
+
+                <GridView
+                    android:id="@+id/gridview"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="160dp"
+                    android:numColumns="6"
+                    android:padding="@dimen/dp_4"
+                    android:columnWidth="100dp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    />
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/add_more_color"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/add_black"
+                    android:background="@drawable/white"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_16"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/cancel_color"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_done_black"
+                    android:background="@drawable/white"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_16"/>
+                <RelativeLayout
+                    android:id="@+id/add_color"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16">
 
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/other_main"
-                    android:padding="@dimen/dp_8"
-                    android:text="@string/other_dealer_ca"
-                    android:textSize="16dp"
-                    android:visibility="gone"
-                    android:background="@color/grey_light"
+                    android:id="@+id/title_condition"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/condition"/>
+                <EditText
+                    android:id="@+id/tvCondition"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <include layout="@layout/dealshop_deit"/>
-                <RelativeLayout
-                    android:id="@+id/relative_other_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/img_otherdealer"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:visibility="gone"
-                        android:background="@drawable/underline_gray"/>
-                    <ImageButton
-                        android:id="@+id/btn_other"
-                        android:layout_width="40dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/dd"
-                        android:visibility="gone"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/underline_gray" />
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_other"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:visibility="gone"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toEndOf="@+id/img_otherdealer"
-                        android:layout_toStartOf="@+id/btn_other"
-                        android:background="@drawable/underline_gray">
+                    android:layout_height="fill_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="Select"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_arrow_drop_down_black" />
 
-                        <EditText
-                            android:id="@+id/et_other"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:focusable="false"
-                            android:hint="@string/shop_other1"
-                            android:inputType="phone"
-                            android:paddingStart="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/img_otherdealer2"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:visibility="gone"
-                        android:layout_below="@+id/img_otherdealer"
-                        android:background="@drawable/underline_gray"/>
-                    <ImageButton
-                        android:id="@+id/btn_other2"
-                        android:layout_width="40dp"
-                        android:layout_height="45dp"
-                        android:visibility="gone"
-                        android:src="@drawable/dd"
-                        android:layout_below="@id/img_otherdealer"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/underline_gray"
-                        />
-<!--                    <Button-->
-<!--                        android:id="@+id/delete_dealer2"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:layout_below="@+id/img_otherdealer"-->
-<!--                        android:layout_alignLeft="@+id/btn_other2"-->
-<!--                        android:layout_alignEnd="@+id/til_other2"-->
-<!--                        android:visibility="gone"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:background="@drawable/delete" />-->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_other2"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:visibility="gone"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toEndOf="@+id/img_otherdealer2"
-                        android:layout_below="@+id/img_otherdealer"
-                        android:layout_toStartOf="@+id/btn_other2"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/et_other2"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:focusable="false"
-                            android:hint="@string/shop_other2"
-                            android:inputType="phone"
-                            android:paddingStart="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <ImageView
-                        android:id="@+id/img_otherdealer3"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:visibility="gone"
-                        android:layout_below="@+id/img_otherdealer2"
-                        android:background="@drawable/underline_gray"/>
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/btn_other3"-->
-<!--                        android:layout_width="40dp"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:visibility="gone"-->
-<!--                        android:src="@drawable/ic_add_phone_24dp"-->
-<!--                        android:layout_below="@id/img_otherdealer2"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:background="@drawable/underline_gray"-->
-<!--                        />-->
-<!--                    <Button-->
-<!--                        android:id="@+id/delete_dealer3"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:layout_below="@+id/img_otherdealer2"-->
-<!--                        android:layout_alignLeft="@+id/btn_other3"-->
-<!--                        android:layout_alignEnd="@+id/til_other3"-->
-<!--                        android:visibility="gone"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:background="@drawable/delete" />-->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_other3"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:visibility="gone"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toEndOf="@+id/img_otherdealer3"
-                        android:layout_below="@+id/img_otherdealer2"
-                        android:layout_toStartOf="@+id/btn_other2"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/et_other3"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:focusable="false"
-                            android:hint="@string/shop_other3"
-                            android:inputType="phone"
-                            android:paddingStart="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-<!--                    <ImageView-->
-<!--                        android:id="@+id/img_otherdealer3"-->
-<!--                        android:layout_width="15dp"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:visibility="visible"-->
-<!--                        android:src="@drawable/icon_null"-->
-<!--                        android:layout_below="@id/img_otherdealer2"-->
-<!--                        android:background="@drawable/underline_gray"/>-->
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/btn_other3"-->
-<!--                        android:layout_width="40dp"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:src="@drawable/ic_add_phone_24dp"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:layout_below="@id/img_otherdealer2"-->
-<!--                        android:layout_toRightOf="@id/til_other3"-->
-<!--                        android:background="@drawable/underline_gray"-->
-<!--                        />-->
 <!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/til_other3"-->
 <!--                        android:layout_width="match_parent"-->
 <!--                        android:layout_height="45dp"-->
-<!--                        android:visibility="visible"-->
-<!--                        app:hintTextAppearance="@style/CounterText"-->
-<!--                        android:layout_below="@id/img_otherdealer2"-->
-<!--                        android:layout_toEndOf="@+id/img_otherdealer3"-->
-<!--                        android:background="@drawable/underline_gray">-->
-
+<!--                        android:background="@drawable/underline_gray"-->
+<!--                        >-->
 <!--                        <EditText-->
-<!--                            android:id="@+id/et_other3"-->
+<!--                            android:id="@+id/tvType_elec"-->
 <!--                            android:layout_width="match_parent"-->
 <!--                            android:layout_height="fill_parent"-->
+<!--                            android:hint="@string/type"-->
 <!--                            android:textSize="14dp"-->
-<!--                            android:focusable="false"-->
-<!--                            android:hint="@string/shop_other3"-->
-<!--                            android:inputType="phone"-->
-<!--                            android:paddingStart="10dp"-->
 <!--                            android:background="@null"-->
-<!--                            />-->
+<!--                            android:focusable="false"-->
+<!--                            android:drawableRight="@drawable/chevron_down_24"-->
+<!--                            android:paddingLeft="10dp" />-->
 <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-                </RelativeLayout>
+
 
                 <TextView
+                    android:id="@+id/titl_motorcycle"
                     android:padding="@dimen/dp_8"
-                    android:text="@string/contact_detail"
-                    android:textSize="16dp"
-                    android:background="@color/grey_light"
+                    android:text="@string/moto_eta"
+                    android:textSize="@dimen/dp_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/edwhole_int"
+                    android:padding="@dimen/dp_8"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/imgName"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilName"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgName"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/etName"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/name"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <ImageView
-                        android:id="@+id/imgPhone1"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgName"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-
-                    <ImageButton
-                        android:id="@+id/btnPhone1_post"
-                        android:layout_width="40dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/dd"
-                        android:layout_below="@id/imgName"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/underline_gray"
-                        />
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhone1"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgName"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgPhone1"
-                        android:layout_toLeftOf="@+id/btnPhone1_post"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/etphone1"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/hit_phone1"
-                            android:inputType="phone"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <ImageView
-                        android:id="@+id/imgPhone2"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone1"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:visibility="gone"
-                        android:background="@drawable/underline_gray"/>
-
-                    <ImageButton
-                        android:id="@+id/btnPhone2_post"
-                        android:layout_width="40dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/dd"
-                        android:layout_below="@id/imgPhone1"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone"
-                        android:background="@drawable/underline_gray"
-                        />
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhone2"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone1"
-                        android:layout_toRightOf="@+id/imgPhone2"
-                        android:layout_toLeftOf="@+id/btnPhone2_post"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:visibility="gone"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/etphone2"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/hit_phone2"
-                            android:inputType="phone"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                    <ImageView
-                        android:id="@+id/imgPhone3"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone2"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:visibility="gone"
-                        android:background="@drawable/underline_gray"/>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhone3"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone2"
-                        android:layout_toRightOf="@+id/imgPhone1"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:visibility="gone"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/etphone3"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/hit_phone3"
-                            android:inputType="phone"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <ImageView
-                        android:id="@+id/imgEmail"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone3"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_null"
-                        android:background="@drawable/underline_gray"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgPhone3"
-                        app:hintTextAppearance="@style/CounterText"
-                        android:layout_toRightOf="@+id/imgEmail"
-                        android:background="@drawable/underline_gray">
-
-                        <EditText
-                            android:id="@+id/etEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:textSize="14dp"
-                            android:hint="@string/email"
-                            android:inputType="textEmailAddress"
-                            android:paddingLeft="10dp"
-                            android:background="@null"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <ImageView
-                        android:id="@+id/imgAddress_post"
-                        android:layout_width="15dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_null"
-                        android:layout_below="@+id/imgEmail"
-                        android:background="#ffff"/>
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/tvAddress_post"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_below="@+id/imgEmail"
-                        android:layout_toRightOf="@+id/imgAddress_post"
-                        android:gravity="center_vertical"
-                        app:theme="@style/AddressSearchView"
-                        android:textSize="14dp"
-                        app:iconifiedByDefault="false"
-                        app:searchIcon="@null"
-                        />
-
-                    <fragment
-                    android:id="@+id/map_post"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:text="@string/whole_int" />
+                <SeekBar
+                    android:id="@+id/seekbar_whole"
+                    android:max="100"
+                    android:padding="@dimen/dp_4"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/tvAddress_post"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:padding="@dimen/dp_8"
+                    android:id="@+id/edfront_and_rear_wheel_sets"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:text="@string/front_and_rear_wheel_sets" />
+                <SeekBar
+                    android:id="@+id/seekbar_rear"
+                    android:padding="@dimen/dp_4"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:max="100"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:padding="@dimen/dp_8"
+                    android:id="@+id/edThe_whole_screw"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/The_whole_screw"/>
+                <SeekBar
+                    android:id="@+id/seekbar_screw"
+                    android:padding="@dimen/dp_4"
+                    android:max="100"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:padding="@dimen/dp_8"
+                    android:id="@+id/edFront_and_rear_pumps"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/Front_and_rear_pumps" />
+                <SeekBar
+                    android:id="@+id/seekbar_pumps"
+                    android:thumbTint="@color/colorPrimary"
+                    android:max="100"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/mk"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/machine_section"
+                    android:textSize="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:padding="@dimen/dp_8"
+                    android:id="@+id/edLeft_and_right_engine_counter"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/Left_and_right_engine_counter" />
+                <SeekBar
+                    android:id="@+id/seekbar_right_engine"
+                    android:max="100"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:padding="@dimen/dp_4"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:padding="@dimen/dp_8"
+                    android:textStyle="bold"
+                    android:id="@+id/edEngine_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/Engine_head" />
+                <SeekBar
+                    android:id="@+id/seekbar_engine_head"
+                    android:padding="@dimen/dp_4"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:max="100"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:padding="@dimen/dp_8"
+                    android:textStyle="bold"
+                    android:id="@+id/edMachine_Assembly"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/Machine_Assembly" />
+                <SeekBar
+                    android:id="@+id/seekbar_assembly"
+                    android:padding="@dimen/dp_4"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:max="100"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:padding="@dimen/dp_8"
+                    android:textStyle="bold"
+                    android:id="@+id/edConsole"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/Console" />
+                <SeekBar
+                    android:id="@+id/seekbar_console"
+                    android:max="100"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:padding="@dimen/dp_4"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/la"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/other_sections"
+                    android:textSize="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/dp_8"
+                    android:textStyle="bold"
+                    android:id="@+id/edAccessories"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:text="@string/Accessories" />
+                <SeekBar
+                    android:id="@+id/seekbar_accessories"
+                    android:max="100"
+                    android:progress="5"
+                    android:progressTint="@color/colorPrimary"
+                    android:padding="@dimen/dp_4"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/title_detail"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/description"/>
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:textSize="12sp"
+                    android:hint="Enter your Information"
+                    />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/title_name"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/name"/>
+                <EditText
+                    android:visibility="gone"
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:textSize="12sp"
+                    android:hint="Enter your Name"
                     />
 
-                    <Button
-                        android:id="@+id/btnSubmitPost"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="30dp"
-                        android:layout_centerInParent="true"
-                        android:text="@string/submit_button"
-                        android:layout_below="@+id/map_post"
-                        android:textColor="#FFF"
-                        android:background="@drawable/mybutton"/>
+                        android:text="@string/phone_number"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etphone1"
+                        android:layout_below="@+id/tv_phone"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:hint="099 000 000"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:maxLength="10"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/dp_8" />
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_add"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_phone"
+                        android:gravity="right"
+                        android:padding="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:background="@drawable/underline_gray"
+                        android:text="Add"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_cancel"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_phone"
+                        android:gravity="right"
+                        android:padding="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:background="@drawable/underline_gray"
+                        android:text="Cancel"/>
+                    <TextView
+                        android:id="@+id/phone_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_below="@id/etphone1"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_phone1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_phone1"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number 1"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etphone2"
+                        android:layout_below="@+id/tv_phone1"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:hint="099 000 000"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:maxLength="10"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/dp_8" />
+                    <TextView
+                        android:id="@+id/tv_add1"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_phone1"
+                        android:gravity="right"
+                        android:padding="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:background="@drawable/underline_gray"
+                        android:text="Add"/>
+                    <TextView
+                        android:id="@+id/phone_alert1"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_below="@id/etphone2"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_phone2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_phone2"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number 2"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etphone3"
+                        android:layout_below="@+id/tv_phone2"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:hint="099 000 000"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:maxLength="10"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/dp_8" />
+                    <TextView
+                        android:id="@+id/tv_add2"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="13dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_phone2"
+                        android:gravity="right"
+                        android:padding="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:background="@drawable/underline_gray"
+                        android:text="Add"/>
+                    <TextView
+                        android:id="@+id/phone_alert2"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_below="@id/etphone3"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/email"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Enter your email"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8" />
+
+                <TextView
+                    android:id="@+id/email_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/address"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Enter your information"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8" />
+
+                <TextView
+                    android:id="@+id/address_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_map"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Map"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_map"
+                        android:layout_below="@+id/tv_map"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/dp_8" />
+                    <ImageView
+                        android:id="@+id/map"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5.5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_map"
+                        android:gravity="right"
+                        android:padding="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:src="@drawable/map"
+                        android:background="@drawable/underline_gray" />
+                    <TextView
+                        android:id="@+id/map_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_below="@id/et_map"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -1245,13 +929,5 @@
         </ScrollView>
     </LinearLayout>
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        app:menu="@menu/bottom_navigation"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:id="@+id/bnaviga"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?android:attr/actionBarSize"-->
-
-<!--        />-->
 
 </RelativeLayout>

@@ -19,7 +19,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,32 +31,42 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.adapters.CustomView;
+import com.bt_121shoppe.motorbike.adapters.ColorAdapter;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
-import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseCondition;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseYear;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseType;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseCategory;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseTypeCate;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseBrand;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseModel;
+import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
+import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
@@ -72,6 +81,7 @@ import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -80,7 +90,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.karumi.dexter.listener.PermissionRequest;
@@ -98,9 +109,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 //import butterknife.ButterKnife;
@@ -113,8 +124,30 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Camera extends AppCompatActivity implements OnMapReadyCallback {
+public class Camera extends AppCompatActivity implements BottomChooseCondition.ItemClickListener,
+        BottomChooseYear.ItemClickListener,BottomChooseBrand.ItemClickListener,BottomChooseModel.ItemClickListener,
+        BottomChooseCategory.ItemClickListener, BottomChooseType.ItemClickListener,BottomChooseTypeCate.ItemClickListener{
     private static final int REQUEST_LOCATION = 1;
+    public static final int[] itemcolor = new int[]{
+            R.drawable.white,
+            R.drawable.blue,
+            R.drawable.ligth_black,
+            R.drawable.red,
+            R.drawable.yellow,
+            R.drawable.pink,
+            R.drawable.purple,
+            R.drawable.oriange,
+            R.drawable.dark_blue,
+            R.drawable.dark_gray,
+            R.drawable.dark_green,
+            R.drawable.dark_red,
+            R.drawable.light_blue_sky,
+            R.drawable.light_red,
+            R.drawable.ligth_green,
+            R.drawable.ligth_gray,
+            R.drawable.green,
+            R.drawable.blue_sky
+    };
     LocationManager locationManager;
     double latitude,longtitude;
     private GoogleMap mMap;
@@ -138,32 +171,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private int REQUEST_CHOOSE_PHOTO_NUM=0;
     private File mPhotoFile;
     private FileCompressor mCompressor;
-    private RelativeLayout relatve_discount;
-    private RelativeLayout relative_used;
     private ScrollView scrollView;
-    private EditText etDescription,etPrice,etDiscount_amount,etName,etPhone1,etPhone2,etPhone3,etEmail;
-    private ImageView icPostType,icCategory,icType_elec,icBrand,icModel,icYears,icCondition,icColor,icRent,icDiscount_type,
-            icTitile,icDescription,icPrice,icDiscount_amount,icName,icEmail,icPhone1,icPhone2,icPhone3,icAddress;
-    //other_dealer
-    private ImageView icShop_name,icShop_name2,icShop_name3;
-    private ImageButton btnShop_name,btnShop_name2,btnShop_name3;
-    private EditText edShopName,edShopName2,edShopName3;
-    private TextInputLayout inputShop_name,inputShop_name2,inputShop_name3;
-    private TextView txtOther_main;
-    RelativeLayout relative_othermain;
-    private LinearLayout linear_shop1,linear_shop2,linear_shop3;
-    private EditText dealershop1,dealershop2,dealershop3;
-    private View dealer_view1,dealer_view2,dealer_view3;
-    //end
-    private TextInputLayout input_title, input_price, input_des, input_dis, input_name, input_email,input_phone, tilPhone2,tilphone3;
-    private ImageButton btnImagePhone1,btnImagePhone2,btremove_pic1,btremove_pic2,btremove_pic3,btremove_pic4,btremove_pic5,btremove_pic6;
+    private EditText etDescription,etPrice,etDiscount_amount,etPhone1,etPhone2,etPhone3,etEmail,etAddress,etMap,etName;
+    private ImageButton btremove_pic1,btremove_pic2,btremove_pic3,btremove_pic4,btremove_pic5,btremove_pic6;
     private SearchView tvAddress;
-    private Button submit_post;
-    private EditText tvPostType,tvCondition,tvDiscount_type,tvColor,tvYear,tvCategory,tvType_elec,tvBrand,tvModel;
-    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
+    private Button submit_post,bt_update;
+    private EditText tvPostType,tvCondition,tvYear,tvCategory,tvType_cate,tvBrand,tvModel;
+    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageMap,imgAdd_color,cancel_color;
     private String user_name,user_email,user_phone,user_address,user_address_name;
     private String edit_name,edit_email,edit_phone,edit_address,edit_address_name;
-    private String name,pass,Encode;
+    private String name,pass,Encode,road,name_post;
     private int pk,id_typeother=0;
     private ArrayAdapter<String> brands,models;
     private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model,id_brand_Model;
@@ -178,10 +195,10 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private List<Integer> list_id_model = new ArrayList<>();
     private List<Integer> list_id_year = new ArrayList<>();
     private List<Integer> list_brand_model = new ArrayList<>();
-
-    //    private  BottomNavigationView bnavigation;
-    String id_cate, id_brand,id_model,id_year,id_type, login_verify,register_intent,strPostType,strCondition,strDiscountType,strColor,strColorKH="";
-    String num_used="0";
+    private int seekbar_price = 0,seekbar_rearr = 0,seekbar_screww = 0, seekbar_engine = 0, seekbar_head = 0,assembly = 0,seekbar_accessorie = 0,seekbar_consolee = 0,seekbar_pump = 0,whole_ink=0;
+    private String yearr,discount_price,price,modell,brandd,categoryy,post_typee,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
+    String id_cate, id_brand,id_model,id_year,id_type, login_verify,register_intent,strPostType,strCondition,strColor,strColorKH="";
+    String num_used="0",color;
     int num_used1 = 0;
     int num_use = 100;
 
@@ -195,57 +212,21 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     Bundle bundle;
     int mmodel=1;
     Boolean my_name = true;
+    RelativeLayout layout_color;
 
     List<dealershop>list_shop = new ArrayList<>();
     List<Integer>listid_shop = new ArrayList<>();
     List<Integer> idshop = new ArrayList<>();
+    private SeekBar seekbar_pri_per,seekbar_rear,seekbar_screw,seekbar_pumps,seekbar_rigt_engine,seekbar_engine_head,seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
 
-    //for condition used
-    private TextInputLayout textInputWholeint;
-    private TextInputLayout textInputfront_and_rear_wheel_sets;
-    private TextInputLayout textInputThe_whole_screw;
-    private TextInputLayout textInputFront_and_rear_pumps;
-    private TextInputLayout textInputLeft_and_right_engine_counter;
-    private TextInputLayout textInputEngine_head;
-    private TextInputLayout textInputMachine_Assembly;
-    private TextInputLayout textInputConsole;
-    private TextInputLayout textInputAccessories;
-
-    private EditText edwhole_int;
-    private EditText edfront_and_rear_wheel_sets;
-    private EditText edThe_whole_screw;
-    private EditText edFront_and_rear_pumps;
-    private EditText edLeft_and_right_engine_counter;
-    private EditText edEngine_head;
-    private EditText edMachine_Assembly;
-    private EditText edConsole;
-    private EditText edAccessories;
-
-    private ImageView imgwhole_int;
-    private ImageView imgfront_and_rear_wheel_sets;
-    private ImageView imgThe_whole_screw;
-    private ImageView imgFront_and_rear_pumps;
-    private ImageView imgLeft_and_right_engine_counter;
-    private ImageView imgEngine_head;
-    private ImageView imgMachine_Assembly;
-    private ImageView imgConsole;
-    private ImageView imgAccessories;
     //end
+    private RelativeLayout layout_phone1,layout_phone2;
     private int mDealerShopId1=0,mDealerShopId2=0,mDealerShopId3=0;
     private Bitmap bitmapImage,bitmapImage10,bitmapImage20;
     private List<UserShopViewModel> userShops;
-    private String shop_dealer;
-    private EditText shopname2;
-    private EditText shopname3;
-    private TextInputLayout inputshopname2;
-    private TextInputLayout inputshopname3;
-    private Button delete_dealer2;
-    private Button delete_dealer3;
-    String dealer_shops;
-    int other_dealer;
     private Button btnPos;
     private Button btnNag;
-    private TextView delete_massage;
+    private TextView delete_massage,tv_add,tv_add1,tv_cancel,tvType_elec,tv_name;
     private CircleImageView btnlogo;
     private Button Cancel,Submit;
     private String[] photoChooseOption;
@@ -326,23 +307,22 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_post);
         DropDown();
-        Call_category(Encode);
-        Call_Type(Encode);
-        Call_years(Encode);
+        mSeekbar();
 
-        TextChange();
-        add_Phone();
         initialUserInformation(pk,Encode);
 
         bundle = getIntent().getExtras();
         if (bundle!=null) {
+            road = bundle.getString("road");
+            latlng = bundle.getString("location");
             login_verify = bundle.getString("Login_verify");
             register_intent = bundle.getString("Register_verify");
             process_type=bundle.getInt("process_type",0);
-            if(process_type==1){
-                strPostType=bundle.getString("post_type");
-                cate=bundle.getInt("category",0);
-
+            if(process_type==0){
+                submit_post.setVisibility(View.VISIBLE);
+                bt_update.setVisibility(View.GONE);
+                category = bundle.getInt("category_post",0);
+                strPostType = tvPostType.getText().toString();
                 if(strPostType.equals("sell")){
                     tvPostType.setText(R.string.sel);
                     toolbar.setBackgroundColor(getColor(R.color.logo_green));
@@ -351,468 +331,77 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     toolbar.setBackgroundColor(getColor(R.color.logo_red));
                 }
 
-                getCategegoryName(Encode,cate);
-                Call_Brand(Encode,cate);
+//                getCategegoryName(Encode,cate);
 
-                if(cate==1){
-                    icType_elec.setVisibility(View.VISIBLE);
+                if(category==1){
                     tvType_elec.setVisibility(View.VISIBLE);
-                    relative_used.setVisibility(View.GONE);
-                    Log.d("Category", String.valueOf(cate));
+                    tvType_cate.setVisibility(View.VISIBLE);
                 }else {
-                    type=3;
-                    validationforused();
-                    relative_used.setVisibility(View.VISIBLE);
-                    icType_elec.setVisibility(View.GONE);
                     tvType_elec.setVisibility(View.GONE);
-                    tvType_elec.setText(String.valueOf(type));
-                    Log.d("Type ID", String.valueOf(type));
+                    tvType_cate.setVisibility(View.GONE);
                 }
             }else {
+                bt_update.setVisibility(View.VISIBLE);
+                submit_post.setVisibility(View.GONE);
+                tv_name.setVisibility(View.VISIBLE);
+                etName.setVisibility(View.VISIBLE);
                 edit_id = bundle.getInt("id_product", 0);
                 getData_Post(Encode,edit_id);
-                //Log.d("Edit_id:", String.valueOf(edit_id));
+//                Log.e("Edit_id:", String.valueOf(edit_id));
             }
-            //Log.d("Type ID", String.valueOf(type));
-
+//            Log.e("Type ID", String.valueOf(type));
+            price = bundle.getString("price");
+            modell = bundle.getString("model");
+            brandd = bundle.getString("brand");
+            condition = bundle.getString("condition");
+            description = bundle.getString("description");
+            categoryy = bundle.getString("category");
+            post_typee = bundle.getString("post_type");
+            email_post = bundle.getString("email_post");
+            address_post = bundle.getString("address_post");
+            phone_number1_post = bundle.getString("phone_number1_post");
+            phone_number2_post = bundle.getString("phone_number2_post");
+            phone_number3_post = bundle.getString("phone_number3_post");
+            discount_price = bundle.getString("discount_amount");
+            seekbar_price = bundle.getInt("discount_percent",0);
+            yearr = bundle.getString("year");
+            whole_ink = bundle.getInt("whole_ink",0);
+            seekbar_rearr = bundle.getInt("rear",0);
+            seekbar_screww = bundle.getInt("screw",0);
+            seekbar_pump = bundle.getInt("pumps",0);
+            seekbar_engine = bundle.getInt("right_engine",0);
+            seekbar_head = bundle.getInt("engine_head",0);
+            assembly = bundle.getInt("assembly",0);
+            seekbar_consolee = bundle.getInt("console",0);
+            seekbar_accessorie = bundle.getInt("accessories",0);
+            name_post = bundle.getString("name_post");
+            etName.setText(name_post);
+            etPrice.setText(price);
+            tvYear.setText(yearr);
+            tvModel.setText(modell);
+            tvBrand.setText(brandd);
+            tvCondition.setText(condition);
+            etEmail.setText(email_post);
+            etDescription.setText(description);
+            tvCategory.setText(categoryy);
+            tvPostType.setText(post_typee);
+            etAddress.setText(address_post);
+            etPhone1.setText(phone_number1_post);
+            etPhone2.setText(phone_number2_post);
+            etPhone3.setText(phone_number3_post);
+            etDiscount_amount.setText(discount_price);
+            seekbar_pri_per.setProgress(seekbar_price);
+            seekbar_whole.setProgress(whole_ink);
+            seekbar_engine_head.setProgress(seekbar_head);
+            seekbar_rigt_engine.setProgress(seekbar_engine);
+            seekbar_assmebly.setProgress(assembly);
+            seekbar_console.setProgress(seekbar_consolee);
+            seekbar_accessories.setProgress(seekbar_accessorie);
+            seekbar_pumps.setProgress(seekbar_pump);
+            seekbar_screw.setProgress(seekbar_screww);
+            seekbar_rear.setProgress(seekbar_rearr);
+            etMap.setText(road);
         }
-
-        tvCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (process_type == 1) {
-
-                } else {
-
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                    mBuilder.setTitle(getString(R.string.choose_category));
-                    if (language.equals("km")) {
-                        mBuilder.setSingleChoiceItems(categoryListItemkh, -1, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                tvCategory.setText(categoryListItemkh[i]);
-                                cate = categoryIdListItems[i];
-                                if (cate == 1) {
-                                    icType_elec.setVisibility(View.VISIBLE);
-                                    icType_elec.setImageResource(R.drawable.icon_null);
-                                    tvType_elec.setVisibility(View.VISIBLE);
-                                    tvType_elec.setText("");
-                                    Call_Type(Encode);
-                                    relative_used.setVisibility(View.GONE);
-                                } else {
-                                    if (strCondition=="used"){
-                                        validationforused();
-                                        relative_used.setVisibility(View.VISIBLE);
-                                        if (edwhole_int.getText().toString().length()==0){
-                                            imgwhole_int.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
-                                            imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edThe_whole_screw.getText().toString().length()==0){
-                                            imgThe_whole_screw.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edFront_and_rear_pumps.getText().toString().length()==0){
-                                            imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edLeft_and_right_engine_counter.getText().toString().length()==0){
-                                            imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edEngine_head.getText().toString().length()==0){
-                                            imgEngine_head.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edMachine_Assembly.getText().toString().length()==0){
-                                            imgMachine_Assembly.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edConsole.getText().toString().length()==0){
-                                            imgConsole.setImageResource(R.drawable.icon_null);
-                                        }
-                                        if (edAccessories.getText().toString().length()==0){
-                                            imgAccessories.setImageResource(R.drawable.icon_null);
-                                        }
-                                    }
-                                    icType_elec.setVisibility(View.GONE);
-                                    tvType_elec.setVisibility(View.GONE);
-                                    type = 3;
-                                }
-                                icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                                icBrand.setImageResource(R.drawable.icon_null);
-                                icModel.setImageResource(R.drawable.icon_null);
-                                tvBrand.setText("");
-                                tvModel.setText("");
-                                Call_Brand(Encode, cate);
-                                dialogInterface.dismiss();
-                            }
-                        });
-
-                    } else if (language.equals("en")) {
-                        mBuilder.setSingleChoiceItems(categoryListItems, -1, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                tvCategory.setText(categoryListItems[i]);
-                                cate = categoryIdListItems[i];
-                                if (cate == 1) {
-                                    icType_elec.setVisibility(View.VISIBLE);
-                                    icType_elec.setImageResource(R.drawable.icon_null);
-                                    tvType_elec.setVisibility(View.VISIBLE);
-                                    tvType_elec.setText("");
-                                    relative_used.setVisibility(View.GONE);
-                                    Call_Type(Encode);
-                                } else {
-                                    if (strCondition=="used"){
-                                        validationforused();
-                                        relative_used.setVisibility(View.VISIBLE);
-                                    }
-                                    icType_elec.setVisibility(View.GONE);
-                                    tvType_elec.setVisibility(View.GONE);
-                                    type = 3;
-                                    if (edwhole_int.getText().toString().length()==0){
-                                        edwhole_int.requestFocus();
-                                        imgwhole_int.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edfront_and_rear_wheel_sets.getText().toString().length()==0){
-                                        edfront_and_rear_wheel_sets.requestFocus();
-                                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edThe_whole_screw.getText().toString().length()==0){
-                                        edThe_whole_screw.requestFocus();
-                                        imgThe_whole_screw.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edFront_and_rear_pumps.getText().toString().length()==0){
-                                        edFront_and_rear_pumps.requestFocus();
-                                        imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edLeft_and_right_engine_counter.getText().toString().length()==0){
-                                        edLeft_and_right_engine_counter.requestFocus();
-                                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edEngine_head.getText().toString().length()==0){
-                                        edEngine_head.requestFocus();
-                                        imgEngine_head.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edMachine_Assembly.getText().toString().length()==0){
-                                        edMachine_Assembly.requestFocus();
-                                        imgMachine_Assembly.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edConsole.getText().toString().length()==0){
-                                        edConsole.requestFocus();
-                                        imgConsole.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edAccessories.getText().toString().length()==0){
-                                        edAccessories.requestFocus();
-                                        imgAccessories.setImageResource(R.drawable.icon_null);
-                                    }
-                                }
-                                icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                                icBrand.setImageResource(R.drawable.icon_null);
-                                icModel.setImageResource(R.drawable.icon_null);
-                                tvBrand.setText("");
-                                tvModel.setText("");
-                                Call_Brand(Encode, cate);
-                                dialogInterface.dismiss();
-                            }
-                        });
-                    }
-
-                    AlertDialog mDialog = mBuilder.create();
-                    mDialog.show();
-                }
-            }
-        });
-
-        tvType_elec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_type));
-                if (language.equals("km")){
-                    mBuilder.setSingleChoiceItems(typeListItemkh, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvType_elec.setText(typeListItemkh[i]);
-                            type = typeIdListItems[i];
-                            icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                }else if (language.equals("en")){
-                    mBuilder.setSingleChoiceItems(typeListItems, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvType_elec.setText(typeListItems[i]);
-                            type = typeIdListItems[i];
-                            icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                }
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        tvBrand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_brand));
-                if (language.equals("km")){
-                    mBuilder.setSingleChoiceItems(brandListItemkh, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvBrand.setText(brandListItemkh[i]);
-                            brand = brandIdListItems[i];
-                            icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            Call_Model(Encode, brand,null);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                }else if (language.equals("en")){
-                    mBuilder.setSingleChoiceItems(brandListItem, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvBrand.setText(brandListItem[i]);
-                            brand = brandIdListItems[i];
-                            icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            Call_Model(Encode, brand,null);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                }
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        tvModel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_model));
-                if (language.equals("km")){
-                    mBuilder.setSingleChoiceItems(modelListItemkh, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvModel.setText(modelListItemkh[i]);
-                            model = modelIdListItems[i];
-                            icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                }else if (language.equals("en")){
-                    mBuilder.setSingleChoiceItems(modelListItems, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvModel.setText(modelListItems[i]);
-                            model = modelIdListItems[i];
-                            icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                }
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        tvYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvYear.setText(yearListItems[i]);
-                        year = yearIdListItems[i];
-                        icYears.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        //Toast.makeText(Camera.this,year,Toast.LENGTH_LONG).show();
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        edShopName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(shopIdListItems[i]==mDealerShopId2 || shopIdListItems[i]==mDealerShopId3){
-                            //show alert message is chosen already here
-                            dialog_dealer();
-                        }
-                        else {
-                            edShopName.setText(shopListItems[i]);
-                            mDealerShopId1 = shopIdListItems[i];
-                            icShop_name.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        edShopName2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId3){
-                            //show alert message is chosen already here
-                            dialog_dealer();
-                        }
-                        else {
-                            edShopName2.setText(shopListItems[i]);
-                            mDealerShopId2 = shopIdListItems[i];
-                            icShop_name2.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        if(mDealerShopId3>0){
-
-                            mDealerShopId2=mDealerShopId3;
-                            edShopName2.setText(edShopName3.getText());
-
-                            inputShop_name3.setVisibility(View.GONE);
-                            icShop_name3.setVisibility(View.GONE);
-                            edShopName3.setText("");
-                            mDealerShopId3 = 0;
-                            btnShop_name2.setVisibility(View.VISIBLE);
-                        }else{
-                            inputShop_name2.setVisibility(View.GONE);
-                            icShop_name2.setVisibility(View.GONE);
-                            edShopName2.setText("");
-                            mDealerShopId2 = 0;
-                            btnShop_name.setVisibility(View.VISIBLE);
-                            btnShop_name2.setVisibility(View.GONE);
-                        }
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        edShopName3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId2){
-                            //show alert message is chosen already here
-                            dialog_dealer();
-
-                        }
-                        else {
-                            edShopName3.setText(shopListItems[i]);
-                            mDealerShopId3 = shopIdListItems[i];
-                            icShop_name3.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        inputShop_name3.setVisibility(View.GONE);
-                        icShop_name3.setVisibility(View.GONE);
-                        edShopName3.setText("");
-                        mDealerShopId3 = 0;
-                        btnShop_name2.setVisibility(View.VISIBLE);
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        btnShop_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId3){
-                            //show alert message is chosen already here
-                            dialog_dealer();
-
-                        }else{
-                            inputShop_name2.setVisibility(View.VISIBLE);
-                            icShop_name2.setVisibility(View.VISIBLE);
-                            edShopName2.setText(shopListItems[i]);
-                            mDealerShopId2 = shopIdListItems[i];
-                            icShop_name2.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            if(shopIdListItems.length>2)
-                                btnShop_name2.setVisibility(View.VISIBLE);
-                            btnShop_name.setVisibility(View.GONE);
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        btnShop_name2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Log.e("TAG",shopListItems.toString());
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
-                mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(shopIdListItems[i]==mDealerShopId1 || shopIdListItems[i]==mDealerShopId2){
-                            //show alert message is chosen already here
-                            dialog_dealer();
-
-                        }else{
-                            inputShop_name3.setVisibility(View.VISIBLE);
-                            icShop_name3.setVisibility(View.VISIBLE);
-                            edShopName3.setText(shopListItems[i]);
-                            mDealerShopId3 = shopIdListItems[i];
-                            icShop_name3.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            btnShop_name2.setVisibility(View.GONE);
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -872,7 +461,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if (imageView1 != null){
-                    imageView1.setImageResource(R.drawable.path_4);
+                    imageView1.setImageResource(R.drawable.icon_camera);
                     bitmapImage1=null;
                     btremove_pic1.setVisibility(View.GONE);
                 }
@@ -882,7 +471,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if (imageView2 !=null){
-                    imageView2.setImageResource(R.drawable.add_box_black_24dp);
+                    imageView2.setImageResource(R.drawable.icon_camera);
                     bitmapImage2=null;
                     btremove_pic2.setVisibility(View.GONE);
                 }
@@ -892,7 +481,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if (imageView3 !=null){
-                    imageView3.setImageResource(R.drawable.add_box_black_24dp);
+                    imageView3.setImageResource(R.drawable.icon_camera);
                     bitmapImage3=null;
                     btremove_pic3.setVisibility(View.GONE);
                 }
@@ -902,7 +491,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if (imageView4 !=null){
-                    imageView4.setImageResource(R.drawable.add_box_black_24dp);
+                    imageView4.setImageResource(R.drawable.icon_camera);
                     bitmapImage4=null;
                     btremove_pic4.setVisibility(View.GONE);
                 }
@@ -912,7 +501,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if (imageView5 !=null){
-                    imageView5.setImageResource(R.drawable.add_box_black_24dp);
+                    imageView5.setImageResource(R.drawable.icon_camera);
                     bitmapImage5=null;
                     btremove_pic5.setVisibility(View.GONE);
                 }
@@ -922,32 +511,132 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if (imageView6 !=null){
-                    imageView6.setImageResource(R.drawable.add_box_black_24dp);
+                    imageView6.setImageResource(R.drawable.icon_camera);
                     bitmapImage6=null;
                     btremove_pic6.setVisibility(View.GONE);
                 }
             }
         });
-//End
-        tvAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        tv_add.setVisibility(View.VISIBLE);
+        tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                Seach_Address();
-                return false;
+            public void onClick(View view) {
+                layout_phone1.setVisibility(View.VISIBLE);
+                tv_cancel.setVisibility(View.VISIBLE);
             }
-
+        });
+        tv_add1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()){
-                    icAddress.setImageResource(R.drawable.icon_null);
-                }else {
-                    icAddress.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                return false;
+            public void onClick(View view) {
+                layout_phone2.setVisibility(View.VISIBLE);
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout_phone1.setVisibility(View.GONE);
+                layout_phone2.setVisibility(View.GONE);
+                tv_cancel.setVisibility(View.GONE);
             }
         });
 
-        submit_post = (Button) findViewById(R.id.btnSubmitPost);
+//End
+        bt_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String stDis_amount,stDis_percent,stPrice;
+                double dbDis_amount = 0 , dbDis_percent = 0, dbPrice ;
+                double ko = 0.0;
+                stPrice = etPrice.getText().toString();
+
+                if (stPrice == null || stPrice.isEmpty()){
+                    dbPrice = 1;
+                }else {
+                    dbPrice = Double.parseDouble(stPrice);
+                }
+                stDis_amount = etDiscount_amount.getText().toString();
+                if (stDis_amount == null || stDis_amount.isEmpty()){
+                    dbDis_percent = 0;
+                    dbDis_amount = 0;
+                }
+                int image_value ;
+                String postType = tvPostType.getText().toString();
+                if (postType.equals("Buy") || postType.equals("ទិញ")){
+                    image_value = 1;
+                }else if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
+                    image_value = 0;
+                }else image_value = 1;
+
+                if (tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0
+                        || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
+                        || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
+                        ||  image_value == 0) {
+                    if (etPhone1.getText().toString().length()<9){
+                        etPhone1.requestFocus();
+                    }
+                    if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
+                        etDiscount_amount.requestFocus();
+                    }
+                    if (etPrice.getText().toString().length()==0) {
+                        etPrice.requestFocus();
+                    }
+                    if (tvYear.getText().toString().length()==0) {
+                        tvYear.requestFocus();
+                    }
+                    if (tvModel.getText().toString().length()==0) {
+                        tvModel.requestFocus();
+                    }
+                    if (tvBrand.getText().toString().length()==0) {
+                        tvBrand.requestFocus();
+                    }
+
+                    if (tvCategory.getText().toString().length()==0) {
+                        tvCategory.requestFocus();
+                    }
+                    if (tvPostType.getText().toString().length()==0){
+                        tvPostType.requestFocus();
+                    }
+                    if (tvPostType.getText().toString().length()==0){
+                        tvPostType.requestFocus();
+                    }
+                    if (strColor.isEmpty() || strColor == null ){
+                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                    if (dbDis_percent >= 100){
+                        etDiscount_amount.requestFocus();
+                    }
+
+                    if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
+                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+
+                } else if (category == 1 && tvType_cate.getText().toString().length()==0){
+                    tvType_cate.requestFocus();
+                } else if (bundle!=null) {
+                    mProgress.show();
+                    EditPost_Approve(Encode, edit_id);
+                } else  {
+                    mProgress.show();
+                    EditPost_Approve(Encode, edit_id);
+                }
+            }
+        });
         submit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -966,18 +655,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 if (stDis_amount == null || stDis_amount.isEmpty()){
                     dbDis_percent = 0;
                     dbDis_amount = 0;
-                }else {
-                    if (strDiscountType.equals("amount") ){
-                        dbDis_amount = Double.parseDouble(stDis_amount);
-                    }else {
-                        dbDis_amount = 0;
-                    }
-                    if(strDiscountType.equals("percent")){
-                        dbDis_percent = Double.parseDouble(stDis_amount);
-
-                    }else {
-                        dbDis_percent = 0;
-                    }
                 }
                 int image_value ;
                 String postType = tvPostType.getText().toString();
@@ -987,55 +664,51 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                     image_value = 0;
                 }else image_value = 1;
 
-                if (tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0||tvColor.getText().toString().length()==0
+                if (tvPostType.getText().toString().length()==0||tvCategory.getText().toString().length()==0
                         || tvBrand.getText().toString().length()==0 || tvModel.getText().toString().length()==0 || tvYear.getText().toString().length()==0
                         || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                         ||  image_value == 0) {
                     if (etPhone1.getText().toString().length()<9){
                         etPhone1.requestFocus();
-                        icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
                         etDiscount_amount.requestFocus();
-                        icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (etPrice.getText().toString().length()==0) {
                         etPrice.requestFocus();
-                        icPrice.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (tvYear.getText().toString().length()==0) {
                         tvYear.requestFocus();
-                        icYears.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (tvModel.getText().toString().length()==0) {
                         tvModel.requestFocus();
-                        icModel.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (tvBrand.getText().toString().length()==0) {
                         tvBrand.requestFocus();
-                        icBrand.setImageResource(R.drawable.ic_error_black_24dp);
                     }
 
                     if (tvCategory.getText().toString().length()==0) {
                         tvCategory.requestFocus();
-                        icCategory.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (tvPostType.getText().toString().length()==0){
                         tvPostType.requestFocus();
-                        icPostType.setImageResource(R.drawable.ic_error_black_24dp);
                     }
                     if (tvPostType.getText().toString().length()==0){
                         tvPostType.requestFocus();
-                        icPostType.setImageResource(R.drawable.ic_error_black_24dp);
                     }
-                    if (tvColor.getText().toString().length()==0){
-                        tvColor.requestFocus();
-                        icColor.setImageResource(R.drawable.ic_error_black_24dp);
+                    if (strColor.isEmpty() || strColor == null ){
+                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
                     }
-
                     if (dbDis_percent >= 100){
                         etDiscount_amount.requestFocus();
-                        icDiscount_amount.setImageResource(R.drawable.ic_error_black_24dp);
                     }
 
                     if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
@@ -1050,21 +723,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         alertDialog.show();
                     }
 
-                } else if (cate == 1 && tvType_elec.getText().toString().length()==0){
-                    tvType_elec.requestFocus();
-                    icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
+                } else if (category == 1 && tvType_cate.getText().toString().length()==0){
+                    tvType_cate.requestFocus();
                 } else if (bundle!=null) {
                     mProgress.show();
-                    if(process_type==1){
+                    if(process_type==0){
                         if (cate == 2){
-                            type = Integer.parseInt(tvType_elec.getText().toString());
+                            type = Integer.parseInt(tvType_cate.getText().toString());
                         }
                         Log.d("Type id brs", String.valueOf(type));
                         PostData(Encode);
-                    }
-                    else{
-                        Log.d("Type id  edit ", String.valueOf(type));
-                        EditPost_Approve(Encode, edit_id);
                     }
                 } else  {
                     mProgress.show();
@@ -1078,7 +746,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
     private void dialog_dealer(){
         AlertDialog dialog = new AlertDialog.Builder(Camera.this).create();
         dialog.setTitle(R.string.for_loan_title);
-        dialog.setIcon(R.drawable.ic_check_circle_black_24dp);
         dialog.setMessage(getString(R.string.already_select_shop));
         dialog.setCancelable(false);
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
@@ -1142,9 +809,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                         public void run() {
                             try {
                                 JSONObject object = new JSONObject(respon);
-                                String title = object.getString("title");
                                 String description = object.getString("description");
                                 int price = object.getInt("cost");
+                                int id = object.getInt("user");
                                 String search_title = object.getString("vin_code");
                                 String name = object.getString("machine_code");
                                 String discount = object.getString("discount");
@@ -1153,55 +820,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 strPostType = object.getString("post_type");
                                 cate = object.getInt("category");
                                 type = object.getInt("type");
-                                JSONArray dsa = object.getJSONArray("dealer_shops");
-
-                                List<Integer> adlist = new ArrayList<>();
-                                Service api = Client.getClient().create(Service.class);
-                                retrofit2.Call<User> userCall = api.getProfile1(pk,auth);
-                                userCall.enqueue(new retrofit2.Callback<User>() {
-                                    @Override
-                                    public void onResponse(retrofit2.Call<User> call, retrofit2.Response<User> response) {
-                                        if (!response.isSuccessful()){
-                                            //Log.d("111111111111112", String.valueOf(response.code()));
-                                        }
-                                        //Log.d("111111111111112", "Group"+response.body().getProfile().getGroup());
-                                        int Group = response.body().getProfile().getGroup();
-                                        if (Group == 3){
-                                            Log.d("321324234234Edit","Edit "+dsa.length()+"other "+id_typeother);
-
-                                            if(response.body().getShops().size()>0){
-                                                shopListItems=new String[response.body().getShops().size()];
-                                                shopIdListItems=new int[response.body().getShops().size()];
-
-                                                for(int i=0;i<response.body().getShops().size();i++){
-                                                    ShopViewModel shopViewModel = response.body().getShops().get(i);
-                                                    shopListItems[i]=shopViewModel.getShop_name();
-                                                    shopIdListItems[i]=shopViewModel.getId();
-                                                }
-                                            }
-                                            postShops=new ArrayList<>();
-                                            postShopListItems=new int[dsa.length()];
-                                            for (int i = 0; i < dsa.length(); i++) {
-                                                txtOther_main.setVisibility(View.VISIBLE);
-                                                try {
-                                                    JSONObject dso = dsa.getJSONObject(i);
-                                                    if(dso.getInt("record_status")==1) {
-                                                        adlist.add(dso.getInt("shop"));
-                                                        postShopListItems[i] = dso.getInt("id");
-                                                        postShops.add(new PostDealerShopViewModel(dso.getInt("id"), dso.getInt("post"), dso.getInt("shop"), dso.getInt("record_status")));
-                                                        //Log.d("55555555555","id "+dso.getInt("shop")+"size: "+adlist.size());
-                                                    }
-                                                } catch (JSONException e) { e.printStackTrace(); }
-                                            }
-                                            setDealerShop(adlist);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(retrofit2.Call<User> call, Throwable t) {
-
-                                    }
-                                });
 
                                 int eta1 = object.getInt("used_eta1");
                                 int eta2 = object.getInt("used_eta2");
@@ -1213,15 +831,25 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 int machine4 = object.getInt("used_machine4");
                                 int other1 = object.getInt("used_other1");
 
+                                seekbar_whole.setProgress(eta1);
+                                seekbar_rear.setProgress(eta2);
+                                seekbar_screw.setProgress(eta3);
+                                seekbar_pumps.setProgress(eta4);
+                                seekbar_rigt_engine.setProgress(machine1);
+                                seekbar_engine_head.setProgress(machine2);
+                                seekbar_assmebly.setProgress(machine3);
+                                seekbar_console.setProgress(machine4);
+                                seekbar_accessories.setProgress(other1);
+
                                 String phone = object.getString("contact_phone");
 
                                 if (cate == 2) {
                                     type = 3;
-                                    icType_elec.setVisibility(View.GONE);
                                     tvType_elec.setVisibility(View.GONE);
+                                    tvType_cate.setVisibility(View.GONE);
                                 } else {
-                                    icType_elec.setVisibility(View.VISIBLE);
                                     tvType_elec.setVisibility(View.VISIBLE);
+                                    tvType_cate.setVisibility(View.VISIBLE);
                                 }
 
                                 model = object.getInt("modeling");
@@ -1231,17 +859,36 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 strCondition = object.getString("condition");
                                 strColor = object.getString("color");
 
-                                strDiscountType = object.getString("discount_type");
 
-                                String addr = object.getString("contact_address");
-                                if(!addr.isEmpty()) {
+                                Geocoder geocoder;
+                                List<Address> addresses;
+                                geocoder = new Geocoder(getApplication(), Locale.getDefault());
+                                String locat = object.getString("contact_address");
+                                if (!locat.isEmpty()) {
+                                    String add[] = locat.split(",");
+                                    Double latetitude = Double.parseDouble(add[0]);
+                                    Double longtitude = Double.parseDouble(add[1]);
+                                    try {
+                                        addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                                        String road = addresses.get(0).getAddressLine(0);
+                                        if (road.length() > 30) {
+                                            String loca = road.substring(0,30) + "...";
+                                            if (road != null){
+                                                if (road.length() > 30) {
+                                                    String locate = road.substring(0,30) + "...";
+                                                    etMap.setText(locate);
+                                                }
+                                            }else {
+                                                etMap.setText(loca);
+                                            }
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
-                                    String[] splitAddr = addr.split(",");
-                                    latitude = Double.valueOf(splitAddr[0]);
-                                    longtitude = Double.valueOf(splitAddr[1]);
-                                    getLocation_edit(latitude, longtitude);
-                                    tvAddress.setQuery(search_title,false);
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
+                                if(!search_title.isEmpty()) {
+                                    etAddress.setText(search_title);
                                 }
 
                                 String fron = object.getString("front_image_path");
@@ -1255,32 +902,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-//                                        etTitle.setText(title);
                                         etDescription.setText(description);
                                         etPrice.setText(String.valueOf(price));
-                                        etName.setText(name);
                                         etEmail.setText(email);
-//                                        edShopName.setText(other_dealer);
-//                                        etPhone1.setText(phone);
+                                        etDiscount_amount.setText(discount);
 
                                         String[] splitPhone = phone.split(",");
                                         if (splitPhone.length == 1){
                                             etPhone1.setText(String.valueOf(splitPhone[0]));
-                                            btnImagePhone1.setVisibility(View.VISIBLE);
                                         }else if (splitPhone.length == 2){
-                                            icPhone2.setVisibility(View.VISIBLE);
-                                            tilPhone2.setVisibility(View.VISIBLE);
-                                            btnImagePhone2.setVisibility(View.VISIBLE);
-                                            btnImagePhone1.setVisibility(View.GONE);
                                             etPhone1.setText(String.valueOf(splitPhone[0]));
                                             etPhone2.setText(String.valueOf(splitPhone[1]));
                                         }else if (splitPhone.length == 3){
-                                            icPhone2.setVisibility(View.VISIBLE);
-                                            tilPhone2.setVisibility(View.VISIBLE);
-                                            icPhone3.setVisibility(View.VISIBLE);
-                                            tilphone3.setVisibility(View.VISIBLE);
-                                            btnImagePhone2.setVisibility(View.GONE);
-                                            btnImagePhone1.setVisibility(View.GONE);
                                             etPhone1.setText(String.valueOf(splitPhone[0]));
                                             etPhone2.setText(String.valueOf(splitPhone[1]));
                                             etPhone3.setText(String.valueOf(splitPhone[2]));
@@ -1288,72 +921,29 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
                                         String postType = strPostType.substring(0,1).toUpperCase() + strPostType.substring(1);
                                         String condition= strCondition.substring(0,1).toUpperCase() + strCondition.substring(1);
-                                        String discountType= strDiscountType.substring(0,1).toUpperCase() + strDiscountType.substring(1);
-                                        String color= strColor.substring(0,1).toUpperCase() + strColor.substring(1);
+
+                                        String color= strColor.substring(0,1).toLowerCase() + strColor.substring(1);
+
                                         if (postType.equals("Sell")){
                                             tvPostType.setText(R.string.sel);
                                         }else if (postType.equals("Rent")){
                                             tvPostType.setText(R.string.ren);
                                         }else if (postType.equals("Buy")){
                                             tvPostType.setText(R.string.bu);
-                                            relatve_discount.setVisibility(View.GONE);
                                         }
 
                                         if (condition.equals("New")){
                                             tvCondition.setText(R.string.newl);
                                         }else if (condition.equals("Used")){
                                             tvCondition.setText(R.string.used);
-                                            if(cate==2) {
-                                                validationforused();
-                                                relative_used.setVisibility(View.VISIBLE);
-                                                edwhole_int.setText(String.valueOf(eta1));
-                                                edfront_and_rear_wheel_sets.setText(String.valueOf(eta2));
-                                                edThe_whole_screw.setText(String.valueOf(eta3));
-                                                edFront_and_rear_pumps.setText(String.valueOf(eta4));
-                                                edLeft_and_right_engine_counter.setText(String.valueOf(machine1));
-                                                edEngine_head.setText(String.valueOf(machine2));
-                                                edMachine_Assembly.setText(String.valueOf(machine3));
-                                                edConsole.setText(String.valueOf(machine4));
-                                                edAccessories.setText(String.valueOf(other1));
-                                            }
                                         }
 
-                                        if (discountType.equals("Amount")){
-                                            tvDiscount_type.setText(R.string.amount);
-                                            etDiscount_amount.setText(discount);
-                                        }else if (discountType.equals("Percent")){
-                                            tvDiscount_type.setText(R.string.percent);
-                                            etDiscount_amount.setText(discount);
-                                        }
-
-                                        if (color.equals("Blue")){
-                                            tvColor.setText(R.string.blue);
-                                        }else if (color.equals("Black")){
-                                            tvColor.setText(R.string.black);
-                                        }else if (color.equals("Silver")){
-                                            tvColor.setText(R.string.silver);
-                                        }else if (color.equals("Red")){
-                                            tvColor.setText(R.string.red);
-                                        }else if (color.equals("Gray")){
-                                            tvColor.setText(R.string.gray);
-                                        }else if (color.equals("Yellow")){
-                                            tvColor.setText(R.string.yellow);
-                                        }else if (color.equals("Pink")){
-                                            tvColor.setText(R.string.pink);
-                                        }else if (color.equals("Purple")){
-                                            tvColor.setText(R.string.purple);
-                                        }else if (color.equals("Orange")){
-                                            tvColor.setText(R.string.orange);
-                                        }else if (color.equals("Green")){
-                                            tvColor.setText(R.string.green);
-                                        }
-
-                                        Call_Brand(Encode,cate);
                                         //Call_Model(Encode,brand);
                                         getCategegoryName(Encode,cate);
                                         getTypeName(Encode,type);
                                         getYearName(Encode,year);
                                         getModelName(Encode,model);
+                                        getUsername(id);
                                         //Log.d(TAG,"Brand_id"+ brand);
 
                                         Glide.with(Camera.this).asBitmap().load(fron).into(new CustomTarget<Bitmap>() {
@@ -1451,6 +1041,22 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             model=mmodel;
         }  //getextra
     }
+    private void getUsername(int pk) {
+        Service apiService = Client.getClient().create(Service.class);
+        retrofit2.Call<UserResponseModel> call = apiService.getUserProfile(pk);
+        call.enqueue(new retrofit2.Callback<UserResponseModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<UserResponseModel> call, retrofit2.Response<UserResponseModel> response) {
+                if (response.isSuccessful()) {
+                    etName.setText(response.body().getFirst_name());
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<UserResponseModel> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void initialUserInformation(int pk, String encode) {
 //        if (bundle==null || bundle.isEmpty()) {
@@ -1480,7 +1086,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 User converJsonJava = gson.fromJson(respon, User.class);
                                 int g = converJsonJava.getProfile().getGroup();
                                 id_typeother = g;
-                                etName.setText(converJsonJava.getFirst_name());
                                 etEmail.setText(converJsonJava.getEmail());
 
                                 if (converJsonJava.getProfile().getTelephone() != null) {
@@ -1488,22 +1093,11 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                     String[] splitPhone = user_phone.split(",");
                                     if (splitPhone.length == 1) {
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
-                                        btnImagePhone1.setVisibility(View.VISIBLE);
                                     }
                                     else if (splitPhone.length == 2){
-                                        icPhone2.setVisibility(View.VISIBLE);
-                                        tilPhone2.setVisibility(View.VISIBLE);
-                                        btnImagePhone2.setVisibility(View.VISIBLE);
-                                        btnImagePhone1.setVisibility(View.GONE);
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                         etPhone2.setText(String.valueOf(splitPhone[1]));
                                     } else if (splitPhone.length == 3) {
-                                        icPhone2.setVisibility(View.VISIBLE);
-                                        tilPhone2.setVisibility(View.VISIBLE);
-                                        icPhone3.setVisibility(View.VISIBLE);
-                                        tilphone3.setVisibility(View.VISIBLE);
-                                        btnImagePhone2.setVisibility(View.GONE);
-                                        btnImagePhone1.setVisibility(View.GONE);
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                         etPhone2.setText(String.valueOf(splitPhone[1]));
                                         etPhone3.setText(String.valueOf(splitPhone[2]));
@@ -1511,19 +1105,18 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                 }
                                 user_address = converJsonJava.getProfile().getAddress();
                                 if(user_address.isEmpty()){
-                                    get_location(true);
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
-                                }else {
-                                    String[] splitAddr = user_address.split(",");
-                                    latitude = Double.valueOf(splitAddr[0]);
-                                    longtitude = Double.valueOf(splitAddr[1]);
-                                    get_location(false);
 
-                                    if (converJsonJava.getProfile().getResponsible_officer()!=null){
-                                        user_address_name = converJsonJava.getProfile().getResponsible_officer();
-                                        tvAddress.setQuery(user_address_name,false);
-                                    }
-                                    mapFragment.getMapAsync(Camera.this::onMapReady);
+                                }else {
+//                                    String[] splitAddr = user_address.split(",");
+//                                    latitude = Double.valueOf(splitAddr[0]);
+//                                    longtitude = Double.valueOf(splitAddr[1]);
+//                                    get_location(false);
+
+//                                    if (converJsonJava.getProfile().getResponsible_officer()!=null){
+//                                        user_address_name = converJsonJava.getProfile().getResponsible_officer();
+//                                        tvAddress.setQuery(user_address_name,false);
+//                                    }
+//                                    mapFragment.getMapAsync(Camera.this::onMapReady);
 
                                 }
                                 //dealer shop section
@@ -1546,16 +1139,7 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             shopIdListItems[i]=shopViewModel.getId();
                                         }
 
-                                        edShopName.setText(converJsonJava.getShops().get(0).getShop_name());
-                                        txtOther_main.setVisibility(View.VISIBLE);
                                         mDealerShopId1 = converJsonJava.getShops().get(0).getId();
-                                        btnShop_name2.setVisibility(View.GONE);
-                                        inputShop_name.setVisibility(View.VISIBLE);
-                                        icShop_name.setVisibility(View.VISIBLE);
-                                        if(converJsonJava.getShops().size()>1)
-                                            btnShop_name.setVisibility(View.VISIBLE);
-                                        else
-                                            btnShop_name.setVisibility(View.GONE);
 
                                     }
 
@@ -1578,79 +1162,31 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private void PostData(String encode) {
 
-        if(strDiscountType==null || strDiscountType.isEmpty())
-            strDiscountType="amount";
-        if(strCondition==null || strCondition.isEmpty())
-            strCondition="new";
-        if (edwhole_int.getText().toString().length()==0) {
-            edwhole_int.setText("0");
-        }
-        if (edfront_and_rear_wheel_sets.getText().toString().length()==0) {
-            edfront_and_rear_wheel_sets.setText("0");
-        }
-        if (edThe_whole_screw.getText().toString().length()==0) {
-            edThe_whole_screw.setText("0");
-        }
-        if (edFront_and_rear_pumps.getText().toString().length()==0) {
-            edFront_and_rear_pumps.setText("0");
-        }
-        if (edLeft_and_right_engine_counter.getText().toString().length()==0) {
-            edLeft_and_right_engine_counter.setText("0");
-        }
-        if (edEngine_head.getText().toString().length()==0) {
-            edEngine_head.setText("0");
-        }
-        if (edMachine_Assembly.getText().toString().length()==0) {
-            edMachine_Assembly.setText("0");
-        }
-        if (edConsole.getText().toString().length()==0) {
-            edConsole.setText("0");
-        }
-        if (edAccessories.getText().toString().length()==0) {
-            edAccessories.setText("0");
-        }
-//        if(strColor==null || strColor.isEmpty()) {
-//            strColor = "black";
-//            strColorKH="ខ្មៅ";
-//        }
-        String str_dis=etDiscount_amount.getText().toString();
-        if(str_dis==null || str_dis.isEmpty())
-            str_dis="0";
-        /*
-        final ProgressDialog mProgress=new ProgressDialog(Camera.this);
-        mProgress.setMessage("Sumitting");
-        mProgress.show();
-        */
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "";
         OkHttpClient client = new OkHttpClient();
         JSONObject post = new JSONObject();
         JSONObject sale = new JSONObject();
         try {
-            //String postType = tvPostType.getSelectedItem().toString().toLowerCase();
-//            post.put("title",etTitle.getText().toString());
 
-            post.put("category", cate);
+            post.put("category", category);
             post.put("status", 3);
-            post.put("condition",strCondition);
-            if (strCondition.equals("used")) {
-                if (cate == 2) {
-                    post.put("used_eta1", edwhole_int.getText().toString());
-                    post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
-                    post.put("used_eta3", edThe_whole_screw.getText().toString());
-                    post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
-                    post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
-                    post.put("used_machine2", edEngine_head.getText().toString());
-                    post.put("used_machine3", edMachine_Assembly.getText().toString());
-                    post.put("used_machine4", edConsole.getText().toString());
-                    post.put("used_other1", edAccessories.getText().toString());
-                }
-            }
+            post.put("condition",tvCondition.getText().toString());
+            post.put("used_eta1", seekbar_whole.getProgress());
+            post.put("used_eta2", seekbar_rear.getProgress());
+            post.put("used_eta3", seekbar_screw.getProgress());
+            post.put("used_eta4", seekbar_pumps.getProgress());
+            post.put("used_machine1", seekbar_rigt_engine.getProgress());
+            post.put("used_machine2", seekbar_engine_head.getProgress());
+            post.put("used_machine3", seekbar_assmebly.getProgress());
+            post.put("used_machine4", seekbar_console.getProgress());
+            post.put("used_other1", seekbar_accessories.getProgress());
 
-            //post.put("discount", 0);
             post.put("user",pk );
 
-            if (strPostType.equals("buy")) {
+            strPostType = tvPostType.getText().toString();
+            Log.e("post type",""+strPostType);
+            if (strPostType == "buy") {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
 // set default image for Buy when no select image by samang 5/9/19
@@ -1687,8 +1223,8 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                 }
 
             }else {
-                post.put("discount_type", strDiscountType);
-                post.put("discount", str_dis);
+                post.put("discount_type", null);
+                post.put("discount", String.valueOf(seekbar_pri_per.getProgress()));
 
                 if (bitmapImage1 == null) {
                     post.put("front_image_path", "");
@@ -1746,22 +1282,16 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("rejected_by",null);
             post.put("rejected_comments", "");
             post.put("year", year); //year
-            post.put("modeling", model);
+            post.put("modeling",model);
             post.put("description", etDescription.getText().toString());
-            post.put("cost",etPrice.getText().toString());
+            post.put("cost",price);
             post.put("post_type",strPostType);
             post.put("type", type);
 //check empty field user for detail by samang 28/08
-            if (tvAddress.getQuery().toString().isEmpty() || tvAddress.getQuery().toString() == null){
+            if (etAddress.getText().toString().isEmpty() || etAddress.getText().toString() == null){
                 post.put("vin_code", user_address_name);
             }else {
-                post.put("vin_code", tvAddress.getQuery().toString());
-            }
-            if (etName.getText().toString().isEmpty() || etName.getText().toString() == null){
-                post.put("machine_code", user_name);
-            }else {
-                etName.getText().toString();
-                post.put("machine_code", etName.getText().toString());
+                post.put("vin_code", etAddress.getText().toString());
             }
             if (etPhone1.getText().toString().isEmpty() || etPhone1.getText().toString() == null){
                 post.put("contact_phone",user_phone);
@@ -1773,13 +1303,50 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }else {
                 post.put("contact_email", etEmail.getText().toString());
             }
-            if (!edShopName.getText().toString().isEmpty()) {
-                post.put("dealer_shops",edShopName.getText().toString());
-            }
 
             post.put("contact_address", latlng);
 // end check
+            if (color.equals("blue")){
+                strColor = color;
+            }else if (color.equals("red")){
+                strColor = color;
+            }else if (color.equals("yellow")){
+                strColor = color;
+            }else if (color.equals("light blue sky")){
+                strColor = color;
+            }else if (color.equals("green")){
+                strColor = color;
+            }else if (color.equals("pink")){
+                strColor = color;
+            }else if (color.equals("purple")){
+                strColor = color;
+            }else if (color.equals("blue sky")){
+                strColor = color;
+            }else if (color.equals("dark blue")){
+                strColor = color;
+            }else if (color.equals("dark gray")){
+                strColor = color;
+            }else if (color.equals("light gray")){
+                strColor = color;
+            }else if (color.equals("light green")){
+                strColor = color;
+            }else if (color.equals("light red")){
+                strColor = color;
+            }else if (color.equals("dark red")){
+                strColor = color;
+            }else if (color.equals("dark green")){
+                strColor = color;
+            }else if (color.equals("white")){
+                strColor = color;
+            }else if (color.equals("black")){
+                strColor = color;
+            }else if (color.equals("orange")){
+                strColor = color;
+            }
+            Log.e("color",strColor);
             post.put("color", strColor);
+
+            Log.e("item",""+year+category+model+brand+type);
 
             //enhance sep 19 2019
             post.put("post_code", CommonFunction.generateRandomDigits(9));
@@ -1864,15 +1431,15 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String postSubTitle=obj.getString("post_sub_title");
                                             String fcolor=obj.getString("color");
 
-//                                            String eta1 = obj.getString("used_eta1");
-//                                            String eta2 = obj.getString("used_eta2");
-//                                            String eta3 = obj.getString("used_eta3");
-//                                            String eta4 = obj.getString("used_eta4");
-//                                            String machine1 = obj.getString("used_machine1");
-//                                            String machine2 = obj.getString("used_machine2");
-//                                            String machine3 = obj.getString("used_machine3");
-//                                            String machine4 = obj.getString("used_machine4");
-//                                            String other1 = obj.getString("used_other1");
+                                            String eta1 = obj.getString("used_eta1");
+                                            String eta2 = obj.getString("used_eta2");
+                                            String eta3 = obj.getString("used_eta3");
+                                            String eta4 = obj.getString("used_eta4");
+                                            String machine1 = obj.getString("used_machine1");
+                                            String machine2 = obj.getString("used_machine2");
+                                            String machine3 = obj.getString("used_machine3");
+                                            String machine4 = obj.getString("used_machine4");
+                                            String other1 = obj.getString("used_other1");
 
                                             int pStatus=obj.getInt("status");
                                             FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,fcolor);
@@ -2038,80 +1605,34 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         OkHttpClient client = new OkHttpClient();
         JSONObject post = new JSONObject();
         JSONObject sale = new JSONObject();
-        //Log.d(TAG,"Edit Model "+mmodel);
-        if(strDiscountType==null || strDiscountType.isEmpty())
-            strDiscountType="amount";
-        if(strCondition==null || strCondition.isEmpty())
-            strCondition="new";
-//        if(strColor==null || strColor.isEmpty()) {
-//            strColor = "black";
-//            strColorKH="ខ្មៅ";
-//        }
-        if (edwhole_int.getText().toString().length()==0) {
-            edwhole_int.setText("0");
-        }
-        if (edfront_and_rear_wheel_sets.getText().toString().length()==0) {
-            edfront_and_rear_wheel_sets.setText("0");
-        }
-        if (edThe_whole_screw.getText().toString().length()==0) {
-            edThe_whole_screw.setText("0");
-        }
-        if (edFront_and_rear_pumps.getText().toString().length()==0) {
-            edFront_and_rear_pumps.setText("0");
-        }
-        if (edLeft_and_right_engine_counter.getText().toString().length()==0) {
-            edLeft_and_right_engine_counter.setText("0");
-        }
-        if (edEngine_head.getText().toString().length()==0) {
-            edEngine_head.setText("0");
-        }
-        if (edMachine_Assembly.getText().toString().length()==0) {
-            edMachine_Assembly.setText("0");
-        }
-        if (edConsole.getText().toString().length()==0) {
-            edConsole.setText("0");
-        }
-        if (edAccessories.getText().toString().length()==0) {
-            edAccessories.setText("0");
-        }
-//        if (etPhone2.getText().toString().length()==0){
-//            etPhone2.setText("");
-//        }
-//        if (etPhone3.getText().toString().length()==0){
-//            etPhone3.setText("");
-//        }
+
         String str_dis=etDiscount_amount.getText().toString();
         if(str_dis==null || str_dis.isEmpty())
             str_dis="0";
         if(model==0)
             model=mmodel;
         try {
-//            post.put("title",etTitle.getText().toString());
-            post.put("category", cate );
+            post.put("category", category );
             post.put("status", 3);
-            post.put("condition",strCondition);
+            post.put("condition",tvCondition.getText().toString());
 
-            if(strCondition.equals("used")) {
-                if (cate == 2) {
-                    post.put("used_eta1", edwhole_int.getText().toString());
-                    post.put("used_eta2", edfront_and_rear_wheel_sets.getText().toString());
-                    post.put("used_eta3", edThe_whole_screw.getText().toString());
-                    post.put("used_eta4", edFront_and_rear_pumps.getText().toString());
-                    post.put("used_machine1", edLeft_and_right_engine_counter.getText().toString());
-                    post.put("used_machine2", edEngine_head.getText().toString());
-                    post.put("used_machine3", edMachine_Assembly.getText().toString());
-                    post.put("used_machine4", edConsole.getText().toString());
-                    post.put("used_other1", edAccessories.getText().toString());
-                }
-            }
+            post.put("used_eta1", seekbar_whole.getProgress());
+            post.put("used_eta2", seekbar_rear.getProgress());
+            post.put("used_eta3", seekbar_screw.getProgress());
+            post.put("used_eta4", seekbar_pumps.getProgress());
+            post.put("used_machine1", seekbar_rigt_engine.getProgress());
+            post.put("used_machine2", seekbar_engine_head.getProgress());
+            post.put("used_machine3", seekbar_assmebly.getProgress());
+            post.put("used_machine4", seekbar_console.getProgress());
+            post.put("used_other1", seekbar_accessories.getProgress());
+
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
                 post.put("discount_type","amount");
             }else {
-                post.put("discount_type", strDiscountType);
+                post.put("discount_type", null);
                 post.put("discount",str_dis);
             }
-            //post.put("discount", 0);
             post.put("user",pk );
             if(bitmapImage1==null) {
                 post.put("front_image_path", "");
@@ -2183,20 +1704,13 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             post.put("description", etDescription.getText().toString());
             post.put("cost",etPrice.getText().toString());
             post.put("post_type",strPostType);
-            post.put("vin_code", tvAddress.getQuery().toString());
-            post.put("machine_code", etName.getText().toString());
+            post.put("vin_code", etAddress.getText().toString());
             post.put("type", type);
 //check empty field user for detail by samang 28/08
-            if (tvAddress.getQuery().toString().isEmpty() || tvAddress.getQuery().toString() == null){
+            if (etAddress.getText().toString().isEmpty() ||etAddress.getText().toString() == null){
                 post.put("vin_code", edit_address_name);
             }else {
-                post.put("vin_code", tvAddress.getQuery().toString());
-            }
-            if (etName.getText().toString().isEmpty() || etName.getText().toString() == null){
-                post.put("machine_code", edit_name);
-            }else {
-                etName.getText().toString();
-                post.put("machine_code", etName.getText().toString());
+                post.put("vin_code", etAddress.getText().toString());
             }
             if (etPhone1.getText().toString().isEmpty() || etPhone1.getText().toString() == null){
                 post.put("contact_phone",edit_phone);
@@ -2211,6 +1725,44 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
             post.put("contact_address", latlng);
             //end check
+            if (color.equals("blue")){
+                strColor = color;
+            }else if (color.equals("red")){
+                strColor = color;
+            }else if (color.equals("yellow")){
+                strColor = color;
+            }else if (color.equals("light blue sky")){
+                strColor = color;
+            }else if (color.equals("green")){
+                strColor = color;
+            }else if (color.equals("pink")){
+                strColor = color;
+            }else if (color.equals("purple")){
+                strColor = color;
+            }else if (color.equals("blue sky")){
+                strColor = color;
+            }else if (color.equals("dark blue")){
+                strColor = color;
+            }else if (color.equals("dark gray")){
+                strColor = color;
+            }else if (color.equals("light gray")){
+                strColor = color;
+            }else if (color.equals("light green")){
+                strColor = color;
+            }else if (color.equals("light red")){
+                strColor = color;
+            }else if (color.equals("dark red")){
+                strColor = color;
+            }else if (color.equals("dark green")){
+                strColor = color;
+            }else if (color.equals("white")){
+                strColor = color;
+            }else if (color.equals("black")){
+                strColor = color;
+            }else if (color.equals("orange")){
+                strColor = color;
+            }
+            Log.e("color",strColor);
             post.put("color", strColor);
             post.put("post_sub_title",CommonFunction.generatePostSubTitle(brand,model,year,strColor,strColorKH));
 
@@ -2306,15 +1858,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                                             String machine4 = obj.getString("used_machine4");
                                             String other1 = obj.getString("used_other1");
                                             FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1,fcolor);
-
-                                            //delete old dealer shop
-                                            if(postShops.size()>0) {
-                                                for (int i = 0; i < postShops.size(); i++) {
-                                                    PostDealerShopViewModel pshop=postShops.get(i);
-                                                    Log.e("TAG", "de-active old dealer " + pshop.getId());
-                                                    putPostShop(pshop, auth);
-                                                }
-                                            }
 
                                             //submit dealer
                                             Service api = Client.getClient().create(Service.class);
@@ -2451,274 +1994,6 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             mProgress.dismiss();
         }
     } //edit post approve
-
-    private void Call_category(String encode) {
-
-        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/categories/");
-        OkHttpClient client = new OkHttpClient();
-        String auth = "Basic "+ encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",auth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                try{
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    categoryListItems=new String[jsonArray.length()];
-                    categoryListItemkh=new String[jsonArray.length()];
-                    categoryIdListItems=new int[jsonArray.length()];
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        int id = object.getInt("id");
-                        String name = object.getString("cat_name");
-                        String category=object.getString("cat_name_kh");
-                        categoryListItemkh[i]=category;
-                        categoryListItems[i]=name;
-                        categoryIdListItems[i]=id;
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }  // category
-
-    private void Call_Type(String encode) {
-        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/types/");
-        OkHttpClient client = new OkHttpClient();
-        String auth = "Basic "+ encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",auth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            type=0;
-                            JSONObject jsonObject = new JSONObject(respon);
-                            JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            typeListItems=new String[jsonArray.length()];
-                            typeListItemkh=new String[jsonArray.length()];
-                            typeIdListItems=new int[jsonArray.length()];
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int id = object.getInt("id");
-                                String name = object.getString("type");
-                                String type=object.getString("type_kh");
-                                typeListItemkh[i]=type;
-                                typeListItems[i]=name;
-                                typeIdListItems[i]=id;
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-            }
-        });
-    } // type
-
-    private void Call_Brand(String encode, int id_cate){
-        list_id_brands = new ArrayList<>();
-        list_brand=new ArrayList<>();
-        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/");
-        OkHttpClient client = new OkHttpClient();
-        String auth = "Basic "+ encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",auth)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("Failure Error",e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            brand=0;
-
-                            JSONObject jsonObject = new JSONObject(respon);
-                            JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            int count=0,ccount=0;
-                            for(int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int cate = object.getInt("category");
-                                if(id_cate==cate)
-                                    count++;
-                            }
-                            brandIdListItems=new int[count];
-                            brandListItem=new String[count];
-                            brandListItemkh=new String[count];
-
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int cate = object.getInt("category");
-                                if (cate==id_cate){
-                                    int id = object.getInt("id");
-                                    String name = object.getString("brand_name");
-                                    String brand =object.getString("brand_name_as_kh");
-                                    brandListItemkh[ccount]=brand;
-                                    brandListItem[ccount]=name;
-                                    brandIdListItems[ccount]=id;
-                                    ccount++;
-                                }
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-            }
-        });
-    }// brand
-
-    private void Call_Model(String encode,int id_bran,String modelName){
-
-        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/");
-        OkHttpClient client = new OkHttpClient();
-        String auth = "Basic "+ encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",auth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            model=0;
-                            JSONObject jsonObject = new JSONObject(respon);
-                            JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            int count=0,ccount=0;
-                            for(int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int Brand = object.getInt("brand");
-                                if(Brand==id_bran)
-                                    count++;
-                            }
-                            modelListItems=new String[count];
-                            modelIdListItems=new int[count];
-                            modelListItemkh=new String[count];
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int id = object.getInt("id");
-                                int Brand = object.getInt("brand");
-                                if (Brand==id_bran) {
-                                    String name = object.getString("modeling_name");
-                                    String model=object.getString("modeling_name_kh");
-                                    modelListItemkh[ccount]=model;
-                                    modelListItems[ccount]=name;
-                                    modelIdListItems[ccount]=id;
-                                    ccount++;
-                                }
-                            }
-
-                            if(modelName!=null && !modelName.isEmpty())
-                                tvModel.setText(modelName);
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                            Log.d("Exception",e.getMessage());
-                        }
-                    }
-                });
-            }
-        });
-    } // model
-
-    private void Call_years(String encode){
-        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/years/");
-        OkHttpClient client = new OkHttpClient();
-        String auth = "Basic "+ encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",auth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                try{
-                    JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    int count=0;
-                    yearListItems=new String[jsonArray.length()];
-                    yearIdListItems=new int[jsonArray.length()];
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{
-                                for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject object = jsonArray.getJSONObject(i);
-                                    int id = object.getInt("id");
-                                    String name = object.getString("year");
-                                    yearListItems[i]=name;
-                                    yearIdListItems[i]=id;
-                                }
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-    } // years
 
     private void get_model(String encode , int model_id){
         final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/"+model_id);
@@ -2877,9 +2152,9 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             String typename=jsonObject.getString("type");
                             String typenamekh=jsonObject.getString("type_kh");
                             if (language.equals("km")){
-                                tvType_elec.setText(typenamekh);
+                                tvType_cate.setText(typenamekh);
                             }else if (language.equals("en")){
-                                tvType_elec.setText(typename);
+                                tvType_cate.setText(typename);
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -2968,12 +2243,12 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
                             String namekh=jsonObject.getString("modeling_name_kh");
                             if (language.equals("km")){
                                 brand=brandId;
+                                tvModel.setText(name);
                                 getBrandName(Encode,brand);
-                                Call_Model(Encode,brand,namekh);
                             }else if (language.equals("en")){
                                 brand=brandId;
+                                tvModel.setText(name);
                                 getBrandName(Encode,brand);
-                                Call_Model(Encode,brand,name);
                             }
                             //tvModel.setText(name);
                             Log.d(TAG,"Brand from model "+name);
@@ -3025,646 +2300,254 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
 
     private void DropDown() {
 
-        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = preferences.getString("My_Lang", "");
-        postTypeListItems=getResources().getStringArray(R.array.posty_type);
-        tvPostType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (bundle != null) {
-
+        GridView gridView = (GridView) findViewById(R.id.gridview);
+        gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
+        final ColorAdapter adapter = new ColorAdapter(itemcolor,getApplication());
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                int selectedIndex = adapter.selectedPositions.indexOf(position);
+                long id_color = adapter.getItemId(position);
+                if (selectedIndex > -1) {
+                    adapter.selectedPositions.remove(selectedIndex);
+                    ((CustomView)v).display(false);
+                    if (id_color == 0){
+                        color = null;
+                    }else if (id_color == 1){
+                        color = null;
+                    }else if (id_color == 2){
+                        color = null;
+                    }else if (id_color == 3){
+                        color = null;
+                    }else if (id_color == 4){
+                        color = null;
+                    }else if (id_color == 5){
+                        color = null;
+                    }else if (id_color == 6){
+                        color = null;
+                    }else if (id_color == 7){
+                        color = null;
+                    }else if (id_color == 8){
+                        color = null;
+                    }else if (id_color == 9){
+                        color = null;
+                    }else if (id_color == 10){
+                        color = null;
+                    }else if (id_color == 11){
+                        color = null;
+                    }else if (id_color == 12){
+                        color = null;
+                    }else if (id_color == 13){
+                        color = null;
+                    }else if (id_color == 14){
+                        color = null;
+                    }else if (id_color == 15){
+                        color = null;
+                    }else if (id_color == 16){
+                        color = null;
+                    }else if (id_color == 17){
+                        color = null;
+                    }
                 } else {
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                    mBuilder.setTitle(getString(R.string.choose_type_post));
-                    mBuilder.setSingleChoiceItems(postTypeListItems, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            tvPostType.setText(postTypeListItems[i]);
-                            //Toast.makeText(Camera.this,postTypeListItems[i],Toast.LENGTH_LONG).show();
-                            icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                            //close option buy by Raksmey 9/9/2019
-                            switch (i) {
-                                case 0:
-                                    strPostType = "sell";
-                                    relatve_discount.setVisibility(View.VISIBLE);
-                                    break;
-//                                case 1:
-//                                    strPostType = "buy";
-//                                    relatve_discount.setVisibility(View.GONE);
-//                                    break;
-                                case 1:
-                                    strPostType = "rent";
-                                    relatve_discount.setVisibility(View.VISIBLE);
-                                    break;
-                            }
-                            dialogInterface.dismiss();
-                            Log.d("Post_type:",strPostType);
-                        }
-                    });
-
-                    AlertDialog mDialog = mBuilder.create();
-                    mDialog.show();
+                    adapter.selectedPositions.add(position);
+                    ((CustomView)v).display(true);
+                    if (id_color == 0){
+                        color = "white";
+                    }else if (id_color == 1){
+                        color = "blue";
+                    }else if (id_color == 2){
+                        color = "black";
+                    }else if (id_color == 3){
+                        color = "red";
+                    }else if (id_color == 4){
+                        color = "yellow";
+                    }else if (id_color == 5){
+                        color = "pink";
+                    }else if (id_color == 6){
+                        color = "purple";
+                    }else if (id_color == 7){
+                        color = "orange";
+                    }else if (id_color == 8){
+                        color = "dark blue";
+                    }else if (id_color == 9){
+                        color = "gray";
+                    }else if (id_color == 10){
+                        color = "dark green";
+                    }else if (id_color == 11){
+                        color = "dark red";
+                    }else if (id_color == 12){
+                        color = "light blue sky";
+                    }else if (id_color == 13){
+                        color = "light red";
+                    }else if (id_color == 14){
+                        color = "green";
+                    }else if (id_color == 15){
+                        color = "silver";
+                    }else if (id_color == 16){
+                        color = "light green";
+                    }else if (id_color == 17){
+                        color = "blue sky";
+                    }
                 }
 
+                Log.e("color",""+color);
             }
         });
 
-        conditionListItems = getResources().getStringArray(R.array.condition);
+        imgAdd_color.setVisibility(View.VISIBLE);
+        imgAdd_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout_color.setBackground(getDrawable(R.color.light_gray));
+                layout_color.setVisibility(View.VISIBLE);
+                cancel_color.setVisibility(View.VISIBLE);
+                imgAdd_color.setVisibility(View.GONE);
+            }
+        });
+        cancel_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout_color.setVisibility(View.GONE);
+                imgAdd_color.setVisibility(View.VISIBLE);
+                cancel_color.setVisibility(View.GONE);
+            }
+        });
+
         tvCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_type));
-                mBuilder.setSingleChoiceItems(conditionListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvCondition.setText(conditionListItems[i]);
-                        icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        switch (i){
-                            case 0:
-                                strCondition="new";
-                                relative_used.setVisibility(View.GONE);
-                                break;
-                            case 1:
-                                strCondition="used";
-                                if(cate==2) {
-                                    validationforused();
-                                    relative_used.setVisibility(View.VISIBLE);
-                                    if (edwhole_int.getText().toString().length() == 0) {
-                                        imgwhole_int.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edfront_and_rear_wheel_sets.getText().toString().length() == 0) {
-                                        imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edThe_whole_screw.getText().toString().length() == 0) {
-                                        imgThe_whole_screw.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edFront_and_rear_pumps.getText().toString().length() == 0) {
-                                        imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edLeft_and_right_engine_counter.getText().toString().length() == 0) {
-                                        imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edEngine_head.getText().toString().length() == 0) {
-                                        imgEngine_head.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edMachine_Assembly.getText().toString().length() == 0) {
-                                        imgMachine_Assembly.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edConsole.getText().toString().length() == 0) {
-                                        imgConsole.setImageResource(R.drawable.icon_null);
-                                    }
-                                    if (edAccessories.getText().toString().length() == 0) {
-                                        imgAccessories.setImageResource(R.drawable.icon_null);
-                                    }
-                                }
-                                break;
-                        }
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
+                showBottomCondition(view);
             }
         });
-
-        colorListItems = getResources().getStringArray(R.array.color);
-        tvColor.setOnClickListener(new View.OnClickListener() {
+        tvYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_color));
-                mBuilder.setSingleChoiceItems(colorListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        tvColor.setText(colorListItems[i]);
-                        switch (i){
-                            case 0:
-                                strColor="blue";
-                                strColorKH="ខៀវ";
-                                break;
-                            case 1:
-                                strColor="black";
-                                strColorKH="ខ្មៅ";
-                                break;
-                            case 2:
-                                strColor="silver";
-                                strColorKH="ប្រាក់";
-                                break;
-                            case 3:
-                                strColor="red";
-                                strColorKH="ក្រហម";
-                                break;
-                            case 4:
-                                strColor="gray";
-                                strColorKH="ប្រផេះ";
-                                break;
-                            case 5:
-                                strColor="yellow";
-                                strColorKH="លឿង";
-                                break;
-                            case 6:
-                                strColor="pink";
-                                strColorKH="ផ្កាឈូក";
-                                break;
-                            case 7:
-                                strColor="purple";
-                                strColorKH="ស្វាយ";
-                                break;
-                            case 8:
-                                strColor="orange";
-                                strColorKH="ទឹកក្រូច";
-                                break;
-                            case 9:
-                                strColor="green";
-                                strColorKH="បៃតង";
-                                break;
-                        }
-                        icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
+                showBottomYear(view);
             }
         });
-
-        discountTypeListItems = getResources().getStringArray(R.array.discount_type);
-        tvDiscount_type.setOnClickListener(new View.OnClickListener() {
+        tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera.this);
-                mBuilder.setTitle(getString(R.string.choose_discount));
-                mBuilder.setSingleChoiceItems(discountTypeListItems, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        etDiscount_amount.requestFocus();
-                        tvDiscount_type.setText(discountTypeListItems[i]);
-                        switch (i){
-                            case 0:
-                                strDiscountType="amount";
-                                break;
-                            case 1:
-                                strDiscountType="percent";
-                                break;
-                        }
-                        icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        etDiscount_amount.clearFocus();
-                        tvDiscount_type.setText("");
-                        etDiscount_amount.setText("");
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
+                showBottomCategory(view);
             }
         });
-    }
-
-    private void validationforused(){
-        edwhole_int.addTextChangedListener(new TextWatcher() {
+        tvType_cate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-                    //Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.icon_null);
-                    textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgwhole_int.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgwhole_int.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputWholeint.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                showBottomTypeCate(view);
             }
         });
 
-        edfront_and_rear_wheel_sets.addTextChangedListener(new TextWatcher() {
-
+        tvBrand.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.icon_null);
-                    textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1 > 0) {
-                    textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgfront_and_rear_wheel_sets.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputfront_and_rear_wheel_sets.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                showBottomBrand(view);
             }
         });
 
-        edThe_whole_screw.addTextChangedListener(new TextWatcher() {
-
+        tvModel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgThe_whole_screw.setImageResource(R.drawable.icon_null);
-                    textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgThe_whole_screw.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgThe_whole_screw.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputThe_whole_screw.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                showBottomModel(view);
             }
         });
-
-        edFront_and_rear_pumps.addTextChangedListener(new TextWatcher() {
+        tvPostType.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgFront_and_rear_pumps.setImageResource(R.drawable.icon_null);
-                    textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgFront_and_rear_pumps.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputFront_and_rear_pumps.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                showBottomType(view);
             }
         });
-
-        edLeft_and_right_engine_counter.addTextChangedListener(new TextWatcher() {
+        imageMap.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.icon_null);
-                    textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                        (getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+                    ActivityCompat.requestPermissions(Camera.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+                }else {
+                    Intent intent = new Intent(Camera.this, FragmentMap.class);
+                    intent.putExtra("post","post");
+                    intent.putExtra("name_post",etName.getText().toString());
+                    intent.putExtra("process_type",process_type);
+                    intent.putExtra("price",etPrice.getText().toString());
+                    intent.putExtra("post_type",tvPostType.getText().toString());
+                    intent.putExtra("category",tvCategory.getText().toString());
+                    intent.putExtra("brand",tvBrand.getText().toString());
+                    intent.putExtra("model",tvModel.getText().toString());
+                    intent.putExtra("year",tvYear.getText().toString());
+                    intent.putExtra("condition",tvCondition.getText().toString());
+                    intent.putExtra("description",etDescription.getText().toString());
+                    intent.putExtra("email_post",etEmail.getText().toString());
+                    intent.putExtra("address_post",etAddress.getText().toString());
+                    intent.putExtra("phone_number1_post",etPhone1.getText().toString());
+                    intent.putExtra("phone_number2_post",etPhone2.getText().toString());
+                    intent.putExtra("phone_number3_post",etPhone3.getText().toString());
+                    intent.putExtra("discount_percent",seekbar_price);
+                    intent.putExtra("discount_amount",etDiscount_amount.getText().toString());
+                    intent.putExtra("whole_ink",whole_ink);
+                    intent.putExtra("rear",seekbar_rearr);
+                    intent.putExtra("screw",seekbar_screww);
+                    intent.putExtra("pumps",seekbar_pump);
+                    intent.putExtra("right_engine",seekbar_engine);
+                    intent.putExtra("engine_head",seekbar_head);
+                    intent.putExtra("assembly",assembly);
+                    intent.putExtra("console",seekbar_consolee);
+                    intent.putExtra("accessories",seekbar_accessorie);
+                    intent.putExtra("category_post",category);
+                    intent.putExtra("color",strColor);
+                    Log.e("color",""+strColor);
+                    startActivity(intent);
                 }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgLeft_and_right_engine_counter.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputLeft_and_right_engine_counter.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edEngine_head.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgEngine_head.setImageResource(R.drawable.icon_null);
-                    textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgEngine_head.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgEngine_head.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputEngine_head.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edMachine_Assembly.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgMachine_Assembly.setImageResource(R.drawable.icon_null);
-                    textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgMachine_Assembly.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgMachine_Assembly.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputMachine_Assembly.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edConsole.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgConsole.setImageResource(R.drawable.icon_null);
-                    textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgConsole.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgConsole.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputConsole.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edAccessories.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                num_used = s.toString();
-                if (num_used.isEmpty()) {
-                    num_used = "0";
-//                    Log.d("KOKO",num_used);
-                    num_used1 = Integer.parseInt(num_used);
-                    imgAccessories.setImageResource(R.drawable.icon_null);
-                    textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-                else {
-                    num_used1 = Integer.parseInt(num_used);
-                    imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                if (num_used1<=num_use && num_used1> 0) {
-                    textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.dark_gray)));
-                    imgAccessories.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                }
-                else if (num_used1>num_use && num_used1!=0){
-                    imgAccessories.setImageResource(R.drawable.ic_error_black_24dp);
-                    textInputAccessories.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
     }
 
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
-        return Base64.encodeToString(userpass.getBytes(),
-                Base64.NO_WRAP);
+        return Base64.encodeToString(userpass.getBytes(),Base64.NO_WRAP);
     }
 
     private void Variable_Field() {
-        //for condition used
-        relative_used = (RelativeLayout)findViewById(R.id.relative_Used);
-        relative_used.setVisibility(View.GONE);
 
-        //other_dealer
-        txtOther_main = findViewById(R.id.other_main);
-        relative_othermain = (RelativeLayout)findViewById(R.id.relative_other_main);
-
-        icShop_name = (ImageView)findViewById(R.id.img_otherdealer);
-        icShop_name2 = (ImageView)findViewById(R.id.img_otherdealer2);
-        icShop_name3 = (ImageView)findViewById(R.id.img_otherdealer3);
-
-        btnShop_name = (ImageButton)findViewById(R.id.btn_other);
-        btnShop_name2 = (ImageButton)findViewById(R.id.btn_other2);
-
-        linear_shop1 = findViewById(R.id.linear_shop1);
-        linear_shop2 = findViewById(R.id.linear_shop2);
-        linear_shop3 = findViewById(R.id.linear_shop3);
-
-        dealershop1 = findViewById(R.id.dealershop1);
-        dealershop2 = findViewById(R.id.dealershop2);
-        dealershop3 = findViewById(R.id.dealershop3);
-
-        dealer_view1 = findViewById(R.id.dealer_view1);
-        dealer_view2 = findViewById(R.id.dealer_view2);
-        dealer_view3 = findViewById(R.id.dealer_view3);
-//        btnShop_name3 = (ImageButton)findViewById(R.id.btn_other3);
-
-        edShopName = (EditText)findViewById(R.id.et_other);
-        edShopName2 = (EditText)findViewById(R.id.et_other2);
-        edShopName3 = (EditText)findViewById(R.id.et_other3);
-//        delete_dealer2 = (Button)findViewById(R.id.delete_dealer2);
-//        delete_dealer3 = (Button)findViewById(R.id.delete_dealer3);
-
-        inputShop_name = (TextInputLayout)findViewById(R.id.til_other);
-        inputShop_name2 = (TextInputLayout)findViewById(R.id.til_other2);
-        inputShop_name3 = (TextInputLayout)findViewById(R.id.til_other3);
-
-        relatve_discount = (RelativeLayout)findViewById(R.id.relative_discount);
-        //textview ///////
-        tvPostType = (EditText) findViewById(R.id.tvPostType);
+        tvPostType = findViewById(R.id.tvPostType);
         tvCategory = (EditText) findViewById(R.id.tvCategory);
-        tvType_elec= (EditText) findViewById(R.id.tvType_elec);
         tvBrand    = (EditText) findViewById(R.id.tvBrand);
         tvModel    = (EditText) findViewById(R.id.tvModel);
         tvYear     = (EditText) findViewById(R.id.tvYears);
         tvCondition= (EditText) findViewById(R.id.tvCondition);
-        tvColor    = (EditText) findViewById(R.id.tvColor);
-        tvDiscount_type = (EditText) findViewById(R.id.tvDisType);
-        tvAddress  = (SearchView) findViewById(R.id.tvAddress_post);
-        // edit text ////
-//        etTitle           = (EditText)findViewById(R.id.etTitle );
+        tvType_elec = findViewById(R.id.title_cate);
+        tvType_cate = findViewById(R.id.tvType);
+        tv_name = findViewById(R.id.title_name);
+        etName = findViewById(R.id.etName);
+        bt_update = findViewById(R.id.btnupdate);
+        submit_post = (Button) findViewById(R.id.btnSubmitPost);
+        layout_color = findViewById(R.id.add_color);
+        cancel_color = findViewById(R.id.cancel_color);
+
+        etMap = findViewById(R.id.et_map);
+        imageMap = findViewById(R.id.map);
+        etAddress  = (EditText) findViewById(R.id.et_address);
+
         etDescription     = (EditText)findViewById(R.id.etDescription );
         etPrice           = (EditText)findViewById(R.id.etPrice );
         etDiscount_amount = (EditText)findViewById(R.id.etDisAmount );
-        etName            = (EditText)findViewById(R.id.etName );
+        tv_add = findViewById(R.id.tv_add);
+        tv_add1 = findViewById(R.id.tv_add1);
+        tv_cancel = findViewById(R.id.tv_cancel);
+        layout_phone1 = findViewById(R.id.layout_phone1);
+        layout_phone2 = findViewById(R.id.layout_phone2);
         etPhone1          = (EditText)findViewById(R.id.etphone1 );
         etPhone2          = (EditText)findViewById(R.id.etphone2);
         etPhone3          = (EditText)findViewById(R.id.etphone3);
         etEmail           = (EditText)findViewById(R.id.etEmail );
-        btnImagePhone1    = (ImageButton)findViewById(R.id.btnPhone1_post);
-        btnImagePhone2    = (ImageButton)findViewById(R.id.btnPhone2_post);
+
         btremove_pic1    = (ImageButton)findViewById(R.id.remove_pic1);
         btremove_pic2    = (ImageButton)findViewById(R.id.remove_pic2);
         btremove_pic3    = (ImageButton)findViewById(R.id.remove_pic3);
         btremove_pic4    = (ImageButton)findViewById(R.id.remove_pic4);
         btremove_pic5    = (ImageButton)findViewById(R.id.remove_pic5);
         btremove_pic6    = (ImageButton)findViewById(R.id.remove_pic6);
-        //edtext
-        edwhole_int = (EditText)findViewById(R.id.edwhole_int);
-        edfront_and_rear_wheel_sets = (EditText)findViewById(R.id.edfront_and_rear_wheel_sets);
-        edThe_whole_screw = (EditText)findViewById(R.id.edThe_whole_screw);
-        edFront_and_rear_pumps = (EditText)findViewById(R.id.edFront_and_rear_pumps);
-        edLeft_and_right_engine_counter = (EditText)findViewById(R.id.edLeft_and_right_engine_counter);
-        edEngine_head = (EditText)findViewById(R.id.edEngine_head);
-        edMachine_Assembly = (EditText)findViewById(R.id.edMachine_Assembly);
-        edConsole = (EditText)findViewById(R.id.edConsole);
-        edAccessories = (EditText)findViewById(R.id.edAccessories);
 
-        //// icon  ////////
-//        icTitile     = (ImageView) findViewById(R.id.imgTitle);
-        icPostType   = (ImageView) findViewById(R.id.imgPostType);
-        icCategory   = (ImageView) findViewById(R.id. imgCategory);
-        icType_elec  = (ImageView) findViewById(R.id.imgType_elec );
-        icBrand      = (ImageView) findViewById(R.id. imgBrand);
-        icModel      = (ImageView) findViewById(R.id. imgModel);
-        icYears      = (ImageView) findViewById(R.id. imgYear);
-        icCondition  = (ImageView) findViewById(R.id. imgCondition);
-        icColor      = (ImageView) findViewById(R.id. imgColor);
-        icDescription= (ImageView) findViewById(R.id. imgDescription);
-        icAddress    = (ImageView) findViewById(R.id.imgAddress_post);
-        icPrice      = (ImageView) findViewById(R.id. imgPrice);
-        icName       = (ImageView) findViewById(R.id. imgName);
-        icEmail      = (ImageView) findViewById(R.id. imgEmail);
-        icPhone1     = (ImageView) findViewById(R.id. imgPhone1);
-        icPhone2     = (ImageView) findViewById(R.id. imgPhone2);
-        icPhone3     = (ImageView) findViewById(R.id. imgPhone3);
-        icDiscount_amount = (ImageView) findViewById(R.id. imgDisAmount);
-        icDiscount_type   = (ImageView) findViewById(R.id.imgDisType );
         imageView1 =(ImageView) findViewById(R.id.Picture1);
         imageView2 =(ImageView) findViewById(R.id.Picture2);
         imageView3 =(ImageView) findViewById(R.id.Picture3);
@@ -3672,616 +2555,58 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
         imageView5 =(ImageView) findViewById(R.id.Picture5);
         imageView6 =(ImageView) findViewById(R.id.Picture6);
 
-        imgwhole_int = (ImageView)findViewById(R.id.imgwhole_int);
-        imgfront_and_rear_wheel_sets = (ImageView)findViewById(R.id.imgfront_and_rear_wheel_sets);
-        imgThe_whole_screw = (ImageView)findViewById(R.id.imgThe_whole_screw);
-        imgFront_and_rear_pumps = (ImageView)findViewById(R.id.imgFront_and_rear_pumps);
-        imgLeft_and_right_engine_counter = (ImageView)findViewById(R.id.imgLeft_and_right_engine_counter);
-        imgEngine_head = (ImageView)findViewById(R.id.imgEngine_head);
-        imgMachine_Assembly = (ImageView)findViewById(R.id.imgMachine_Assembly);
-        imgConsole = (ImageView)findViewById(R.id.imgConsole);
-        imgAccessories = (ImageView)findViewById(R.id.imgAccessories);
+        seekbar_whole = findViewById(R.id.seekbar_whole);
+        seekbar_pri_per = findViewById(R.id.seekbar_pri_per);
+        seekbar_rear = findViewById(R.id.seekbar_rear);
+        seekbar_screw = findViewById(R.id.seekbar_screw);
+        seekbar_rigt_engine = findViewById(R.id.seekbar_right_engine);
+        seekbar_pumps = findViewById(R.id.seekbar_pumps);
+        seekbar_assmebly = findViewById(R.id.seekbar_assembly);
+        seekbar_accessories = findViewById(R.id.seekbar_accessories);
+        seekbar_console = findViewById(R.id.seekbar_console);
+        seekbar_engine_head = findViewById(R.id.seekbar_engine_head);
+
+        imgAdd_color = findViewById(R.id.add_more_color);
 
-        //input layout
-        textInputWholeint = (TextInputLayout)findViewById(R.id.inputwhole_int);
-        textInputfront_and_rear_wheel_sets = (TextInputLayout)findViewById(R.id.inputfront_and_rear_wheel_sets);
-        textInputThe_whole_screw=(TextInputLayout)findViewById(R.id.inputThe_whole_screw);
-        textInputFront_and_rear_pumps = (TextInputLayout)findViewById(R.id.inputFront_and_rear_pumps);
-        textInputLeft_and_right_engine_counter = (TextInputLayout)findViewById(R.id.inputLeft_and_right_engine_counter);
-        textInputEngine_head=(TextInputLayout)findViewById(R.id.inputEngine_head);
-        textInputMachine_Assembly = (TextInputLayout)findViewById(R.id.inputMachine_Assembly);
-        textInputConsole=(TextInputLayout)findViewById(R.id.inputConsole);
-        textInputAccessories=(TextInputLayout)findViewById(R.id.inputAccessories);
-
-//        input_title = (TextInputLayout)findViewById(R.id.tilTitle);
-        input_price = (TextInputLayout)findViewById(R.id.tilPrice);
-        input_des   = (TextInputLayout)findViewById(R.id.tilDescription);
-        input_dis   = (TextInputLayout)findViewById(R.id.tilDisAmout);
-        input_name  = (TextInputLayout)findViewById(R.id.tilName);
-        input_phone = (TextInputLayout)findViewById(R.id.tilPhone1);
-        input_email = (TextInputLayout)findViewById(R.id.tilEmail);
-        tilPhone2   = (TextInputLayout)findViewById(R.id.tilPhone2);
-        tilphone3   = (TextInputLayout)findViewById(R.id.tilPhone3);
-
-    }
-
-    private void TextChange(){
-//        etTitle.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (s.length() == 0) {
-//                    icTitile.setImageResource(R.drawable.icon_null);
-//                } else if (s.length() < 2) {
-//                    icTitile.setImageResource(R.drawable.ic_error_black_24dp);
-//                } else icTitile.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                input_title.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-//                input_title.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-
-        tvPostType.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icPostType.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icPostType.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icPostType.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        tvCategory.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icCategory.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icCategory.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icCategory.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        tvType_elec.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icType_elec.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icType_elec.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icType_elec.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        tvBrand.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icBrand.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 2) {
-                    icBrand.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icBrand.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        tvModel.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icModel.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 2) {
-                    icModel.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icModel.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        tvYear.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icYears.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icYears.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icYears.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        tvCondition.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icCondition.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icCondition.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icCondition.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        tvColor.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icColor.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icColor.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icColor.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        etPrice.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icPrice.setImageResource(R.drawable.icon_null);
-                } else if (s.length() > 0) {
-                    icPrice.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                    input_price.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                    input_price.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        etDescription.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icDescription.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icDescription.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icDescription.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                input_des.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                input_des.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        tvDiscount_type.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icDiscount_type.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icDiscount_type.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icDiscount_type.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        etDiscount_amount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icDiscount_amount.setImageResource(R.drawable.icon_null);
-                } else if (s.length() >0) {
-                    icDiscount_amount.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                    input_dis.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                    input_dis.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edShopName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icShop_name.setImageResource(R.drawable.icon_null);
-                } else icShop_name.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                inputShop_name.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                inputShop_name.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edShopName2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icShop_name2.setImageResource(R.drawable.icon_null);
-                } else icShop_name2.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                inputShop_name2.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                inputShop_name2.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edShopName3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icShop_name3.setImageResource(R.drawable.icon_null);
-                } else icShop_name3.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                inputShop_name3.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                inputShop_name3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        etName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icName.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icName.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icName.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                input_name.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                input_name.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        etEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icEmail.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 3) {
-                    icEmail.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icEmail.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                input_email.setErrorTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-                input_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.gray_active_icon)));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        etPhone1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icPhone1.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 9) {
-                    icPhone1.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icPhone1.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        etPhone2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icPhone2.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 9) {
-                    icPhone2.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icPhone2.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        etPhone3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    icPhone3.setImageResource(R.drawable.icon_null);
-                } else if (s.length() < 9) {
-                    icPhone3.setImageResource(R.drawable.ic_error_black_24dp);
-                } else icPhone3.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        userShops=new ArrayList<>();
-//        for_otherdealer();
-    } // text change
-
-    private void add_Phone(){
-        btnImagePhone1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                icPhone2.setVisibility(View.VISIBLE);
-                tilPhone2.setVisibility(View.VISIBLE);
-                btnImagePhone2.setVisibility(View.VISIBLE);
-                btnImagePhone1.setVisibility(View.GONE);
-            }
-        });
-
-        btnImagePhone2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                icPhone3.setVisibility(View.VISIBLE);
-                tilphone3.setVisibility(View.VISIBLE);
-                btnImagePhone2.setVisibility(View.GONE);
-            }
-        });
     }
 
     private void selectImage() {
-        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = preferences.getString("My_Lang", "");
-        final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};
-        final CharSequence[] itemkh = {"ថតរូប", "វិចិត្រសាល","បោះបង់"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(Camera.this);
-        if (language.equals("km")){
-            builder.setItems(itemkh, (dialog, item) -> {
-                if (itemkh[item].equals("ថតរូប")) {
-                    requestStoragePermission(true);
-                } else if (itemkh[item].equals("វិចិត្រសាល")) {
-                    requestStoragePermission(false);
-                } else if (itemkh[item].equals("បោះបង់")) {
-                    dialog.dismiss();
-                }
-            });
-        }else if (language.equals("en")){
-            builder.setItems(items, (dialog, item) -> {
-                if (items[item].equals("Take Photo")) {
-                    requestStoragePermission(true);
-                } else if (items[item].equals("Choose from Library")) {
-                    requestStoragePermission(false);
-                } else if (items[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
-            });
-        }
-        builder.create().show();
+        BottomSheetDialog bottomSheet = new BottomSheetDialog(Camera.this);
+        View sheetview = getLayoutInflater().inflate(R.layout.choose_image,null,false);
+        bottomSheet.setContentView(sheetview);
+        bottomSheet.show();
+        TextView tv_camera = sheetview.findViewById(R.id.tv_camera);
+        TextView tv_gallery = sheetview.findViewById(R.id.tv_gallery);
+        Button bt_cancel = sheetview.findViewById(R.id.btn_cancel);
+        TextView tv_clear = sheetview.findViewById(R.id.bt_clear);
+        tv_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestStoragePermission(true);
+                bottomSheet.dismiss();
+            }
+        });
+        tv_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestStoragePermission(false);
+                bottomSheet.dismiss();
+            }
+        });
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheet.dismiss();
+            }
+        });
+        tv_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheet.dismiss();
+            }
+        });
+
     }
-
-    private void setDealerShop(List<Integer> list){
-        Service api = Client.getClient().create(Service.class);
-        for (int i=0;i<list.size();i++){
-            retrofit2.Call<ShopViewModel> modelCall = api.getDealerShop(list.get(i));
-            if (i==0) {
-//                dealer_view1.setVisibility(View.VISIBLE);
-//                linear_shop1.setVisibility(View.VISIBLE);
-                txtOther_main.setVisibility(View.VISIBLE);
-                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                        if (!response.isSuccessful()){
-                            Log.d("TAG","55"+response.code()+": "+response.errorBody());
-                        }
-                        //dealershop1.setText(response.body().getShop_name());
-                        edShopName.setText(response.body().getShop_name());
-                        mDealerShopId1=response.body().getId();
-                        icShop_name.setVisibility(View.VISIBLE);
-                        inputShop_name.setVisibility(View.VISIBLE);
-
-                        if(list.size()==1)
-                            btnShop_name.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-
-                    }
-                });
-            }
-            else if (i==1) {
-//                dealer_view2.setVisibility(View.VISIBLE);
-//                linear_shop2.setVisibility(View.VISIBLE);
-                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                        if (!response.isSuccessful()){
-                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
-                        }
-                        //dealershop2.setText(response.body().getShop_name());
-                        inputShop_name2.setVisibility(View.VISIBLE);
-                        icShop_name2.setVisibility(View.VISIBLE);
-                        mDealerShopId2=response.body().getId();
-                        edShopName2.setText(response.body().getShop_name());
-                        if(list.size()==2)
-                            btnShop_name2.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-
-                    }
-                });
-            }
-            else if (i==2) {
-//                dealer_view3.setVisibility(View.VISIBLE);
-//                linear_shop3.setVisibility(View.VISIBLE);
-                modelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                        if (!response.isSuccessful()){
-                            Log.d("4444444444","55"+response.code()+": "+response.errorBody());
-                        }
-                        //dealershop3.setText(response.body().getShop_name());
-                        inputShop_name3.setVisibility(View.VISIBLE);
-                        icShop_name3.setVisibility(View.VISIBLE);
-                        mDealerShopId3=response.body().getId();
-                        edShopName3.setText(response.body().getShop_name());
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-
-                    }
-                });
-            }
-        }
-    }
-
     /**
      * Requesting multiple permissions (storage and camera) at once
      * This uses multiple permission model from dexter
@@ -4656,228 +2981,281 @@ public class Camera extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
-
-    private void Seach_Address(){
-        String loca = tvAddress.getQuery().toString();
-        List<Address> address_Search = null;
-        if (loca!=null || !loca.equals("")){
-            Geocoder geocoder = new Geocoder(getApplicationContext());
-            try{
-                address_Search = geocoder.getFromLocationName(loca,1);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-
-            try{
-                LatLng ll = new LatLng(address_Search.get(0).getLatitude(),address_Search.get(0).getLongitude());
-                mMap.addMarker(new MarkerOptions().position(ll));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(ll));
-                List<Address> address_S = address_Search;
-                latitude = address_S.get(0).getLatitude();
-                longtitude = address_S.get(0).getLongitude();
-                latlng = latitude+","+longtitude;
-                Log.d("LATITUDE and LONGTITUDE",latlng);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void get_location(boolean isCurrent) {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            getLocation(isCurrent);
-        }
-    }
-
-    private void getLocation_edit(double latitude, double longtitude){
-        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-        }else {
-            try{
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                if (location!=null){
-
-                    try{
-                        Geocoder geocoder = new Geocoder(this);
-                        List<Address> addressList = null;
-                        addressList = geocoder.getFromLocation(latitude, longtitude,1);
-//                    String country = addressList.get(0).getCountryName();
-//                    String city    = addressList.get(0).getLocality();
-                        String road = addressList.get(0).getAddressLine(0);
-
-                        tvAddress.setQuery( road , true );
-                    }catch (IOException e){
-                        e.printStackTrace();
-                    }
-
-
-                }else {
-                    Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void getLocation(boolean isCurrent) {
-
-        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-        }else {
-            try{
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                if (location!=null){
-                    if(isCurrent) {
-                        latitude = location.getLatitude();
-                        longtitude = location.getLongitude();
-                    }
-                    latlng = latitude+","+longtitude;
-                    try{
-                        Geocoder geocoder = new Geocoder(this);
-                        List<Address> addressList = null;
-                        addressList = geocoder.getFromLocation(latitude,longtitude,1);
-
-                        String road = addressList.get(0).getAddressLine(0);
-
-                        tvAddress.setQuery( road , false );
-                    }catch (IOException e){
-                        e.printStackTrace();
-                    }
-
-
-                }else {
-//                    Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }  //
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
-        mMap = googleMap;
-        LatLng current_location = new LatLng(latitude, longtitude);
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 2000, null);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(current_location)
-                .zoom(14)
-                .bearing(90)
-                .tilt(30)
-                .build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longtitude)));
-
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+    private void mSeekbar(){
+        seekbar_pri_per.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
-                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                latitude = latLng.latitude;
-                longtitude = latLng.longitude;
-
-                mMap.clear();
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.addMarker(markerOptions);
-
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(getApplicationContext(),
-                                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
-                    ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-                    return;
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_price = progress;
+                try {
+                    double str_dis = 0, price1 = 0,result = 0;
+                    String cost = "";
+                    cost = etPrice.getText().toString();
+                    price1 = Double.valueOf(cost);
+                    str_dis = (price1 * seekbar_price) / 100;
+                    result = price1-str_dis;
+                    etDiscount_amount.setText(String.valueOf(result));
+                }catch (NumberFormatException e){
+                    e.printStackTrace();
                 }
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                if (location!=null) {
-                    try {
-                        Geocoder geocoder = new Geocoder(getApplicationContext());
-                        List<Address> addressList = null;
-                        addressList = geocoder.getFromLocation(latitude, longtitude, 1);
-                        String country = addressList.get(0).getCountryName();
-                        String city = addressList.get(0).getLocality();
-                        String road = addressList.get(0).getAddressLine(0);
+            }
 
-                        tvAddress.setQuery(road,false);
-                        latlng = latitude+","+longtitude;
-                        Log.d("LATITUDE",latitude+","+longtitude);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Unble to Trace your location", Toast.LENGTH_SHORT).show();
-                }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
+            }
 
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_price, Toast.LENGTH_SHORT).show();
             }
         });
+        seekbar_whole.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                whole_ink = progress;
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + whole_ink, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_rear.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_rearr = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_rear, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_screw.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_screww = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_screw, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_rigt_engine.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_engine = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_engine, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_engine_head.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_head = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_head, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_pumps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_pump = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_pumps, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_console.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_consolee = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_console, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_accessories.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbar_accessorie = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + seekbar_accessories, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekbar_assmebly.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                assembly = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(Camera.this, "Seek bar progress is :" + assembly, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void putPostShop(PostDealerShopViewModel pshop,String encode){
-        String usershopurl= ConsumeAPI.BASE_URL+"api/v1/postdealershop/"+pshop.getId()+"/";
-        OkHttpClient client1=new OkHttpClient();
-        JSONObject post1=new JSONObject();
-        try{
-            post1.put("post",pshop.getPost());
-            post1.put("shop",pshop.getShop());
-            post1.put("record_status",2);
+    public void showBottomCondition(View view) {
+        BottomChooseCondition addPhotoBottomDialogFragment = BottomChooseCondition.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseCondition.TAG);
+    }
+    public void showBottomYear(View view) {
+        BottomChooseYear addPhotoBottomDialogFragment = BottomChooseYear.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseYear.TAG);
+    }
+    public void showBottomBrand(View view) {
+        BottomChooseBrand addPhotoBottomDialogFragment = BottomChooseBrand.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseBrand.TAG);
+    }
+    public void showBottomModel(View view) {
+        BottomChooseModel addPhotoBottomDialogFragment = BottomChooseModel.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseModel.TAG);
+    }
+    public void showBottomCategory(View view) {
+        BottomChooseCategory addPhotoBottomDialogFragment = BottomChooseCategory.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseCategory.TAG);
+    }
+    public void showBottomType(View view) {
+        BottomChooseType addPhotoBottomDialogFragment = BottomChooseType.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseType.TAG);
+    }
+    public void showBottomTypeCate(View view) {
+        BottomChooseTypeCate addPhotoBottomDialogFragment = BottomChooseTypeCate.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseTypeCate.TAG);
+    }
 
-            RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
-            //String auth = "Basic " + encode;
-            Request request1 = new Request.Builder()
-                    .url(usershopurl)
-                    .put(body1)
-                    .header("Accept","application/json")
-                    .header("Content-Type","application/json")
-                    .header("Authorization",encode)
-                    .build();
-            client1.newCall(request1).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    String message = e.getMessage().toString();
-                    Log.e("failure Response",message);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+    @Override
+    public void onItemClick(String item) {
+        tvCondition.setText(item);
+    }
 
-                        }
-                    });
-                    mProgress.dismiss();
-                }
+    @Override
+    public void onClickItem(String item) {
+        tvYear.setText(item);
+    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String message = response.body().string();
-                    Log.e(TAG,"User shop success"+ message);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgress.dismiss();
+    @Override
+    public void AddIDyear(int id) {
+        year = id;
+        Log.e("year",""+year);
+    }
 
-                        }
-                    });
-//                    finish();
-                }
-            });
-        }catch (JSONException je){
-            je.printStackTrace();
+    @Override
+    public void onItem(String item) {
+        tvBrand.setText(item);
+    }
+
+    @Override
+    public void onItemTypeCate(String item) {
+        tvType_cate.setText(item);
+    }
+
+    @Override
+    public void AddIdTypeCate(int id) {
+        type = id;
+        Log.e("type",""+type);
+    }
+
+    @Override
+    public void AddID(int id) {
+       brand = id;
+       Log.e("brand",""+brand);
+    }
+
+    @Override
+    public void onClickItemModel(String item) {
+        tvModel.setText(item);
+    }
+
+    @Override
+    public void AddModelID(int id) {
+        model = id;
+        Log.e("model",""+model);
+    }
+
+    @Override
+    public void onCLickItemType(String item) {
+        tvCategory.setText(item);
+    }
+
+    @Override
+    public void AddIdCategory(int id) {
+        category = id;
+        if (id == 1){
+            tvType_elec.setVisibility(View.VISIBLE);
+            tvType_cate.setVisibility(View.VISIBLE);
+        }else {
+            tvType_elec.setVisibility(View.GONE);
+            tvType_cate.setVisibility(View.GONE);
         }
+        Log.e("category",""+category);
     }
 
+    @Override
+    public void onItemType(String item) {
+        tvPostType.setText(item);
+    }
 }
 
 

@@ -275,7 +275,7 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(SearchTypeActivity.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(categoryKHListItems, -1, new DialogInterface.OnClickListener() {
                         @Override
@@ -313,7 +313,7 @@ public class SearchTypeActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(SearchTypeActivity.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 if (language.equals("km")){
                     mBuilder.setSingleChoiceItems(brandKHListitems, -1, new DialogInterface.OnClickListener() {
                         @Override

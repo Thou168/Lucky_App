@@ -192,7 +192,7 @@
     <string name="motor">Motorbike</string>
     <string name="electronic">Electronic</string>
     <string name="vehicle">Vehicle</string>
-    <string name="sell">Sell</string>
+    <string name="sell">sell</string>
 
     //Home
     <string name="buy">Buy</string>
@@ -573,6 +573,7 @@
     <string name="loan_message">Your loan request is Under checking</string>
     <string name="loan_fail_message">Loan request has been error while submitting.</string>
     <string name="missing_image">Please select images</string>
+    <string name="missing_color">Please select color</string>
     <string name="post_message">Your post is waiting for approval.</string>
     <string name="title_edit_loan">Edit your loan</string>
     <string name="loan_edit_m">Are you sure with your edit?</string>
@@ -684,8 +685,8 @@
     <string name="Post_Renewal">Post Renewal</string>
     //tab account
     <string name="renew_post">Do you want to renew this post?</string>
-    <string name="newl">New</string>
-    <string name="used">Used</string>
+    <string name="newl">new</string>
+    <string name="used">used</string>
     <string name="blue">Blue</string>
     <string name="black">Black</string>
     <string name="silver">Silver</string>
@@ -699,20 +700,20 @@
     <string name="high_to_low">Price: High to Low</string>
 
     //for condition used
-    <string name="moto_eta">I. Motorcycles (Eta)</string>
+    <string name="moto_eta">Motorcycles (Eta)</string>
     <string name="whole_int">Whole ink</string>
     <string name="front_and_rear_wheel_sets">Front and rear wheel sets</string>
     <string name="The_whole_screw">The whole screw</string>
     <string name="Front_and_rear_pumps">Front and rear pumps</string>
 
-    <string name="machine_section">II. Machine section</string>
+    <string name="machine_section">Machine section</string>
     <string name="Left_and_right_engine_counter">Left and right engine counter</string>
     <string name="Engine_head">Engine head</string>
     <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
     <string name="Assembly">Machine Assembly</string>
     <string name="Console">Console</string>
 
-    <string name="other_sections">III. Other sections</string>
+    <string name="other_sections">Other sections</string>
 
     <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
     <string name="accessories">Accessories</string>
@@ -724,8 +725,8 @@
     <string name="purple">Purple</string>
     <string name="orange">Orange</string>
     <string name="green">Green</string>
-    <string name="sel">Sell</string>
-    <string name="ren">Rent</string>
+    <string name="sel">sell</string>
+    <string name="ren">rent</string>
     <string name="bu">Buy</string>
     <string name="amount">Amount</string>
     <string name="percent">Percent</string>

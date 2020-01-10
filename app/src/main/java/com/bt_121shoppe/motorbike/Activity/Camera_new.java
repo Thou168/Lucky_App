@@ -641,7 +641,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -667,7 +667,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -717,7 +717,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -755,7 +755,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -787,7 +787,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
             public void onClick(View view) {
                 //Log.e("TAG",shopListItems.toString());
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Camera_new.this);
-                //mBuilder.setTitle(getString(R.string.choose_year));
+                //mBuilder.setTitle(getString(R.string.choose_condition));
                 mBuilder.setSingleChoiceItems(shopListItems, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -3603,14 +3603,14 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
 
         relatve_discount = (RelativeLayout)findViewById(R.id.relative_discount);
         //textview ///////
-        tvPostType = (EditText) findViewById(R.id.tvPostType);
+//        tvPostType = (EditText) findViewById(R.id.tvPostType);
         tvCategory = (EditText) findViewById(R.id.tvCategory);
-        tvType_elec= (EditText) findViewById(R.id.tvType_elec);
+//        tvType_elec= (EditText) findViewById(R.id.tvType_elec);
         tvBrand    = (EditText) findViewById(R.id.tvBrand);
         tvModel    = (EditText) findViewById(R.id.tvModel);
         tvYear     = (EditText) findViewById(R.id.tvYears);
         tvCondition= (EditText) findViewById(R.id.tvCondition);
-        tvColor    = (EditText) findViewById(R.id.tvColor);
+//        tvColor    = (EditText) findViewById(R.id.tvColor);
         tvDiscount_type = (EditText) findViewById(R.id.tvDisType);
         tvAddress  = (SearchView) findViewById(R.id.tvAddress_post);
         // edit text ////
@@ -3644,17 +3644,17 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
 
         //// icon  ////////
 //        icTitile     = (ImageView) findViewById(R.id.imgTitle);
-        icPostType   = (ImageView) findViewById(R.id.imgPostType);
-        icCategory   = (ImageView) findViewById(R.id. imgCategory);
-        icType_elec  = (ImageView) findViewById(R.id.imgType_elec );
-        icBrand      = (ImageView) findViewById(R.id. imgBrand);
-        icModel      = (ImageView) findViewById(R.id. imgModel);
-        icYears      = (ImageView) findViewById(R.id. imgYear);
-        icCondition  = (ImageView) findViewById(R.id. imgCondition);
-        icColor      = (ImageView) findViewById(R.id. imgColor);
-        icDescription= (ImageView) findViewById(R.id. imgDescription);
+//        icPostType   = (ImageView) findViewById(R.id.imgPostType);
+//        icCategory   = (ImageView) findViewById(R.id. imgCategory);
+//        icType_elec  = (ImageView) findViewById(R.id.imgType_elec );
+//        icBrand      = (ImageView) findViewById(R.id. imgBrand);
+//        icModel      = (ImageView) findViewById(R.id. imgModel);
+//        icYears      = (ImageView) findViewById(R.id. imgYear);
+//        icCondition  = (ImageView) findViewById(R.id. imgCondition);
+//        icColor      = (ImageView) findViewById(R.id. imgColor);
+//        icDescription= (ImageView) findViewById(R.id. imgDescription);
         icAddress    = (ImageView) findViewById(R.id.imgAddress_post);
-        icPrice      = (ImageView) findViewById(R.id. imgPrice);
+//        icPrice      = (ImageView) findViewById(R.id. imgPrice);
         icName       = (ImageView) findViewById(R.id. imgName);
         icEmail      = (ImageView) findViewById(R.id. imgEmail);
         icPhone1     = (ImageView) findViewById(R.id. imgPhone1);
@@ -3692,7 +3692,7 @@ public class Camera_new extends AppCompatActivity implements OnMapReadyCallback 
 
 //        input_title = (TextInputLayout)findViewById(R.id.tilTitle);
         input_price = (TextInputLayout)findViewById(R.id.tilPrice);
-        input_des   = (TextInputLayout)findViewById(R.id.tilDescription);
+//        input_des   = (TextInputLayout)findViewById(R.id.tilDescription);
         input_dis   = (TextInputLayout)findViewById(R.id.tilDisAmout);
         input_name  = (TextInputLayout)findViewById(R.id.tilName);
         input_phone = (TextInputLayout)findViewById(R.id.tilPhone1);

@@ -389,7 +389,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v) {
 //                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditAccountActivity.this);
-//                mBuilder.setTitle(getString(R.string.choose_year));
+//                mBuilder.setTitle(getString(R.string.choose_condition));
 //                mBuilder.setSingleChoiceItems(yearListItems, -1, new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialogInterface, int i) {
