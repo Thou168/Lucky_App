@@ -48,6 +48,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bt_121shoppe.motorbike.Activity.Camera_new;
+import com.bt_121shoppe.motorbike.Activity.CheckNetworkConnectionHelper;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
@@ -63,6 +64,7 @@ import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
 import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
+import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
 import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bumptech.glide.Glide;
@@ -139,6 +141,9 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //connecttion on and off
+        onConnectionChange();
+
         locale();
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -479,6 +484,48 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
         mSwipeRefreshLayout.setRefreshing(true);
         dorefresh();
+    }
+
+    //connection on and off
+    private void onConnectionChange(){
+        // Inflate the layout for this fragment
+        CheckNetworkConnectionHelper
+                .getInstance()
+                .registerNetworkChangeListener(new OnNetworkConnectionChangeListener() {
+                    @Override
+                    public void onDisconnected() {
+                        //Do your task on Network Disconnected!
+                        Log.e(TAG, "onDisconnected");
+//                        rl_besdeal.setVisibility(View.GONE);
+//                        rl_newpost.setVisibility(View.GONE);
+//                        ct_layout.setVisibility(View.GONE);
+//                        mBestDealText.setVisibility(View.GONE);
+//                        connection.setVisibility(View.VISIBLE);
+//                        connection.setText("Network Disconnected!");
+//                        connection.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                    }
+
+                    @Override
+                    public void onConnected() {
+                        //Do your task on Network Connected!
+                        Log.e(TAG, "onConnected");
+//                        mSwipeRefreshLayout.setRefreshing(true);
+//                        dorefresh();
+//                        rl_besdeal.setVisibility(View.VISIBLE);
+//                        rl_newpost.setVisibility(View.VISIBLE);
+//                        ct_layout.setVisibility(View.VISIBLE);
+//                        mBestDealText.setVisibility(View.VISIBLE);
+//                        connection.setVisibility(View.GONE);
+//                        connection.setText("Network Connected!");
+//                        connection.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+
+                    }
+
+                    @Override
+                    public Context getContext() {
+                        return Home.this;
+                    }
+                });
     }
 
     private void dorefresh(){

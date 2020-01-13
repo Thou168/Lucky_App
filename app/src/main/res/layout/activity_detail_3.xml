@@ -94,6 +94,8 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:layout_marginStart="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_4"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimary"
                     android:layout_below="@+id/tvSb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -166,6 +168,8 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:layout_marginStart="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_4"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimary"
                     android:layout_below="@+id/tvSb_Rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

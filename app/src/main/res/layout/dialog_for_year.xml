@@ -2,264 +2,273 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/title_select"
-        android:text="@string/select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/black"
-        android:layout_marginStart="4dp"
-        android:textSize="@dimen/dp_24"/>
-    <ImageView
-        android:id="@+id/icon_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_close"
-        android:layout_alignParentEnd="true"
-        android:textSize="15dp"
-        android:padding="10dp"
-        />
-    <androidx.core.widget.NestedScrollView
-        android:layout_below="@+id/title_select"
+    <RelativeLayout
+        android:id="@+id/rela"
+        android:background="@color/light_gray_inactive_icon"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nested_scroll_view">
-        <RelativeLayout
-            android:layout_marginTop="@dimen/dp_8"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title_select"
+            android:text="@string/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="4dp"
+            android:textSize="@dimen/dp_24"/>
+        <ImageView
+            android:id="@+id/icon_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            android:layout_alignParentEnd="true"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/scroll_layout"
+        android:layout_below="@+id/rela"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
+            android:layout_height="wrap_content"
+            android:id="@+id/nested_scroll_view">
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:text="@string/all"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content">
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textStart"
+                        android:layout_gravity="start"
+                        android:text="@string/all"
+                        android:textSize="14sp" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year1"
-                android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year1"
+                        android:textSize="14sp" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year2"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year3"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year4"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year5"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year6"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year7"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year8"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year9"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year10"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year11"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year12"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year13"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year14"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year15"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year16"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year17"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year18"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year19"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year20"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year21"
-                android:textSize="14sp" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layoutDirection="rtl"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:text="@string/year22"
-                android:textSize="14sp" />
-        </RadioGroup>
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_below="@+id/radio_group"
-            android:background="@drawable/shap_ratangle1"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/dp_16"
-            android:text="@string/ok"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_margin="4dp"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:layout_height="wrap_content"/>
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
-
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year2"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year3"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year4"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year5"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year6"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year7"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year8"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year9"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year10"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year11"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year12"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year13"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year14"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year15"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year16"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year17"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year18"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year19"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year20"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year21"
+                        android:textSize="14sp" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
+                        android:text="@string/year22"
+                        android:textSize="14sp" />
+                </RadioGroup>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_below="@+id/scroll_layout"
+        android:background="@drawable/shap_ratangle1"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

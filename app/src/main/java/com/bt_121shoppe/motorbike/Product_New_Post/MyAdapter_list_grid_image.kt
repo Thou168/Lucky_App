@@ -131,7 +131,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //            } else {
 //                title.setText(strPostTitle)
 //            }
-
             //location_duration.text=item.location_duration
             show_view.text=" "+item.count_view
 

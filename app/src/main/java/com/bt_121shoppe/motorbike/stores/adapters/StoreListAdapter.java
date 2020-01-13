@@ -80,13 +80,18 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             txtShopLocation.setText(mShop.getShop_address());
             Glide.with(itemView.getContext()).load(mShop.getShop_image()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgShopProfile);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(itemView.getContext(), StoreDetailActivity.class);
                     intent.putExtra("id",mShop.getId());
                     intent.putExtra("shopinfo",mShop.getShop_name());
+                    intent.putExtra("shop_name",String.valueOf(mShop.getShop_name()));
+                    intent.putExtra("shop_location",String.valueOf(mShop.getShop_address()));
+                    intent.putExtra("shop_image", String.valueOf((mShop.getShop_image())));
                     itemView.getContext().startActivity(intent);
+
                 }
             });
         }

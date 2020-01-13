@@ -830,6 +830,33 @@
         <item>Pursat</item>
         <item>Battambong</item>
     </string-array>
+    //province name
+    <string name="phnompenh">Phnom Penh</string>
+    <string name="pursat">Pursat</string>
+    <string name="banteay_meanchey">Banteay Meanchey</string>
+    <string name="kampong_cham">Kampong Cham</string>
+    <string name="kampong_chnang">Kampong Chhnang</string>
+    <string name="kampong_spue">Kampong Spue</string>
+    <string name="kampot">Kampot</string>
+    <string name="kandal">Kandal</string>
+    <string name="Kep">Kep</string>
+    <string name="koh_kong">Koh Kong</string>
+    <string name="kratie">Kratie</string>
+    <string name="mondulkiri">Mondulkiri</string>
+    <string name="oddor_meanchey">Oddor Meanchey</string>
+    <string name="pailin">Pailin</string>
+    <string name="preyveng">Prey Veng</string>
+    <string name="rattanakiri">Rattanakiri</string>
+    <string name="siem_reap">Siem Reap</string>
+    <string name="sihanouk">Sihanouk ville</string>
+    <string name="stung_treng">Stung Treng</string>
+    <string name="svay_reang">Svay Rieng</string>
+    <string name="Takeo">Takeo</string>
+    <string name="kompongthom">Kampong Thom</string>
+    <string name="preah_vihear">Preah Vihear</string>
+    <string name="tbong_khmum">Tbong Khmum</string>
+    <string name="battambang">Battambang</string>
+
     <string-array name="posty_type">
         <item>Sell</item>
         <!--        <item>Buy</item>-->

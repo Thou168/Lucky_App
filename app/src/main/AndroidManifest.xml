@@ -126,6 +126,9 @@
             android:name=".Startup.Filter"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".stores.Filter_shopdetail"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".chats.ChatActivity"
             android:screenOrientation="portrait" />
         <activity

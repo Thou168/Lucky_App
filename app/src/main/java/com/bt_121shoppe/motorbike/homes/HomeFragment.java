@@ -21,12 +21,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -34,6 +36,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bt_121shoppe.motorbike.Activity.CheckNetworkConnectionHelper;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
@@ -45,6 +48,7 @@ import com.bt_121shoppe.motorbike.adapters.PostBestDealAdapterV2;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
+import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -112,11 +116,17 @@ public class HomeFragment extends Fragment {
     private int [] bestm;
     int index = 0;
 
+    TextView connection;
+    RelativeLayout rl_besdeal;
+    RelativeLayout rl_newpost;
+    ConstraintLayout ct_layout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view=inflater.inflate(R.layout.fragment_home_frist, container, false);
+        connection=view.findViewById(R.id.txt_connection);
+        rl_besdeal=view.findViewById(R.id.rl_besdeal);
         mBestDealRecyclerView=view.findViewById(R.id.horizontal);
         mBestDealNoResult=view.findViewById(R.id.text);
         mBestDealProgressbar=view.findViewById(R.id.progress_bar);
@@ -128,6 +138,8 @@ public class HomeFragment extends Fragment {
         mGridView=view.findViewById(R.id.grid);
         mGallaryView=view.findViewById(R.id.btn_image);
         mBestDealText=view.findViewById(R.id.bestDeal);
+        rl_newpost= view.findViewById(R.id.rl_newpost);
+        ct_layout=view.findViewById(R.id.ct_layout);
 
 //        best match
         best_match=view.findViewById(R.id.best_match);
@@ -219,8 +231,6 @@ public class HomeFragment extends Fragment {
                 }
             });
         });
-
-
 
         return view;
     }
@@ -601,7 +611,7 @@ public class HomeFragment extends Fragment {
                             Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getCountView(), s1.getCountView()));
                             break;
                         case 2:
-                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getPostPrice()), Double.valueOf(s1.getPostPrice())));
+                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getPostPrice()), Double.valueOf(s2.getPostPrice())));
                             break;
                         case 3:
                             Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s2.getPostPrice()), Double.valueOf(s1.getPostPrice())));
