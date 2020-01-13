@@ -38,6 +38,7 @@ import okhttp3.Response;
 public class BottomChooseBrand extends BottomSheetDialogFragment implements View.OnClickListener {
 
     public static final String TAG = "ActionBottomDialog";
+    private static final String ARG_NUMBER = "ID";
     private Button bt_ok;
     private TextView bt_clear;
     private ListView ls_brand;
@@ -53,8 +54,12 @@ public class BottomChooseBrand extends BottomSheetDialogFragment implements View
     private List<String> list_brand = new ArrayList<>();
 
 
-    public static BottomChooseBrand newInstance() {
-        return new BottomChooseBrand();
+    public static BottomChooseBrand newInstance(int id) {
+        BottomChooseBrand brand = new BottomChooseBrand();
+        Bundle args = new Bundle();
+        args.putInt(ARG_NUMBER, id);
+        brand.setArguments(args);
+        return brand;
     }
 
     @Nullable @Override
@@ -67,6 +72,10 @@ public class BottomChooseBrand extends BottomSheetDialogFragment implements View
         super.onViewCreated(view, savedInstanceState);
         bt_clear = view.findViewById(R.id.bt_clear);
         ls_brand = view.findViewById(R.id.brand);
+        Bundle args = getArguments();
+        if (args != null) {
+            id_cate =  args.getInt(ARG_NUMBER);
+        }
 
         prefer = getActivity().getSharedPreferences("Register",getActivity().MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -97,6 +106,7 @@ public class BottomChooseBrand extends BottomSheetDialogFragment implements View
                     @Override
                     public void run() {
                         try{
+                            Log.e("ID",""+id_cate);
                             brand=0;
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
@@ -104,7 +114,7 @@ public class BottomChooseBrand extends BottomSheetDialogFragment implements View
                             for(int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int cate = object.getInt("category");
-                                if(id_cate!=cate)
+                                if(id_cate==cate)
                                     count++;
                             }
                             brandIdListItems=new int[count];
@@ -114,7 +124,7 @@ public class BottomChooseBrand extends BottomSheetDialogFragment implements View
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int cate = object.getInt("category");
-                                if (cate!=id_cate){
+                                if (cate==id_cate){
                                     int id = object.getInt("id");
                                     String name = object.getString("brand_name");
                                     String brand =object.getString("brand_name_as_kh");

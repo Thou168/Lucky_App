@@ -491,7 +491,8 @@
     <string name="post_info">Post Infomation</string>
     <string name="post_id">Post ID</string>
     <string name="showid">Show ID</string>
-    <string name="ds_pri_percent">Discount Price(%)</string>
+    <string name="ds_pri_percent">Discount Price</string>
+    <string name="st_ds_pri_percent">Discount Price(0%)</string>
     <string name="ds_pri_amount">Discount Price($)</string>
 
     //post ad
@@ -714,9 +715,21 @@
         <string name="Machine_Assembly">គ្រឿងបង្គុំម៉ាស៊ីន(យ៉ុត អាគុយ ម៉ាញេតូ បេន ភ្លើងស្តុប …)</string>
         <string name="Assembly">គ្រឿងបង្គុំម៉ាស៊ីន</string>
         <string name="Console">កុងទ័រ</string>
+    <string name="st_console">កុងទ័រ(0%)</string>
+    <string name="st_assembly">គ្រឿងបង្គុំម៉ាស៊ីន(0%)</string>
+    <string name="st_engine_head">ក្បាលកន្លាស់ម៉ាស៊ីន(0%)</string>
+    <string name="st_machine_Assembly">គ្រឿងបង្គុំម៉ាស៊ីន(យ៉ុត អាគុយ ម៉ាញេតូ បេន ភ្លើងស្តុប …)(0%)</string>
+    <string name="st_whole_int">ទឹកថ្នាំទាំងមូល(0%)</string>
+    <string name="st_front_and_rear_wheel_sets">សំណុំកង់មុខ និងក្រោយ(0%)</string>
+    <string name="st_The_whole_screw">ខ្ចៅទាំងមូល(0%)</string>
+    <string name="st_Front_and_rear_pumps">បូមខាងមុខ និងខាងក្រោយ(0%)</string>
+
+    <string name="st_Left_and_right_engine_counter">កាទែរម៉ាស៊ីនឆ្វេង និងស្តាំ(0%)</string>
+
 
     <string name="other_sections">III. ផ្នែកផ្សេងៗ</string>
     <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
+    <string name="st_accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)(0%)</string>
     <string name="accessories">គ្រឿង</string>
     <string name="error_number">មិនអាចបញ្ចូលចំនួនលើសពី100បានទេ</string>
     //edit account
@@ -837,4 +850,5 @@
     <string name="invalid_map">Invalid Map</string>
     <string name="invalid_wing_number">Invalid Wing Number</string>
     <string name="invalid_wing_account">Invalid Wing Account</string>
+    <string name="store_list">Sotre Lists</string>
 </resources>

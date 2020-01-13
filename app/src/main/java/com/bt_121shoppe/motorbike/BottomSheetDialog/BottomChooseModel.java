@@ -36,6 +36,7 @@ import okhttp3.Response;
 public class BottomChooseModel extends BottomSheetDialogFragment implements View.OnClickListener {
 
     public static final String TAG = "ActionBottomDialog";
+    private static final String ARG_NUMBER = "ID";
     private Button bt_ok;
     private TextView bt_clear;
     private ListView ls_model;
@@ -48,8 +49,12 @@ public class BottomChooseModel extends BottomSheetDialogFragment implements View
     private ItemClickListener mListener;
     private ArrayAdapter<String> adapter;
 
-    public static BottomChooseModel newInstance() {
-        return new BottomChooseModel();
+    public static BottomChooseModel newInstance(int id) {
+        BottomChooseModel model = new BottomChooseModel();
+        Bundle args = new Bundle();
+        args.putInt(ARG_NUMBER, id);
+        model.setArguments(args);
+        return model;
     }
 
     @Nullable @Override
@@ -62,6 +67,10 @@ public class BottomChooseModel extends BottomSheetDialogFragment implements View
         super.onViewCreated(view, savedInstanceState);
         bt_clear = view.findViewById(R.id.bt_clear);
         ls_model = view.findViewById(R.id.model);
+        Bundle args = getArguments();
+        if (args != null) {
+            id_bran =  args.getInt(ARG_NUMBER);
+        }
 
         prefer = getActivity().getSharedPreferences("Register",getActivity().MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -96,7 +105,7 @@ public class BottomChooseModel extends BottomSheetDialogFragment implements View
                             for(int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int Brand = object.getInt("brand");
-                                if(Brand!=id_bran)
+                                if(Brand==id_bran)
                                     count++;
                             }
                             modelListItems=new String[count];
@@ -106,7 +115,7 @@ public class BottomChooseModel extends BottomSheetDialogFragment implements View
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int id = object.getInt("id");
                                 int Brand = object.getInt("brand");
-                                if (Brand!=id_bran) {
+                                if (Brand==id_bran) {
                                     String name = object.getString("modeling_name");
                                     String model=object.getString("modeling_name_kh");
                                     modelListItemkh[ccount]=model;

@@ -1370,7 +1370,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             pro.put("data_of_birth", editDate.getText().toString());
             pro.put("address",editAddress.getText().toString());
             pro.put("responsible_officer",lat_long);
-            pro.put("gender",editGender.getText().toString());
+            pro.put("gender",editGender.getText().toString().toLowerCase());
             pro.put("telephone",editPhone.getText().toString()+","+editPhone1.getText().toString()+","+editPhone2.getText().toString());
             pro.put("wing_account_number",editWing_number.getText().toString());
             pro.put("wing_account_name",editWing_account.getText().toString());

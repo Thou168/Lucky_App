@@ -192,7 +192,7 @@
     <string name="motor">Motorbike</string>
     <string name="electronic">Electronic</string>
     <string name="vehicle">Vehicle</string>
-    <string name="sell">sell</string>
+    <string name="sell">Sell</string>
 
     //Home
     <string name="buy">Buy</string>
@@ -524,7 +524,8 @@
     <string name="post_info">Post Infomation</string>
     <string name="post_id">Post ID</string>
     <string name="showid">Show ID</string>
-    <string name="ds_pri_percent">Discount Price(%)</string>
+    <string name="ds_pri_percent">Discount Price</string>
+    <string name="st_ds_pri_percent">Discount Price(0%)</string>
     <string name="ds_pri_amount">Discount Price($)</string>
 
     //Camera post
@@ -685,8 +686,8 @@
     <string name="Post_Renewal">Post Renewal</string>
     //tab account
     <string name="renew_post">Do you want to renew this post?</string>
-    <string name="newl">new</string>
-    <string name="used">used</string>
+    <string name="newl">New</string>
+    <string name="used">Used</string>
     <string name="blue">Blue</string>
     <string name="black">Black</string>
     <string name="silver">Silver</string>
@@ -712,10 +713,21 @@
     <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
     <string name="Assembly">Machine Assembly</string>
     <string name="Console">Console</string>
+    <string name="st_console">Console(0%)</string>
+    <string name="st_assembly">Machine Assembly</string>
+    <string name="st_engine_head">Engine head(0%)</string>
+    <string name="st_machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)(0%)</string>
+    <string name="st_whole_int">Whole ink(0%)</string>
+    <string name="st_front_and_rear_wheel_sets">Front and rear wheel sets(0%)</string>
+    <string name="st_The_whole_screw">The whole screw(0%)</string>
+    <string name="st_Front_and_rear_pumps">Front and rear pumps(0%)</string>
+
+    <string name="st_Left_and_right_engine_counter">Left and right engine counter(0%)</string>
 
     <string name="other_sections">Other sections</string>
 
     <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
+    <string name="st_accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)(0%)</string>
     <string name="accessories">Accessories</string>
 
     <string name="error_number">Cannot enter more than 100 entries</string>
@@ -725,8 +737,8 @@
     <string name="purple">Purple</string>
     <string name="orange">Orange</string>
     <string name="green">Green</string>
-    <string name="sel">sell</string>
-    <string name="ren">rent</string>
+    <string name="sel">Sell</string>
+    <string name="ren">Rent</string>
     <string name="bu">Buy</string>
     <string name="amount">Amount</string>
     <string name="percent">Percent</string>
@@ -998,4 +1010,5 @@
     <string name="invalid_map">Invalid Map</string>
     <string name="invalid_wing_number">Invalid Wing Number</string>
     <string name="invalid_wing_account">Invalid Wing Account</string>
+    <string name="store_list">Sotre Lists</string>
 </resources>

@@ -182,6 +182,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity
+            android:name=".stores.Detail_store"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Login_Register.UserAccountActivity"
             android:screenOrientation="portrait" />
         <activity

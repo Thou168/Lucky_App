@@ -3,7 +3,9 @@ package com.bt_121shoppe.motorbike.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -23,6 +25,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 
 import com.bt_121shoppe.motorbike.Login_Register.Register;
+import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
@@ -49,11 +52,12 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     private SupportMapFragment mapFragment;
     private Button back,pin;
     private EditText et_search;
+    private String bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
     private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,image,wing_account,wing_number,register_verify;
     private int user_group,process_type;
     private String name,register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile,post;
     private int category_post, seekbar_price,seekbar_rearr,seekbar_screww, seekbar_engine, seekbar_head,assembly,seekbar_accessorie,seekbar_consolee,seekbar_pump,whole_ink;
-    private String location_post, year, model,discount_price,price,brand,category,post_type,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
+    private String color,location_post, year, model,discount_price,price,brand,category,post_type,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +125,19 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         process_type = intent.getIntExtra("processs_type",0);
         category_post = intent.getIntExtra("category_post",0);
         name = intent.getStringExtra("name_post");
+        color = intent.getStringExtra("color");
+        bitmapImage1 = intent.getStringExtra("image1");
+        bitmapImage2 = intent.getStringExtra("image2");
+        bitmapImage3 = intent.getStringExtra("image3");
+        bitmapImage4 = intent.getStringExtra("image4");
+        bitmapImage5 = intent.getStringExtra("image5");
+        bitmapImage6 = intent.getStringExtra("image6");
+        Log.e("image",""+bitmapImage1);
+        Log.e("image",""+bitmapImage2);
+        Log.e("image",""+bitmapImage3);
+        Log.e("image",""+bitmapImage4);
+        Log.e("image",""+bitmapImage5);
+        Log.e("image",""+bitmapImage6);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +205,13 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("console",seekbar_consolee);
                     intent.putExtra("accessories",seekbar_accessorie);
                     intent.putExtra("category_post",category_post);
+                    intent.putExtra("color",color);
+                    intent.putExtra("image1",bitmapImage1);
+                    intent.putExtra("image2",bitmapImage2);
+                    intent.putExtra("image3",bitmapImage3);
+                    intent.putExtra("image4",bitmapImage4);
+                    intent.putExtra("image5",bitmapImage5);
+                    intent.putExtra("image6",bitmapImage6);
                     startActivity(intent);
 
                 } else {
@@ -214,6 +238,15 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                 Seach_Address();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        if (register != null){
+            startActivity(new Intent(FragmentMap.this,CreateShop.class));
+        }else if (post.equals("post")){
+            startActivity(new Intent(FragmentMap.this,Camera.class));
+        }else
+            finish();
     }
 
     private void Seach_Address(){
