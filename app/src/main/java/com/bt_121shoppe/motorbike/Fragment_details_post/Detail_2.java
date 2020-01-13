@@ -31,8 +31,10 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
+import com.bt_121shoppe.motorbike.stores.StoreDetailActivity;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -80,6 +82,8 @@ public class Detail_2 extends Fragment {
     private String name,pass,Encode;
     String basic_Encode;
 
+    String postUsername,postUserId;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -111,7 +115,6 @@ public class Detail_2 extends Fragment {
     }
 
     private void getUserProfile(int id,String encode){
-
         String URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+id;
         MediaType MEDIA_TYPE=MediaType.parse("application/json");
         OkHttpClient client= new  OkHttpClient();
@@ -132,7 +135,43 @@ public class Detail_2 extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String mMessage = response.body().string();
                 Gson gson = new  Gson();
+                try {
+                    User user1= gson.fromJson(mMessage,User.class);
+                    Log.d(TAG,"TAH"+mMessage);
 
+                    if (getActivity()!=null){
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                CommomAPIFunction.getUserProfileFB(getActivity(),cr_img,user1.getUsername());
+
+                                if(user1.getProfile().getFirst_name()==null)
+                                    postUsername=user1.getUsername();
+                                else
+                                    postUsername=user1.getProfile().getFirst_name();
+                                postUserId=user1.getUsername();
+
+//                        user_telephone.setText(user1.profile.telephone)
+//                        user_email.setText(user1.email)
+//                                findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
+//                                    //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
+//                                    val intent = Intent(this@Detail_New_Post, User_post::class.java)
+//                                    intent.putExtra("ID",user1.id.toString())
+//                                    intent.putExtra("Phone",user1.profile.telephone)
+//                                    intent.putExtra("Email",user1.email)
+//                                    intent.putExtra("map_address",user1.profile.address)
+//                                    intent.putExtra("map_post",address_map)         // use for user detail when user no address shop
+//                                    //intent.putExtra("Phone",phone.text)
+//                                    intent.putExtra("Username",user1.username)
+//                                    intent.putExtra("Name",user1.first_name)
+//                                    startActivity(intent)
+//                                }
+                            }
+                        });
+                    }
+                }catch (JsonParseException e){
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -200,6 +239,10 @@ public class Detail_2 extends Fragment {
                             Log.e(TAG, "D" + mMessage);
                             tv_email.setText(postDetail.getContact_email());
                             username.setText(postDetail.getMachine_code());
+                            int created_by = Integer.parseInt(postDetail.getCreated_by());
+                            getUserProfile(created_by,auth);
+                            Glide.with(getActivity()).load(postDetail.getCreated_by()).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_img);
+
                             String contact_phone = postDetail.getContact_phone();
                             String[] splitPhone = contact_phone.split(",");
                             if (splitPhone.length ==1){

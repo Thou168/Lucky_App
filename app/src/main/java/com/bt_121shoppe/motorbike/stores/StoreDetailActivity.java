@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -95,12 +96,14 @@ public class StoreDetailActivity extends AppCompatActivity {
     TextView shopname,location,contact,count_view,number_rate;
     CircleImageView cr_image;
     String name_shop,location_shop,profile_shop;
+    byte[] decodedBytes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_detail);
         shopname = findViewById(R.id.textview_shopname);
         location=findViewById(R.id.textview_shoplocation);
+        cr_image=findViewById(R.id.img_user);
         contact=findViewById(R.id.textview_shopcontactphone);
         count_view=findViewById(R.id.view);
         number_rate=findViewById(R.id.number_of_rate);
@@ -118,11 +121,12 @@ public class StoreDetailActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if(bundle!=null){
             mShopName=bundle.getString("shopinfo");
-            name_shop=bundle.getString("shop_name");
             location_shop=bundle.getString("shop_location");
+            profile_shop=bundle.getString("shop_image");
         }
-        shopname.setText(name_shop);
+        shopname.setText(mShopName);
         location.setText(location_shop);
+        Glide.with(StoreDetailActivity.this).load(profile_shop).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_image);
 
         initToolbar(mShopName);
 

@@ -87,7 +87,6 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     Intent intent=new Intent(itemView.getContext(), StoreDetailActivity.class);
                     intent.putExtra("id",mShop.getId());
                     intent.putExtra("shopinfo",mShop.getShop_name());
-                    intent.putExtra("shop_name",String.valueOf(mShop.getShop_name()));
                     intent.putExtra("shop_location",String.valueOf(mShop.getShop_address()));
                     intent.putExtra("shop_image", String.valueOf((mShop.getShop_image())));
                     itemView.getContext().startActivity(intent);
