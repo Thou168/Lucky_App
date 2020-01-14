@@ -65,13 +65,6 @@ public class CheckNetworkConnectionHelper extends SubscribeNetworkObserverChange
         }
     }
 
-    /**
-     * this method will be remove soon
-     * please use registerNetworkChangeListener method instance
-     *
-     * @param activity
-     * @param onNetworkConnectionChangeListener
-     */
     @Deprecated
     public void onNetworkConnectionChange(Activity activity,
                                           OnNetworkConnectionChangeListener onNetworkConnectionChangeListener) {

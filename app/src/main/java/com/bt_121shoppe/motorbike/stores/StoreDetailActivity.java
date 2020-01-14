@@ -97,16 +97,21 @@ public class StoreDetailActivity extends AppCompatActivity {
     CircleImageView cr_image;
     String name_shop,location_shop,profile_shop;
     byte[] decodedBytes;
+    TextView shopbar;
+    ImageView backbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store_detail);
+        setContentView(R.layout.activity_store_detail_new);
         shopname = findViewById(R.id.textview_shopname);
         location=findViewById(R.id.textview_shoplocation);
         cr_image=findViewById(R.id.img_user);
         contact=findViewById(R.id.textview_shopcontactphone);
         count_view=findViewById(R.id.view);
         number_rate=findViewById(R.id.number_of_rate);
+
+        shopbar=findViewById(R.id.shopbar);
+        backbar=findViewById(R.id.backbar);
 
         mAllPostsRecyclerView=findViewById(R.id.list_new_post);
         mAllPostProgressbar=findViewById(R.id.progress_bar1);
@@ -128,7 +133,14 @@ public class StoreDetailActivity extends AppCompatActivity {
         location.setText(location_shop);
         Glide.with(StoreDetailActivity.this).load(profile_shop).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_image);
 
-        initToolbar(mShopName);
+//        initToolbar(mShopName);
+        shopbar.setText(mShopName);
+        backbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         setupAllPosts(index);
 
@@ -195,19 +207,19 @@ public class StoreDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void initToolbar(String title){
-        Toolbar mToolbar = findViewById(R.id.toolbar);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        mToolbar.setTitle(title);
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
+//    private void initToolbar(String title){
+//        Toolbar mToolbar = findViewById(R.id.toolbar);
+//        mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//        mToolbar.setTitle(title);
+//        setSupportActionBar(mToolbar);
+//        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
+//    }
 
     private void setupAllPosts(int index){
         mAllPosts=new ArrayList<>();

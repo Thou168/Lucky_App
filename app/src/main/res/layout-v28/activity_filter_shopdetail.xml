@@ -18,52 +18,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:gravity="center_vertical"
+            <ImageView
                 android:id="@+id/tv_result"
-                android:drawableStart="@drawable/back_arrow_x1"
-                android:layout_centerVertical="true"
+                android:src="@drawable/back_arrow_x1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="28dp"
                 android:layout_width="20.21dp"
                 android:layout_height="14dp" />
             <TextView
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textSize="@dimen/dp_18"
+                android:layout_toEndOf="@+id/tv_result"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:layout_marginStart="13.79dp"
                 android:text="@string/filter"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="@dimen/dp_24"
                 android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/tv_done"
-                android:text="@string/done"
-                android:layout_gravity="end"
-                android:gravity="center"
-                android:fontFamily="@font/opensans_semibold"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_done"-->
+<!--                android:text="@string/done"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:gravity="center"-->
+<!--                android:fontFamily="@font/opensans_semibold"-->
+<!--                android:layout_marginEnd="@dimen/dp_16"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:id="@+id/card_filter"
-        android:layout_marginStart="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_below="@+id/myRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:padding="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"
-            android:background="#EFEEF4">
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/linea_type"
@@ -76,35 +80,36 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     >
-                    <ImageView
-                        android:id="@+id/icType_sr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_20"
-                        android:src="@drawable/icon_null"
-                        android:layout_marginTop="5dp"
+<!--                    <ImageView-->
+<!--                        android:id="@+id/icType_sr"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="@dimen/dp_20"-->
+<!--                        android:src="@drawable/icon_null"-->
+<!--                        android:layout_marginTop="5dp"-->
 
-                        />
+<!--                        />-->
                     <TextView
                         android:id="@+id/title_type"
-                        android:layout_marginStart="@dimen/dp_8"
-                        android:textSize="@dimen/dp_20"
+                        android:textSize="@dimen/dp_15"
                         android:text="@string/type"
+                        android:textAlignment="textStart"
+                        android:fontFamily="@font/opensans_semibold"
                         android:textStyle="bold"
-                        android:layout_toRightOf="@+id/icType_sr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:textColor="#333333"
+                        android:layout_width="34dp"
+                        android:layout_height="@dimen/dp_20" />
                     <TextView
-                        android:layout_marginStart="@dimen/dp_8"
                         android:id="@+id/search_type"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="17dp"
                         android:background="@color/white"
                         android:text="@string/all"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textSize="12dp"
                         android:textAllCaps="false"
                         android:gravity="left|center_vertical"
-                        android:layout_toRightOf="@id/icType_sr"
                         android:layout_below="@+id/title_type"
-                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         >
                     </TextView>
                 </RelativeLayout>
@@ -119,38 +124,36 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rela_Type"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    >
-                    <ImageView
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white">
+<!--                    <ImageView-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_null"
-                        android:id="@+id/icCategory_sr"
-                        android:layout_marginTop="5dp"
-                        />
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/icon_null"-->
+<!--                        android:id="@+id/icCategory_sr"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        />-->
                     <TextView
                         android:id="@+id/title_cate"
-                        android:layout_marginStart="@dimen/dp_8"
-                        android:textSize="@dimen/dp_20"
+                        android:textSize="@dimen/dp_15"
                         android:text="@string/category"
                         android:textStyle="bold"
-                        android:layout_toRightOf="@+id/icCategory_sr"
+                        android:textColor="#333333"
+                        android:fontFamily="@font/opensans_semibold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20" />
                     <TextView
-                        android:layout_marginStart="@dimen/dp_8"
                         android:id="@+id/search_category"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="17dp"
                         android:background="@color/white"
+                        android:fontFamily="@font/opensans_regular"
                         android:text="@string/all"
+                        android:textSize="12dp"
                         android:textAllCaps="false"
                         android:gravity="left|center_vertical"
                         android:layout_below="@+id/title_cate"
-                        android:layout_toRightOf="@+id/icCategory_sr"
                         android:drawableRight="@drawable/ic_arrow_drop_down"
                         >
                     </TextView>
@@ -167,39 +170,37 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rela_Brand"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="30dp"
                     android:background="@color/white"
                     >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_null"
-                        android:id="@+id/icBrand_sr"
-                        android:layout_marginTop="5dp"
-                        />
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/icon_null"-->
+<!--                        android:id="@+id/icBrand_sr"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        />-->
                     <TextView
                         android:id="@+id/title_brand"
-                        android:layout_marginStart="@dimen/dp_8"
-                        android:textSize="@dimen/dp_20"
+                        android:textSize="@dimen/dp_15"
                         android:text="@string/brand"
+                        android:fontFamily="@font/opensans_semibold"
                         android:textStyle="bold"
-                        android:layout_toRightOf="@+id/icBrand_sr"
+                        android:textColor="#333333"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20" />
                     <TextView
 
-                        android:layout_marginStart="@dimen/dp_8"
                         android:id="@+id/search_brand"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="17dp"
                         android:background="@color/white"
+                        android:fontFamily="@font/opensans_regular"
                         android:text="@string/all"
                         android:textAllCaps="false"
-                        android:layout_toRightOf="@+id/icBrand_sr"
                         android:layout_below="@+id/title_brand"
                         android:gravity="left|center_vertical"
-                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         >
                     </TextView>
                 </RelativeLayout>
@@ -214,39 +215,37 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rela_Brand"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="30dp"
                     android:background="@color/white"
                     >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_null"
-                        android:id="@+id/icYear_sr"
-                        android:layout_marginTop="5dp"
-                        />
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/icon_null"-->
+<!--                        android:id="@+id/icYear_sr"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        />-->
                     <TextView
                         android:id="@+id/title_year"
-                        android:layout_marginStart="@dimen/dp_8"
-                        android:textSize="@dimen/dp_20"
+                        android:textSize="@dimen/dp_15"
                         android:text="@string/year"
                         android:textStyle="bold"
-                        android:layout_toRightOf="@+id/icYear_sr"
+                        android:textAlignment="textStart"
+                        android:textColor="#333333"
+                        android:fontFamily="@font/opensans_semibold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/dp_20" />
                     <TextView
-
-                        android:layout_marginStart="@dimen/dp_8"
                         android:id="@+id/search_year"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="17dp"
                         android:background="@color/white"
+                        android:fontFamily="@font/opensans_regular"
                         android:text="@string/all"
                         android:textAllCaps="false"
-                        android:layout_toRightOf="@+id/icYear_sr"
                         android:layout_below="@+id/title_year"
                         android:gravity="left|center_vertical"
-                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
                         >
                     </TextView>
                 </RelativeLayout>
@@ -255,41 +254,44 @@
                 android:id="@+id/rela_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/white">
                 <TextView
                     android:id="@+id/title_price"
-                    android:textSize="@dimen/dp_20"
+                    android:textSize="@dimen/dp_15"
                     android:textStyle="bold"
-                    android:layout_marginStart="@dimen/dp_24"
+                    android:textColor="#333333"
                     android:text="@string/price"
+                    android:fontFamily="@font/opensans_semibold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="@dimen/dp_20"/>
                 <TextView
                     android:id="@+id/text_min"
                     android:layout_width="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/title_price"
                     android:text="Min price"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/opensans_regular"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="@dimen/dp_16"
+                    android:textSize="12dp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/text_max"
                     android:layout_width="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/title_price"
-                    android:text="Min price"
+                    android:textAlignment="center"
+                    android:text="Max price"
+                    android:fontFamily="@font/opensans_regular"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="@dimen/dp_16"
+                    android:textSize="12dp"
                     android:layout_height="wrap_content"/>
                 <com.example.roman.thesimplerangebar.SimpleRangeBar
                     android:layout_width="fill_parent"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:id="@+id/rangeBar"
                     app:colorRangeBar="@color/dark_gray"
                     android:layout_below="@+id/text_min"
@@ -299,15 +301,15 @@
             <Button
                 android:id="@+id/btnSubmit_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/submit_button"
+                android:layout_height="50dp"
+                android:text="@string/ok"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:fontFamily="@font/opensans_semibold"
                 android:background="@drawable/mybutton"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/rela_Year"
-                />
+                android:layout_marginTop="239dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 </LinearLayout>

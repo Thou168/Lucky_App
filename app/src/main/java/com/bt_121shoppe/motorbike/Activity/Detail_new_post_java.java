@@ -47,10 +47,12 @@ import com.bt_121shoppe.motorbike.chats.ChatActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.newversion.CustomViewPager;
 import com.custom.sliderimage.logic.SliderImage;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
@@ -108,10 +110,11 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     Double discount = 0.0;
     private int REQUEST_PHONE_CALL =1;
     TabLayout tabLayout;
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
     TextView typeView;
     TextView tv_dox;
     boolean loaned = false;
+    boolean likepost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +146,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         back_view.setOnClickListener(v -> finish());
 
         //like
+        already_like(Encode);
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,40 +200,22 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                     intent.putExtra("product_id",postId);
                     startActivity(intent);
                 }
-//            else{
-//                val intent = Intent(this@Detail_New_Post, Create_Load::class.java)
-//                intent.putExtra("product_id",postId)
-////                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
-//                intent.putExtra("price",cuteString(tvPrice.text.toString(),1))
-//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                startActivity(intent)
-//                finish()
-//            }
+            else{
+                Intent intent = new  Intent(getApplicationContext(), Create_Load.class);
+                intent.putExtra("product_id",postId);
+//                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
+                intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
             }
         });
 
         btn_share.setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Share!",Toast.LENGTH_SHORT).show());
 
         mViewPager = findViewById(R.id.pagerMain);
-
-        ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        };
-        mViewPager.addOnPageChangeListener(onPageChangeListener);
-
+        mViewPager.setOnTouchListener((v, event) -> true);
 
         tabLayout = findViewById(R.id.tab_layout_detail);
         tabLayout.setupWithViewPager(mViewPager);
@@ -320,16 +306,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             return tabCount;
         }
 
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            if (position==0) {
-//                return getApplicationContext().getString(R.string.detail);
-//            } else if (position==1) {
-//                return getApplicationContext().getString(R.string.personal_info);
-//            } else {
-//                return getApplicationContext().getString(R.string.loan_calculation_title);
-//            }
-//        }
     }
 
     private void setupTabIcons() {
@@ -527,9 +503,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         if (postDetail.getPost_type().equals("rent")){
                             typeView.setText(R.string.ren);
                             typeView.setTextSize(16);
-//                            ((ViewGroup)tabLayout.getChildAt(2)).getChildAt(2).setVisibility(View.GONE);
-//                            tabLayout.removeTabAt(2);
                             typeView.setBackgroundResource(R.drawable.roundimage_rent_newpost);
+                            tabLayout.removeTabAt(2);
                         }
                         if (postDetail.getPost_type().equals("sell")){
                             typeView.setText(R.string.sell);
@@ -547,6 +522,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
     private void Like_post(String encode) {
         String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
+        Log.d("asdf",url_like);
         OkHttpClient client =new  OkHttpClient();
         Request request =new  Request.Builder()
                 .url(url_like)
@@ -599,15 +575,19 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            AlertDialog.Builder alertDialog = new  AlertDialog.Builder(Detail_new_post_java.this);
-                                            alertDialog.setMessage(getString(R.string.like_post));
-                                            alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                            alertDialog.show();
+//                                            AlertDialog.Builder alertDialog = new  AlertDialog.Builder(Detail_new_post_java.this);
+//                                            alertDialog.setMessage(getString(R.string.like_post));
+//                                            alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    dialog.dismiss();
+//                                                }
+//                                            });
+//                                            alertDialog.show();
+                                            Toast.makeText(getApplicationContext(),R.string.like_post,Toast.LENGTH_SHORT).show();
+                                            like.setImageResource(R.drawable.heart_red);
+                                            like.setMaxWidth(30);
+                                            like.setMaxHeight(30);
                                         }
                                     });
                                 }
@@ -622,6 +602,47 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             }
         });
 
+    }
+
+    private void already_like(String encode){
+        String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
+        OkHttpClient client =new  OkHttpClient();
+        Request request =new  Request.Builder()
+                .url(url_like)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String mMessage = e.getMessage();
+                Log.w("failure Response", mMessage);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                Log.d("Response",respon);
+
+                try {
+                    JSONObject jsonObject = new  JSONObject(respon);
+                    int jsonCount = jsonObject.getInt("count");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (jsonCount==1){
+                                like.setImageResource(R.drawable.heart_red);
+                                like.setMaxHeight(30);
+                                like.setMaxWidth(30);
+                            }
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void submitCountView(String encode) {
@@ -788,9 +809,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         language(language);
     }
 
-    private String cuteString(String st, Integer indext) {
-        String[] separated = (st.split(","));
-        return separated[indext];
+    String cuteString(String st, int index) {
+        String[] separated = st.split(" ");
+        return separated[index];
     }
 
     private void getMyLoan(){
@@ -806,67 +827,56 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage().toString();
+                String mMessage = e.getMessage();
                 Log.w("failure Response", mMessage);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                assert response.body() != null;
                 String mMessage = response.body().string();
                 Log.d(TAG,"Laon_status "+mMessage);
-
-                try {
-                    JSONObject jsonObject = new JSONObject(mMessage);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    runOnUiThread(() -> {
-                        for (int i=0;i<jsonArray.length();i++) {
-                            JSONObject obj = null;
-                            try {
-                                obj = jsonArray.getJSONObject(i);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            JSONObject jsonObject = new JSONObject(mMessage);
+                            JSONArray jsonArray = jsonObject.getJSONArray("results");
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                int post_id = object.getInt("post");
+                                int re_status = object.getInt("record_status");
+                                Log.d("Status Id123", String.valueOf(post_id));
+                                Log.d("Status 123",postId.toString());
+                                if (re_status != 12)
+                                    IDPOST.add(post_id);
                             }
-                            int post_id = 0;
-                            try {
-                                post_id = obj.getInt("post");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            int record_status = 0;
-                            try {
-                                record_status = obj.getInt("record_status");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            Log.d("Status Id123", String.valueOf(post_id));
-                            Log.d("Status 123",postId.toString());
-                            if (record_status != 12)
-                                IDPOST.add(post_id);
-                        }
-                        Log.d("ARRayList", String.valueOf(IDPOST.size()));
-                        for (int i=0;i<IDPOST.size();i++)
-                            if(IDPOST.get(i).equals(postId)){
-                                loaned = true;
-                            }
-                        loan.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (loaned){
-                                    withStyle();
-                                }else {
-                                    Intent intent = new  Intent(Detail_new_post_java.this, Create_Load.class);
-                                    intent.putExtra("product_id",postId);
-                                    intent.putExtra("price",cuteString(String.valueOf(tvPrice.getText()),1));
-                                    startActivity(intent);
+                            Log.d("ARRayList", String.valueOf(IDPOST.size()));
+                            for (int i=0;i<IDPOST.size();i++){
+                                if (IDPOST.get(i).equals(postId)){
+                                    loaned = true;
                                 }
                             }
-                        });
-                    });
+                            loan.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (loaned){
+//                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+                                        withStyle();
+                                    }else{
+                                        Intent intent = new  Intent(Detail_new_post_java.this, Create_Load.class);
+                                        intent.putExtra("product_id",postId);
+                                        intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }

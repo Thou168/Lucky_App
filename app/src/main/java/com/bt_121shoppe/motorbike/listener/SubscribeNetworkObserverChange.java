@@ -5,9 +5,6 @@ import com.bt_121shoppe.motorbike.receiver.NetworkBroadcastReceiver;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Veyo on 15-Jul-2019.
- */
 public abstract class SubscribeNetworkObserverChange implements Subject {
 
     private List<OnNetworkConnectionChangeListener> mNetworkObserverList;

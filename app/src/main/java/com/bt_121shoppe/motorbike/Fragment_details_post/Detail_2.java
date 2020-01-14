@@ -104,7 +104,9 @@ public class Detail_2 extends Fragment {
         tv_address.setText("ADDRESS");
 
         //basic
-        prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
+        if (getActivity()!=null) {
+            prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
+        }
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
         Encode = CommonFunction.getEncodedString(name,pass);
@@ -241,7 +243,7 @@ public class Detail_2 extends Fragment {
                             username.setText(postDetail.getMachine_code());
                             int created_by = Integer.parseInt(postDetail.getCreated_by());
                             getUserProfile(created_by,auth);
-                            Glide.with(getActivity()).load(postDetail.getCreated_by()).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_img);
+//                            Glide.with(getActivity()).load(postDetail.getCreated_by()).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_img);
 
                             String contact_phone = postDetail.getContact_phone();
                             String[] splitPhone = contact_phone.split(",");

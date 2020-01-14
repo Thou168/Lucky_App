@@ -1,7 +1,5 @@
 package com.bt_121shoppe.motorbike.listener;
 
-import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
-
 public abstract class StopReceiveDisconnectedListener implements OnNetworkConnectionChangeListener {
     private boolean mIsReadyReceiveConnectedListener;
 

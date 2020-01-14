@@ -312,39 +312,39 @@ public class Detail_1 extends Fragment {
                             //Convert
                             double db_e1 = Double.valueOf(postDetail.getUsed_eta1());
                             int in_e1 = (int)db_e1;
-                            whole_ink.setText(in_e1 + "%");
+                            whole_ink.setText(in_e1 + " %");
 
                             double db_e2 = Double.valueOf(postDetail.getUsed_eta2());
                             int in_e2 = (int)db_e2;
-                            wheel_sets.setText(in_e2 + "%");
+                            wheel_sets.setText(in_e2 + " %");
 
                             double db_e3 = Double.valueOf(postDetail.getUsed_eta3());
                             int in_e3 = (int)db_e3;
-                            the_whole_screw.setText(in_e3 + "%");
+                            the_whole_screw.setText(in_e3 + " %");
 
                             double db_e4 = Double.valueOf(postDetail.getUsed_eta4());
                             int in_e4 = (int)db_e4;
-                            pumps.setText(in_e4 + "%");
+                            pumps.setText(in_e4 + " %");
 
                             double db_m1 = Double.valueOf(postDetail.getUsed_machine1());
                             int in_m1 = (int)db_m1;
-                            engine_counter.setText(in_m1 + "%");
+                            engine_counter.setText(in_m1 + " %");
 
                             double db_m2 = Double.valueOf(postDetail.getUsed_machine2());
                             int in_m2 = (int)db_m2;
-                            engine_head.setText(in_m2 + "%");
+                            engine_head.setText(in_m2 + " %");
 
                             double db_m3 = Double.valueOf(postDetail.getUsed_machine3());
                             int in_m3= (int)db_m3;
-                            assembly.setText(in_m3 + "%");
+                            assembly.setText(in_m3 + " %");
 
                             double db_m4 = Double.valueOf(postDetail.getUsed_machine4());
                             int in_m4 = (int)db_m4;
-                            console.setText(in_m4 + "%");
+                            console.setText(in_m4 + " %");
 
                             double db_o1 = Double.valueOf(postDetail.getUsed_other1());
                             int in_o1 = (int)db_o1;
-                            accessories.setText(in_o1 + "%");
+                            accessories.setText(in_o1 + " %");
                             //end section
 
                             String postType = "";

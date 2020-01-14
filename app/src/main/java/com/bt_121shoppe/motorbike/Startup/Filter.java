@@ -54,11 +54,12 @@ public class Filter extends AppCompatActivity {
 //   private  int [] cateIDlist,brandIDlist,yearIDlist;
 //   private LinearLayout rela_cate,rela_brand,rela_year,rela_condition;
 
-   private  TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter,tv_result,tv_done;
+    private  TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter;
+    ImageView tv_result,tv_done;
     private  int cate=0,brand=0,model_fil=0,year_fil=0,type=0; //model & year
     private  String stTitle="",stCategory="",stBrand="",stYear="",stType,st="";
     double dbPrice = 0.0;
-    private ImageView icCategory_fil,icBrand_fil,icYear_fil,icType_fil;
+//    private ImageView icCategory_fil,icBrand_fil,icYear_fil,icType_fil;
     private  String [] cateListItems,brandListItems,yearListItems,typeListItems,categoryItemkg,brandItemkh,yearlistItemkh;
     private  int [] cateIDlist,brandIDlist,yearIDlist;
     private LinearLayout rela_cate,rela_brand,rela_year,rela_type;
@@ -104,7 +105,7 @@ public class Filter extends AppCompatActivity {
         locale();
         tv_result = findViewById(R.id.tv_result);
         tv_result.setOnClickListener(v -> finish());
-        tv_done  = findViewById(R.id.tv_done);
+//        tv_done  = findViewById(R.id.tv_done);
         rela_cate  = findViewById(R.id.linea_cate);
         rela_brand = findViewById(R.id.linea_brand);
         rela_year  = findViewById(R.id.linea_year);
@@ -114,10 +115,10 @@ public class Filter extends AppCompatActivity {
         btnyear = findViewById(R.id.search_year);
         btnType = findViewById(R.id.search_type);
         submit_filter = findViewById(R.id.btnSubmit_filter);
-        icCategory_fil = findViewById(R.id.icCategory_sr);
-        icBrand_fil    = findViewById(R.id.icBrand_sr);
-        icYear_fil     = findViewById(R.id.icYear_sr);
-        icType_fil = findViewById(R.id.icType_sr);
+//        icCategory_fil = findViewById(R.id.icCategory_sr);
+//        icBrand_fil    = findViewById(R.id.icBrand_sr);
+//        icYear_fil     = findViewById(R.id.icYear_sr);
+//        icType_fil = findViewById(R.id.icType_sr);
 
         Intent getTitle = getIntent();
         stTitle = getTitle.getStringExtra("title");
@@ -219,17 +220,17 @@ public class Filter extends AppCompatActivity {
                 ok.setOnClickListener(v12 -> {
                     if (cate==0){
                         stCategory = String.valueOf(cate);
-                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getCategory();
                         bottomSheetDialog.dismiss();
                     }else if (cate==1){
                         stCategory = String.valueOf(cate);
-                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getCategory();
                         bottomSheetDialog.dismiss();
                     }else if (cate==2){
                         stCategory = String.valueOf(cate);
-                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getCategory();
                         bottomSheetDialog.dismiss();
                     }
@@ -357,32 +358,32 @@ public class Filter extends AppCompatActivity {
                     if (brand==0){
                         stBrand = String.valueOf(brand);
                         getBrand();
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (brand==1){
                         stBrand = String.valueOf(brand);
                         getBrand();
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (brand==2){
                         stBrand = String.valueOf(brand);
                         getBrand();
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (brand==3){
                         stBrand = String.valueOf(brand);
                         getBrand();
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (brand==4){
                         stBrand = String.valueOf(brand);
                         getBrand();
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (brand==5){
                         stBrand = String.valueOf(brand);
                         getBrand();
-                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -544,117 +545,117 @@ public class Filter extends AppCompatActivity {
                 ok.setOnClickListener(v12 -> {
                     if (indexY==0){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==1){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==2){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==3){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==4){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==5){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==6){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==7){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     } else if (indexY==8) {
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==9){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==10){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==11){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==12){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==13){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==14){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==15){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==16){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==17){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==18){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==19){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==20){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==21){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==22){
                         stYear = String.valueOf(year_fil);
-                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         getYear();
                         bottomSheetDialog.dismiss();
                     }
@@ -749,28 +750,28 @@ public class Filter extends AppCompatActivity {
                 ok.setOnClickListener(v12 -> {
                     if (type==0){
                         stType = "";
-                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==1){
                         stType = "new";
-                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==2){
                         stType = "used";
-                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
                 });
             }
         });
 
-        tv_done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Result();
-
-            }
-        });
+//        tv_done.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Result();
+//
+//            }
+//        });
         submit_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
