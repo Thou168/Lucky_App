@@ -213,6 +213,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                         tvFullname.setText(user.getUsername());
+                        Log.e(TAG,"Profile pic "+user.getImageURL());
                     if (user.getImageURL().equals("default")) {
                         Glide.with(Account.this).load(R.drawable.group_2293).thumbnail(0.1f).into(upload);
 //                        img_profile.setImageResource(R.mipmap.ic_launcher_round);

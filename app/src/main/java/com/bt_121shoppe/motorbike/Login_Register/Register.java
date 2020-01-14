@@ -780,11 +780,11 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         editor.putString("pass",editComfirmPass.getText().toString());
                         editor.putString("groups",String.valueOf(g));
                         editor.commit();
-
+                        String userEmail=ConsumeAPI.PREFIX_EMAIL+id+"@email.com";
                         if (user_group == 1) {
-                            registerUserFirebase(email,username, pass, String.valueOf(1));
+                            registerUserFirebase(userEmail,username, pass, String.valueOf(1));
                         }else if (user_group == 3){
-                            registerUserAccount(email,username, pass, String.valueOf(3),id);
+                            registerUserAccount(userEmail,username, pass, String.valueOf(3),id);
                         }
                     }else {
                         AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
@@ -828,6 +828,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     }
 
     private void registerUserFirebase(String email,String username, String pass1, String group){
+        Log.d(TAG,"email: "+email+"  username:"+username+ " password "+pass1+" group :"+group);
         String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
