@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,6 +16,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -25,6 +29,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
@@ -32,12 +40,20 @@ import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.List_store_post;
-import com.bt_121shoppe.motorbike.fragments.Postbyuser;
+import com.bt_121shoppe.motorbike.fragments.history_store;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
@@ -52,9 +68,10 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
     private ViewPager viewPager;
     private Button btAdd_post;
     public RelativeLayout layout;
+    private CircleImageView img_user;
     private TextView tv_back,tv_dealer,tv_location,tv_phone;
     int inttab = 0,pk = 0;
-    private String location,storeName;
+    private String location,storeName,image;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -70,6 +87,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         tv_dealer = findViewById(R.id.tv_dealer);
         tv_location = findViewById(R.id.location_store);
         tv_phone = findViewById(R.id.phone);
+        img_user = findViewById(R.id.img_user);
 
         prefer = getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -84,6 +102,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         Intent intent = getIntent();
         storeName = intent.getStringExtra("shop_name");
         location = intent.getStringExtra("address");
+        image = intent.getStringExtra("shop_image");
 
         StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -94,8 +113,22 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         tabs = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.pagerDealer);
         setUpPager();
+//        if (tabs.getTabAt(1))
+        getPhone(pk,Encode);
         tv_location.setText(location);
         tv_dealer.setText(storeName);
+        Glide.with(Detail_store.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                img_user.setImageBitmap(resource);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
+
         SharedPreferences sharedPref=getSharedPreferences("Register",Context.MODE_PRIVATE);
 
         tv_back.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +145,29 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
                 startActivity(intent);
             }
         });
+    }
+    private void getPhone(int pk, String encode) {
+        Service api = Client.getClient().create(Service.class);
+        Call<User_Detail> call = api.getDetailUser(pk,encode);
+        call.enqueue(new Callback<User_Detail>() {
+            @Override
+            public void onResponse(Call<User_Detail> call, Response<User_Detail> response) {
+                String stphone = response.body().getProfile().getTelephone();
+                tv_phone.setText(method(stphone));
+            }
+            @Override
+            public void onFailure(Call<User_Detail> call, Throwable t) {
+
+            }
+        });
+    }
+    public String method(String str) {
+        for (int i=0;i<str.length();i++){
+            if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+                str = str.substring(0, str.length() - 1);
+            }
+        }
+        return str;
     }
 
     @Override
@@ -179,7 +235,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
                     List_store_post tab1 = new List_store_post();
                     return tab1;
                 case 1:
-                    Postbyuser tab2 = new Postbyuser();
+                    history_store tab2 = new history_store();
                     return tab2;
                 default:
                     return null;

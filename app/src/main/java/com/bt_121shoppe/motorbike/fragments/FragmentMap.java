@@ -142,7 +142,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (register != null){
+                if (register.equals("register")){
                     startActivity(new Intent(FragmentMap.this,CreateShop.class));
                 }else if (post.equals("post")){
                     startActivity(new Intent(FragmentMap.this,Camera.class));
@@ -153,7 +153,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         pin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (register!=null) {
+                if (register.equals("register")) {
                     Intent intent = new Intent(FragmentMap.this, Register.class);
                     intent.putExtra("user_group", user_group);
                     intent.putExtra("Profile",mProfile);

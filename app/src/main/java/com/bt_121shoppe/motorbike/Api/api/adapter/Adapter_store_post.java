@@ -67,7 +67,7 @@ public class Adapter_store_post extends RecyclerView.Adapter<BaseViewHolder> {
             pk = prefer.getInt("id", 0);
         }
         basic_Encode = "Basic "+ CommonFunction.getEncodedString(name,pass);
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list1t,parent,false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_store,parent,false));
     }
 
     @Override

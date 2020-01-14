@@ -694,6 +694,8 @@ public class LoginActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
                     if(user.getUsername().equals(username)){
+                        Log.e("email",""+user.getEmail());
+                        Log.e("password",""+user.getPassword());
                         auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override

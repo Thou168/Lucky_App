@@ -81,6 +81,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
                 Intent intent=new Intent(mContext, Detail_store.class);
                 intent.putExtra("shop_name",model.getShop_name());
                 intent.putExtra("address",model.getShop_address());
+                intent.putExtra("shop_image",model.getShop_image());
                 mContext.startActivity(intent);
             }
         });

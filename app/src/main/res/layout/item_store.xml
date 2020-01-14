@@ -186,7 +186,7 @@
             android:gravity="center"
             android:layout_height="30dp">
             <Button
-                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_4"
                 android:layout_marginRight="@dimen/dp_16"
                 android:id="@+id/btn_renew"
                 android:layout_width="wrap_content"
@@ -201,13 +201,12 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:gravity="center"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_8"
                 android:background="#00FFFFFF"
                 android:text="Remove" />
 
             <Button
-                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_8"
                 android:id="@+id/btndelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -222,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
                 android:gravity="center"
-                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_8"
                 android:fontFamily="@font/opensans_semibold"
                 android:text="@string/button_edit"
                 android:textAllCaps="false" />

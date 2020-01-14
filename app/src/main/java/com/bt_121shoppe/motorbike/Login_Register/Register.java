@@ -83,6 +83,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -274,7 +275,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         phone = intent.getStringExtra("phone");
         phone1 = intent.getStringExtra("phone1");
         phone2 = intent.getStringExtra("phone2");
-        gender1 = intent.getStringExtra("gender");
+        gender = intent.getStringExtra("gender");
         username = intent.getStringExtra("username");
         image1 = intent.getStringExtra("image");
         Log.e("imageeeeeee",""+image1);
@@ -286,7 +287,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 editWing_account.setText(wing_account);
             }
             editUsername.setText(username);
-            editGender.setText(gender1);
+            editGender.setText(gender);
             editPhone.setText(phone);
             editPhone1.setText(phone1);
             editPhone2.setText(phone2);
@@ -498,9 +499,10 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 Pattern lowerCasePatten = Pattern.compile("[a-zA-Z]");
                 Pattern digitCasePatten = Pattern.compile("[0-9 ]");
                 Pattern white_space = Pattern.compile("[\\s]");
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                String emailPattern = "[a-z]+@[a-z]+\\.+[a-z]+";
                 if (user_group == 1){
-                    if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)) {
+                    if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)
+                            || birthday.isEmpty() || gender.isEmpty()  || email.matches(emailPattern)) {
                         if (first_name.isEmpty()){
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(getString(R.string.invalid_phone));
@@ -537,34 +539,41 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         if (email.isEmpty()){
                             email_alert.setTextColor(getColor(R.color.red));
                             email_alert.setText(getString(R.string.invalid_email));
-                        }
-                        if (email.matches(emailPattern)){
+                        }else if (email.matches(emailPattern)){
                             email_alert.setTextColor(getColor(R.color.red));
                             email_alert.setText(getString(R.string.invalid_email));
-                        }
-                        if (digitCasePatten.matcher(email).find()){
-                            email_alert.setTextColor(getColor(R.color.red));
-                            email_alert.setText(getString(R.string.invalid_email));
+                        }else {
+                            email_alert.setText("");
                         }
                         if (gender.isEmpty()){
                             gender_alert.setTextColor(getColor(R.color.red));
                             gender_alert.setText(getString(R.string.invalid_gender));
+                        }else {
+                            gender_alert.setText("");
                         }
                         if (birthday.isEmpty()){
                             date_alert.setTextColor(getColor(R.color.red));
                             date_alert.setText(getString(R.string.invalid_date));
+                        }else {
+                            date_alert.setText("");
                         }
-                        if (address.isEmpty()){
-                            address_alert.setTextColor(getColor(R.color.red));
-                            address_alert.setText(getString(R.string.invalid_address));
-                        }
-                        if (map.isEmpty()){
-                            map_alert.setTextColor(getColor(R.color.red));
-                            map_alert.setText(getString(R.string.invalid_map));
-                        }
+//                        if (address.isEmpty()){
+//                            address_alert.setTextColor(getColor(R.color.red));
+//                            address_alert.setText(getString(R.string.invalid_address));
+//                        }else {
+//                            address_alert.setText("");
+//                        }
+//                        if (map.isEmpty()){
+//                            map_alert.setTextColor(getColor(R.color.red));
+//                            map_alert.setText(getString(R.string.invalid_map));
+//                        }else {
+//                            map_alert.setText("");
+//                        }
                         if (firstname.isEmpty()){
                             username_alert.setTextColor(getColor(R.color.red));
                             username_alert.setText(getString(R.string.invalid_username));
+                        }else {
+                            username_alert.setText("");
                         }
                         if (!term_privacy.isChecked()){
 
@@ -586,7 +595,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     }
                 }else {
                     if (Number_Phone.length()<9 || white_space.matcher(Password).find() || !lowerCasePatten.matcher(Password).find() ||
-                            Password.trim().length()<6 || !digitCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)) {
+                            Password.trim().length()<6 || !digitCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)
+                           || birthday.isEmpty() || gender.isEmpty() || email.matches(emailPattern)) {
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(R.string.inputPhone);
@@ -600,8 +610,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         if (Password.isEmpty()) {
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.inputPassword);
-                        }
-                        else if (Password.trim().length()<6){
+                        } else if (Password.trim().length()<6){
                             PasswordError.setTextColor(getColor(R.color.red));
                             PasswordError.setText(R.string.user_message_dealer);
                         }
@@ -629,38 +638,53 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         if (email.isEmpty()){
                             email_alert.setTextColor(getColor(R.color.red));
                             email_alert.setText(getString(R.string.invalid_email));
-                        }
-                        if (email.matches(emailPattern)){
+                        }else if (email.matches(emailPattern)){
                             email_alert.setTextColor(getColor(R.color.red));
                             email_alert.setText(getString(R.string.invalid_email));
+                        }else {
+                            email_alert.setText("");
                         }
                         if (gender.isEmpty()){
                             gender_alert.setTextColor(getColor(R.color.red));
                             gender_alert.setText(getString(R.string.invalid_gender));
+                        }else {
+                            gender_alert.setText("");
                         }
                         if (birthday.isEmpty()){
                             date_alert.setTextColor(getColor(R.color.red));
                             date_alert.setText(getString(R.string.invalid_date));
+                        }else {
+                            date_alert.setText("");
                         }
-                        if (address.isEmpty()){
-                            address_alert.setTextColor(getColor(R.color.red));
-                            address_alert.setText(getString(R.string.invalid_address));
-                        }
-                        if (map.isEmpty()){
-                            map_alert.setTextColor(getColor(R.color.red));
-                            map_alert.setText(getString(R.string.invalid_map));
-                        }
+//                        if (address.isEmpty()){
+//                            address_alert.setTextColor(getColor(R.color.red));
+//                            address_alert.setText(getString(R.string.invalid_address));
+//                        }else {
+//                            address_alert.setText("");
+//                        }
+//                        if (map.isEmpty()){
+//                            map_alert.setTextColor(getColor(R.color.red));
+//                            map_alert.setText(getString(R.string.invalid_map));
+//                        }else{
+//                            map_alert.setText("");
+//                        }
                         if (wing_account.isEmpty()){
                             wing_account_alert.setTextColor(getColor(R.color.red));
                             wing_account_alert.setText(getString(R.string.invalid_wing_account));
+                        }else {
+                            wing_account_alert.setText("");
                         }
                         if (wing_number.isEmpty()){
                             wing_number_alert.setTextColor(getColor(R.color.red));
                             wing_number_alert.setText(getString(R.string.invalid_wing_number));
+                        }else {
+                            wing_number_alert.setText("");
                         }
                         if (firstname.isEmpty()){
                             username_alert.setTextColor(getColor(R.color.red));
                             username_alert.setText(getString(R.string.invalid_username));
+                        }else {
+                            username_alert.setText("");
                         }
                         if (!term_privacy.isChecked()){
 
@@ -694,7 +718,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             postdata.put("first_name",editUsername.getText().toString());
             postdata.put("email",email);
             postdata.put("password", password);
-            post_body.put("gender",gender);
+            post_body.put("gender",editGender.getText().toString().toLowerCase());
             post_body.put("address",address);
             post_body.put("responsible_officer",lat_long);
             post_body.put("date_of_birth",convertDateofBirth(editDate.getText().toString()));
@@ -758,9 +782,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         editor.commit();
 
                         if (user_group == 1) {
-                            registerUserFirebase(username, pass, String.valueOf(1));
+                            registerUserFirebase(email,username, pass, String.valueOf(1));
                         }else if (user_group == 3){
-                            registerUserAccount(username, pass, String.valueOf(3),id);
+                            registerUserAccount(email,username, pass, String.valueOf(3),id);
                         }
                     }else {
                         AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
@@ -803,7 +827,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         }
     }
 
-    private void registerUserFirebase(String username, String pass1, String group){
+    private void registerUserFirebase(String email,String username, String pass1, String group){
         String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -824,6 +848,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             }
                             hashMap.put("coverURL","default");
                             hashMap.put("status","online");
+                            hashMap.put("email",email);
                             hashMap.put("search",username.toString());
                             hashMap.put("password",password);
                             hashMap.put("group",group);
@@ -909,7 +934,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 });
     }
 
-    private void registerUserAccount(String username, String pass1, String group, int id){
+    private void registerUserAccount(String email,String username, String pass1, String group, int id){
         String password=group.equals("3")?pass1+"__":pass1;
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -930,6 +955,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             }
                             hashMap.put("coverURL","default");
                             hashMap.put("status","online");
+                            hashMap.put("email",email);
                             hashMap.put("search",username.toString());
                             hashMap.put("password",password);
                             hashMap.put("group",group);
@@ -1179,6 +1205,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         HashMap<String,Object> map=new HashMap<>();
                         map.put("imageURL",mUri);
                         reference.updateChildren(map);
+                        Log.e("image",""+mUri);
                     }else{
                         Toast.makeText(Register.this,"Failed",Toast.LENGTH_LONG).show();
                     }
@@ -1420,6 +1447,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        UpdateData();
                         mProgress.dismiss();
                         androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
@@ -1435,6 +1463,40 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         alertDialog.show();
                     }
                 });
+            }
+        });
+    }
+    private void UpdateData(){
+        reference= FirebaseDatabase.getInstance().getReference();
+        fuser= FirebaseAuth.getInstance().getCurrentUser();
+        if (fuser != null) {
+            Query query = reference.child("users").orderByChild(fuser.getUid());
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String key = snapshot.getKey();
+                        UpdateImage(key);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+    private void UpdateImage(String key){
+        FirebaseDatabase fuser = FirebaseDatabase.getInstance();
+        DatabaseReference reference = fuser.getReference();
+        reference.child("users").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                uploadImage(image);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("update", databaseError.getMessage());
             }
         });
     }
