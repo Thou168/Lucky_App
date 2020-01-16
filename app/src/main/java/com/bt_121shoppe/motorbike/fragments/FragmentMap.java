@@ -13,6 +13,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,10 +53,11 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     private SupportMapFragment mapFragment;
     private Button back,pin;
     private EditText et_search;
-    private String bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
-    private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,image,wing_account,wing_number,register_verify;
+    private Uri bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
+    private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,wing_account,wing_number,register_verify;
     private int user_group,process_type;
-    private String name,register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile,post;
+    private Uri image;
+    private String edit,name,register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile,post;
     private int category_post, seekbar_price,seekbar_rearr,seekbar_screww, seekbar_engine, seekbar_head,assembly,seekbar_accessorie,seekbar_consolee,seekbar_pump,whole_ink;
     private String color,location_post, year, model,discount_price,price,brand,category,post_type,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
 
@@ -72,6 +74,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         get_location(true);
 
         Intent intent = getIntent();
+        edit = intent.getStringExtra("edit");
         mProfile = intent.getStringExtra("Profile");
         user_group = intent.getIntExtra("group",0);
         address = intent.getStringExtra("address");
@@ -84,7 +87,8 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         phone2 = intent.getStringExtra("phone2");
         gender = intent.getStringExtra("gender");
         username = intent.getStringExtra("username");
-        image = intent.getStringExtra("image");
+        image = intent.getParcelableExtra("image");
+        Log.e("get image",""+image);
         wing_account = intent.getStringExtra("wing_account_name");
         wing_number = intent.getStringExtra("wing_account_number");
         register_verify = intent.getStringExtra("Register_verify");
@@ -126,12 +130,12 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         category_post = intent.getIntExtra("category_post",0);
         name = intent.getStringExtra("name_post");
         color = intent.getStringExtra("color");
-        bitmapImage1 = intent.getStringExtra("image1");
-        bitmapImage2 = intent.getStringExtra("image2");
-        bitmapImage3 = intent.getStringExtra("image3");
-        bitmapImage4 = intent.getStringExtra("image4");
-        bitmapImage5 = intent.getStringExtra("image5");
-        bitmapImage6 = intent.getStringExtra("image6");
+        bitmapImage1 = intent.getParcelableExtra("image1");
+        bitmapImage2 = intent.getParcelableExtra("image2");
+        bitmapImage3 = intent.getParcelableExtra("image3");
+        bitmapImage4 = intent.getParcelableExtra("image4");
+        bitmapImage5 = intent.getParcelableExtra("image5");
+        bitmapImage6 = intent.getParcelableExtra("image6");
         Log.e("image",""+bitmapImage1);
         Log.e("image",""+bitmapImage2);
         Log.e("image",""+bitmapImage3);
@@ -153,67 +157,73 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         pin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (register.equals("register")) {
-                    Intent intent = new Intent(FragmentMap.this, Register.class);
-                    intent.putExtra("user_group", user_group);
-                    intent.putExtra("Profile",mProfile);
-                    intent.putExtra("Register_verify", register_verify);
-                    intent.putExtra("road", et_search.getText().toString());
-                    intent.putExtra("location", location1);
-                    intent.putExtra("address", address);
-                    intent.putExtra("date", date);
-                    intent.putExtra("re_password", re_password);
-                    intent.putExtra("password", password);
-                    intent.putExtra("email", email);
-                    intent.putExtra("phone", phone);
-                    intent.putExtra("phone1", phone1);
-                    intent.putExtra("phone2", phone2);
-                    intent.putExtra("gender", gender);
-                    intent.putExtra("username", username);
-                    intent.putExtra("image", image);
-                    intent.putExtra("wing_account_number", wing_number);
-                    intent.putExtra("wing_account_name", wing_account);
-                    startActivity(intent);
-                }else if (post.equals("post")){
-                    Intent intent = new Intent(FragmentMap.this, Camera.class);
-                    intent.putExtra("road", et_search.getText().toString());
-                    intent.putExtra("location", location1);
-                    intent.putExtra("name_post",name);
-                    intent.putExtra("process_type",process_type);
-                    intent.putExtra("price",price);
-                    intent.putExtra("post_type",post_type);
-                    intent.putExtra("category",category);
-                    intent.putExtra("brand",brand);
-                    intent.putExtra("model",model);
-                    intent.putExtra("year",year);
-                    intent.putExtra("condition",condition);
-                    intent.putExtra("description",description);
-                    intent.putExtra("email_post",email_post);
-                    intent.putExtra("address_post",address_post);
-                    intent.putExtra("phone_number1_post",phone_number1_post);
-                    intent.putExtra("phone_number2_post",phone_number2_post);
-                    intent.putExtra("phone_number3_post",phone_number3_post);
-                    intent.putExtra("discount_percent",seekbar_price);
-                    intent.putExtra("discount_amount",discount_price);
-                    intent.putExtra("whole_ink",whole_ink);
-                    intent.putExtra("rear",seekbar_rearr);
-                    intent.putExtra("screw",seekbar_screww);
-                    intent.putExtra("pumps",seekbar_pump);
-                    intent.putExtra("right_engine",seekbar_engine);
-                    intent.putExtra("engine_head",seekbar_head);
-                    intent.putExtra("assembly",assembly);
-                    intent.putExtra("console",seekbar_consolee);
-                    intent.putExtra("accessories",seekbar_accessorie);
-                    intent.putExtra("category_post",category_post);
-                    intent.putExtra("color",color);
-                    intent.putExtra("image1",bitmapImage1);
-                    intent.putExtra("image2",bitmapImage2);
-                    intent.putExtra("image3",bitmapImage3);
-                    intent.putExtra("image4",bitmapImage4);
-                    intent.putExtra("image5",bitmapImage5);
-                    intent.putExtra("image6",bitmapImage6);
-                    startActivity(intent);
+                if (register != null){
+                    if (register.equals("register")) {
+                        Intent intent = new Intent(FragmentMap.this, Register.class);
+                        intent.putExtra("user_group", user_group);
+                        intent.putExtra("edit",edit);
+                        intent.putExtra("Profile",mProfile);
+                        intent.putExtra("edit_profile",register);
+                        intent.putExtra("Register_verify", register_verify);
+                        intent.putExtra("road", et_search.getText().toString());
+                        intent.putExtra("location", location1);
+                        intent.putExtra("address", address);
+                        intent.putExtra("date", date);
+                        intent.putExtra("re_password", re_password);
+                        intent.putExtra("password", password);
+                        intent.putExtra("email", email);
+                        intent.putExtra("phone", phone);
+                        intent.putExtra("phone1", phone1);
+                        intent.putExtra("phone2", phone2);
+                        intent.putExtra("gender", gender);
+                        intent.putExtra("username", username);
+                        intent.putExtra("image", image);
+                        intent.putExtra("wing_account_number", wing_number);
+                        intent.putExtra("wing_account_name", wing_account);
+                        startActivity(intent);
+                    }
+                } else if (post != null){
+                    if (post.equals("post")){
+                        Intent intent = new Intent(FragmentMap.this, Camera.class);
+                        intent.putExtra("road", et_search.getText().toString());
+                        intent.putExtra("location", location1);
+                        intent.putExtra("name_post",name);
+                        intent.putExtra("process_type",process_type);
+                        intent.putExtra("price",price);
+                        intent.putExtra("post_type",post_type);
+                        intent.putExtra("category",category);
+                        intent.putExtra("brand",brand);
+                        intent.putExtra("model",model);
+                        intent.putExtra("year",year);
+                        intent.putExtra("condition",condition);
+                        intent.putExtra("description",description);
+                        intent.putExtra("email_post",email_post);
+                        intent.putExtra("address_post",address_post);
+                        intent.putExtra("phone_number1_post",phone_number1_post);
+                        intent.putExtra("phone_number2_post",phone_number2_post);
+                        intent.putExtra("phone_number3_post",phone_number3_post);
+                        intent.putExtra("discount_percent",seekbar_price);
+                        intent.putExtra("discount_amount",discount_price);
+                        intent.putExtra("whole_ink",whole_ink);
+                        intent.putExtra("rear",seekbar_rearr);
+                        intent.putExtra("screw",seekbar_screww);
+                        intent.putExtra("pumps",seekbar_pump);
+                        intent.putExtra("right_engine",seekbar_engine);
+                        intent.putExtra("engine_head",seekbar_head);
+                        intent.putExtra("assembly",assembly);
+                        intent.putExtra("console",seekbar_consolee);
+                        intent.putExtra("accessories",seekbar_accessorie);
+                        intent.putExtra("category_post",category_post);
+                        intent.putExtra("color",color);
+                        intent.putExtra("image1",bitmapImage1);
+                        intent.putExtra("image2",bitmapImage2);
+                        intent.putExtra("image3",bitmapImage3);
+                        intent.putExtra("image4",bitmapImage4);
+                        intent.putExtra("image5",bitmapImage5);
+                        intent.putExtra("image6",bitmapImage6);
+                        startActivity(intent);
 
+                    }
                 } else {
                     Intent intent = new Intent(FragmentMap.this, CreateShop.class);
                     intent.putExtra("user_group", user_group);

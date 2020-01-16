@@ -200,7 +200,9 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         imgSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Account.this,AccountSettingActivity.class));
+                Intent intent = new Intent(Account.this,AccountSettingActivity.class);
+                intent.putExtra("user_group",g);
+                startActivity(intent);
             }
         });
 

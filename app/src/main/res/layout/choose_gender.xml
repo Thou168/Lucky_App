@@ -31,7 +31,6 @@
                 android:id="@+id/male"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:checked="true"
                 android:padding="@dimen/dp_16"
                 android:text="Male"/>
             <RadioButton

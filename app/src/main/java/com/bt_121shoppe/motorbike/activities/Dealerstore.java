@@ -214,5 +214,16 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         public int getCount() {
             return tabCount;
         }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position==0) {
+                return getApplicationContext().getString(R.string.store_list);
+            } else if (position==1) {
+                return getApplicationContext().getString(R.string.history);
+            } else {
+                return null;
+            }
+        }
     }
 }

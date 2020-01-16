@@ -34,10 +34,14 @@ import retrofit2.Response;
 
 public class AccountSettingActivity extends AppCompatActivity {
     private Toolbar mToolbar;
+    private int user_group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setting);
+        Intent intent = getIntent();
+        user_group = intent.getIntExtra("user_group",0);
+
         //initToolbar();
 
 
@@ -45,7 +49,10 @@ public class AccountSettingActivity extends AppCompatActivity {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AccountSettingActivity.this, Register.class));
+                Intent intent = new Intent(AccountSettingActivity.this,Register.class);
+                intent.putExtra("user_group",user_group);
+                intent.putExtra("edit","edit");
+                startActivity(intent);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.BottomSheetDialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -68,6 +69,9 @@ public class BottomChooseTypeCate extends BottomSheetDialogFragment implements V
         bt_clear = view.findViewById(R.id.bt_clear);
         ls_type_cate = view.findViewById(R.id.type_cate);
 
+        SharedPreferences preferences = getActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
+
         prefer = getActivity().getSharedPreferences("Register",getActivity().MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -109,7 +113,11 @@ public class BottomChooseTypeCate extends BottomSheetDialogFragment implements V
                                 typeListItems[i]=name;
                                 typeIdListItems[i]=id;
                             }
-                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItems);
+                            if (language.equals("en")) {
+                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItems);
+                            }else if (language.equals("km")){
+                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItemkh);
+                            }
                             ls_type_cate.setAdapter(adapter);
                         }catch (JSONException e){
                             e.printStackTrace();

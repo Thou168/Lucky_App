@@ -60,12 +60,13 @@ import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.activities.NotificationActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.date.YearMonthPickerDialog;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
-import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
+import com.bt_121shoppe.motorbike.activities.AccountSettingActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
 import com.bumptech.glide.Glide;
@@ -161,7 +162,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     private RelativeLayout layout_phone1,layout_phone2;
     Bitmap bitmap;
     Uri image;
-    private String date1,re_password,password,email1,phone,phone1,phone2,gender1,username,image1,wing_account,wing_number,mProfile;
+    private String mEdit,date1,re_password,password,email1,phone,phone1,phone2,gender1,username,wing_account,wing_number,mProfile,edit_profile;
     private FileCompressor mCompressor;
     private String pass1,name,Encode;
     private FirebaseUser fuser;
@@ -248,25 +249,56 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         name = prefer.getString("name","");
         pass1 = prefer.getString("pass","");
         Encode =getEncodedString(name,pass1);
-        if (pk != 0) {
-            initialUserInformation(url, Encode);
-            editPassword.setVisibility(View.GONE);
-            editComfirmPass.setVisibility(View.GONE);
-            tv_password.setVisibility(View.GONE);
-            tv_re_password.setVisibility(View.GONE);
-            btnSubmit.setVisibility(View.GONE);
-            btUpdate.setVisibility(View.VISIBLE);
-            tv_privacy.setVisibility(View.GONE);
-            term_privacy.setVisibility(View.GONE);
-        }
-
         Intent intent = getIntent();
+        edit_profile = intent.getStringExtra("edit_profile");
+        user_group = intent.getIntExtra("user_group",0);
+        Log.e("group",""+user_group);
+        if (edit_profile == null){
+            if (pk != 0) {
+                initialUserInformation(url, Encode);
+                editPassword.setVisibility(View.GONE);
+                editComfirmPass.setVisibility(View.GONE);
+                tv_password.setVisibility(View.GONE);
+                tv_re_password.setVisibility(View.GONE);
+                btnSubmit.setVisibility(View.GONE);
+                btUpdate.setVisibility(View.VISIBLE);
+                tv_privacy.setVisibility(View.GONE);
+                term_privacy.setVisibility(View.GONE);
+            }
+        }else {
+            if (pk != 0) {
+                editPassword.setVisibility(View.GONE);
+                editComfirmPass.setVisibility(View.GONE);
+                tv_password.setVisibility(View.GONE);
+                tv_re_password.setVisibility(View.GONE);
+                btnSubmit.setVisibility(View.GONE);
+                btUpdate.setVisibility(View.VISIBLE);
+                tv_privacy.setVisibility(View.GONE);
+                term_privacy.setVisibility(View.GONE);
+                if (user_group == 1){
+                    btUpgrade.setVisibility(View.VISIBLE);
+                    tv_wing_account.setVisibility(View.GONE);
+                    editWing_account.setVisibility(View.GONE);
+                    wing_account_alert.setVisibility(View.GONE);
+                    tv_wing_number.setVisibility(View.GONE);
+                    editWing_number.setVisibility(View.GONE);
+                    wing_number_alert.setVisibility(View.GONE);
+                }else {
+                    tv_wing_account.setVisibility(View.VISIBLE);
+                    editWing_account.setVisibility(View.VISIBLE);
+                    wing_account_alert.setVisibility(View.VISIBLE);
+                    tv_wing_number.setVisibility(View.VISIBLE);
+                    editWing_number.setVisibility(View.VISIBLE);
+                    wing_number_alert.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+        mEdit = intent.getStringExtra("edit");
         mProfile = intent.getStringExtra("Profile");
         location = intent.getStringExtra("road");
         lat_long = intent.getStringExtra("location");
         register_verify = intent.getStringExtra("Register_verify");
         product_id      = intent.getIntExtra("product_id",0);
-        user_group = intent.getIntExtra("user_group",0);
         address = intent.getStringExtra("address");
         date1 = intent.getStringExtra("date");
         re_password = intent.getStringExtra("re_password");
@@ -277,40 +309,36 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         phone2 = intent.getStringExtra("phone2");
         gender = intent.getStringExtra("gender");
         username = intent.getStringExtra("username");
-        image1 = intent.getStringExtra("image");
-        Log.e("imageeeeeee",""+image1);
+        image = intent.getParcelableExtra("image");
+        Log.e("imageeeeeee",""+image);
         wing_account = intent.getStringExtra("wing_account_name");
         wing_number = intent.getStringExtra("wing_account_number");
-        if (intent != null){
-            if (user_group != 1){
-                editWing_number.setText(wing_number);
-                editWing_account.setText(wing_account);
-            }
-            editUsername.setText(username);
-            editGender.setText(gender);
-            editPhone.setText(phone);
-            editPhone1.setText(phone1);
-            editPhone2.setText(phone2);
-            editEmail.setText(email1);
-            editPassword.setText(password);
-            editComfirmPass.setText(re_password);
-            editDate.setText(date1);
-            editAddress.setText(address);
-            Glide.with(Register.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                    Log.e("Resource",""+resource);
-                    imgProfile.setImageBitmap(resource);
-                    bitmap = resource;
-                }
-
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                }
-            });
+        if (user_group != 1){
+            editWing_number.setText(wing_number);
+            editWing_account.setText(wing_account);
         }
+        editUsername.setText(username);
+        editGender.setText(gender);
+        editPhone.setText(phone);
+        editPhone1.setText(phone1);
+        editPhone2.setText(phone2);
+        editEmail.setText(email1);
+        editPassword.setText(password);
+        editComfirmPass.setText(re_password);
+        editDate.setText(date1);
+        editAddress.setText(address);
+        Glide.with(Register.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                imgProfile.setImageBitmap(resource);
+                bitmap = resource;
+            }
 
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
         if (location != null) {
             if (location.length() > 30) {
                 String loca = location.substring(0,30) + "...";
@@ -354,7 +382,11 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             public void onClick(View view) {
                 if (mProfile!=null){
                     startActivity(new Intent(Register.this, SelectUserTypeActivity.class));
-                }else{
+                }else if (pk != 0){
+                    if (mEdit != null) {
+                        startActivity(new Intent(Register.this, AccountSettingActivity.class));
+                    }
+                }else {
                     finish();
                 }
             }
@@ -392,26 +424,21 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                c.set(2000,1,1);
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerFragmentDialog datePickerFragmentDialog=DatePickerFragmentDialog.newInstance(new DatePickerFragmentDialog.OnDateSetListener() {
-                    @SuppressLint("DefaultLocale")
-                    @RequiresApi(api = Build.VERSION_CODES.O)
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(2000,01,01);
+                YearMonthPickerDialog yearMonthPickerDialog = new YearMonthPickerDialog(Register.this, calendar, new YearMonthPickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        editDate.setText(String.format("%d/%d/%d", dayOfMonth, monthOfYear, year));
+                    public void onYearMonthSet(int year) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, year);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+                        editDate.setText(dateFormat.format(calendar.getTime()));
+
                     }
-                },mYear, mMonth, mDay);
-                datePickerFragmentDialog.show(getSupportFragmentManager(),null);
-                datePickerFragmentDialog.setMaxDate(System.currentTimeMillis());
-                datePickerFragmentDialog.setCancelColor(getResources().getColor(R.color.colorPrimaryDark));
-                datePickerFragmentDialog.setOkColor(getResources().getColor(R.color.colorPrimary));
-                datePickerFragmentDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
-                datePickerFragmentDialog.setOkText(getResources().getString(R.string.ok_dob));
-                datePickerFragmentDialog.setCancelText(getResources().getString(R.string.cancel_dob));
+                });
+                yearMonthPickerDialog.setMinYear(1960);
+                yearMonthPickerDialog.setMaxYear(2020);
+                yearMonthPickerDialog.show();
             }
         });
         genderListItems=getResources().getStringArray(R.array.genders_array);
@@ -432,6 +459,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     Intent intent = new Intent(Register.this, FragmentMap.class);
                     intent.putExtra("register","register");
                     intent.putExtra("Profile",mProfile);
+                    intent.putExtra("edit",mEdit);
                     intent.putExtra("Register_verify", register_verify);
                     intent.putExtra("group", user_group);
                     intent.putExtra("address", editAddress.getText().toString());
@@ -444,16 +472,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     intent.putExtra("phone2", editPhone2.getText().toString());
                     intent.putExtra("gender", editGender.getText().toString());
                     intent.putExtra("username", editUsername.getText().toString());
-                    try {
-                        if (bitmap == null){
-                            intent.putExtra("image",image);
-                        }else {
-                            intent.putExtra("image", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(Register.this, bitmap)));
-                            Log.e("push image", "" + ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(getApplicationContext(), bitmap)));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    intent.putExtra("image", image);
                     intent.putExtra("wing_account_number", editWing_account.getText().toString());
                     intent.putExtra("wing_account_name", editWing_number.getText().toString());
                     startActivity(intent);
@@ -500,6 +519,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 Pattern digitCasePatten = Pattern.compile("[0-9 ]");
                 Pattern white_space = Pattern.compile("[\\s]");
                 String emailPattern = "[a-z]+@[a-z]+\\.+[a-z]+";
+                Log.e("user_group",""+user_group);
                 if (user_group == 1){
                     if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)
                             || birthday.isEmpty() || gender.isEmpty()  || email.matches(emailPattern)) {
@@ -709,6 +729,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         });
     }
     private void registerAPIUser(String username,String email,String number_phone,String password,int group){
+
+        String g = editGender.getText().toString().toLowerCase();
         String url=ConsumeAPI.BASE_URL+"api/v1/users/";
         OkHttpClient client=new OkHttpClient();
         JSONObject postdata=new JSONObject();
@@ -718,7 +740,14 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             postdata.put("first_name",editUsername.getText().toString());
             postdata.put("email",email);
             postdata.put("password", password);
-            post_body.put("gender",editGender.getText().toString().toLowerCase());
+            if (g.equals("female") || g.equals("ស្រី")){
+                gender1 = "female";
+            }else if (g.equals("male") || g.equals("ប្រុស")){
+                gender1 = "male";
+            }else if (g.equals("other") || g.equals("ផ្សេងទៀត")){
+                gender1 = "other";
+            }
+            post_body.put("gender",gender1);
             post_body.put("address",address);
             post_body.put("responsible_officer",lat_long);
             post_body.put("date_of_birth",convertDateofBirth(editDate.getText().toString()));
@@ -1149,21 +1178,17 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             }
         }
     }
-    private String convertDateofBirth(String bithdate){
+    private String convertDateofBirth(String year){
         String dd= null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             dd = Instant.now().toString();
         }
         String d[]=dd.split("-");
         for(int i=0;i<d.length;i++){
-            Log.e("current",d[i]);
+            Log.e(TAG,d[i]);
         }
-        String d1[]=bithdate.split("/");
-        for(int i=0;i<d1.length;i++){
-            Log.e("Date",d1[i]);
-        }
-        String dob=String.format("%s-%s-%s",d1[2],d1[1],d[2]);
-        Log.e("result",""+dob);
+        String dob=String.format("%s-%s-%s",year,d[1],d[2]);
+        Log.d(TAG,dob);
         return dob;
     }
     public void showBottomSheet(View view) {
@@ -1207,6 +1232,21 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         map.put("imageURL",mUri);
                         reference.updateChildren(map);
                         Log.e("image",""+mUri);
+                        if (task.isComplete()){
+                            mProgress.dismiss();
+                            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+                            alertDialog.setTitle(getString(R.string.title_edit_account));
+                            alertDialog.setMessage(getString(R.string.edit_success_message));
+                            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            mProgress.dismiss();
+                                            startActivity(new Intent(getApplicationContext(), Account.class));
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
                     }else{
                         Toast.makeText(Register.this,"Failed",Toast.LENGTH_LONG).show();
                     }
@@ -1219,7 +1259,19 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             });
         }
         else {
-            Toast.makeText(Register.this,"No image selected.",Toast.LENGTH_LONG).show();
+            mProgress.dismiss();
+            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+            alertDialog.setTitle(getString(R.string.title_edit_account));
+            alertDialog.setMessage(getString(R.string.edit_success_message));
+            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            mProgress.dismiss();
+                            startActivity(new Intent(getApplicationContext(), Account.class));
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
     }
     private String getEncodedString(String username, String password) {
@@ -1318,7 +1370,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                 if(convertJsonJava.getProfile().getDate_of_birth() !=null) {
                                     String d = convertJsonJava.getProfile().getDate_of_birth();
                                     String dd[] = d.split("-");
-                                    String strDob=String.format("%s-%s-%s",dd[0],dd[1],dd[2]);
+                                    String strDob=String.format("%s",dd[0]);
                                     editDate.setText(strDob);
 
                                     List<String> date = new ArrayList<>();
@@ -1368,6 +1420,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                             Glide.with(Register.this).load(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgProfile);
                                         } else {
                                             Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgProfile);
+                                            image = Uri.parse(user.getImageURL());
                                         }
                                     }
 
@@ -1386,6 +1439,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         });
     }
     private void PutData(String url,String encode) {
+        String g = editGender.getText().toString().toLowerCase();
         MediaType media = MediaType.parse("application/json");
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
@@ -1395,15 +1449,23 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             data.put("password",pass1);
             data.put("email",editEmail.getText().toString());
             data.put("first_name",editUsername.getText().toString());
-            pro.put("data_of_birth", editDate.getText().toString());
+            pro.put("date_of_birth",convertDateofBirth(editDate.getText().toString()));
             pro.put("address",editAddress.getText().toString());
             pro.put("responsible_officer",lat_long);
-            pro.put("gender",editGender.getText().toString().toLowerCase());
+            if (g.equals("female") || g.equals("ស្រី")){
+                gender1 = "female";
+            }else if (g.equals("male") || g.equals("ប្រុស")){
+                gender1 = "male";
+            }else if (g.equals("other") || g.equals("ផ្សេងទៀត")){
+                gender1 = "other";
+            }
+            pro.put("gender",gender1);
             pro.put("telephone",editPhone.getText().toString()+","+editPhone1.getText().toString()+","+editPhone2.getText().toString());
             pro.put("wing_account_number",editWing_number.getText().toString());
             pro.put("wing_account_name",editWing_account.getText().toString());
             data.put("profile",pro);
             data.put("groups", new JSONArray("[\"1\"]"));
+
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -1445,25 +1507,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             public void onResponse(Call call, Response response) throws IOException {
                 String message = response.body().string();
                 Log.d("Response EEEEE", message);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UpdateData();
-                        mProgress.dismiss();
-                        androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
-                        alertDialog.setTitle(getString(R.string.title_edit_account));
-                        alertDialog.setMessage(getString(R.string.edit_success_message));
-                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mProgress.dismiss();
-                                        startActivity(new Intent(getApplicationContext(), Account.class));
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
-                    }
-                });
+                UpdateData();
             }
         });
     }

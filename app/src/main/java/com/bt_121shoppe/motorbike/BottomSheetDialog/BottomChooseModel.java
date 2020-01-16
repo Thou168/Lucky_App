@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.BottomSheetDialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -72,6 +73,9 @@ public class BottomChooseModel extends BottomSheetDialogFragment implements View
             id_bran =  args.getInt(ARG_NUMBER);
         }
 
+        SharedPreferences preferences = getActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
+
         prefer = getActivity().getSharedPreferences("Register",getActivity().MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -124,7 +128,11 @@ public class BottomChooseModel extends BottomSheetDialogFragment implements View
                                     ccount++;
                                 }
                             }
-                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, modelListItems);
+                            if (language.equals("en")) {
+                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, modelListItems);
+                            }else if (language.equals("km")){
+                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, modelListItemkh);
+                            }
                             ls_model.setAdapter(adapter);
                         }catch (JSONException e){
                             e.printStackTrace();
