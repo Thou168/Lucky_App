@@ -75,11 +75,17 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="63" />
                                               </map>
                                             </option>
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="foregroundImage" value="D:\Bokor Technology\Source Code\121Shoppe\121backup_dec202019(new ui)\app\src\main\res\drawable\group_2293.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -114,20 +114,21 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         viewPager = findViewById(R.id.pagerDealer);
         setUpPager();
 //        if (tabs.getTabAt(1))
-        getPhone(pk,Encode);
-        tv_location.setText(location);
-        tv_dealer.setText(storeName);
-        Glide.with(Detail_store.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                img_user.setImageBitmap(resource);
-            }
 
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-            }
-        });
+//        getPhone(pk,Encode);
+//        tv_location.setText(location);
+//        tv_dealer.setText(storeName);
+//        Glide.with(Detail_store.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+//            @Override
+//            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                img_user.setImageBitmap(resource);
+//            }
+//
+//            @Override
+//            public void onLoadCleared(@Nullable Drawable placeholder) {
+//
+//            }
+//        });
 
         SharedPreferences sharedPref=getSharedPreferences("Register",Context.MODE_PRIVATE);
 
@@ -233,6 +234,11 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
             switch (position) {
                 case 0:
                     List_store_post tab1 = new List_store_post();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("storeName",storeName);
+                    bundle.putString("storeLocation",location);
+                    bundle.putString("storeImage",image);
+                    tab1.setArguments(bundle);
                     return tab1;
                 case 1:
                     history_store tab2 = new history_store();

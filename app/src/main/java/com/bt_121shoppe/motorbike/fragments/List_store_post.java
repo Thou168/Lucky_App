@@ -21,9 +21,11 @@ import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_store_post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,11 +38,25 @@ public class List_store_post extends Fragment {
     private Adapter_store_post mAdapter;
     private ProgressBar progressBar;
     private TextView no_result;
+    private TextView tv_back,tv_dealer,tv_location,tv_phone;
+    private CircleImageView img_user;
     private int pk;
     public List_store_post(){}
+    String storeName,storeLocation,storeImage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_store_detail_post_list, container, false);
+        Bundle bundle=this.getArguments();
+        if(bundle!=null){
+            storeName=bundle.getString("storeName");
+            storeLocation=bundle.getString("storeLocation");
+            storeImage=bundle.getString("storeImage");
+            Log.e("List",storeName);
+        }
+        tv_dealer = view.findViewById(R.id.tv_dealer);
+        tv_location = view.findViewById(R.id.location_store);
+        tv_phone = view.findViewById(R.id.phone);
+        img_user = view.findViewById(R.id.img_user);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -55,6 +71,10 @@ public class List_store_post extends Fragment {
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
+
+        tv_location.setText(storeLocation);
+        tv_dealer.setText(storeName);
+        Glide.with(view.getContext()).load(storeImage).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(img_user);
 
         getListStore(pk,Encode);
 

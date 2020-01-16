@@ -59,7 +59,6 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         setContentView(R.layout.dealer_store);
         btAdd_store = findViewById(R.id.add_store);
 
-
         StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

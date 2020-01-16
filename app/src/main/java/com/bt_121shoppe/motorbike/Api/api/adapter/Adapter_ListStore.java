@@ -74,7 +74,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         updateView(Paper.book().read("language"),view);
         view.address.setText(model.getShop_address());
         view.shopname.setText(model.getShop_name());
-        Glide.with(mContext).load(model.getShop_image()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(view.img_user);
+        Glide.with(mContext).load(model.getShop_image()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(view.img_user);
         view.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

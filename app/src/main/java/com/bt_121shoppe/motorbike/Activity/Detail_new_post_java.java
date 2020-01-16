@@ -143,7 +143,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         initialProductPostDetail(Encode);
         submitCountView(Encode);
         countPostView(Encode);
-        back_view.setOnClickListener(v -> finish());
+        //back_view.setOnClickListener(v -> finish());
 
         //like
         already_like(Encode);
@@ -230,11 +230,11 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         tvDiscountPer = findViewById(R.id.tv_discount_per);
         view = findViewById(R.id.view);
 
-        tv_dox = findViewById(R.id.style_dox);
-        tv_dox.setVisibility(View.GONE);
+        //tv_dox = findViewById(R.id.style_dox);
+        //tv_dox.setVisibility(View.GONE);
         typeView=findViewById(R.id.post_type);
 
-        back_view = findViewById(R.id.tv_back);
+        //back_view = findViewById(R.id.tv_back);
         btn_share = findViewById(R.id.btn_share);
         like = findViewById(R.id.btn_like);
         call = findViewById(R.id.btn_call);
@@ -449,7 +449,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             tvPrice.setText("$ "+cost);
                             tvDiscount.setText("$"+postDetail.getDiscount());
                             tvDiscountPer.setText(per1+"%");
-                            tv_dox.setVisibility(View.VISIBLE);
+                            //tv_dox.setVisibility(View.VISIBLE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
                         }
                         if (discount == 0.00){
