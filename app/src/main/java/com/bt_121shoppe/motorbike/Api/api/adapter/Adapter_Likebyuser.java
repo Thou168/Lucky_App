@@ -107,6 +107,11 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
+                    if (response.body().getCategory()==1){
+                        view.cate.setText(R.string.electronic);
+                    }else {
+                        view.cate.setText(R.string.motor);
+                    }
                     //dd by Raksmey
                     String strPostTitle="";
                     String lang = view.txtview1.getText().toString();
@@ -308,6 +313,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
         ImageButton btn_unlike;
         LinearLayout linearLayout;
         TextView tvColor1,tvColor2;
+        TextView cate;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -323,6 +329,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             imgUserProfile=view.findViewById(R.id.img_user);
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
+            cate = itemView.findViewById(R.id.cate);
         }
     }
 }

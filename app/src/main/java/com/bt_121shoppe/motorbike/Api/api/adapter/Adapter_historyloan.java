@@ -110,6 +110,12 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                         }
                     }
 
+                    if (response.body().getCategory()==1){
+                        view.cate.setText(R.string.electronic);
+                    }else {
+                        view.cate.setText(R.string.motor);
+                    }
+
                     String[] splitColor=response.body().getColor().split(",");
 
                     GradientDrawable shape = new GradientDrawable();
@@ -231,6 +237,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
         RelativeLayout relativeLayout;
         CircleImageView imgUserProfile;
         TextView tvColor1,tvColor2;
+        TextView cate;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -242,9 +249,11 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             item_type = view.findViewById(R.id.item_type);
             relativeLayout = view.findViewById(R.id.relative);
             imgUserProfile=view.findViewById(R.id.img_user);
-            textViewStatus=view.findViewById(R.id.tv_status);
+            textViewStatus=view.findViewById(R.id.pending_appprove);
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
+            cate=view.findViewById(R.id.cate);
+            date=view.findViewById(R.id.date);
         }
     }
 }

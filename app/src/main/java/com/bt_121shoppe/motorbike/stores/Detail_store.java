@@ -112,7 +112,9 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         setSupportActionBar(mToolbar);
         tabs = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.pagerDealer);
+        tabs.setupWithViewPager(viewPager);
         setUpPager();
+        setupTabText();
 //        if (tabs.getTabAt(1))
 
 //        getPhone(pk,Encode);
@@ -179,7 +181,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void onBackPressed(){
-        fileList();
+        finish();
     }
 
     private void language(String lang){
@@ -204,6 +206,10 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         tabs.setOnTabSelectedListener(this);
         Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
         viewPager.setAdapter(adapter);
+    }
+    private void setupTabText() {
+        tabs.getTabAt(0).setText(R.string.store_list);
+        tabs.getTabAt(1).setText(R.string.history);
     }
 
     @Override

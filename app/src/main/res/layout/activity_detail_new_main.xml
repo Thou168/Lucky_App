@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-    <include layout="@layout/activity_detail_new_post_java" />
+    <include layout="@layout/activity_detail_newpost_java" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -44,7 +44,6 @@ public class AccountSettingActivity extends AppCompatActivity {
 
         //initToolbar();
 
-
         LinearLayout btnProfile=findViewById(R.id.llProfile);
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override

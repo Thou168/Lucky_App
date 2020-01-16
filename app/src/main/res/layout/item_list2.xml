@@ -21,7 +21,7 @@
             android:id="@+id/image"
             android:layout_width="70dp"
             android:scaleType="centerCrop"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_height="70dp" />
 
         <RelativeLayout
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_price"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="21dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp_4">
 
@@ -93,7 +93,6 @@
                     android:background="@drawable/rounded_textview"
                     android:textColor="@android:color/white"
                     android:gravity="center"
-
                     android:id="@+id/tv_color1" />
                 <TextView
                     android:layout_width="14dp"
@@ -105,12 +104,24 @@
                     android:id="@+id/tv_color2" />
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/cate"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="19.5dp"
+                android:visibility="visible"
+                android:textColor="#404040"
+                android:layout_toEndOf="@+id/llColor"
+                android:layout_below="@+id/tv_price"
+                android:text="Motorbike"
+                android:textSize="12sp" />
 
             <RelativeLayout
                 android:id="@+id/li_postType"
-                android:gravity="right"
+                android:gravity="end"
                 android:orientation="vertical"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -119,19 +130,21 @@
                     android:id="@+id/imgbtn_unlike"
                     android:layout_width="24dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/group_28"
+                    android:src="@drawable/android_heart"
                     android:scaleType="centerInside"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
                     android:background="#ffff" />
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_4"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true">
+                    android:layout_marginEnd="10dp"
+                    android:layout_below="@+id/imgbtn_unlike"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true">
                     <!--                    <TextView-->
                     <!--                        android:layout_gravity="right"-->
                     <!--                        android:textColor="@android:color/white"-->
@@ -156,28 +169,26 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="13dp"
                         android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/user_view"
                             android:textSize="12dp"
-                            android:layout_marginRight="4dp"
+                            android:layout_marginEnd="4dp"
                             android:fontFamily="@font/opensans_regular"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="18dp" />
 
                         <TextView
                             android:id="@+id/user_view1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="18dp"
                             android:text="@string/view"
                             android:fontFamily="@font/opensans_regular"
                             android:textSize="12dp" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:id="@+id/img_user"
                             android:layout_width="22dp"
                             android:layout_height="22dp"

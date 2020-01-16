@@ -213,6 +213,7 @@
         android:paddingBottom="?android:attr/actionBarSize"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

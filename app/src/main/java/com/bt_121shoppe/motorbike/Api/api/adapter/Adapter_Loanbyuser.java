@@ -113,6 +113,12 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     view.title.setText(strPostTitle);
                     view.cost.setText("$"+model.getLoan_amount());
 
+                    if (response.body().getCategory()==1){
+                        view.cate.setText(R.string.electronic);
+                    }else {
+                        view.cate.setText(R.string.motor);
+                    }
+
                     String[] splitColor=response.body().getColor().split(",");
 
                     GradientDrawable shape = new GradientDrawable();
@@ -147,6 +153,8 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                             view.textViewStatus.setText(R.string.pending);
                             break;
                         case 10:
+                            view.textViewStatus.setText(R.string.approveval);
+                            view.textViewStatus.setTextColor(Color.parseColor("#43BF64"));
                             break;
                     }
 
@@ -276,6 +284,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
         LinearLayout linearLayout;
         CircleImageView imgUserProfile;
         TextView tvColor1,tvColor2;
+        TextView cate;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -288,10 +297,11 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
             btn_cancel = view.findViewById(R.id.btndelete);
             linearLayout = view.findViewById(R.id.linearLayout);
             textview1 = view.findViewById(R.id.user_view);
-            textViewStatus=view.findViewById(R.id.tv_status);
+            textViewStatus=view.findViewById(R.id.pending_appprove);
             imgUserProfile=view.findViewById(R.id.img_user);
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
+            cate=view.findViewById(R.id.cate);
         }
     }
 }

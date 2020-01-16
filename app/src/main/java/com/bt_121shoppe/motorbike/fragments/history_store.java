@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,8 @@ import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_history_store;
+import com.bt_121shoppe.motorbike.Api.api.adapter_for_shop.Adapter_store_post_history;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -34,7 +35,7 @@ public class history_store extends Fragment {
     RecyclerView recyclerView;
     SharedPreferences prefer;
     private String name,pass,Encode;
-    String basic_Encode;
+    private String basic_Encode;
     private List<ShopViewModel> listData;
     Adapter_history_store mAdapter;
     ProgressBar progressBar;
@@ -57,7 +58,7 @@ public class history_store extends Fragment {
         getStore_history();
 
         progressBar = view.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         no_result = view.findViewById(R.id.text);
         return view;
     }
@@ -75,25 +76,30 @@ public class history_store extends Fragment {
         return Base64.encodeToString(userpass.trim().getBytes(), Base64.NO_WRAP);
     }
     private void getStore_history(){
-        Service apiService = Client.getClient().create(Service.class);
-        Call<AllResponse> call = apiService.getloanhistory(basic_Encode);
-        call.enqueue(new Callback<AllResponse>() {
+        Service apiService1 = Client.getClient().create(Service.class);
+        Call<AllResponse> call1 = apiService1.getpostbyhistory(basic_Encode);
+        call1.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                listData = response.body().getresults();
-                if (listData.size()==0){
-                    progressBar.setVisibility(View.GONE);
+                if(response.isSuccessful()) {
+                    List<Item> listData = response.body().getresults();
+
+                    if (listData.size() == 0) {
+                        no_result.setVisibility(View.VISIBLE);
+                    }else {
+                        no_result.setVisibility(View.GONE);
+                        Adapter_store_post_history mAdapter = new Adapter_store_post_history(listData, getContext());
+                        recyclerView.setAdapter(mAdapter);
+                    }
+                }
+                else{
                     no_result.setVisibility(View.VISIBLE);
                 }
-                progressBar.setVisibility(View.GONE);
-                mAdapter = new Adapter_history_store(listData,getContext());
-                recyclerView.setAdapter(mAdapter);
-
             }
 
             @Override
             public void onFailure(Call<AllResponse> call, Throwable t) {
-                Log.d("Error",t.getMessage());
+
             }
         });
     }

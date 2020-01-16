@@ -782,6 +782,7 @@
 
     //renew
     <string name="pending">កំពុងរង់ចាំ</string>
+    <string name="approveval">អនុម័ត</string>
     <string name="Post_Renewal">ប្រកាសឡើងវិញ</string>
     <string name="renew_post">តើអ្នកចង់ប្រកាសឡើងវិញដែរទេ?</string>
 

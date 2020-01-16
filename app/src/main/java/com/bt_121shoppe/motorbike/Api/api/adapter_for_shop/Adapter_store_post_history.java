@@ -1,4 +1,4 @@
-package com.bt_121shoppe.motorbike.Api.api.adapter;
+package com.bt_121shoppe.motorbike.Api.api.adapter_for_shop;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,13 +7,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
-import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,22 +19,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
-import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +38,7 @@ import retrofit2.Response;
 /**
  * Created by jianghejie on 23/08/2019.
  */
-public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historybyuser.ViewHolder> {
+public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_store_post_history.ViewHolder> {
 
     private List<Item> datas;
     private Context mContext;
@@ -53,14 +46,14 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     String name,pass,basic_Encode;
     private int pk=0;
 
-    public Adapter_historybyuser(List<Item> datas, Context mContext) {
+    public Adapter_store_post_history(List<Item> datas, Context mContext) {
         this.datas = datas;
         this.mContext = mContext;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list2,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_store,viewGroup,false);
 
         prefer = mContext.getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -89,7 +82,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 //            mContext.startActivity(intent);
 //        });
         String iditem=String.valueOf((int)model.getId());
-        view.btn_unlike.setVisibility(View.GONE);
+//        view.btn_unlike.setVisibility(View.GONE);
 
         Double rs_price = 0.0;
  //Close by Raksmey
@@ -151,7 +144,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.tvColor2.setBackground(shape);
         }
 
-        view.imgUserProfile.setVisibility(View.GONE);
+//        view.imgUserProfile.setVisibility(View.GONE);
 //End
         if (model.getDiscount().equals("0.00")){
             view.cost.setText("$"+model.getCost());
@@ -172,6 +165,8 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         Double finalRs_price = rs_price;
+        view.linear_view.setVisibility(View.GONE);
+        view.pend_appr.setVisibility(View.GONE);
         view.linearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, Postbyuser_Class.class);
             intent.putExtra("Price", model.getCost());
@@ -226,10 +221,10 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title,cost,item_type,txtview,date,txt_discount,strView;
         ImageView imageView,imgUserProfile;
-        ImageButton btn_unlike;
-        LinearLayout linearLayout;
+//        ImageButton btn_unlike;
+        LinearLayout linearLayout,linear_view;
         TextView tvColor1,tvColor2;
-        TextView cate;
+        TextView cate,pend_appr;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -239,14 +234,15 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
             strView = view.findViewById(R.id.user_view1);
-            btn_unlike = view.findViewById(R.id.imgbtn_unlike);
             txt_discount = view.findViewById(R.id.tv_discount);
 //            btn_delete = view.findViewById(R.id.btndelete);
             linearLayout = view.findViewById(R.id.linearLayout);
-            imgUserProfile=view.findViewById(R.id.img_user);
+            linear_view = view.findViewById(R.id.linear_view);
+//            imgUserProfile=view.findViewById(R.id.img_user);
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
             cate=view.findViewById(R.id.cate);
+            pend_appr=view.findViewById(R.id.pending_appprove);
             date=view.findViewById(R.id.date);
         }
     }

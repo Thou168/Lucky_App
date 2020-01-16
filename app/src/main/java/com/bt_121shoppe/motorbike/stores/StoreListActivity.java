@@ -71,11 +71,13 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
     private int pk=0;
     SharedPreferences prefer;
     private String name,pass,Encode;
+    int g = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_list);
         bnaviga=findViewById(R.id.bnaviga);
+        bnaviga1=findViewById(R.id.bottom_nav);
         mButtonLocation= findViewById(R.id.button_location);
         mButtonLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +261,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             }
         });
 
-        bottomNavigation();
+//        bottomNavigation();
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -269,111 +271,188 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
-    }
-
-    private void bottomNavigation(){
         CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
-        if (g==3) {
-            bnaviga=findViewById(R.id.bottom_nav);
+        g = check.getGroup(pk,this);
+        Log.e("MSMSMS","Group "+g);
+        if (g == 3){
+            bnaviga1.setVisibility(View.VISIBLE);
+            bnaviga.setVisibility(View.GONE);
+            bnaviga1.getMenu().getItem(1).setChecked(true);
+            bnaviga1.setOnNavigationItemSelectedListener(mlistener1);
+        }else {
+            bnaviga1.setVisibility(View.GONE);
             bnaviga.setVisibility(View.VISIBLE);
             bnaviga.getMenu().getItem(1).setChecked(true);
-            bnaviga.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.home:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, Home.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.notification:
-//                    if(prefer.contains("token") || prefer.contains("id")){
-//                        startActivity(new Intent(StoreListActivity.this, StoreListActivity.class));
-//                    }else{
-//                        Intent intent=new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                        startActivity(intent);
-//                    }
-                        break;
-                    case R.id.dealer:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.message:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.account:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, Account.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                }
-                return true;
-            });
-        }else {
-            bnaviga1=findViewById(R.id.bnaviga);
-            bnaviga1.setVisibility(View.VISIBLE);
-            bnaviga1.getMenu().getItem(1).setChecked(true);
-            bnaviga1.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.home:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, Home.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.notification:
-//                    if(prefer.contains("token") || prefer.contains("id")){
-//                        startActivity(new Intent(StoreListActivity.this, StoreListActivity.class));
-//                    }else{
-//                        Intent intent=new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                        startActivity(intent);
-//                    }
-                        break;
-                    case R.id.camera:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, Camera.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.message:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.account:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(StoreListActivity.this, Account.class));
-                        } else {
-                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                }
-                return true;
-            });
+            bnaviga.setOnNavigationItemSelectedListener(mlistener);
         }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mlistener
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent myIntent = new Intent(StoreListActivity.this, Home.class);
+                startActivity(myIntent);
+                break;
+            case R.id.notification:
+                break;
+            case R.id.camera:
+                Intent myIntent3 = new Intent(StoreListActivity.this, Camera.class);
+                startActivity(myIntent3);
+                break;
+            case R.id.message:
+                Intent myIntent4 = new Intent(StoreListActivity.this, ChatMainActivity.class);
+                startActivity(myIntent4);
+                break;
+            case R.id.account:
+                Intent myIntent5 = new Intent(StoreListActivity.this, Account.class);
+                startActivity(myIntent5);
+                break;
+        }
+        return true;
+    };
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mlistener1
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(StoreListActivity.this, Home.class));
+                break;
+            case R.id.notification:
+                break;
+            case R.id.dealer:
+                startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
+                break;
+            case R.id.message:
+                startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
+                break;
+            case R.id.account:
+                startActivity(new Intent(StoreListActivity.this, Account.class));
+                break;
+        }
+        return true;
+    };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g == 3){
+            bnaviga1.getMenu().getItem(1).setChecked(true);
+        }else {
+            bnaviga.getMenu().getItem(1).setChecked(true);
+        }
+    }
+
+//    private void bottomNavigation(){
+//        CheckGroup check = new CheckGroup();
+//        int g = check.getGroup(pk,this);
+//        if (g==3) {
+//            bnaviga=findViewById(R.id.bottom_nav);
+//            bnaviga.setVisibility(View.VISIBLE);
+//            bnaviga.getMenu().getItem(1).setChecked(true);
+//            bnaviga.setOnNavigationItemSelectedListener(menuItem -> {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.home:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, Home.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            intent.putExtra("verify","home");
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                    case R.id.notification:
+////                    if(prefer.contains("token") || prefer.contains("id")){
+////                        startActivity(new Intent(StoreListActivity.this, StoreListActivity.class));
+////                    }else{
+////                        Intent intent=new Intent(StoreListActivity.this, UserAccountActivity.class);
+////                        startActivity(intent);
+////                    }
+//                        break;
+//                    case R.id.dealer:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            intent.putExtra("verify","message");
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                    case R.id.message:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            intent.putExtra("verify","message");
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                    case R.id.account:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, Account.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            intent.putExtra("verify","account");
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                }
+//                return false;
+//            });
+//        }else {
+//            bnaviga1=findViewById(R.id.bnaviga);
+//            bnaviga1.setVisibility(View.VISIBLE);
+//            bnaviga1.getMenu().getItem(1).setChecked(true);
+//            bnaviga1.setOnNavigationItemSelectedListener(menuItem -> {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.home:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, Home.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                    case R.id.notification:
+////                    if(prefer.contains("token") || prefer.contains("id")){
+////                        startActivity(new Intent(StoreListActivity.this, StoreListActivity.class));
+////                    }else{
+////                        Intent intent=new Intent(StoreListActivity.this, UserAccountActivity.class);
+////                        startActivity(intent);
+////                    }
+//                        break;
+//                    case R.id.camera:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, Camera.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                    case R.id.message:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                    case R.id.account:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(StoreListActivity.this, Account.class));
+//                        } else {
+//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                }
+//                return true;
+//            });
+//        }
+//    }
 
 
     @Override

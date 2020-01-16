@@ -118,7 +118,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_new_post_java);
+        setContentView(R.layout.activity_detail_newpost_java);
         locale();
         call_methot_id();
         layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan);

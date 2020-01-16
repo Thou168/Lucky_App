@@ -23,7 +23,7 @@
             android:layout_height="14dp"/>
         <TextView
             android:id="@+id/shopbar"
-            android:layout_width="93dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_24"
             android:layout_marginBottom="@dimen/dp_24"
             android:textSize="@dimen/dp_18"
@@ -119,12 +119,13 @@
                 <LinearLayout
                     android:layout_width="54dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_height="@dimen/dp_18"
-                    android:layout_marginTop="143dp"
+                    android:layout_marginBottom="9dp"
                     android:layout_marginEnd="12dp">
                     <TextView
                         android:id="@+id/view"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:text="12K"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -133,7 +134,7 @@
                     <TextView
                         android:id="@+id/title_view"
                         android:text="@string/view"
-                        android:textSize="12dp"
+                        android:textSize="13sp"
                         android:fontFamily="@font/opensans_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

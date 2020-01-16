@@ -683,6 +683,7 @@
     //change password
     <string name="message">You can not send empty message</string>
     <string name="pending">Pending</string>
+    <string name="approveval">Approve</string>
     <string name="Post_Renewal">Post Renewal</string>
     //tab account
     <string name="renew_post">Do you want to renew this post?</string>

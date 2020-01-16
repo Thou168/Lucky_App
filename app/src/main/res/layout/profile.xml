@@ -88,12 +88,11 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
-                android:src="@drawable/icons_black"
-                android:layout_gravity="center"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/dp_16">
-            </de.hdodenhof.circleimageview.CircleImageView>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_16"
+                android:src="@drawable/icons_black"></de.hdodenhof.circleimageview.CircleImageView>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgCamera"
