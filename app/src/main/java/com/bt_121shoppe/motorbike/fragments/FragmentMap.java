@@ -46,8 +46,6 @@ import java.util.List;
 
 public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private double latitude,longtitude;
     private static final int REQUEST_LOCATION = 1;
     private LocationManager locationManager;
     private SupportMapFragment mapFragment;
@@ -55,10 +53,12 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     private EditText et_search;
     private Uri bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
     private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,wing_account,wing_number,register_verify;
-    private int user_group,process_type;
     private Uri image;
-    private String edit,name,register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile,post;
+    private GoogleMap mMap;
+    private double latitude,longtitude;
+    private int user_group,process_type,modelID,brandID,categoryID,yearID,typeID;
     private int category_post, seekbar_price,seekbar_rearr,seekbar_screww, seekbar_engine, seekbar_head,assembly,seekbar_accessorie,seekbar_consolee,seekbar_pump,whole_ink;
+    private String cat,edit,name,register,shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,mProfile,post;
     private String color,location_post, year, model,discount_price,price,brand,category,post_type,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
 
     @Override
@@ -88,7 +88,6 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         gender = intent.getStringExtra("gender");
         username = intent.getStringExtra("username");
         image = intent.getParcelableExtra("image");
-        Log.e("get image",""+image);
         wing_account = intent.getStringExtra("wing_account_name");
         wing_number = intent.getStringExtra("wing_account_number");
         register_verify = intent.getStringExtra("Register_verify");
@@ -126,29 +125,34 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         assembly = intent.getIntExtra("assembly",0);
         seekbar_consolee = intent.getIntExtra("console",0);
         seekbar_accessorie = intent.getIntExtra("accessories",0);
-        process_type = intent.getIntExtra("processs_type",0);
+        process_type = intent.getIntExtra("process_type",0);
         category_post = intent.getIntExtra("category_post",0);
         name = intent.getStringExtra("name_post");
         color = intent.getStringExtra("color");
+        cat = intent.getStringExtra("cat");
         bitmapImage1 = intent.getParcelableExtra("image1");
         bitmapImage2 = intent.getParcelableExtra("image2");
         bitmapImage3 = intent.getParcelableExtra("image3");
         bitmapImage4 = intent.getParcelableExtra("image4");
         bitmapImage5 = intent.getParcelableExtra("image5");
         bitmapImage6 = intent.getParcelableExtra("image6");
-        Log.e("image",""+bitmapImage1);
-        Log.e("image",""+bitmapImage2);
-        Log.e("image",""+bitmapImage3);
-        Log.e("image",""+bitmapImage4);
-        Log.e("image",""+bitmapImage5);
-        Log.e("image",""+bitmapImage6);
+        modelID = intent.getIntExtra("modelID",0);
+        brandID = intent.getIntExtra("brandID",0);
+        categoryID = intent.getIntExtra("categoryID",0);
+        typeID = intent.getIntExtra("typeID",0);
+        yearID = intent.getIntExtra("yearID",0);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (register.equals("register")){
-                    startActivity(new Intent(FragmentMap.this,CreateShop.class));
-                }else if (post.equals("post")){
+                if (register != null){
+                    if (mProfile != null) {
+                        startActivity(new Intent(FragmentMap.this, CreateShop.class));
+                    }else if (edit != null){
+                        startActivity(new Intent(FragmentMap.this,Register.class));
+                    }
+                }else if (post != null){
                     startActivity(new Intent(FragmentMap.this,Camera.class));
                 }else
                     finish();
@@ -186,6 +190,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                     if (post.equals("post")){
                         Intent intent = new Intent(FragmentMap.this, Camera.class);
                         intent.putExtra("road", et_search.getText().toString());
+                        intent.putExtra("post",post);
                         intent.putExtra("location", location1);
                         intent.putExtra("name_post",name);
                         intent.putExtra("process_type",process_type);
@@ -214,6 +219,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                         intent.putExtra("console",seekbar_consolee);
                         intent.putExtra("accessories",seekbar_accessorie);
                         intent.putExtra("category_post",category_post);
+                        intent.putExtra("cat",cat);
                         intent.putExtra("color",color);
                         intent.putExtra("image1",bitmapImage1);
                         intent.putExtra("image2",bitmapImage2);
@@ -221,6 +227,11 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                         intent.putExtra("image4",bitmapImage4);
                         intent.putExtra("image5",bitmapImage5);
                         intent.putExtra("image6",bitmapImage6);
+                        intent.putExtra("modelID",modelID);
+                        intent.putExtra("brandID",brandID);
+                        intent.putExtra("yearID",yearID);
+                        intent.putExtra("categoryID",categoryID);
+                        intent.putExtra("typeID",typeID);
                         startActivity(intent);
 
                     }
@@ -252,8 +263,12 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         if (register != null){
-            startActivity(new Intent(FragmentMap.this,CreateShop.class));
-        }else if (post.equals("post")){
+            if (mProfile != null) {
+                startActivity(new Intent(FragmentMap.this, CreateShop.class));
+            }else if (edit != null){
+                startActivity(new Intent(FragmentMap.this,Register.class));
+            }
+        }else if (post != null){
             startActivity(new Intent(FragmentMap.this,Camera.class));
         }else
             finish();

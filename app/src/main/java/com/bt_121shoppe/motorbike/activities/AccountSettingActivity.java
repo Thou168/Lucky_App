@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,7 @@ import retrofit2.Response;
 public class AccountSettingActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private int user_group;
+    private ImageView img_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,15 @@ public class AccountSettingActivity extends AppCompatActivity {
         user_group = intent.getIntExtra("user_group",0);
 
         //initToolbar();
+
+
+        img_back = findViewById(R.id.img_back);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountSettingActivity.this,Account.class));
+            }
+        });
 
         LinearLayout btnProfile=findViewById(R.id.llProfile);
         btnProfile.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +129,11 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AccountSettingActivity.this,Account.class));
     }
 
     private void initToolbar(){

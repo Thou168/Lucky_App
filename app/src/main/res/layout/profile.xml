@@ -70,7 +70,7 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:padding="15dp"
             android:orientation="vertical">
             <Button
@@ -89,10 +89,12 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_16"
-                android:src="@drawable/icons_black"></de.hdodenhof.circleimageview.CircleImageView>
+                android:src="@drawable/icons_black">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgCamera"
@@ -203,7 +205,6 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:background="@drawable/underline_gray"
                     android:text="Add"/>
                 <TextView
                     android:visibility="gone"
@@ -217,7 +218,6 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:background="@drawable/underline_gray"
                     android:text="Cancel"/>
                 <TextView
                     android:id="@+id/phone_alert"
@@ -268,7 +268,6 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:background="@drawable/underline_gray"
                     android:text="Add"/>
                 <TextView
                     android:id="@+id/phone_alert1"
@@ -319,7 +318,6 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:background="@drawable/underline_gray"
                     android:text="Add"/>
                 <TextView
                     android:id="@+id/phone_alert2"
@@ -465,7 +463,6 @@
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
                     android:src="@drawable/calendar"
-                    android:background="@drawable/underline_gray"
                     android:text="Add"/>
                 <TextView
                     android:id="@+id/date_alert"
@@ -613,8 +610,7 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:src="@drawable/map"
-                    android:background="@drawable/underline_gray" />
+                    android:src="@drawable/map" />
                 <TextView
                     android:id="@+id/map_alert"
                     android:layout_width="match_parent"

@@ -636,13 +636,14 @@
                     <EditText
                         android:id="@+id/etphone1"
                         android:layout_below="@+id/tv_phone"
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
                         android:hint="099 000 000"
                         android:layout_marginTop="@dimen/dp_8"
                         android:maxLength="10"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <TextView
                         android:visibility="gone"
@@ -656,7 +657,6 @@
                         android:gravity="right"
                         android:padding="@dimen/dp_4"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@drawable/underline_gray"
                         android:text="Add"/>
                     <TextView
                         android:visibility="gone"
@@ -670,7 +670,6 @@
                         android:gravity="right"
                         android:padding="@dimen/dp_4"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@drawable/underline_gray"
                         android:text="Cancel"/>
                     <TextView
                         android:id="@+id/phone_alert"
@@ -703,13 +702,14 @@
                     <EditText
                         android:id="@+id/etphone2"
                         android:layout_below="@+id/tv_phone1"
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
                         android:hint="099 000 000"
                         android:layout_marginTop="@dimen/dp_8"
                         android:maxLength="10"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <TextView
                         android:id="@+id/tv_add1"
@@ -722,7 +722,6 @@
                         android:gravity="right"
                         android:padding="@dimen/dp_4"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@drawable/underline_gray"
                         android:text="Add"/>
                     <TextView
                         android:id="@+id/phone_alert1"
@@ -755,13 +754,14 @@
                     <EditText
                         android:id="@+id/etphone3"
                         android:layout_below="@+id/tv_phone2"
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
                         android:hint="099 000 000"
                         android:layout_marginTop="@dimen/dp_8"
                         android:maxLength="10"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <TextView
                         android:id="@+id/tv_add2"
@@ -774,7 +774,6 @@
                         android:gravity="right"
                         android:padding="@dimen/dp_4"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@drawable/underline_gray"
                         android:text="Add"/>
                     <TextView
                         android:id="@+id/phone_alert2"
@@ -872,10 +871,11 @@
                     <EditText
                         android:id="@+id/et_map"
                         android:layout_below="@+id/tv_map"
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dp_8"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <ImageView
                         android:id="@+id/map"
@@ -888,8 +888,7 @@
                         android:gravity="right"
                         android:padding="@dimen/dp_4"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:src="@drawable/map"
-                        android:background="@drawable/underline_gray" />
+                        android:src="@drawable/map" />
                     <TextView
                         android:id="@+id/map_alert"
                         android:layout_width="match_parent"

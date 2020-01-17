@@ -183,7 +183,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageMap,imgAdd_color,cancel_color;
     private String user_name,user_email,user_phone,user_address,user_address_name;
     private String edit_name,edit_email,edit_phone,edit_address,edit_address_name;
-    private String name,pass,Encode,road,name_post;
+    private String name,pass,Encode,road,name_post,post;
     private int pk,id_typeother=0;
     private ArrayAdapter<String> brands,models;
     private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model,id_brand_Model;
@@ -200,7 +200,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private List<Integer> list_brand_model = new ArrayList<>();
     private ArrayList<Integer> selectedColor;
     private int seekbar_price = 0,seekbar_rearr = 0,seekbar_screww = 0, seekbar_engine = 0, seekbar_head = 0,assembly = 0,seekbar_accessorie = 0,seekbar_consolee = 0,seekbar_pump = 0,whole_ink=0;
-    private String condition1,type_post,yearr,discount_price,price,modell,brandd,categoryy,post_typee,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
+    private String cat,condition1,type_post,yearr,discount_price,price,modell,brandd,categoryy,post_typee,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
     String id_cate, id_brand,id_model,id_year,id_type, login_verify,register_intent,strPostType,strCondition,strColor,strColorKH="";
     String num_used="0",color;
     int num_used1 = 0;
@@ -274,31 +274,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         mCompressor = new FileCompressor(this);
         //     Log.d(TAG,"time"+Instant.now().toString());
 
-        TextView back = (TextView) findViewById(R.id.tv_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
-                builder.setMessage(getString(R.string.back_message));
-                builder.setCancelable(false);
-                builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (register_intent!=null || login_verify!=null){
-                            startActivity(new Intent(Camera.this,Home.class));
-                        }else finish();
-                    }
-                });
-                builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        builder.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
-
         mProgress = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.please_wait));
         mProgress.setCancelable(false);
@@ -322,43 +297,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
         bundle = getIntent().getExtras();
         if (bundle!=null) {
+            post = bundle.getString("post");
             road = bundle.getString("road");
             latlng = bundle.getString("location");
             login_verify = bundle.getString("Login_verify");
             register_intent = bundle.getString("Register_verify");
             process_type=bundle.getInt("process_type",0);
-            if(process_type==0){
-                submit_post.setVisibility(View.VISIBLE);
-                bt_update.setVisibility(View.GONE);
-                category = bundle.getInt("category_post",0);
-                strPostType = tvPostType.getText().toString();
-                if(strPostType.equals("sell")){
-                    tvPostType.setText(R.string.sel);
-                    toolbar.setBackgroundColor(getColor(R.color.logo_green));
-                }else if(strPostType.equals("rent")){
-                    tvPostType.setText(R.string.ren);
-                    toolbar.setBackgroundColor(getColor(R.color.logo_red));
-                }
-
-//                getCategegoryName(Encode,cate);
-
-                if(category==1){
-                    tvType_elec.setVisibility(View.VISIBLE);
-                    tvType_cate.setVisibility(View.VISIBLE);
-                }else {
-                    tvType_elec.setVisibility(View.GONE);
-                    tvType_cate.setVisibility(View.GONE);
-                }
-            }else {
-                bt_update.setVisibility(View.VISIBLE);
-                submit_post.setVisibility(View.GONE);
-                tv_name.setVisibility(View.VISIBLE);
-                etName.setVisibility(View.VISIBLE);
-                edit_id = bundle.getInt("id_product", 0);
-                getData_Post(Encode,edit_id);
-//                Log.e("Edit_id:", String.valueOf(edit_id));
-            }
-//            Log.e("Type ID", String.valueOf(type));
             price = bundle.getString("price");
             modell = bundle.getString("model");
             brandd = bundle.getString("brand");
@@ -384,6 +328,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_consolee = bundle.getInt("console",0);
             seekbar_accessorie = bundle.getInt("accessories",0);
             name_post = bundle.getString("name_post");
+            cat = bundle.getString("cat");
             color = bundle.getString("color");
             image1 = bundle.getParcelable("image1");
             image2 = bundle.getParcelable("image2");
@@ -391,7 +336,44 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             image4 = bundle.getParcelable("image4");
             image5 = bundle.getParcelable("image5");
             image6 = bundle.getParcelable("image6");
+            model = bundle.getInt("modelID",0);
+            brand = bundle.getInt("brandID",0);
+            category = bundle.getInt("categoryID",0);
+            type = bundle.getInt("typeID",0);
+            year = bundle.getInt("yearID",0);
+            if(process_type != 1){
+                submit_post.setVisibility(View.VISIBLE);
+                bt_update.setVisibility(View.GONE);
+                category = bundle.getInt("category_post",0);
+                strPostType = tvPostType.getText().toString();
+                if(strPostType.equals("sell")){
+                    tvPostType.setText(R.string.sel);
+                    toolbar.setBackgroundColor(getColor(R.color.logo_green));
+                }else if(strPostType.equals("rent")){
+                    tvPostType.setText(R.string.ren);
+                    toolbar.setBackgroundColor(getColor(R.color.logo_red));
+                }
+
+
+                if(category==1){
+                    layout_estimate.setVisibility(View.GONE);
+                    tvType_elec.setVisibility(View.VISIBLE);
+                    tvType_cate.setVisibility(View.VISIBLE);
+                }else {
+                    layout_estimate.setVisibility(View.VISIBLE);
+                    tvType_elec.setVisibility(View.GONE);
+                    tvType_cate.setVisibility(View.GONE);
+                }
+            }else{
+                bt_update.setVisibility(View.VISIBLE);
+                submit_post.setVisibility(View.GONE);
+                tv_name.setVisibility(View.VISIBLE);
+                etName.setVisibility(View.VISIBLE);
+                edit_id = bundle.getInt("id_product", 0);
+                getData_Post(Encode,edit_id);
+            }
             etName.setText(name_post);
+            tvType_cate.setText(cat);
             etPrice.setText(price);
             tvYear.setText(yearr);
             tvModel.setText(modell);
@@ -417,6 +399,13 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_screw.setProgress(seekbar_screww);
             seekbar_rear.setProgress(seekbar_rearr);
             etMap.setText(road);
+            if (condition != null){
+                if (condition.equals("used") || condition.equals("ប្រើ")){
+                    layout_estimate.setVisibility(View.VISIBLE);
+                }else if (condition.equals("new") || condition.equals("ថ្មី")){
+                    layout_estimate.setVisibility(View.GONE);
+                }
+            }
             Glide.with(Camera.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -550,7 +539,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 REQUEST_CHOOSE_PHOTO_NUM=REQUEST_GALLERY_PHOTO_6;
             }
         });
-        //dd by Raksmey
+        //add by Raksmey
         btremove_pic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -617,6 +606,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             public void onClick(View view) {
                 layout_phone1.setVisibility(View.VISIBLE);
                 tv_cancel.setVisibility(View.VISIBLE);
+                tv_add.setVisibility(View.GONE);
             }
         });
         tv_add1.setOnClickListener(new View.OnClickListener() {
@@ -631,6 +621,35 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 layout_phone1.setVisibility(View.GONE);
                 layout_phone2.setVisibility(View.GONE);
                 tv_cancel.setVisibility(View.GONE);
+                tv_add.setVisibility(View.VISIBLE);
+            }
+        });
+        TextView back = (TextView) findViewById(R.id.tv_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
+                builder.setMessage(getString(R.string.back_message));
+                builder.setCancelable(false);
+                builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (register_intent!=null || login_verify!=null){
+                            startActivity(new Intent(Camera.this,Home.class));
+                        }else if (process_type == 1){
+                            startActivity(new Intent(Camera.this,Account.class));
+                        }else if (post != null){
+                            startActivity(new Intent(Camera.this,Home.class));
+                        }else finish();
+                    }
+                });
+                builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        builder.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
 
@@ -861,10 +880,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (register_intent!=null || login_verify!=null){
                     startActivity(new Intent(Camera.this,Home.class));
-                }
-                else {
-                    finish();
-                }
+                }else if (process_type == 1){
+                    startActivity(new Intent(Camera.this,Account.class));
+                }else if (post != null){
+                    startActivity(new Intent(Camera.this,Home.class));
+                }else finish();
             }
         });
         builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
@@ -913,7 +933,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                 String email = object.getString("contact_email");
                                 String post_sub_title = object.getString("post_sub_title");
                                 strPostType = object.getString("post_type");
-                                cate = object.getInt("category");
+                                category = object.getInt("category");
                                 type = object.getInt("type");
 
                                 int eta1 = object.getInt("used_eta1");
@@ -938,7 +958,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                                 String phone = object.getString("contact_phone");
 
-                                if (cate == 2) {
+                                if (category == 2) {
                                     type = 3;
                                     tvType_elec.setVisibility(View.GONE);
                                     tvType_cate.setVisibility(View.GONE);
@@ -1023,8 +1043,10 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                                         if (postType.equals("Sell")){
                                             tvPostType.setText(R.string.sel);
+                                            type_post = "sell";
                                         }else if (postType.equals("Rent")){
                                             tvPostType.setText(R.string.ren);
+                                            type_post = "rent";
                                         }else if (postType.equals("Buy")){
                                             tvPostType.setText(R.string.bu);
                                         }
@@ -1032,15 +1054,17 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         String condition = strCondition.substring(0, 1).toUpperCase() + strCondition.substring(1);
                                         if (condition.equals("New")){
                                             tvCondition.setText(R.string.newl);
+                                            condition1 = "new";
                                         }else if (condition.equals("Used")){
                                             tvCondition.setText(R.string.used);
+                                            condition1 = "used";
                                             layout_estimate.setVisibility(View.VISIBLE);
                                         }
 
                                         Log.e("color",""+strColor);
 
                                         //Call_Model(Encode,brand);
-                                        getCategegoryName(Encode,cate);
+                                        getCategegoryName(Encode,category);
                                         getTypeName(Encode,type);
                                         getYearName(Encode,year);
                                         getModelName(Encode,model);
@@ -1053,6 +1077,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 imageView1.setImageBitmap(resource);
                                                 bitmapImage1 = resource;
                                                 btremove_pic1.setVisibility(View.VISIBLE);
+                                                image1 = Uri.parse(fron);
                                             }
 
                                             @Override
@@ -1067,6 +1092,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 bitmapImage2 = resource;
                                                 Log.d("BITMAP","2:"+bitmapImage2);
                                                 btremove_pic2.setVisibility(View.VISIBLE);
+                                                image2 = Uri.parse(back);
                                             }
 
                                             @Override
@@ -1080,6 +1106,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 imageView3.setImageBitmap(resource);
                                                 bitmapImage3 = resource;
                                                 btremove_pic3.setVisibility(View.VISIBLE);
+                                                image3 = Uri.parse(left);
                                             }
 
                                             @Override
@@ -1093,6 +1120,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 imageView4.setImageBitmap(resource);
                                                 bitmapImage4 = resource;
                                                 btremove_pic4.setVisibility(View.VISIBLE);
+                                                image4 = Uri.parse(right);
                                             }
 
                                             @Override
@@ -1106,6 +1134,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 imageView5.setImageBitmap(resource);
                                                 bitmapImage5 = resource;
                                                 btremove_pic5.setVisibility(View.VISIBLE);
+                                                image5 = Uri.parse(extra1);
                                             }
 
                                             @Override
@@ -1119,6 +1148,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 imageView6.setImageBitmap(resource);
                                                 bitmapImage6 = resource;
                                                 btremove_pic6.setVisibility(View.VISIBLE);
+                                                image6 = Uri.parse(extra2);
                                             }
 
                                             @Override
@@ -1278,16 +1308,30 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }else if (con.equals("new") || con.equals("ថ្មី")){
                 condition1 = "new";
             }
-            post.put("condition",condition1);
-            post.put("used_eta1", seekbar_whole.getProgress());
-            post.put("used_eta2", seekbar_rear.getProgress());
-            post.put("used_eta3", seekbar_screw.getProgress());
-            post.put("used_eta4", seekbar_pumps.getProgress());
-            post.put("used_machine1", seekbar_rigt_engine.getProgress());
-            post.put("used_machine2", seekbar_engine_head.getProgress());
-            post.put("used_machine3", seekbar_assmebly.getProgress());
-            post.put("used_machine4", seekbar_console.getProgress());
-            post.put("used_other1", seekbar_accessories.getProgress());
+            post.put("condition", condition1);
+            if (category == 2){
+                post.put("type", 3);
+                post.put("used_eta1", seekbar_whole.getProgress());
+                post.put("used_eta2", seekbar_rear.getProgress());
+                post.put("used_eta3", seekbar_screw.getProgress());
+                post.put("used_eta4", seekbar_pumps.getProgress());
+                post.put("used_machine1", seekbar_rigt_engine.getProgress());
+                post.put("used_machine2", seekbar_engine_head.getProgress());
+                post.put("used_machine3", seekbar_assmebly.getProgress());
+                post.put("used_machine4", seekbar_console.getProgress());
+                post.put("used_other1", seekbar_accessories.getProgress());
+            }else {
+                post.put("type", type);
+                post.put("used_eta1", 0);
+                post.put("used_eta2",0);
+                post.put("used_eta3", 0);
+                post.put("used_eta4", 0);
+                post.put("used_machine1", 0);
+                post.put("used_machine2", 0);
+                post.put("used_machine3", 0);
+                post.put("used_machine4", 0);
+                post.put("used_other1", 0);
+            }
 
             post.put("user",pk );
 
@@ -1398,7 +1442,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 type_post = "rent";
             }
             post.put("post_type",type_post);
-            post.put("type", type);
 //check empty field user for detail by samang 28/08
             if (etAddress.getText().toString().isEmpty() || etAddress.getText().toString() == null){
                 post.put("vin_code", user_address_name);
@@ -1681,11 +1724,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         OkHttpClient client = new OkHttpClient();
         JSONObject post = new JSONObject();
         JSONObject sale = new JSONObject();
-
         String con = tvCondition.getText().toString().toLowerCase();
-        String str_dis=etDiscount_amount.getText().toString();
-        if(str_dis==null || str_dis.isEmpty())
-            str_dis="0";
         if(model==0)
             model=mmodel;
         try {
@@ -1694,19 +1733,34 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }else if (con.equals("new") || con.equals("ថ្មី")){
                 condition1 = "new";
             }
+            if (category == 2){
+                post.put("type", 3);
+                post.put("used_eta1", seekbar_whole.getProgress());
+                post.put("used_eta2", seekbar_rear.getProgress());
+                post.put("used_eta3", seekbar_screw.getProgress());
+                post.put("used_eta4", seekbar_pumps.getProgress());
+                post.put("used_machine1", seekbar_rigt_engine.getProgress());
+                post.put("used_machine2", seekbar_engine_head.getProgress());
+                post.put("used_machine3", seekbar_assmebly.getProgress());
+                post.put("used_machine4", seekbar_console.getProgress());
+                post.put("used_other1", seekbar_accessories.getProgress());
+            }else {
+                post.put("type", type);
+                post.put("used_eta1", 0);
+                post.put("used_eta2",0);
+                post.put("used_eta3", 0);
+                post.put("used_eta4", 0);
+                post.put("used_machine1", 0);
+                post.put("used_machine2", 0);
+                post.put("used_machine3", 0);
+                post.put("used_machine4", 0);
+                post.put("used_other1", 0);
+            }
+
             post.put("condition",condition1);
             post.put("category", category );
             post.put("status", 3);
 
-            post.put("used_eta1", seekbar_whole.getProgress());
-            post.put("used_eta2", seekbar_rear.getProgress());
-            post.put("used_eta3", seekbar_screw.getProgress());
-            post.put("used_eta4", seekbar_pumps.getProgress());
-            post.put("used_machine1", seekbar_rigt_engine.getProgress());
-            post.put("used_machine2", seekbar_engine_head.getProgress());
-            post.put("used_machine3", seekbar_assmebly.getProgress());
-            post.put("used_machine4", seekbar_console.getProgress());
-            post.put("used_other1", seekbar_accessories.getProgress());
 
             strPostType = tvPostType.getText().toString().toLowerCase();
             Log.e("post type",":"+strPostType);
@@ -1715,7 +1769,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 post.put("discount_type","amount");
             }else {
                 post.put("discount_type", null);
-                post.put("discount",str_dis);
+                post.put("discount", String.valueOf(seekbar_pri_per.getProgress()));
             }
             post.put("user",pk );
             if(bitmapImage1==null) {
@@ -1794,7 +1848,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }
             post.put("post_type",type_post);
             post.put("vin_code", etAddress.getText().toString());
-            post.put("type", type);
 //check empty field user for detail by samang 28/08
             if (etAddress.getText().toString().isEmpty() ||etAddress.getText().toString() == null){
                 post.put("vin_code", edit_address_name);
@@ -1911,36 +1964,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String other1 = obj.getString("used_other1");
                                             FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1,fcolor);
 
-                                            //submit dealer
-                                            Service api = Client.getClient().create(Service.class);
-                                            if(mDealerShopId1>0)
-                                                list_shop.add(new dealershop(id,mDealerShopId1,1));
-                                            if(mDealerShopId2>0)
-                                                list_shop.add(new dealershop(id,mDealerShopId2,1));
-                                            if(mDealerShopId3>0)
-                                                list_shop.add(new dealershop(id,mDealerShopId3,1));
-
-                                            for (int i=0;i<list_shop.size();i++){
-                                                retrofit2.Call<dealershop> call1 = api.pushdealershop(list_shop.get(i));
-                                                call1.enqueue(new retrofit2.Callback<dealershop>() {
-                                                    @Override
-                                                    public void onResponse(retrofit2.Call<dealershop> call, retrofit2.Response<dealershop> response) {
-                                                        if (!response.isSuccessful()){
-                                                            Log.d("444444444444","42"+response.code());
-                                                            try {
-                                                                Log.d("1212121121121","21"+response.errorBody().string());
-                                                            } catch (IOException e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(retrofit2.Call<dealershop> call, Throwable t) {
-
-                                                    }
-                                                });
-                                            }
 
                                         }catch (JSONException e){
                                             e.printStackTrace();
@@ -2360,7 +2383,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 int selectedIndex = adapter.selectedPositions.indexOf(position);
-                if (selectedIndex > -1) {
+                if (selectedIndex > - 1) {
                     adapter.selectedPositions.remove(selectedIndex);
                     ((CustomView)v).display(false);
                     selectedColor.remove((Integer) parent.getItemAtPosition(position));
@@ -2373,13 +2396,31 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     for (int i = 0; i < selectedColor.size(); i++) {
                         if (i < selectedColor.size() - 1) {
                             color = String.valueOf(selectedColor.get(i));
-                            Log.e("Select",""+color);
+                            Log.e("Select : ",""+color);
                         } else {
                             color = String.valueOf(selectedColor.get(i));
-                            Log.e("Select",""+color);
+                            Log.e("Unselect : ",""+color);
                         }
                     }
                 }
+                if (color.equals("2131231204")){
+                    strColor = "white";
+                }else if (color.equals("2131230842")){
+                    strColor = "blue";
+                }else if (color.equals("2131231065")){
+                    strColor = "black";
+                }else if (color.equals("2131231161")){
+                    strColor = "red";
+                }else if (color.equals("2131231206")){
+                    strColor = "yellow";
+                }else if (color.equals("2131231156")){
+                    strColor = "pink";
+                }else if (color.equals("2131231159")){
+                    strColor = "purple";
+                }else if (color.equals("2131231121")){
+                    strColor = "orange";
+                }
+                Log.e("color select:",""+strColor);
             }
         });
 
@@ -2483,6 +2524,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     intent.putExtra("console",seekbar_consolee);
                     intent.putExtra("accessories",seekbar_accessorie);
                     intent.putExtra("category_post",category);
+                    intent.putExtra("cat",tvType_cate.getText().toString());
                     intent.putExtra("color",color);
                     intent.putExtra("image1",image1);
                     intent.putExtra("image2",image2);
@@ -2490,6 +2532,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     intent.putExtra("image4",image4);
                     intent.putExtra("image5",image5);
                     intent.putExtra("image6",image6);
+                    intent.putExtra("modelID",model);
+                    intent.putExtra("brandID",brand);
+                    intent.putExtra("yearID",year);
+                    intent.putExtra("categoryID",category);
+                    intent.putExtra("typeID",type);
                     Log.e("color",""+color);
                     startActivity(intent);
                 }
@@ -2768,7 +2815,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image1 = data.getData();
+                image1 = Uri.fromFile(mPhotoFile);
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_2;
                 btremove_pic1.setVisibility(View.VISIBLE);
@@ -2781,7 +2828,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image2 = data.getData();
+                image2 = Uri.fromFile(mPhotoFile);
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_3;
                 btremove_pic2.setVisibility(View.VISIBLE);
@@ -2794,7 +2841,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image3 = data.getData();
+                image3 = Uri.fromFile(mPhotoFile);
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_4;
                 btremove_pic3.setVisibility(View.VISIBLE);
@@ -2807,7 +2854,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image4 = data.getData();
+                image4 = Uri.fromFile(mPhotoFile);
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_5;
                 btremove_pic4.setVisibility(View.VISIBLE);
@@ -2821,7 +2868,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image5 = data.getData();
+                image5 = Uri.fromFile(mPhotoFile);
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
                 REQUEST_TAKE_PHOTO_NUM=REQUEST_TAKE_PHOTO_6;
                 btremove_pic5.setVisibility(View.VISIBLE);
@@ -2834,7 +2881,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image6 = data.getData();
+                image6 = Uri.fromFile(mPhotoFile);
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
                 btremove_pic6.setVisibility(View.VISIBLE);
             }
@@ -2847,7 +2894,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image1 = Uri.fromFile(mPhotoFile);
+                image1 = data.getData();
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView1);
                 btremove_pic1.setVisibility(View.VISIBLE);
             }
@@ -2859,7 +2906,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image2 = Uri.fromFile(mPhotoFile);
+                image2 = data.getData();
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView2);
                 btremove_pic2.setVisibility(View.VISIBLE);
             }
@@ -2871,7 +2918,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image3 = Uri.fromFile(mPhotoFile);
+                image3 = data.getData();
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView3);
                 btremove_pic3.setVisibility(View.VISIBLE);
             }
@@ -2883,7 +2930,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image4 = Uri.fromFile(mPhotoFile);
+                image4 = data.getData();
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView4);
                 btremove_pic4.setVisibility(View.VISIBLE);
 
@@ -2897,7 +2944,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image5 = Uri.fromFile(mPhotoFile);
+                image5 = data.getData();
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView5);
                 btremove_pic5.setVisibility(View.VISIBLE);
 
@@ -2910,7 +2957,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image6 = Uri.fromFile(mPhotoFile);
+                image6 = data.getData();
                 Glide.with(Camera.this).load(mPhotoFile).apply(new RequestOptions().centerCrop().centerCrop().placeholder(R.drawable.group_2293)).into(imageView6);
                 btremove_pic6.setVisibility(View.VISIBLE);
             }
@@ -3275,9 +3322,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     public void AddIdCategory(int id) {
         category = id;
         if (id == 1){
+            layout_estimate.setVisibility(View.GONE);
             tvType_elec.setVisibility(View.VISIBLE);
             tvType_cate.setVisibility(View.VISIBLE);
         }else {
+            layout_estimate.setVisibility(View.VISIBLE);
             tvType_elec.setVisibility(View.GONE);
             tvType_cate.setVisibility(View.GONE);
         }
