@@ -169,7 +169,7 @@
     <string name="version">Version</string>
     <string name="logout">Logout</string>
     <string name="app_setting">APP SETTING</string>
-    <string name="account_setting">ACCOUNT SETTING</string>
+    <string name="account_setting">Account Setting</string>
     <string name="txt_account_setting">Account Setting</string>
     <string name="hit_fistname">Fist Name</string>
 
@@ -204,9 +204,19 @@
     <string name="like">Like</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="new_password">New Password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="renew_password">Re-New Password</string>
+    <string name="enter_renew_password">Enter re-new password</string>
+
+    //enable disable
+    <string name="enable">Enable</string>
+    <string name="disable">disable</string>
+
+    <string name="reset_password">Reset Password</string>
 
     //category
     <string name="old_password">Old Password</string>
+    <string name="enter_old_password">Enter your old password</string>
     <string name="condition_change_password">You will use the new password to access your account.</string>
     <string name="yes_loan">Yes</string>
 

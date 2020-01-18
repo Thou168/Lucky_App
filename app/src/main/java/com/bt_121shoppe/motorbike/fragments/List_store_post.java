@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -22,6 +23,7 @@ import com.bt_121shoppe.motorbike.Api.api.adapter_for_shop.Adapter_store_post;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
@@ -51,6 +53,7 @@ public class List_store_post extends Fragment {
     String basic_Encode;
     public List_store_post(){}
     String storeName,storeLocation,storeImage;
+    TextView btn_edit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store_detail_post_list, container, false);
@@ -65,6 +68,14 @@ public class List_store_post extends Fragment {
         tv_location = view.findViewById(R.id.location_store);
         tv_phone = view.findViewById(R.id.phone);
         img_user = view.findViewById(R.id.img_user);
+        btn_edit = view.findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),CreateShop.class);
+                startActivity(i);
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);

@@ -67,6 +67,8 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         setSupportActionBar(mToolbar);
         tabs = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.pagerDealer);
+//        setupTabText();
+        tabs.setupWithViewPager(viewPager);
         setUpPager();
 
         SharedPreferences sharedPref=getSharedPreferences("Register",Context.MODE_PRIVATE);
@@ -165,6 +167,10 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         String language=prefer.getString("My_Lang","");
         language(language);
     }
+//    private void setupTabText() {
+//        tabs.getTabAt(0).setText(R.string.tab_store);
+//        tabs.getTabAt(1).setText(R.string.tab_postlist);
+//    }
     private void setUpPager(){
         tabs.addTab(tabs.newTab().setText(R.string.tab_store));
         tabs.addTab(tabs.newTab().setText(R.string.tab_postlist));
@@ -200,11 +206,9 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
             //Returning the current tabs
             switch (position) {
                 case 0:
-                    ListStore tab1 = new ListStore();
-                    return tab1;
+                    return new ListStore();
                 case 1:
-                    Postbyuser tab2 = new Postbyuser();
-                    return tab2;
+                    return new Postbyuser();
                 default:
                     return null;
             }
@@ -217,9 +221,9 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         @Override
         public CharSequence getPageTitle(int position) {
             if (position==0) {
-                return getApplicationContext().getString(R.string.store_list);
+                return getApplicationContext().getString(R.string.tab_store);
             } else if (position==1) {
-                return getApplicationContext().getString(R.string.history);
+                return getApplicationContext().getString(R.string.tab_postlist);
             } else {
                 return null;
             }

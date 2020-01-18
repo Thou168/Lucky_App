@@ -81,7 +81,7 @@ class Setting : AppCompatActivity(), Changelanguage.BottomSheetListener {
     }  // onCreate
 
     override fun language(lang : String) {
-        val locale = Locale(lang!!)
+        val locale = Locale(lang)
         Locale.setDefault(locale)
         val confi = Configuration()
         confi.locale = locale

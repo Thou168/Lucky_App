@@ -39,7 +39,7 @@
                     android:fontFamily="@font/opensans_semibold"
                     android:textSize="18dp"
                     android:textColor="@color/white"
-                    android:text="Account Setting"/>
+                    android:text="@string/account_setting"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_regular"
                     android:textSize="15dp"
-                    android:text="Profile"/>
+                    android:text="@string/menu_profile"/>
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_regular"
                     android:textSize="15dp"
-                    android:text="Setting"/>
+                    android:text="@string/setting"/>
             </LinearLayout>
 
             <LinearLayout

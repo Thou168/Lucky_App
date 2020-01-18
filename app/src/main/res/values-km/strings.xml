@@ -556,8 +556,18 @@
     //change password
     <string name="confirm_password">បញ្ជាក់លេខសម្ងាត់</string>
     <string name="new_password">លេខសម្ងាត់ថ្មី</string>
+    <string name="enter_new_password">បញ្ចូលលេខសម្ងាត់ថ្មី</string>
     <string name="old_password">លេខសម្ងាត់ចាស់</string>
+    <string name="enter_old_password">បញ្ចូលលេខសម្ងាត់ចាស់របស់អ្នក</string>
+    <string name="renew_password">បញ្ជាកលេខសម្ងាត់ថ្មី</string>
+    <string name="enter_renew_password">បញ្ជាកលេខសម្ងាត់ថ្មីម្តងទៀត</string>
     <string name="condition_change_password">អ្នកនឹងប្រើពាក្យសម្ងាត់ថ្មីដើម្បីចូលប្រើគណនីរបស់អ្នក</string>
+
+    //enable disable
+    <string name="enable">បើកដំណើរការ</string>
+    <string name="disable">បិទ</string>
+
+    <string name="reset_password">កំណត់ពាក្យសម្ងាត់ឡើងវិញ</string>
 
     //search
     <string name="search_all">ស្វែករកគ្រប់ផលិតផល</string>
@@ -605,7 +615,7 @@
     <string name="no_result">រកមិនឃើញលទ្ធផលទេ</string>
     <string name="related_poat">ការប្រកាសដែលពាក់ព័ន្ធគ្នា</string>
 
-    <string name="english_khmer">ខ្មែរ</string>
+    <string name="english_khmer">អង់គ្លេស</string>
 
     <!-- Chats -->
     <string name="chat_toolbar">ការជជែក</string>

@@ -702,17 +702,18 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                 mImageViewKhmer.setVisibility(View.VISIBLE);
                 mImageViewEnglish.setVisibility(View.GONE);
             }
-            mImageViewEnglish.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Paper.book().write("language","en");
-                    updateView(Paper.book().read("language"));
-                    language("en");
-                    mImageViewKhmer.setVisibility(View.VISIBLE);
-                    mImageViewEnglish.setVisibility(View.GONE);
-                }
-            });
         }
+
+        mImageViewEnglish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Paper.book().write("language","en");
+                updateView(Paper.book().read("language"));
+                language("en");
+                mImageViewKhmer.setVisibility(View.VISIBLE);
+                mImageViewEnglish.setVisibility(View.GONE);
+            }
+        });
 
         mImageViewKhmer.setOnClickListener(new View.OnClickListener() {
             @Override

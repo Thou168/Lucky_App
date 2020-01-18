@@ -1,41 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/refresh"
-    android:scrollbarStyle="insideOverlay"
-    tools:context=".activities.SettingActivity">
-
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".activities.SettingActivity">
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="?attr/colorPrimary">
-            <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="20dp"
-                android:layout_height="21dp"
-                android:layout_marginEnd="14dp"
-                android:src="@drawable/back_arrow"/>
-            <TextView
-                android:text="@string/setting"
-                android:textColor="@color/white"
-                android:layout_marginStart="13.79dp"
-                android:fontFamily="@font/opensans_semibold"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </androidx.appcompat.widget.Toolbar>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -43,7 +16,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
                 android:orientation="vertical">
 
                 <TextView
@@ -246,44 +218,44 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
-    <!--            <com.google.android.material.textfield.TextInputLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:hint="@string/old_password">-->
+                <!--            <com.google.android.material.textfield.TextInputLayout-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:hint="@string/old_password">-->
 
-    <!--                <com.google.android.material.textfield.TextInputEditText-->
-    <!--                    android:id="@+id/edOldPassword"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:inputType="textPassword"/>-->
+                <!--                <com.google.android.material.textfield.TextInputEditText-->
+                <!--                    android:id="@+id/edOldPassword"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:inputType="textPassword"/>-->
 
-    <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-    <!--            <com.google.android.material.textfield.TextInputLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:hint="@string/new_password">-->
+                <!--            <com.google.android.material.textfield.TextInputLayout-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:hint="@string/new_password">-->
 
-    <!--                <com.google.android.material.textfield.TextInputEditText-->
-    <!--                    android:id="@+id/edNewPassword"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:inputType="textPassword"/>-->
+                <!--                <com.google.android.material.textfield.TextInputEditText-->
+                <!--                    android:id="@+id/edNewPassword"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:inputType="textPassword"/>-->
 
-    <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-    <!--            <com.google.android.material.textfield.TextInputLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:hint="@string/confirm_password">-->
+                <!--            <com.google.android.material.textfield.TextInputLayout-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:hint="@string/confirm_password">-->
 
-    <!--                <com.google.android.material.textfield.TextInputEditText-->
-    <!--                    android:id="@+id/edConfirmPassword"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:inputType="textPassword"/>-->
+                <!--                <com.google.android.material.textfield.TextInputEditText-->
+                <!--                    android:id="@+id/edConfirmPassword"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:inputType="textPassword"/>-->
 
-    <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
                 <Button
                     android:id="@+id/reset_pass"
@@ -301,4 +273,4 @@
         </ScrollView>
 
     </LinearLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
