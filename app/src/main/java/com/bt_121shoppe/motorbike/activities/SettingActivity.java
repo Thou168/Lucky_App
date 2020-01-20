@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -26,7 +28,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.models.ChangepassModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -47,24 +48,31 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SettingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG= SettingActivity.class.getSimpleName();
+    private static final String TAG = SettingActivity.class.getSimpleName();
     private ImageView img_back;
     TextInputEditText old_pass,new_pass,renew_pass;
     Button reset_pass;
     SharedPreferences prefer;
     private String name,pass,Encode;
     RadioGroup radio_groupnotification,radio_language;
+    RadioButton radio_kh,radio_en;
+    RadioButton radio_enable,radio_disable;
     private int index = 1;
-    private Fragment currentFragment;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    boolean radioCheck = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting2);
         radio_groupnotification=findViewById(R.id.radio_groupnotification);
         radio_language=findViewById(R.id.radio_language);
+        radio_language.clearCheck();
+        radio_kh=findViewById(R.id.radio_khmerlanguage);
+        radio_en=findViewById(R.id.radio_englishlanguage);
+        radio_enable=findViewById(R.id.radio_notificationenable);
+        radio_disable=findViewById(R.id.radio_notificationdisable);
 
-        mSwipeRefreshLayout=findViewById(R.id.refresh);
+        mSwipeRefreshLayout=findViewById(R.id.refresh_setting);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         old_pass=findViewById(R.id.old_pass);
@@ -97,6 +105,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
 
     //for notification
     private void Notification(){
+        radio_enable.toggle();
         radio_groupnotification.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -118,25 +127,13 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
 
     @Override
     public void onRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-        dorefresh();
-    }
-
-    private void dorefresh(){
         mSwipeRefreshLayout.setRefreshing(false);
-        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        if(currentFragment!=null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            if (Build.VERSION.SDK_INT >= 26) {
-                ft.setReorderingAllowed(false);
-            }
-            ft.detach(currentFragment).attach(currentFragment).commit();
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mSwipeRefreshLayout.isRefreshing();
     }
 
     //language
@@ -146,64 +143,38 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         Log.e(TAG,"Current language is "+language);
         if(language==null){
             Paper.book().write("language","km");
-            updateView("km");
             language("km");
         }else{
             radio_language.setOnCheckedChangeListener((group, checkedId) -> {
                 View radioButton = group.findViewById(checkedId);
                 index = radio_language.indexOfChild(radioButton);
                 switch (index) {
-                    case 1:
-                        index = 1;
-                        Toast.makeText(SettingActivity.this, R.string.english_khmer, Toast.LENGTH_SHORT).show();
-                        Paper.book().write("language","en");
-                        updateView(Paper.book().read("language"));
-                        language("en");
-                        startActivity(new Intent(this,SettingActivity.class));
-                        finish();
-                        break;
                     case 0:
-                        index = 0;
                         Toast.makeText(SettingActivity.this, R.string.khmer, Toast.LENGTH_SHORT).show();
                         Paper.book().write("language","km");
-                        updateView(Paper.book().read("language"));
                         language("km");
-                        startActivity(new Intent(this,SettingActivity.class));
-                        finish();
+                        if (radioCheck=true){
+                            startActivity(getIntent());
+                            finish();
+                        }
+                        break;
+                    case 1:
+                        Toast.makeText(SettingActivity.this, R.string.english_khmer, Toast.LENGTH_SHORT).show();
+                        Paper.book().write("language", "en");
+                        language("en");
+                        if (radioCheck=true) {
+                            startActivity(getIntent());
+                            finish();
+                        }
                         break;
                 }
             });
         }
     }
 
-    private void updateView(String language){
-        language=language==null?"km":language;
-
-        Context context= LocaleHapler.setLocale(this,language);
-        Resources resources=context.getResources();
-        //title menu
-        if(resources != null) {
-
-        }
-        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        if(currentFragment!=null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            if (Build.VERSION.SDK_INT >= 26) {
-                ft.setReorderingAllowed(false);
-            }
-            ft.detach(currentFragment).attach(currentFragment).commit();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        Log.e(TAG,"current Fragment onStart "+currentFragment);
-    }
-
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(SettingActivity.this,AccountSettingActivity.class));
         finish();
     }
 
@@ -216,6 +187,12 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         SharedPreferences.Editor editor=getSharedPreferences("Settings",MODE_PRIVATE).edit();
         editor.putString("My_Lang",lang);
         editor.apply();
+//        if ("km".equals(lang)) {
+//            radio_kh.toggle();
+//        }
+//        else {
+//            radio_en.toggle();
+//        }
     }
 
     private void locale(){

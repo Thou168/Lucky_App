@@ -538,7 +538,7 @@ public class one extends Fragment{
                 }
                 mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
                 if (response.body().ismIs_Co_borrower()){
-                    mCo_borrower.check(R.id.radial);
+                    mCo_borrower.check(R.id.radio1);
                     radio1.toggle();
                     for (int i=0;i<rRela.length;i++){
                         if (response.body().getmRelationship().equals(Rela[i].toLowerCase())) {

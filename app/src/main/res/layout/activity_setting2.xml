@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/refresh"
+    android:id="@+id/refresh_setting"
     android:scrollbarStyle="insideOverlay"
     tools:context=".activities.SettingActivity">
 
@@ -70,6 +70,7 @@
                         android:layout_marginStart="@dimen/dp_15"
                         android:paddingStart="13dp"
                         android:text="@string/enable"
+                        android:checked="false"
                         android:fontFamily="@font/opensans_regular"
                         android:buttonTint="@color/logo_green"
                         android:textSize="15sp" />
@@ -80,6 +81,7 @@
                         android:layout_height="@dimen/dp_24"
                         android:paddingStart="13dp"
                         android:text="@string/disable"
+                        android:checked="false"
                         android:fontFamily="@font/opensans_regular"
                         android:buttonTint="@color/logo_green"
                         android:layout_marginStart="139dp"
@@ -115,6 +117,7 @@
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
                         android:text="@string/khmer"
+                        android:checked="false"
                         android:buttonTint="@color/logo_green"
                         android:textSize="15sp" />
 
@@ -126,6 +129,7 @@
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
                         android:text="@string/english_khmer"
+                        android:checked="false"
                         android:buttonTint="@color/logo_green"
                         android:layout_marginTop="27dp"
                         android:textSize="15sp" />
@@ -154,26 +158,18 @@
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_20"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etOldPassLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:passwordToggleEnabled="true"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/old_pass"
+                        android:hint="@string/enter_old_password"
+                        android:textColorHint="#CCCCCC"
+                        android:inputType="textPassword"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/opensans_regular"
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginEnd="@dimen/dp_15"
-                        app:hintEnabled="false"
-                        android:background="@drawable/my_border1">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/old_pass"
-                            android:hint="@string/enter_old_password"
-                            android:textColorHint="#CCCCCC"
-                            android:inputType="textPassword"
-                            android:textSize="20sp"
-                            android:fontFamily="@font/opensans_regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,26 +185,18 @@
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_20"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etNewpassLayout"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/new_pass"
+                        android:hint="@string/enter_new_password"
+                        android:textColorHint="#CCCCCC"
+                        android:fontFamily="@font/opensans_regular"
+                        android:inputType="textPassword"
+                        android:textSize="20sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_16"
-                        android:layout_marginEnd="@dimen/dp_15"
-                        app:passwordToggleEnabled="true"
-                        app:hintEnabled="false"
-                        android:background="@drawable/my_border1">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/new_pass"
-                            android:hint="@string/enter_new_password"
-                            android:textColorHint="#CCCCCC"
-                            android:fontFamily="@font/opensans_regular"
-                            android:inputType="textPassword"
-                            android:textSize="20sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginEnd="@dimen/dp_15"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -224,26 +212,18 @@
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_20"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etComfirmpassLayout"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/renew_pass"
+                        android:hint="@string/enter_renew_password"
+                        android:fontFamily="#CCCCCC"
+                        android:textSize="20sp"
+                        android:textColorHint="#CCCCCC"
+                        android:inputType="textPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_16"
-                        android:layout_marginEnd="@dimen/dp_15"
-                        app:passwordToggleEnabled="true"
-                        app:hintEnabled="false"
-                        android:background="@drawable/my_border1">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/renew_pass"
-                            android:hint="@string/enter_renew_password"
-                            android:fontFamily="#CCCCCC"
-                            android:textSize="20sp"
-                            android:textColorHint="#CCCCCC"
-                            android:inputType="textPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginEnd="@dimen/dp_15"/>
                 </LinearLayout>
 
     <!--            <com.google.android.material.textfield.TextInputLayout-->
