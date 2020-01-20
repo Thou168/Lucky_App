@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -151,107 +152,68 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             R.drawable.green,
             R.drawable.blue_sky
     };
-    LocationManager locationManager;
-    double latitude,longtitude;
-    private GoogleMap mMap;
-    private String latlng;
-    SupportMapFragment mapFragment;
-    Constraints Layout_call_chat_like_loan;
     private static final String TAG = Camera.class.getSimpleName();
-    static final int REQUEST_TAKE_PHOTO_1=1;
-    static final int REQUEST_TAKE_PHOTO_2=2;
-    static final int REQUEST_TAKE_PHOTO_3=3;
-    static final int REQUEST_TAKE_PHOTO_4=4;
-    static final int REQUEST_TAKE_PHOTO_5=9;
-    static final int REQUEST_TAKE_PHOTO_6=10;
-    static final int REQUEST_GALLERY_PHOTO_1=5;
-    static final int REQUEST_GALLERY_PHOTO_2=6;
-    static final int REQUEST_GALLERY_PHOTO_3=7;
-    static final int REQUEST_GALLERY_PHOTO_4=8;
-    static final int REQUEST_GALLERY_PHOTO_5=11;
-    static final int REQUEST_GALLERY_PHOTO_6=12;
+    private static final int REQUEST_TAKE_PHOTO_1=1;
+    private static final int REQUEST_TAKE_PHOTO_2=2;
+    private static final int REQUEST_TAKE_PHOTO_3=3;
+    private static final int REQUEST_TAKE_PHOTO_4=4;
+    private static final int REQUEST_TAKE_PHOTO_5=9;
+    private static final int REQUEST_TAKE_PHOTO_6=10;
+    private static final int REQUEST_GALLERY_PHOTO_1=5;
+    private static final int REQUEST_GALLERY_PHOTO_2=6;
+    private static final int REQUEST_GALLERY_PHOTO_3=7;
+    private static final int REQUEST_GALLERY_PHOTO_4=8;
+    private static final int REQUEST_GALLERY_PHOTO_5=11;
+    private static final int REQUEST_GALLERY_PHOTO_6=12;
     private int REQUEST_TAKE_PHOTO_NUM=0;
     private int REQUEST_CHOOSE_PHOTO_NUM=0;
-    private File mPhotoFile;
-    private FileCompressor mCompressor;
-    private ScrollView scrollView;
     private EditText etDescription,etPrice,etDiscount_amount,etPhone1,etPhone2,etPhone3,etEmail,etAddress,etMap,etName;
-    private ImageButton btremove_pic1,btremove_pic2,btremove_pic3,btremove_pic4,btremove_pic5,btremove_pic6;
-    private SearchView tvAddress;
-    private Button submit_post,bt_update;
     private EditText tvPostType,tvCondition,tvYear,tvCategory,tvType_cate,tvBrand,tvModel;
+    private ImageButton btremove_pic1,btremove_pic2,btremove_pic3,btremove_pic4,btremove_pic5,btremove_pic6;
+    private Button submit_post,bt_update;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageMap,imgAdd_color,cancel_color;
-    private String user_name,user_email,user_phone,user_address,user_address_name;
-    private String edit_name,edit_email,edit_phone,edit_address,edit_address_name;
+    private String user_phone,user_address;
     private String name,pass,Encode,road,name_post,post;
-    private int pk,id_typeother=0;
-    private ArrayAdapter<String> brands,models;
-    private ArrayAdapter<Integer> ID_category,ID_brands,ID_type,ID_year,ID_model,id_brand_Model;
-    private List<String> list_category = new ArrayList<>();
-    private List<String> list_type = new ArrayList<>();
-    private List<String> list_brand = new ArrayList<>();
-    private List<String> list_model = new ArrayList<>();
-    private List<String> list_year= new ArrayList<>();
-    private List<Integer> list_id_category = new ArrayList<>();
-    private List<Integer> list_id_type = new ArrayList<>();
-    private List<Integer> list_id_brands = new ArrayList<>();
-    private List<Integer> list_id_model = new ArrayList<>();
-    private List<Integer> list_id_year = new ArrayList<>();
-    private List<Integer> list_brand_model = new ArrayList<>();
+    private String cat,condition1,type_post,yearr,discount_price,price,modell,brandd,categoryy,post_typee,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
+    private String login_verify,register_intent,strPostType,strCondition,strColor,strColorKH="";
+    private String color,latlng;
+    private String user_name,user_email,user_address_name;
+    private String edit_name,edit_email,edit_phone,edit_address,edit_address_name;
     private ArrayList<Integer> selectedColor;
     private int seekbar_price = 0,seekbar_rearr = 0,seekbar_screww = 0, seekbar_engine = 0, seekbar_head = 0,assembly = 0,seekbar_accessorie = 0,seekbar_consolee = 0,seekbar_pump = 0,whole_ink=0;
-    private String cat,condition1,type_post,yearr,discount_price,price,modell,brandd,categoryy,post_typee,condition,email_post,address_post,phone_number1_post,phone_number2_post,phone_number3_post,description;
-    String id_cate, id_brand,id_model,id_year,id_type, login_verify,register_intent,strPostType,strCondition,strColor,strColorKH="";
-    String num_used="0",color;
-    int num_used1 = 0;
-    int num_use = 100;
-
-    int idYear=0,process_type=0,post_type=0,category=0;
-    int cate=0,brand=0,model=0,year=0,type=0;
-    SharedPreferences prefer,pre_id;
-    ProgressDialog mProgress;
+    private int pk,mmodel=1,edit_id;
+    private int process_type=0,category=0;
+    private int cate=0,brand=0,model=0,year=0,type=0;
+    private int id_typeother;
+    private File mPhotoFile;
+    private FileCompressor mCompressor;
+    private SharedPreferences prefer,pre_id;
+    private SupportMapFragment mapFragment;
+    private ProgressDialog mProgress;
     private Bitmap bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6,default_bitmap;
     private Uri image1,image2,image3,image4,image5,image6;
 
-    int edit_id,status;
-    Bundle bundle;
-    int mmodel=1;
-    Boolean my_name = true;
-    RelativeLayout layout_color;
-    LinearLayout layout_estimate;
-
-    List<dealershop>list_shop = new ArrayList<>();
-    List<Integer>listid_shop = new ArrayList<>();
-    List<Integer> idshop = new ArrayList<>();
-    private SeekBar seekbar_pri_per,seekbar_rear,seekbar_screw,seekbar_pumps,seekbar_rigt_engine,seekbar_engine_head,seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
-
-    //end
+    private Bundle bundle;
+    private RelativeLayout layout_color;
     private RelativeLayout layout_phone1,layout_phone2;
-    private int mDealerShopId1=0,mDealerShopId2=0,mDealerShopId3=0;
-    private Bitmap bitmapImage,bitmapImage10,bitmapImage20;
-    private List<UserShopViewModel> userShops;
-    private Button btnPos;
-    private Button btnNag;
-    private TextView delete_massage,tv_add,tv_add1,tv_cancel,tvType_elec,tv_name,title_dicount,show_ID;
-    private CircleImageView btnlogo;
-    private Button Cancel,Submit;
-    private String[] photoChooseOption;
-    private static final int REQUEST_GALLARY_PHOTO=2;
-    private static final int REQUEST_TAKE_PHOTO=1;
-    private Uri imageUri;
-    private TextView tvConsole,tvAssecssorie,tvWhole_int,tvRear,tvScrew,tvPumps,tvRight_engine,tvEngine_head,tvAssembly;
+    private LinearLayout layout_estimate;
 
-    private String[] postTypeListItems,conditionListItems,modelListItemkh,discountTypeListItems,brandListItemkh,typeListItemkh,categoryListItemkh,colorListItems,yearListItems,categoryListItems,typeListItems,brandListItem,modelListItems,shopListItems;
-    private int[] yearIdListItems,categoryIdListItems,typeIdListItems,brandIdListItems,modelIdListItems,shopIdListItems,postShopListItems;
-    private List<PostDealerShopViewModel> postShops;
+    private SeekBar seekbar_pri_per,seekbar_rear,seekbar_screw,seekbar_pumps,seekbar_rigt_engine,seekbar_engine_head;
+    private SeekBar seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
+
+    private TextView tv_add,tv_add1,tv_cancel,tvType_elec,tv_name,title_dicount,show_ID;
+    private TextView phone_alert,email_alert,address_alert,map_alert;
+    private TextView price_alert,dis_price_alert,post_type_alert,category_alert,type_alert,brand_alert,model_alert,year_alert,info_alert,conditon_alert;
+    private TextView whole_alert,console_alert,assembly_alert,engine_head_alert,right_engine_alert,screw_alert,accessories_alert,rear_alert,pumps_alert;
+    private TextView tvConsole,tvAssecssorie,tvWhole_int,tvRear,tvScrew,tvPumps,tvRight_engine,tvEngine_head,tvAssembly;
+    private String[] shopListItems;
+    private int[]    shopIdListItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
 
-        // end
-        scrollView = findViewById(R.id.scroll_post);
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -272,7 +234,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         }
         // end
         mCompressor = new FileCompressor(this);
-        //     Log.d(TAG,"time"+Instant.now().toString());
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.please_wait));
@@ -290,57 +251,56 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 .findFragmentById(R.id.map_post);
         DropDown();
         mSeekbar();
-
         initialUserInformation(pk,Encode);
 
         show_ID.setText(String.valueOf(CommonFunction.generateRandomDigits(9)));
 
         bundle = getIntent().getExtras();
         if (bundle!=null) {
-            post = bundle.getString("post");
-            road = bundle.getString("road");
-            latlng = bundle.getString("location");
-            login_verify = bundle.getString("Login_verify");
-            register_intent = bundle.getString("Register_verify");
-            process_type=bundle.getInt("process_type",0);
-            price = bundle.getString("price");
-            modell = bundle.getString("model");
-            brandd = bundle.getString("brand");
-            condition = bundle.getString("condition");
-            description = bundle.getString("description");
-            categoryy = bundle.getString("category");
-            post_typee = bundle.getString("post_type");
-            email_post = bundle.getString("email_post");
-            address_post = bundle.getString("address_post");
+            post               = bundle.getString("post");
+            road               = bundle.getString("road");
+            latlng             = bundle.getString("location");
+            login_verify       = bundle.getString("Login_verify");
+            register_intent    = bundle.getString("Register_verify");
+            process_type       = bundle.getInt("process_type",0);
+            price              = bundle.getString("price");
+            modell             = bundle.getString("model");
+            brandd             = bundle.getString("brand");
+            condition          = bundle.getString("condition");
+            description        = bundle.getString("description");
+            categoryy          = bundle.getString("category");
+            post_typee         = bundle.getString("post_type");
+            email_post         = bundle.getString("email_post");
+            address_post       = bundle.getString("address_post");
             phone_number1_post = bundle.getString("phone_number1_post");
             phone_number2_post = bundle.getString("phone_number2_post");
             phone_number3_post = bundle.getString("phone_number3_post");
-            discount_price = bundle.getString("discount_amount");
-            seekbar_price = bundle.getInt("discount_percent",0);
-            yearr = bundle.getString("year");
-            whole_ink = bundle.getInt("whole_ink",0);
-            seekbar_rearr = bundle.getInt("rear",0);
-            seekbar_screww = bundle.getInt("screw",0);
-            seekbar_pump = bundle.getInt("pumps",0);
-            seekbar_engine = bundle.getInt("right_engine",0);
-            seekbar_head = bundle.getInt("engine_head",0);
-            assembly = bundle.getInt("assembly",0);
-            seekbar_consolee = bundle.getInt("console",0);
+            discount_price     = bundle.getString("discount_amount");
+            seekbar_price      = bundle.getInt("discount_percent",0);
+            yearr              = bundle.getString("year");
+            whole_ink          = bundle.getInt("whole_ink",0);
+            seekbar_rearr      = bundle.getInt("rear",0);
+            seekbar_screww     = bundle.getInt("screw",0);
+            seekbar_pump       = bundle.getInt("pumps",0);
+            seekbar_engine     = bundle.getInt("right_engine",0);
+            seekbar_head       = bundle.getInt("engine_head",0);
+            assembly           = bundle.getInt("assembly",0);
+            seekbar_consolee   = bundle.getInt("console",0);
             seekbar_accessorie = bundle.getInt("accessories",0);
-            name_post = bundle.getString("name_post");
-            cat = bundle.getString("cat");
-            color = bundle.getString("color");
-            image1 = bundle.getParcelable("image1");
-            image2 = bundle.getParcelable("image2");
-            image3 = bundle.getParcelable("image3");
-            image4 = bundle.getParcelable("image4");
-            image5 = bundle.getParcelable("image5");
-            image6 = bundle.getParcelable("image6");
-            model = bundle.getInt("modelID",0);
-            brand = bundle.getInt("brandID",0);
-            category = bundle.getInt("categoryID",0);
-            type = bundle.getInt("typeID",0);
-            year = bundle.getInt("yearID",0);
+            name_post          = bundle.getString("name_post");
+            cat                = bundle.getString("cat");
+            color              = bundle.getString("color");
+            image1             = bundle.getParcelable("image1");
+            image2             = bundle.getParcelable("image2");
+            image3             = bundle.getParcelable("image3");
+            image4             = bundle.getParcelable("image4");
+            image5             = bundle.getParcelable("image5");
+            image6             = bundle.getParcelable("image6");
+            model              = bundle.getInt("modelID",0);
+            brand              = bundle.getInt("brandID",0);
+            category           = bundle.getInt("categoryID",0);
+            type               = bundle.getInt("typeID",0);
+            year               = bundle.getInt("yearID",0);
             if(process_type != 1){
                 submit_post.setVisibility(View.VISIBLE);
                 bt_update.setVisibility(View.GONE);
@@ -353,7 +313,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     tvPostType.setText(R.string.ren);
                     toolbar.setBackgroundColor(getColor(R.color.logo_red));
                 }
-
 
                 if(category==1){
                     layout_estimate.setVisibility(View.GONE);
@@ -685,33 +644,46 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                         ||  image_value == 0) {
                     if (etPhone1.getText().toString().length()<9){
+                        phone_alert.setText(getString(R.string.invalid_phone));
+                        phone_alert.setTextColor(getColor(R.color.red));
                         etPhone1.requestFocus();
-                    }
-                    if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
-                        etDiscount_amount.requestFocus();
-                    }
+                    }else phone_alert.setText("");
                     if (etPrice.getText().toString().length()==0) {
+                        price_alert.setText(getString(R.string.invalid_price));
+                        price_alert.setTextColor(getColor(R.color.red));
                         etPrice.requestFocus();
-                    }
+                    }else price_alert.setText("");
                     if (tvYear.getText().toString().length()==0) {
+                        year_alert.setText(getString(R.string.invalid_year));
+                        year_alert.setTextColor(getColor(R.color.red));
                         tvYear.requestFocus();
-                    }
+                    }else year_alert.setText("");
                     if (tvModel.getText().toString().length()==0) {
+                        model_alert.setText(getString(R.string.invalid_model));
+                        model_alert.setTextColor(getColor(R.color.red));
                         tvModel.requestFocus();
-                    }
+                    }else model_alert.setText("");
                     if (tvBrand.getText().toString().length()==0) {
+                        brand_alert.setText(getString(R.string.invalid_brand));
+                        brand_alert.setTextColor(getColor(R.color.red));
                         tvBrand.requestFocus();
-                    }
+                    }else brand_alert.setText("");
 
                     if (tvCategory.getText().toString().length()==0) {
+                        category_alert.setText(getString(R.string.invalid_category));
+                        category_alert.setTextColor(getColor(R.color.red));
                         tvCategory.requestFocus();
-                    }
+                    }else category_alert.setText("");
                     if (tvPostType.getText().toString().length()==0){
+                        post_type_alert.setText(getString(R.string.invalid_post_type));
+                        post_type_alert.setTextColor(getColor(R.color.red));
                         tvPostType.requestFocus();
-                    }
-                    if (tvPostType.getText().toString().length()==0){
-                        tvPostType.requestFocus();
-                    }
+                    }else post_type_alert.setText("");
+                    if (tvCondition.getText().toString().length() == 0){
+                        conditon_alert.setText(getString(R.string.invalid_condition));
+                        conditon_alert.setTextColor(getColor(R.color.red));
+                        tvCondition.requestFocus();
+                    }else conditon_alert.setText("");
                     if (strColor.isEmpty() || strColor == null ){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                         alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
@@ -782,33 +754,47 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         || etPrice.getText().toString().length()==0 || etPhone1.getText().toString().length() < 9 || dbDis_percent >=100|| dbDis_amount >= dbPrice
                         ||  image_value == 0) {
                     if (etPhone1.getText().toString().length()<9){
+                        phone_alert.setText(getString(R.string.invalid_phone));
+                        phone_alert.setTextColor(getColor(R.color.red));
                         etPhone1.requestFocus();
-                    }
-                    if (dbDis_percent >= 100 || dbDis_amount >= dbPrice){
-                        etDiscount_amount.requestFocus();
-                    }
+                    }else phone_alert.setText("");
                     if (etPrice.getText().toString().length()==0) {
+                        price_alert.setText(getString(R.string.invalid_price));
+                        price_alert.setTextColor(getColor(R.color.red));
                         etPrice.requestFocus();
-                    }
+                    }else price_alert.setText("");
                     if (tvYear.getText().toString().length()==0) {
+                        year_alert.setText(getString(R.string.invalid_year));
+                        year_alert.setTextColor(getColor(R.color.red));
                         tvYear.requestFocus();
-                    }
+                    }else year_alert.setText("");
                     if (tvModel.getText().toString().length()==0) {
+                        model_alert.setText(getString(R.string.invalid_model));
+                        model_alert.setTextColor(getColor(R.color.red));
                         tvModel.requestFocus();
-                    }
+                    }else model_alert.setText("");
                     if (tvBrand.getText().toString().length()==0) {
+                        brand_alert.setText(getString(R.string.invalid_brand));
+                        brand_alert.setTextColor(getColor(R.color.red));
                         tvBrand.requestFocus();
-                    }
+                    }else brand_alert.setText("");
 
                     if (tvCategory.getText().toString().length()==0) {
+                        category_alert.setText(getString(R.string.invalid_category));
+                        category_alert.setTextColor(getColor(R.color.red));
                         tvCategory.requestFocus();
-                    }
+                    }else category_alert.setText("");
                     if (tvPostType.getText().toString().length()==0){
+                        post_type_alert.setText(getString(R.string.invalid_post_type));
+                        post_type_alert.setTextColor(getColor(R.color.red));
                         tvPostType.requestFocus();
-                    }
-                    if (tvPostType.getText().toString().length()==0){
-                        tvPostType.requestFocus();
-                    }
+                    }else post_type_alert.setText("");
+                    if (tvCondition.getText().toString().length() == 0){
+                        conditon_alert.setText(getString(R.string.invalid_condition));
+                        conditon_alert.setTextColor(getColor(R.color.red));
+                        tvCondition.requestFocus();
+                    }else conditon_alert.setText("");
+
                     if (color == null ){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                         alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
@@ -973,7 +959,42 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                                 strCondition = object.getString("condition");
                                 strColor = object.getString("color");
-
+                                Log.e("String Color",""+strColor);
+                                CustomView customView = new CustomView(getApplication());
+                                switch (strColor) {
+                                    case "black":
+                                    case "ខ្មៅ":
+                                        customView.display(R.drawable.ligth_black, true);
+                                        break;
+                                    case "blue":
+                                    case "ខៀវ":
+                                        customView.display(R.drawable.blue, true);
+                                        break;
+                                    case "red":
+                                    case "ក្រហម":
+                                        customView.display(R.drawable.red, true);
+                                        break;
+                                    case "orange":
+                                    case "ទឺកក្រូច":
+                                        customView.display(R.drawable.oriange, true);
+                                        break;
+                                    case "white":
+                                    case "ស":
+                                        customView.display(R.drawable.white, true);
+                                        break;
+                                    case "yellow":
+                                    case "លឿង":
+                                        customView.display(R.drawable.yellow, true);
+                                        break;
+                                    case "pink":
+                                    case "ផ្កាឈូក":
+                                        customView.display(R.drawable.pink, true);
+                                        break;
+                                    case "purple":
+                                    case "ស្វាយ":
+                                        customView.display(R.drawable.purple, true);
+                                        break;
+                                }
 
                                 Geocoder geocoder;
                                 List<Address> addresses;
@@ -1270,8 +1291,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             shopIdListItems[i]=shopViewModel.getId();
                                         }
 
-                                        mDealerShopId1 = converJsonJava.getShops().get(0).getId();
-
                                     }
 
                                     Log.e("TAG",shopListItems.toString());
@@ -1562,47 +1581,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                                             int pStatus=obj.getInt("status");
                                             FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,fcolor);
-
-                                            Service api = Client.getClient().create(Service.class);
-                                            dealershop ds;
-
-//                                            for (int i=0;i<listid_shop.size();i++){
-//                                                //Log.d("Listid Shop1212 ",listid_shop.get(i)+" indext: "+i);
-//                                                ds = new dealershop(id,listid_shop.get(i),1);
-//                                                list_shop.add(ds);
-//                                            }
-//                                            dealershop ds = new dealershop(id,2,1);
-//                                            getUser_dealShop(pk,Encode,id);
-//                                            Log.d("Size 1212121212","323"+list_shop.size());
-
-                                            if(mDealerShopId1>0)
-                                                list_shop.add(new dealershop(id,mDealerShopId1,1));
-                                            if(mDealerShopId2>0)
-                                                list_shop.add(new dealershop(id,mDealerShopId2,1));
-                                            if(mDealerShopId3>0)
-                                                list_shop.add(new dealershop(id,mDealerShopId3,1));
-
-                                            for (int i=0;i<list_shop.size();i++){
-                                                retrofit2.Call<dealershop> call1 = api.pushdealershop(list_shop.get(i));
-                                                call1.enqueue(new retrofit2.Callback<dealershop>() {
-                                                    @Override
-                                                    public void onResponse(retrofit2.Call<dealershop> call, retrofit2.Response<dealershop> response) {
-                                                        if (!response.isSuccessful()){
-                                                            Log.d("444444444444","42"+response.code());
-                                                            try {
-                                                                Log.d("1212121121121","21"+response.errorBody().string());
-                                                            } catch (IOException e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(retrofit2.Call<dealershop> call, Throwable t) {
-
-                                                    }
-                                                });
-                                            }
 
 
                                         }catch (JSONException e){
@@ -2399,26 +2377,35 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             Log.e("Select : ",""+color);
                         } else {
                             color = String.valueOf(selectedColor.get(i));
-                            Log.e("Unselect : ",""+color);
+                            Log.e("Select : ",""+color);
                         }
                     }
                 }
-                if (color.equals("2131231204")){
-                    strColor = "white";
-                }else if (color.equals("2131230842")){
-                    strColor = "blue";
-                }else if (color.equals("2131231065")){
-                    strColor = "black";
-                }else if (color.equals("2131231161")){
-                    strColor = "red";
-                }else if (color.equals("2131231206")){
-                    strColor = "yellow";
-                }else if (color.equals("2131231156")){
-                    strColor = "pink";
-                }else if (color.equals("2131231159")){
-                    strColor = "purple";
-                }else if (color.equals("2131231121")){
-                    strColor = "orange";
+                switch (color) {
+                    case "2131231204":
+                        strColor = "white";
+                        break;
+                    case "2131230842":
+                        strColor = "blue";
+                        break;
+                    case "2131231065":
+                        strColor = "black";
+                        break;
+                    case "2131231161":
+                        strColor = "red";
+                        break;
+                    case "2131231206":
+                        strColor = "yellow";
+                        break;
+                    case "2131231156":
+                        strColor = "pink";
+                        break;
+                    case "2131231159":
+                        strColor = "purple";
+                        break;
+                    case "2131231121":
+                        strColor = "orange";
+                        break;
                 }
                 Log.e("color select:",""+strColor);
             }
@@ -2551,77 +2538,99 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
     private void Variable_Field() {
 
-        tvPostType = findViewById(R.id.tvPostType);
-        tvCategory = (EditText) findViewById(R.id.tvCategory);
-        tvBrand    = (EditText) findViewById(R.id.tvBrand);
-        tvModel    = (EditText) findViewById(R.id.tvModel);
-        tvYear     = (EditText) findViewById(R.id.tvYears);
-        tvCondition= (EditText) findViewById(R.id.tvCondition);
-        tvType_elec = findViewById(R.id.title_cate);
-        tvType_cate = findViewById(R.id.tvType);
-        tv_name = findViewById(R.id.title_name);
-        etName = findViewById(R.id.etName);
-        bt_update = findViewById(R.id.btnupdate);
-        submit_post = (Button) findViewById(R.id.btnSubmitPost);
-        layout_color = findViewById(R.id.add_color);
-        cancel_color = findViewById(R.id.cancel_color);
-        layout_estimate = findViewById(R.id.layout_estimate);
-        title_dicount = findViewById(R.id.title_dis_pri);
-        tvConsole = findViewById(R.id.edConsole);
-        tvAssecssorie = findViewById(R.id.edAccessories);
-        tvWhole_int = findViewById(R.id.edwhole_int);
-        tvAssembly = findViewById(R.id.edMachine_Assembly);
-        tvRight_engine = findViewById(R.id.edLeft_and_right_engine_counter);
-        tvEngine_head = findViewById(R.id.edEngine_head);
-        tvPumps = findViewById(R.id.edFront_and_rear_pumps);
-        tvRear = findViewById(R.id.edfront_and_rear_wheel_sets);
-        tvScrew = findViewById(R.id.edThe_whole_screw);
-        show_ID = findViewById(R.id.show_id);
+        tvPostType        = (EditText) findViewById(R.id.tvPostType);
+        tvCategory        = (EditText) findViewById(R.id.tvCategory);
+        tvBrand           = (EditText) findViewById(R.id.tvBrand);
+        tvModel           = (EditText) findViewById(R.id.tvModel);
+        tvYear            = (EditText) findViewById(R.id.tvYears);
+        tvCondition       = (EditText) findViewById(R.id.tvCondition);
+        tvType_cate       = (EditText) findViewById(R.id.tvType);
+        etName            = (EditText) findViewById(R.id.etName);
+        etMap             = (EditText) findViewById(R.id.et_map);
+        etAddress         = (EditText) findViewById(R.id.et_address);
+        etDescription     = (EditText) findViewById(R.id.etDescription );
+        etPrice           = (EditText) findViewById(R.id.etPrice );
+        etDiscount_amount = (EditText) findViewById(R.id.etDisAmount );
+        etPhone1          = (EditText) findViewById(R.id.etphone1 );
+        etPhone2          = (EditText) findViewById(R.id.etphone2);
+        etPhone3          = (EditText) findViewById(R.id.etphone3);
+        etEmail           = (EditText) findViewById(R.id.etEmail );
 
+        btremove_pic1    = (ImageButton) findViewById(R.id.remove_pic1);
+        btremove_pic2    = (ImageButton) findViewById(R.id.remove_pic2);
+        btremove_pic3    = (ImageButton) findViewById(R.id.remove_pic3);
+        btremove_pic4    = (ImageButton) findViewById(R.id.remove_pic4);
+        btremove_pic5    = (ImageButton) findViewById(R.id.remove_pic5);
+        btremove_pic6    = (ImageButton) findViewById(R.id.remove_pic6);
 
-        etMap = findViewById(R.id.et_map);
-        imageMap = findViewById(R.id.map);
-        etAddress  = (EditText) findViewById(R.id.et_address);
+        pumps_alert       = (TextView) findViewById(R.id.pumps_alert);
+        accessories_alert = (TextView) findViewById(R.id.accessories_alert);
+        whole_alert       = (TextView) findViewById(R.id.whole_alert);
+        assembly_alert    = (TextView) findViewById(R.id.assembly_alert);
+        right_engine_alert= (TextView) findViewById(R.id.right_engine_alert);
+        engine_head_alert = (TextView) findViewById(R.id.engine_head_alert);
+        screw_alert       = (TextView) findViewById(R.id.screw_alert);
+        rear_alert        = (TextView) findViewById(R.id.rear_alert);
+        console_alert     = (TextView) findViewById(R.id.console_alert);
+        tv_add            = (TextView) findViewById(R.id.tv_add);
+        tv_add1           = (TextView) findViewById(R.id.tv_add1);
+        tv_cancel         = (TextView) findViewById(R.id.tv_cancel);
+        tvType_elec       = (TextView) findViewById(R.id.title_cate);
+        tv_name           = (TextView) findViewById(R.id.title_name);
+        show_ID           = (TextView) findViewById(R.id.show_id);
+        title_dicount     = (TextView) findViewById(R.id.title_dis_pri);
+        tvConsole         = (TextView) findViewById(R.id.edConsole);
+        tvAssecssorie     = (TextView) findViewById(R.id.edAccessories);
+        tvWhole_int       = (TextView) findViewById(R.id.edwhole_int);
+        tvAssembly        = (TextView) findViewById(R.id.edMachine_Assembly);
+        tvRight_engine    = (TextView) findViewById(R.id.edLeft_and_right_engine_counter);
+        tvEngine_head     = (TextView) findViewById(R.id.edEngine_head);
+        tvPumps           = (TextView) findViewById(R.id.edFront_and_rear_pumps);
+        tvRear            = (TextView) findViewById(R.id.edfront_and_rear_wheel_sets);
+        tvScrew           = (TextView) findViewById(R.id.edThe_whole_screw);
+        price_alert       = (TextView) findViewById(R.id.price_alert);
+        dis_price_alert   = (TextView) findViewById(R.id.dis_price_alert);
+        post_type_alert   = (TextView) findViewById(R.id.post_type_alert);
+        type_alert        = (TextView) findViewById(R.id.type_alert);
+        category_alert    = (TextView) findViewById(R.id.category_alert);
+        brand_alert       = (TextView) findViewById(R.id.brand_alert);
+        model_alert       = (TextView) findViewById(R.id.model_alert);
+        year_alert        = (TextView) findViewById(R.id.year_alert);
+        conditon_alert    = (TextView) findViewById(R.id.condition_alert);
+        info_alert        = (TextView) findViewById(R.id.info_alert);
+        phone_alert       = (TextView) findViewById(R.id.phone_alert);
+        map_alert         = (TextView) findViewById(R.id.map_alert);
+        address_alert     = (TextView) findViewById(R.id.address_alert);
+        email_alert       = (TextView) findViewById(R.id.email_alert);
 
-        etDescription     = (EditText)findViewById(R.id.etDescription );
-        etPrice           = (EditText)findViewById(R.id.etPrice );
-        etDiscount_amount = (EditText)findViewById(R.id.etDisAmount );
-        tv_add = findViewById(R.id.tv_add);
-        tv_add1 = findViewById(R.id.tv_add1);
-        tv_cancel = findViewById(R.id.tv_cancel);
-        layout_phone1 = findViewById(R.id.layout_phone1);
-        layout_phone2 = findViewById(R.id.layout_phone2);
-        etPhone1          = (EditText)findViewById(R.id.etphone1 );
-        etPhone2          = (EditText)findViewById(R.id.etphone2);
-        etPhone3          = (EditText)findViewById(R.id.etphone3);
-        etEmail           = (EditText)findViewById(R.id.etEmail );
+        bt_update         = (Button) findViewById(R.id.btnupdate);
+        submit_post       = (Button) findViewById(R.id.btnSubmitPost);
 
-        btremove_pic1    = (ImageButton)findViewById(R.id.remove_pic1);
-        btremove_pic2    = (ImageButton)findViewById(R.id.remove_pic2);
-        btremove_pic3    = (ImageButton)findViewById(R.id.remove_pic3);
-        btremove_pic4    = (ImageButton)findViewById(R.id.remove_pic4);
-        btremove_pic5    = (ImageButton)findViewById(R.id.remove_pic5);
-        btremove_pic6    = (ImageButton)findViewById(R.id.remove_pic6);
+        seekbar_whole       = (SeekBar) findViewById(R.id.seekbar_whole);
+        seekbar_pri_per     = (SeekBar) findViewById(R.id.seekbar_pri_per);
+        seekbar_rear        = (SeekBar) findViewById(R.id.seekbar_rear);
+        seekbar_screw       = (SeekBar) findViewById(R.id.seekbar_screw);
+        seekbar_rigt_engine = (SeekBar) findViewById(R.id.seekbar_right_engine);
+        seekbar_pumps       = (SeekBar) findViewById(R.id.seekbar_pumps);
+        seekbar_assmebly    = (SeekBar) findViewById(R.id.seekbar_assembly);
+        seekbar_accessories = (SeekBar) findViewById(R.id.seekbar_accessories);
+        seekbar_console     = (SeekBar) findViewById(R.id.seekbar_console);
+        seekbar_engine_head = (SeekBar) findViewById(R.id.seekbar_engine_head);
 
-        imageView1 =(ImageView) findViewById(R.id.Picture1);
-        imageView2 =(ImageView) findViewById(R.id.Picture2);
-        imageView3 =(ImageView) findViewById(R.id.Picture3);
-        imageView4 =(ImageView) findViewById(R.id.Picture4);
-        imageView5 =(ImageView) findViewById(R.id.Picture5);
-        imageView6 =(ImageView) findViewById(R.id.Picture6);
+        layout_color      = (RelativeLayout) findViewById(R.id.add_color);
+        layout_phone1     = (RelativeLayout) findViewById(R.id.layout_phone1);
+        layout_phone2     = (RelativeLayout) findViewById(R.id.layout_phone2);
+        layout_estimate   = (LinearLayout)   findViewById(R.id.layout_estimate);
 
-        seekbar_whole = findViewById(R.id.seekbar_whole);
-        seekbar_pri_per = findViewById(R.id.seekbar_pri_per);
-        seekbar_rear = findViewById(R.id.seekbar_rear);
-        seekbar_screw = findViewById(R.id.seekbar_screw);
-        seekbar_rigt_engine = findViewById(R.id.seekbar_right_engine);
-        seekbar_pumps = findViewById(R.id.seekbar_pumps);
-        seekbar_assmebly = findViewById(R.id.seekbar_assembly);
-        seekbar_accessories = findViewById(R.id.seekbar_accessories);
-        seekbar_console = findViewById(R.id.seekbar_console);
-        seekbar_engine_head = findViewById(R.id.seekbar_engine_head);
-
-        imgAdd_color = findViewById(R.id.add_more_color);
+        cancel_color = (ImageView) findViewById(R.id.cancel_color);
+        imgAdd_color = (ImageView) findViewById(R.id.add_more_color);
+        imageView1   = (ImageView) findViewById(R.id.Picture1);
+        imageView2   = (ImageView) findViewById(R.id.Picture2);
+        imageView3   = (ImageView) findViewById(R.id.Picture3);
+        imageView4   = (ImageView) findViewById(R.id.Picture4);
+        imageView5   = (ImageView) findViewById(R.id.Picture5);
+        imageView6   = (ImageView) findViewById(R.id.Picture6);
+        imageMap     = (ImageView) findViewById(R.id.map);
 
     }
 

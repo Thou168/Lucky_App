@@ -139,6 +139,17 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:inputType="number" />
+                <TextView
+                    android:id="@+id/price_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/title_dis_pri"
@@ -160,6 +171,17 @@
                     android:progressTint="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/dis_price_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/title_amo_pri"
@@ -182,6 +204,17 @@
                     android:hint="$ 0.00"
                     android:inputType="number" />
                 <TextView
+                    android:id="@+id/discount_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+                <TextView
                     android:id="@+id/title_postType"
                     android:textSize="14sp"
                     android:textColor="@color/black"
@@ -201,6 +234,17 @@
                     android:textSize="12sp"
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black"/>
+                <TextView
+                    android:id="@+id/post_type_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/title_type"
@@ -223,6 +267,17 @@
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black" />
                 <TextView
+                    android:id="@+id/category_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+                <TextView
                     android:visibility="gone"
                     android:id="@+id/title_cate"
                     android:textSize="14sp"
@@ -244,6 +299,18 @@
                     android:textSize="12sp"
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/type_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
 
                 <TextView
@@ -266,6 +333,17 @@
                     android:textSize="12sp"
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black"/>
+                <TextView
+                    android:id="@+id/brand_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/title_model"
@@ -287,6 +365,17 @@
                     android:textSize="12sp"
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black" />
+                <TextView
+                    android:id="@+id/model_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/title_year"
@@ -308,6 +397,17 @@
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black"
                     android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/year_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/title_color"
@@ -384,6 +484,18 @@
                     android:textSize="12sp"
                     android:focusable="false"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black" />
+                <TextView
+                    android:id="@+id/condition_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+
 
                 <LinearLayout
                     android:visibility="gone"
@@ -418,6 +530,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/whole_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
 
                     <TextView
                         android:padding="@dimen/dp_8"
@@ -436,6 +560,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/rear_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
 
                     <TextView
                         android:textStyle="bold"
@@ -454,6 +590,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/screw_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
 
                     <TextView
                         android:textStyle="bold"
@@ -471,6 +619,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/pumps_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
 
                     <TextView
                         android:id="@+id/mk"
@@ -497,6 +657,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/right_engine_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
 
                     <TextView
                         android:padding="@dimen/dp_8"
@@ -515,6 +687,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/engine_head_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
 
                     <TextView
                         android:padding="@dimen/dp_8"
@@ -534,6 +718,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:id="@+id/assembly_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
+                    <TextView
                         android:padding="@dimen/dp_8"
                         android:textStyle="bold"
                         android:id="@+id/edConsole"
@@ -550,6 +746,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/console_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
                     <TextView
                         android:id="@+id/la"
                         android:padding="@dimen/dp_8"
@@ -575,6 +783,18 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/accessories_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:text=""
+                        android:focusable="false"
+                        android:textColor="#000"
+                        android:textSize="8sp" />
+
                 </LinearLayout>
 
                 <TextView
@@ -597,6 +817,18 @@
                     android:textSize="12sp"
                     android:hint="Enter your Information"
                     />
+                <TextView
+                    android:id="@+id/info_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:focusable="false"
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+
                 <TextView
                     android:visibility="gone"
                     android:id="@+id/title_name"

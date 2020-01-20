@@ -1048,5 +1048,12 @@
     <string name="invalid_map">Invalid Map</string>
     <string name="invalid_wing_number">Invalid Wing Number</string>
     <string name="invalid_wing_account">Invalid Wing Account</string>
+    <string name="invalid_category">Invalid Category</string>
+    <string name="invalid_post_type">Invalid Post Type</string>
+    <string name="invalid_year">Invalid Year</string>
+    <string name="invalid_model">Invalid Model</string>
+    <string name="invalid_brand">Invalid Brand</string>
+    <string name="invalid_price">Invalid Price</string>
+    <string name="invalid_condition">Invalid Condition</string>
     <string name="store_list">Sotre Lists</string>
 </resources>

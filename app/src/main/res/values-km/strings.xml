@@ -624,7 +624,7 @@
     <string name="facebook_app_id">596607940863011</string>
     <string name="fb_login_protocol_scheme">fb596607940863011</string>
     <string name="missing_image">សូមជ្រើសរើសរូបភាព</string>
-    <string name="missing_color">សូមជ្រើសរើសពណ៏</string>
+    <string name="missing_color">សូមជ្រើសរើសពណ៌</string>
     <string name="title_unlike">លុបផលិតផលរក្សាទុក</string>
     <string name="unlike_message">តើអ្នកប្រាកដជាលុបចេញនូវផលិតផលរក្សាទុកនេះ?</string>
     <string name="like_post">អ្នកចូលចិត្តផលិតផលនេះ។</string>
@@ -889,5 +889,12 @@
     <string name="invalid_map">Invalid Map</string>
     <string name="invalid_wing_number">Invalid Wing Number</string>
     <string name="invalid_wing_account">Invalid Wing Account</string>
+    <string name="invalid_category">Invalid Category</string>
+    <string name="invalid_post_type">Invalid Post Type</string>
+    <string name="invalid_year">Invalid Year</string>
+    <string name="invalid_model">Invalid Model</string>
+    <string name="invalid_brand">Invalid Brand</string>
+    <string name="invalid_price">Invalid Price</string>
+    <string name="invalid_condition">Invalid Condition</string>
     <string name="store_list">Sotre Lists</string>
 </resources>
