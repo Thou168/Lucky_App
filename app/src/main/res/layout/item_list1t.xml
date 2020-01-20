@@ -208,6 +208,7 @@
             android:layout_height="wrap_content">
 <!--            <View style="@style/line"/>-->
             <LinearLayout
+                android:id="@+id/linear_userActive"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:orientation="horizontal" >
@@ -228,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:background="#00FFFFFF"
-                    android:text="Remove"
+                    android:text="@string/button_remove"
                     android:textSize="15sp"
                     android:gravity="center"
                     android:fontFamily="@font/opensans_semibold"
@@ -247,7 +248,7 @@
                     android:textSize="15sp" />
 
                 <Button
-                    android:id="@+id/btndelete"
+                    android:id="@+id/btnsold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"

@@ -172,6 +172,7 @@
     <string name="already_select_shop">អ្នកបានជ្រើសរើសរួចហើយ</string>
 
     //delete and edit
+    <string name="button_remove">យកចេញ</string>
     <string name="button_edit">កែប្រែ</string>
     <string name="button_delete">លុប</string>
 //Buy Sell Rent

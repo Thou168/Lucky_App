@@ -21,6 +21,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
 import com.bt_121shoppe.motorbike.settings.ContactActivity;
+import com.bt_121shoppe.motorbike.settings.Setting;
 import com.bt_121shoppe.motorbike.settings.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.facebook.login.LoginManager;
@@ -70,7 +71,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AccountSettingActivity.this,SettingActivity.class));
+                startActivity(new Intent(AccountSettingActivity.this, SettingActivity.class));
             }
         });
 

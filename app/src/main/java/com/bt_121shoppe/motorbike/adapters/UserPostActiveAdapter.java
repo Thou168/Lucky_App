@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -107,11 +108,12 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
         TextView tvTitle,tvCost,tvDiscount,tvView,tvPostType,tvCountView,ds_price;
         ImageView ivPostImage;
-        Button btRenewal,btEdit,btDelete;
+        Button btRenewal,btEdit,btSold,btRemove;
         RelativeLayout relativeLayout;
         TextView cate;
         TextView tvColor1,tvColor2;
         TextView pending_appprove;
+        LinearLayout user_active;
         public ViewHolder(View itemView){
             super(itemView);
             ds_price=itemView.findViewById(R.id.ds_price);
@@ -120,8 +122,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvCost=itemView.findViewById(R.id.tv_price);
             tvDiscount=itemView.findViewById(R.id.tv_discount);
             btRenewal=itemView.findViewById(R.id.btn_renew);
-            btDelete=itemView.findViewById(R.id.btndelete);
+            btSold=itemView.findViewById(R.id.btnsold);
             btEdit=itemView.findViewById(R.id.btnedit_post);
+            btRemove=itemView.findViewById(R.id.btn_remove);
             tvView=itemView.findViewById(R.id.user_view1);
             tvPostType=itemView.findViewById(R.id.item_type);
             tvCountView=itemView.findViewById(R.id.user_view);
@@ -130,6 +133,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvColor1=itemView.findViewById(R.id.tv_color1);
             tvColor2=itemView.findViewById(R.id.tv_color2);
             pending_appprove=itemView.findViewById(R.id.pending_appprove);
+            user_active=itemView.findViewById(R.id.linear_userActive);
         }
 
         @Override
@@ -176,10 +180,10 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             String[] splitColor=mPost.getColor().split(",");
 
             GradientDrawable shape = new GradientDrawable();
-//            shape.setShape(GradientDrawable.OVAL);
-//            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-//            tvColor1.setBackground(shape);
-//            tvColor2.setVisibility(View.GONE);
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
+            tvColor2.setVisibility(View.GONE);
             if(splitColor.length>1){
                 tvColor2.setVisibility(View.VISIBLE);
                 GradientDrawable shape1 = new GradientDrawable();
@@ -239,6 +243,8 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 //                btRenewal.setText(R.string.pending);
                 pending_appprove.setText(R.string.pending);
                 pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
+                btSold.setVisibility(View.GONE);
+                btRenewal.setVisibility(View.GONE);
                 btRenewal.setTextColor(Color.parseColor("#0A0909"));
                 btRenewal.setText(R.string.renew);
                 btRenewal.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
@@ -323,7 +329,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 }
             });
 
-            btDelete.setOnClickListener(new View.OnClickListener() {
+            btSold.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String[] delet_item = itemView.getContext().getResources().getStringArray(R.array.dailog_delete);

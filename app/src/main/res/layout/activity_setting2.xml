@@ -117,7 +117,7 @@
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
                         android:text="@string/khmer"
-                        android:checked="false"
+                        android:checked="true"
                         android:buttonTint="@color/logo_green"
                         android:textSize="15sp" />
 
@@ -129,7 +129,7 @@
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
                         android:text="@string/english_khmer"
-                        android:checked="false"
+                        android:checked="true"
                         android:buttonTint="@color/logo_green"
                         android:layout_marginTop="27dp"
                         android:textSize="15sp" />
