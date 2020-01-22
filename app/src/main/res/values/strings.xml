@@ -367,6 +367,7 @@
     <string name="commune">Commune/Sangkat</string>
     <string name="village">Village</string>
     <string name="seller">Seller</string>
+    <string name="phone">Phone</string>
     <string name="state_staff">State Staff</string>
     <string name="private_company_staff">Private Company Staff</string>
     <string name="service_provider">Service Provider</string>
@@ -724,6 +725,7 @@
     <string name="Engine_head">Engine head</string>
     <string name="Machine_Assembly">Machine Assembly (Yttps, Magnesium,Bench, Lighting, …)</string>
     <string name="Assembly">Machine Assembly</string>
+    <string name="assembly_describe">( Yttps , Magnesium , Bench , Lighting ,…)</string>
     <string name="Console">Console</string>
     <string name="st_console">Console(0%)</string>
     <string name="st_assembly">Machine Assembly</string>
@@ -741,6 +743,7 @@
     <string name="Accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)</string>
     <string name="st_accessories">Accessories (Bumper, Mirror, Marion, elbow pedal …)(0%)</string>
     <string name="accessories">Accessories</string>
+    <string name="accessories_describe">( Bumper , Mirror , Marion , Elbow pedal ,… )</string>
 
     <string name="error_number">Cannot enter more than 100 entries</string>
     //edit account

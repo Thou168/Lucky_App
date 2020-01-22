@@ -19,7 +19,7 @@
     <style name="line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">#E4999999</item>
+        <item name="android:background">#DDDDDD</item>
     </style>
 
     <style name="line1">

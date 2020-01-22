@@ -257,6 +257,7 @@
     <string name="commune">ឃុំ/សង្កាត់</string>
     <string name="village">ភូមិ</string>
     <string name="seller">អ្នកលក់ដូរ</string>
+    <string name="phone">ទូរស័ព្ទ</string>
     <string name="state_staff">បុគ្គលិករដ្ឋ</string>
     <string name="private_company_staff">បុគ្គលិកឯកជន</string>
     <string name="service_provider">អ្នកផ្តល់សេវាផ្សេងៗ</string>
@@ -725,6 +726,7 @@
         <string name="Engine_head">ក្បាលកន្លាស់ម៉ាស៊ីន</string>
         <string name="Machine_Assembly">គ្រឿងបង្គុំម៉ាស៊ីន(យ៉ុត អាគុយ ម៉ាញេតូ បេន ភ្លើងស្តុប …)</string>
         <string name="Assembly">គ្រឿងបង្គុំម៉ាស៊ីន</string>
+    <string name="assembly_describe">(Yttps, ម៉ាញ៉េស្យូម, បេឡុង, ពន្លឺ, …)</string>
         <string name="Console">កុងទ័រ</string>
     <string name="st_console">កុងទ័រ(0%)</string>
     <string name="st_assembly">គ្រឿងបង្គុំម៉ាស៊ីន(0%)</string>
@@ -742,6 +744,7 @@
     <string name="Accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)</string>
     <string name="st_accessories">គ្រឿងបន្ថែម (កញ្ចក់ កាង រាន ម៉ារូវេន ឈ្នាន់ កែងដៃ …)(0%)</string>
     <string name="accessories">គ្រឿង</string>
+    <string name="accessories_describe">(កាង, កញ្ចក់, ម៉ារ៉ុន, ឈ្នាន់កែងដៃ, …)</string>
     <string name="error_number">មិនអាចបញ្ចូលចំនួនលើសពី100បានទេ</string>
     //edit account
     <string name="male">ប្រុស</string>

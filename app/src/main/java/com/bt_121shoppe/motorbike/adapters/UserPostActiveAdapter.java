@@ -319,6 +319,13 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                         .show());
             }
 
+            btRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(),R.string.button_remove,Toast.LENGTH_SHORT).show();
+                }
+            });
+
             btEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
