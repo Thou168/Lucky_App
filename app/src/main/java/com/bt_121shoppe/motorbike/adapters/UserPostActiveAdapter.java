@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.adapters;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -180,9 +181,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             String[] splitColor=mPost.getColor().split(",");
 
             GradientDrawable shape = new GradientDrawable();
-//            shape.setShape(GradientDrawable.OVAL);
-//            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-//            tvColor1.setBackground(shape);
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
             tvColor2.setVisibility(View.GONE);
             if(splitColor.length>1){
                 tvColor2.setVisibility(View.VISIBLE);
@@ -205,18 +206,19 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                     cost = cost - Double.parseDouble(mPost.getDiscount());
 //                    double ds = Double.parseDouble(mPost.getDiscount());
 //                    ds_price.setText("$"+ds);
-//                    relativeLayout.setVisibility(View.GONE);
+                    relativeLayout.setVisibility(View.GONE);
                 }
                 else if(mPost.getDiscount_type().equals("percent")){
                     Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
-//                    int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
                     cost = cost - per;
 //                    ds_price.setText(per1+"%");
                 }
-                tvCost.setText("$"+cost);
                 tvDiscount.setVisibility(View.VISIBLE);
-                Double co_price = Double.parseDouble(mPost.getCost());
-                tvDiscount.setText("$"+co_price);
+                int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
+                double co_price = Double.parseDouble(String.valueOf(per1 * cost))/100;
+                double price = cost - co_price;
+                tvCost.setText("$"+price);
+                tvDiscount.setText("$"+cost);
                 tvDiscount.setPaintFlags(tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
 
@@ -322,7 +324,47 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             btRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(),R.string.button_remove,Toast.LENGTH_SHORT).show();
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    Toast.makeText(itemView.getContext(),R.string.button_remove,Toast.LENGTH_SHORT).show();
+                                    String date = null;
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        date = Instant.now().toString();
+                                    }
+                                    String removeSt = "";
+                                    change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
+                                    Service api = Client.getClient().create(Service.class);
+                                    Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                                    call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                                        @Override
+                                        public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+
+                                            Intent intent = new Intent(itemView.getContext(), Account.class);
+                                            itemView.getContext().startActivity(intent);
+                                            ((Activity)itemView.getContext()).finish();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<change_status_delete> call, Throwable t) {
+
+                                        }
+                                    });
+                                    dialog.dismiss();
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setMessage(R.string.remove_post).setPositiveButton(R.string.yes, dialogClickListener)
+                            .setNegativeButton(R.string.no, dialogClickListener).show();
                 }
             });
 
@@ -350,7 +392,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                 date = Instant.now().toString();
                             }
                             String item = delet_item[which];
-                            change_status_delete change_status = new change_status_delete(2,date,pk,item);
+                            change_status_delete change_status = new change_status_delete(7,date,pk,item);
                             Service api = Client.getClient().create(Service.class);
                             Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
                             call.enqueue(new retrofit2.Callback<change_status_delete>() {

@@ -37,6 +37,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.LikebyUser;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_1;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_2;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_3;
@@ -62,6 +66,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.Call;
@@ -75,7 +80,7 @@ import okhttp3.Response;
 public class Detail_new_post_java extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     TextView back_view;
     ImageButton btn_share;
-    ImageView like,call,message,loan;
+    ImageView like,like1,call,message,loan;
     private Integer postId = 0;
     private int pk=0;
     Request request;
@@ -115,6 +120,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     TextView tv_dox;
     boolean loaned = false;
     boolean likepost;
+    private List<LikebyUser> datas;
+    String basic_Encode;
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +137,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         name = sharedPref.getString("name", "");
         pass = sharedPref.getString("pass", "");
         Encode = getEncodedString(name,pass);
+        basic_Encode = "Basic "+getEncodedString(name,pass);
         if (sharedPref.contains("token")) {
             pk = sharedPref.getInt("Pk",0);
         } else if (sharedPref.contains("id")) {
@@ -143,7 +152,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         initialProductPostDetail(Encode);
         submitCountView(Encode);
         countPostView(Encode);
-        //back_view.setOnClickListener(v -> finish());
+        back_view.setOnClickListener(v -> finish());
 
         //like
         already_like(Encode);
@@ -160,6 +169,13 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                     startActivity(intent);
                     finish();
                 }
+            }
+        });
+        like1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Detail_new_post_java.this,"Unlike",Toast.LENGTH_SHORT).show();
+//                Unlike_post();
             }
         });
         //call
@@ -219,8 +235,13 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
         tabLayout = findViewById(R.id.tab_layout_detail);
         tabLayout.setupWithViewPager(mViewPager);
+        Adapter_Likebyuser(datas);
         setUpPager();
         setupTabIcons();
+    }
+
+    public void Adapter_Likebyuser(List<LikebyUser> datas) {
+        this.datas = datas;
     }
 
     private void call_methot_id(){
@@ -230,13 +251,14 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         tvDiscountPer = findViewById(R.id.tv_discount_per);
         view = findViewById(R.id.view);
 
-        //tv_dox = findViewById(R.id.style_dox);
-        //tv_dox.setVisibility(View.GONE);
+        tv_dox = findViewById(R.id.style_dox);
+        tv_dox.setVisibility(View.GONE);
         typeView=findViewById(R.id.post_type);
 
-        //back_view = findViewById(R.id.tv_back);
+        back_view = findViewById(R.id.tv_back);
         btn_share = findViewById(R.id.btn_share);
         like = findViewById(R.id.btn_like);
+        like1 = findViewById(R.id.btn_like1);
         call = findViewById(R.id.btn_call);
         message = findViewById(R.id.btn_sms);
         loan = findViewById(R.id.btn_loan);
@@ -585,9 +607,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                                            });
 //                                            alertDialog.show();
                                             Toast.makeText(getApplicationContext(),R.string.like_post,Toast.LENGTH_SHORT).show();
-                                            like.setImageResource(R.drawable.heart_red);
-                                            like.setMaxWidth(30);
-                                            like.setMaxHeight(30);
+                                            like1.setVisibility(View.VISIBLE);
+                                            like1.setImageResource(R.drawable.heart_red);
+                                            like1.setMaxWidth(30);
+                                            like1.setMaxHeight(30);
                                         }
                                     });
                                 }
@@ -601,8 +624,36 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 }
             }
         });
-
     }
+//    private void Unlike_post(){
+//        LikebyUser model = new LikebyUser();
+//        String iditem=String.valueOf((int)model.getPost());
+//        String itemid_like=String.valueOf((int)model.getId());
+//        Service api1 = Client.getClient().create(Service.class);
+//        change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
+//
+//        retrofit2.Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.parseInt(itemid_like),unlike,basic_Encode);
+//        call_unlike.enqueue(new retrofit2.Callback<change_status_unlike>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<change_status_unlike> call1, retrofit2.Response<change_status_unlike> response1) {
+//                String respon = String.valueOf(response1.body());
+//                Log.d("Response unlike",respon);
+//                recreate();
+//
+//// delete item without intent by samang 9/9/19
+////                            datas.remove(position);
+////                            notifyItemRemoved(position);
+////                            notifyItemRangeChanged(position, datas.size());
+//                like.setVisibility(View.VISIBLE);
+//                like.setMaxWidth(30);
+//                like.setMaxHeight(30);
+//                like1.setVisibility(View.GONE);
+//            }
+//            @Override public void onFailure(retrofit2.Call<change_status_unlike> call1, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     private void already_like(String encode){
         String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
@@ -631,9 +682,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         @Override
                         public void run() {
                             if (jsonCount==1){
-                                like.setImageResource(R.drawable.heart_red);
-                                like.setMaxHeight(30);
-                                like.setMaxWidth(30);
+                                like1.setVisibility(View.VISIBLE);
+                                like1.setImageResource(R.drawable.heart_red);
+                                like1.setMaxHeight(30);
+                                like1.setMaxWidth(30);
                             }
                         }
                     });

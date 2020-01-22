@@ -183,6 +183,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/group_28" />
+            <ImageView
+                android:id="@+id/btn_like1"
+                android:visibility="gone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/heart_red" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_gravity="right"

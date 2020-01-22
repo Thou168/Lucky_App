@@ -96,7 +96,7 @@
                             android:fontFamily="@font/opensans_semibold"
                             android:textStyle="bold"
                             android:textColor="#333333"
-                            android:layout_width="34dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_20" />
                         <TextView
                             android:id="@+id/search_type"
@@ -141,7 +141,7 @@
                             android:textStyle="bold"
                             android:textColor="#333333"
                             android:fontFamily="@font/opensans_semibold"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_20" />
                         <TextView
                             android:id="@+id/search_category"
@@ -187,7 +187,7 @@
                             android:fontFamily="@font/opensans_semibold"
                             android:textStyle="bold"
                             android:textColor="#333333"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_20" />
                         <TextView
 
@@ -233,7 +233,7 @@
                             android:textAlignment="textStart"
                             android:textColor="#333333"
                             android:fontFamily="@font/opensans_semibold"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_20" />
                         <TextView
                             android:id="@+id/search_year"

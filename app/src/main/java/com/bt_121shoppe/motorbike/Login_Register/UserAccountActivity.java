@@ -13,8 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
+import com.bt_121shoppe.motorbike.activities.CheckGroup;
+import com.bt_121shoppe.motorbike.activities.Dealerstore;
 import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.activities.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
@@ -71,6 +74,7 @@ public class UserAccountActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private SharedPreferences prefer;
+    private int pk = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,13 @@ public class UserAccountActivity extends AppCompatActivity {
         Intent intent = getIntent();
         verify = intent.getStringExtra("verify");
         product_id = intent.getIntExtra("product_id",0);
+        SharedPreferences preferences= getApplication().getSharedPreferences("Register",MODE_PRIVATE);
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
+        Log.e("pk", String.valueOf(pk));
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         auth=FirebaseAuth.getInstance();
@@ -360,44 +371,88 @@ public class UserAccountActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }else {
-                            switch (verify) {
-                                case "notification":
-                                    intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case "camera":
-                                    intent = new Intent(UserAccountActivity.this, Camera.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case "message":
-                                    intent = new Intent(UserAccountActivity.this, ChatMainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case "account":
-                                    intent = new Intent(UserAccountActivity.this, Account.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case "detail":
-                                    intent = new Intent(UserAccountActivity.this, Detail_New_Post.class);
-                                    intent.putExtra("ID", product_id);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                default:
-                                    intent = new Intent(UserAccountActivity.this, Home.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
+                            CheckGroup check = new CheckGroup();
+                            int g = check.getGroup(pk, UserAccountActivity.this);
+                            if (g != 3) {
+                                switch (verify) {
+                                    case "notification":
+                                        intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "camera":
+                                        intent = new Intent(UserAccountActivity.this, Camera.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "message":
+                                        intent = new Intent(UserAccountActivity.this, ChatMainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "account":
+                                        intent = new Intent(UserAccountActivity.this, Account.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "detail":
+                                        intent = new Intent(UserAccountActivity.this, Detail_new_post_java.class);
+                                        intent.putExtra("ID", product_id);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    default:
+                                        intent = new Intent(UserAccountActivity.this, Home.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                }
+                            }else {
+                                switch (verify) {
+                                    case "notification":
+                                        intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "camera":
+                                        intent = new Intent(UserAccountActivity.this, Dealerstore.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "message":
+                                        intent = new Intent(UserAccountActivity.this, ChatMainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "account":
+                                        intent = new Intent(UserAccountActivity.this, Account.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    case "detail":
+                                        intent = new Intent(UserAccountActivity.this, Detail_new_post_java.class);
+                                        intent.putExtra("ID", product_id);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                    default:
+                                        intent = new Intent(UserAccountActivity.this, Home.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                }
                             }
                         }
                     }else {

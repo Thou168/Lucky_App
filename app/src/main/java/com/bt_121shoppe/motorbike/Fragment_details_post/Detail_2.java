@@ -250,9 +250,9 @@ public class Detail_2 extends Fragment {
                             if (splitPhone.length ==1){
                                 tv_phone.setText(splitPhone[0]);
                             }else if (splitPhone.length==2){
-                                tv_phone.setText(splitPhone[0]+" , "+splitPhone[1]);
+                                tv_phone.setText(splitPhone[0]+"\n"+splitPhone[1]);
                             }else if (splitPhone.length==3){
-                                tv_phone.setText(splitPhone[0]+" , "+splitPhone[1]+" , "+splitPhone[2]);
+                                tv_phone.setText(splitPhone[0]+"\n"+splitPhone[1]+"\n"+splitPhone[2]);
                             }
 
                             //address

@@ -162,6 +162,7 @@ public class Postbyuser_Class extends AppCompatActivity {
         //edit
         edit.setOnClickListener(v -> {
             Intent intent=new Intent(getApplicationContext(), Camera.class);
+            intent.putExtra("process_type",2);
             intent.putExtra("id_product",Integer.parseInt(String.valueOf(postDetail.getId())));
             startActivity(intent);
         });
@@ -229,24 +230,27 @@ public class Postbyuser_Class extends AppCompatActivity {
                         tv_title.setText(strPostTitle);
                         tv_title.setTextSize(22F);
 
-                        tv_price.setText("$ "+ discount);
-                        tv_discount.setText("$"+postDetail.getDiscount());
-                        tv_discount_per.setVisibility(View.GONE);
                         if (postDetail.getDiscount_type().equals("percent")) {
-                            Double cost=Double.parseDouble(postDetail.getCost());
-                            Double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
+                            double cost=Double.parseDouble(postDetail.getCost());
+                            double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
                             int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
-                            cost=cost-discountPrice;
-                            tv_price.setText("$ "+cost);
+//                            cost=cost-discountPrice;
+                            tv_price.setText("$ "+discountPrice);
                             tv_discount.setText("$"+postDetail.getDiscount());
                             tv_discount_per.setText(per1+"%");
                             tv_dox.setVisibility(View.VISIBLE);
                             tv_discount_per.setVisibility(View.VISIBLE);
+                        }else {
+                            double cost=Double.parseDouble(postDetail.getCost());
+                            double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
+                            tv_price.setText("$ "+ discountPrice);
+                            tv_discount.setText("$"+postDetail.getDiscount());
+                            tv_discount_per.setVisibility(View.GONE);
                         }
                         if (discount == 0.00){
                             tv_discount.setVisibility(View.GONE);
                             tv_discount_per.setVisibility(View.GONE);
-                            tv_price.setText("$ "+postDetail.getCost());
+//                            tv_price.setText("$ "+postDetail.getCost());
                             postPrice = postDetail.getCost();
                         }
                         String st = "$ "+postDetail.getCost();
@@ -440,9 +444,9 @@ public class Postbyuser_Class extends AppCompatActivity {
                         if (splitPhone.length ==1){
                             tv_phone.setText(splitPhone[0]);
                         }else if (splitPhone.length==2){
-                            tv_phone.setText(splitPhone[0]+" , "+splitPhone[1]);
+                            tv_phone.setText(splitPhone[0]+"\n"+splitPhone[1]);
                         }else if (splitPhone.length==3){
-                            tv_phone.setText(splitPhone[0]+" , "+splitPhone[1]+" , "+splitPhone[2]);
+                            tv_phone.setText(splitPhone[0]+"\n"+splitPhone[1]+"\n"+splitPhone[2]);
                         }
 
                         tv_email.setText(postDetail.getContact_email());

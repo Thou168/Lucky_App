@@ -343,6 +343,6 @@ public class Detail_3 extends Fragment {
 //        me.setRoundingMode(RoundingMode.HALF_EVEN);
 //        tvMonthly.setText(me.format(monthlypayment) + " $ ");
         DecimalFormat bd = new DecimalFormat("#.##");
-        tvMonthly.setText(bd.format(monthlypayment)+"$");
+        tvMonthly.setText("$"+bd.format(monthlypayment));
     }
 }
