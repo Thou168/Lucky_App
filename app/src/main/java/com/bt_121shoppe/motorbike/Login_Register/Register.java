@@ -148,7 +148,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     private RelativeLayout layout_phone1,layout_phone2;
     private int product_id,user_group,mYear,mMonth,mDay,pk=0;
     private CircleImageView imgProfile;
-    private Bitmap bitmap;
+    private Bitmap bitmap,bitmapProfileImage,bitmpaDefault;
     private Uri image;
     private FileCompressor mCompressor;
     private FirebaseUser fuser;
@@ -301,6 +301,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         editComfirmPass.setText(re_password);
         editDate.setText(date1);
         editAddress.setText(address);
+
         Glide.with(Register.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -705,9 +706,19 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 post_body.put("wing_account_number",editWing_account.getText().toString());
                 post_body.put("wing_account_name",editWing_number.getText().toString());
             }
+            //added by Rith
+            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.logo_121);
+            if(bitmapProfileImage==null){
+                post_body.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmpaDefault)));
+            }else{
+                post_body.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapProfileImage)));
+            }
+
             postdata.put("profile", post_body);
             postdata.put("groups",new JSONArray("[\"1\"]"));
         }catch (JSONException e){
+            e.printStackTrace();
+        }catch (IOException e){
             e.printStackTrace();
         }
         Log.d(TAG,"Data"+postdata);
@@ -747,6 +758,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             int g=convertJsonJava.getGroup();
             int id = convertJsonJava.getId();
             String username=convertJsonJava.getUsername();
+            String apiImageURL=convertJsonJava.getProfile().getProfile_photo();
+            //Log.e("TAG","Profile Image:"+apiImageURL);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -759,9 +772,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         editor.commit();
                         String userEmail=ConsumeAPI.PREFIX_EMAIL+id+"@email.com";
                         if (user_group == 1) {
-                            registerUserFirebase(userEmail,username, pass, String.valueOf(1));
+                            registerUserFirebase(userEmail,username, pass, String.valueOf(1),apiImageURL);
                         }else if (user_group == 3){
-                            registerUserAccount(userEmail,username, pass, String.valueOf(3),id);
+                            registerUserAccount(userEmail,username, pass, String.valueOf(3),id,apiImageURL);
                         }
                     }else {
                         AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
@@ -804,7 +817,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         }
     }
 
-    private void registerUserFirebase(String email,String username, String pass1, String group){
+    private void registerUserFirebase(String email,String username, String pass1, String group,String imageURL){
         Log.d(TAG,"email: "+email+"  username:"+username+ " password "+pass1+" group :"+group);
         String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
         auth.createUserWithEmailAndPassword(email,password)
@@ -819,11 +832,14 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             HashMap<String,String> hashMap=new HashMap<>();
                             hashMap.put("id",userId);
                             hashMap.put("username",username);
-                            if (image == null){
+                            if (imageURL.isEmpty()){
                                 hashMap.put("imageURL","default");
                             }else {
-                                uploadImage(0);
+                                //uploadImage(0);
+                                hashMap.put("imageURL",imageURL);
                             }
+                            //hashMap.put("imageURL","default");
+
                             hashMap.put("coverURL","default");
                             hashMap.put("status","online");
                             hashMap.put("email",email);
@@ -912,7 +928,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 });
     }
 
-    private void registerUserAccount(String email,String username, String pass1, String group, int id){
+    private void registerUserAccount(String email,String username, String pass1, String group, int id,String imageURL){
         String password=group.equals("3")?pass1+"__":pass1;
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -926,11 +942,15 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             HashMap<String,String> hashMap=new HashMap<>();
                             hashMap.put("id",userId);
                             hashMap.put("username",username);
-                            if (image == null){
+//                            if (image == null){
+//                                hashMap.put("imageURL","default");
+//                            }else {
+//                                uploadImage(0);
+//                            }
+                            if(imageURL.isEmpty())
                                 hashMap.put("imageURL","default");
-                            }else {
-                                uploadImage(0);
-                            }
+                            else
+                                hashMap.put("imageURL",imageURL);
                             hashMap.put("coverURL","default");
                             hashMap.put("status","online");
                             hashMap.put("email",email);
@@ -1094,12 +1114,14 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 try {
                     image = data.getData();
                     mPhotoFile = mCompressor.compressToFile(new File(getRealPathFromUri(image)));
+                    bitmapProfileImage=BitmapFactory.decodeFile(mPhotoFile.getPath());
                 }catch (IOException e){
                     e.printStackTrace();
                 }
             }else if(requestCode==REQUEST_TAKE_PHOTO){
                 try {
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    bitmapProfileImage=BitmapFactory.decodeFile(mPhotoFile.getPath());
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -1414,10 +1436,19 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             pro.put("telephone",editPhone.getText().toString()+","+editPhone1.getText().toString()+","+editPhone2.getText().toString());
             pro.put("wing_account_number",editWing_number.getText().toString());
             pro.put("wing_account_name",editWing_account.getText().toString());
+            //added by Rith
+            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.logo_121);
+            if(bitmapProfileImage==null){
+                pro.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmpaDefault)));
+            }else{
+                pro.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapProfileImage)));
+            }
             data.put("profile",pro);
             data.put("groups", new JSONArray("[\"1\"]"));
 
         }catch (JSONException e){
+            e.printStackTrace();
+        }catch (IOException e){
             e.printStackTrace();
         }
         Log.d(TAG,data.toString());
