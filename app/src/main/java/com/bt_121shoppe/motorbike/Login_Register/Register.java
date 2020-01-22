@@ -24,6 +24,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -67,6 +68,7 @@ import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bt_121shoppe.motorbike.activities.AccountSettingActivity;
+import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
 import com.bumptech.glide.Glide;
@@ -252,21 +254,22 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     editWing_number.setVisibility(View.VISIBLE);
                     wing_number_alert.setVisibility(View.VISIBLE);
                 }
-            }else {
-                if (user_group == 1){
-                    editPassword.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-                    editComfirmPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-                    editPassword.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(4)});
-                    editComfirmPass.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(4)});
-                }else {
-                    tv_wing_account.setVisibility(View.VISIBLE);
-                    editWing_account.setVisibility(View.VISIBLE);
-                    wing_account_alert.setVisibility(View.VISIBLE);
-                    tv_wing_number.setVisibility(View.VISIBLE);
-                    editWing_number.setVisibility(View.VISIBLE);
-                    wing_number_alert.setVisibility(View.VISIBLE);
-                }
             }
+        }
+        if (user_group == 1){
+            editPassword.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            editComfirmPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            editPassword.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(4)});
+            editComfirmPass.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(4)});
+        }else {
+            editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            editComfirmPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            tv_wing_account.setVisibility(View.VISIBLE);
+            editWing_account.setVisibility(View.VISIBLE);
+            wing_account_alert.setVisibility(View.VISIBLE);
+            tv_wing_number.setVisibility(View.VISIBLE);
+            editWing_number.setVisibility(View.VISIBLE);
+            wing_number_alert.setVisibility(View.VISIBLE);
         }
         mEdit = intent.getStringExtra("edit");
         mProfile = intent.getStringExtra("Profile");
@@ -479,11 +482,10 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 Pattern lowerCasePatten = Pattern.compile("[a-zA-Z]");
                 Pattern digitCasePatten = Pattern.compile("[0-9 ]");
                 Pattern white_space = Pattern.compile("[\\s]");
-                String emailPattern = "[a-z]+@[a-z]+\\.+[a-z]+";
                 Log.e("user_group",""+user_group);
                 if (user_group == 1){
                     if (Number_Phone.length()<9 || Password.length() != 4  || !Password.equals(ComfirmPass)
-                            || birthday.isEmpty() || gender.isEmpty()  || email.matches(emailPattern)) {
+                            || birthday.isEmpty() || gender.isEmpty()) {
                         if (first_name.isEmpty()){
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(getString(R.string.invalid_phone));
@@ -516,15 +518,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
                         } else {
                             ComfirmPassError.setText("");
-                        }
-                        if (email.isEmpty()){
-                            email_alert.setTextColor(getColor(R.color.red));
-                            email_alert.setText(getString(R.string.invalid_email));
-                        }else if (email.matches(emailPattern)){
-                            email_alert.setTextColor(getColor(R.color.red));
-                            email_alert.setText(getString(R.string.invalid_email));
-                        }else {
-                            email_alert.setText("");
                         }
                         if (gender.isEmpty()){
                             gender_alert.setTextColor(getColor(R.color.red));
@@ -565,7 +558,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 }else {
                     if (Number_Phone.length()<9 || white_space.matcher(Password).find() || !lowerCasePatten.matcher(Password).find() ||
                             Password.trim().length()<6 || !digitCasePatten.matcher(Password).find() || !Password.equals(ComfirmPass)
-                           || birthday.isEmpty() || gender.isEmpty() || email.matches(emailPattern)) {
+                           || birthday.isEmpty() || gender.isEmpty()) {
                         if (Number_Phone.isEmpty()) {
                             PhoneError.setTextColor(getColor(R.color.red));
                             PhoneError.setText(R.string.inputPhone);
@@ -603,15 +596,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             ComfirmPassError.setText(R.string.wrongInputPasswordSecond);
                         } else {
                             ComfirmPassError.setText("");
-                        }
-                        if (email.isEmpty()){
-                            email_alert.setTextColor(getColor(R.color.red));
-                            email_alert.setText(getString(R.string.invalid_email));
-                        }else if (email.matches(emailPattern)){
-                            email_alert.setTextColor(getColor(R.color.red));
-                            email_alert.setText(getString(R.string.invalid_email));
-                        }else {
-                            email_alert.setText("");
                         }
                         if (gender.isEmpty()){
                             gender_alert.setTextColor(getColor(R.color.red));
@@ -1175,78 +1159,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         MimeTypeMap mimeTypeMap=MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
-    private void uploadImage(int pk){
-        Log.e(TAG,"RUN "+image);
-        if(image!=null){
-            final StorageReference fileReference=storageReference.child(System.currentTimeMillis()
-                    +"."+getFileExtenstion(image));
-            Log.e("file image",""+fileReference);
-            uploadTask=fileReference.putFile(image);
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if(!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    return fileReference.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful()){
-                        Uri downloadUri= (Uri) task.getResult();
-                        String mUri=downloadUri.toString();
-                        FirebaseUser firebaseUser=auth.getCurrentUser();
-                        String userId=firebaseUser.getUid();
-                        reference=FirebaseDatabase.getInstance().getReference("users").child(userId);
-                        HashMap<String,Object> map=new HashMap<>();
-                        map.put("imageURL",mUri);
-                        reference.updateChildren(map);
-                        Log.e("image",""+mUri);
-                        if (pk != 0){
-                            if (task.isComplete()){
-                                mProgress.dismiss();
-                                androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
-                                alertDialog.setTitle(getString(R.string.title_edit_account));
-                                alertDialog.setMessage(getString(R.string.edit_success_message));
-                                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                mProgress.dismiss();
-                                                startActivity(new Intent(getApplicationContext(), Account.class));
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                alertDialog.show();
-                            }
-                        }
-                    }else{
-                        Toast.makeText(Register.this,"Failed",Toast.LENGTH_LONG).show();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Register.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-        else {
-            mProgress.dismiss();
-            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
-            alertDialog.setTitle(getString(R.string.title_edit_account));
-            alertDialog.setMessage(getString(R.string.edit_success_message));
-            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            mProgress.dismiss();
-                            startActivity(new Intent(getApplicationContext(), Account.class));
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        }
-    }
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
         return Base64.encodeToString(userpass.getBytes(),
@@ -1362,13 +1274,13 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                         addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
                                         String road = addresses.get(0).getAddressLine(0);
                                         if (road.length() > 30) {
-                                            String loca = road.substring(0,30) + "...";
-                                            if (location != null){
+                                            String loca = road.substring(0, 30) + "...";
+                                            if (location != null) {
                                                 if (location.length() > 30) {
-                                                    String locate = location.substring(0,30) + "...";
+                                                    String locate = location.substring(0, 30) + "...";
                                                     editMap.setText(locate);
                                                 }
-                                            }else {
+                                            } else {
                                                 editMap.setText(loca);
                                             }
                                         }
@@ -1489,11 +1401,40 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             public void onResponse(Call call, Response response) throws IOException {
                 String message = response.body().string();
                 Log.d("Response EEEEE", message);
-                UpdateData();
+                Convert(message);
             }
         });
     }
-    private void UpdateData(){
+    private void Convert(String mMessage){
+        Gson gson =new  Gson();
+        Convert_Json_Java convertJsonJava =new Convert_Json_Java();
+        try {
+            convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java.class);
+            int id = convertJsonJava.getId();
+            String apiImageURL=convertJsonJava.getProfile().getProfile_photo();
+//            Log.e("TAG","Profile Image:"+apiImageURL);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (id!=0){
+                        UpdateData(apiImageURL);
+                    }
+                }
+            });
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+
+        }
+    }
+    private void UpdateData(String image){
         reference= FirebaseDatabase.getInstance().getReference();
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         if (fuser != null) {
@@ -1501,10 +1442,20 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String key = snapshot.getKey();
-                        UpdateImage(key);
-                    }
+                    reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("imageURL",image);
+                    reference.updateChildren(map);
+                    androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+                    alertDialog.setTitle(getString(R.string.title_edit_account));
+                    alertDialog.setMessage(getString(R.string.edit_success_message));
+                    alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
+                        mProgress.dismiss();
+                        startActivity(new Intent(getApplicationContext(), Account.class));
+                        dialog.dismiss();
+                    });
+                    alertDialog.show();
+                    mProgress.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -1513,63 +1464,53 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             });
         }
     }
-    private void UpdateImage(String key){
-        FirebaseDatabase fuser = FirebaseDatabase.getInstance();
-        DatabaseReference reference = fuser.getReference();
-        reference.child("users").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                uploadImage(pk);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("update", databaseError.getMessage());
-            }
-        });
-    }
     private void Variable_Field(){
-        editPhone = (EditText) findViewById(R.id.et_phone);
-        editPhone1 = (EditText) findViewById(R.id.et_phone1);
-        editPhone2 = (EditText) findViewById(R.id.et_phone2);
-        editPassword = (EditText)findViewById(R.id.et_password);
-        editComfirmPass = (EditText) findViewById(R.id.et_re_password);
-        editAddress = (EditText) findViewById(R.id.et_address);
-        editDate = (EditText) findViewById(R.id.et_date);
-        editUsername = (EditText) findViewById(R.id.et_username);
-        editEmail = (EditText) findViewById(R.id.et_email);
-        editGender = (EditText) findViewById(R.id.et_gender);
-        editMap = (EditText) findViewById(R.id.et_map);
-        PhoneError = (TextView) findViewById(R.id.phone_alert);
-        PasswordError = (TextView) findViewById(R.id.password_alert);
-        ComfirmPassError = (TextView) findViewById(R.id.re_password_alert);
-        date = (ImageView) findViewById(R.id.tv_cal);
-        img_map = (ImageView) findViewById(R.id.map);
-        term_privacy = (CheckBox) findViewById(R.id.term_privacy);
-        tv_privacy = (TextView) findViewById(R.id.tv_privacy);
-        tv_add = (TextView) findViewById(R.id.tv_add);
-        tv_add1 = (TextView) findViewById(R.id.tv_add1);
-        tv_cancel = (TextView) findViewById(R.id.tv_cancel);
+        editPhone        = (EditText) findViewById(R.id.et_phone);
+        editPhone1       = (EditText) findViewById(R.id.et_phone1);
+        editPhone2       = (EditText) findViewById(R.id.et_phone2);
+        editPassword     = (EditText) findViewById(R.id.et_password);
+        editComfirmPass  = (EditText) findViewById(R.id.et_re_password);
+        editAddress      = (EditText) findViewById(R.id.et_address);
+        editDate         = (EditText) findViewById(R.id.et_date);
+        editUsername     = (EditText) findViewById(R.id.et_username);
+        editEmail        = (EditText) findViewById(R.id.et_email);
+        editGender       = (EditText) findViewById(R.id.et_gender);
+        editMap          = (EditText) findViewById(R.id.et_map);
+        editWing_account = (EditText) findViewById(R.id.et_wing_account);
+        editWing_number  = (EditText) findViewById(R.id.et_wing_number);
+
+        PhoneError         = (TextView) findViewById(R.id.phone_alert);
+        PasswordError      = (TextView) findViewById(R.id.password_alert);
+        ComfirmPassError   = (TextView) findViewById(R.id.re_password_alert);
+        tv_privacy         = (TextView) findViewById(R.id.tv_privacy);
+        tv_add             = (TextView) findViewById(R.id.tv_add);
+        tv_add1            = (TextView) findViewById(R.id.tv_add1);
+        tv_cancel          = (TextView) findViewById(R.id.tv_cancel);
+        tv_password        = (TextView) findViewById(R.id.tv_password);
+        tv_re_password     = (TextView) findViewById(R.id.tv_re_password);
+        tv_wing_number     = (TextView) findViewById(R.id.tv_wing_number);
+        tv_wing_account    = (TextView) findViewById(R.id.tv_wing_account);
+        wing_account_alert = (TextView) findViewById(R.id.wing_account_acc_alert);
+        wing_number_alert  = (TextView) findViewById(R.id.wing_number_alert);
+        email_alert        = (TextView) findViewById(R.id.email_alert);
+        username_alert     = (TextView) findViewById(R.id.username_alert);
+        date_alert         = (TextView) findViewById(R.id.date_alert);
+        wing_number_alert  = (TextView) findViewById(R.id.wing_number_alert);
+        wing_account_alert = (TextView) findViewById(R.id.wing_account_acc_alert);
+        address_alert      = (TextView) findViewById(R.id.address_alert);
+        gender_alert       = (TextView) findViewById(R.id.gender_alert);
+        map_alert          = (TextView) findViewById(R.id.map_alert);
+
+        date       = (ImageView) findViewById(R.id.tv_cal);
+        img_map    = (ImageView) findViewById(R.id.map);
+
+        term_privacy  = (CheckBox) findViewById(R.id.term_privacy);
         layout_phone1 = (RelativeLayout) findViewById(R.id.layout_phone1);
         layout_phone2 = (RelativeLayout) findViewById(R.id.layout_phone2);
-        imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
-        tv_password = (TextView) findViewById(R.id.tv_password);
-        tv_re_password = (TextView) findViewById(R.id.tv_re_password);
-        tv_wing_number = (TextView) findViewById(R.id.tv_wing_number);
-        tv_wing_account = (TextView) findViewById(R.id.tv_wing_account);
-        editWing_account = (EditText) findViewById(R.id.et_wing_account);
-        editWing_number = (EditText) findViewById(R.id.et_wing_number);
-        wing_account_alert = (TextView) findViewById(R.id.wing_account_acc_alert);
-        wing_number_alert = (TextView) findViewById(R.id.wing_number_alert);
-        email_alert = (TextView) findViewById(R.id.email_alert);
-        username_alert = (TextView) findViewById(R.id.username_alert);
-        date_alert = (TextView) findViewById(R.id.date_alert);
-        wing_number_alert = (TextView) findViewById(R.id.wing_number_alert);
-        wing_account_alert = (TextView) findViewById(R.id.wing_account_acc_alert);
-        address_alert = (TextView) findViewById(R.id.address_alert);
-        gender_alert = (TextView) findViewById(R.id.gender_alert);
-        map_alert = (TextView) findViewById(R.id.map_alert);
-        btUpgrade = (Button) findViewById(R.id.btn_upgrade);
-        btUpdate =(Button) findViewById(R.id.update);
-        btnSubmit = (Button)findViewById(R.id.sign_up);
+        imgProfile    = (CircleImageView) findViewById(R.id.imgProfile);
+
+        btUpgrade   = (Button) findViewById(R.id.btn_upgrade);
+        btUpdate    = (Button) findViewById(R.id.update);
+        btnSubmit   = (Button) findViewById(R.id.sign_up);
     }
 }

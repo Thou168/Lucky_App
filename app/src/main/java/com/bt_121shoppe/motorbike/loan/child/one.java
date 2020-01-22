@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -54,41 +55,38 @@ public class one extends Fragment{
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
+    private final Handler handler = new Handler();
 
     private Toolbar mToolbar;
     private TextView mTvName;
     private Button mBtnNext, mBtnNextWithFinish;
-    private RelativeLayout relative_conspirator,relati_Contributors,relativeTime_Practicing1;
+    private LinearLayout relative_conspirator;
     private TextView tv_conspirator,tv_Contributors;
-    private CardView carview_conspirator,carview_Contributors;
-    private View view1,view2,view_3;
     private RadioButton radio1,radio2,radio3;
     private RadioGroup mCo_borrower;
     private EditText mName,mPhone_Number,mAddress,mJob,mRelationship,mCo_borrower_Job,mTotal_Income,mTotal_Expense,mNet_Income,
                      mJob_Period,mCo_Job_Period,mDistrict,mCommune,mVillage;
-    private ImageView img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12;
     private int mProductID;
-    String mPrice;
+    private String mPrice;
     private Create_Load createLoad;
     private item_one itemOne;
-    int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
-    Button next;
+    private int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
+    private Button next;
     boolean radioCheck = false,Co_borrower,mFromLoan;
 
     private SharedPreferences preferences;
     private String username,password,Encode;
     private int pk;
-    loan_item loanItem;
-    String basicEncode,currentLanguage;
+    private loan_item loanItem;
+    private String basicEncode,currentLanguage;
     private List<province_Item> listData;
     private String[] provine = new String[28];
-    final Handler handler = new Handler();
-    AlertDialog dialog;
-    String[] Job = {"seller","state staff","private company staff","service provider","other",""};
-    String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
-    String[] rJob ;
-    String[] rRela;
-    boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
+    private AlertDialog dialog;
+    private String[] Job = {"seller","state staff","private company staff","service provider","other",""};
+    private String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
+    private String[] rJob ;
+    private String[] rRela;
+    private boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
 
     public static one newInstance(int number,String price,int loanid,boolean fromLoan) {
         one fragment = new one();
@@ -135,11 +133,8 @@ public class one extends Fragment{
         }
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 
-
-//        next = view.findViewById(R.id.next);
+        ;
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
-        relati_Contributors = view.findViewById(R.id.relati_Contributors);
-        relativeTime_Practicing1 = view.findViewById(R.id.relativeTime_Practicing1);
         SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         currentLanguage = preferences.getString("My_Lang", "");
 
@@ -209,9 +204,6 @@ public class one extends Fragment{
             });
         }
         getprovince();
-        view1 = view.findViewById(R.id.view_1);
-        view2 = view.findViewById(R.id.view_2);
-        view_3 = view.findViewById(R.id.view_3);
         radio1 = view.findViewById(R.id.radio1);
         radio2 = view.findViewById(R.id.radio2);
 ////        next.setOnClickListener(v -> frm_on.setViewPager(1));
@@ -291,13 +283,12 @@ public class one extends Fragment{
 
         mName = view.findViewById(R.id.etName);
         mPhone_Number = view.findViewById(R.id.etPhone);
-        mAddress = view.findViewById(R.id.etcity);
         mDistrict = view.findViewById(R.id.edDistrict);
         mCommune = view.findViewById(R.id.edCommune);
         mVillage = view.findViewById(R.id.edvillage);
 
         mJob = view.findViewById(R.id.et_Personal_Occupation);
-        mJob_Period = view.findViewById(R.id.etTime_Practicing);
+//        mJob_Period = view.findViewById(R.id.etTime_Practicing);
         mCo_borrower = view.findViewById(R.id.radio_group);
         mRelationship = view.findViewById(R.id.et_conspirator);
         mCo_borrower_Job = view.findViewById(R.id.et_Contributors);
@@ -305,19 +296,6 @@ public class one extends Fragment{
         mTotal_Income = view.findViewById(R.id.etTotal_income_borrowers);
         mTotal_Expense = view.findViewById(R.id.etTotal_cost_borrowers);
         mNet_Income = view.findViewById(R.id.et_total);
-
-        img1 = view.findViewById(R.id.img_1);
-        img2 = view.findViewById(R.id.img_2);
-        img3 = view.findViewById(R.id.img_3);
-        img4 = view.findViewById(R.id.img_4);
-        img5 = view.findViewById(R.id.img_5);
-        img6 = view.findViewById(R.id.img_6);
-        img7 = view.findViewById(R.id.img_7);
-        img8 = view.findViewById(R.id.img_8);
-        img9 = view.findViewById(R.id.img_9);
-        img10 = view.findViewById(R.id.img_10);
-        img11 = view.findViewById(R.id.img_11);
-        img12 = view.findViewById(R.id.img_12);
 
         editext();
         mBtnNext = view.findViewById(R.id.btn_next);
@@ -328,30 +306,17 @@ public class one extends Fragment{
             View radioButton = mCo_borrower.findViewById(checkedId);
            index = mCo_borrower.indexOfChild(radioButton);
             radio3 = mCo_borrower.findViewById(checkedId);
-            img6.setImageResource(R.drawable.ic_check_circle_black_24dp);
             // dd logic here
             switch (index) {
                 case 0: // first button
                     relative_conspirator.setVisibility(View.VISIBLE);
-                    relati_Contributors.setVisibility(View.VISIBLE);
-                    relativeTime_Practicing1.setVisibility(View.VISIBLE);
-                    view1.setVisibility(View.VISIBLE);
-                    view2.setVisibility(View.VISIBLE);
-                    view_3.setVisibility(View.VISIBLE);
                     radioCheck = true;
                     Co_borrower = true;
                     break;
                 case 1: // secondbutton
                     relative_conspirator.setVisibility(View.GONE);
-                    relati_Contributors.setVisibility(View.GONE);
-                    relativeTime_Practicing1.setVisibility(View.GONE);
-                    view1.setVisibility(View.GONE);
-                    view2.setVisibility(View.GONE);
-                    view_3.setVisibility(View.GONE);
 
                     mRelationship.setText(null);
-                    img7.setImageResource(R.drawable.ic_error_black_24dp);
-                    img8.setImageResource(R.drawable.ic_error_black_24dp);
                     mCo_borrower_Job.setText(null);
                     mCo_Job_Period.setText("0");
                     indexRela = 9;
@@ -370,7 +335,7 @@ public class one extends Fragment{
         mCo_borrower_Job.setOnClickListener(v -> {
             createLoad.AlertDialog(rJob,mCo_borrower_Job);
         });
-        mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
+//        mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
         mJob.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -421,20 +386,20 @@ public class one extends Fragment{
             Log.d("343434343",String.valueOf(editext())+"    "+index);
 //            Log.d("111111111111111","1111"+radio3.getText().toString()+"  "+mProvinceID);
             if (index == 1){
-                createLoad.requstFocus(bRelationship,img7,null);
-                createLoad.requstFocus(bCo_borrower_Job,img8,null);
-                createLoad.requstFocus(bCo_Job_Period,img9,mCo_Job_Period);
+//                createLoad.requstFocus(bRelationship,img7,null);
+//                createLoad.requstFocus(bCo_borrower_Job,img8,null);
+//                createLoad.requstFocus(bCo_Job_Period,img9,mCo_Job_Period);
             }
             if (!(index == 0|| index == 1)){
-                img6.setImageResource(R.drawable.ic_error_black_24dp);
+
             }
-            createLoad.requstFocus(bname,img1,mName);
-            createLoad.requstFocus(baddress,img3,mAddress);
-            createLoad.requstFocus(bJob,img4,mJob);
-            createLoad.requstFocus(bJob_Period,img5,mJob_Period);
-//            createLoad.requstFocus(bRelationship,img6,null);
-            createLoad.requstFocus(bTotal_Income,img10,mTotal_Income);
-            createLoad.requstFocus(bmTotal_Expense,img11,mTotal_Expense);
+//            createLoad.requstFocus(bname,img1,mName);
+//            createLoad.requstFocus(baddress,img3,mAddress);
+//            createLoad.requstFocus(bJob,img4,mJob);
+//            createLoad.requstFocus(bJob_Period,img5,mJob_Period);
+////            createLoad.requstFocus(bRelationship,img6,null);
+//            createLoad.requstFocus(bTotal_Income,img10,mTotal_Income);
+//            createLoad.requstFocus(bmTotal_Expense,img11,mTotal_Expense);
             if (editext()){
                 itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),Job[indextJom],
                         Co_borrower,index,Rela[indexRela],Job[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
@@ -451,26 +416,26 @@ public class one extends Fragment{
     private boolean editext(){
         bname = createLoad.Checked(mName);
         bphone = createLoad.Checked(mPhone_Number);
-        baddress = createLoad.Checked(mAddress);
+//        baddress = createLoad.Checked(mAddress);
         bJob = createLoad.Checked(mJob);
-        bJob_Period = createLoad.CheckedYear(mJob_Period);
+//        bJob_Period = createLoad.CheckedYear(mJob_Period);
         bRelationship = createLoad.Checked(mRelationship);
         bCo_borrower_Job = createLoad.CheckedYear(mCo_borrower_Job);
 //        bRelationship = createLoad.RadioCondition(img6,mCo_borrower);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);
         bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
 
-        createLoad.Condition(img1,mName);
-        createLoad.Condition(img2,mPhone_Number);
-        createLoad.Condition(img3,mAddress);
-        createLoad.Condition(img4,mJob);
-        createLoad.ConditionYear(img5,mJob_Period);
-        createLoad.Condition(img7,mRelationship);
-        createLoad.Condition(img8,mCo_borrower_Job);
-        createLoad.ConditionYear(img9,mCo_Job_Period);
-        createLoad.ConditionYear(img10,mTotal_Income);
-        createLoad.ConditionYear(img11,mTotal_Expense);
-        createLoad.ConditionYear(img12,mNet_Income);
+//        createLoad.Condition(img1,mName);
+//        createLoad.Condition(img2,mPhone_Number);
+//        createLoad.Condition(img3,mAddress);
+//        createLoad.Condition(img4,mJob);
+//        createLoad.ConditionYear(img5,mJob_Period);
+//        createLoad.Condition(img7,mRelationship);
+//        createLoad.Condition(img8,mCo_borrower_Job);
+//        createLoad.ConditionYear(img9,mCo_Job_Period);
+//        createLoad.ConditionYear(img10,mTotal_Income);
+//        createLoad.ConditionYear(img11,mTotal_Expense);
+//        createLoad.ConditionYear(img12,mNet_Income);
         if (index == 0){
             return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense&&bRelationship&&bCo_borrower_Job;
         }else {

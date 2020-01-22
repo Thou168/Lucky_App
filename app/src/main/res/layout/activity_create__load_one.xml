@@ -9,508 +9,515 @@
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
-            android:id="@+id/relative"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="@dimen/dp_16"
+                android:text="Private Information"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/name"/>
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="Enter your information"
+                android:inputType="text"
+                android:focusable="false"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/name_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/phone_number"/>
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter your information"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:inputType="phone"
+                android:focusable="false"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/phone_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <TextView
+                android:id="@+id/tv_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/city"/>
+            <EditText
+                android:focusable="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:id="@+id/et_province"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="Select"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/province_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+
+            <TextView
+                android:id="@+id/tv_district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/district"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:hint="Select"
+                android:focusable="false"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:id="@+id/edDistrict"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/district_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+
+            <TextView
+                android:id="@+id/tv_commune"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/commune"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:focusable="false"
+                android:hint="Select"
+                android:id="@+id/edCommune"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/commune_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+
+            <TextView
+                android:id="@+id/tv_village"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/village"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:hint="Select"
+                android:focusable="false"
+                android:id="@+id/edvillage"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/village_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <TextView
+                android:id="@+id/tv_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/loan_job"/>
+            <EditText
+                android:id="@+id/et_Personal_Occupation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                android:focusable="false"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="Select"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/job_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/etTime_Practicing"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="fill_parent"-->
+            <!--                    android:background="@null"-->
+            <!--                    android:hint="@string/job_period"-->
+            <!--                    android:inputType="number"-->
+            <!--                    android:paddingLeft="5dp"-->
+            <!--                    android:textSize="14dp" />-->
+
+            <TextView
+                android:id="@+id/tv_total_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/total_income"/>
+            <EditText
+                android:id="@+id/etTotal_income_borrowers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter your information"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/total_income_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+
+            <TextView
+                android:id="@+id/tv_expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/total_expense"/>
+            <EditText
+                android:id="@+id/etTotal_cost_borrowers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter your information"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/expense_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <TextView
+                android:id="@+id/tv_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/net_income"/>
+            <EditText
+                android:focusable="false"
+                android:id="@+id/et_total"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter your information"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/income_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <TextView
+                android:id="@+id/tv_product_insurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#000"
+                android:text="@string/hit_co_borrower"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:textSize="12dp" />
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/co_borrower_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/co_borrower_no" />
+            </RadioGroup>
             <LinearLayout
-                    android:id="@+id/linear"
+                android:id="@+id/relative_conspirator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_conspirator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/toolbar"
-                    android:layout_alignParentTop="true"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:text="@string/relationship"/>
+                <EditText
+                    android:id="@+id/et_conspirator"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                    android:focusable="false"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="Select"
+                    android:inputType="number"
+                    android:textSize="14dp" />
+                <TextView
+                    android:id="@+id/conspirator_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_Contributors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:text="@string/co_borrow_job"/>
+                <EditText
+                    android:id="@+id/et_Contributors"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_black"
+                    android:focusable="false"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:hint="Select"
+                    android:inputType="number"
+                    android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/Contributors_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
 
-                        <ImageView
-                            android:id="@+id/img_1"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/icon_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_1">
-
-                            <EditText
-                                android:id="@+id/etName"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/name"
-                                android:inputType="text"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_2"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/icon_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilPhone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_2">
-
-                            <EditText
-                                android:id="@+id/etPhone"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/phone_number"
-                                android:inputType="phone"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_3"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-                        <TextView
-                            android:layout_toEndOf="@+id/img_3"
-                            android:text="@string/address"
-                            android:id="@+id/text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                        <LinearLayout
-                            android:layout_below="@+id/text"
-                            android:layout_toEndOf="@+id/img_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:weightSum="1"
-                            android:id="@+id/relative1"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="vertical">
-
-                            <EditText
-                                android:focusable="false"
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:inputType="numberDecimal"
-                                android:layout_weight="0.5"
-                                android:id="@+id/etcity"
-                                android:background="@null"
-                                android:hint="@string/city"
-                                android:drawableEnd="@drawable/arrow_down_black_24dp"
-                                android:textSize="14dp"/>
-
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:inputType="text"
-                                android:layout_weight="0.5"
-                                android:hint="@string/district"
-                                android:background="@null"
-                                android:id="@+id/edDistrict"
-                                android:textSize="14dp"/>
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:inputType="text"
-                                android:layout_weight="0.5"
-                                android:hint="@string/commune"
-                                android:id="@+id/edCommune"
-                                android:background="@null"
-                                android:textSize="14dp"/>
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:inputType="text"
-                                android:layout_weight="0.5"
-                                android:hint="@string/village"
-                                android:id="@+id/edvillage"
-                                android:background="@null"
-                                android:textSize="14dp"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:id="@+id/relative_Personal_Occupation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_4"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_Personal_Occupation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_4">
-
-                            <EditText
-                                android:id="@+id/et_Personal_Occupation"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:drawableEnd="@drawable/ic_arrow_drop_down"
-                                android:focusable="false"
-                                android:hint="@string/loan_job"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_5"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilTime_Practicing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_5">
-
-                            <EditText
-                                android:id="@+id/etTime_Practicing"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/job_period"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:cardCornerRadius="5dp">
-
-                        <RelativeLayout
-                            android:id="@+id/relative_OC"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/img_6"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:padding="2dp"
-                                android:src="@drawable/ic_null" />
-
-                            <TextView
-                                android:id="@+id/tv_product_insurance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_toEndOf="@+id/img_6"
-                                android:text="@string/hit_co_borrower"
-                                android:textSize="15dp" />
-
-                            <RadioGroup
-                                android:id="@+id/radio_group"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_product_insurance"
-                                android:layout_alignStart="@+id/tv_product_insurance"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="5dp"
-                                android:orientation="horizontal">
-
-                                <RadioButton
-                                    android:id="@+id/radio1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/co_borrower_yes" />
-
-                                <RadioButton
-                                    android:id="@+id/radio2"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/co_borrower_no" />
-                            </RadioGroup>
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:id="@+id/relative_conspirator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/img_7"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_conspirator"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_7">
-
-                            <EditText
-                                android:id="@+id/et_conspirator"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:drawableEnd="@drawable/ic_arrow_drop_down"
-                                android:focusable="false"
-                                android:hint="@string/relationship"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View
-                        android:id="@+id/view_1"
-                        style="@style/line"
-                        android:visibility="gone" />
-
-                    <RelativeLayout
-                        android:id="@+id/relati_Contributors"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/img_8"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_Contributors"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_8">
-
-                            <EditText
-                                android:id="@+id/et_Contributors"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:drawableEnd="@drawable/ic_arrow_drop_down"
-                                android:focusable="false"
-                                android:hint="@string/co_borrow_job"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View
-                        android:id="@+id/view_2"
-                        style="@style/line"
-                        android:visibility="gone" />
-
-                    <RelativeLayout
-                        android:id="@+id/relativeTime_Practicing1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/img_9"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilTime_Practicing1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_9">
-
-                            <EditText
-                                android:id="@+id/etTime_Practicing1"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/job_period"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View
-                        android:id="@+id/view_3"
-                        style="@style/line"
-                        android:visibility="gone" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_10"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilTotal_income_borrowers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_10">
-
-                            <EditText
-                                android:id="@+id/etTotal_income_borrowers"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/total_income"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_11"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilTotal_cost_borrowers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_11">
-
-                            <EditText
-                                android:id="@+id/etTotal_cost_borrowers"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/total_expense"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/line" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/img_12"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_null" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_total"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_toEndOf="@+id/img_12">
-
-                            <EditText
-                                android:focusable="false"
-                                android:id="@+id/et_total"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:background="@null"
-                                android:hint="@string/net_income"
-                                android:inputType="number"
-                                android:paddingLeft="5dp"
-                                android:textSize="14dp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tv_Practicing1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:text="@string/job_period"/>
+                <EditText
+                    android:id="@+id/etTime_Practicing1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:hint="Enter your information"
+                    android:inputType="number"
+                    android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/Practicing1_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
+            </LinearLayout>
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="150dp"
                 android:layout_height="38dp"
-                android:layout_below="@+id/linear"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="@dimen/dp_24"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:background="@drawable/mybuttonbluelight"
+                android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:background="@drawable/button"
                 android:text="@string/next"
                 android:textColor="@color/white" />
-            </RelativeLayout>
+
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

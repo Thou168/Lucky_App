@@ -197,6 +197,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private RelativeLayout layout_color;
     private RelativeLayout layout_phone1,layout_phone2;
     private LinearLayout layout_estimate;
+    private GridView gridView;
 
     private SeekBar seekbar_pri_per,seekbar_rear,seekbar_screw,seekbar_pumps,seekbar_rigt_engine,seekbar_engine_head;
     private SeekBar seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
@@ -960,40 +961,41 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                 strCondition = object.getString("condition");
                                 strColor = object.getString("color");
                                 Log.e("String Color",""+strColor);
-                                CustomView customView = new CustomView(getApplication());
-                                switch (strColor) {
-                                    case "black":
-                                    case "ខ្មៅ":
-                                        customView.display(R.drawable.ligth_black, true);
-                                        break;
-                                    case "blue":
-                                    case "ខៀវ":
-                                        customView.display(R.drawable.blue, true);
-                                        break;
-                                    case "red":
-                                    case "ក្រហម":
-                                        customView.display(R.drawable.red, true);
-                                        break;
-                                    case "orange":
-                                    case "ទឺកក្រូច":
-                                        customView.display(R.drawable.oriange, true);
-                                        break;
-                                    case "white":
-                                    case "ស":
-                                        customView.display(R.drawable.white, true);
-                                        break;
-                                    case "yellow":
-                                    case "លឿង":
-                                        customView.display(R.drawable.yellow, true);
-                                        break;
-                                    case "pink":
-                                    case "ផ្កាឈូក":
-                                        customView.display(R.drawable.pink, true);
-                                        break;
-                                    case "purple":
-                                    case "ស្វាយ":
-                                        customView.display(R.drawable.purple, true);
-                                        break;
+                                if (strColor != null){
+                                    switch (strColor) {
+                                        case "black":
+                                        case "ខ្មៅ":
+                                            setColor(2);
+                                            break;
+                                        case "blue":
+                                        case "ខៀវ":
+                                            setColor(1);
+                                            break;
+                                        case "red":
+                                        case "ក្រហម":
+                                            setColor(3);
+                                            break;
+                                        case "orange":
+                                        case "ទឺកក្រូច":
+                                            setColor(7);
+                                            break;
+                                        case "white":
+                                        case "ស":
+                                            setColor(0);
+                                            break;
+                                        case "yellow":
+                                        case "លឿង":
+                                            setColor(4);
+                                            break;
+                                        case "pink":
+                                        case "ផ្កាឈូក":
+                                            setColor(5);
+                                            break;
+                                        case "purple":
+                                        case "ស្វាយ":
+                                            setColor(6);
+                                            break;
+                                    }
                                 }
 
                                 Geocoder geocoder;
@@ -1358,7 +1360,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             Log.e("post type",""+strPostType);
             if (strPostType == "buy") {
                 post.put("discount", "0");
-                post.put("discount_type","amount");
+                post.put("discount_type","percent");
 // set default image for Buy when no select image by samang 5/9/19
                 default_bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.logo_121);
                 if (bitmapImage1 == null) {
@@ -1744,7 +1746,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             Log.e("post type",":"+strPostType);
             if (strPostType.equals("buy")) {
                 post.put("discount", "0");
-                post.put("discount_type","amount");
+                post.put("discount_type","percent");
             }else {
                 post.put("discount_type", null);
                 post.put("discount", String.valueOf(seekbar_pri_per.getProgress()));
@@ -2350,11 +2352,18 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }
         });
     }
+    private void setColor(int index){
+        CustomView customView = new CustomView(getBaseContext());
+        gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
+        final ColorAdapter adapter = new ColorAdapter(itemcolor,getApplication());
+        gridView.setAdapter(adapter);
+        adapter.selectedPositions.add(index);
+        customView.display(index,true);
+    }
 
     private void DropDown() {
 
         selectedColor = new ArrayList<>();
-        GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         final ColorAdapter adapter = new ColorAdapter(itemcolor,getApplication());
         gridView.setAdapter(adapter);
@@ -2631,6 +2640,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         imageView5   = (ImageView) findViewById(R.id.Picture5);
         imageView6   = (ImageView) findViewById(R.id.Picture6);
         imageMap     = (ImageView) findViewById(R.id.map);
+
+        gridView     = (GridView) findViewById(R.id.gridview);
 
     }
 

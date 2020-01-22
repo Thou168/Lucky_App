@@ -37,10 +37,6 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
-
-/**
- *
- */
 public class three extends Fragment {
     private static final String ARG_NUMBER = "arg_number";
 
@@ -48,23 +44,21 @@ public class three extends Fragment {
     private TextView mTvName;
     private Button mBtnSubmit, mBtnNextWithFinish,mBtnback;
 
-    Button btn_positive;
-    Button btn_negative;
+    private Button btn_positive;
+    private Button btn_negative;
 
     private int mNumber;
-    AlertDialog dialog;
-    private EditText etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
+    private AlertDialog dialog;
+    private TextView etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
     private Create_Load createLoad;
     private item_two itemTwo;
-    private LinearLayout linearLayout;
-    private ImageView img1,img2,img3,img4,img5,img6,img7,img8;
 
     private SharedPreferences preferences;
     private String username,password,Encode,language;
     private int pk;
     private int i = -1;
-    loan_item loanItem;
-    String basicEncode;
+    private loan_item loanItem;
+    private String basicEncode;
     boolean ischeck;
     boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
     boolean bID_Card,bFramily_Book,bPhotos,bEmployment_card,bID_Card1,bFramily_Book1,bPhotos1,bEmployment_card1;
@@ -111,20 +105,20 @@ public class three extends Fragment {
         mBtnSubmit.setOnClickListener(v -> {
             checkEd();
             if (itemTwo.getItemOne().getIndex()==1){
-                createLoad.requstFocus(bID_Card,img1,null);
-                createLoad.requstFocus(bFramily_Book,img2,null);
-                createLoad.requstFocus(bPhotos,img3,null);
-                createLoad.requstFocus(bEmployment_card,img4,null);
+//                createLoad.requstFocus(bID_Card,img1,null);
+//                createLoad.requstFocus(bFramily_Book,img2,null);
+//                createLoad.requstFocus(bPhotos,img3,null);
+//                createLoad.requstFocus(bEmployment_card,img4,null);
             }else {
-                createLoad.requstFocus(bID_Card,img1,null);
-                createLoad.requstFocus(bFramily_Book,img2,null);
-                createLoad.requstFocus(bPhotos,img3,null);
-                createLoad.requstFocus(bEmployment_card,img4,null);
-
-                createLoad.requstFocus(bID_Card1,img5,null);
-                createLoad.requstFocus(bFramily_Book1,img6,null);
-                createLoad.requstFocus(bPhotos1,img7,null);
-                createLoad.requstFocus(bEmployment_card1,img8,null);
+//                createLoad.requstFocus(bID_Card,img1,null);
+//                createLoad.requstFocus(bFramily_Book,img2,null);
+//                createLoad.requstFocus(bPhotos,img3,null);
+//                createLoad.requstFocus(bEmployment_card,img4,null);
+//
+//                createLoad.requstFocus(bID_Card1,img5,null);
+//                createLoad.requstFocus(bFramily_Book1,img6,null);
+//                createLoad.requstFocus(bPhotos1,img7,null);
+//                createLoad.requstFocus(bEmployment_card1,img8,null);
             }
 
             if (checkEd()){
@@ -362,89 +356,81 @@ public class three extends Fragment {
 
     private void initView(View view) {
         String[] values = getResources().getStringArray(R.array.choose);
-        etID_card = view.findViewById(R.id.etID_card);
-        etID_card.setOnClickListener(v -> {
-            AlertDialog(values,etID_card);
-        });
-        etFamily_book = view.findViewById(R.id.etFamily_book);
-        etFamily_book.setOnClickListener(v -> {
-            AlertDialog1(values,etFamily_book);
-        });
-        etPhotos = view.findViewById(R.id.etPhotos);
-        etPhotos.setOnClickListener(v -> {
-            AlertDialog2(values,etPhotos);
-        });
-        etEmployment_card = view.findViewById(R.id.etEmployment_card);
-        etEmployment_card.setOnClickListener(v -> {
-            AlertDialog3(values,etEmployment_card);
-        });
+//        etID_card = view.findViewById(R.id.etID_card);
+//        etID_card.setOnClickListener(v -> {
+//            AlertDialog(values,etID_card);
+//        });
+//        etFamily_book = view.findViewById(R.id.etFamily_book);
+//        etFamily_book.setOnClickListener(v -> {
+//            AlertDialog1(values,etFamily_book);
+//        });
+//        etPhotos = view.findViewById(R.id.etPhotos);
+//        etPhotos.setOnClickListener(v -> {
+//            AlertDialog2(values,etPhotos);
+//        });
+//        etEmployment_card = view.findViewById(R.id.etEmployment_card);
+//        etEmployment_card.setOnClickListener(v -> {
+//            AlertDialog3(values,etEmployment_card);
+//        });
+//
+//        etID_card1 = view.findViewById(R.id.etID_card1);
+//        etID_card1.setOnClickListener(v -> {
+//            AlertDialog4(values,etID_card1);
+//        });
+//        etFamily_book1 = view.findViewById(R.id.etFamily_book1);
+//        etFamily_book1.setOnClickListener(v -> {
+//            AlertDialog5(values,etFamily_book1);
+//        });
+//        etPhotos1 = view.findViewById(R.id.etPhotos1);
+//        etPhotos1.setOnClickListener(v -> {
+//            AlertDialog6(values,etPhotos1);
+//        });
+//        etEmployment_card1 = view.findViewById(R.id.etEmployment_card1);
+//        etEmployment_card1.setOnClickListener(v -> {
+//            AlertDialog7(values,etEmployment_card1);
+//        });
+//        if (itemTwo.getItemOne().getIndex()==1){
+//            linearLayout.setVisibility(View.GONE);
+//        }else {
+//            linearLayout.setVisibility(View.VISIBLE);
+//        }
+//        if (itemTwo.getItemOne().isFromLoan()){
+//            GetLoan();
+//        }
 
-        etID_card1 = view.findViewById(R.id.etID_card1);
-        etID_card1.setOnClickListener(v -> {
-            AlertDialog4(values,etID_card1);
-        });
-        etFamily_book1 = view.findViewById(R.id.etFamily_book1);
-        etFamily_book1.setOnClickListener(v -> {
-            AlertDialog5(values,etFamily_book1);
-        });
-        etPhotos1 = view.findViewById(R.id.etPhotos1);
-        etPhotos1.setOnClickListener(v -> {
-            AlertDialog6(values,etPhotos1);
-        });
-        etEmployment_card1 = view.findViewById(R.id.etEmployment_card1);
-        etEmployment_card1.setOnClickListener(v -> {
-            AlertDialog7(values,etEmployment_card1);
-        });
-        linearLayout = view.findViewById(R.id.linealayout);
-        if (itemTwo.getItemOne().getIndex()==1){
-            linearLayout.setVisibility(View.GONE);
-        }else {
-            linearLayout.setVisibility(View.VISIBLE);
-        }
-        if (itemTwo.getItemOne().isFromLoan()){
-            GetLoan();
-        }
-
-        img1 = view.findViewById(R.id.img_1);
-        img2 = view.findViewById(R.id.img_2);
-        img3 = view.findViewById(R.id.img_3);
-        img4 = view.findViewById(R.id.img_4);
-        img5 = view.findViewById(R.id.img_5);
-        img6 = view.findViewById(R.id.img_6);
-        img7 = view.findViewById(R.id.img_7);
-        img8 = view.findViewById(R.id.img_8);
     }
     private boolean checkEd(){
 
-        bID_Card = createLoad.CheckedYear(etID_card);
-        bFramily_Book = createLoad.CheckedYear(etFamily_book);
-        bPhotos = createLoad.CheckedYear(etPhotos);
-        bEmployment_card = createLoad.CheckedYear(etEmployment_card);
-
-        bID_Card1 = createLoad.CheckedYear(etID_card1);
-        bFramily_Book1 = createLoad.CheckedYear(etFamily_book1);
-        bPhotos1 = createLoad.CheckedYear(etPhotos1);
-        bEmployment_card1 = createLoad.CheckedYear(etEmployment_card1);
+//        bID_Card = createLoad.CheckedYear(etID_card);
+//        bFramily_Book = createLoad.CheckedYear(etFamily_book);
+//        bPhotos = createLoad.CheckedYear(etPhotos);
+//        bEmployment_card = createLoad.CheckedYear(etEmployment_card);
+//
+//        bID_Card1 = createLoad.CheckedYear(etID_card1);
+//        bFramily_Book1 = createLoad.CheckedYear(etFamily_book1);
+//        bPhotos1 = createLoad.CheckedYear(etPhotos1);
+//        bEmployment_card1 = createLoad.CheckedYear(etEmployment_card1);
 
 
 //        bNumber_institution = createLoad.CheckedYear(mNumber_institution);
 //        bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
 
-        createLoad.ConditionYear(img1,etID_card);
-        createLoad.ConditionYear(img2,etFamily_book);
-        createLoad.ConditionYear(img3,etPhotos);
-        createLoad.ConditionYear(img4,etEmployment_card);
+//        createLoad.ConditionYear(img1,etID_card);
+//        createLoad.ConditionYear(img2,etFamily_book);
+//        createLoad.ConditionYear(img3,etPhotos);
+//        createLoad.ConditionYear(img4,etEmployment_card);
+//
+//        createLoad.ConditionYear(img5,etID_card1);
+//        createLoad.ConditionYear(img6,etFamily_book1);
+//        createLoad.ConditionYear(img7,etPhotos1);
+//        createLoad.ConditionYear(img8,etEmployment_card1);
 
-        createLoad.ConditionYear(img5,etID_card1);
-        createLoad.ConditionYear(img6,etFamily_book1);
-        createLoad.ConditionYear(img7,etPhotos1);
-        createLoad.ConditionYear(img8,etEmployment_card1);
-
-        if (itemTwo.getItemOne().getIndex()==1){
-            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
-        }else {
-            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card&&bID_Card1&&bFramily_Book1&&bPhotos1&&bEmployment_card1;
-        }
+//        if (itemTwo.getItemOne().getIndex()==1){
+//            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
+//        }else {
+//            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card&&bID_Card1&&bFramily_Book1&&bPhotos1&&bEmployment_card1;
+//        }
+        return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card&&bID_Card1&&bFramily_Book1&&bPhotos1&&bEmployment_card1;
     }
 
     private void MaterialDialog(){

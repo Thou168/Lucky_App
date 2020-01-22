@@ -63,17 +63,15 @@ public class two extends Fragment {
     private three fragment;
     private Create_Load createLoad;
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
-    private ImageView img1,img2,img3,img4,img5,img6,img7,img8,img9,img10;
     private RadioButton radio1,radio2,radio3,radio4;
     private RadioGroup rgBuying_product_insurance,mAllowto_visit_home;
     private boolean radioCheck1 = false,radioCheck2 = false;
     private item_two itemTwo;
     private boolean mVisit_home,mBuy_product_insurance,check_return;
-    AlertDialog dialog;
-    RelativeLayout relati_Contributors;
+    private AlertDialog dialog;
     private int index=3,index1 = 3;
-    String basicEncode;
-    String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
+    private String basicEncode;
+    private String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
     private boolean bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid;
     public static two newInstance(item_one itemOne) {
         Bundle args = new Bundle();
@@ -125,17 +123,17 @@ public class two extends Fragment {
 //            Bundle bundle=new Bundle();
 //            fragment.setArguments(bundle);
             if (!(index == 0|| index == 1)){
-                img5.setImageResource(R.drawable.ic_error_black_24dp);
+//                img5.setImageResource(R.drawable.ic_error_black_24dp);
             }
             if (!(index1 == 0|| index1 == 1)){
-                img6.setImageResource(R.drawable.ic_error_black_24dp);
+//                img6.setImageResource(R.drawable.ic_error_black_24dp);
             }
-            createLoad.requstFocus(bLoand_amount,img1,mLoan_amount);
-            createLoad.requstFocus(bLoan_Period,img2,mLoan_Term);
-            createLoad.requstFocus(bPayment_Method,img3,mloan_RepaymentType);
-            createLoad.requstFocus(bLoan_Contributions,img4,mLoan_Contributions);
-            createLoad.requstFocus(bNumber_institution,img7,mNumber_institution);
-            createLoad.requstFocus(bMonthly_Amount_Paid,img8,mMonthly_Amount_Paid);
+//            createLoad.requstFocus(bLoand_amount,img1,mLoan_amount);
+//            createLoad.requstFocus(bLoan_Period,img2,mLoan_Term);
+//            createLoad.requstFocus(bPayment_Method,img3,mloan_RepaymentType);
+//            createLoad.requstFocus(bLoan_Contributions,img4,mLoan_Contributions);
+//            createLoad.requstFocus(bNumber_institution,img7,mNumber_institution);
+//            createLoad.requstFocus(bMonthly_Amount_Paid,img8,mMonthly_Amount_Paid);
 
 
             if (checkEd()){
@@ -161,16 +159,6 @@ public class two extends Fragment {
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
         mLoan_Term.setFilters(new InputFilter[]{new InputFilterMinMax(1,36)});
         mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);
-        relati_Contributors = view.findViewById(R.id.relati_Contributors);
-
-        img1 = view.findViewById(R.id.img_1);
-        img2 = view.findViewById(R.id.img_2);
-        img3 = view.findViewById(R.id.img_3);
-        img4 = view.findViewById(R.id.img_4);
-        img5 = view.findViewById(R.id.img_5);
-        img6 = view.findViewById(R.id.img_6);
-        img7 = view.findViewById(R.id.img_7);
-        img8 = view.findViewById(R.id.img_8);
 
 
         mloan_RepaymentType.setOnClickListener(v -> {
@@ -193,64 +181,64 @@ public class two extends Fragment {
             public void afterTextChanged(Editable s) { }
         });
         mLoan_Contributions = view.findViewById(R.id.etLoan_contributions);
-
-        if (itemOne.isFromLoan()){
-            GetLoan();
-//             mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+//
+//        if (itemOne.isFromLoan()){
+//            GetLoan();
+////             mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+////                @Override
+////                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+////                @Override
+////                public void onTextChanged(CharSequence s, int start, int before, int count) {
+////                    if (!s.toString().isEmpty()){
+////                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(mLoan_amount.getText().toString())-Integer.parseInt(s.toString()))});
+////                    }
+////                }
+////                @Override
+////                public void afterTextChanged(Editable s) { }
+////            });
+//
+////            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, )});
+//        }else {
+//            img1.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//            mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
+//            mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+//            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+////            mLoan_amount.addTextChangedListener(new TextWatcher() {
+////                @Override
+////                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+////                @Override
+////                public void onTextChanged(CharSequence s, int start, int before, int count) {
+////                    if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
+////                        mLoan_Contributions.setText("0");
+////                    }else mLoan_Contributions.setText(null);
+////                }
+////                @Override
+////                public void afterTextChanged(Editable s) { }
+////            });
+////            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
+//            mLoan_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (!hasFocus&&!mLoan_amount.getText().toString().isEmpty()) {
+//                        mLoan_Contributions.setText(cuteString(String.valueOf(Double.parseDouble(itemOne.getPrice())- Double.parseDouble(mLoan_amount.getText().toString())),0));
+//                    }
+//                }
+//            });
+//            mLoan_Contributions.setText("0");
+//            img4.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//            mLoan_Contributions.addTextChangedListener(new TextWatcher() {
 //                @Override
 //                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 //                @Override
 //                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                    if (!s.toString().isEmpty()){
-//                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,Integer.parseInt(mLoan_amount.getText().toString())-Integer.parseInt(s.toString()))});
+//                    if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
+//                        mLoan_amount.setText(cuteString(String.valueOf(Double.parseDouble(itemOne.getPrice())- Double.parseDouble(s.toString())),0));
 //                    }
 //                }
 //                @Override
 //                public void afterTextChanged(Editable s) { }
 //            });
-
-//            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, )});
-        }else {
-            img1.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            mLoan_amount.setText(cuteString(itemOne.getPrice(),0));
-            mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
-            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
-//            mLoan_amount.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-//                @Override
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                    if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
-//                        mLoan_Contributions.setText("0");
-//                    }else mLoan_Contributions.setText(null);
-//                }
-//                @Override
-//                public void afterTextChanged(Editable s) { }
-//            });
-//            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(itemOne.getPrice(),0)))});
-            mLoan_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus&&!mLoan_amount.getText().toString().isEmpty()) {
-                        mLoan_Contributions.setText(cuteString(String.valueOf(Double.parseDouble(itemOne.getPrice())- Double.parseDouble(mLoan_amount.getText().toString())),0));
-                    }
-                }
-            });
-            mLoan_Contributions.setText("0");
-            img4.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            mLoan_Contributions.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
-                        mLoan_amount.setText(cuteString(String.valueOf(Double.parseDouble(itemOne.getPrice())- Double.parseDouble(s.toString())),0));
-                    }
-                }
-                @Override
-                public void afterTextChanged(Editable s) { }
-            });
-        }
+//        }
 
 //        mBtnNextWithFinish = view.findViewById(R.id.btn_next_with_finish);
         rgBuying_product_insurance = view.findViewById(R.id.radio_group);
@@ -258,7 +246,6 @@ public class two extends Fragment {
             View radioButton = rgBuying_product_insurance.findViewById(checkedId);
             index = rgBuying_product_insurance.indexOfChild(radioButton);
             radio2 = rgBuying_product_insurance.findViewById(checkedId);
-            img5.setImageResource(R.drawable.ic_check_circle_black_24dp);
             // dd logic here
             switch (index) {
                 case 0: // first button
@@ -276,7 +263,6 @@ public class two extends Fragment {
             View radioButton = mAllowto_visit_home.findViewById(checkedId);
             index1 = mAllowto_visit_home.indexOfChild(radioButton);
             radio3 = mAllowto_visit_home.findViewById(checkedId);
-            img6.setImageResource(R.drawable.ic_check_circle_black_24dp);
             // dd logic here
             switch (index) {
                 case 0: // first button
@@ -300,11 +286,9 @@ public class two extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (mNumber_institution.getText().toString().equals("0")||mNumber_institution.getText().toString().equals("០")){
-                    relati_Contributors.setVisibility(View.GONE);
                     mMonthly_Amount_Paid.setText("0");
                     check_return = false;
                 }else {
-                    relati_Contributors.setVisibility(View.VISIBLE);
                     check_return = true;
                 }
             }
@@ -345,12 +329,12 @@ public class two extends Fragment {
         bNumber_institution = createLoad.CheckedYear(mNumber_institution);
         bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
 
-        createLoad.ConditionYear(img1,mLoan_amount);
-        createLoad.ConditionYear(img2,mLoan_Term);
-        createLoad.Condition(img3,mloan_RepaymentType);
-        createLoad.ConditionYear(img4,mLoan_Contributions);
-        createLoad.ConditionYear(img7,mNumber_institution);
-        createLoad.ConditionYear(img8,mMonthly_Amount_Paid);
+//        createLoad.ConditionYear(img1,mLoan_amount);
+//        createLoad.ConditionYear(img2,mLoan_Term);
+//        createLoad.Condition(img3,mloan_RepaymentType);
+//        createLoad.ConditionYear(img4,mLoan_Contributions);
+//        createLoad.ConditionYear(img7,mNumber_institution);
+//        createLoad.ConditionYear(img8,mMonthly_Amount_Paid);
         if (check_return){
             return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution&&bMonthly_Amount_Paid;
         }else {

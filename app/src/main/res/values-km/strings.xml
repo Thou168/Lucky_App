@@ -246,6 +246,8 @@
     <string name="borrower">អ្នកខ្ចី</string>
     <string name="insurance_yes">ត្រូវការ</string>
     <string name="insurance_no">មិនត្រូវការ</string>
+    <string name="borrow_yes">មាន</string>
+    <string name="borrow_no">មិនមាន</string>
     <string name="allow_yes">យល់ព្រម</string>
     <string name="allow_no">មិនយល់ព្រម</string>
     <string name="choose_item">ជ្រើសរើស</string>
@@ -901,4 +903,10 @@
     <string name="invalid_price">Invalid Price</string>
     <string name="invalid_condition">Invalid Condition</string>
     <string name="store_list">Sotre Lists</string>
+
+    //Loan info
+    <string name="loan_form">Loan Form</string>
+    <string name="tab_loan_info">Loan Info</string>
+    <string name="private_info">Private Info</string>
+    <string name="borrow_info">Borrow Info</string>
 </resources>

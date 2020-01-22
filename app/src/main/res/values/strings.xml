@@ -356,6 +356,8 @@
     <string name="borrower">Borrower</string>
     <string name="insurance_yes">Yes</string>
     <string name="insurance_no">No</string>
+    <string name="borrow_yes">Yes</string>
+    <string name="borrow_no">No</string>
     <string name="allow_yes">Yes</string>
     <string name="allow_no">No</string>
     <string name="personal_info">Personal Information</string>
@@ -1060,4 +1062,10 @@
     <string name="invalid_price">Invalid Price</string>
     <string name="invalid_condition">Invalid Condition</string>
     <string name="store_list">Sotre Lists</string>
+
+    //Loan info
+    <string name="loan_form">Loan Form</string>
+    <string name="tab_loan_info">Loan Info</string>
+    <string name="private_info">Private Info</string>
+    <string name="borrow_info">Borrow Info</string>
 </resources>

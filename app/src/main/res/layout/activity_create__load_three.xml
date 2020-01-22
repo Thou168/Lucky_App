@@ -9,294 +9,358 @@
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
-            android:id="@+id/relative"
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_below="@+id/toolbar"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:padding="5dp"
-                android:layout_below="@+id/toolbar"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:background="#B9E7E7E7"
-                    android:text="@string/borrower"
-                    android:textSize="12dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_20"/>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_1"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilID_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_1">
-                        <EditText
-                            android:id="@+id/etID_card"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/cambodian_id"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_2"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilFamily_book"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_2">
-                        <EditText
-                            android:id="@+id/etFamily_book"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/family_book"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_3"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhotos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_3">
-                        <EditText
-                            android:id="@+id/etPhotos"
-                            android:paddingLeft="5dp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/photo"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:padding="2dp"
-                        android:id="@+id/img_4"
-                        android:src="@drawable/ic_null"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilEmployment_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/img_4">
-                        <EditText
-                            android:id="@+id/etEmployment_card"
-                            android:paddingLeft="5dp"
-                            android:layout_width="match_parent"
-                            android:focusable="false"
-                            android:layout_height="fill_parent"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:hint="@string/job_id_card"
-                            android:background="@null"
-                            android:textSize="14dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
-                <View style="@style/line"/>
-               <LinearLayout
-                   android:id="@+id/linealayout"
-                   android:orientation="vertical"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-                   <TextView
-                       android:text="@string/hit_co_borrower"
-                       android:background="#B9E7E7E7"
-                       android:textSize="12dp"
-                       android:gravity="center"
-                       android:layout_width="match_parent"
-                       android:layout_height="@dimen/dp_20"/>
-                   <View style="@style/line"/>
-                   <RelativeLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-                       <ImageView
-                           android:layout_centerVertical="true"
-                           android:padding="2dp"
-                           android:id="@+id/img_5"
-                           android:src="@drawable/ic_null"
-                           android:layout_width="20dp"
-                           android:layout_height="20dp"/>
-                       <com.google.android.material.textfield.TextInputLayout
-                           android:id="@+id/tilID_card1"
-                           android:layout_width="wrap_content"
-                           android:layout_height="50dp"
-                           android:layout_alignParentEnd="true"
-                           android:layout_toEndOf="@+id/img_5">
-                           <EditText
-                               android:id="@+id/etID_card1"
-                               android:paddingLeft="5dp"
-                               android:focusable="false"
-                               android:layout_width="match_parent"
-                               android:layout_height="fill_parent"
-                               android:drawableEnd="@drawable/ic_arrow_drop_down"
-                               android:hint="@string/cambodian_id"
-                               android:background="@null"
-                               android:textSize="14dp" />
-                       </com.google.android.material.textfield.TextInputLayout>
-                   </RelativeLayout>
-                   <View style="@style/line"/>
-                   <RelativeLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-                       <ImageView
-                           android:layout_centerVertical="true"
-                           android:padding="2dp"
-                           android:id="@+id/img_6"
-                           android:src="@drawable/ic_null"
-                           android:layout_width="20dp"
-                           android:layout_height="20dp"/>
-                       <com.google.android.material.textfield.TextInputLayout
-                           android:id="@+id/tilFamily_book1"
-                           android:layout_width="wrap_content"
-                           android:layout_height="50dp"
-                           android:layout_alignParentEnd="true"
-                           android:layout_toEndOf="@+id/img_6">
-                           <EditText
-                               android:id="@+id/etFamily_book1"
-                               android:paddingLeft="5dp"
-                               android:focusable="false"
-                               android:layout_width="match_parent"
-                               android:layout_height="fill_parent"
-                               android:drawableEnd="@drawable/ic_arrow_drop_down"
-                               android:hint="@string/family_book"
-                               android:background="@null"
-                               android:textSize="14dp" />
-                       </com.google.android.material.textfield.TextInputLayout>
-                   </RelativeLayout>
-                   <View style="@style/line"/>
-                   <RelativeLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-                       <ImageView
-                           android:layout_centerVertical="true"
-                           android:padding="2dp"
-                           android:id="@+id/img_7"
-                           android:src="@drawable/ic_null"
-                           android:layout_width="20dp"
-                           android:layout_height="20dp"/>
-                       <com.google.android.material.textfield.TextInputLayout
-                           android:id="@+id/tilPhotos1"
-                           android:layout_width="wrap_content"
-                           android:layout_height="50dp"
-                           android:layout_alignParentEnd="true"
-                           android:layout_toEndOf="@+id/img_7">
-                           <EditText
-                               android:id="@+id/etPhotos1"
-                               android:paddingLeft="5dp"
-                               android:focusable="false"
-                               android:layout_width="match_parent"
-                               android:layout_height="fill_parent"
-                               android:drawableEnd="@drawable/ic_arrow_drop_down"
-                               android:hint="@string/photo"
-                               android:background="@null"
-                               android:textSize="14dp" />
-                       </com.google.android.material.textfield.TextInputLayout>
-                   </RelativeLayout>
-                   <View style="@style/line"/>
-                   <RelativeLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-                       <ImageView
-                           android:layout_centerVertical="true"
-                           android:padding="2dp"
-                           android:id="@+id/img_8"
-                           android:src="@drawable/ic_null"
-                           android:layout_width="20dp"
-                           android:layout_height="20dp"/>
-                       <com.google.android.material.textfield.TextInputLayout
-                           android:id="@+id/tilEmployment_card1"
-                           android:layout_width="wrap_content"
-                           android:layout_height="50dp"
-                           android:layout_alignParentEnd="true"
-                           android:layout_toEndOf="@+id/img_8">
-                           <EditText
-                               android:id="@+id/etEmployment_card1"
-                               android:paddingLeft="5dp"
-                               android:focusable="false"
-                               android:layout_width="match_parent"
-                               android:layout_height="fill_parent"
-                               android:drawableEnd="@drawable/ic_arrow_drop_down"
-                               android:hint="@string/job_id_card"
-                               android:background="@null"
-                               android:textSize="14dp" />
-                       </com.google.android.material.textfield.TextInputLayout>
-                   </RelativeLayout>
-                   <View style="@style/line"/>
-               </LinearLayout>
-            </LinearLayout>
-            <Button
-                android:id="@+id/btn_back"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/back"
-                android:textColor="@color/white"
-                android:layout_alignParentBottom="true"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="Borrow information"
+                android:textSize="@dimen/dp_16"
+                android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:background="@drawable/mybuttonbluelight"
-                />
-            <Button
-                android:id="@+id/btn_submit"
-                android:layout_width="150dp"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"/>
+
+            <TextView
+                android:id="@+id/etID_card"
+                android:textColor="#000"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/submit_button"
-                android:textColor="@color/white"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:background="@drawable/mybuttonbluelight"
-                />
-        </RelativeLayout>
+                android:text="@string/cambodian_id"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_ID_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_ID_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_ID_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/etFamily_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/family_book"
+                android:textColor="#000"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_Family_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_Family_book"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_Family_book"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/etPhotos"
+                android:textColor="#000"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/photo"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_Photos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_Photos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_Photos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/etEmployment_card"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:layout_height="wrap_content"
+                android:text="@string/job_id_card"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_Employment_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_Employment_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_Employment_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+            <TextView
+                android:text="Co-Borrower Information"
+                android:textSize="@dimen/dp_16"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_height="@dimen/dp_20"/>
+
+            <TextView
+                android:id="@+id/etID_card1"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/cambodian_id"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_ID_card1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_ID_card1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_ID_card1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/etFamily_book1"
+                android:textColor="#000"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/family_book"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_Family_book1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_Family_book1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_Family_book1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+            <TextView
+                android:id="@+id/etPhotos1"
+                android:textColor="#000"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/photo"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_Photos1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_Photos1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_Photos1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+            <TextView
+                android:id="@+id/etEmployment_card1"
+                android:textColor="#000"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/job_id_card"
+                android:textSize="14dp" />
+            <RadioGroup
+                android:id="@+id/radio_group_Employment_card1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_Employment_card1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_Employment_card1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/borrow_no" />
+            </RadioGroup>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_marginTop="@dimen/dp_24"
+               android:layout_marginStart="@dimen/dp_8"
+               android:layout_marginEnd="@dimen/dp_8"
+               android:layout_marginBottom="@dimen/dp_16"
+               android:orientation="horizontal">
+               <Button
+                   android:id="@+id/btn_back"
+                   android:layout_width="150dp"
+                   android:layout_height="38dp"
+                   android:text="@string/back"
+                   android:textColor="@color/white"
+                   android:layout_marginTop="@dimen/dp_16"
+                   android:layout_marginBottom="@dimen/dp_16"
+                   android:background="@drawable/button"
+                   />
+               <Button
+                   android:id="@+id/btn_submit"
+                   android:layout_width="150dp"
+                   android:layout_height="38dp"
+                   android:text="@string/submit_button"
+                   android:textColor="@color/white"
+                   android:layout_marginTop="@dimen/dp_16"
+                   android:layout_marginStart="@dimen/dp_16"
+                   android:layout_marginBottom="@dimen/dp_16"
+                   android:background="@drawable/button" />
+           </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

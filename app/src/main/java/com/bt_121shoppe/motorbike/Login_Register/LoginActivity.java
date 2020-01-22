@@ -693,72 +693,75 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
-                    if(user.getUsername().equals(username)){
-                        Log.e("email",""+user.getEmail());
-                        Log.e("password",""+user.getPassword());
-                        auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful()){
-                                            setfirebasepassword(user.getId(),user.getPassword());
-                                            //changeFirebasePassword();
-                                            Intent intent;
-                                            if(login_verify==null) {
-                                                intent = new Intent(LoginActivity.this, Home.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                startActivity(intent);
-                                                finish();
-                                            }else {
-                                                switch (login_verify) {
-                                                    case "notification":
-                                                        intent = new Intent(LoginActivity.this, NotificationActivity.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        break;
-                                                    case "camera":
-                                                        intent = new Intent(LoginActivity.this, Camera.class);
-                                                        intent.putExtra("Login_verify", login_verify);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        break;
-                                                    case "message":
-                                                        intent = new Intent(LoginActivity.this, ChatMainActivity.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        break;
-                                                    case "account":
-                                                        intent = new Intent(LoginActivity.this, Account.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        break;
-                                                    case "detail":
-                                                        intent = new Intent(LoginActivity.this, Detail_New_Post.class);
-                                                        intent.putExtra("ID", product_id);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        break;
-                                                    default:
-                                                        intent = new Intent(LoginActivity.this, Home.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        break;
+                    Log.e("user",""+user);
+                    Log.e("username",""+username);
+                    Log.e("email", "" + user.getEmail());
+                    Log.e("password", "" + user.getPassword());
+                    if (user.getUsername() != null) {
+                        if (user.getUsername().equals(username)) {
+                            auth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                setfirebasepassword(user.getId(), user.getPassword());
+                                                //changeFirebasePassword();
+                                                Intent intent;
+                                                if (login_verify == null) {
+                                                    intent = new Intent(LoginActivity.this, Home.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    switch (login_verify) {
+                                                        case "notification":
+                                                            intent = new Intent(LoginActivity.this, NotificationActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
+                                                        case "camera":
+                                                            intent = new Intent(LoginActivity.this, Camera.class);
+                                                            intent.putExtra("Login_verify", login_verify);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
+                                                        case "message":
+                                                            intent = new Intent(LoginActivity.this, ChatMainActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
+                                                        case "account":
+                                                            intent = new Intent(LoginActivity.this, Account.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
+                                                        case "detail":
+                                                            intent = new Intent(LoginActivity.this, Detail_New_Post.class);
+                                                            intent.putExtra("ID", product_id);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
+                                                        default:
+                                                            intent = new Intent(LoginActivity.this, Home.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
+                                                    }
                                                 }
+                                                mProgress.dismiss();
+                                            } else {
+                                                Toast.makeText(LoginActivity.this, "You cannot login with email or password.", Toast.LENGTH_SHORT).show();
                                             }
-                                            mProgress.dismiss();
                                         }
-                                        else{
-                                            Toast.makeText(LoginActivity.this,"You cannot login with email or password.",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                        return;
+                                    });
+                            return;
+                        }
                     }
                 }
             }

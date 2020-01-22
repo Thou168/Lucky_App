@@ -133,7 +133,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvColor1=itemView.findViewById(R.id.tv_color1);
             tvColor2=itemView.findViewById(R.id.tv_color2);
             pending_appprove=itemView.findViewById(R.id.pending_appprove);
-            user_active=itemView.findViewById(R.id.linear_userActive);
+//            user_active=itemView.findViewById(R.id.linear_userActive);
         }
 
         @Override
@@ -180,9 +180,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             String[] splitColor=mPost.getColor().split(",");
 
             GradientDrawable shape = new GradientDrawable();
-            shape.setShape(GradientDrawable.OVAL);
-            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-            tvColor1.setBackground(shape);
+//            shape.setShape(GradientDrawable.OVAL);
+//            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+//            tvColor1.setBackground(shape);
             tvColor2.setVisibility(View.GONE);
             if(splitColor.length>1){
                 tvColor2.setVisibility(View.VISIBLE);

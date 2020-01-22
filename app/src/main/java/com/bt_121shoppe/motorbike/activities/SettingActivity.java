@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,13 +31,26 @@ import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.ChangepassModel;
 import com.bt_121shoppe.motorbike.settings.Changelanguage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
 
 import io.paperdb.Paper;
@@ -61,6 +75,8 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     private int index = 1;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     boolean radioCheck = false;
+    private FirebaseUser fuser;
+    private DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +97,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         renew_pass=findViewById(R.id.renew_pass);
         reset_pass=findViewById(R.id.reset_pass);
 
+        reference= FirebaseDatabase.getInstance().getReference();
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -256,22 +273,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this).create();
-                                    alertDialog.setTitle(getString(R.string.title_change_password));
-                                    alertDialog.setMessage(getString(R.string.success_change_password));
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    SharedPreferences.Editor editor = prefer.edit();
-                                                    editor.putString("name",name);
-                                                    editor.putString("pass",renew_pass.getText().toString());
-                                                    editor.commit();
-//                                                    startActivity(new Intent(ChangePassword.this, Home.class));
-                                                    dialog.dismiss();
-                                                    finish();
-                                                }
-                                            });
-                                    alertDialog.show();
+                                    ChangePassWithFirebase(renew_pass.getText().toString());
                                 }
                             });
                         }else {
@@ -322,5 +324,39 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                 finish();
             }
         });
+    }
+    private void ChangePassWithFirebase(String newPass){
+        String newPassword=newPass+"__";
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        if (fuser != null) {
+            Query query = reference.child("users").orderByChild(fuser.getUid());
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("password", newPassword);
+                    reference.updateChildren(map);
+                    AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this).create();
+                    alertDialog.setTitle(getString(R.string.title_change_password));
+                    alertDialog.setMessage(getString(R.string.success_change_password));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
+                        SharedPreferences.Editor editor = prefer.edit();
+                        editor.putString("name", name);
+                        editor.putString("pass", newPass);
+                        editor.commit();
+                        startActivity(new Intent(SettingActivity.this, Home.class));
+                        dialog.dismiss();
+                        finish();
+                    });
+                    alertDialog.show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }

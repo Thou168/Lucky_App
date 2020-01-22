@@ -1,9 +1,12 @@
 package com.bt_121shoppe.motorbike.loan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,7 +18,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,14 +26,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.loan.child.AdapterNavigation.CustomViewPager;
 import com.bt_121shoppe.motorbike.loan.child.one;
+import com.bt_121shoppe.motorbike.loan.child.two;
+import com.bt_121shoppe.motorbike.loan.child.three;
+import com.google.android.material.tabs.TabLayout;
 
-public class Create_Load extends AppCompatActivity {
+public class Create_Load extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     Button next,prev;
     TextView back;
-    CustomViewPager viewPager;
+    private TabLayout tabs;
+    private ViewPager viewPager;
     int count=0;
     AlertDialog dialog;
     boolean check=false,mBook_familiy,mPhoto,mCard_work,From_Loan;
@@ -43,38 +48,26 @@ public class Create_Load extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__load);
+        Toolbar mToolbar=findViewById(R.id.toolbar);
+        mToolbar.setTitle("");
+        setSupportActionBar(mToolbar);
+        tabs = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.pagerLoan);
+        tabs.setupWithViewPager(viewPager);
+        setUpPager();
         Intent intent = getIntent();
         product_id = intent.getIntExtra("product_id",0);
         mLoandID = intent.getIntExtra("LoanID",0);
         From_Loan = intent.getBooleanExtra("LoanEdit",false);
         price = intent.getStringExtra("price");
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id,price,mLoandID,From_Loan)).commit();
-        }
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, one.newInstance(product_id,price,mLoandID,From_Loan)).commit();
+//        }
 
         back = findViewById(R.id.tv_back);
         back.setOnClickListener(v -> dialog_leaveLoan());
 
-//        viewPager = findViewById(R.id.viewPager);
-//        setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
-//        next = findViewById(R.id.next);
-//        prev = findViewById(R.id.back);
-
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.viewPager,
-//                    new one()).commit();
-//        }
-//        viewPager.setCurrentItem(count);
-
-//        next.setOnClickListener(v -> {
-//            count++;
-//            viewPager.setCurrentItem(count,true);
-//        });
-//        prev.setOnClickListener(v -> {
-//            count--;
-//            viewPager.setCurrentItem(count,true);
-//        });
     }
     public void setBack(){
         dialogpress = true;
@@ -235,25 +228,66 @@ public class Create_Load extends AppCompatActivity {
         }
     }
 
-    //    public boolean Checked(ImageView imageView,EditText editText){
-//        if (editText.getText().toString().isEmpty() || editText.getText().toString().length()<3){
-//            editText.setError("wtf");
-//            imageView.setImageResource(R.drawable.ic_error_black_24dp);
-//            check = false;
-//        }else {
-//            check =true;
-//        }
-//        return check;
-//    }
-//    public void setViewPager (int pager){
-//        viewPager.setCurrentItem(pager);
-//    }
-//    public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
-//        FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
-//        //dd All Fragment To List
-//        Adapter.add(new one(), "null");
-//        Adapter.add(new two(), "null");
-//        Adapter.add(new three(), "null");
-//        viewPager.setAdapter(Adapter);
-//    }
+    private void setUpPager(){
+        tabs.addTab(tabs.newTab().setText(R.string.private_info));
+        tabs.addTab(tabs.newTab().setText(R.string.tab_loan_info));
+        tabs.addTab(tabs.newTab().setText(R.string.borrow_info));
+        tabs.setOnTabSelectedListener(this);
+        Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
+        viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+    public class Pager extends FragmentStatePagerAdapter {
+        int tabCount;
+        public Pager(FragmentManager fm, int tabCount) {
+            super(fm);
+            //Initializing tab count
+            this.tabCount= tabCount;
+        }
+        @Override
+        public Fragment getItem(int position) {
+            //Returning the current tabs
+            switch (position) {
+                case 0:
+                    return new one();
+                case 1:
+                    return new two();
+                case 2:
+                    return new three();
+                default:
+                    return null;
+            }
+        }
+        @Override
+        public int getCount() {
+            return tabCount;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position==0) {
+                return getApplicationContext().getString(R.string.private_info);
+            } else if (position==1) {
+                return getApplicationContext().getString(R.string.tab_loan_info);
+            }else if (position == 2){
+                return getApplicationContext().getString(R.string.borrow_info);
+            } else {
+                return null;
+            }
+        }
+    }
 }

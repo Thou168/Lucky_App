@@ -449,7 +449,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             tvPrice.setText("$ "+cost);
                             tvDiscount.setText("$"+postDetail.getDiscount());
                             tvDiscountPer.setText(per1+"%");
-                            //tv_dox.setVisibility(View.VISIBLE);
+                            tv_dox.setVisibility(View.VISIBLE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
                         }
                         if (discount == 0.00){

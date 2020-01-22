@@ -5,38 +5,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".loan.Create_Load">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="?attr/actionBarSize">
-        <TextView
-            android:id="@+id/tv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:gravity="center_vertical"
-            android:drawableLeft="@drawable/chevron_left_36"/>
-        <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/loan_information"
-        android:textSize="@dimen/page_title"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:gravity="center_vertical"/>
+        android:id="@+id/app_bar"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_height="?attr/actionBarSize">
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loan_form"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/dp_16"
+                android:drawableLeft="@drawable/arrow_backspace"/>
+            <Button
+                android:id="@+id/list_draft"
+                android:layout_width="80dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:textSize="12dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:textAllCaps="false"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:textColor="@color/white"
+                android:background="@drawable/post_background"
+                android:text="List Draft" />
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            style="@style/MyStyle"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@color/tabColor"
+            app:tabGravity="fill"
+            app:tabMode="fixed"/>
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_below="@+id/toolbar"
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_below="@+id/app_bar"
+        android:id="@+id/pagerLoan"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_4"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>
