@@ -19,9 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.classes.APIResponse;
+import com.bt_121shoppe.motorbike.searches.SearchTypeActivity;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.example.roman.thesimplerangebar.SimpleRangeBar;
 import com.example.roman.thesimplerangebar.SimpleRangeBarOnChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +51,8 @@ public class Filter_shopdetail extends AppCompatActivity {
 //   private  String [] cateListItems,brandListItems,yearListItems,conditionListItems,categoryItemkg,brandItemkh,yearlistItemkh;
 //   private  int [] cateIDlist,brandIDlist,yearIDlist;
 //   private LinearLayout rela_cate,rela_brand,rela_year,rela_condition;
+
+    private static final String TAG= Filter_shopdetail.class.getSimpleName();
 
    private  TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter;
     ImageView tv_result,tv_done;
@@ -589,11 +595,11 @@ public class Filter_shopdetail extends AppCompatActivity {
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==1){
-                        stType = "new";
+                        stType = "sell";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==2){
-                        stType = "used";
+                        stType = "rent";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
@@ -629,6 +635,20 @@ public class Filter_shopdetail extends AppCompatActivity {
         finish();
 
         Log.d("FIlter",stTitle+","+stCategory+","+stBrand+","+stYear);
+    }
+
+    private void getPosttype(String postType){
+        String url = ConsumeAPI.BASE_URL+"relatedpost/?post_type=" + postType;
+        String response = "";
+        try {
+            response = CommonFunction.doGetRequest(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "response " + response);
+        APIResponse apiResponse = new APIResponse();
+        Gson gson = new Gson();
+        apiResponse = gson.fromJson(response, APIResponse.class);
     }
 
     private void getCategory(){

@@ -167,6 +167,7 @@
         <TextView
             android:text="@string/nav_detail"
             android:textSize="@dimen/dp_18"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
@@ -207,42 +208,40 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/Constrainlayout_call_chat_like_loan"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:visibility="visible"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:paddingBottom="@dimen/dp_4">
+        android:background="@color/white">
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginStart="77dp"
+            android:layout_marginEnd="79.84dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/btn_call"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/call"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_sms"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/btn_call"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/call"
+                android:layout_alignParentStart="true"/>
 
-        <ImageView
-            android:id="@+id/btn_sms"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/group_2287"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_call"
-            app:layout_constraintEnd_toStartOf="@+id/btn_loan"
-            app:layout_constraintStart_toEndOf="@+id/btn_call"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/btn_sms"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/group_2287"
+                android:layout_centerInParent="true"/>
 
-        <ImageView
-            android:id="@+id/btn_loan"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/loan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_sms"
-            app:layout_constraintTop_toTopOf="@+id/btn_sms" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/btn_loan"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/loan1"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

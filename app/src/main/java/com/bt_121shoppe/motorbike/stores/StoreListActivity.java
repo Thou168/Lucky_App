@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
@@ -297,16 +298,34 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             case R.id.notification:
                 break;
             case R.id.camera:
-                Intent myIntent3 = new Intent(StoreListActivity.this, Camera.class);
-                startActivity(myIntent3);
+                if (prefer.contains("token") || prefer.contains("id")) {
+                    Intent myIntent3 = new Intent(StoreListActivity.this, Camera.class);
+                    startActivity(myIntent3);
+                }else {
+                    Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
+                    intent.putExtra("verify","camera");
+                    startActivity(intent);
+                }
                 break;
             case R.id.message:
-                Intent myIntent4 = new Intent(StoreListActivity.this, ChatMainActivity.class);
-                startActivity(myIntent4);
+                if (prefer.contains("token") || prefer.contains("id")) {
+                    Intent myIntent4 = new Intent(StoreListActivity.this, ChatMainActivity.class);
+                    startActivity(myIntent4);
+                }else {
+                    Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
+                    intent.putExtra("verify","message");
+                    startActivity(intent);
+                }
                 break;
             case R.id.account:
-                Intent myIntent5 = new Intent(StoreListActivity.this, Account.class);
-                startActivity(myIntent5);
+                if (prefer.contains("token") || prefer.contains("id")) {
+                    Intent myIntent5 = new Intent(StoreListActivity.this, Account.class);
+                    startActivity(myIntent5);
+                }else {
+                    Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
+                    intent.putExtra("verify","account");
+                    startActivity(intent);
+                }
                 break;
         }
         return true;
@@ -321,13 +340,31 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             case R.id.notification:
                 break;
             case R.id.dealer:
-                startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
+                if (prefer.contains("token") || prefer.contains("id")) {
+                    startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
+                }else {
+                    Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
+                    intent.putExtra("verify","camera");
+                    startActivity(intent);
+                }
                 break;
             case R.id.message:
-                startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
+                if (prefer.contains("token") || prefer.contains("id")) {
+                    startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
+                }else {
+                    Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
+                    intent.putExtra("verify","message");
+                    startActivity(intent);
+                }
                 break;
             case R.id.account:
-                startActivity(new Intent(StoreListActivity.this, Account.class));
+                if (prefer.contains("token") || prefer.contains("id")) {
+                    startActivity(new Intent(StoreListActivity.this, Account.class));
+                }else {
+                    Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
+                    intent.putExtra("verify","account");
+                    startActivity(intent);
+                }
                 break;
         }
         return true;

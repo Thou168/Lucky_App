@@ -325,46 +325,43 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 @Override
                 public void onClick(View v) {
 
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    Toast.makeText(itemView.getContext(),R.string.button_remove,Toast.LENGTH_SHORT).show();
-                                    String date = null;
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        date = Instant.now().toString();
+                    DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Toast.makeText(itemView.getContext(),R.string.button_remove,Toast.LENGTH_SHORT).show();
+                                String date = null;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    date = Instant.now().toString();
+                                }
+                                String removeSt = "";
+                                change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
+                                Service api = Client.getClient().create(Service.class);
+                                Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                                call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                                    @Override
+                                    public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+
+                                        Intent intent = new Intent(itemView.getContext(), Account.class);
+                                        itemView.getContext().startActivity(intent);
+                                        ((Activity)itemView.getContext()).finish();
                                     }
-                                    String removeSt = "";
-                                    change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
-                                    Service api = Client.getClient().create(Service.class);
-                                    Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                                    call.enqueue(new retrofit2.Callback<change_status_delete>() {
-                                        @Override
-                                        public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
 
-                                            Intent intent = new Intent(itemView.getContext(), Account.class);
-                                            itemView.getContext().startActivity(intent);
-                                            ((Activity)itemView.getContext()).finish();
-                                        }
+                                    @Override
+                                    public void onFailure(Call<change_status_delete> call, Throwable t) {
 
-                                        @Override
-                                        public void onFailure(Call<change_status_delete> call, Throwable t) {
+                                    }
+                                });
+                                dialog.dismiss();
+                                break;
 
-                                        }
-                                    });
-                                    dialog.dismiss();
-                                    break;
-
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    dialog.dismiss();
-                                    break;
-                            }
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialog.dismiss();
+                                break;
                         }
                     };
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage(R.string.remove_post).setPositiveButton(R.string.yes, dialogClickListener)
-                            .setNegativeButton(R.string.no, dialogClickListener).show();
+                    builder.setMessage(R.string.remove_post).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                            .setNegativeButton(R.string.no_remove, dialogClickListener).show();
                 }
             });
 

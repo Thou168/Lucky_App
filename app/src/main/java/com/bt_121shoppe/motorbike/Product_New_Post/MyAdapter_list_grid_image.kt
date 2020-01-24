@@ -89,15 +89,19 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             var price: Double = 0.0
             var discout1: Double = 0.0
             var language:String
-            if (item.discount != 0.00){
+            if (item.discount == 0.00){
+                tv_discount.visibility = View.GONE
+                tv_discount.text = price.toString()
+                cost.text = "$" + item.cost.toString()
+             }else {
                 tv_discount.visibility = View.VISIBLE
-                val dis_type = item.discount_type
-                if (dis_type == "amount") {
+//                val dis_type = item.discount_type
+//                if (dis_type == "amount") {
                     price = item.cost - item.discount!!.toInt()
-                }else if (dis_type == "percent"){
+//                }else if (dis_type == "percent"){
                     discout1 =  item.cost* (item.discount?.div(100))!!
                     price = item.cost - discout1
-                }
+//                }
                 val st = "$"+item.cost.toString()
                 val ms = SpannableString(st)
                 val mst = StrikethroughSpan()
@@ -105,9 +109,6 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
                 cost.text = "$"+price.toString()
                 tv_discount.text = ms
-             }else {
-                tv_discount.text = price.toString()
-                cost.text = "$" + item.cost.toString()
             }
             language=lang.text.toString()
             var strPostTitle:String = ""

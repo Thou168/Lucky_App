@@ -57,32 +57,32 @@
     <string name="new_post">ការប្រកាសថ្មីៗ</string>
 
     //year string
-    <string name="year1">2010</string>
-    <string name="year2">2011</string>
-    <string name="year3">2012</string>
-    <string name="year4">2013</string>
-    <string name="year5">2014</string>
-    <string name="year6">2015</string>
-    <string name="year7">2016</string>
-    <string name="year8">2017</string>
-    <string name="year9">2018</string>
-    <string name="year10">2019</string>
-    <string name="year11">2020</string>
-    <string name="year12">2009</string>
-    <string name="year13">2008</string>
-    <string name="year14">2007</string>
-    <string name="year15">2006</string>
-    <string name="year16">2005</string>
-    <string name="year17">2004</string>
-    <string name="year18">2003</string>
-    <string name="year19">2002</string>
-    <string name="year20">2001</string>
-    <string name="year21">2000</string>
-    <string name="year22">1999</string>
-    <string name="year23">1998</string>
-    <string name="year24">1997</string>
-    <string name="year25">1996</string>
-    <string name="year26">1995</string>
+    <string name="year1">2010</string>  //1
+    <string name="year2">2011</string>  //2
+    <string name="year3">2012</string>  //3
+    <string name="year4">2013</string>  //4
+    <string name="year5">2014</string>  //5
+    <string name="year6">2015</string>  //6
+    <string name="year7">2016</string>  //7
+    <string name="year8">2017</string>  //8
+    <string name="year9">2018</string>  //9
+    <string name="year10">2019</string> //10
+    <string name="year11">2020</string> //11
+    <string name="year12">2009</string> //12
+    <string name="year13">2008</string> //13
+    <string name="year14">2007</string> //14
+    <string name="year15">2006</string> //15
+    <string name="year16">2005</string> //16
+    <string name="year17">2004</string> //17
+    <string name="year18">2003</string> //18
+    <string name="year19">2002</string> //19
+    <string name="year20">2001</string> //20
+    <string name="year21">2000</string> //21
+    <string name="year22">1999</string> //22
+    <string name="year23">1998</string> //23
+    <string name="year24">1997</string> //24
+    <string name="year25">1996</string> //25
+    <string name="year26">1995</string> //26
 
     //select
     <string name="select">ជ្រើសរើស</string>
@@ -276,6 +276,8 @@
     <string name="monlthly_declining_repay">បង់រំលោះប្រចាំខែថយចុះជាលំដាប់</string>
     <string name="yes">មាន</string>
     <string name="no">មិនមាន</string>
+    <string name="yes_remove">បាទ រឺ ចាស!</string>
+    <string name="no_remove">អត់ទេ</string>
     <string-array name="job">
         <item>អ្នកលក់ដូរ</item>
         <item>បុគ្គលិករដ្ឋ</item>
@@ -549,10 +551,11 @@
 
     //Loan
     <string name="loan_description">ព័ត៌មានលម្អិតឥណទាន</string>
-    <string name="Price">តម្លៃ($)</string>
-    <string name="interest_rate">អត្រាការប្រាក់(%)</string>
-    <string name="deposit">ដាក់ប្រាក់($)</string>
-    <string name="term">រយៈពេល​(ខែ)</string>
+    <string name="Price">តម្លៃ ($)</string>
+    <string name="interest_rate">អត្រាការប្រាក់ (%)</string>
+    <string name="deposit">ដាក់ប្រាក់ ($)</string>
+    <string name="deposit_per">ដាក់ប្រាក់ (%)</string>
+    <string name="term">រយៈពេល ​(ខែ)</string>
     <string name="Monthly_payment">ការចំណាយប្រចាំខែ</string>
     <string name="contact">ទំនាក់ទំនង</string>
     <string name="locaion">ទីតាំង​ :</string>

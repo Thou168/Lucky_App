@@ -73,6 +73,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="8.5dp"
                     android:layout_marginTop="7dp"
+                    android:textColor="#333333"
                     android:lines="1"
                     android:text="title"
                     android:fontFamily="@font/opensans_semibold"
@@ -94,13 +95,26 @@
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_below="@+id/location"
-                    android:layout_marginLeft="8.5dp"
+                    android:layout_marginLeft="8dp"
                     android:text="$0.00"
                     android:textSize="15dp"
                     android:fontFamily="@font/opensans_semibold"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#E5A74F"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="20dp" />
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/tv_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/location"
+                    android:layout_marginStart="5dp"
+                    android:textColor="#333333"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_toEndOf="@+id/tv_price"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="$0.00"
+                    android:textSize="15dp"/>
                 <LinearLayout
                     android:id="@+id/llColor"
                     android:layout_width="wrap_content"
@@ -130,17 +144,6 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/tv_discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/location"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_toEndOf="@+id/tv_price"
-                    android:text="$0.00"
-                    android:textSize="12dp"/>
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:orientation="horizontal"
@@ -160,16 +163,18 @@
                         android:textSize="12dp"
                         android:text="0"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="@font/opensans_semibold"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textColor="#333333"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/user_view1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#333333"
                         android:layout_marginRight="8dp"
                         android:text="@string/view"
-                        android:fontFamily="@font/opensans_semibold"
+                        android:fontFamily="@font/opensans_regular"
                         android:textSize="12dp" />
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_user"

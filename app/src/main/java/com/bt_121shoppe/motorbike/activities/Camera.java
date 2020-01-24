@@ -68,6 +68,7 @@ import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseTypeCate;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseBrand;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseModel;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
+import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.loan.child.one;
@@ -75,6 +76,7 @@ import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
+import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -209,11 +211,16 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private TextView tvConsole,tvAssecssorie,tvWhole_int,tvRear,tvScrew,tvPumps,tvRight_engine,tvEngine_head,tvAssembly;
     private String[] shopListItems;
     private int[]    shopIdListItems;
+    String verify,verify1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
+
+        Intent i = getIntent();
+        verify = i.getStringExtra("verify");
+        verify1 = i.getStringExtra("verify1");
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -594,15 +601,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (register_intent!=null || login_verify!=null){
-                            startActivity(new Intent(Camera.this,Home.class));
-                        }else if (process_type == 1){
-                            startActivity(new Intent(Camera.this,Account.class));
-                        }else if (post != null){
-                            startActivity(new Intent(Camera.this,Home.class));
-                        }else if (process_type == 2){
-                            finish();
-                        }else finish();
+                        onBackPressed();
                     }
                 });
                 builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
@@ -875,6 +874,13 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     startActivity(new Intent(Camera.this,Home.class));
                 }else if (process_type == 2 ){
                     finish();
+                }else if (verify!=null){
+                    if ("camera".equals(verify)) {
+                        startActivity(new Intent(Camera.this,Home.class));
+                    }
+//                    if ("camera".equals(verify1)){
+//                        startActivity(new Intent(Camera.this, StoreListActivity.class));
+//                    }
                 }else finish();
             }
         });

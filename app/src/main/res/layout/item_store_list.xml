@@ -59,10 +59,12 @@
                 android:text="number_rate"
                 android:layout_toEndOf="@+id/rating_star"
                 android:textColor="#404040"
+                android:textSize="12dp"
                 android:layout_marginStart="4.6dp"
                 android:layout_marginTop="13dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:fontFamily="@font/opensans_regular"
+                android:layout_height="17dp"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageview_shopprofile"
@@ -78,8 +80,9 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="17dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="3dp"
                 android:layout_below="@+id/imageview_shopprofile"
                 android:layout_marginBottom="7dp"
                 android:layout_marginEnd="10dp">
@@ -88,16 +91,18 @@
                     android:textSize="12sp"
                     android:textColor="#404040"
                     android:text="12K"
+                    android:fontFamily="@font/opensans_regular"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="17dp"
                     android:layout_marginEnd="3dp"/>
                 <TextView
                     android:id="@+id/title_view"
                     android:text="@string/view"
                     android:textSize="12dp"
                     android:textColor="#404040"
+                    android:fontFamily="@font/opensans_regular"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="17dp" />
             </LinearLayout>
         </RelativeLayout>
 

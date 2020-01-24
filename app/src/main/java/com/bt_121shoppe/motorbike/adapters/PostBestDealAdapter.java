@@ -187,21 +187,22 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            postLocationDT.setText(mPost.getLocationDuration());
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {
-                postOriginalPrice.setText("$ "+mPost.getPostPrice());
-                postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 Double cost=Double.parseDouble(mPost.getPostPrice());
-                if(mPost.getDiscountType().equals("amount")){
-                    cost=cost-Double.parseDouble(mPost.getDiscountAmount());
-                    relativeLayout.setVisibility(View.GONE);
-                }else if(mPost.getDiscountType().equals("percent")){
-                    Double discountPrice=cost*(Double.parseDouble(mPost.getDiscountAmount())/100);
-                    int per1 = (int) ( Double.parseDouble(mPost.getDiscountAmount()));
-                    cost=cost-discountPrice;
-                    ds_price.setText(per1+"%");
-                    relativeLayout.setVisibility(View.VISIBLE);
-                }
+//                if(mPost.getDiscountType().equals("amount")){
+//                    cost=cost-Double.parseDouble(mPost.getDiscountAmount());
+//                    relativeLayout.setVisibility(View.GONE);
+//                }else if(mPost.getDiscountType().equals("percent")){
+//
+//                }
+                Double discountPrice=cost*(Double.parseDouble(mPost.getDiscountAmount())/100);
+                int per1 = (int) ( Double.parseDouble(mPost.getDiscountAmount()));
+                cost=cost-discountPrice;
                 mPrice=cost;
                 postPrice.setText("$ "+cost.toString());
+                postOriginalPrice.setText("$ "+mPost.getPostPrice());
+                ds_price.setText(per1+"%");
+                relativeLayout.setVisibility(View.VISIBLE);
+                postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }else{
                 postOriginalPrice.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.GONE);

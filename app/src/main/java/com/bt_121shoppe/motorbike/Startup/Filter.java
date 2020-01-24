@@ -356,7 +356,7 @@ public class Filter extends AppCompatActivity {
 
                 ok.setOnClickListener(v12 -> {
                     if (brand==0){
-                        stBrand = String.valueOf(brand);
+                            stBrand = String.valueOf(brand);
                         getBrand();
 //                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();

@@ -78,10 +78,15 @@ public class ChatMainActivity extends AppCompatActivity {
     private CircleImageView profile_image;
     private TextView username;
     private  BottomNavigationView bnavigation,bnavigation1;
+    String verify,verify1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
+
+        Intent i = getIntent();
+        verify = i.getStringExtra("verify");
+        verify1 = i.getStringExtra("verify1");
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -220,7 +225,7 @@ public class ChatMainActivity extends AppCompatActivity {
                 if(user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.drawable.group_2293);
                 }else{
-                    Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
+//                    Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
                 }
             }
 
@@ -303,6 +308,21 @@ public class ChatMainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         status("offline");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (verify!=null) {
+            if ("message".equals(verify)) {
+                Intent i2 = new Intent(ChatMainActivity.this,Home.class);
+                startActivity(i2);
+            }
+//            if ("message".equals(verify1)){
+//                startActivity(new Intent(ChatMainActivity.this,StoreListActivity.class));
+//            }
+        }else {
+            finish();
+        }
     }
 
     @Override

@@ -32,6 +32,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -496,6 +497,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     public void onDisconnected() {
                         //Do your task on Network Disconnected!
                         Log.e(TAG, "onDisconnected");
+                        Toast.makeText(getApplicationContext(),"Disconnect",Toast.LENGTH_SHORT).show();
 //                        rl_besdeal.setVisibility(View.GONE);
 //                        rl_newpost.setVisibility(View.GONE);
 //                        ct_layout.setVisibility(View.GONE);
@@ -509,6 +511,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     public void onConnected() {
                         //Do your task on Network Connected!
                         Log.e(TAG, "onConnected");
+                        Toast.makeText(getApplicationContext(),"Connect",Toast.LENGTH_SHORT).show();
 //                        mSwipeRefreshLayout.setRefreshing(true);
 //                        dorefresh();
 //                        rl_besdeal.setVisibility(View.VISIBLE);

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.Home;
@@ -421,30 +422,34 @@ public class LoginActivity extends AppCompatActivity {
                             switch (verify) {
                                 case "notification":
                                     intent = new Intent(LoginActivity.this, NotificationActivity.class);
+                                    intent.putExtra("verify",verify);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                     break;
                                 case "camera":
                                     intent = new Intent(LoginActivity.this, Camera.class);
+                                    intent.putExtra("verify",verify);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                     break;
                                 case "message":
                                     intent = new Intent(LoginActivity.this, ChatMainActivity.class);
+                                    intent.putExtra("verify",verify);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                     break;
                                 case "account":
                                     intent = new Intent(LoginActivity.this, Account.class);
+                                    intent.putExtra("verify",verify);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                     break;
                                 case "detail":
-                                    intent = new Intent(LoginActivity.this, Detail_New_Post.class);
+                                    intent = new Intent(LoginActivity.this, Detail_new_post_java.class);
                                     intent.putExtra("ID", product_id);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -707,40 +712,43 @@ public class LoginActivity extends AppCompatActivity {
                                                 setfirebasepassword(user.getId(), user.getPassword());
                                                 //changeFirebasePassword();
                                                 Intent intent;
-                                                if (login_verify == null) {
+                                                if (verify == null) {
                                                     intent = new Intent(LoginActivity.this, Home.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                 } else {
-                                                    switch (login_verify) {
+                                                    switch (verify) {
                                                         case "notification":
                                                             intent = new Intent(LoginActivity.this, NotificationActivity.class);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
                                                             break;
                                                         case "camera":
                                                             intent = new Intent(LoginActivity.this, Camera.class);
-                                                            intent.putExtra("Login_verify", login_verify);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
                                                             break;
                                                         case "message":
                                                             intent = new Intent(LoginActivity.this, ChatMainActivity.class);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
                                                             break;
                                                         case "account":
                                                             intent = new Intent(LoginActivity.this, Account.class);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
                                                             break;
                                                         case "detail":
-                                                            intent = new Intent(LoginActivity.this, Detail_New_Post.class);
+                                                            intent = new Intent(LoginActivity.this, Detail_new_post_java.class);
                                                             intent.putExtra("ID", product_id);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);

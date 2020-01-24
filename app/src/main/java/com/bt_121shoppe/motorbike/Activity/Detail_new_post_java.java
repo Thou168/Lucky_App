@@ -39,6 +39,8 @@ import android.widget.Toast;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_Likebyuser;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.LikebyUser;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_1;
@@ -110,7 +112,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     private String postType;
 
     private boolean isChecked = false;
-    ConstraintLayout layout_call_chat_like_loan;
+    RelativeLayout layout_call_chat_like_loan;
 
     Double discount = 0.0;
     private int REQUEST_PHONE_CALL =1;
@@ -119,10 +121,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     TextView typeView;
     TextView tv_dox;
     boolean loaned = false;
-    boolean likepost;
-    private List<LikebyUser> datas;
     String basic_Encode;
-    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,8 +173,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         like1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Detail_new_post_java.this,"Unlike",Toast.LENGTH_SHORT).show();
-//                Unlike_post();
+                Unlike_post();
             }
         });
         //call
@@ -235,13 +233,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
         tabLayout = findViewById(R.id.tab_layout_detail);
         tabLayout.setupWithViewPager(mViewPager);
-        Adapter_Likebyuser(datas);
         setUpPager();
         setupTabIcons();
-    }
-
-    public void Adapter_Likebyuser(List<LikebyUser> datas) {
-        this.datas = datas;
     }
 
     private void call_methot_id(){
@@ -460,23 +453,31 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         }
                         postFrontImage=postDetail.getFront_image_path();
                         postPrice=discount.toString();
-                        tvPrice.setText("$ "+ discount);
-                        tvDiscount.setText("$"+postDetail.getDiscount());
-                        tvDiscountPer.setVisibility(View.GONE);
-                        if (postDetail.getDiscount_type().equals("percent")) {
-                            Double cost=Double.parseDouble(postDetail.getCost());
-                            Double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
+//                        if (postDetail.getDiscount_type().equals("percent")) {
+//                            Double cost=Double.parseDouble(postDetail.getCost());
+//                            Double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
+//                            int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
+//                            cost=cost-discountPrice;
+//                            tvPrice.setText("$ "+cost);
+//                            tvDiscount.setText("$"+postDetail.getDiscount());
+//                            tvDiscountPer.setText(per1+"%");
+//                            tv_dox.setVisibility(View.VISIBLE);
+//                            tvDiscountPer.setVisibility(View.VISIBLE);
+//                        }else {
+                            double pricefull = Double.parseDouble(postDetail.getCost());
+                            double discountPrice=pricefull*(Double.parseDouble(postDetail.getDiscount())/100);
                             int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
-                            cost=cost-discountPrice;
-                            tvPrice.setText("$ "+cost);
+                            double result = pricefull - discountPrice;
+                            tvPrice.setText("$"+ result);
                             tvDiscount.setText("$"+postDetail.getDiscount());
-                            tvDiscountPer.setText(per1+"%");
-                            tv_dox.setVisibility(View.VISIBLE);
+                            tvDiscountPer.setText("- "+per1+"%");
+                            tv_dox.setVisibility(View.GONE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
-                        }
+//                        }
                         if (discount == 0.00){
                             tvDiscount.setVisibility(View.GONE);
                             tvDiscountPer.setVisibility(View.GONE);
+                            tv_dox.setVisibility(View.GONE);
                             tvPrice.setText("$ "+postDetail.getCost());
                             postPrice = postDetail.getCost();
                         }
@@ -608,7 +609,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                                            alertDialog.show();
                                             Toast.makeText(getApplicationContext(),R.string.like_post,Toast.LENGTH_SHORT).show();
                                             like1.setVisibility(View.VISIBLE);
-                                            like1.setImageResource(R.drawable.heart_red);
+                                            like1.setImageResource(R.drawable.android_heart);
                                             like1.setMaxWidth(30);
                                             like1.setMaxHeight(30);
                                         }
@@ -625,35 +626,38 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             }
         });
     }
-//    private void Unlike_post(){
+    private void Unlike_post(){
 //        LikebyUser model = new LikebyUser();
 //        String iditem=String.valueOf((int)model.getPost());
 //        String itemid_like=String.valueOf((int)model.getId());
-//        Service api1 = Client.getClient().create(Service.class);
-//        change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
-//
-//        retrofit2.Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.parseInt(itemid_like),unlike,basic_Encode);
-//        call_unlike.enqueue(new retrofit2.Callback<change_status_unlike>() {
-//            @Override
-//            public void onResponse(retrofit2.Call<change_status_unlike> call1, retrofit2.Response<change_status_unlike> response1) {
-//                String respon = String.valueOf(response1.body());
-//                Log.d("Response unlike",respon);
-//                recreate();
-//
-//// delete item without intent by samang 9/9/19
-////                            datas.remove(position);
-////                            notifyItemRemoved(position);
-////                            notifyItemRangeChanged(position, datas.size());
-//                like.setVisibility(View.VISIBLE);
-//                like.setMaxWidth(30);
-//                like.setMaxHeight(30);
-//                like1.setVisibility(View.GONE);
-//            }
-//            @Override public void onFailure(retrofit2.Call<change_status_unlike> call1, Throwable t) {
-//
-//            }
-//        });
-//    }
+        final LikebyUser model = new LikebyUser();
+        String iditem = String.valueOf((int)model.getPost());
+        String itemid_like = String.valueOf((int)model.getLike_by());
+        try {
+            Service api1 = Client.getClient().create(Service.class);
+            change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,1);
+            retrofit2.Call<change_status_unlike> call = api1.getputStatusUnlike(Integer.valueOf(itemid_like),unlike,basic_Encode);
+            call.enqueue(new retrofit2.Callback<change_status_unlike>() {
+                @Override
+                public void onResponse(retrofit2.Call<change_status_unlike> call, retrofit2.Response<change_status_unlike> response) {
+
+                    String response1 = String.valueOf(response.body());
+                    Log.d("Response unlike",response1);
+                    Toast.makeText(Detail_new_post_java.this,"Unlike",Toast.LENGTH_SHORT).show();
+                    like.setVisibility(View.VISIBLE);
+                    like.setImageResource(R.drawable.group_28);
+                    like.setMaxWidth(30);
+                    like.setMaxHeight(30);
+                    like1.setVisibility(View.GONE);
+                    recreate();
+                }
+                @Override
+                public void onFailure(retrofit2.Call<change_status_unlike> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){}
+    }
 
     private void already_like(String encode){
         String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
@@ -673,7 +677,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
-                Log.d("Response",respon);
+                Log.d("Response alreadyLike",respon);
 
                 try {
                     JSONObject jsonObject = new  JSONObject(respon);
@@ -683,7 +687,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         public void run() {
                             if (jsonCount==1){
                                 like1.setVisibility(View.VISIBLE);
-                                like1.setImageResource(R.drawable.heart_red);
+                                like1.setImageResource(R.drawable.android_heart);
                                 like1.setMaxHeight(30);
                                 like1.setMaxWidth(30);
                             }

@@ -124,12 +124,16 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     ImageView logo_kh,logo_en;
     String[] photo_select;
     Bundle bundle;
+    String verify,verify1;
 //    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tab_layout1);
 //        locale();
+        Intent i = getIntent();
+        verify = i.getStringExtra("verify");
+        verify1 = i.getStringExtra("verify");
         photo_select = getResources().getStringArray(R.array.select_photo);
         logo_kh = findViewById(R.id.khmer);
         logo_en = findViewById(R.id.english);
@@ -527,6 +531,19 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (verify!=null) {
+            if ("account".equals(verify)) {
+                startActivity(new Intent(Account.this,Home.class));
+            }
+//            if ("account".equals(verify1)){
+//                startActivity(new Intent(Account.this,StoreListActivity.class));
+//            }
+        }else {
+            finish();
+        }
+    }
 
     @Override
     protected void onStart() {

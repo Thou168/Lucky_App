@@ -230,27 +230,33 @@ public class Postbyuser_Class extends AppCompatActivity {
                         tv_title.setText(strPostTitle);
                         tv_title.setTextSize(22F);
 
-                        if (postDetail.getDiscount_type().equals("percent")) {
-                            double cost=Double.parseDouble(postDetail.getCost());
-                            double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
-                            int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
+//                        if (postDetail.getDiscount_type().equals("percent")) {
+//                            double cost=Double.parseDouble(postDetail.getCost());
+//                            double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
+//                            int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
 //                            cost=cost-discountPrice;
-                            tv_price.setText("$ "+discountPrice);
-                            tv_discount.setText("$"+postDetail.getDiscount());
-                            tv_discount_per.setText(per1+"%");
-                            tv_dox.setVisibility(View.VISIBLE);
-                            tv_discount_per.setVisibility(View.VISIBLE);
-                        }else {
+//                            tv_price.setText("$ "+cost);
+//                            tv_discount.setText("$"+postDetail.getDiscount());
+//                            tv_discount_per.setText(per1+"%");
+//                            tv_dox.setVisibility(View.VISIBLE);
+//                            tv_discount_per.setVisibility(View.VISIBLE);
+//                        }
+//                        else {
                             double cost=Double.parseDouble(postDetail.getCost());
                             double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
-                            tv_price.setText("$ "+ discountPrice);
+                            double result = cost - discountPrice;
+                            int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
+                            tv_price.setText("$ "+ result);
+                            tv_discount_per.setText("- "+per1+"%");
                             tv_discount.setText("$"+postDetail.getDiscount());
-                            tv_discount_per.setVisibility(View.GONE);
-                        }
+                            tv_discount_per.setVisibility(View.VISIBLE);
+                            tv_dox.setVisibility(View.GONE);
+//                        }
                         if (discount == 0.00){
                             tv_discount.setVisibility(View.GONE);
                             tv_discount_per.setVisibility(View.GONE);
-//                            tv_price.setText("$ "+postDetail.getCost());
+                            tv_dox.setVisibility(View.GONE);
+                            tv_price.setText("$ "+postDetail.getCost());
                             postPrice = postDetail.getCost();
                         }
                         String st = "$ "+postDetail.getCost();
@@ -365,6 +371,14 @@ public class Postbyuser_Class extends AppCompatActivity {
                                 tv_year.setText(R.string.year19);
                             } else if (postDetail.getYear() == 20) {
                                 tv_year.setText(R.string.year20);
+                            } else if (postDetail.getYear() == 21){
+                                tv_year.setText(R.string.year21);
+                            }else if (postDetail.getYear() == 22){
+                                tv_year.setText(R.string.year22);
+                            }else if (postDetail.getYear() == 23){
+                                tv_year.setText(R.string.year23);
+                            }else if (postDetail.getYear() == 24){
+                                tv_year.setText(R.string.year24);
                             }
                         }
 

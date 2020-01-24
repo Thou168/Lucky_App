@@ -48,11 +48,15 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
     private ViewPager viewPager;
     private Button btAdd_store;
     int inttab = 0;
+    String verify;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent i = getIntent();
+        verify = i.getStringExtra("verify");
         locale();
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -142,6 +146,15 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         else {
             super.onBackPressed();
             Log.e(TAG, "Run on back pressed event.");
+        }
+
+        if (verify!=null){
+            if ("camera".equals(verify)) {
+                Intent i2 = new Intent(Dealerstore.this,Home.class);
+                startActivity(i2);
+            }
+        }else {
+            finish();
         }
     }
 

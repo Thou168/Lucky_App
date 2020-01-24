@@ -91,7 +91,6 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
         view.txtview1.setText(resources.getString(R.string.view));
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final LikebyUser model = datas.get(position);
@@ -166,25 +165,35 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         mContext.startActivity(intent);
                     });
                     }else {
-                        rs_price = Double.parseDouble(response.body().getCost());
-                        if (response.body().getDiscount_type().equals("amount")){
-                            rs_price = rs_price - Double.parseDouble(response.body().getDiscount());
-                        }else if (response.body().equals("percent")){
-                            Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
-                            rs_price = rs_price - per;
+//                        rs_price = Double.parseDouble(response.body().getCost());
+//                        if (response.body().getDiscount_type().equals("amount")){
+//                            rs_price = rs_price - Double.parseDouble(response.body().getDiscount());
+//                        }else if (response.body().equals("percent")){
+
+//                            rs_price = rs_price - per;
+//                        }
+                        Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
+                        if (response.body().getDiscount_type().equals("percent")) {
+                            view.txt_discount.setVisibility(View.VISIBLE);
+                            Double co_price = Double.parseDouble(response.body().getCost());
+                            double result = co_price - per;
+                            view.cost.setText("$" + result);
+                            view.txt_discount.setText("$" + co_price);
+                            view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        }else {
+                            Double per1 = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
+                            Double co_price = Double.parseDouble(response.body().getCost());
+                            double result = co_price - per1;
+                            view.cost.setText("$" + result);
+                            view.txt_discount.setVisibility(View.VISIBLE);
+                            view.txt_discount.setText("$"+per);
                         }
-                        Double finalRs_price = rs_price;
                         view.linearLayout.setOnClickListener(v -> {
                             Intent intent = new Intent(mContext, Detail_new_post_java.class);
-                            intent.putExtra("Discount", finalRs_price);
-                            intent.putExtra("ID",Integer.parseInt(iditem));
+                            intent.putExtra("Discount", per);
+                            intent.putExtra("ID", Integer.parseInt(iditem));
                             mContext.startActivity(intent);
                         });
-                        view.cost.setText("$"+rs_price);
-                        view.txt_discount.setVisibility(View.VISIBLE);
-                        Double co_price = Double.parseDouble(response.body().getCost());
-                        view.txt_discount.setText("$"+co_price);
-                        view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
 //                    view.linearLayout.setOnClickListener(v -> {
 //                        Intent intent = new Intent(mContext, Detail_New_Post.class);
