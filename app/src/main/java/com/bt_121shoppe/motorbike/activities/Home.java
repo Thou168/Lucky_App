@@ -264,7 +264,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             startActivity(new Intent(Home.this, Dealerstore.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("verify","camera");
+                            intent.putExtra("Login_verify","camera");
                             startActivity(intent);
                         }
                         break;
@@ -273,7 +273,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             startActivity(new Intent(Home.this, ChatMainActivity.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("verify","message");
+                            intent.putExtra("Login_verify","message");
                             startActivity(intent);
                         }
                         break;
@@ -282,7 +282,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             startActivity(new Intent(Home.this, Account.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("verify","account");
+                            intent.putExtra("Login_verify","account");
                             startActivity(intent);
                         }
                         break;
@@ -323,7 +323,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             startActivity(new Intent(Home.this, Camera.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("verify","camera");
+                            intent.putExtra("Login_verify","camera");
                             startActivity(intent);
                         }
                         break;
@@ -337,7 +337,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             startActivity(new Intent(Home.this, ChatMainActivity.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("verify","message");
+                            intent.putExtra("Login_verify","message");
                             startActivity(intent);
                         }
                         break;
@@ -351,7 +351,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             startActivity(new Intent(Home.this, Account.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("verify","account");
+                            intent.putExtra("Login_verify","account");
                             startActivity(intent);
                         }
 
@@ -497,7 +497,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     public void onDisconnected() {
                         //Do your task on Network Disconnected!
                         Log.e(TAG, "onDisconnected");
-                        Toast.makeText(getApplicationContext(),"Disconnect",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(),"Disconnect",Toast.LENGTH_SHORT).show();
 //                        rl_besdeal.setVisibility(View.GONE);
 //                        rl_newpost.setVisibility(View.GONE);
 //                        ct_layout.setVisibility(View.GONE);
@@ -511,7 +511,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     public void onConnected() {
                         //Do your task on Network Connected!
                         Log.e(TAG, "onConnected");
-                        Toast.makeText(getApplicationContext(),"Connect",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(),"Connect",Toast.LENGTH_SHORT).show();
 //                        mSwipeRefreshLayout.setRefreshing(true);
 //                        dorefresh();
 //                        rl_besdeal.setVisibility(View.VISIBLE);

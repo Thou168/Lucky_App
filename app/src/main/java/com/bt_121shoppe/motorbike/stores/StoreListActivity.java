@@ -303,7 +303,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     startActivity(myIntent3);
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
-                    intent.putExtra("verify","camera");
+                    intent.putExtra("Login_verify","camera");
                     startActivity(intent);
                 }
                 break;
@@ -313,7 +313,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     startActivity(myIntent4);
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
-                    intent.putExtra("verify","message");
+                    intent.putExtra("Login_verify","message");
                     startActivity(intent);
                 }
                 break;
@@ -323,7 +323,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     startActivity(myIntent5);
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
-                    intent.putExtra("verify","account");
+                    intent.putExtra("Login_verify","account");
                     startActivity(intent);
                 }
                 break;
@@ -344,7 +344,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
-                    intent.putExtra("verify","camera");
+                    intent.putExtra("Login_verify","camera");
                     startActivity(intent);
                 }
                 break;
@@ -353,7 +353,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
-                    intent.putExtra("verify","message");
+                    intent.putExtra("Login_verify","message");
                     startActivity(intent);
                 }
                 break;
@@ -362,7 +362,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     startActivity(new Intent(StoreListActivity.this, Account.class));
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
-                    intent.putExtra("verify","account");
+                    intent.putExtra("Login_verify","account");
                     startActivity(intent);
                 }
                 break;
@@ -490,7 +490,6 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
 //            });
 //        }
 //    }
-
 
     @Override
     public void onRefresh() {

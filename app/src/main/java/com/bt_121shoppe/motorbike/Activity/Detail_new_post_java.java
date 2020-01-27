@@ -49,6 +49,7 @@ import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_3;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.chats.ChatActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
@@ -122,6 +123,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     TextView tv_dox;
     boolean loaned = false;
     String basic_Encode;
+    String login_verify;
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +132,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         locale();
         call_methot_id();
         layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan);
-
+        bundle = getIntent().getExtras();
+        if (bundle!=null){
+            login_verify = bundle.getString("Login_verify");
+        }
         postId = getIntent().getIntExtra("ID",0);
         discount = getIntent().getDoubleExtra("Discount",0.0);
         sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE);
@@ -151,7 +157,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         initialProductPostDetail(Encode);
         submitCountView(Encode);
         countPostView(Encode);
-        back_view.setOnClickListener(v -> finish());
+        back_view.setOnClickListener(v -> onBackPressed());
 
         //like
         already_like(Encode);
@@ -162,7 +168,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                     Like_post(Encode);
                 }else{
                     Intent intent =new  Intent(Detail_new_post_java.this, UserAccountActivity.class);
-                    intent.putExtra("verify","detail");
+                    intent.putExtra("Login_verify","detail");
                     intent.putExtra("product_id",postId);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -210,7 +216,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             public void onClick(View v) {
                 if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
                     Intent intent = new  Intent(Detail_new_post_java.this, UserAccountActivity.class);
-                    intent.putExtra("verify","detail");
+                    intent.putExtra("Login_verify","detail");
                     intent.putExtra("product_id",postId);
                     startActivity(intent);
                 }
@@ -270,7 +276,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
     @Override
     public void onBackPressed() {
-        finish();
+        if (login_verify!=null){
+            startActivity(new Intent(Detail_new_post_java.this,Home.class));
+        }else finish();
     }
 
     @Override

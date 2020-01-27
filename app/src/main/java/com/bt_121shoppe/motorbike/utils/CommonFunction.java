@@ -336,6 +336,9 @@ public class CommonFunction {
             case "green":
                 hexColor="#008000";
                 break;
+            default:
+                hexColor="#00000000";
+                break;
         }
         return hexColor;
     }

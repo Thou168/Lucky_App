@@ -159,16 +159,16 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.txt_discount.setVisibility(View.GONE);
         }else {
             rs_price = Double.parseDouble(model.getCost());
-            if (model.getDiscount_type().equals("amount")){
-                rs_price = rs_price - Double.parseDouble(model.getDiscount());
-            }else if (model.getDiscount_type().equals("percent")){
-                Double per = Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
-                rs_price = rs_price - per;
-            }
+//            if (model.getDiscount_type().equals("amount")){
+//                rs_price = rs_price - Double.parseDouble(model.getDiscount());
+//            }else if (model.getDiscount_type().equals("percent")){
+//                Double per = Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
+//                rs_price = rs_price - per;
+//            }
             double result = rs_price - Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
             view.cost.setText("$"+result);
             view.txt_discount.setVisibility(View.VISIBLE);
-            Double co_price = Double.parseDouble(model.getCost());
+            double co_price = Double.parseDouble(model.getCost());
             view.txt_discount.setText("$"+co_price);
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }

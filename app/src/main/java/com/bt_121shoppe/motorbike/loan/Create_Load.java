@@ -25,6 +25,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.child.one;
 import com.bt_121shoppe.motorbike.loan.child.two;
@@ -66,7 +67,7 @@ public class Create_Load extends AppCompatActivity implements TabLayout.OnTabSel
 //        }
 
         back = findViewById(R.id.tv_back);
-        back.setOnClickListener(v -> dialog_leaveLoan());
+        back.setOnClickListener(v -> onBackPressed());
 
     }
     public void setBack(){

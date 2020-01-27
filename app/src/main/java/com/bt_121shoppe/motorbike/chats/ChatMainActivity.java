@@ -78,15 +78,17 @@ public class ChatMainActivity extends AppCompatActivity {
     private CircleImageView profile_image;
     private TextView username;
     private  BottomNavigationView bnavigation,bnavigation1;
-    String verify,verify1;
+    Bundle bundle;
+    String login_verify;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
 
-        Intent i = getIntent();
-        verify = i.getStringExtra("verify");
-        verify1 = i.getStringExtra("verify1");
+        bundle = getIntent().getExtras();
+        if (bundle!=null){
+            login_verify = bundle.getString("Login_verify");
+        }
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -131,11 +133,11 @@ public class ChatMainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.message:
-                        if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
+//                        if (prefer.contains("token")||prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+//                        }else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {
@@ -172,11 +174,11 @@ public class ChatMainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.message:
-                        if (prefer.contains("token")||prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
+//                        if (prefer.contains("token")||prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
+//                        }else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {
@@ -217,23 +219,25 @@ public class ChatMainActivity extends AppCompatActivity {
         }
 
         //username.setText(firebaseUser.getPhoneNumber());
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                com.bt_121shoppe.motorbike.models.User user=dataSnapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
-                //username.setText(user.getUsername());
-                if(user.getImageURL().equals("default")){
-                    profile_image.setImageResource(R.drawable.group_2293);
-                }else{
-//                    Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
+        if (bundle==null) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    com.bt_121shoppe.motorbike.models.User user = dataSnapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
+                    //username.setText(user.getUsername());
+                    if (user.getImageURL().equals("default")) {
+                        profile_image.setImageResource(R.drawable.group_2293);
+                    } else {
+                        Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
         //getUserProfile();
         //basicReadWrite();
 
@@ -312,17 +316,9 @@ public class ChatMainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (verify!=null) {
-            if ("message".equals(verify)) {
-                Intent i2 = new Intent(ChatMainActivity.this,Home.class);
-                startActivity(i2);
-            }
-//            if ("message".equals(verify1)){
-//                startActivity(new Intent(ChatMainActivity.this,StoreListActivity.class));
-//            }
-        }else {
-            finish();
-        }
+        if (login_verify!=null){
+            startActivity(new Intent(ChatMainActivity.this,Home.class));
+        }else finish();
     }
 
     @Override

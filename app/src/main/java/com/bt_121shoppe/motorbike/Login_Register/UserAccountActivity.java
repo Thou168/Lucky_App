@@ -86,7 +86,7 @@ public class UserAccountActivity extends AppCompatActivity {
         LoginManager.getInstance().logOut();
 
         Intent intent = getIntent();
-        verify = intent.getStringExtra("verify");
+        verify = intent.getStringExtra("Login_verify");
         product_id = intent.getIntExtra("product_id",0);
         SharedPreferences preferences= getApplication().getSharedPreferences("Register",MODE_PRIVATE);
         if (preferences.contains("token")) {
@@ -375,12 +375,12 @@ public class UserAccountActivity extends AppCompatActivity {
                             int g = check.getGroup(pk, UserAccountActivity.this);
                             if (g != 3) {
                                 switch (verify) {
-                                    case "notification":
-                                        intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
-                                        break;
+//                                    case "notification":
+//                                        intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        startActivity(intent);
+//                                        finish();
+//                                        break;
                                     case "camera":
                                         intent = new Intent(UserAccountActivity.this, Camera.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -402,6 +402,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                     case "detail":
                                         intent = new Intent(UserAccountActivity.this, Detail_new_post_java.class);
                                         intent.putExtra("ID", product_id);
+                                        intent.putExtra("Login_verify",verify);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
@@ -415,12 +416,12 @@ public class UserAccountActivity extends AppCompatActivity {
                                 }
                             }else {
                                 switch (verify) {
-                                    case "notification":
-                                        intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
-                                        break;
+//                                    case "notification":
+//                                        intent = new Intent(UserAccountActivity.this, NotificationActivity.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        startActivity(intent);
+//                                        finish();
+//                                        break;
                                     case "camera":
                                         intent = new Intent(UserAccountActivity.this, Dealerstore.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -442,6 +443,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                     case "detail":
                                         intent = new Intent(UserAccountActivity.this, Detail_new_post_java.class);
                                         intent.putExtra("ID", product_id);
+                                        intent.putExtra("Login_verify",verify);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();

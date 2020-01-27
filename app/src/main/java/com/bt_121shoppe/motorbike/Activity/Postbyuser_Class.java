@@ -300,6 +300,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         GradientDrawable shape = new GradientDrawable();
                         shape.setShape(GradientDrawable.OVAL);
                         shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                        Log.d("View color",String.valueOf(CommonFunction.getColorHexbyColorName(splitColor[0])));
                         tvColor1.setBackground(shape);
                         tvColor2.setVisibility(View.GONE);
                         if(splitColor.length>1){

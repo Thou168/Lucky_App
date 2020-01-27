@@ -27,6 +27,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -170,13 +171,13 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postTitle.setText(strPostTitle);
 
             String[] splitColor=mPost.getColor().split(",");
-
+            Log.d("COLOOOOOr",splitColor.length+splitColor[0]);
             GradientDrawable shape = new GradientDrawable();
             shape.setShape(GradientDrawable.OVAL);
             shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
             tvColor1.setBackground(shape);
             tvColor2.setVisibility(View.GONE);
-            if(splitColor.length>1){
+            if (splitColor.length > 1) {
                 tvColor2.setVisibility(View.VISIBLE);
                 GradientDrawable shape1 = new GradientDrawable();
                 shape1.setShape(GradientDrawable.OVAL);

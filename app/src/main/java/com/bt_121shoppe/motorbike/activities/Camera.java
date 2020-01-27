@@ -211,16 +211,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private TextView tvConsole,tvAssecssorie,tvWhole_int,tvRear,tvScrew,tvPumps,tvRight_engine,tvEngine_head,tvAssembly;
     private String[] shopListItems;
     private int[]    shopIdListItems;
-    String verify,verify1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
-
-        Intent i = getIntent();
-        verify = i.getStringExtra("verify");
-        verify1 = i.getStringExtra("verify1");
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -874,13 +869,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     startActivity(new Intent(Camera.this,Home.class));
                 }else if (process_type == 2 ){
                     finish();
-                }else if (verify!=null){
-                    if ("camera".equals(verify)) {
-                        startActivity(new Intent(Camera.this,Home.class));
-                    }
-//                    if ("camera".equals(verify1)){
-//                        startActivity(new Intent(Camera.this, StoreListActivity.class));
-//                    }
                 }else finish();
             }
         });

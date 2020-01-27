@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.Fragment_details_post;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -202,19 +203,22 @@ public class Detail_1 extends Fragment {
                             postCode.setText(postDetail.getPost_code().toString());
 
                             //get color
-//                            color.setText(postDetail.getColor().toString());
-                            String[] splitColor=postDetail.getColor().split(",");
-                            GradientDrawable shape = new GradientDrawable();
-                            shape.setShape(GradientDrawable.OVAL);
-                            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-                            tvColor1.setBackground(shape);
-                            tvColor2.setVisibility(View.GONE);
-                            if(splitColor.length>1){
-                                tvColor2.setVisibility(View.VISIBLE);
-                                GradientDrawable shape1 = new GradientDrawable();
-                                shape1.setShape(GradientDrawable.OVAL);
-                                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                                tvColor2.setBackground(shape);
+                            if (postDetail.getColor()!=null) {
+//                                color.setText(String.valueOf(postDetail.getColor()));
+                                Log.d("Show color", String.valueOf(postDetail.getColor()));
+                                String[] splitColor = postDetail.getColor().split(",");
+                                GradientDrawable shape = new GradientDrawable();
+                                shape.setShape(GradientDrawable.OVAL);
+                                shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                                tvColor1.setBackground(shape);
+                                tvColor2.setVisibility(View.GONE);
+                                if (splitColor.length > 1) {
+                                    tvColor2.setVisibility(View.VISIBLE);
+                                    GradientDrawable shape1 = new GradientDrawable();
+                                    shape1.setShape(GradientDrawable.OVAL);
+                                    shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                                    tvColor2.setBackground(shape);
+                                }
                             }
                             //end
                             con = postDetail.getCondition().toString();
@@ -230,7 +234,7 @@ public class Detail_1 extends Fragment {
                             } else if (inType == 2) {
                                 type.setText(R.string.motor);
                                 if (con.equals("used")) {
-                                    line_rela.setVisibility(View.VISIBLE);
+                                    line_rela.setVisibility(View.GONE);
                                     rela_eta.setVisibility(View.VISIBLE);
                                 }
                             }
@@ -427,8 +431,9 @@ public class Detail_1 extends Fragment {
                                     itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle));
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                                     no_result.setVisibility(View.GONE);
-                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Grid", getActivity()));
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "List", getActivity()));
+                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
+//                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                                 }
                             }
                         } catch (JsonParseException | JSONException e) {

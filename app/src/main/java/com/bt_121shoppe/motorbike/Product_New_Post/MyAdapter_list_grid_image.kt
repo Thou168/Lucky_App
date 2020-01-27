@@ -86,28 +86,24 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         fun bindItems(item: Item_API,context: Context) {
 
             Glide.with(context).load(item.image).centerCrop().placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(imageView)
-            var price: Double = 0.0
-            var discout1: Double = 0.0
+            var price: Double = 0.00
+            var discount: Double = 0.00
             var language:String
             if (item.discount == 0.00){
                 tv_discount.visibility = View.GONE
-                tv_discount.text = price.toString()
+//                tv_discount.text = price.toString()
                 cost.text = "$" + item.cost.toString()
              }else {
                 tv_discount.visibility = View.VISIBLE
-//                val dis_type = item.discount_type
-//                if (dis_type == "amount") {
-                    price = item.cost - item.discount!!.toInt()
-//                }else if (dis_type == "percent"){
-                    discout1 =  item.cost* (item.discount?.div(100))!!
-                    price = item.cost - discout1
-//                }
+                price = item.cost - item.discount!!.toInt()
+                discount =  item.cost* (item.discount?.div(100))!!
+                price = item.cost - discount
+                cost.text = "$$price"
+
                 val st = "$"+item.cost.toString()
                 val ms = SpannableString(st)
                 val mst = StrikethroughSpan()
                 ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                cost.text = "$"+price.toString()
                 tv_discount.text = ms
             }
             language=lang.text.toString()

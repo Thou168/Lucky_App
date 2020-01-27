@@ -172,22 +172,23 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 
 //                            rs_price = rs_price - per;
 //                        }
-                        Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
-                        if (response.body().getDiscount_type().equals("percent")) {
-                            view.txt_discount.setVisibility(View.VISIBLE);
+//                        Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
+//                        if (response.body().getDiscount_type().equals("percent")) {
+//                            view.txt_discount.setVisibility(View.VISIBLE);
+//                            Double co_price = Double.parseDouble(response.body().getCost());
+//                            double result = co_price - per;
+//                            view.cost.setText("$" + result);
+//                            view.txt_discount.setText("$" + co_price);
+//                            view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                        }else {
+                            Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
                             Double co_price = Double.parseDouble(response.body().getCost());
                             double result = co_price - per;
                             view.cost.setText("$" + result);
-                            view.txt_discount.setText("$" + co_price);
-                            view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        }else {
-                            Double per1 = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
-                            Double co_price = Double.parseDouble(response.body().getCost());
-                            double result = co_price - per1;
-                            view.cost.setText("$" + result);
                             view.txt_discount.setVisibility(View.VISIBLE);
-                            view.txt_discount.setText("$"+per);
-                        }
+                            view.txt_discount.setText("$"+co_price);
+                            view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                        }
                         view.linearLayout.setOnClickListener(v -> {
                             Intent intent = new Intent(mContext, Detail_new_post_java.class);
                             intent.putExtra("Discount", per);
