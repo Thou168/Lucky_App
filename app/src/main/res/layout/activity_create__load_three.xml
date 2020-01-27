@@ -343,11 +343,11 @@
                    android:id="@+id/btn_back"
                    android:layout_width="150dp"
                    android:layout_height="38dp"
-                   android:text="@string/back"
+                   android:text="Save Draft"
                    android:textColor="@color/white"
                    android:layout_marginTop="@dimen/dp_16"
                    android:layout_marginBottom="@dimen/dp_16"
-                   android:background="@drawable/button"
+                   android:background="@drawable/button_save_draft"
                    />
                <Button
                    android:id="@+id/btn_submit"

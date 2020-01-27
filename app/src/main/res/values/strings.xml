@@ -629,7 +629,7 @@
     <string name="book_family">Family book can`t be empty</string>
 
     <string name="delete_loan">Are you sure you want to cancel this loan?</string>
-    <string name="remove_post">Are you sure you want to remove this post?</string>
+    <string name="remove_po">Are you sure you want to remove this post?</string>
     <string name="cancel_loan">Cancel loan</string>
     <string name="permission">Need Permissions</string>
     <string name="setting_permission">This phone needs permission to use this feature. You can grant them in phone settings.</string>

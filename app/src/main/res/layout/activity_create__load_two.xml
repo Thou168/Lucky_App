@@ -20,6 +20,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
@@ -172,30 +173,26 @@
                 android:layout_marginEnd="@dimen/dp_8"
                 android:textSize="12dp" />
 
-            <RadioGroup
-                android:id="@+id/radio_group"
+            <EditText
+                android:id="@+id/etproduct_insurance"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="Enter information"
+                android:inputType="text"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/product_insurance_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radio1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/insurance_yes" />
-
-                <RadioButton
-                    android:id="@+id/radio2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/insurance_no" />
-            </RadioGroup>
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/tv_residence"
@@ -209,30 +206,26 @@
                 android:textColor="#000"
                 android:textSize="12dp" />
 
-            <RadioGroup
-                android:id="@+id/radio_group1"
+            <EditText
+                android:id="@+id/etresidence"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="Enter information"
+                android:inputType="text"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/residence_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radio3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/allow_yes" />
-
-                <RadioButton
-                    android:id="@+id/radio4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/allow_no" />
-            </RadioGroup>
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/tv_Number_debt"
@@ -248,8 +241,6 @@
                 android:id="@+id/etNumber_debt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_arrow_drop_down_black"
-                android:focusable="false"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"

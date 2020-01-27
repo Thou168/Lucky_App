@@ -2,6 +2,8 @@ package com.bt_121shoppe.motorbike.loan.child;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +29,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
@@ -34,6 +38,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.child.two;
 import com.bt_121shoppe.motorbike.loan.LoanSectionOneFragment;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
@@ -57,21 +62,20 @@ public class one extends Fragment{
     private static final String FROMLOAN = "fromloan";
     private final Handler handler = new Handler();
 
-    private Toolbar mToolbar;
-    private TextView mTvName;
-    private Button mBtnNext, mBtnNextWithFinish;
+    public SendItemOne SM;
+    private Button mBtnNext;
     private LinearLayout relative_conspirator;
-    private TextView tv_conspirator,tv_Contributors;
     private RadioButton radio1,radio2,radio3;
     private RadioGroup mCo_borrower;
-    private EditText mName,mPhone_Number,mAddress,mJob,mRelationship,mCo_borrower_Job,mTotal_Income,mTotal_Expense,mNet_Income,
-                     mJob_Period,mCo_Job_Period,mDistrict,mCommune,mVillage;
+    private EditText mName,mPhone_Number,mAddress,mJob,mRelationship,mCo_borrower_Job,mTotal_Income,mTotal_Expense,mNet_Income;
+    private EditText mJob_Period,mCo_Job_Period,mDistrict,mCommune,mVillage;
+    private TextView mName_alert,mPhone_alert,mAddress_alert,mRelationship_alert,Income_alert,Expense_alert,Netincome_alert;
+    private TextView mJob_Period_alert,mCo_Job_alert,District_alert,mCommune_alert,mVillage_alert,mJob_alert;
     private int mProductID;
     private String mPrice;
     private Create_Load createLoad;
     private item_one itemOne;
     private int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
-    private Button next;
     boolean radioCheck = false,Co_borrower,mFromLoan;
 
     private SharedPreferences preferences;
@@ -99,26 +103,25 @@ public class one extends Fragment{
         return fragment;
     }
 
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_create__load_one, container, false);
+        return view;
+    }
+    public void onViewCreated(View view,@Nullable Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
             mProductID = args.getInt(ARG_NUMBER);
             mPrice = args.getString(PRICE);
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
+            Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
         }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_create__load_one, container, false);
         createLoad = (Create_Load)getActivity();
         rJob = getResources().getStringArray(R.array.job);
         rRela = getResources().getStringArray(R.array.relationship);
-
         initView(view);
 
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
@@ -133,14 +136,13 @@ public class one extends Fragment{
         }
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 
-        ;
         relative_conspirator = view.findViewById(R.id.relative_conspirator);
         SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         currentLanguage = preferences.getString("My_Lang", "");
 
         if (mFromLoan){
             GetLoan();
-            }else {
+        }else {
             getDetailUser();
             mTotal_Income.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -152,11 +154,11 @@ public class one extends Fragment{
                         if (mTotal_Expense.getText().toString().isEmpty()) {
                             mNet_Income.setText(s.toString());
                         } else {
-//                        if (Double.parseDouble(s.toString())<Double.parseDouble(mTotal_Expense.getText().toString())){
-//                            mTotal_Expense.setText(null);
-//                        }else {
-                            mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString()) - Double.parseDouble(mTotal_Expense.getText().toString()) + "");
-//                        }
+                            if (Double.parseDouble(s.toString())<Double.parseDouble(mTotal_Expense.getText().toString())){
+                                mTotal_Expense.setText(null);
+                            }else {
+                                mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString()) - Double.parseDouble(mTotal_Expense.getText().toString()) + "");
+                            }
                         }
                     } else {
                         mNet_Income.setText(null);
@@ -177,7 +179,7 @@ public class one extends Fragment{
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!s.toString().isEmpty() && !mTotal_Income.getText().toString().isEmpty()) {
-//                    mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(mTotal_Income.getText().toString()))});
+                        mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(mTotal_Income.getText().toString()))});
                         mNet_Income.setText(Double.parseDouble(mTotal_Income.getText().toString()) - Double.parseDouble(s.toString()) + "");
                     } else {
                         if (!mTotal_Income.getText().toString().isEmpty())
@@ -186,15 +188,14 @@ public class one extends Fragment{
                             mTotal_Expense.setFilters(new InputFilter[]{new InputFilterMinMax(0, 50000)});
                     }
 
-//                int incom;
-//                if (s.length() == 0||mTotal_Income.getText().length() == 0){
-//                    s = "0";
-//                    incom = 0;
-////                    mTotal_Income.setText("0");
-//                }
-//                incom = Integer.parseInt(mTotal_Income.getText().toString());
-//                int borrow = Integer.parseInt(s.toString());
-//                mNet_Income.setText(""+(incom-borrow));
+                    int incom = 0;
+                    if (s.length() == 0||mTotal_Income.getText().length() == 0){
+                        s = "0";
+                        mTotal_Income.setText("0");
+                    }
+                    incom = Integer.parseInt(mTotal_Income.getText().toString());
+                    int borrow = Integer.parseInt(s.toString());
+                    mNet_Income.setText(""+(incom-borrow));
                 }
 
                 @Override
@@ -203,18 +204,9 @@ public class one extends Fragment{
                 }
             });
         }
+        radio1 = (RadioButton) view.findViewById(R.id.radio1);
+        radio2 = (RadioButton) view.findViewById(R.id.radio2);
         getprovince();
-        radio1 = view.findViewById(R.id.radio1);
-        radio2 = view.findViewById(R.id.radio2);
-////        next.setOnClickListener(v -> frm_on.setViewPager(1));
-
-
-//        Button btn = view.findViewById(R.id.btn);
-//        btn.setOnClickListener(v -> {
-//            Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
-////            putapi();
-//        });
-        return view;
     }
     public String method(String str) {
         for (int i=0;i<str.length();i++){
@@ -266,7 +258,6 @@ public class one extends Fragment{
                         provine[i] = listData.get(i).getProvince_kh();
                     }
                 }
-//                Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password+ " List " +listData.size());
             }
             @Override
             public void onFailure(Call<AllResponse> call, Throwable t) {
@@ -281,30 +272,44 @@ public class one extends Fragment{
         String language = Paper.book().read("language");
         Log.e("90909090909","Current language is "+language);
 
-        mName = view.findViewById(R.id.etName);
-        mPhone_Number = view.findViewById(R.id.etPhone);
-        mDistrict = view.findViewById(R.id.edDistrict);
-        mCommune = view.findViewById(R.id.edCommune);
-        mVillage = view.findViewById(R.id.edvillage);
+        mName            = (EditText) view.findViewById(R.id.etName);
+        mPhone_Number    = (EditText) view.findViewById(R.id.etPhone);
+        mDistrict        = (EditText) view.findViewById(R.id.edDistrict);
+        mCommune         = (EditText) view.findViewById(R.id.edCommune);
+        mVillage         = (EditText) view.findViewById(R.id.edvillage);
+        mAddress         = (EditText) view.findViewById(R.id.et_province);
+        mJob             = (EditText) view.findViewById(R.id.et_Personal_Occupation);
+        mJob_Period      = (EditText) view.findViewById(R.id.etTime_Practicing);
+        mRelationship    = (EditText) view.findViewById(R.id.et_conspirator);
+        mCo_borrower_Job = (EditText) view.findViewById(R.id.et_Contributors);
+        mCo_Job_Period   = (EditText) view.findViewById(R.id.etTime_Practicing1);
+        mTotal_Income    = (EditText) view.findViewById(R.id.etTotal_income_borrowers);
+        mTotal_Expense   = (EditText) view.findViewById(R.id.etTotal_cost_borrowers);
+        mNet_Income      = (EditText) view.findViewById(R.id.et_total);
 
-        mJob = view.findViewById(R.id.et_Personal_Occupation);
-//        mJob_Period = view.findViewById(R.id.etTime_Practicing);
-        mCo_borrower = view.findViewById(R.id.radio_group);
-        mRelationship = view.findViewById(R.id.et_conspirator);
-        mCo_borrower_Job = view.findViewById(R.id.et_Contributors);
-        mCo_Job_Period = view.findViewById(R.id.etTime_Practicing1);
-        mTotal_Income = view.findViewById(R.id.etTotal_income_borrowers);
-        mTotal_Expense = view.findViewById(R.id.etTotal_cost_borrowers);
-        mNet_Income = view.findViewById(R.id.et_total);
+        mCo_borrower     = (RadioGroup) view.findViewById(R.id.radio_group);
+
+        mBtnNext         = (Button) view.findViewById(R.id.btn_next);
+
+        mName_alert              = (TextView) view.findViewById(R.id.name_alert);
+        mPhone_alert             = (TextView) view.findViewById(R.id.phone_alert);
+        mAddress_alert           = (TextView) view.findViewById(R.id.province_alert);
+        mJob_Period_alert        = (TextView) view.findViewById(R.id.Time_Practicing_alert);
+        mCommune_alert           = (TextView) view.findViewById(R.id.commune_alert);
+        mVillage_alert           = (TextView) view.findViewById(R.id.village_alert);
+        Income_alert             = (TextView) view.findViewById(R.id.total_income_alert);
+        Expense_alert            = (TextView) view.findViewById(R.id.expense_alert);
+        Netincome_alert          = (TextView) view.findViewById(R.id.income_alert);
+        District_alert           = (TextView) view.findViewById(R.id.district_alert);
+        mRelationship_alert      = (TextView) view.findViewById(R.id.conspirator_alert);
+        mCo_Job_alert            = (TextView) view.findViewById(R.id.Contributors_alert);
+        mJob_alert               = (TextView) view.findViewById(R.id.Personal_Occupation_alert);
 
         editext();
-        mBtnNext = view.findViewById(R.id.btn_next);
 
-//        int radioButtonID = mCo_borrower.getCheckedRadioButtonId();
-//        RadioButton radioButton = mCo_borrower.findViewById(radioButtonID);
         mCo_borrower.setOnCheckedChangeListener((group, checkedId) -> {
             View radioButton = mCo_borrower.findViewById(checkedId);
-           index = mCo_borrower.indexOfChild(radioButton);
+            index = mCo_borrower.indexOfChild(radioButton);
             radio3 = mCo_borrower.findViewById(checkedId);
             // dd logic here
             switch (index) {
@@ -335,7 +340,10 @@ public class one extends Fragment{
         mCo_borrower_Job.setOnClickListener(v -> {
             createLoad.AlertDialog(rJob,mCo_borrower_Job);
         });
-//        mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
+        mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
+        mDistrict.setOnClickListener(v -> AlertDialog(provine,mDistrict));
+        mVillage.setOnClickListener(v -> AlertDialog(provine,mVillage));
+        mCommune.setOnClickListener(v -> AlertDialog(provine,mCommune));
         mJob.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -381,75 +389,69 @@ public class one extends Fragment{
             public void afterTextChanged(Editable s) { }
         });
         mBtnNext.setOnClickListener(view3 -> {
-//            Bundle bundle=new Bundle();
-//            boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
-            Log.d("343434343",String.valueOf(editext())+"    "+index);
-//            Log.d("111111111111111","1111"+radio3.getText().toString()+"  "+mProvinceID);
-            if (index == 1){
-//                createLoad.requstFocus(bRelationship,img7,null);
-//                createLoad.requstFocus(bCo_borrower_Job,img8,null);
-//                createLoad.requstFocus(bCo_Job_Period,img9,mCo_Job_Period);
-            }
-            if (!(index == 0|| index == 1)){
-
-            }
-//            createLoad.requstFocus(bname,img1,mName);
-//            createLoad.requstFocus(baddress,img3,mAddress);
-//            createLoad.requstFocus(bJob,img4,mJob);
-//            createLoad.requstFocus(bJob_Period,img5,mJob_Period);
-////            createLoad.requstFocus(bRelationship,img6,null);
-//            createLoad.requstFocus(bTotal_Income,img10,mTotal_Income);
-//            createLoad.requstFocus(bmTotal_Expense,img11,mTotal_Expense);
+//            boolean bCo_borrower = createLoad.RadioCondition(mCo_borrower);
+//            Log.d("343434343",String.valueOf(editext())+"    "+index);
+//            if (index == 1){
+//                createLoad.requstFocus(bRelationship,null,mRelationship_alert,"Invalid Relationship");
+//                createLoad.requstFocus(bCo_borrower_Job,null,mCo_Job_alert,"Invalid Co-borrower Job");
+//                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mJob_Period_alert,"Invalid Co-borrower Job Period");
+//            }
+//            if (!(index == 0|| index == 1)){
+//
+//            }
+            createLoad.requstFocus(bname,mName,mName_alert,"Invalid Name");
+            createLoad.requstFocus(baddress,mAddress,mAddress_alert,"Invalid Address");
+            createLoad.requstFocus(bJob,mJob,mJob_alert,"Invalid Job");
+            createLoad.requstFocus(bJob_Period,mJob_Period,mJob_alert,"Invalid Job Period");
+            createLoad.requstFocus(bRelationship,mRelationship,mRelationship_alert,"Invalid Relationship");
+            createLoad.requstFocus(bTotal_Income,mTotal_Income,Income_alert,"Invalid Income");
+            createLoad.requstFocus(bmTotal_Expense,mTotal_Expense,Expense_alert,"Invalid Expense");
             if (editext()){
-                itemOne = new item_one(mName.getText().toString(),mPhone_Number.getText().toString(),mAddress.getText().toString(),mDistrict.getText().toString(),mCommune.getText().toString(),mVillage.getText().toString(),Job[indextJom],
-                        Co_borrower,index,Rela[indexRela],Job[indexCoborow_job],Float.parseFloat(mTotal_Income.getText().toString()),Float.parseFloat(mTotal_Expense.getText().toString()),
-                        mNet_Income.getText().toString(),Integer.parseInt(mJob_Period.getText().toString()),
-                        Integer.parseInt(mCo_Job_Period.getText().toString()),mProductID,mProvinceID,mPrice,
+                itemOne = new item_one(
+                        mName.getText().toString(),
+                        mPhone_Number.getText().toString(),
+                        mAddress.getText().toString(),
+                        mDistrict.getText().toString(),
+                        mCommune.getText().toString(),
+                        mVillage.getText().toString(),
+                        Job[indextJom],
+                        Co_borrower,index,Rela[indexRela],Job[indexCoborow_job],
+                        Float.parseFloat(mTotal_Income.getText().toString()),
+                        Float.parseFloat(mTotal_Expense.getText().toString()),
+                        mNet_Income.getText().toString(),
+                        Integer.parseInt(mJob_Period.getText().toString()),
+                        Integer.parseInt(mCo_Job_Period.getText().toString()),
+                        mProductID,mProvinceID,mPrice,
                         mLoanID,mFromLoan);
-                two fragment = two.newInstance(itemOne);
-//            fragment.setArguments(bundle);
-                createLoad.loadFragment(fragment);
+                    SM.sendItemOne(itemOne,1);
             }
         });
 
     }
+
     private boolean editext(){
         bname = createLoad.Checked(mName);
         bphone = createLoad.Checked(mPhone_Number);
-//        baddress = createLoad.Checked(mAddress);
+        baddress = createLoad.Checked(mAddress);
         bJob = createLoad.Checked(mJob);
-//        bJob_Period = createLoad.CheckedYear(mJob_Period);
+        bJob_Period = createLoad.CheckedYear(mJob_Period);
         bRelationship = createLoad.Checked(mRelationship);
         bCo_borrower_Job = createLoad.CheckedYear(mCo_borrower_Job);
-//        bRelationship = createLoad.RadioCondition(img6,mCo_borrower);
+        bRelationship = createLoad.RadioCondition(mCo_borrower);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);
         bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
-
-//        createLoad.Condition(img1,mName);
-//        createLoad.Condition(img2,mPhone_Number);
-//        createLoad.Condition(img3,mAddress);
-//        createLoad.Condition(img4,mJob);
-//        createLoad.ConditionYear(img5,mJob_Period);
-//        createLoad.Condition(img7,mRelationship);
-//        createLoad.Condition(img8,mCo_borrower_Job);
-//        createLoad.ConditionYear(img9,mCo_Job_Period);
-//        createLoad.ConditionYear(img10,mTotal_Income);
-//        createLoad.ConditionYear(img11,mTotal_Expense);
-//        createLoad.ConditionYear(img12,mNet_Income);
         if (index == 0){
             return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense&&bRelationship&&bCo_borrower_Job;
         }else {
             return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
         }
-//           boolean bCo_borrower = createLoad.RadioCondition(img6,mCo_borrower);
     }
     public void AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
+        int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which+1;
-//            Toast.makeText(getContext(), "Position: " + mProvinceID + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
         });
@@ -521,8 +523,8 @@ public class one extends Fragment{
                 }else {
                     mCo_borrower.check(R.id.radio2);
                     radio2.toggle();
-//                    mRelationship.setText(null);
-//                    mCo_Job_Period.setText("0");
+                    mRelationship.setText(null);
+                    mCo_Job_Period.setText("0");
                 }
 
                 mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
@@ -551,5 +553,19 @@ public class one extends Fragment{
 
             }
         });
+    }
+    public interface SendItemOne {
+        void sendItemOne(item_one item_one,int position);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            SM = (SendItemOne) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Error in retrieving data. Please try again");
+        }
     }
 }

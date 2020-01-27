@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,9 +23,10 @@ import androidx.fragment.app.Fragment;
 
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
-import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 
@@ -39,17 +42,22 @@ import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class three extends Fragment {
     private static final String ARG_NUMBER = "arg_number";
+    private static final String PRICE = "price";
+    private static final String LOANID = "loanid";
+    private static final String FROMLOAN = "fromloan";
 
     private Toolbar mToolbar;
     private TextView mTvName;
-    private Button mBtnSubmit, mBtnNextWithFinish,mBtnback;
+    private Button mBtnSubmit, mBtnNextWithFinish,mBtnSaveDraft;
 
     private Button btn_positive;
     private Button btn_negative;
 
-    private int mNumber;
+    private int mNumber,index = 3;
     private AlertDialog dialog;
-    private TextView etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
+    private RadioGroup etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
+    private RadioButton rdID_card_yes,rdFamily_book_yes,rdPhotos_yes,rdEmployment_card_yes,rdID_card1_yes,rdFamily_book1_yes,rdPhotos1_yes,rdEmployment_card1_yes;
+    private RadioButton rdID_card_no,rdFamily_book_no,rdPhotos_no,rdEmployment_card_no,rdID_card1_no,rdFamily_book1_no,rdPhotos1_no,rdEmployment_card1_no;
     private Create_Load createLoad;
     private item_two itemTwo;
 
@@ -59,36 +67,44 @@ public class three extends Fragment {
     private int i = -1;
     private loan_item loanItem;
     private String basicEncode;
+    private boolean mFromLoan;
+    private int mProductID,mLoanID;
+    private String mPrice;
     boolean ischeck;
     boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
     boolean bID_Card,bFramily_Book,bPhotos,bEmployment_card,bID_Card1,bFramily_Book1,bPhotos1,bEmployment_card1;
     private ProgressDialog mProgress;
-    public static three newInstance(item_two itemTwo) {
-        Bundle args = new Bundle();
-//        args.putParcelable(ARG_NUMBER,itemOne);
-        args.putParcelable(ARG_NUMBER, itemTwo);
+    public static three newInstance(int number,String price,int loanid,boolean fromLoan) {
         three fragment = new three();
+        Bundle args = new Bundle();
+        args.putInt(ARG_NUMBER, number);
+        args.putString(PRICE,price);
+        args.putInt(LOANID,loanid);
+        args.putBoolean(FROMLOAN,fromLoan);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-
-        if (args != null) {
-            itemTwo =  args.getParcelable(ARG_NUMBER);
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_create__load_three, container, false);
-        initView(view);
+        return view;
+    }
+    public void onViewCreated(View view,@Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            mProductID = args.getInt(ARG_NUMBER);
+            mPrice = args.getString(PRICE);
+            mLoanID = args.getInt(LOANID);
+            mFromLoan = args.getBoolean(FROMLOAN);
+            Log.e("Fragment Three",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
+        }
         createLoad = (Create_Load)this.getActivity();
-        mBtnback = view.findViewById(R.id.btn_back);
+        initView(view);
+        mBtnSaveDraft = view.findViewById(R.id.btn_back);
         mBtnSubmit = view.findViewById(R.id.btn_submit);
         btn_positive = view.findViewById(R.id.button_positive);
         btn_negative = view.findViewById(R.id.button_negative);
@@ -100,39 +116,18 @@ public class three extends Fragment {
         Paper.init(getContext());
         language = Paper.book().read("language");
 
-        checkEd();
-        mBtnback.setOnClickListener(view1 -> { createLoad.setBack(); });
+        mBtnSaveDraft.setOnClickListener(view1 -> {
+
+        });
         mBtnSubmit.setOnClickListener(v -> {
-            checkEd();
-            if (itemTwo.getItemOne().getIndex()==1){
-//                createLoad.requstFocus(bID_Card,img1,null);
-//                createLoad.requstFocus(bFramily_Book,img2,null);
-//                createLoad.requstFocus(bPhotos,img3,null);
-//                createLoad.requstFocus(bEmployment_card,img4,null);
-            }else {
-//                createLoad.requstFocus(bID_Card,img1,null);
-//                createLoad.requstFocus(bFramily_Book,img2,null);
-//                createLoad.requstFocus(bPhotos,img3,null);
-//                createLoad.requstFocus(bEmployment_card,img4,null);
-//
-//                createLoad.requstFocus(bID_Card1,img5,null);
-//                createLoad.requstFocus(bFramily_Book1,img6,null);
-//                createLoad.requstFocus(bPhotos1,img7,null);
-//                createLoad.requstFocus(bEmployment_card1,img8,null);
-            }
-
-            if (checkEd()){
-                Log.e("FromeLoan",String.valueOf(itemTwo.getItemOne().isFromLoan()));
-
-                if (itemTwo.getItemOne().isFromLoan()){
-//                    Editloan();
+                Log.e("From Loan",String.valueOf(mFromLoan));
+                if (mFromLoan){
+                    Editloan();
                     dialog_Editloan();
-//                    Log.d("909090909090909",loanItem.getLoan_amount()+"");
                 }else {
                     Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
                     putapi();
                 }
-            }
         });
 
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
@@ -148,142 +143,22 @@ public class three extends Fragment {
 
 //        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,1,itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),pk,202,1,202,null,null,itemTwo.getItemOne().getName(),null,null,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getAddress(),createLoad.Checked_Radio(),);
 
-
-        return view;
     }
 
-    private void AlertDialog(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mCard_ID = true;
-            else mCard_ID = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog1(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mFamily_Book = true;
-            else mFamily_Book = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog2(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mPhoto = true;
-            else mPhoto = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog3(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mCard_Work = true;
-            else mCard_Work = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog4(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mCard_ID1 = true;
-            else mCard_ID1 = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog5(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mFamily_Book1 = true;
-            else mFamily_Book1 = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog6(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mPhoto1 = true;
-            else mPhoto1 = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
-    private void AlertDialog7(String[] items, EditText editText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which == 0)
-                mCard_Work1 = true;
-            else mCard_Work1 = false;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
-            editText.setText(items[which]);
-            dialog.dismiss();
-        });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
-        dialog = builder.create();
-        dialog.show();
-    }
     private void putapi(){
         Service api1 = Client.getClient().create(Service.class);
-        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
-//        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
+        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
+                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
+                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,
+                0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
+                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,
+                mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),
+                itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),
+                itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,
+                itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),
+                itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
+//        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,
+//        true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
         Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
         call.enqueue(new Callback<loan_item>() {
             @Override
@@ -306,8 +181,17 @@ public class three extends Fragment {
     }
     private void Editloan(){
         Service api = Client.getClient().create(Service.class);
-        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
-        Call<loan_item> call = api.getEditLoan(itemTwo.getItemOne().getmLoanID(),loanItem,basicEncode);
+        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
+                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
+                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,
+                itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
+                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,
+                mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),
+                itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),
+                Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),
+                itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),
+                Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
+        Call<loan_item> call = api.getEditLoan(mLoanID,loanItem,basicEncode);
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
@@ -355,82 +239,140 @@ public class three extends Fragment {
     }
 
     private void initView(View view) {
-        String[] values = getResources().getStringArray(R.array.choose);
-//        etID_card = view.findViewById(R.id.etID_card);
-//        etID_card.setOnClickListener(v -> {
-//            AlertDialog(values,etID_card);
-//        });
-//        etFamily_book = view.findViewById(R.id.etFamily_book);
-//        etFamily_book.setOnClickListener(v -> {
-//            AlertDialog1(values,etFamily_book);
-//        });
-//        etPhotos = view.findViewById(R.id.etPhotos);
-//        etPhotos.setOnClickListener(v -> {
-//            AlertDialog2(values,etPhotos);
-//        });
-//        etEmployment_card = view.findViewById(R.id.etEmployment_card);
-//        etEmployment_card.setOnClickListener(v -> {
-//            AlertDialog3(values,etEmployment_card);
-//        });
-//
-//        etID_card1 = view.findViewById(R.id.etID_card1);
-//        etID_card1.setOnClickListener(v -> {
-//            AlertDialog4(values,etID_card1);
-//        });
-//        etFamily_book1 = view.findViewById(R.id.etFamily_book1);
-//        etFamily_book1.setOnClickListener(v -> {
-//            AlertDialog5(values,etFamily_book1);
-//        });
-//        etPhotos1 = view.findViewById(R.id.etPhotos1);
-//        etPhotos1.setOnClickListener(v -> {
-//            AlertDialog6(values,etPhotos1);
-//        });
-//        etEmployment_card1 = view.findViewById(R.id.etEmployment_card1);
-//        etEmployment_card1.setOnClickListener(v -> {
-//            AlertDialog7(values,etEmployment_card1);
-//        });
-//        if (itemTwo.getItemOne().getIndex()==1){
-//            linearLayout.setVisibility(View.GONE);
-//        }else {
-//            linearLayout.setVisibility(View.VISIBLE);
-//        }
-//        if (itemTwo.getItemOne().isFromLoan()){
-//            GetLoan();
-//        }
 
-    }
-    private boolean checkEd(){
+        rdID_card_yes           = (RadioButton) view.findViewById(R.id.radio1_ID_card);
+        rdID_card_no            = (RadioButton) view.findViewById(R.id.radio2_ID_card);
+        rdFamily_book_yes       = (RadioButton) view.findViewById(R.id.radio1_Family_book);
+        rdFamily_book_no        = (RadioButton) view.findViewById(R.id.radio2_Family_book);
+        rdPhotos_yes            = (RadioButton) view.findViewById(R.id.radio1_Photos);
+        rdPhotos_no             = (RadioButton) view.findViewById(R.id.radio2_Photos);
+        rdEmployment_card_yes   = (RadioButton) view.findViewById(R.id.radio1_Employment_card);
+        rdEmployment_card_no    = (RadioButton) view.findViewById(R.id.radio2_Employment_card);
+        rdID_card1_yes          = (RadioButton) view.findViewById(R.id.radio1_ID_card1);
+        rdID_card1_no           = (RadioButton) view.findViewById(R.id.radio2_ID_card1);
+        rdFamily_book1_yes      = (RadioButton) view.findViewById(R.id.radio1_Family_book1);
+        rdFamily_book1_no       = (RadioButton) view.findViewById(R.id.radio2_Family_book1);
+        rdPhotos1_yes           = (RadioButton) view.findViewById(R.id.radio1_Photos1);
+        rdPhotos1_no            = (RadioButton) view.findViewById(R.id.radio2_Photos1);
+        rdEmployment_card1_yes  = (RadioButton) view.findViewById(R.id.radio1_Employment_card1);
+        rdEmployment_card1_no   = (RadioButton) view.findViewById(R.id.radio2_Employment_card1);
 
-//        bID_Card = createLoad.CheckedYear(etID_card);
-//        bFramily_Book = createLoad.CheckedYear(etFamily_book);
-//        bPhotos = createLoad.CheckedYear(etPhotos);
-//        bEmployment_card = createLoad.CheckedYear(etEmployment_card);
-//
-//        bID_Card1 = createLoad.CheckedYear(etID_card1);
-//        bFramily_Book1 = createLoad.CheckedYear(etFamily_book1);
-//        bPhotos1 = createLoad.CheckedYear(etPhotos1);
-//        bEmployment_card1 = createLoad.CheckedYear(etEmployment_card1);
+        etID_card = view.findViewById(R.id.radio_group_ID_card);
+        etID_card.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etID_card.findViewById(checkedId);
+            index = etID_card.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mCard_ID = true;
+                    break;
+                case 1:
+                    mCard_ID = false;
+                    break;
+            }
+        });
 
+        etFamily_book = view.findViewById(R.id.radio_group_Family_book);
+        etFamily_book.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etFamily_book.findViewById(checkedId);
+            index = etFamily_book.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mFamily_Book = true;
+                    break;
+                case 1:
+                    mFamily_Book = false;
+                    break;
+            }
+        });
 
-//        bNumber_institution = createLoad.CheckedYear(mNumber_institution);
-//        bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
+        etPhotos = view.findViewById(R.id.radio_group_Photos);
+        etPhotos.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etPhotos.findViewById(checkedId);
+            index = etPhotos.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mPhoto = true;
+                    break;
+                case 1:
+                    mPhoto = false;
+                    break;
+            }
+        });
 
-//        createLoad.ConditionYear(img1,etID_card);
-//        createLoad.ConditionYear(img2,etFamily_book);
-//        createLoad.ConditionYear(img3,etPhotos);
-//        createLoad.ConditionYear(img4,etEmployment_card);
-//
-//        createLoad.ConditionYear(img5,etID_card1);
-//        createLoad.ConditionYear(img6,etFamily_book1);
-//        createLoad.ConditionYear(img7,etPhotos1);
-//        createLoad.ConditionYear(img8,etEmployment_card1);
+        etEmployment_card = view.findViewById(R.id.radio_group_Employment_card);
+        etEmployment_card.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etEmployment_card.findViewById(checkedId);
+            index = etEmployment_card.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mCard_Work = true;
+                    break;
+                case 1:
+                    mCard_Work = false;
+                    break;
+            }
+        });
 
-//        if (itemTwo.getItemOne().getIndex()==1){
-//            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card;
-//        }else {
-//            return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card&&bID_Card1&&bFramily_Book1&&bPhotos1&&bEmployment_card1;
-//        }
-        return bID_Card&&bFramily_Book&&bPhotos&&bEmployment_card&&bID_Card1&&bFramily_Book1&&bPhotos1&&bEmployment_card1;
+        etID_card1 = view.findViewById(R.id.radio_group_ID_card1);
+        etID_card1.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etID_card1.findViewById(checkedId);
+            index = etID_card1.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mCard_ID1 = true;
+                    break;
+                case 1:
+                    mCard_ID1 = false;
+                    break;
+            }
+        });
+
+        etFamily_book1 = view.findViewById(R.id.radio_group_Family_book1);
+        etFamily_book1.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etFamily_book1.findViewById(checkedId);
+            index = etFamily_book1.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mFamily_Book1 = true;
+                    break;
+                case 1:
+                    mFamily_Book1 = false;
+                    break;
+            }
+        });
+
+        etPhotos1 = view.findViewById(R.id.radio_group_Photos1);
+        etPhotos1.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etPhotos1.findViewById(checkedId);
+            index = etPhotos1.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mPhoto1 = true;
+                    break;
+                case 1:
+                    mPhoto1 = false;
+                    break;
+            }
+        });
+
+        etEmployment_card1 = view.findViewById(R.id.radio_group_Employment_card1);
+        etEmployment_card1.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = etEmployment_card1.findViewById(checkedId);
+            index = etEmployment_card1.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mCard_Work1 = true;
+                    break;
+                case 1:
+                    mCard_Work1 = false;
+                    break;
+            }
+        });
+
+        if (mFromLoan){
+            GetLoan();
+        }
+
     }
 
     private void MaterialDialog(){
@@ -438,8 +380,8 @@ public class three extends Fragment {
         alertDialog.setTitle(getString(R.string.title_create_loan));
         alertDialog.setMessage(getString(R.string.loan_message));
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
-            Intent intent = new Intent(getContext(), Detail_New_Post.class);
-            intent.putExtra("ID", itemTwo.getItemOne().getmProductId());
+            Intent intent = new Intent(getContext(), Detail_new_post_java.class);
+            intent.putExtra("ID",mProductID);
             startActivity(intent);
             mProgress.show();
             getActivity().finish();
@@ -449,46 +391,97 @@ public class three extends Fragment {
     }
     private void GetLoan(){
         Service api = Client.getClient().create(Service.class);
-        Call<loan_item> call = api.getDeailLoan(itemTwo.getItemOne().getmLoanID(),basicEncode);
+        Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-                if (!response.isSuccessful()){
-                    Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
+                if (response.body() != null){
+                    if (response.body().isState_id()){
+                        mCard_ID = true;
+                        etID_card.check(R.id.radio1_ID_card);
+                        rdID_card_yes.toggle();
+                    } else {
+                        mCard_ID = false;
+                        etID_card.check(R.id.radio2_ID_card);
+                        rdID_card_no.toggle();
+                    }
+
+                    if (response.body().isFamily_book()){
+                        mFamily_Book = true;
+                        etFamily_book.check(R.id.radio1_Family_book);
+                        rdFamily_book_yes.toggle();
+                    } else{
+                        mFamily_Book =false;
+                        etFamily_book.check(R.id.radio2_Family_book);
+                        rdFamily_book_no.toggle();
+                    }
+                    if (response.body().isIs_borrower_photo()){
+                        mPhoto = true;
+                        etPhotos.check(R.id.radio1_Photos);
+                        rdPhotos_yes.toggle();
+                    } else {
+                        mPhoto = false;
+                        etPhotos.check(R.id.radio2_Photos);
+                        rdPhotos_no.toggle();
+                    }
+
+                    if (response.body().isStaff_id()){
+                        mCard_Work = true;
+                        etEmployment_card.check(R.id.radio1_Employment_card);
+                        rdEmployment_card_yes.toggle();
+                    } else{
+                        mCard_Work = false;
+                        etEmployment_card.check(R.id.radio2_Employment_card);
+                        rdEmployment_card_no.toggle();
+                    }
+
+                    //co-borrow
+                    if (response.body().isIs_coborrower_idcard()){
+                        mCard_ID1 = true;
+                        etID_card1.check(R.id.radio1_ID_card1);
+                        rdID_card1_yes.toggle();
+                    }else {
+                        mCard_ID1 = false;
+                        etID_card1.check(R.id.radio2_ID_card1);
+                        rdID_card1_no.toggle();
+                    }
+                    if (response.body().isIs_coborrower_familybook()){
+                        mFamily_Book1 = true;
+                        etFamily_book1.check(R.id.radio1_Family_book1);
+                        rdFamily_book1_yes.toggle();
+                    }else {
+                        mFamily_Book1 = false;
+                        etFamily_book1.check(R.id.radio2_Family_book1);
+                        rdFamily_book1_no.toggle();
+                    }
+                    if (response.body().isIs_coborrower_photo()){
+                        mPhoto1= true;
+                        etPhotos1.check(R.id.radio1_Photos1);
+                        rdPhotos1_yes.toggle();
+                    }else {
+                        mPhoto1 = false;
+                        etPhotos1.check(R.id.radio2_Photos1);
+                        rdPhotos1_no.toggle();
+                    }
+                    if (response.body().isIs_coborrower_payslip()){
+                        mCard_Work1= true;
+                        etEmployment_card1.check(R.id.radio1_Employment_card1);
+                        rdEmployment_card1_yes.toggle();
+                    }else {
+                        mCard_Work1= false;
+                        etEmployment_card1.check(R.id.radio2_Employment_card1);
+                        rdEmployment_card1_no.toggle();
+                    }
                 }
-               if (response.body().isState_id()){
-                   etID_card.setText(getString(R.string.yes));
-                   mCard_ID = true;
-               } else {etID_card.setText(getString(R.string.no)); mCard_ID = false;}
-
-                if (response.body().isFamily_book()){
-                    etFamily_book.setText(getString(R.string.yes)); mFamily_Book = true;
-                } else{ etFamily_book.setText(getString(R.string.no));mFamily_Book =false;}
-
-                if (response.body().isIs_borrower_photo()){
-                    etPhotos.setText(getString(R.string.yes)); mPhoto = true;
-                } else {etPhotos.setText(getString(R.string.no));mPhoto = false;}
-
-                if (response.body().isStaff_id()){
-                    etEmployment_card.setText(getString(R.string.yes)); mCard_Work = true;
-                } else{ etEmployment_card.setText(getString(R.string.no)); mCard_Work = false;}
-
-                //co-borrow
-                if (response.body().isIs_coborrower_idcard()){
-                    etID_card1.setText(getString(R.string.yes)); mCard_ID1 = true;
-                }else {  etID_card1.setText(getString(R.string.no)); mCard_ID1 = false;}
-                if (response.body().isIs_coborrower_familybook()){
-                    etFamily_book1.setText(getString(R.string.yes)); mFamily_Book1 = true;
-                }else {etFamily_book1.setText(getString(R.string.no)); mFamily_Book1 = false;}
-                if (response.body().isIs_coborrower_photo()){
-                    etPhotos1.setText(getString(R.string.yes)); mPhoto1= true;
-                }else {etPhotos1.setText(getString(R.string.no)); mPhoto1 = false;}
-                if (response.body().isIs_coborrower_payslip()){
-                    etEmployment_card1.setText(getString(R.string.yes)); mCard_Work1= true;
-                }else {etEmployment_card1.setText(getString(R.string.no)); mCard_Work1= false;}
             }
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) { }
         });
+    }
+
+    public void getItemTwo(item_two item)
+    {
+        Log.e("item_two",""+item);
+        itemTwo = item;
     }
 }

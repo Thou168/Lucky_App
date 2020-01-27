@@ -229,7 +229,7 @@
                 android:textSize="8sp"  />
 
             <TextView
-                android:id="@+id/tv_job"
+                android:id="@+id/tv_Personal_Occupation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
@@ -251,7 +251,7 @@
                 android:inputType="number"
                 android:textSize="12dp" />
             <TextView
-                android:id="@+id/job_alert"
+                android:id="@+id/Personal_Occupation_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginBottom="@dimen/dp_8dp"
@@ -261,15 +261,36 @@
                 android:textColor="#000"
                 android:textSize="8sp"  />
 
-            <!--                <EditText-->
-            <!--                    android:id="@+id/etTime_Practicing"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="fill_parent"-->
-            <!--                    android:background="@null"-->
-            <!--                    android:hint="@string/job_period"-->
-            <!--                    android:inputType="number"-->
-            <!--                    android:paddingLeft="5dp"-->
-            <!--                    android:textSize="14dp" />-->
+            <TextView
+                android:id="@+id/tv_Time_Practicing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/job_period"/>
+            <EditText
+                android:id="@+id/etTime_Practicing"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:hint="Enter your information"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/Time_Practicing_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/tv_total_income"

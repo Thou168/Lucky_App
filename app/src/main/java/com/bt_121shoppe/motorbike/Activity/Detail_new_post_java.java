@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_Likebyuser;
@@ -122,7 +123,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     TextView typeView;
     TextView tv_dox;
     boolean loaned = false;
+    boolean EditLoan;
+    private List<LikebyUser> datas;
     String basic_Encode;
+    int loanID;
     String login_verify;
     Bundle bundle;
     @Override
@@ -148,12 +152,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         } else if (sharedPref.contains("id")) {
             pk = sharedPref.getInt("id", 0);
         }
-        if (pk!=0) {
-            encodeAuth = "Basic "+ getEncodedString(name,pass);
-            getMyLoan();
-        }
         p = getIntent().getIntExtra("ID",0);
         pt = getIntent().getIntExtra("postt",0);
+        loanID = getIntent().getIntExtra("id",0);
+        EditLoan = getIntent().getBooleanExtra("LoanEdit",false);
         initialProductPostDetail(Encode);
         submitCountView(Encode);
         countPostView(Encode);
@@ -211,26 +213,32 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         });
 
         //loan
-        loan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
-                    Intent intent = new  Intent(Detail_new_post_java.this, UserAccountActivity.class);
-                    intent.putExtra("Login_verify","detail");
-                    intent.putExtra("product_id",postId);
-                    startActivity(intent);
-                }
-            else{
-                Intent intent = new  Intent(getApplicationContext(), Create_Load.class);
-                intent.putExtra("product_id",postId);
+        if (EditLoan) {
+            loan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
+                        Intent intent = new Intent(Detail_new_post_java.this, UserAccountActivity.class);
+                        intent.putExtra("verify", "detail");
+                        intent.putExtra("product_id", postId);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), Create_Load.class);
+                        intent.putExtra("product_id", postId);
+                        intent.putExtra("LoanID", loanID);
+                        intent.putExtra("LoanEdit", EditLoan);
 //                Log.e("343434343",cuteString(tvPrice.text.toString(),1))
-                intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-            }
-        });
+                        intent.putExtra("price", cuteString(tvPrice.getText().toString(), 1));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
+        }else {
+            encodeAuth = "Basic "+ getEncodedString(name,pass);
+            getMyLoan();
+        }
 
         btn_share.setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Share!",Toast.LENGTH_SHORT).show());
 
@@ -790,9 +798,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         });
     }
 
-    private String getEncodedString(String username, String password){
-//        String userpass = "$username:$password";
-        String userpass = username+password;
+    public String getEncodedString(String username, String password) {
+        final String userpass = username+":"+password;
         return Base64.encodeToString(userpass.getBytes(),
                 Base64.NO_WRAP);
     }
@@ -879,6 +886,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void getMyLoan(){
+        Log.e("Encode",""+encodeAuth);
         ArrayList<Integer> IDPOST = new ArrayList<>();
         String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/";
         OkHttpClient client= new OkHttpClient();
@@ -946,9 +954,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void withStyle() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(),R.style.AppTheme);
-//        val builder = AlertDialog.Builder(this)
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.AppTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle(R.string.for_loan_title);
         builder.setIcon(R.drawable.tab_message_selector);
         builder.setMessage(R.string.already_created);
