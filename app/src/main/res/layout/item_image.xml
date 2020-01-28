@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:visibility="gone"
@@ -67,11 +67,12 @@
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
                 android:lines="1"
+                android:textColor="#333333"
                 android:text="title"
                 android:fontFamily="@font/opensans_semibold"
                 android:textSize="13dp" />
@@ -80,35 +81,7 @@
         <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/llColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/llPrice"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp_8">
-
-                <TextView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:background="@drawable/rounded_textview"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-
-                    android:id="@+id/tv_color1" />
-                <TextView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:background="@drawable/rounded_textview"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:layout_marginLeft="-8dp"
-                    android:id="@+id/tv_color2" />
-
-            </LinearLayout>
+            android:layout_height="match_parent">
             <LinearLayout
                 android:id="@+id/llPrice"
                 android:orientation="vertical"
@@ -146,6 +119,45 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/cate"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:visibility="visible"
+                android:layout_toEndOf="@+id/llColor"
+                android:layout_alignParentBottom="false"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="10dp"
+                android:textColor="#333333"
+                android:fontFamily="@font/opensans_regular"
+                android:text="Kong"
+                android:textSize="12dp" />
+            <LinearLayout
+                android:id="@+id/llColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="33dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_8">
+
+                <TextView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/rounded_textview"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:id="@+id/tv_color1" />
+                <TextView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/rounded_textview"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_marginLeft="-8dp"
+                    android:id="@+id/tv_color2" />
+
+            </LinearLayout>
 <!--            <LinearLayout-->
 <!--                android:layout_marginTop="5dp"-->
 <!--                android:orientation="vertical"-->
@@ -163,6 +175,7 @@
                     android:layout_below="@id/llPrice"
                     android:orientation="horizontal"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right">
@@ -170,24 +183,27 @@
                         android:id="@+id/user_view"
                         android:text="0"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="17dp"
                         android:layout_marginRight="4dp"
+                        android:layout_gravity="center"
+                        android:textColor="#333333"
                         android:fontFamily="@font/opensans_regular"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
                     <TextView
                         android:id="@+id/user_view1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="17dp"
                         android:layout_marginBottom="0dp"
+                        android:textColor="#333333"
+                        android:layout_gravity="center"
                         android:text="@string/view"
                         android:layout_marginRight="8dp"
                         android:fontFamily="@font/opensans_regular"
                         android:textSize="12dp"/>
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_user"
-                        android:layout_marginBottom="5dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_gravity="right"
+                        android:layout_gravity="center"
                         android:src="@drawable/group_2293"
                         card_view:civ_border_width="2dp"
                         card_view:civ_border_color="@color/circle"

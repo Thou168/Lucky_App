@@ -79,7 +79,7 @@ public class ChatMainActivity extends AppCompatActivity {
     private TextView username;
     private  BottomNavigationView bnavigation,bnavigation1;
     Bundle bundle;
-    String login_verify;
+    String login_verify,register_intent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +88,7 @@ public class ChatMainActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         if (bundle!=null){
             login_verify = bundle.getString("Login_verify");
+            register_intent = bundle.getString("Register_verify");
         }
 
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
@@ -133,11 +134,6 @@ public class ChatMainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.message:
-//                        if (prefer.contains("token")||prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-//                        }else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {
@@ -174,11 +170,6 @@ public class ChatMainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.message:
-//                        if (prefer.contains("token")||prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), ChatMainActivity.class));
-//                        }else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
                         break;
                     case R.id.account :
                         if (prefer.contains("token")||prefer.contains("id")) {
@@ -204,10 +195,10 @@ public class ChatMainActivity extends AppCompatActivity {
         if(firebaseUser==null){
             Intent intent =new Intent(ChatMainActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish();
-        }else
-            databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
-
+//            finish();
+        }else {
+            databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+        }
         preferences = getSharedPreferences("RegisterActivity",MODE_PRIVATE);
         uusername=preferences.getString("name","");
         password=preferences.getString("pass","");
@@ -219,26 +210,28 @@ public class ChatMainActivity extends AppCompatActivity {
         }
 
         //username.setText(firebaseUser.getPhoneNumber());
+
         if (bundle==null) {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     com.bt_121shoppe.motorbike.models.User user = dataSnapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
                     //username.setText(user.getUsername());
-                    if (user.getImageURL().equals("default")) {
-                        profile_image.setImageResource(R.drawable.group_2293);
-                    } else {
-                        Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
+                    if (user.getImageURL() != null) {
+//                        if (user.getImageURL().equals("default")) {
+//                            profile_image.setImageResource(R.drawable.group_2293);
+//                        } else {
+////                      Glide.with(ChatMainActivity.this).load(user.getImageURL()).into(profile_image);
+//                        }
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
         }
-        //getUserProfile();
+//        getUserProfile();
         //basicReadWrite();
 
         TabLayout tabLayout=findViewById(R.id.tab_layout);
@@ -316,7 +309,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (login_verify!=null){
+        if (login_verify!=null || register_intent != null){
             startActivity(new Intent(ChatMainActivity.this,Home.class));
         }else finish();
     }

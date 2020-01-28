@@ -124,7 +124,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     ImageView logo_kh,logo_en;
     String[] photo_select;
     Bundle bundle;
-    String login_verify;
+    String login_verify,register_intent;
 //    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +134,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         bundle = getIntent().getExtras();
         if (bundle!=null){
             login_verify = bundle.getString("Login_verify");
+            register_intent = bundle.getString("Register_verify");
         }
         photo_select = getResources().getStringArray(R.array.select_photo);
         logo_kh = findViewById(R.id.khmer);
@@ -534,7 +535,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
     @Override
     public void onBackPressed() {
-        if (login_verify!=null){
+        if (login_verify != null || register_intent != null){
             startActivity(new Intent(Account.this,Home.class));
         } else finish();
     }

@@ -181,9 +181,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             String[] splitColor=mPost.getColor().split(",");
 
             GradientDrawable shape = new GradientDrawable();
-//            shape.setShape(GradientDrawable.OVAL);
-//            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-//            tvColor1.setBackground(shape);
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
             tvColor2.setVisibility(View.GONE);
             if(splitColor.length>1){
                 tvColor2.setVisibility(View.VISIBLE);
@@ -202,17 +202,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             }
             else{
                 cost=Double.parseDouble(mPost.getCost());
-                if(mPost.getDiscount_type().equals("amount")) {
-                    cost = cost - Double.parseDouble(mPost.getDiscount());
-//                    double ds = Double.parseDouble(mPost.getDiscount());
-//                    ds_price.setText("$"+ds);
-                    relativeLayout.setVisibility(View.GONE);
-                }
-                else if(mPost.getDiscount_type().equals("percent")){
-                    Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
-                    cost = cost - per;
-//                    ds_price.setText(per1+"%");
-                }
+                relativeLayout.setVisibility(View.GONE);
                 tvDiscount.setVisibility(View.VISIBLE);
                 int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
                 double co_price = Double.parseDouble(String.valueOf(per1 * cost))/100;

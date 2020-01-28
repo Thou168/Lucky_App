@@ -299,27 +299,10 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                         mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
                         break;
                     case R.id.notification:
-//                    if(sharedPref.contains("token") || sharedPref.contains("id")){
-////                        if(Active_user.isUserActive(this,pk)){
-////                            startActivity(new Intent(Home.this, NotificationActivity.class));
-////                        }else{
-////                            Active_user.clearSession(this);
-////                        }
-//                        startActivity(new Intent(Home.this, NotificationActivity.class));
-//                    }else{
-//                        Intent intent=new Intent(Home.this, UserAccountActivity.class);
-//                        intent.putExtra("verify","notification");
-//                        startActivity(intent);
-//                    }
                         startActivity(new Intent(Home.this, StoreListActivity.class));
                         break;
                     case R.id.camera:
                         if(sharedPref.contains("token") || sharedPref.contains("id")){
-//                        if(Active_user.isUserActive(this,pk)){
-//                            startActivity(new Intent(Home.this, Camera.class));
-//                        }else{
-//                            Active_user.clearSession(this);
-//                        }
                             startActivity(new Intent(Home.this, Camera.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
@@ -329,11 +312,6 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                         break;
                     case R.id.message:
                         if(sharedPref.contains("token") || sharedPref.contains("id")){
-//                        if(Active_user.isUserActive(this,pk)){
-//                            startActivity(new Intent(Home.this, ChatMainActivity.class));
-//                        }else{
-//                            Active_user.clearSession(this);
-//                        }
                             startActivity(new Intent(Home.this, ChatMainActivity.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);

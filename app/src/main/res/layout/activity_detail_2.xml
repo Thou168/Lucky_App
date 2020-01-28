@@ -12,6 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="?attr/actionBarSize"
             android:id="@+id/layout">
             <View
                 android:visibility="gone"

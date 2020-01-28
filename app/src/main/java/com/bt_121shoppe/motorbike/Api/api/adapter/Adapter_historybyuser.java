@@ -125,7 +125,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             if (lang.equals("View:")) {
                 strPostTitle = model.getPost_sub_title().split(",")[0];
             } else {
-                strPostTitle = model.getPost_sub_title().split(",")[1];
+                strPostTitle = model.getPost_sub_title().split(",")[0];
             }
         }
         view.title.setText(strPostTitle);

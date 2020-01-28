@@ -32,7 +32,7 @@
                 <RelativeLayout
                     android:background="@color/sunflower_black"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="77dp">
                     <TextView
                         android:id="@+id/title"
                         android:paddingStart="16dp"
@@ -47,22 +47,22 @@
                         android:id="@+id/tv_price"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:textStyle="bold"
                         android:text="1200"
-                        android:textSize="20sp"
-                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="18dp"
+                        android:textColor="#E5A74F"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:fontFamily="@font/opensans_semibold"
+                        android:layout_height="24dp" />
                     <TextView
                         android:textSize="14sp"
                         android:layout_marginStart="16dp"
                         android:id="@+id/tv_discount"
                         android:layout_marginTop="4dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="17dp"
                         android:layout_below="@+id/tv_price"
-                        android:textColor="@color/gray_btn_bg_pressed_color"
+                        android:textColor="#CCCCCC"
                         android:layout_marginBottom="@dimen/dp_16"
                         android:text="1200"
                         android:gravity="center" />
@@ -83,41 +83,42 @@
                         android:layout_marginTop="@dimen/dp_4"
                         android:id="@+id/tv_discount_per"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="17dp"
                         android:layout_below="@+id/tv_price"
                         android:layout_marginBottom="@dimen/dp_16"
-                        android:textColor="@color/gray_btn_bg_pressed_color"
-                        android:layout_marginLeft="4dp"
+                        android:textColor="#CCCCCC"
+                        android:layout_marginLeft="3dp"
                         android:layout_toEndOf="@+id/style_dox"
                         android:text="100%"
                         android:gravity="center" />
                     <TextView
                         android:id="@+id/post_type"
-                        android:layout_width="60dp"
-                        android:layout_height="30dp"
+                        android:layout_width="65dp"
+                        android:layout_height="28dp"
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_marginEnd="@dimen/dp_16"
                         android:layout_alignParentEnd="true"
                         android:text="SElllllll"
-                        android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:textSize="15dp"
                         android:gravity="center"
                         android:background="@drawable/roundimage_sell_newpost" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="55dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_8"
                         android:gravity="center_vertical"
                         android:layout_marginEnd="@dimen/dp_18">
                         <TextView
                             android:id="@+id/view"
-                            android:textSize="12sp"
+                            android:textSize="12dp"
                             android:textColor="@color/white"
                             android:text="12K"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="17dp"
                             android:layout_marginEnd="3dp"/>
                         <TextView
                             android:id="@+id/title_view"
@@ -125,7 +126,7 @@
                             android:textSize="12dp"
                             android:textColor="@color/white"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="17dp" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -144,7 +145,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:paddingBottom="?android:attr/actionBarSize"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
     </RelativeLayout>

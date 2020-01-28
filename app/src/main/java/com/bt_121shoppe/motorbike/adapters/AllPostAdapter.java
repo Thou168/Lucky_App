@@ -219,7 +219,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
                 tvColor2.setBackground(shape);
             }
-
+            cate.setVisibility(View.GONE);
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscountAmount())>0) {
                 postOriginalPrice.setVisibility(View.VISIBLE);

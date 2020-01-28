@@ -476,11 +476,12 @@ public class Postbyuser_Class extends AppCompatActivity {
                             try {
                                 Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
                                 List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+                                String select_add = addresses.get(0).getAddressLine(0);
                                 if (addresses.isEmpty()) {
                                     tv_address.setText("no location");
                                 } else {
                                     addresses.size();
-                                    tv_address.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
+                                    tv_address.setText(select_add);
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();

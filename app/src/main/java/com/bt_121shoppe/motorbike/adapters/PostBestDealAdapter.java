@@ -173,9 +173,9 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             String[] splitColor=mPost.getColor().split(",");
             Log.d("COLOOOOOr",splitColor.length+splitColor[0]);
             GradientDrawable shape = new GradientDrawable();
-//            shape.setShape(GradientDrawable.OVAL);
-//            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-//            tvColor1.setBackground(shape);
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+            tvColor1.setBackground(shape);
             tvColor2.setVisibility(View.GONE);
             if (splitColor.length > 1) {
                 tvColor2.setVisibility(View.VISIBLE);
