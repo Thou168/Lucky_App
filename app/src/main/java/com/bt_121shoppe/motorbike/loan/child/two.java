@@ -69,7 +69,9 @@ public class two extends Fragment {
     private three fragment;
     private Create_Load createLoad;
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
-    private TextView mLoan_amount_alert,mLoan_Term_alert,mloan_RepaymentType_alert,mLoan_Contributions_alert,mNumber_institution_alert,mMonthly_Amount_Paid_alert;
+    private EditText mResidence,mProduct_insurance;
+    private TextView mLoan_amount_alert,mLoan_Term_alert,mloan_RepaymentType_alert,mLoan_Contributions_alert,mNumber_institution_alert;
+    private TextView mMonthly_Amount_Paid_alert,Residence_alert,Product_insurance_alert;
     private RadioButton radio1,radio2,radio3,radio4;
     private RadioGroup rgBuying_product_insurance,mAllowto_visit_home;
     private boolean radioCheck1 = false,radioCheck2 = false;
@@ -81,7 +83,7 @@ public class two extends Fragment {
     private int mProductID,mLoanID;
     private String mPrice;
     private String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
-    private boolean mFromLoan,bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid;
+    private boolean mFromLoan,bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid,bResidence,bProduct_insurance;
     public static two newInstance(int number,String price,int loanid,boolean fromLoan) {
         two fragment = new two();
         Bundle args = new Bundle();
@@ -137,7 +139,8 @@ public class two extends Fragment {
             createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,"Invalid Contributions");
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,"Invalid Number Institutions");
             createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,"Invalid Monthly Amount");
-
+            createLoad.requstFocus(bResidence,mResidence,Residence_alert,"Invalid Residence");
+            createLoad.requstFocus(bProduct_insurance,mProduct_insurance,Product_insurance_alert,"Invalid Product Insurance");
 
             if (checkEd()){
             itemTwo = new item_two(Float.parseFloat(
@@ -165,16 +168,20 @@ public class two extends Fragment {
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
         mLoan_Term.setFilters(new InputFilter[]{new InputFilterMinMax(1,36)});
-        mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);
-        mNumber_institution = view.findViewById(R.id.etNumber_debt);
-        mMonthly_Amount_Paid = view.findViewById(R.id.et_monthly_payment);
+        mloan_RepaymentType       = view.findViewById(R.id.etPayment_Method);
+        mNumber_institution       = view.findViewById(R.id.etNumber_debt);
+        mMonthly_Amount_Paid      = view.findViewById(R.id.et_monthly_payment);
+        mResidence                = view.findViewById(R.id.etresidence);
+        mProduct_insurance        = view.findViewById(R.id.etproduct_insurance);
 
-        mLoan_amount_alert = view.findViewById(R.id.loan_amount_alert);
-        mloan_RepaymentType_alert = view.findViewById(R.id.Payment_Method_alert);
+        mLoan_amount_alert         = view.findViewById(R.id.loan_amount_alert);
+        mloan_RepaymentType_alert  = view.findViewById(R.id.Payment_Method_alert);
         mMonthly_Amount_Paid_alert = view.findViewById(R.id.monthly_payment_alert);
-        mNumber_institution_alert = view.findViewById(R.id.Number_debt_alert);
-        mLoan_Contributions_alert = view.findViewById(R.id.Loan_contributions_alert);
-        mLoan_Term_alert = view.findViewById(R.id.Borrowing_period_alert);
+        mNumber_institution_alert  = view.findViewById(R.id.Number_debt_alert);
+        mLoan_Contributions_alert  = view.findViewById(R.id.Loan_contributions_alert);
+        mLoan_Term_alert           = view.findViewById(R.id.Borrowing_period_alert);
+        Residence_alert            = view.findViewById(R.id.residence_alert);
+        Product_insurance_alert    = view.findViewById(R.id.product_insurance_alert);
 
 
         mloan_RepaymentType.setOnClickListener(v -> {
@@ -241,12 +248,14 @@ public class two extends Fragment {
         return separated[indext];
     }
     private boolean checkEd(){
-        bLoand_amount = createLoad.CheckedYear(mLoan_amount);
-        bLoan_Period = createLoad.CheckedYear(mLoan_Term);
-        bPayment_Method = createLoad.Checked(mloan_RepaymentType);
-        bLoan_Contributions = createLoad.CheckedYear(mLoan_Contributions);
-        bNumber_institution = createLoad.CheckedYear(mNumber_institution);
+        bLoand_amount        = createLoad.CheckedYear(mLoan_amount);
+        bLoan_Period         = createLoad.CheckedYear(mLoan_Term);
+        bPayment_Method      = createLoad.Checked(mloan_RepaymentType);
+        bLoan_Contributions  = createLoad.CheckedYear(mLoan_Contributions);
+        bNumber_institution  = createLoad.CheckedYear(mNumber_institution);
         bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
+        bResidence           = createLoad.CheckedYear(mResidence);
+        bProduct_insurance   = createLoad.CheckedYear(mProduct_insurance);
         return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid;
     }
     public class InputFilterMinMax implements InputFilter {

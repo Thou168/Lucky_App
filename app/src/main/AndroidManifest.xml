@@ -71,6 +71,9 @@
             android:name=".loan.Create_Load"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".loan.Draft_loan"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Login_Register.SelectUserTypeActivity"
             android:screenOrientation="portrait" />
         <activity

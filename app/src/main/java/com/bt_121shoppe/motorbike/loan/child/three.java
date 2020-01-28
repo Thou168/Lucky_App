@@ -117,7 +117,32 @@ public class three extends Fragment {
         language = Paper.book().read("language");
 
         mBtnSaveDraft.setOnClickListener(view1 -> {
+            LayoutInflater factory = LayoutInflater.from(getContext());
+            final View clearDialogView = factory.inflate(R.layout.save_dialog,null);
+            final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
+            clearDialog.setView(clearDialogView);
+            TextView title   = (TextView) clearDialogView.findViewById(R.id.textView_title);
+            TextView name    = (TextView) clearDialogView.findViewById(R.id.tv_draft);
+            Button btnSave   = (Button) clearDialogView.findViewById(R.id.btnSave);
+            Button btnCancel = (Button) clearDialogView.findViewById(R.id.btnCancel);
+            title.setText("Save Draft");
+            name.setText(getString(R.string.name));
+            btnCancel.setText(getString(R.string.cancel));
+            btnSave.setText("Save");
+            clearDialogView.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clearDialog.dismiss();
+                }
+            });
+            clearDialogView.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
+            clearDialog.setCancelable(false);
+            clearDialog.show();
         });
         mBtnSubmit.setOnClickListener(v -> {
                 Log.e("From Loan",String.valueOf(mFromLoan));
@@ -147,37 +172,39 @@ public class three extends Fragment {
 
     private void putapi(){
         Service api1 = Client.getClient().create(Service.class);
-        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
-                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
-                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,
-                0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
-                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,
-                mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),
-                itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),
-                itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,
-                itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),
-                itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
+        if (itemTwo != null) {
+            loanItem = new loan_item(itemTwo.getLoan_Amount(), 0, Integer.parseInt(itemTwo.getLoan_Term()),
+                    itemTwo.getItemOne().getTotal_Income(), itemTwo.getItemOne().getTotal_Expense(), 9, 1,
+                    pk, itemTwo.getItemOne().getmProductId(), pk, pk, null, itemTwo.getItemOne().getName(), null,
+                    0, itemTwo.getItemOne().getJob(), itemTwo.getItemOne().getPhone_Number(), itemTwo.getItemOne().getProvince(),
+                    itemTwo.getItemOne().getDistrict(), itemTwo.getItemOne().getCommune(), itemTwo.getItemOne().getVillage(), mCard_ID,
+                    mFamily_Book, mCard_Work, mPhoto, itemTwo.getItemOne().getmProvinceID(), itemTwo.getItemOne().getJob(),
+                    itemTwo.getItemOne().getJob_Period(), itemTwo.getLoan_RepaymentType(), itemTwo.getDeposit_Amount(), itemTwo.getBuying_InsuranceProduct(),
+                    itemTwo.getAllow_visito_home(), Integer.parseInt(itemTwo.getNumber_institution()), mCard_ID1, mFamily_Book1, mPhoto1, mCard_Work1,
+                    itemTwo.getItemOne().getRelationship(), itemTwo.getItemOne().getCo_borrower_Job(), itemTwo.getItemOne().getCo_Job_Period(),
+                    itemTwo.getItemOne().isCo_borrower(), Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
 //        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,
 //        true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
-        Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
-        call.enqueue(new Callback<loan_item>() {
-            @Override
-            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+            Call<loan_item> call = api1.setCreateLoan(loanItem, basicEncode);
+            call.enqueue(new Callback<loan_item>() {
+                @Override
+                public void onResponse(Call<loan_item> call, Response<loan_item> response) {
 //                try {
 //                    Log.d("Bodybody", response.errorBody().string());
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-                if (response.isSuccessful()){
-                    MaterialDialog();
+                    if (response.isSuccessful()) {
+                        MaterialDialog();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<loan_item> call, Throwable t) {
-                Log.d("ErroronFailure121212", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<loan_item> call, Throwable t) {
+                    Log.d("ErroronFailure121212", t.getMessage());
+                }
+            });
+        }
     }
     private void Editloan(){
         Service api = Client.getClient().create(Service.class);

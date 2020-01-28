@@ -70,7 +70,7 @@ public class one extends Fragment{
     private EditText mName,mPhone_Number,mAddress,mJob,mRelationship,mCo_borrower_Job,mTotal_Income,mTotal_Expense,mNet_Income;
     private EditText mJob_Period,mCo_Job_Period,mDistrict,mCommune,mVillage;
     private TextView mName_alert,mPhone_alert,mAddress_alert,mRelationship_alert,Income_alert,Expense_alert,Netincome_alert;
-    private TextView mJob_Period_alert,mCo_Job_alert,District_alert,mCommune_alert,mVillage_alert,mJob_alert;
+    private TextView mJob_Period_alert,mCo_Job_alert,District_alert,mCommune_alert,mVillage_alert,mJob_alert,mCo_Job_Period_alert;
     private int mProductID;
     private String mPrice;
     private Create_Load createLoad;
@@ -91,6 +91,7 @@ public class one extends Fragment{
     private String[] rJob ;
     private String[] rRela;
     private boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
+    private boolean bNet_income,bDistrict,bCommune,bVillage;
 
     public static one newInstance(int number,String price,int loanid,boolean fromLoan) {
         one fragment = new one();
@@ -305,6 +306,7 @@ public class one extends Fragment{
         mRelationship_alert      = (TextView) view.findViewById(R.id.conspirator_alert);
         mCo_Job_alert            = (TextView) view.findViewById(R.id.Contributors_alert);
         mJob_alert               = (TextView) view.findViewById(R.id.Personal_Occupation_alert);
+        mCo_Job_Period_alert     = (TextView) view.findViewById(R.id.Practicing1_alert);
 
         editext();
 
@@ -394,16 +396,20 @@ public class one extends Fragment{
 //            boolean bCo_borrower = createLoad.RadioCondition(mCo_borrower);
             Log.d("343434343",String.valueOf(editext())+"    "+index);
             if (index == 0){
-                createLoad.requstFocus(bRelationship,mRelationship,mRelationship_alert,"Invalid Relationship");
+                createLoad.requstFocus(bco_Relationship,mRelationship,mRelationship_alert,"Invalid Relationship");
                 createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,"Invalid Co-borrower Job");
-                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mJob_Period_alert,"Invalid Co-borrower Job Period");
+                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mCo_Job_Period_alert,"Invalid Co-borrower Job Period");
             }
             createLoad.requstFocus(bname,mName,mName_alert,"Invalid Name");
             createLoad.requstFocus(baddress,mAddress,mAddress_alert,"Invalid Address");
             createLoad.requstFocus(bJob,mJob,mJob_alert,"Invalid Job");
-            createLoad.requstFocus(bJob_Period,mJob_Period,mJob_alert,"Invalid Job Period");
+            createLoad.requstFocus(bJob_Period,mJob_Period,mJob_Period_alert,"Invalid Job Period");
             createLoad.requstFocus(bTotal_Income,mTotal_Income,Income_alert,"Invalid Income");
             createLoad.requstFocus(bmTotal_Expense,mTotal_Expense,Expense_alert,"Invalid Expense");
+            createLoad.requstFocus(bNet_income,mNet_Income,Netincome_alert,"Invalid NetIncome");
+            createLoad.requstFocus(bDistrict,mDistrict,District_alert,"Invalid District");
+            createLoad.requstFocus(bCommune,mCommune,mCommune_alert,"Invalid Commune");
+            createLoad.requstFocus(bVillage,mVillage,mVillage_alert,"Invalid Village");
             if (editext()){
                 itemOne = new item_one(
                         mName.getText().toString(),
@@ -439,6 +445,10 @@ public class one extends Fragment{
 //        bco_Relationship = createLoad.RadioCondition(mCo_borrower);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);
         bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
+        bNet_income = createLoad.CheckedYear(mNet_Income);
+        bCommune = createLoad.CheckedYear(mCommune);
+        bDistrict = createLoad.CheckedYear(mDistrict);
+        bVillage = createLoad.CheckedYear(mVillage);
         if (index == 0){
             return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense&&bRelationship&&bCo_borrower_Job;
         }else {

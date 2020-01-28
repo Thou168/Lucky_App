@@ -5,13 +5,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,12 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.child.one;
 import com.bt_121shoppe.motorbike.loan.child.two;
@@ -35,21 +29,19 @@ import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.List;
-
 public class Create_Load extends AppCompatActivity implements one.SendItemOne,two.SendItemTwo {
 
-    TextView back;
+    private TextView back;
     private TabLayout tabs;
     private ViewPager viewPager;
     private Pager pager;
-    int count=0;
-    AlertDialog dialog;
-    boolean check=false,mBook_familiy,mPhoto,mCard_work,From_Loan;
-    RadioButton radio3;
-    int product_id,mCardID,mLoandID;
-    String price;
-    Boolean dialogpress;
+    private int count=0;
+    private AlertDialog dialog;
+    private boolean check=false,mBook_familiy,mPhoto,mCard_work,From_Loan;
+    private RadioButton radio3;
+    private int product_id,mCardID,mLoandID;
+    private String price;
+    private Button btnList_Draft;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +65,15 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
 
         back = findViewById(R.id.tv_back);
         back.setOnClickListener(v -> onBackPressed());
+
+        btnList_Draft = findViewById(R.id.list_draft);
+        btnList_Draft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Create_Load.this,Draft_loan.class);
+                startActivity(intent);
+            }
+        });
 
     }
     public void setBack(int position){
@@ -193,23 +194,8 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         if (!b) {
             if(!(editText ==null)) {
                 editText.requestFocus();
-                editText.addTextChangedListener(new TextWatcher() {
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        String st = s.toString();
-                        if (!st.isEmpty()&&s.toString().length()>2){
-                            textView.setText(text);
-                            textView.setTextColor(getColor(R.color.red));
-                        }else {
-                            textView.setText("");
-                        }
-                    }
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    public void afterTextChanged(Editable s) {
-
-                    }
-                });
+                textView.setText(text);
+                textView.setTextColor(getColor(R.color.red));
             }
         }
     }
