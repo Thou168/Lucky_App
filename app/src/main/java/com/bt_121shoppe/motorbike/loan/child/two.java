@@ -53,36 +53,32 @@ import static com.facebook.AccessTokenManager.TAG;
 
 
 public class two extends Fragment {
+
     private static final String ARG_NUMBER = "arg_number";
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
 
-    public SendItemTwo SM;
+    public  SendItemTwo SM;
     private SharedPreferences preferences;
     private String username,password,Encode;
-    private int pk;
-    private Toolbar mToolbar;
-    private TextView mTvName;
-    private Button mBtnNext, mBtnNextWithFinish, mBtnback;
+    private Button mBtnNext,mBtnback;
     private item_one itemOne;
-    private three fragment;
     private Create_Load createLoad;
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
     private EditText mResidence,mProduct_insurance;
     private TextView mLoan_amount_alert,mLoan_Term_alert,mloan_RepaymentType_alert,mLoan_Contributions_alert,mNumber_institution_alert;
     private TextView mMonthly_Amount_Paid_alert,Residence_alert,Product_insurance_alert;
-    private RadioButton radio1,radio2,radio3,radio4;
-    private RadioGroup rgBuying_product_insurance,mAllowto_visit_home;
-    private boolean radioCheck1 = false,radioCheck2 = false;
+    private RadioButton radio1,radio2;
     private item_two itemTwo;
-    private boolean mVisit_home,mBuy_product_insurance,check_return;
     private AlertDialog dialog;
-    private int index=3,index1 = 3;
     private String basicEncode;
-    private int mProductID,mLoanID;
     private String mPrice;
     private String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
+    private int mProductID,mLoanID;
+    private int index=3;
+    private int pk;
+    private boolean mVisit_home,mBuy_product_insurance,check_return;
     private boolean mFromLoan,bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid,bResidence,bProduct_insurance;
     public static two newInstance(int number,String price,int loanid,boolean fromLoan) {
         two fragment = new two();
@@ -125,7 +121,6 @@ public class two extends Fragment {
             pk = preferences.getInt("id", 0);
         }
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
-//        fragment = new three();
         createLoad = (Create_Load)this.getActivity();
         mBtnNext = view.findViewById(R.id.btn_next);
         mBtnback = view.findViewById(R.id.btn_back);
@@ -133,14 +128,14 @@ public class two extends Fragment {
         mBtnback.setOnClickListener(view1 -> createLoad.setBack(0));
         mBtnNext.setOnClickListener(view12 -> {
 
-            createLoad.requstFocus(bLoand_amount,mLoan_amount,mLoan_amount_alert,"Invalid Loan Amount");
-            createLoad.requstFocus(bLoan_Period,mLoan_Term,mLoan_Term_alert,"Invalid Loan Term");
-            createLoad.requstFocus(bPayment_Method,mloan_RepaymentType,mloan_RepaymentType_alert,"Invalid Repayment Type");
-            createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,"Invalid Contributions");
-            createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,"Invalid Number Institutions");
-            createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,"Invalid Monthly Amount");
-            createLoad.requstFocus(bResidence,mResidence,Residence_alert,"Invalid Residence");
-            createLoad.requstFocus(bProduct_insurance,mProduct_insurance,Product_insurance_alert,"Invalid Product Insurance");
+            createLoad.requstFocus(bLoand_amount,mLoan_amount,mLoan_amount_alert,getString(R.string.invalid_loan_amount));
+            createLoad.requstFocus(bLoan_Period,mLoan_Term,mLoan_Term_alert,getString(R.string.invalid_loan_term));
+            createLoad.requstFocus(bPayment_Method,mloan_RepaymentType,mloan_RepaymentType_alert,getString(R.string.invalid_repayment_type));
+            createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,getString(R.string.invalid_contributions));
+            createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,getString(R.string.invalid_number_institutions));
+            createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,getString(R.string.invalid_monthly_amount));
+            createLoad.requstFocus(bResidence,mResidence,Residence_alert,getString(R.string.invalid_residence));
+            createLoad.requstFocus(bProduct_insurance,mProduct_insurance,Product_insurance_alert,getString(R.string.invalid_product_insurance));
 
             if (checkEd()){
             itemTwo = new item_two(Float.parseFloat(
@@ -154,7 +149,6 @@ public class two extends Fragment {
             SM.sendItemTwo(itemTwo,2);
             }
         });
-//        mLoan_amount.setText(cuteString(mPrice,0));
     }
     private void initView(View view) {
 
@@ -163,7 +157,6 @@ public class two extends Fragment {
         Log.e("90909090909","Current language is "+language);
 
         String[] values = getResources().getStringArray(R.array.repayment);
-        String[] institution = getResources().getStringArray(R.array.institute);
 
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
@@ -231,14 +224,12 @@ public class two extends Fragment {
     public int AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle(getString(R.string.choose_item));
-        int checkedItem = 0; //this will checked the item when user open the dialog
+        int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             index = which;
-//            Toast.makeText(this, "Position: " + which + " Value: " + items[which], Toast.LENGTH_LONG).show();
             editText.setText(items[which]);
             dialog.dismiss();
         });
-//        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
         dialog = builder.create();
         dialog.show();
         return index;
@@ -269,7 +260,6 @@ public class two extends Fragment {
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            //noinspection EmptyCatchBlock
             try {
                 int input = Integer.parseInt(dest.subSequence(0, dstart).toString() + source + dest.subSequence(dend, dest.length()));
                 if (isInRange(min, max, input))

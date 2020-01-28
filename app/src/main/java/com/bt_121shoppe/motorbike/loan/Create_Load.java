@@ -35,10 +35,8 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     private TabLayout tabs;
     private ViewPager viewPager;
     private Pager pager;
-    private int count=0;
     private AlertDialog dialog;
-    private boolean check=false,mBook_familiy,mPhoto,mCard_work,From_Loan;
-    private RadioButton radio3;
+    private boolean From_Loan;
     private int product_id,mCardID,mLoandID;
     private String price;
     private Button btnList_Draft;
@@ -56,7 +54,6 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         viewPager.setAdapter(pager);
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-//        setUpPager();
         Intent intent = getIntent();
         product_id = intent.getIntExtra("product_id",0);
         mLoandID = intent.getIntExtra("LoanID",0);
@@ -102,65 +99,6 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     }
     public boolean CheckedYear(EditText editText){
         return (!editText.getText().toString().isEmpty() && editText.getText().toString().length()>0);
-    }
-    public void Condition(EditText editText){
-        editText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String st = s.toString();
-                if (!st.isEmpty()&&s.toString().length()>2){
-
-                }else {
-
-            }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-    }
-    public boolean RadioCondition(RadioGroup radioGroup){
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            View radioButton = radioGroup.findViewById(checkedId);
-            int index = radioGroup.indexOfChild(radioButton);
-            radio3 = radioGroup.findViewById(checkedId);
-            if (radio3.getText().toString().isEmpty()){
-                check = false;
-            }else {
-                check = true;
-            }
-        });
-        return check;
-    }
-
-    private void dialog_leaveLoan() {
-        LayoutInflater factory = LayoutInflater.from(this);
-        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
-        final AlertDialog clearDialog = new AlertDialog.Builder(this).create();
-        clearDialog.setView(clearDialogView);
-        TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
-        Mssloan.setText(R.string.back_message);
-        Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
-        btnYes.setText(R.string.yes_leave);
-        Button btnNo = clearDialogView.findViewById(R.id.button_negative);
-        btnNo.setText(R.string.no_leave);
-        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearDialog.dismiss();
-            }
-        });
-        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        clearDialog.show();
     }
 
     @Override

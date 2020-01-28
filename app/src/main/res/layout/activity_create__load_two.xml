@@ -44,7 +44,7 @@
                 android:id="@+id/etLoan_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
@@ -78,7 +78,7 @@
                 android:id="@+id/etBorrowing_period"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
@@ -117,7 +117,7 @@
                 android:layout_marginBottom="@dimen/dp_8"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:focusable="false"
-                android:hint="Select"
+                android:hint="@string/select"
                 android:textSize="12dp" />
             <TextView
                 android:id="@+id/Payment_Method_alert"
@@ -137,6 +137,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:text="@string/deposit_amount"/>
@@ -144,11 +145,12 @@
                 android:id="@+id/etLoan_contributions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:inputType="number"
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:textSize="12dp" />
             <TextView
                 android:id="@+id/Loan_contributions_alert"
@@ -171,6 +173,7 @@
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:textSize="12dp" />
 
             <EditText
@@ -180,7 +183,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:inputType="text"
                 android:textSize="12dp" />
             <TextView
@@ -201,7 +204,7 @@
                 android:text="@string/allow_officer"
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:textColor="#000"
                 android:textSize="12dp" />
@@ -213,7 +216,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:inputType="text"
                 android:textSize="12dp" />
             <TextView
@@ -234,6 +237,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:text="@string/number_lending"/>
@@ -244,7 +248,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:inputType="number"
                 android:textSize="12dp" />
             <TextView
@@ -266,6 +270,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:text="@string/monthly_payment"/>
@@ -273,7 +278,7 @@
                 android:id="@+id/et_monthly_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter information"
+                android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"

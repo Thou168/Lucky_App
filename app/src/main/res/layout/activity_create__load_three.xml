@@ -11,12 +11,11 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:padding="5dp"
-            android:layout_below="@+id/toolbar"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:text="Borrow information"
+                android:text="@string/borrow_information"
                 android:textSize="@dimen/dp_16"
                 android:textStyle="bold"
                 android:textColor="#000"
@@ -174,7 +173,7 @@
                     android:text="@string/borrow_no" />
             </RadioGroup>
             <TextView
-                android:text="Co-Borrower Information"
+                android:text="@string/co_borrower_information"
                 android:textSize="@dimen/dp_16"
                 android:textStyle="bold"
                 android:textColor="#000"
@@ -344,7 +343,7 @@
                    android:layout_width="150dp"
                    android:layout_height="38dp"
                    android:textAllCaps="false"
-                   android:text="Save Draft"
+                   android:text="@string/save_draft"
                    android:textColor="@color/white"
                    android:layout_marginTop="@dimen/dp_16"
                    android:layout_marginBottom="@dimen/dp_16"

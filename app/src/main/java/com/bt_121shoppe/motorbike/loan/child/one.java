@@ -56,13 +56,13 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class one extends Fragment{
+
     private static final String ARG_NUMBER = "arg_number";
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
-    private final Handler handler = new Handler();
 
-    public SendItemOne SM;
+    public  SendItemOne SM;
     private Button mBtnNext;
     private LinearLayout relative_conspirator;
     private RadioButton radio1,radio2,radio3;
@@ -71,25 +71,24 @@ public class one extends Fragment{
     private EditText mJob_Period,mCo_Job_Period,mDistrict,mCommune,mVillage;
     private TextView mName_alert,mPhone_alert,mAddress_alert,mRelationship_alert,Income_alert,Expense_alert,Netincome_alert;
     private TextView mJob_Period_alert,mCo_Job_alert,District_alert,mCommune_alert,mVillage_alert,mJob_alert,mCo_Job_Period_alert;
-    private int mProductID;
-    private String mPrice;
     private Create_Load createLoad;
+    private AlertDialog dialog;
     private item_one itemOne;
-    private int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
-    boolean radioCheck = false,Co_borrower,mFromLoan;
+    private List<province_Item> listData;
 
     private SharedPreferences preferences;
     private String username,password,Encode;
-    private int pk;
-    private loan_item loanItem;
     private String basicEncode,currentLanguage;
-    private List<province_Item> listData;
+    private String mPrice;
     private String[] provine = new String[28];
-    private AlertDialog dialog;
     private String[] Job = {"seller","state staff","private company staff","service provider","other",""};
     private String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
     private String[] rJob ;
     private String[] rRela;
+    private int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
+    private int mProductID;
+    private int pk;
+    private boolean radioCheck = false,Co_borrower,mFromLoan;
     private boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
     private boolean bNet_income,bDistrict,bCommune,bVillage;
 
@@ -224,9 +223,7 @@ public class one extends Fragment{
                     mName.setText(response.body().getFirst_name());
                 }
                 String stphone = response.body().getProfile().getTelephone();
-
                 mPhone_Number.setText(method(stphone));
-//               mPhone_Number.setText(response.body().getProfile().getTelephone());
             }
 
             @Override
@@ -291,7 +288,7 @@ public class one extends Fragment{
         radio1        = (RadioButton) view.findViewById(R.id.radio1);
         radio2        = (RadioButton) view.findViewById(R.id.radio2);
 
-        mBtnNext         = (Button) view.findViewById(R.id.btn_next);
+        mBtnNext      = (Button) view.findViewById(R.id.btn_next);
 
         mName_alert              = (TextView) view.findViewById(R.id.name_alert);
         mPhone_alert             = (TextView) view.findViewById(R.id.phone_alert);
@@ -314,7 +311,6 @@ public class one extends Fragment{
             View radioButton = mCo_borrower.findViewById(checkedId);
             index = mCo_borrower.indexOfChild(radioButton);
             radio3 = mCo_borrower.findViewById(checkedId);
-            // dd logic here
             switch (index) {
                 case 0: // first button
                     relative_conspirator.setVisibility(View.VISIBLE);
@@ -393,23 +389,21 @@ public class one extends Fragment{
             public void afterTextChanged(Editable s) { }
         });
         mBtnNext.setOnClickListener(view3 -> {
-//            boolean bCo_borrower = createLoad.RadioCondition(mCo_borrower);
-            Log.d("343434343",String.valueOf(editext())+"    "+index);
             if (index == 0){
-                createLoad.requstFocus(bco_Relationship,mRelationship,mRelationship_alert,"Invalid Relationship");
-                createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,"Invalid Co-borrower Job");
-                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mCo_Job_Period_alert,"Invalid Co-borrower Job Period");
+                createLoad.requstFocus(bco_Relationship,mRelationship,mRelationship_alert,getString(R.string.invalid_relationship));
+                createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,getString(R.string.invalid_co_borrower_job));
+                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mCo_Job_Period_alert,getString(R.string.invalid_co_borrower_job_period));
             }
-            createLoad.requstFocus(bname,mName,mName_alert,"Invalid Name");
-            createLoad.requstFocus(baddress,mAddress,mAddress_alert,"Invalid Address");
-            createLoad.requstFocus(bJob,mJob,mJob_alert,"Invalid Job");
-            createLoad.requstFocus(bJob_Period,mJob_Period,mJob_Period_alert,"Invalid Job Period");
-            createLoad.requstFocus(bTotal_Income,mTotal_Income,Income_alert,"Invalid Income");
-            createLoad.requstFocus(bmTotal_Expense,mTotal_Expense,Expense_alert,"Invalid Expense");
-            createLoad.requstFocus(bNet_income,mNet_Income,Netincome_alert,"Invalid NetIncome");
-            createLoad.requstFocus(bDistrict,mDistrict,District_alert,"Invalid District");
-            createLoad.requstFocus(bCommune,mCommune,mCommune_alert,"Invalid Commune");
-            createLoad.requstFocus(bVillage,mVillage,mVillage_alert,"Invalid Village");
+            createLoad.requstFocus(bname,mName,mName_alert,getString(R.string.invalid_name));
+            createLoad.requstFocus(baddress,mAddress,mAddress_alert,getString(R.string.invalid_address));
+            createLoad.requstFocus(bJob,mJob,mJob_alert,getString(R.string.invalid_job));
+            createLoad.requstFocus(bJob_Period,mJob_Period,mJob_Period_alert,getString(R.string.invalid_job_period));
+            createLoad.requstFocus(bTotal_Income,mTotal_Income,Income_alert,getString(R.string.invalid_income));
+            createLoad.requstFocus(bmTotal_Expense,mTotal_Expense,Expense_alert,getString(R.string.invalid_expense));
+            createLoad.requstFocus(bNet_income,mNet_Income,Netincome_alert,getString(R.string.invalid_net_income));
+            createLoad.requstFocus(bDistrict,mDistrict,District_alert,getString(R.string.invalid_district));
+            createLoad.requstFocus(bCommune,mCommune,mCommune_alert,getString(R.string.invalid_commune));
+            createLoad.requstFocus(bVillage,mVillage,mVillage_alert,getString(R.string.invalid_village));
             if (editext()){
                 itemOne = new item_one(
                         mName.getText().toString(),
@@ -442,7 +436,6 @@ public class one extends Fragment{
         bRelationship = createLoad.Checked(mRelationship);
         bCo_borrower_Job = createLoad.CheckedYear(mCo_borrower_Job);
         bCo_Job_Period = createLoad.CheckedYear(mCo_Job_Period);
-//        bco_Relationship = createLoad.RadioCondition(mCo_borrower);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);
         bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
         bNet_income = createLoad.CheckedYear(mNet_Income);
@@ -478,7 +471,6 @@ public class one extends Fragment{
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            //noinspection EmptyCatchBlock
             try {
                 int input = Integer.parseInt(dest.subSequence(0, dstart).toString() + source + dest.subSequence(dend, dest.length()));
                 if (isInRange(min, max, input))
@@ -500,7 +492,6 @@ public class one extends Fragment{
                 if (!response.isSuccessful()){
                     Log.d("5555555555555555",response.code()+"");
                 }
-//                mName.setText(response.body());
                 mName.setText(response.body().getUsername());
                 mPhone_Number.setText(response.body().getTelephone());
                 mDistrict.setText(response.body().getDistrmict());

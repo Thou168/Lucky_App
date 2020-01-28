@@ -1,7 +1,9 @@
 package com.bt_121shoppe.motorbike.loan.child;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
@@ -41,39 +44,28 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class three extends Fragment {
+
     private static final String ARG_NUMBER = "arg_number";
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
 
-    private Toolbar mToolbar;
-    private TextView mTvName;
-    private Button mBtnSubmit, mBtnNextWithFinish,mBtnSaveDraft;
-
-    private Button btn_positive;
-    private Button btn_negative;
-
-    private int mNumber,index = 3;
-    private AlertDialog dialog;
+    private Button mBtnSubmit,mBtnSaveDraft;
     private RadioGroup etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
     private RadioButton rdID_card_yes,rdFamily_book_yes,rdPhotos_yes,rdEmployment_card_yes,rdID_card1_yes,rdFamily_book1_yes,rdPhotos1_yes,rdEmployment_card1_yes;
     private RadioButton rdID_card_no,rdFamily_book_no,rdPhotos_no,rdEmployment_card_no,rdID_card1_no,rdFamily_book1_no,rdPhotos1_no,rdEmployment_card1_no;
-    private Create_Load createLoad;
     private item_two itemTwo;
-
     private SharedPreferences preferences;
+    private ProgressDialog mProgress;
     private String username,password,Encode,language;
-    private int pk;
-    private int i = -1;
     private loan_item loanItem;
     private String basicEncode;
-    private boolean mFromLoan;
-    private int mProductID,mLoanID;
     private String mPrice;
-    boolean ischeck;
-    boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
-    boolean bID_Card,bFramily_Book,bPhotos,bEmployment_card,bID_Card1,bFramily_Book1,bPhotos1,bEmployment_card1;
-    private ProgressDialog mProgress;
+    private int mProductID,mLoanID;
+    private int pk;
+    private int index = 3;
+    private boolean mFromLoan;
+    private boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
     public static three newInstance(int number,String price,int loanid,boolean fromLoan) {
         three fragment = new three();
         Bundle args = new Bundle();
@@ -102,12 +94,9 @@ public class three extends Fragment {
             mFromLoan = args.getBoolean(FROMLOAN);
             Log.e("Fragment Three",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
         }
-        createLoad = (Create_Load)this.getActivity();
         initView(view);
         mBtnSaveDraft = view.findViewById(R.id.btn_back);
         mBtnSubmit = view.findViewById(R.id.btn_submit);
-        btn_positive = view.findViewById(R.id.button_positive);
-        btn_negative = view.findViewById(R.id.button_negative);
         mProgress = new ProgressDialog(getContext());
         mProgress.setMessage(getString(R.string.update));
         mProgress.setCancelable(false);
@@ -125,10 +114,10 @@ public class three extends Fragment {
             TextView name    = (TextView) clearDialogView.findViewById(R.id.tv_draft);
             Button btnSave   = (Button) clearDialogView.findViewById(R.id.btnSave);
             Button btnCancel = (Button) clearDialogView.findViewById(R.id.btnCancel);
-            title.setText("Save Draft");
+            title.setText(getString(R.string.save_draft));
             name.setText(getString(R.string.name));
             btnCancel.setText(getString(R.string.cancel));
-            btnSave.setText("Save");
+            btnSave.setText(getString(R.string.save));
             clearDialogView.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -147,11 +136,24 @@ public class three extends Fragment {
         mBtnSubmit.setOnClickListener(v -> {
                 Log.e("From Loan",String.valueOf(mFromLoan));
                 if (mFromLoan){
-                    Editloan();
+//                    Editloan();
                     dialog_Editloan();
                 }else {
                     Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
-                    putapi();
+                    if (itemTwo != null) {
+                        putapi();
+                    }else {
+                        android.app.AlertDialog builder = new android.app.AlertDialog.Builder(getContext()).create();
+                        builder.setMessage(getString(R.string.please_fill_information));
+                        builder.setCancelable(false);
+                        builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                builder.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }
                 }
         });
 
@@ -166,45 +168,36 @@ public class three extends Fragment {
             pk = preferences.getInt("id", 0);
         }
 
-//        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,1,itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),pk,202,1,202,null,null,itemTwo.getItemOne().getName(),null,null,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getAddress(),createLoad.Checked_Radio(),);
-
     }
 
     private void putapi(){
         Service api1 = Client.getClient().create(Service.class);
-        if (itemTwo != null) {
-            loanItem = new loan_item(itemTwo.getLoan_Amount(), 0, Integer.parseInt(itemTwo.getLoan_Term()),
-                    itemTwo.getItemOne().getTotal_Income(), itemTwo.getItemOne().getTotal_Expense(), 9, 1,
-                    pk, itemTwo.getItemOne().getmProductId(), pk, pk, null, itemTwo.getItemOne().getName(), null,
-                    0, itemTwo.getItemOne().getJob(), itemTwo.getItemOne().getPhone_Number(), itemTwo.getItemOne().getProvince(),
-                    itemTwo.getItemOne().getDistrict(), itemTwo.getItemOne().getCommune(), itemTwo.getItemOne().getVillage(), mCard_ID,
-                    mFamily_Book, mCard_Work, mPhoto, itemTwo.getItemOne().getmProvinceID(), itemTwo.getItemOne().getJob(),
-                    itemTwo.getItemOne().getJob_Period(), itemTwo.getLoan_RepaymentType(), itemTwo.getDeposit_Amount(), itemTwo.getBuying_InsuranceProduct(),
-                    itemTwo.getAllow_visito_home(), Integer.parseInt(itemTwo.getNumber_institution()), mCard_ID1, mFamily_Book1, mPhoto1, mCard_Work1,
-                    itemTwo.getItemOne().getRelationship(), itemTwo.getItemOne().getCo_borrower_Job(), itemTwo.getItemOne().getCo_Job_Period(),
-                    itemTwo.getItemOne().isCo_borrower(), Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
+        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
+                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
+                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,
+                0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
+                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,
+                mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),
+                itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),
+                itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,
+                itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),
+                itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()));
 //        loanItem = new loan_item(158,1200,0,3,"Test",1,1,"Thou","male",19,"Student",600,300,"1234567","st 273",true,false,
 //        true,false,2,"185","null",185,null,null,null,null,202,7,null,null,null,"seller","2","1",false,true,4,"1234",false,false,true,false,true);
-            Call<loan_item> call = api1.setCreateLoan(loanItem, basicEncode);
-            call.enqueue(new Callback<loan_item>() {
-                @Override
-                public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-//                try {
-//                    Log.d("Bodybody", response.errorBody().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                    if (response.isSuccessful()) {
-                        MaterialDialog();
-                    }
+        Call<loan_item> call = api1.setCreateLoan(loanItem,basicEncode);
+        call.enqueue(new Callback<loan_item>() {
+            @Override
+            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                if (response.isSuccessful()){
+                    MaterialDialog();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<loan_item> call, Throwable t) {
-                    Log.d("ErroronFailure121212", t.getMessage());
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<loan_item> call, Throwable t) {
+                Log.d("ErroronFailure121212", t.getMessage());
+            }
+        });
     }
     private void Editloan(){
         Service api = Client.getClient().create(Service.class);
@@ -230,11 +223,6 @@ public class three extends Fragment {
                         e.printStackTrace();
                     }
                 }
-//                try {
-//                    Log.e("EditLoan",response.errorBody().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             }
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) {
@@ -257,7 +245,6 @@ public class three extends Fragment {
         });
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
             Editloan();
-//            clearDialog.dismiss();
             mProgress.show();
             getActivity().finish();
         });

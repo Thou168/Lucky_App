@@ -26,7 +26,7 @@
                 android:textColor="#000"
                 android:textStyle="bold"
                 android:textSize="@dimen/dp_16"
-                android:text="Private Information"/>
+                android:text="@string/private_information"/>
 
             <TextView
                 android:id="@+id/tv_name"
@@ -45,7 +45,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:inputType="text"
                 android:focusable="false"
                 android:textSize="12dp" />
@@ -75,7 +75,7 @@
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
@@ -112,7 +112,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Select"
+                android:hint="@string/select"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:textSize="12dp"/>
             <TextView
@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
-                android:hint="Select"
+                android:hint="@string/select"
                 android:focusable="false"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
@@ -176,7 +176,7 @@
                 android:layout_height="match_parent"
                 android:inputType="text"
                 android:focusable="false"
-                android:hint="Select"
+                android:hint="@string/select"
                 android:id="@+id/edCommune"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
@@ -209,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
-                android:hint="Select"
+                android:hint="@string/select"
                 android:focusable="false"
                 android:id="@+id/edvillage"
                 android:layout_marginStart="@dimen/dp_8"
@@ -247,7 +247,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Select"
+                android:hint="@string/select"
                 android:inputType="number"
                 android:textSize="12dp" />
             <TextView
@@ -278,7 +278,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:inputType="number"
                 android:textSize="12dp" />
             <TextView
@@ -306,7 +306,7 @@
                 android:id="@+id/etTotal_income_borrowers"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
@@ -338,7 +338,7 @@
                 android:id="@+id/etTotal_cost_borrowers"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
@@ -373,7 +373,7 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:inputType="number"
                 android:textSize="12dp" />
             <TextView
@@ -449,7 +449,7 @@
                     android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:hint="Select"
+                    android:hint="@string/select"
                     android:inputType="number"
                     android:textSize="14dp" />
                 <TextView
@@ -482,7 +482,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:hint="Select"
+                    android:hint="@string/select"
                     android:inputType="number"
                     android:textSize="12dp" />
                 <TextView
@@ -513,7 +513,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:hint="Enter your information"
+                    android:hint="@string/enter_information"
                     android:inputType="number"
                     android:textSize="12dp" />
                 <TextView
