@@ -121,27 +121,6 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         });
 
     }
-    public void ConditionYear(EditText editText){
-        editText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String st = s.toString();
-                //do your work here
-                if (!st.isEmpty()){
-
-                }
-                else {
-
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-    }
     public boolean RadioCondition(RadioGroup radioGroup){
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             View radioButton = radioGroup.findViewById(checkedId);
@@ -214,10 +193,23 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         if (!b) {
             if(!(editText ==null)) {
                 editText.requestFocus();
-                textView.setText(text);
-                textView.setTextColor(getColor(R.color.red));
-            }else{
-                editText.setText("");
+                editText.addTextChangedListener(new TextWatcher() {
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String st = s.toString();
+                        if (!st.isEmpty()&&s.toString().length()>2){
+                            textView.setText(text);
+                            textView.setTextColor(getColor(R.color.red));
+                        }else {
+                            textView.setText("");
+                        }
+                    }
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
             }
         }
     }

@@ -138,7 +138,8 @@ public class two extends Fragment {
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,"Invalid Number Institutions");
             createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,"Invalid Monthly Amount");
 
-//            if (checkEd()){
+
+            if (checkEd()){
             itemTwo = new item_two(Float.parseFloat(
                     mLoan_amount.getText().toString()),
                     mLoan_Term.getText().toString(),
@@ -148,7 +149,7 @@ public class two extends Fragment {
                     mNumber_institution.getText().toString(),
                     mMonthly_Amount_Paid.getText().toString(),itemOne);
             SM.sendItemTwo(itemTwo,2);
-//            }
+            }
         });
 //        mLoan_amount.setText(cuteString(mPrice,0));
     }
@@ -159,18 +160,21 @@ public class two extends Fragment {
         Log.e("90909090909","Current language is "+language);
 
         String[] values = getResources().getStringArray(R.array.repayment);
+        String[] institution = getResources().getStringArray(R.array.institute);
 
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
         mLoan_Term.setFilters(new InputFilter[]{new InputFilterMinMax(1,36)});
         mloan_RepaymentType =view.findViewById(R.id.etPayment_Method);
+        mNumber_institution = view.findViewById(R.id.etNumber_debt);
+        mMonthly_Amount_Paid = view.findViewById(R.id.et_monthly_payment);
 
         mLoan_amount_alert = view.findViewById(R.id.loan_amount_alert);
         mloan_RepaymentType_alert = view.findViewById(R.id.Payment_Method_alert);
-        mLoan_Term_alert = view.findViewById(R.id.Borrowing_period_alert);
-        mLoan_Contributions_alert = view.findViewById(R.id.Loan_contributions_alert);
-        mNumber_institution_alert = view.findViewById(R.id.Number_debt_alert);
         mMonthly_Amount_Paid_alert = view.findViewById(R.id.monthly_payment_alert);
+        mNumber_institution_alert = view.findViewById(R.id.Number_debt_alert);
+        mLoan_Contributions_alert = view.findViewById(R.id.Loan_contributions_alert);
+        mLoan_Term_alert = view.findViewById(R.id.Borrowing_period_alert);
 
 
         mloan_RepaymentType.setOnClickListener(v -> {
@@ -214,27 +218,6 @@ public class two extends Fragment {
             });
         }
 
-        mNumber_institution = view.findViewById(R.id.etNumber_debt);
-        mMonthly_Amount_Paid = view.findViewById(R.id.et_monthly_payment);
-//        mNumber_institution.setOnClickListener(v -> {
-//            createLoad.AlertDialog(institution,mNumber_institution);
-//        });
-        mNumber_institution.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mNumber_institution.getText().toString().equals("0")||mNumber_institution.getText().toString().equals("០")){
-                    mMonthly_Amount_Paid.setText("0");
-                    check_return = false;
-                }else {
-                    check_return = true;
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
         radio1 = view.findViewById(R.id.radio1);
         radio2 = view.findViewById(R.id.radio2);
     }
@@ -258,19 +241,13 @@ public class two extends Fragment {
         return separated[indext];
     }
     private boolean checkEd(){
-
         bLoand_amount = createLoad.CheckedYear(mLoan_amount);
         bLoan_Period = createLoad.CheckedYear(mLoan_Term);
         bPayment_Method = createLoad.Checked(mloan_RepaymentType);
         bLoan_Contributions = createLoad.CheckedYear(mLoan_Contributions);
         bNumber_institution = createLoad.CheckedYear(mNumber_institution);
         bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
-
-        if (check_return){
-            return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution&&bMonthly_Amount_Paid;
-        }else {
-            return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&radioCheck1&&radioCheck2&&bNumber_institution;
-        }
+        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid;
     }
     public class InputFilterMinMax implements InputFilter {
         private int min;

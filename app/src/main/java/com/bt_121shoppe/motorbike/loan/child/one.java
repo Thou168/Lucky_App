@@ -136,7 +136,6 @@ public class one extends Fragment{
         }
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 
-        relative_conspirator = view.findViewById(R.id.relative_conspirator);
         SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         currentLanguage = preferences.getString("My_Lang", "");
 
@@ -204,8 +203,6 @@ public class one extends Fragment{
                 }
             });
         }
-        radio1 = (RadioButton) view.findViewById(R.id.radio1);
-        radio2 = (RadioButton) view.findViewById(R.id.radio2);
         getprovince();
     }
     public String method(String str) {
@@ -287,7 +284,11 @@ public class one extends Fragment{
         mTotal_Expense   = (EditText) view.findViewById(R.id.etTotal_cost_borrowers);
         mNet_Income      = (EditText) view.findViewById(R.id.et_total);
 
-        mCo_borrower     = (RadioGroup) view.findViewById(R.id.radio_group);
+        relative_conspirator = (LinearLayout) view.findViewById(R.id.relative_conspirator);
+
+        mCo_borrower  = (RadioGroup)  view.findViewById(R.id.radio_group);
+        radio1        = (RadioButton) view.findViewById(R.id.radio1);
+        radio2        = (RadioButton) view.findViewById(R.id.radio2);
 
         mBtnNext         = (Button) view.findViewById(R.id.btn_next);
 
@@ -330,6 +331,7 @@ public class one extends Fragment{
                     Co_borrower = false;
                     break;
             }
+            Log.e("Index",""+index);
         });
         mJob.setOnClickListener(v -> {
             createLoad.AlertDialog(rJob,mJob);
@@ -390,20 +392,16 @@ public class one extends Fragment{
         });
         mBtnNext.setOnClickListener(view3 -> {
 //            boolean bCo_borrower = createLoad.RadioCondition(mCo_borrower);
-//            Log.d("343434343",String.valueOf(editext())+"    "+index);
-//            if (index == 1){
-//                createLoad.requstFocus(bRelationship,null,mRelationship_alert,"Invalid Relationship");
-//                createLoad.requstFocus(bCo_borrower_Job,null,mCo_Job_alert,"Invalid Co-borrower Job");
-//                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mJob_Period_alert,"Invalid Co-borrower Job Period");
-//            }
-//            if (!(index == 0|| index == 1)){
-//
-//            }
+            Log.d("343434343",String.valueOf(editext())+"    "+index);
+            if (index == 0){
+                createLoad.requstFocus(bRelationship,mRelationship,mRelationship_alert,"Invalid Relationship");
+                createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,"Invalid Co-borrower Job");
+                createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mJob_Period_alert,"Invalid Co-borrower Job Period");
+            }
             createLoad.requstFocus(bname,mName,mName_alert,"Invalid Name");
             createLoad.requstFocus(baddress,mAddress,mAddress_alert,"Invalid Address");
             createLoad.requstFocus(bJob,mJob,mJob_alert,"Invalid Job");
             createLoad.requstFocus(bJob_Period,mJob_Period,mJob_alert,"Invalid Job Period");
-            createLoad.requstFocus(bRelationship,mRelationship,mRelationship_alert,"Invalid Relationship");
             createLoad.requstFocus(bTotal_Income,mTotal_Income,Income_alert,"Invalid Income");
             createLoad.requstFocus(bmTotal_Expense,mTotal_Expense,Expense_alert,"Invalid Expense");
             if (editext()){
@@ -437,7 +435,8 @@ public class one extends Fragment{
         bJob_Period = createLoad.CheckedYear(mJob_Period);
         bRelationship = createLoad.Checked(mRelationship);
         bCo_borrower_Job = createLoad.CheckedYear(mCo_borrower_Job);
-        bRelationship = createLoad.RadioCondition(mCo_borrower);
+        bCo_Job_Period = createLoad.CheckedYear(mCo_Job_Period);
+//        bco_Relationship = createLoad.RadioCondition(mCo_borrower);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);
         bmTotal_Expense = createLoad.CheckedYear(mTotal_Expense);
         if (index == 0){
