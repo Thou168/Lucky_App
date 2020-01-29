@@ -127,7 +127,7 @@ public class two extends Fragment {
 
         mBtnback.setOnClickListener(view1 -> createLoad.setBack(0));
         mBtnNext.setOnClickListener(view12 -> {
-
+            checkEd();
             createLoad.requstFocus(bLoand_amount,mLoan_amount,mLoan_amount_alert,getString(R.string.invalid_loan_amount));
             createLoad.requstFocus(bLoan_Period,mLoan_Term,mLoan_Term_alert,getString(R.string.invalid_loan_term));
             createLoad.requstFocus(bPayment_Method,mloan_RepaymentType,mloan_RepaymentType_alert,getString(R.string.invalid_repayment_type));
@@ -247,7 +247,7 @@ public class two extends Fragment {
         bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
         bResidence           = createLoad.CheckedYear(mResidence);
         bProduct_insurance   = createLoad.CheckedYear(mProduct_insurance);
-        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid;
+        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid&&bResidence&&bProduct_insurance;
     }
     public class InputFilterMinMax implements InputFilter {
         private int min;

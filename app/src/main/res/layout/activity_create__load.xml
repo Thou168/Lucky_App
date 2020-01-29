@@ -20,8 +20,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/loan_form"
-                android:textStyle="bold"
                 android:textColor="#fff"
+                android:textSize="@dimen/dp_16"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/dp_16"
                 android:drawableLeft="@drawable/arrow_backspace"/>

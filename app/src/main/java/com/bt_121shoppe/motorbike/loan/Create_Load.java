@@ -135,6 +135,8 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
                 textView.setText(text);
                 textView.setTextColor(getColor(R.color.red));
             }
+        }else {
+            textView.setText("");
         }
     }
 

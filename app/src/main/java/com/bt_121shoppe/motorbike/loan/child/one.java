@@ -389,6 +389,7 @@ public class one extends Fragment{
             public void afterTextChanged(Editable s) { }
         });
         mBtnNext.setOnClickListener(view3 -> {
+            editext();
             if (index == 0){
                 createLoad.requstFocus(bco_Relationship,mRelationship,mRelationship_alert,getString(R.string.invalid_relationship));
                 createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,getString(R.string.invalid_co_borrower_job));
