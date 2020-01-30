@@ -233,7 +233,6 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                         intent.putExtra("categoryID",categoryID);
                         intent.putExtra("typeID",typeID);
                         startActivity(intent);
-
                     }
                 } else {
                     Intent intent = new Intent(FragmentMap.this, CreateShop.class);
@@ -303,7 +302,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_map));
 
         mMap = googleMap;
         LatLng current_location = new LatLng(latitude, longtitude);
@@ -323,7 +322,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
             public void onMapClick(LatLng latLng) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_1));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_map));
                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 latitude = latLng.latitude;
                 longtitude = latLng.longitude;

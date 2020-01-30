@@ -118,7 +118,7 @@
             <EditText
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Enter your name"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
@@ -150,7 +150,7 @@
             <EditText
                 android:id="@+id/et_gender"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Select your gender"
                 android:layout_marginTop="@dimen/dp_8"
                 android:maxLength="10"
@@ -185,10 +185,11 @@
                 <EditText
                     android:id="@+id/et_phone"
                     android:layout_below="@+id/tv_phone"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:inputType="number"
                     android:hint="099 000 000"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
                     android:maxLength="10"
                     android:textSize="14sp"
@@ -249,10 +250,11 @@
                 <EditText
                     android:id="@+id/et_phone1"
                     android:layout_below="@+id/tv_phone1"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:inputType="number"
                     android:hint="099 000 000"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
                     android:maxLength="10"
                     android:textSize="14sp"
@@ -299,11 +301,12 @@
                 <EditText
                     android:id="@+id/et_phone2"
                     android:layout_below="@+id/tv_phone2"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:inputType="number"
                     android:hint="099 000 000"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:maxLength="10"
                     android:textSize="14sp"
                     android:layout_marginStart="@dimen/dp_16" />
@@ -346,7 +349,7 @@
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="example123@gmail.com"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
@@ -378,7 +381,7 @@
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Enter your password"
                 android:layout_marginTop="@dimen/dp_8"
                 android:maxLength="10"
@@ -411,7 +414,7 @@
             <EditText
                 android:id="@+id/et_re_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Enter your re-password"
                 android:layout_marginTop="@dimen/dp_8"
                 android:maxLength="10"
@@ -445,10 +448,11 @@
                 <EditText
                     android:id="@+id/et_date"
                     android:layout_below="@+id/tv_date"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:hint="Select"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:textSize="14sp"
                     android:layout_marginStart="@dimen/dp_16" />
                 <ImageView
@@ -493,7 +497,7 @@
                 android:visibility="gone"
                 android:id="@+id/et_wing_account"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Enter your account"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
@@ -528,7 +532,7 @@
                 android:visibility="gone"
                 android:id="@+id/et_wing_number"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Enter your number"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
@@ -561,7 +565,7 @@
             <EditText
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:hint="Enter your information"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
@@ -594,9 +598,10 @@
                 <EditText
                     android:id="@+id/et_map"
                     android:layout_below="@+id/tv_map"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:textSize="14sp"
                     android:layout_marginStart="@dimen/dp_16" />
                 <ImageView

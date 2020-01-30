@@ -200,6 +200,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private RelativeLayout layout_phone1,layout_phone2;
     private LinearLayout layout_estimate;
     private GridView gridView;
+    private LocationManager locationManager;
+    private double latitude,longtitude;
 
     private SeekBar seekbar_pri_per,seekbar_rear,seekbar_screw,seekbar_pumps,seekbar_rigt_engine,seekbar_engine_head;
     private SeekBar seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
@@ -446,6 +448,9 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                 }
             });
+        }else {
+            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            getLocation(true);
         }
 
         imageView1.setOnClickListener(new View.OnClickListener() {
@@ -3363,6 +3368,40 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     @Override
     public void onItemType(String item) {
         tvPostType.setText(item);
+    }
+
+    private void getLocation(boolean isCurent) {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        }else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location!=null){
+                if(isCurent) {
+                    latitude = location.getLatitude();
+                    longtitude = location.getLongitude();
+                }
+
+                try{
+                    Geocoder geocoder = new Geocoder(this);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+                    String road = addressList.get(0).getAddressLine(0);
+                    if (road != null) {
+                        if (road.length() > 30) {
+                            String loca = road.substring(0,30) + "...";
+                            etMap.setText(loca);
+                        }
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }else {
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
 

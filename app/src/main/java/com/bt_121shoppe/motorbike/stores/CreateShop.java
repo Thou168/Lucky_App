@@ -11,6 +11,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,12 +95,15 @@ public class CreateShop extends AppCompatActivity {
     private EditText editPhone1,editPhone2;
     private TextView PhoneError,shopname_alert,map_alert,address_alert;
     private TextView tv_wing_number,tv_wing_account,wing_number_alert,wing_account_alert,tv_add,tv_add1,tv_cancel;
-    private String shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,location,lat_long;
+    private String shopName,number_wing,account_wing,photo,addresses,phone_number,phone_number1,phone_number2,location,lat_long,register;
     private String url,name,pass1,Encode;
     private List<UserShopViewModel> userShops;
     private Button bt_add;
     private RelativeLayout layout_phone1,layout_phone2;
     private int mDealerShopId1=0;
+    private LocationManager locationManager;
+    private double latitude,longtitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +169,7 @@ public class CreateShop extends AppCompatActivity {
         phone_number1 = intent.getStringExtra("phone_number1");
         phone_number2 = intent.getStringExtra("phone_number2");
         location = intent.getStringExtra("road");
+        register = intent.getStringExtra("Register_verify");
         lat_long = intent.getStringExtra("location");
         if (intent!=null){
             editShopname.setText(shopName);
@@ -176,6 +184,9 @@ public class CreateShop extends AppCompatActivity {
                     String loca = location.substring(0,30) + "...";
                     editMap.setText(loca);
                 }
+            }else {
+                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                getLocation(true);
             }
         }
 
@@ -193,7 +204,11 @@ public class CreateShop extends AppCompatActivity {
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+               if (register == null){
+                   Intent intent = new Intent(CreateShop.this, Register.class);
+                   startActivity(intent);
+               }else
+                   finish();
             }
         });
         tv_add.setVisibility(View.VISIBLE);
@@ -555,6 +570,39 @@ public class CreateShop extends AppCompatActivity {
             });
         }catch (JSONException je){
             je.printStackTrace();
+        }
+    }
+    private void getLocation(boolean isCurent) {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        }else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location!=null){
+                if(isCurent) {
+                    latitude = location.getLatitude();
+                    longtitude = location.getLongitude();
+                }
+
+                try{
+                    Geocoder geocoder = new Geocoder(this);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+                    String road = addressList.get(0).getAddressLine(0);
+                    if (road != null) {
+                        if (road.length() > 30) {
+                            String loca = road.substring(0,30) + "...";
+                            editMap.setText(loca);
+                        }
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }else {
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

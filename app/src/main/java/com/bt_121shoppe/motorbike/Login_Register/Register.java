@@ -17,6 +17,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -161,6 +163,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     private FirebaseAuth auth;
     private File mPhotoFile;
     private ProgressDialog mProgress;
+    private LocationManager locationManager;
+    private double latitude,longtitude;
 
     private String[] photo_select;
     private String[] genderListItems;
@@ -322,6 +326,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 String loca = location.substring(0,30) + "...";
                 editMap.setText(loca);
             }
+        }else {
+            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            getLocation(true);
         }
 
         btUpgrade.setOnClickListener(new View.OnClickListener() {
@@ -743,7 +750,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             int id = convertJsonJava.getId();
             String username=convertJsonJava.getUsername();
             String apiImageURL=convertJsonJava.getProfile().getProfile_photo();
-            //Log.e("TAG","Profile Image:"+apiImageURL);
+            Log.e("TAG","Profile Image:"+apiImageURL);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1512,5 +1519,38 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         btUpgrade   = (Button) findViewById(R.id.btn_upgrade);
         btUpdate    = (Button) findViewById(R.id.update);
         btnSubmit   = (Button) findViewById(R.id.sign_up);
+    }
+    private void getLocation(boolean isCurent) {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        }else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location!=null){
+                if(isCurent) {
+                    latitude = location.getLatitude();
+                    longtitude = location.getLongitude();
+                }
+
+                try{
+                    Geocoder geocoder = new Geocoder(this);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+                    String road = addressList.get(0).getAddressLine(0);
+                    if (road != null) {
+                        if (road.length() > 30) {
+                            String loca = road.substring(0,30) + "...";
+                            editMap.setText(loca);
+                        }
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }else {
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
