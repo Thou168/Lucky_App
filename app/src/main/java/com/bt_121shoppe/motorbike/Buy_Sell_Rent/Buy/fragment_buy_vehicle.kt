@@ -111,6 +111,7 @@ class fragment_buy_vehicle : Fragment() {
                             val color = `object`.getString("color")
                             val model = `object`.getInt("modeling")
                             val year = `object`.getInt("year")
+                            val category = `object`.getInt("category")
                             val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
 //                            var MEDIA_TYPE=MediaType.parse("application/json")
                             val client1= OkHttpClient()
@@ -136,7 +137,7 @@ class fragment_buy_vehicle : Fragment() {
 //                                        val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                             item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
+                                             item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
                                             Log.d("Item: ", item.size.toString())
                                             reecycleview!!.layoutManager = GridLayoutManager(context, 1)
                                             reecycleview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)

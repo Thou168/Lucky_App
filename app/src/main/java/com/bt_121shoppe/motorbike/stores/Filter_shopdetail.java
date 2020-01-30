@@ -137,7 +137,7 @@ public class Filter_shopdetail extends AppCompatActivity {
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_cate,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter_shopdetail.this);
                 bottomSheetDialog.setContentView(dialogView);
-                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 bottomSheetDialog.show();
                 ImageView close = dialogView.findViewById(R.id.icon_close);
                 RadioGroup group = dialogView.findViewById(R.id.radio_group);

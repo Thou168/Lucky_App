@@ -91,6 +91,8 @@
     //select
     <string name="select">ជ្រើសរើស</string>
 
+    <string name="call_to_seller">ហៅទៅអ្នកលក់</string>
+
     //brand string
     <string name="honda">ហុងដា</string>
     <string name="pcx">ភីសុីអុិច</string>

@@ -176,6 +176,9 @@
     <string name="account_setting">Account Setting</string>
     <string name="txt_account_setting">Account Setting</string>
     <string name="hit_fistname">Fist Name</string>
+    
+    //call to
+    <string name="call_to_seller">Call to the seller</string>
 
     //Setting
     <string name="hit_lastname">Last Name</string>

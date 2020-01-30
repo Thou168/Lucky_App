@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.homes;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -148,14 +149,12 @@ public class HomeFragment extends Fragment {
         setupAllPosts(index);
 
         best_match.setOnClickListener(v -> {
-            //hide keyboard
-            InputMethodManager mgr = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            mgr.showSoftInput(best_match, InputMethodManager.SHOW_FORCED);
-
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
+//            hideSoftKeyboard(getActivity());
+
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
             bottomSheetDialog.setContentView(dialogView);
-            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             bottomSheetDialog.show();
             ImageView close = dialogView.findViewById(R.id.icon_close);
             RadioGroup group = dialogView.findViewById(R.id.radio_group);
@@ -234,6 +233,14 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+//    public static void hideSoftKeyboard(Activity activity) {
+//        InputMethodManager inputMethodManager =
+//                (InputMethodManager) activity.getSystemService(
+//                        Activity.INPUT_METHOD_SERVICE);
+//        inputMethodManager.hideSoftInputFromWindow(
+//                activity.getCurrentFocus().getWindowToken(), 0);
+//    }
 
 //    @Override
 //    public void onResume() {

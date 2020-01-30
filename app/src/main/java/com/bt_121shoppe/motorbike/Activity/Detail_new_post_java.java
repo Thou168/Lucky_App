@@ -358,9 +358,13 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             TextView phone1 = view.findViewById(R.id.call_phone1);
             TextView phone2 = view.findViewById(R.id.call_phone2);
             TextView phone3 = view.findViewById(R.id.call_phone3);
+            View line = view.findViewById(R.id.line);
+            View line1 = view.findViewById(R.id.line1);
+            View line2 = view.findViewById(R.id.line2);
 
             if (splitPhone.length==1){
                 phone1.setVisibility(View.VISIBLE);
+                line.setVisibility(View.VISIBLE);
                 phone1.setText("  "+splitPhone[0]);
                 phone1.setOnClickListener(v1 -> {
                     Intent intent = new  Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+splitPhone[0]));
@@ -370,6 +374,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             }else if (splitPhone.length==2){
                 phone1.setVisibility(View.VISIBLE);
                 phone2.setVisibility(View.VISIBLE);
+                line.setVisibility(View.VISIBLE);
+                line1.setVisibility(View.VISIBLE);
                 phone1.setText("  "+splitPhone[0]);
                 phone2.setText("  "+splitPhone[1]);
                 phone1.setOnClickListener(new View.OnClickListener() {
@@ -390,6 +396,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 phone1.setVisibility(View.VISIBLE);
                 phone2.setVisibility(View.VISIBLE);
                 phone3.setVisibility(View.VISIBLE);
+                line.setVisibility(View.VISIBLE);
+                line1.setVisibility(View.VISIBLE);
+                line2.setVisibility(View.VISIBLE);
                 phone1.setText("  "+splitPhone[0]);
                 phone2.setText("  "+splitPhone[1]);
                 phone3.setText("  "+splitPhone[2]);

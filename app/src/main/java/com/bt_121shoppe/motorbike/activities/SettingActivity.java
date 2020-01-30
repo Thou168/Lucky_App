@@ -15,7 +15,10 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -65,7 +68,7 @@ import okhttp3.Response;
 public class SettingActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, Changelanguage.BottomSheetListener {
     private static final String TAG = SettingActivity.class.getSimpleName();
     private ImageView img_back;
-    TextInputEditText old_pass,new_pass,renew_pass;
+    EditText old_pass,new_pass,renew_pass;
     Button reset_pass;
     SharedPreferences prefer;
     private String name,pass,Encode;
@@ -92,6 +95,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         mSwipeRefreshLayout=findViewById(R.id.refresh_setting);
         mSwipeRefreshLayout.setEnabled(false);
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         old_pass=findViewById(R.id.old_pass);
         new_pass=findViewById(R.id.new_pass);
         renew_pass=findViewById(R.id.renew_pass);
@@ -106,6 +110,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         reset_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onResume();
                 if (renew_pass.getText().toString().equals(new_pass.getText().toString())){
                     Change_password(Encode);
                 }else {
@@ -153,6 +158,9 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     @Override
     protected void onResume() {
         super.onResume();
+        old_pass.clearFocus();
+        new_pass.clearFocus();
+        renew_pass.clearFocus();
     }
 
     //language

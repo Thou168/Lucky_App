@@ -425,10 +425,11 @@ public class Detail_1 extends Fragment {
                                 String color = obj.getString("color");
                                 int model = obj.getInt("modeling");
                                 int year = obj.getInt("year");
+                                int category = obj.getInt("category");
 
                                 String ago = "";
                                 if (postId != id) {
-                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle));
+                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle,category));
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                                     no_result.setVisibility(View.GONE);
                                     recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "List", getActivity()));

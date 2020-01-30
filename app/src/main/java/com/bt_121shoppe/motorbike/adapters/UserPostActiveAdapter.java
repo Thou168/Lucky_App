@@ -349,9 +349,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                 break;
                         }
                     };
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-//                    builder.setMessage(R.string.remove_post).setPositiveButton(R.string.yes_remove, dialogClickListener)
-//                            .setNegativeButton(R.string.no_remove, dialogClickListener).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setMessage(R.string.remove_po).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                            .setNegativeButton(R.string.no_remove, dialogClickListener).show();
 //                    builder.setMessage(R.string.remove_po).setPositiveButton(R.string.yes, dialogClickListener)
 //                            .setNegativeButton(R.string.no, dialogClickListener).show();
                 }

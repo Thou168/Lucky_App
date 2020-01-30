@@ -42,7 +42,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (type.equals("List")) {
-            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list_for_search, parent, false)
             Log.d("Type ",type.toString())
             return ViewHolder(layout)
         }else if (type.equals("Grid")){
@@ -82,6 +82,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val lang = itemView.findViewById<TextView>(R.id.user_view1)
         var tvColor1 = itemView.findViewById<TextView>(R.id.tv_color1)
         var tvColor2 = itemView.findViewById<TextView>(R.id.tv_color2)
+        val category = itemView.findViewById<TextView>(R.id.cate);
 
         fun bindItems(item: Item_API,context: Context) {
 
@@ -130,6 +131,14 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //            }
             //location_duration.text=item.location_duration
             show_view.text=" "+item.count_view
+
+            //category
+            category.visibility = View.VISIBLE
+            if (item.category==1){
+                category.setText(R.string.electronic)
+            }else{
+                category.setText(R.string.motor)
+            }
 
             //            GradientDrawable backgroundGradient = (GradientDrawable)tvColor1.getBackground();
 //            backgroundGradient.setColor(itemView.getContext().getResources().getColor(R.color.logo_green));

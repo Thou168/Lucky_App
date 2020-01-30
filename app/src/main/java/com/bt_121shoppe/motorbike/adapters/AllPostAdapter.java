@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -133,6 +134,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         CircleImageView img_user;
         TextView cate;
         TextView tvColor1,tvColor2;
+        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -148,6 +150,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             cate = itemView.findViewById(R.id.cate);
             tvColor1=itemView.findViewById(R.id.tv_color1);
             tvColor2=itemView.findViewById(R.id.tv_color2);
+            cardView=itemView.findViewById(R.id.cardView);
         }
 
         @Override

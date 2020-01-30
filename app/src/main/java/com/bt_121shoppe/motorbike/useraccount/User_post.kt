@@ -278,6 +278,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                 val color = obj.getString("color")
                                 val model = obj.getInt("modeling")
                                 val year = obj.getInt("year")
+                                val category = obj.getInt("category")
 
                                 val URL_ENDPOINT1= ConsumeAPI.BASE_URL+"countview/?post="+id
                                 var MEDIA_TYPE=MediaType.parse("application/json")
@@ -302,7 +303,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,"",jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,"",jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                                 val dividerDrawable = ContextCompat.getDrawable(context1, R.drawable.divider)
                                                 recyclrview.addItemDecoration(com.bt_121shoppe.motorbike.classes.DividerItemDecoration(dividerDrawable))

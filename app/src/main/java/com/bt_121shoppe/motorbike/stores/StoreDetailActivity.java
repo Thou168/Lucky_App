@@ -154,9 +154,6 @@ public class StoreDetailActivity extends AppCompatActivity {
         });
 
         best_match.setOnClickListener(v -> {
-            //hide keyboard
-            InputMethodManager mgr = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            mgr.showSoftInput(best_match, InputMethodManager.SHOW_FORCED);
 
             View dialogView = StoreDetailActivity.this.getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreDetailActivity.this);
@@ -409,6 +406,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                                 String color = object.getString("color");
                                 int model1 = object.getInt("modeling");
                                 int year1 = object.getInt("year");
+                                int category = object.getInt("category");
 
                                 //
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -440,7 +438,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle));
+                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle,category));
                                                     MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List", StoreDetailActivity.this);
                                                     mAllPostsRecyclerView.setAdapter(adapterUserPost);
                                                     mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(StoreDetailActivity.this, 1));

@@ -86,7 +86,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                 View dialogView = StoreListActivity.this.getLayoutInflater().inflate(R.layout.province_string_array,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreListActivity.this);
                 bottomSheetDialog.setContentView(dialogView);
-                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 bottomSheetDialog.show();
                 ImageView close = dialogView.findViewById(R.id.close);
                 RadioGroup group = dialogView.findViewById(R.id.radiogroup);
@@ -179,7 +179,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             View dialogView = StoreListActivity.this.getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreListActivity.this);
             bottomSheetDialog.setContentView(dialogView);
-            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             bottomSheetDialog.show();
             ImageView close = dialogView.findViewById(R.id.icon_close);
             RadioGroup group = dialogView.findViewById(R.id.radio_group);
