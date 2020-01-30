@@ -27,6 +27,10 @@
     <string name="color">ពណ៌</string>
     <string name="condition">លក្ខខណ្ឌ</string>
 
+    //try again
+    <string name="try_again">ព្យាយាម​ម្តង​ទៀត</string>
+    <string name="no_internet_connection">គ្មានការភ្ជាប់អ៊ីនធឺណិត</string>
+
     //brand name
     <string name="scoopy">Scoopy</string>
     <string name="icon">Icon</string>

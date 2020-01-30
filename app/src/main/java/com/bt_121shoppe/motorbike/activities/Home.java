@@ -67,6 +67,7 @@ import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
 import com.bt_121shoppe.motorbike.models.User;
+import com.bt_121shoppe.motorbike.nointernet.NoInternetActivity;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bumptech.glide.Glide;
 import com.custom.sliderimage.logic.SliderImage;
@@ -475,30 +476,12 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     public void onDisconnected() {
                         //Do your task on Network Disconnected!
                         Log.e(TAG, "onDisconnected");
-//                        Toast.makeText(getApplicationContext(),"Disconnect",Toast.LENGTH_SHORT).show();
-//                        rl_besdeal.setVisibility(View.GONE);
-//                        rl_newpost.setVisibility(View.GONE);
-//                        ct_layout.setVisibility(View.GONE);
-//                        mBestDealText.setVisibility(View.GONE);
-//                        connection.setVisibility(View.VISIBLE);
-//                        connection.setText("Network Disconnected!");
-//                        connection.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
                     }
 
                     @Override
                     public void onConnected() {
                         //Do your task on Network Connected!
                         Log.e(TAG, "onConnected");
-//                        Toast.makeText(getApplicationContext(),"Connect",Toast.LENGTH_SHORT).show();
-//                        mSwipeRefreshLayout.setRefreshing(true);
-//                        dorefresh();
-//                        rl_besdeal.setVisibility(View.VISIBLE);
-//                        rl_newpost.setVisibility(View.VISIBLE);
-//                        ct_layout.setVisibility(View.VISIBLE);
-//                        mBestDealText.setVisibility(View.VISIBLE);
-//                        connection.setVisibility(View.GONE);
-//                        connection.setText("Network Connected!");
-//                        connection.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 
                     }
 

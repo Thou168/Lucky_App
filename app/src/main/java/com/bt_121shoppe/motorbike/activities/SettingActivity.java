@@ -90,7 +90,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         radio_disable=findViewById(R.id.radio_notificationdisable);
 
         mSwipeRefreshLayout=findViewById(R.id.refresh_setting);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setEnabled(false);
 
         old_pass=findViewById(R.id.old_pass);
         new_pass=findViewById(R.id.new_pass);
