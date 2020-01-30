@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:hint="@string/enter_information"
                 android:inputType="text"
                 android:focusable="false"
@@ -53,7 +53,6 @@
                 android:id="@+id/name_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -78,7 +77,7 @@
                 android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:inputType="phone"
                 android:focusable="false"
                 android:textSize="12dp" />
@@ -86,7 +85,6 @@
                 android:id="@+id/phone_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -111,7 +109,7 @@
                 android:id="@+id/et_province"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:hint="@string/select"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:textSize="12dp"/>
@@ -119,7 +117,6 @@
                 android:id="@+id/province_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -145,7 +142,7 @@
                 android:focusable="false"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:id="@+id/edDistrict"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:textSize="12dp"/>
@@ -153,7 +150,6 @@
                 android:id="@+id/district_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -180,14 +176,13 @@
                 android:id="@+id/edCommune"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:textSize="12dp"/>
             <TextView
                 android:id="@+id/commune_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -214,14 +209,13 @@
                 android:id="@+id/edvillage"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:textSize="12dp"/>
             <TextView
                 android:id="@+id/village_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -246,7 +240,7 @@
                 android:focusable="false"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:hint="@string/select"
                 android:inputType="number"
                 android:textSize="12dp" />
@@ -254,7 +248,6 @@
                 android:id="@+id/Personal_Occupation_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:text=""
@@ -277,7 +270,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:hint="@string/enter_information"
                 android:inputType="number"
                 android:textSize="12dp" />
@@ -291,104 +284,8 @@
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp"  />
-
             <TextView
-                android:id="@+id/tv_total_income"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:text="@string/total_income"/>
-            <EditText
-                android:id="@+id/etTotal_income_borrowers"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/enter_information"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:inputType="number"
-                android:textSize="12dp" />
-            <TextView
-                android:id="@+id/total_income_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp"  />
-
-
-            <TextView
-                android:id="@+id/tv_expense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:text="@string/total_expense"/>
-            <EditText
-                android:id="@+id/etTotal_cost_borrowers"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/enter_information"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:inputType="number"
-                android:textSize="12dp" />
-            <TextView
-                android:id="@+id/expense_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp"  />
-
-            <TextView
-                android:id="@+id/tv_income"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:text="@string/net_income"/>
-            <EditText
-                android:focusable="false"
-                android:id="@+id/et_total"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/enter_information"
-                android:inputType="number"
-                android:textSize="12dp" />
-            <TextView
-                android:id="@+id/income_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp"  />
-
-            <TextView
-                android:id="@+id/tv_product_insurance"
+                android:id="@+id/tv_co_borrower"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -436,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:textColor="#000"
                     android:textSize="12sp"
                     android:text="@string/relationship"/>
@@ -456,7 +353,6 @@
                     android:id="@+id/conspirator_alert"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:text=""
@@ -469,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:textColor="#000"
                     android:textSize="12sp"
                     android:text="@string/co_borrow_job"/>
@@ -481,7 +377,7 @@
                     android:focusable="false"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:hint="@string/select"
                     android:inputType="number"
                     android:textSize="12dp" />
@@ -489,7 +385,6 @@
                     android:id="@+id/Contributors_alert"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:text=""
@@ -502,7 +397,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:textColor="#000"
                     android:textSize="12sp"
                     android:text="@string/job_period"/>
@@ -512,7 +407,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:hint="@string/enter_information"
                     android:inputType="number"
                     android:textSize="12dp" />
@@ -520,13 +415,106 @@
                     android:id="@+id/Practicing1_alert"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp"  />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_total_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/total_income"/>
+            <EditText
+                android:id="@+id/etTotal_income_borrowers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/enter_information"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/total_income_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+
+            <TextView
+                android:id="@+id/tv_expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/total_expense"/>
+            <EditText
+                android:id="@+id/etTotal_cost_borrowers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/enter_information"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/expense_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
+            <TextView
+                android:id="@+id/tv_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:text="@string/net_income"/>
+            <EditText
+                android:focusable="false"
+                android:id="@+id/et_total"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/enter_information"
+                android:inputType="number"
+                android:textSize="12dp" />
+            <TextView
+                android:id="@+id/income_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
+
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="150dp"

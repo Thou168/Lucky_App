@@ -317,14 +317,20 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     toolbar.setBackgroundColor(getColor(R.color.logo_red));
                 }
 
-                if(category==1){
+                if(category == 1){
                     layout_estimate.setVisibility(View.GONE);
                     tvType_elec.setVisibility(View.VISIBLE);
                     tvType_cate.setVisibility(View.VISIBLE);
                 }else {
-                    layout_estimate.setVisibility(View.VISIBLE);
                     tvType_elec.setVisibility(View.GONE);
                     tvType_cate.setVisibility(View.GONE);
+                    if (condition != null){
+                        if (condition.equals("used") || condition.equals("ប្រើ")){
+                            layout_estimate.setVisibility(View.VISIBLE);
+                        }else if (condition.equals("new") || condition.equals("ថ្មី")){
+                            layout_estimate.setVisibility(View.GONE);
+                        }
+                    }
                 }
             }else{
                 bt_update.setVisibility(View.VISIBLE);
@@ -361,13 +367,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_screw.setProgress(seekbar_screww);
             seekbar_rear.setProgress(seekbar_rearr);
             etMap.setText(road);
-            if (condition != null){
-                if (condition.equals("used") || condition.equals("ប្រើ")){
-                    layout_estimate.setVisibility(View.VISIBLE);
-                }else if (condition.equals("new") || condition.equals("ថ្មី")){
-                    layout_estimate.setVisibility(View.GONE);
-                }
-            }
+
             Glide.with(Camera.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -3280,8 +3280,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     @Override
     public void onItemClick(String item) {
         tvCondition.setText(item);
-        if (item.equals("Used") || item.equals("ប្រើ")){
-            layout_estimate.setVisibility(View.VISIBLE);
+        if (category == 2){
+            if (item.equals("Used") || item.equals("ប្រើ")) {
+                layout_estimate.setVisibility(View.VISIBLE);
+            }else {
+                layout_estimate.setVisibility(View.GONE);
+            }
         }else {
             layout_estimate.setVisibility(View.GONE);
         }
@@ -3339,14 +3343,19 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     @Override
     public void AddIdCategory(int id) {
         category = id;
+        String con = tvCondition.getText().toString();
         if (id == 1){
             layout_estimate.setVisibility(View.GONE);
             tvType_elec.setVisibility(View.VISIBLE);
             tvType_cate.setVisibility(View.VISIBLE);
         }else {
-            layout_estimate.setVisibility(View.VISIBLE);
             tvType_elec.setVisibility(View.GONE);
             tvType_cate.setVisibility(View.GONE);
+            if (con.equals("Used") || con.equals("ប្រើ")) {
+                layout_estimate.setVisibility(View.VISIBLE);
+            }else {
+                layout_estimate.setVisibility(View.GONE);
+            }
         }
         Log.e("category",""+category);
     }

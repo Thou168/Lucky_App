@@ -38,7 +38,7 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="@string/loan_amountt"/>
             <EditText
                 android:id="@+id/etLoan_amount"
@@ -47,7 +47,7 @@
                 android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:inputType="numberDecimal"
                 android:textSize="12dp" />
@@ -57,7 +57,6 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp"  />
@@ -69,10 +68,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="@string/term"/>
             <EditText
                 android:id="@+id/etBorrowing_period"
@@ -81,7 +80,7 @@
                 android:hint="@string/enter_information"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:inputType="number"
                 android:textSize="12dp" />
@@ -91,7 +90,6 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp"  />
@@ -102,10 +100,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="@string/repayment_type"/>
             <EditText
                 android:id="@+id/etPayment_Method"
@@ -113,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                 android:focusable="false"
@@ -125,7 +123,6 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp"  />
@@ -136,10 +133,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="@string/deposit_amount"/>
             <EditText
                 android:id="@+id/etLoan_contributions"
@@ -150,7 +147,7 @@
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
                 android:textSize="12dp" />
             <TextView
                 android:id="@+id/Loan_contributions_alert"
@@ -173,29 +170,35 @@
                 android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:textSize="12dp" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/etproduct_insurance"
+            <RadioGroup
+                android:id="@+id/radio_group_product_insurance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:hint="@string/enter_information"
-                android:inputType="text"
-                android:textSize="12dp" />
-            <TextView
-                android:id="@+id/product_insurance_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
                 android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp"  />
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_product_insurance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/insurance_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_product_insurance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/insurance_no" />
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/tv_residence"
@@ -207,28 +210,34 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12dp" />
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/etresidence"
+            <RadioGroup
+                android:id="@+id/radio_group_residence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
-                android:hint="@string/enter_information"
-                android:inputType="text"
-                android:textSize="12dp" />
-            <TextView
-                android:id="@+id/residence_alert"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
                 android:layout_marginBottom="@dimen/dp_8dp"
-                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="8sp"  />
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1_residence"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/allow_yes" />
+
+                <RadioButton
+                    android:id="@+id/radio2_residence"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/logo_green"
+                    android:layout_weight="1"
+                    android:text="@string/allow_no" />
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/tv_Number_debt"
@@ -239,7 +248,7 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="@string/number_lending"/>
             <EditText
                 android:id="@+id/etNumber_debt"
@@ -272,7 +281,7 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="#000"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="@string/monthly_payment"/>
             <EditText
                 android:id="@+id/et_monthly_payment"

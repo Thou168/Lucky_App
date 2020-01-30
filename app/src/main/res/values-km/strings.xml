@@ -941,7 +941,7 @@
     <string name="enter_information">បញ្ចូលព័ត៌មាន</string>
     <string name="private_information">ព័ត៌មានឯកជន</string>
     <string name="borrow_information">ព័ត៌មានអ្នកខ្ចី</string>
-    <string name="co_borrower_information">ព័ត៌មានរបស់អ្នកចូលរួមខ្</string>
+    <string name="co_borrower_information">ព័ត៌មានរបស់អ្នកចូលរួមខ្ចី</string>
     <string name="save">រក្សាទុក</string>
     <string name="please_fill_information">សូមបំពេញព័ត៌មានរបស់អ្នកអោយបានត្រឹមត្រូវ</string>
 </resources>

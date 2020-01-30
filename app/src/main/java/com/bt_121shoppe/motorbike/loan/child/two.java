@@ -66,9 +66,10 @@ public class two extends Fragment {
     private item_one itemOne;
     private Create_Load createLoad;
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
-    private EditText mResidence,mProduct_insurance;
+    private RadioGroup mResidence,mProduct_insurance;
+    private RadioButton rdResidence,rdProduct_insurance;
     private TextView mLoan_amount_alert,mLoan_Term_alert,mloan_RepaymentType_alert,mLoan_Contributions_alert,mNumber_institution_alert;
-    private TextView mMonthly_Amount_Paid_alert,Residence_alert,Product_insurance_alert;
+    private TextView mMonthly_Amount_Paid_alert,tv_monthly_payment;
     private RadioButton radio1,radio2;
     private item_two itemTwo;
     private AlertDialog dialog;
@@ -134,8 +135,6 @@ public class two extends Fragment {
             createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,getString(R.string.invalid_contributions));
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,getString(R.string.invalid_number_institutions));
             createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,getString(R.string.invalid_monthly_amount));
-            createLoad.requstFocus(bResidence,mResidence,Residence_alert,getString(R.string.invalid_residence));
-            createLoad.requstFocus(bProduct_insurance,mProduct_insurance,Product_insurance_alert,getString(R.string.invalid_product_insurance));
 
             if (checkEd()){
             itemTwo = new item_two(Float.parseFloat(
@@ -164,8 +163,8 @@ public class two extends Fragment {
         mloan_RepaymentType       = view.findViewById(R.id.etPayment_Method);
         mNumber_institution       = view.findViewById(R.id.etNumber_debt);
         mMonthly_Amount_Paid      = view.findViewById(R.id.et_monthly_payment);
-        mResidence                = view.findViewById(R.id.etresidence);
-        mProduct_insurance        = view.findViewById(R.id.etproduct_insurance);
+        mResidence                = view.findViewById(R.id.radio_group_residence);
+        mProduct_insurance        = view.findViewById(R.id.radio_group_product_insurance);
 
         mLoan_amount_alert         = view.findViewById(R.id.loan_amount_alert);
         mloan_RepaymentType_alert  = view.findViewById(R.id.Payment_Method_alert);
@@ -173,10 +172,39 @@ public class two extends Fragment {
         mNumber_institution_alert  = view.findViewById(R.id.Number_debt_alert);
         mLoan_Contributions_alert  = view.findViewById(R.id.Loan_contributions_alert);
         mLoan_Term_alert           = view.findViewById(R.id.Borrowing_period_alert);
-        Residence_alert            = view.findViewById(R.id.residence_alert);
-        Product_insurance_alert    = view.findViewById(R.id.product_insurance_alert);
+
+        rdProduct_insurance  = view.findViewById(R.id.radio1_product_insurance);
+        rdResidence          = view.findViewById(R.id.radio1_residence);
+
+        tv_monthly_payment   = view.findViewById(R.id.tv_monthly_payment);
 
 
+        mResidence = view.findViewById(R.id.radio_group_residence);
+        mResidence.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = mResidence.findViewById(checkedId);
+            index = mResidence.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mVisit_home = true;
+                    break;
+                case 1:
+                    mVisit_home = false;
+                    break;
+            }
+        });
+        mProduct_insurance = view.findViewById(R.id.radio_group_product_insurance);
+        mProduct_insurance.setOnCheckedChangeListener((group, checkedId) -> {
+            View radioButton = mProduct_insurance.findViewById(checkedId);
+            index = mProduct_insurance.indexOfChild(radioButton);
+            switch (index) {
+                case 0:
+                    mBuy_product_insurance = true;
+                    break;
+                case 1:
+                    mBuy_product_insurance = false;
+                    break;
+            }
+        });
         mloan_RepaymentType.setOnClickListener(v -> {
            createLoad.AlertDialog(values,mloan_RepaymentType);
         });
@@ -198,23 +226,57 @@ public class two extends Fragment {
         });
         mLoan_Contributions = view.findViewById(R.id.etLoan_contributions);
 
+        mNumber_institution.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (mNumber_institution.getText().toString().equals("0")){
+                    tv_monthly_payment.setVisibility(View.GONE);
+                    mMonthly_Amount_Paid_alert.setVisibility(View.GONE);
+                    mMonthly_Amount_Paid.setVisibility(View.GONE);
+                }else {
+                    tv_monthly_payment.setVisibility(View.VISIBLE);
+                    mMonthly_Amount_Paid_alert.setVisibility(View.VISIBLE);
+                    mMonthly_Amount_Paid.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         if (mFromLoan){
             GetLoan();
         }else {
             mLoan_amount.setText(cuteString(mPrice,0));
             mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(mPrice,0)))});
             mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(mPrice,0)))});
-            mLoan_amount.addTextChangedListener(new TextWatcher() {
+            mLoan_Contributions.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
-                        mLoan_Contributions.setText("0");
-                    }else mLoan_Contributions.setText(null);
+
+                    if (!s.toString().isEmpty()&&!s.toString().equals("0")){
+                        mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(15)});
+                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(mPrice),0)))});
+                        mLoan_amount.setText(cuteString(String.valueOf(Double.parseDouble(mPrice) - Double.parseDouble(s.toString())),0));
+                    }else {
+                        mLoan_amount.setText(cuteString(mPrice,0));
+                    }
                 }
                 @Override
-                public void afterTextChanged(Editable s) { }
+                public void afterTextChanged(Editable s) {
+                    if (s.toString().equals("0") || s.toString().equals("0.0")){
+                        mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
+                    }
+                }
             });
         }
 
@@ -245,9 +307,7 @@ public class two extends Fragment {
         bLoan_Contributions  = createLoad.CheckedYear(mLoan_Contributions);
         bNumber_institution  = createLoad.CheckedYear(mNumber_institution);
         bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
-        bResidence           = createLoad.CheckedYear(mResidence);
-        bProduct_insurance   = createLoad.CheckedYear(mProduct_insurance);
-        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid&&bResidence&&bProduct_insurance;
+        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid;
     }
     public class InputFilterMinMax implements InputFilter {
         private int min;
@@ -310,6 +370,25 @@ public class two extends Fragment {
                         }
                     }
                 });
+
+                if (response.body().isIs_product_insurance()){
+                    mBuy_product_insurance= true;
+                    mProduct_insurance.check(R.id.radio1_product_insurance);
+                    rdProduct_insurance.toggle();
+                }else {
+                    mBuy_product_insurance= false;
+                    mProduct_insurance.check(R.id.radio2_product_insurance);
+                    rdProduct_insurance.toggle();
+                }
+                if (response.body().isIs_home_visit()){
+                    mVisit_home= true;
+                    mResidence.check(R.id.radio1_residence);
+                    rdResidence.toggle();
+                }else {
+                    mVisit_home= false;
+                    mResidence.check(R.id.radio2_residence);
+                    rdResidence.toggle();
+                }
 
                 mLoan_Contributions.addTextChangedListener(new TextWatcher() {
                     @Override

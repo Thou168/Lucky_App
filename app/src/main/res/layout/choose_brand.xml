@@ -25,7 +25,9 @@
                 android:divider = "#000"
                 android:footerDividersEnabled = "false"
                 android:headerDividersEnabled = "false"
-                android:layout_margin="@dimen/dp_16"/>
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingStart="@dimen/dp_8"/>
 
         </RelativeLayout>
 
