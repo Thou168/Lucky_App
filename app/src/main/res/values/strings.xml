@@ -37,7 +37,7 @@
     <string name="menu_like">Your Like</string>
     <string name="menu_loan">Your Loan</string>
     <string name="menu_setting">Setting</string>
-    <string name="menu_about">About 121</string>
+    <string name="menu_about">About</string>
     <string name="menu_contact">Contact 121</string>
     //Buy Sell Rent
     <string name="menu_privacy">Term of Privacy</string>
@@ -1030,7 +1030,7 @@
     </string-array>
     <string-array name="select_option">
         <item>Take Photo</item>
-        <item>Choose from Library</item>
+        <item>Gallery</item>
         <item>Cancel</item>
     </string-array>
     <string name="shopname2">Shop name 2</string>

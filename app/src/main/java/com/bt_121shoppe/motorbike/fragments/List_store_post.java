@@ -3,6 +3,8 @@ package com.bt_121shoppe.motorbike.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,10 +25,14 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.adapter_for_shop.Adapter_store_post;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -40,7 +48,7 @@ import retrofit2.Response;
 import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class List_store_post extends Fragment {
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private SharedPreferences prefer;
     private String name,pass,Encode;
     private List<Item> listData;
@@ -49,30 +57,30 @@ public class List_store_post extends Fragment {
     private TextView no_result;
     private TextView tv_back,tv_dealer,tv_location,tv_phone;
     private CircleImageView img_user;
-    private int pk;
-    String basic_Encode;
-    public List_store_post(){}
-    String storeName,storeLocation,storeImage;
-    TextView btn_edit;
+    private int pk,shopId;
+    private String basic_Encode;
+    public  List_store_post(){}
+//    private String storeName,storeLocation,storeImage;
+    private TextView btn_edit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store_detail_post_list, container, false);
-        Bundle bundle=this.getArguments();
-        if(bundle!=null){
-            storeName=bundle.getString("storeName");
-            storeLocation=bundle.getString("storeLocation");
-            storeImage=bundle.getString("storeImage");
-            Log.e("List",storeName);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            shopId = bundle.getInt("shopId", 0);
         }
-        tv_dealer = view.findViewById(R.id.tv_dealer);
+
+        tv_dealer   = view.findViewById(R.id.tv_dealer);
         tv_location = view.findViewById(R.id.location_store);
-        tv_phone = view.findViewById(R.id.phone);
-        img_user = view.findViewById(R.id.img_user);
-        btn_edit = view.findViewById(R.id.btn_edit);
+        tv_phone    = view.findViewById(R.id.phone);
+        img_user    = view.findViewById(R.id.img_user);
+        btn_edit    = view.findViewById(R.id.btn_edit);
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(),CreateShop.class);
+                i.putExtra("edit_store","edit");
+                i.putExtra("shopId",shopId);
                 startActivity(i);
             }
         });
@@ -92,10 +100,8 @@ public class List_store_post extends Fragment {
         }
         basic_Encode = "Basic "+getEncodedString(name,pass);
 
-        tv_location.setText(storeLocation);
-        tv_dealer.setText(storeName);
-        Glide.with(view.getContext()).load(storeImage).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(img_user);
-
+        getShop_Detail(shopId);
+        getShop_Info(pk,Encode);
         getListStore(pk,Encode);
 
         progressBar = view.findViewById(R.id.progress_bar);
@@ -180,5 +186,59 @@ public class List_store_post extends Fragment {
                 Log.d("ONFAilure",t.getMessage());
             }
         });
+    }
+    private void getShop_Info(int pk, String encode) {
+        Service api = Client.getClient().create(Service.class);
+        retrofit2.Call<User_Detail> call = api.getDetailUser(pk,encode);
+        call.enqueue(new retrofit2.Callback<User_Detail>() {
+            @Override
+            public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
+                if (response.isSuccessful()) {
+                    String stphone = response.body().getProfile().getTelephone();
+                    tv_phone.setText(method(stphone));
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<User_Detail> call, Throwable t) {
+
+            }
+        });
+    }
+    private void getShop_Detail(int id) {
+        Service api = Client.getClient().create(Service.class);
+        retrofit2.Call<ShopViewModel> call = api.getDealerShop(id);
+        call.enqueue(new retrofit2.Callback<ShopViewModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                if (response.isSuccessful()) {
+                    tv_dealer.setText(response.body().getShop_name());
+                    tv_location.setText(response.body().getShop_address());
+                    String image = response.body().getShop_image();
+                    Glide.with(List_store_post.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            img_user.setImageBitmap(resource);
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+            }
+        });
+    }
+    public String method(String str) {
+        for (int i=0;i<str.length();i++){
+            if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+                str = str.substring(0, str.length() - 1);
+            }
+        }
+        return str;
     }
 }

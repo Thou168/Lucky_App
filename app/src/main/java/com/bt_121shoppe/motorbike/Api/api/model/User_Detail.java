@@ -275,5 +275,6 @@ public class User_Detail {
         public void setGroup( float group ) {
             this.group = group;
         }
+
     }
 }

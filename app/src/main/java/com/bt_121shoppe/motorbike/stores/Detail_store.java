@@ -5,55 +5,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bt_121shoppe.motorbike.Api.api.Client;
-import com.bt_121shoppe.motorbike.Api.api.Service;
-import com.bt_121shoppe.motorbike.Api.User;
-import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.activities.Account;
-import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.activities.Camera;
-import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.activities.Dealerstore;
 import com.bt_121shoppe.motorbike.fragments.List_store_post;
 import com.bt_121shoppe.motorbike.fragments.history_store;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
@@ -70,7 +50,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
     public RelativeLayout layout;
     private CircleImageView img_user;
     private TextView tv_back,tv_dealer,tv_location,tv_phone;
-    int inttab = 0,pk = 0;
+    int shopId = 0,pk = 0;
     private String location,storeName,image;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -98,11 +78,8 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
-
         Intent intent = getIntent();
-        storeName = intent.getStringExtra("shop_name");
-        location = intent.getStringExtra("address");
-        image = intent.getStringExtra("shop_image");
+        shopId = intent.getIntExtra("shopId",0);
 
         StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -117,7 +94,6 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         setupTabText();
 //        if (tabs.getTabAt(1))
 
-//        getPhone(pk,Encode);
 //        tv_location.setText(location);
 //        tv_dealer.setText(storeName);
 //        Glide.with(Detail_store.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
@@ -137,7 +113,8 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent=new Intent(Detail_store.this, Dealerstore.class);
+                startActivity(intent);
             }
         });
 
@@ -148,29 +125,6 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
                 startActivity(intent);
             }
         });
-    }
-    private void getPhone(int pk, String encode) {
-        Service api = Client.getClient().create(Service.class);
-        Call<User_Detail> call = api.getDetailUser(pk,encode);
-        call.enqueue(new Callback<User_Detail>() {
-            @Override
-            public void onResponse(Call<User_Detail> call, Response<User_Detail> response) {
-                String stphone = response.body().getProfile().getTelephone();
-                tv_phone.setText(method(stphone));
-            }
-            @Override
-            public void onFailure(Call<User_Detail> call, Throwable t) {
-
-            }
-        });
-    }
-    public String method(String str) {
-        for (int i=0;i<str.length();i++){
-            if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
-                str = str.substring(0, str.length() - 1);
-            }
-        }
-        return str;
     }
 
     @Override
@@ -239,11 +193,9 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
             //Returning the current tabs
             switch (position) {
                 case 0:
+                    Bundle bundle = new Bundle();
                     List_store_post tab1 = new List_store_post();
-                    Bundle bundle=new Bundle();
-                    bundle.putString("storeName",storeName);
-                    bundle.putString("storeLocation",location);
-                    bundle.putString("storeImage",image);
+                    bundle.putInt("shopId",shopId);
                     tab1.setArguments(bundle);
                     return tab1;
                 case 1:

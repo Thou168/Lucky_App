@@ -51,7 +51,7 @@
     <string name="menu_like">ការចូលចិត្តរបស់អ្នក</string>
     <string name="menu_loan">ឥណទានរបស់អ្នក</string>
     <string name="menu_setting">ការកំណត់</string>
-    <string name="menu_about">អំពី​ ១២១</string>
+    <string name="menu_about">អំពីកម្មវិធី</string>
     <string name="menu_contact">ទំនាក់ទំនង ១២១</string>
     <string name="menu_privacy">លក្ខខណ្ឌ</string>
     <string name="title_activity_account">គណនី</string>
@@ -870,7 +870,7 @@
     </string-array>
     <string-array name="select_option">
         <item>ថតរូប</item>
-        <item>វិចិត្រសាល</item>
+        <item>ទាញយករូបភាព</item>
         <item>បោះបង់</item>
     </string-array>
     <string name="shopname2">ឈ្មោះហាងទី២</string>

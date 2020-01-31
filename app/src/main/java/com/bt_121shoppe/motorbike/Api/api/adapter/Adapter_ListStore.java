@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
+import com.bt_121shoppe.motorbike.fragments.List_store_post;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.stores.Detail_store;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
@@ -33,6 +37,8 @@ import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.util.List;
 
@@ -72,18 +78,14 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final ShopViewModel model = datas.get(position);
         updateView(Paper.book().read("language"),view);
+        int shopId = model.getId();
         view.address.setText(model.getShop_address());
         view.shopname.setText(model.getShop_name());
         Glide.with(mContext).load(model.getShop_image()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(view.img_user);
-        view.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(mContext, Detail_store.class);
-                intent.putExtra("shop_name",model.getShop_name());
-                intent.putExtra("address",model.getShop_address());
-                intent.putExtra("shop_image",model.getShop_image());
-                mContext.startActivity(intent);
-            }
+        view.itemView.setOnClickListener(view1 -> {
+            Intent intent=new Intent(mContext, Detail_store.class);
+            intent.putExtra("shopId",shopId);
+            mContext.startActivity(intent);
         });
     }
 

@@ -2,12 +2,20 @@ package com.bt_121shoppe.motorbike.models;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ShopViewModel {
+    @SerializedName("id")
     private int id;
+    @SerializedName("user")
     private int user;
+    @SerializedName("shop_name")
     private String shop_name;
+    @SerializedName("shop_address")
     private String shop_address;
+    @SerializedName("shop_image")
     private String shop_image;
+    @SerializedName("record_status")
     private int record_status;
 
     public ShopViewModel(){}

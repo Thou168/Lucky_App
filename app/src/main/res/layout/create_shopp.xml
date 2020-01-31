@@ -22,6 +22,21 @@
             android:gravity="center_vertical"
             android:drawableLeft="@drawable/arrow_backspace"/>
         <Button
+            android:visibility="gone"
+            android:id="@+id/bt_edit"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:padding="@dimen/dp_4"
+            android:textAllCaps="false"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_dealer"
+            android:text="@string/button_edit" />
+        <Button
+            android:visibility="gone"
             android:id="@+id/bt_add"
             android:layout_width="60dp"
             android:layout_height="35dp"
@@ -174,7 +189,7 @@
                 <EditText
                     android:id="@+id/et_phone1"
                     android:layout_below="@+id/tv_phone1"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
                     android:hint="099 000 000"
@@ -224,7 +239,7 @@
                 <EditText
                     android:id="@+id/et_phone2"
                     android:layout_below="@+id/tv_phone2"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
                     android:hint="099 000 000"
