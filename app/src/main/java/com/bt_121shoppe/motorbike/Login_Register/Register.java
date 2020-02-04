@@ -1531,6 +1531,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 if(isCurent) {
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
+                    lat_long = latitude+","+longtitude;
                 }
 
                 try{

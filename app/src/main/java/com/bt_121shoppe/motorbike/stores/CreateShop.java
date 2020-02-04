@@ -40,6 +40,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
@@ -50,8 +51,10 @@ import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.Dealerstore;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
+import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
+import com.bt_121shoppe.motorbike.models.NewCardViewModel;
 import com.bt_121shoppe.motorbike.fragments.List_store_post;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
@@ -103,17 +106,23 @@ public class CreateShop extends AppCompatActivity {
     private File mPhotoFile;
     private Bitmap bitmap;
     private EditText editPhone,editShopname,editAddress,editMap,editWing_number,editWing_account;
-    private EditText editPhone1,editPhone2;
+    private EditText editPhone1,editPhone2,et_new_card1,editWing_account1,editWing_account2;
     private TextView PhoneError,shopname_alert,map_alert,address_alert;
-    private TextView tv_wing_number,tv_wing_account,wing_number_alert,wing_account_alert,tv_add,tv_add1,tv_cancel;
+    private TextView tv_wing_number,tv_wing_account,wing_number_alert,wing_account_alert,tv_add,tv_add1,tv_cancel,tv_new_card,new_card1_alert;
     private String shopName,number_wing,account_wing,addresses,phone_number,phone_number1,phone_number2,location,lat_long,register;
     private String url,name,pass1,Encode,intent_edit,edit;
     private List<UserShopViewModel> userShops;
+    private List<NewCardViewModel> newCard;
     private Button bt_add,bt_edit;
-    private RelativeLayout layout_phone1,layout_phone2;
-    private int mDealerShopId=0;
+    private RelativeLayout layout_phone1,layout_phone2,layout_add_new_card;
+    private int mDealerShopId=0,mProvinceID;
     private LocationManager locationManager;
     private double latitude,longtitude;
+    private List<province_Item> listData;
+    private String basicEncode,currentLanguage;
+    private String mPrice;
+    private String[] provine = new String[28];
+    private AlertDialog dialog;
     private String storeName,storeLocation,storeImage;
 
 
@@ -124,11 +133,14 @@ public class CreateShop extends AppCompatActivity {
         Variable_Field();
         editMap.setFocusable(false);
         userShops   = new ArrayList<>();
+        newCard     = new ArrayList<>();
         mCompressor = new FileCompressor(this);
         mProgress   = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.update));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = preferences.getString("My_Lang", "");
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
         if (prefer.contains("token")) {
             pk = prefer.getInt("Pk",0);
@@ -199,88 +211,132 @@ public class CreateShop extends AppCompatActivity {
 
         photo_select = getResources().getStringArray(R.array.select_option);
 
-        img_shop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectImage();
-            }
+        img_shop.setOnClickListener(view -> selectImage());
+        tv_back.setOnClickListener(view -> {
+           if (edit != null){
+               Intent intent12 = new Intent(CreateShop.this, Detail_store.class);
+               intent12.putExtra("edit_store",intent_edit);
+               intent12.putExtra("shopId",mDealerShopId);
+               intent12.putExtra("shop_name",storeName);
+               intent12.putExtra("address",storeLocation);
+               intent12.putExtra("shop_image",storeImage);
+               startActivity(intent12);
+           }else if (register == null){
+               Intent intent12 = new Intent(CreateShop.this, Register.class);
+               startActivity(intent12);
+           }else
+               finish();
         });
-        tv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               if (edit != null){
-                   Intent intent = new Intent(CreateShop.this, Detail_store.class);
-                   intent.putExtra("edit_store",intent_edit);
-                   intent.putExtra("shopId",mDealerShopId);
-                   intent.putExtra("shop_name",storeName);
-                   intent.putExtra("address",storeLocation);
-                   intent.putExtra("shop_image",storeImage);
-                   startActivity(intent);
-               }else if (register == null){
-                   Intent intent = new Intent(CreateShop.this, Register.class);
-                   startActivity(intent);
-               }else
-                   finish();
-            }
-        });
+        editAddress.setOnClickListener(view -> AlertDialog(provine,editAddress));
         tv_add.setVisibility(View.VISIBLE);
-        tv_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layout_phone1.setVisibility(View.VISIBLE);
-                tv_cancel.setVisibility(View.VISIBLE);
-                tv_add.setVisibility(View.GONE);
-            }
+        tv_add.setOnClickListener(view -> {
+            layout_phone1.setVisibility(View.VISIBLE);
+            tv_cancel.setVisibility(View.VISIBLE);
+            tv_add.setVisibility(View.GONE);
         });
-        tv_add1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layout_phone2.setVisibility(View.VISIBLE);
-            }
+        tv_add1.setOnClickListener(view -> layout_phone2.setVisibility(View.VISIBLE));
+        tv_cancel.setOnClickListener(view -> {
+            layout_phone1.setVisibility(View.GONE);
+            layout_phone2.setVisibility(View.GONE);
+            tv_cancel.setVisibility(View.GONE);
+            tv_add.setVisibility(View.VISIBLE);
         });
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layout_phone1.setVisibility(View.GONE);
-                layout_phone2.setVisibility(View.GONE);
-                tv_cancel.setVisibility(View.GONE);
-            }
-        });
-        bt_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        bt_add.setOnClickListener(view -> {
+            if (editPhone.getText().toString().length()<9) {
+                if (editShopname.getText().toString().isEmpty()) {
+                    shopname_alert.setTextColor(getColor(R.color.red));
+                    shopname_alert.setText(R.string.invalid_shop_name);
+                }else {
+                    shopname_alert.setText("");
+                }
+                if (PhoneError.getText().toString().isEmpty()) {
+                    PhoneError.setTextColor(getColor(R.color.red));
+                    PhoneError.setText(R.string.inputPhone);
+                }else {
+                    PhoneError.setText("");
+                }
+                if (editWing_account.getText().toString().isEmpty()){
+                    wing_account_alert.setTextColor(getColor(R.color.red));
+                    wing_account_alert.setText(getString(R.string.invalid_wing_account));
+                }else {
+                    wing_account_alert.setText("");
+                }
+                if (editWing_number.getText().toString().isEmpty()){
+                    wing_number_alert.setTextColor(getColor(R.color.red));
+                    wing_number_alert.setText(getString(R.string.invalid_wing_number));
+                }else {
+                    wing_number_alert.setText("");
+                }
+            }else {
+                mProgress.show();
+                PhoneError.setText("");
+                address_alert.setText("");
+                map_alert.setText("");
+                wing_number_alert.setText("");
+                wing_account_alert.setText("");
                 PutShop(url,Encode,false,true);
             }
         });
-        bt_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        bt_edit.setOnClickListener(view -> {
+            if (editPhone.getText().toString().length()<9) {
+                if (editShopname.getText().toString().isEmpty()) {
+                    shopname_alert.setTextColor(getColor(R.color.red));
+                    shopname_alert.setText(R.string.invalid_shop_name);
+                }else {
+                    shopname_alert.setText("");
+                }
+                if (PhoneError.getText().toString().isEmpty()) {
+                    PhoneError.setTextColor(getColor(R.color.red));
+                    PhoneError.setText(R.string.inputPhone);
+                }else {
+                    PhoneError.setText("");
+                }
+                if (editWing_account.getText().toString().isEmpty()){
+                    wing_account_alert.setTextColor(getColor(R.color.red));
+                    wing_account_alert.setText(getString(R.string.invalid_wing_account));
+                }else {
+                    wing_account_alert.setText("");
+                }
+                if (editWing_number.getText().toString().isEmpty()){
+                    wing_number_alert.setTextColor(getColor(R.color.red));
+                    wing_number_alert.setText(getString(R.string.invalid_wing_number));
+                }else {
+                    wing_number_alert.setText("");
+                }
+            }else {
+                mProgress.show();
+                PhoneError.setText("");
+                address_alert.setText("");
+                map_alert.setText("");
+                wing_number_alert.setText("");
+                wing_account_alert.setText("");
                 PutShop(url,Encode,true,false);
             }
         });
-        img_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                        (getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
-                    ActivityCompat.requestPermissions(CreateShop.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-                }else {
-                    Intent intent = new Intent(CreateShop.this, FragmentMap.class);
-                    intent.putExtra("edit","edit");
-                    intent.putExtra("shopId",mDealerShopId);
-                    intent.putExtra("addresses",editAddress.getText().toString());
-                    intent.putExtra("shop",editShopname.getText().toString());
-                    intent.putExtra("phone_number",editPhone.getText().toString());
-                    intent.putExtra("phone_number1",editPhone1.getText().toString());
-                    intent.putExtra("phone_number2",editPhone2.getText().toString());
-                    intent.putExtra("photo",imageUri);
-                    intent.putExtra("wing_number",editWing_account.getText().toString());
-                    intent.putExtra("wing_account",editWing_number.getText().toString());
-                    startActivity(intent);
-                }
+        img_map.setOnClickListener(view -> {
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                    (getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+                ActivityCompat.requestPermissions(CreateShop.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+            }else {
+                Intent intent1 = new Intent(CreateShop.this, FragmentMap.class);
+                intent1.putExtra("edit","edit");
+                intent1.putExtra("shopId",mDealerShopId);
+                intent1.putExtra("addresses",editAddress.getText().toString());
+                intent1.putExtra("shop",editShopname.getText().toString());
+                intent1.putExtra("phone_number",editPhone.getText().toString());
+                intent1.putExtra("phone_number1",editPhone1.getText().toString());
+                intent1.putExtra("phone_number2",editPhone2.getText().toString());
+                intent1.putExtra("photo",imageUri);
+                intent1.putExtra("wing_number",editWing_account.getText().toString());
+                intent1.putExtra("wing_account",editWing_number.getText().toString());
+                startActivity(intent1);
             }
         });
+        tv_new_card.setOnClickListener(view -> {
+            layout_add_new_card.setVisibility(View.VISIBLE);
+        });
+        getprovince();
     }
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -515,6 +571,14 @@ public class CreateShop extends AppCompatActivity {
                         @Override
                         public void run() {
                             mProgress.dismiss();
+                            String wing_account = editWing_account1.getText().toString();
+                            String wing_number  = et_new_card1.getText().toString();
+                            newCard.add(new NewCardViewModel(mDealerShopId,wing_account,wing_number,1));
+                            if(newCard.size()>0){
+                                for(int i=0;i<newCard.size();i++){
+                                    postNewCard(newCard.get(i),encode);
+                                }
+                            }
 
                         }
                     });
@@ -573,8 +637,15 @@ public class CreateShop extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            String wing_account = editWing_account1.getText().toString();
+                            String wing_number  = et_new_card1.getText().toString();
+                            newCard.add(new NewCardViewModel(mDealerShopId,wing_account,wing_number,1));
+                            if(newCard.size()>0){
+                                for(int i=0;i<newCard.size();i++){
+                                    EditNewCard(newCard.get(i).getShopId(),newCard.get(i),encode);
+                                }
+                            }
                             mProgress.dismiss();
-
                         }
                     });
                     //finish();
@@ -583,6 +654,125 @@ public class CreateShop extends AppCompatActivity {
         }catch (JSONException je){
             je.printStackTrace();
         }
+    }
+    private void postNewCard(NewCardViewModel newCard,String encode){
+        Log.e("wing account",""+newCard.getWing_account());
+        Log.e("wing number",newCard.getWing_number());
+        Log.e("Shop ID",""+newCard.getShopId());
+        String usershopurl= ConsumeAPI.BASE_URL+"api/v1/shopcard/";
+        OkHttpClient client1=new OkHttpClient();
+        JSONObject post1=new JSONObject();
+        try{
+            post1.put("shop",newCard.getShopId());
+            post1.put("wing_account_number",newCard.getWing_number());
+            post1.put("wing_account_name",newCard.getWing_account());
+            post1.put("record_status",1);
+            RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
+            String auth = "Basic " + encode;
+            Request request1 = new Request.Builder()
+                    .url(usershopurl)
+                    .post(body1)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client1.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String message = e.getMessage().toString();
+                    Log.d("failure Response",message);
+                    mProgress.dismiss();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String message = response.body().string();
+                    Log.d(TAG,"Add new card success"+ message);
+                }
+            });
+        }catch (JSONException je){
+            je.printStackTrace();
+        }
+    }
+    private void EditNewCard(int id,NewCardViewModel newCard,String encode){
+        Log.e("wing account",""+newCard.getWing_account());
+        Log.e("wing number",newCard.getWing_number());
+        Log.e("Shop ID",""+newCard.getShopId());
+        Log.e("id",""+id);
+        String usershopurl= ConsumeAPI.BASE_URL+"api/v1/shopcard/"+id+"/";
+        OkHttpClient client1=new OkHttpClient();
+        JSONObject post1=new JSONObject();
+        try{
+            post1.put("shop",newCard.getShopId());
+            post1.put("wing_account_number",newCard.getWing_number());
+            post1.put("wing_account_name",newCard.getWing_account());
+            post1.put("record_status",1);
+            Log.e(TAG,post1.toString());
+            RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
+            String auth = "Basic " + encode;
+            Request request1 = new Request.Builder()
+                    .url(usershopurl)
+                    .post(body1)
+                    .header("Accept","application/json")
+                    .header("Content-Type","application/json")
+                    .header("Authorization",auth)
+                    .build();
+            client1.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String message = e.getMessage().toString();
+                    Log.d("failure Response",message);
+                    mProgress.dismiss();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String message = response.body().string();
+                    Log.d(TAG,"Edit new card success"+ message);
+                }
+            });
+        }catch (JSONException je){
+            je.printStackTrace();
+        }
+    }
+    public void AlertDialog(String[] items, EditText editText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
+        builder.setTitle(getString(R.string.choose_item));
+        int checkedItem = 0;
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            mProvinceID = which+1;
+            editText.setText(items[which]);
+            dialog.dismiss();
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+    private void getprovince(){
+        Service api = Client.getClient().create(Service.class);
+        retrofit2.Call<AllResponse> call = api.getProvince();
+        call.enqueue(new retrofit2.Callback<AllResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                if (!response.isSuccessful()){
+                    Log.d("Error121211",response.code()+" ");
+                }
+                listData = response.body().getresults();
+                Log.d("333333333333", String.valueOf(listData.size()));
+                for (int i=0;i<listData.size();i++){
+                    if (currentLanguage.equals("en")){
+                        provine[i] = listData.get(i).getProvince();
+                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
+                    }else {
+                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
+                        provine[i] = listData.get(i).getProvince_kh();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+                Log.d("OnFailure",t.getMessage());
+            }
+        });
     }
     private void getLocation(boolean isCurent) {
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
@@ -595,6 +785,7 @@ public class CreateShop extends AppCompatActivity {
                 if(isCurent) {
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
+                    lat_long = latitude+","+longtitude;
                 }
 
                 try{
@@ -688,6 +879,8 @@ public class CreateShop extends AppCompatActivity {
         editWing_account   = (EditText) findViewById(R.id.et_wing_account);
         editWing_number    = (EditText) findViewById(R.id.et_wing_number);
         editMap            = (EditText) findViewById(R.id.et_map);
+        et_new_card1       = (EditText) findViewById(R.id.et_new_card1);
+        editWing_account1  = (EditText) findViewById(R.id.et_wing_account_new_card1);
 
         PhoneError         = (TextView) findViewById(R.id.phone_alert);
         tv_back            = (TextView) findViewById(R.id.tv_back);
@@ -701,17 +894,21 @@ public class CreateShop extends AppCompatActivity {
         wing_number_alert  = (TextView) findViewById(R.id.wing_number_alert);
         wing_account_alert = (TextView) findViewById(R.id.wing_account_acc_alert);
         address_alert      = (TextView) findViewById(R.id.address_alert);
+        shopname_alert     = (TextView) findViewById(R.id.shopname_alert);
         map_alert          = (TextView) findViewById(R.id.map_alert);
         tv_add             = (TextView) findViewById(R.id.tv_add);
         tv_add1            = (TextView) findViewById(R.id.tv_add1);
         tv_cancel          = (TextView) findViewById(R.id.tv_cancel);
+        tv_new_card        = (TextView) findViewById(R.id.tv_add_new_card);
+        new_card1_alert    = (TextView) findViewById(R.id.new_card_alert1);
 
         img_map            = (ImageView) findViewById(R.id.map);
         img_map            = (ImageView) findViewById(R.id.map);
 
         img_shop           = (CircleImageView) findViewById(R.id.imgShop);
 
-        layout_phone1      = (RelativeLayout) findViewById(R.id.layout_phone1);
-        layout_phone2      = (RelativeLayout) findViewById(R.id.layout_phone2);
+        layout_phone1       = (RelativeLayout) findViewById(R.id.layout_phone1);
+        layout_phone2       = (RelativeLayout) findViewById(R.id.layout_phone2);
+        layout_add_new_card = (RelativeLayout) findViewById(R.id.layout_new_card);
     }
 }

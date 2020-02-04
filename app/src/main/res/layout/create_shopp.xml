@@ -84,7 +84,7 @@
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:text="Shop name"
+                android:text="@string/shop_name"
                 android:textColor="#000"
                 android:textSize="12sp" />
 
@@ -92,7 +92,7 @@
                 android:id="@+id/et_shopname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your shop name"
+                android:hint="@string/enter_information"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
@@ -145,7 +145,7 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Add"/>
+                    android:text="@string/add"/>
                 <TextView
                     android:visibility="gone"
                     android:id="@+id/tv_cancel"
@@ -158,7 +158,7 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Cancel"/>
+                    android:text="@string/cancel"/>
                 <TextView
                     android:id="@+id/phone_alert"
                     android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                     android:id="@+id/tv_phone1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number 1"
+                    android:text="@string/hit_phone1"
                     android:layout_marginStart="@dimen/dp_16"
                     android:textColor="#000"
                     android:textSize="12sp" />
@@ -208,7 +208,7 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Add"/>
+                    android:text="@string/add"/>
                 <TextView
                     android:id="@+id/phone_alert1"
                     android:layout_width="match_parent"
@@ -231,7 +231,7 @@
                     android:id="@+id/tv_phone2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number 2"
+                    android:text="@string/hit_phone2"
                     android:layout_marginStart="@dimen/dp_16"
                     android:textColor="#000"
                     android:textSize="12sp" />
@@ -258,7 +258,7 @@
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Add"/>
+                    android:text="@string/add"/>
                 <TextView
                     android:id="@+id/phone_alert2"
                     android:layout_width="match_parent"
@@ -287,7 +287,7 @@
                 android:id="@+id/et_wing_account"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your account"
+                android:hint="@string/enter_information"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
@@ -319,7 +319,7 @@
                 android:id="@+id/et_wing_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your number"
+                android:hint="@string/enter_information"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
@@ -335,6 +335,98 @@
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_add_new_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/add_new_card"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:drawableLeft="@drawable/add_brown"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_new_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_wing_account_new_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/hit_wingaccount"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_wing_account_new_card1"
+                    android:layout_below="@+id/tv_wing_account_new_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/enter_information"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8" />
+
+                <TextView
+                    android:id="@+id/wing_account_new_card1_alert"
+                    android:layout_below="@+id/et_wing_account_new_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_8dp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+                <TextView
+                    android:id="@+id/tv_new_card1"
+                    android:layout_below="@+id/wing_account_new_card1_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/hit_wingnumber"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_new_card1"
+                    android:layout_below="@+id/tv_new_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/enter_information"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8" />
+
+                <TextView
+                    android:id="@+id/new_card_alert1"
+                    android:layout_below="@+id/et_new_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -351,11 +443,13 @@
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Enter your information"
+                android:hint="@string/enter_information"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textSize="14sp"
+                android:focusable="false"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginEnd="@dimen/dp_8"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black"/>
 
             <TextView
                 android:id="@+id/address_alert"
@@ -375,7 +469,7 @@
                     android:id="@+id/tv_map"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Map"
+                    android:text="@string/map"
                     android:layout_marginStart="@dimen/dp_16"
                     android:textColor="#000"
                     android:textSize="12sp" />

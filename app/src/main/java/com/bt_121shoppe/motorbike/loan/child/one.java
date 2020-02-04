@@ -396,7 +396,7 @@ public class one extends Fragment{
                 createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mCo_Job_Period_alert,getString(R.string.invalid_co_borrower_job_period));
             }
             createLoad.requstFocus(bname,mName,mName_alert,getString(R.string.invalid_name));
-            createLoad.requstFocus(baddress,mAddress,mAddress_alert,getString(R.string.invalid_address));
+            createLoad.requstFocus(baddress,mAddress,mAddress_alert,getString(R.string.invalid_province));
             createLoad.requstFocus(bJob,mJob,mJob_alert,getString(R.string.invalid_job));
             createLoad.requstFocus(bJob_Period,mJob_Period,mJob_Period_alert,getString(R.string.invalid_job_period));
             createLoad.requstFocus(bTotal_Income,mTotal_Income,Income_alert,getString(R.string.invalid_income));

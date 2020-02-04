@@ -147,7 +147,7 @@
     <string name="email" translatable="false">Email</string>
     <string name="Password">Password</string>
     <string name="alert_phone">Wrong phone number</string>
-    <string name="alert_phone1">Username is empty</string>
+    <string name="alert_phone1">Phone Number is empty</string>
     <string name="secret_number">Wrong password</string>
     <string name="secret_number1">Password is empty</string>
     <string name="head_dialog_login">Login failure!</string>
@@ -351,7 +351,7 @@
     <string name="total_income"> Total Income (Borrower and Co-Borrower) ($)</string>
     <string name="repayment_type"> Loan Repayment Type</string>
     <string name="net_income">Net Income ($)</string>
-    <string name="job_id_card">Job ID Card or Payslip</string>
+    <string name="job_id_card">Staff ID/ Salary Slip</string>
     <string name="photo">Photo</string>
     <string name="family_book">Family Book or Resident Book</string>
     <string name="cambodian_id">Cambodian ID Card </string>
@@ -466,7 +466,7 @@
 
     //dialog error register
     <string name="head_dialog_register">Register failure</string>
-    <string name="inputPhone">Please input the Phone Numbers</string>
+    <string name="inputPhone">Phone Number​​ can`t be empty</string>
     <string name="inputPhoneWrong">Invalid Phone Number</string>
     <string name="inputPassword">Please input the Password</string>
     <string name="wrongInputPassword">Invalid Password</string>
@@ -564,7 +564,7 @@
     <string name="dont_receive">Do not Receive the Code?</string>
     <string name="resend">Resend</string>
     <string name="enter_number">Enter your phone number</string>
-    <string name="verify_code_message">User with this username already exists.Please create new for register!</string>
+    <string name="verify_code_message">This phone number is already exist. Please try again.</string>
     //message
     <string name="type_message">Type a message...</string>
     <string name="username">User name</string>
@@ -1056,23 +1056,26 @@
     <string name="continue_signin">Sign in to continue</string>
     <string name="best_match">Best match</string>
     <string name="privacy">By tapping Register, Continue with Facebook or Continue with Google, you agrees to our Term and Conditions and Privacy Statement</string>
-    <string name="invalid_username">Invalid Username</string>
-    <string name="invalid_gender">Invalid Gender</string>
-    <string name="invalid_email">Invalid Email</string>
-    <string name="invalid_password">Invalid Password</string>
-    <string name="invalid_date">Invalid Date of birth</string>
-    <string name="invalid_address">Invalid Address</string>
-    <string name="invalid_map">Invalid Map</string>
-    <string name="invalid_wing_number">Invalid Wing Number</string>
-    <string name="invalid_wing_account">Invalid Wing Account</string>
-    <string name="invalid_category">Invalid Category</string>
-    <string name="invalid_post_type">Invalid Post Type</string>
+    <string name="invalid_username">Username can`t be empty</string>
+    <string name="invalid_gender">Gender can`t be empty</string>
+    <string name="invalid_email">Email can`t be empty</string>
+    <string name="invalid_password">Password can`t be empty</string>
+    <string name="invalid_date">Date of birth can`t be empty</string>
+    <string name="invalid_address">Address can`t be empty</string>
+    <string name="invalid_map">Map can`t be empty</string>
+    <string name="invalid_wing_number">Wing Number can`t be empty</string>
+    <string name="invalid_wing_account">Wing Account can`t be empty</string>
+    <string name="invalid_category">Category can`t be empty</string>
+    <string name="invalid_post_type">Post Type can`t be empty</string>
     <string name="invalid_year">Invalid Year</string>
-    <string name="invalid_model">Invalid Model</string>
-    <string name="invalid_brand">Invalid Brand</string>
-    <string name="invalid_price">Invalid Price</string>
-    <string name="invalid_condition">Invalid Condition</string>
+    <string name="invalid_model">Model can`t be empty</string>
+    <string name="invalid_brand">Brand can`t be empty</string>
+    <string name="invalid_price">Price can`t be empty</string>
+    <string name="invalid_condition">Condition can`t be empty</string>
+    <string name="invalid_shop_name">Shop Name can`t be empty</string>
     <string name="store_list">Sotre Lists</string>
+    <string name="add">Add</string>
+    <string name="map">Map</string>
 
     //Loan info
     <string name="loan_form">Loan Form</string>
@@ -1080,30 +1083,32 @@
     <string name="private_info">Private Info</string>
     <string name="borrow_info">Borrow Info</string>
     <string name="save_draft">Save Draft</string>
-    <string name="invalid_relationship">Invalid Relationship</string>
-    <string name="invalid_co_borrower_job">Invalid Co-borrower Job</string>
-    <string name="invalid_co_borrower_job_period">Invalid Co-borrower Job Period</string>
-    <string name="invalid_name">Invalid Name</string>
-    <string name="invalid_job">Invalid Job </string>
-    <string name="invalid_job_period">Invalid Job Period</string>
-    <string name="invalid_income">Invalid Total Income</string>
-    <string name="invalid_expense">Invalid Total Expense</string>
-    <string name="invalid_net_income">Invalid NetIncome</string>
-    <string name="invalid_district">Invalid District</string>
-    <string name="invalid_commune">Invalid Commune</string>
-    <string name="invalid_village">Invalid Village</string>
-    <string name="invalid_loan_amount">Invalid Loan Amount</string>
-    <string name="invalid_loan_term">Invalid Loan Term</string>
-    <string name="invalid_repayment_type">Invalid Repayment Type</string>
-    <string name="invalid_contributions">Invalid Deposit Amount</string>
-    <string name="invalid_number_institutions">Invalid Number Institutions</string>
-    <string name="invalid_monthly_amount">Invalid Monthly Amount</string>
-    <string name="invalid_residence">Invalid Residence</string>
-    <string name="invalid_product_insurance">Invalid Product Insurance</string>
+    <string name="invalid_relationship">Relationship can`t be empty</string>
+    <string name="invalid_co_borrower_job">Co-borrower Job can`t be empty</string>
+    <string name="invalid_co_borrower_job_period">Co-borrower Job Period can`t be empty</string>
+    <string name="invalid_name">Name can`t be empty</string>
+    <string name="invalid_job">Job can`t be empty</string>
+    <string name="invalid_job_period">Job Period can`t be empty</string>
+    <string name="invalid_income">Total Income can`t be empty</string>
+    <string name="invalid_expense">Total Expense can`t be empty</string>
+    <string name="invalid_net_income">NetIncome can`t be empty</string>
+    <string name="invalid_district">District can`t be empty</string>
+    <string name="invalid_commune">Commune can`t be empty</string>
+    <string name="invalid_village">Village can`t be empty</string>
+    <string name="invalid_loan_amount">Loan Amount can`t be empty</string>
+    <string name="invalid_loan_term">Loan Term can`t be empty</string>
+    <string name="invalid_repayment_type">Repayment Type can`t be empty</string>
+    <string name="invalid_contributions">Deposit Amount can`t be empty</string>
+    <string name="invalid_number_institutions">Number Institutions can`t be empty</string>
+    <string name="invalid_monthly_amount">Monthly Amount can`t be empty</string>
+    <string name="invalid_residence">Residence can`t be empty</string>
+    <string name="invalid_product_insurance">Product Insurance can`t be empty</string>
+    <string name="invalid_province">Province can`t be empty</string>
     <string name="enter_information">Enter Information</string>
     <string name="private_information">Private Information</string>
     <string name="borrow_information">Borrow Information</string>
     <string name="co_borrower_information">Co-Borrower Information</string>
     <string name="save">Save</string>
     <string name="please_fill_information">Please fill your information correctly.</string>
+    <string name="add_new_card">Add New Card</string>
 </resources>

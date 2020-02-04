@@ -141,7 +141,7 @@
 
     //dialog error register
     <string name="head_dialog_register">បរាជ័យក្នុងការបង្កើត</string>
-    <string name="inputPhone">សូមបញ្ចូលលេខទូរស័ព្ទ</string>
+    <string name="inputPhone">សូមបំពេញលេខទូរស័ព្ទ</string>
     <string name="inputPhoneWrong">លេខទូរស័ព្ទមិនត្រឹមត្រូវ</string>
     <string name="inputPassword">សូមបញ្ចូលពាក្យសម្ងាត់</string>
     <string name="wrongInputPassword">លេខ​សម្ងាត់​មិនត្រឹម​ត្រូវ​</string>
@@ -161,7 +161,7 @@
     <string name="khmer">ខ្មែរ</string>
     <string name="language2">អង់គ្លេស</string>
     <string name="setting">ការកំណត់</string>
-    <string name="version">កំណែ</string>
+    <string name="version">ជំនាន់</string>
     <string name="logout">ចាកចេញ</string>
     <string name="app_setting">ការកំណត់កម្មវិធី</string>
     <string name="account_setting">ការកំណត់គណនី</string>
@@ -191,7 +191,7 @@
     <string name="back">ត្រឡប់</string>
     <string name="bt_verify">ផ្ទៀងផ្ទាត់</string>
     <string name="verify_code">លេខកូដផ្ទៀងផ្ទាត់</string>
-    <string name="verify_code_message">អ្នកប្រើប្រាស់ដែលមានឈ្មោះនេះមានរួចហើយ</string>
+    <string name="verify_code_message">លេខទូរស័ព្ទនេះបានប្រើប្រាស់រួចហើយ ។ សូមបញ្ចូលលេខទូរស័ព្ទថ្មី ។</string>
 
     <!-- Start Loan Information String -->
     <style name="loan_calculation_title1">ការរគណនាប្រាក់កម្ចី/ Loan Calculation</style>
@@ -239,7 +239,7 @@
     <string name="total_income"> ប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី ($)</string>
     <string name="repayment_type"> របៀបសងប្រាក់</string>
     <string name="net_income">ប្រាក់សំណល់សរុប ($)</string>
-    <string name="job_id_card">កាតការងារ ឬលិខិតបញ្ជាក់ប្រាក់ខែ </string>
+    <string name="job_id_card">កាតសំគាល់បុគ្គលិក/ប័ណ្ណបើកប្រាក់ខែ </string>
     <string name="photo">រូបថត</string>
     <string name="family_book">សៀវភៅគ្រួសារ ឬសៀវភៅស្នាក់នៅ</string>
     <string name="cambodian_id">អត្តសញ្ញាណប័ណ្ណ </string>
@@ -453,7 +453,7 @@
     <!--    message for loan created-->
     <string name="create_loan">ការបង្កើត</string>
     <string name="for_loan_title">សារ</string>
-    <string name="already_created">អ្នកមិនអាចស្នើរសុំឥណទានស្ទួនគ្នាបានទេ</string>
+    <string name="already_created">អ្នកមិនអាចស្នើសុំកម្ចីស្ទួនគ្នាបានទេ</string>
 
     //login_message
     <string name="head_mss">សារ</string>
@@ -561,7 +561,7 @@
     <string name="interest_rate">អត្រាការប្រាក់ (%)</string>
     <string name="deposit">ដាក់ប្រាក់ ($)</string>
     <string name="deposit_per">ដាក់ប្រាក់ (%)</string>
-    <string name="term">រយៈពេល ​(ខែ)</string>
+    <string name="term">រយៈពេលកម្ចី(គិតជាខែ)</string>
     <string name="Monthly_payment">ការចំណាយប្រចាំខែ</string>
     <string name="contact">ទំនាក់ទំនង</string>
     <string name="locaion">ទីតាំង​ :</string>
@@ -608,7 +608,7 @@
     //message
     <string name="type_message">បញ្ចូលសារនៅទីនេះ...</string>
     <string name="username">ឈ្មោះ​អ្នកប្រើប្រាស់</string>
-    <string name="renew">ធ្វើអោយថ្មី</string>
+    <string name="renew">ប្រកាសជាថ្មី</string>
 
     //filter
     <string name="choose_type">ជ្រើសរើសប្រភេទ</string>
@@ -626,7 +626,7 @@
     <string name="shoppe">121 Shoppe</string>
     <string name="search_here">ស្វែងរក…</string>
     <string name="no_result">រកមិនឃើញលទ្ធផលទេ</string>
-    <string name="related_poat">ការប្រកាសដែលពាក់ព័ន្ធគ្នា</string>
+    <string name="related_poat">ផលិតផលប្រហាក់ប្រហែល</string>
 
     <string name="english_khmer">អង់គ្លេស</string>
 
@@ -640,7 +640,7 @@
     <string name="missing_color">សូមជ្រើសរើសពណ៌</string>
     <string name="title_unlike">លុបផលិតផលរក្សាទុក</string>
     <string name="unlike_message">តើអ្នកប្រាកដជាលុបចេញនូវផលិតផលរក្សាទុកនេះ?</string>
-    <string name="like_post">អ្នកចូលចិត្តផលិតផលនេះ។</string>
+    <string name="like_post">អ្នកចូលចិត្តការប្រកាសនេះ</string>
     <string name="post_message">ការប្រកាសរបស់លោក-អ្នកកំពុងរង់ចាំការអនុម័ត</string>
     <string name="title_edit_loan">កែសម្រួលឥណទានរបស់អ្នក</string>
     <string name="loan_edit_m">តើអ្នកប្រាកដជាមួយការកែរបស់អ្នកទេ?</string>
@@ -655,10 +655,10 @@
     <string name="loan_fail_message">សំណើបង្កើតឥណទានរបស់អ្នកមានកំហុសខណៈពេលដាក់ស្នើ</string>
     <string name="ok">យល់ព្រម</string>
     <string name="title_post">ការប្រកាស</string>
-    <string name="post_fail_message">ការប្រកាសនេះមានកំហុសនៅពេលបញ្ជូន</string>
-    <string name="post_success_message">ការប្រកាសនេះត្រូវបានដាក់ស្នើដោយជោគជ័យ</string>
-    <string name="waiting_approval">កំពុងរង់ចាំការយល់ព្រម</string>
-    <string name="please_wait">សូមរង់ចាំ ...</string>
+    <string name="post_fail_message">ការបញ្ជូនប្រកាសរបស់លោក-អ្នកមិនបានជោគជ័យ</string>
+    <string name="post_success_message">ការបញ្ជូនប្រកាសរបស់លោក-អ្នកបានជោគជ័យ</string>
+    <string name="waiting_approval">កំពុងរង់ចាំការអនុម័ត</string>
+    <string name="please_wait">សូមរង់ចាំ …</string>
     <string name="uploading">កំពុងធ្វើការបញ្ចូល</string>
 
     //validate loan
@@ -684,13 +684,13 @@
     <string name="cancel">បោះបង់</string>
 
     <string name="facebook_login_register">ចុះឈ្មោះឬចូលជាមួយ Facebook</string>
-    <string name="facebook_login">  ចូលជាមួយ Facebook</string>
+    <string name="facebook_login">  ចូលប្រព័ន្ធតាម Facebook</string>
     <string name="confirm_phone_number_title">បញ្ចូលលេខទូរស័ព្ទ</string>
     <string name="confirm_phone_number_text">សូមបញ្ចូលលេខទូរស័ព្ទរបស់អ្នកនៅក្នុងប្រអប់ខាងក្រោមដើម្បីផ្ទៀងផ្ទាត់លេខទូរស័ព្ទរបស់អ្នក។ យើងនឹងផ្ញើលេខកូដផ្ទៀងផ្ទាត់ទៅទូរស័ព្ទរបស់អ្នក។</string>
     <string name="confirm_phone_number_hint">លេខទូរស័ព្ទរបស់អ្នក</string>
     <string name="button_close">បិទ</string>
     <string name="phone_exist">លេខទូរស័ព្ទនេះត្រូវបានប្រើរួចហើយ។ សូមព្យាយាមផ្សេងទៀត។</string>
-    <string name="progress_waiting">កំពុងដំនើរការ...</string>
+    <string name="progress_waiting">កំពុងដំណើរការ...</string>
     <string name="forget_pwd">ភ្លេចលេខសម្ងាត់?</string>
     <string name="search_account_title">ស្វែងរកគណនី</string>
     <string name="search_account_text">បញ្ចូលលេខទូរស័ព្ទរបស់អ្នកដែលអ្នកចុះឈ្មោះនៅលើ 121 Shoppe ហើយយើងនឹងផ្ញើកូដដើម្បីកំណត់ពាក្យសម្ងាត់ថ្មី</string>
@@ -709,13 +709,13 @@
     <string name="edit_success_message">ព័ត៌មានគណនីត្រូវបានកែប្រែដោយជោគជ័យ</string>
     <string name="edit_fail_message">ព័ត៌មានអំពីគណនីមានកំហុសពេលបញ្ជូន</string>
     <string name="update">កំពុងធ្វើការកែប្រែ...</string>
-    <string name="logout_message">តើអ្នកពិតជាចង់ចាកចេញឬ?</string>
+    <string name="logout_message">តើលោក-អ្នកពិតជាចង់ចាកចេញពីកម្មវិធីមែនទេ?</string>
     <string name="login_fail">ចូលត្រូវបានបរាជ័យ</string>
     <string name="public_brand">ម៉ាកសាធារណៈ</string>
     //change password
     <string name="title_change_password">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
-    <string name="success_change_password">ពាក្យសម្ងាត់របស់អ្នកត្រូវបានផ្លាស់ប្តូរ</string>
-    <string name="fail_change_password">ពាក្យសម្ងាត់របស់អ្នកមានកំហុសខណៈពេលផ្លាស់ប្តូរ</string>
+    <string name="success_change_password">លេខសម្ងាត់របស់លោក-អ្នកត្រូវបានកែប្រែ</string>
+    <string name="fail_change_password">ការផ្លាស់ប្តូរពាក្យសម្ងាត់របស់លោក-អ្នកមិនជោគជ័យទេ</string>
     //tab account
     <string name="tab_post">ប្រកាស</string>
     <string name="tab_like">ចូលចិត្ត</string>
@@ -773,7 +773,7 @@
 
     //filter
     <string name="result">លទ្ធផល</string>
-    <string name="filter">ច្រោះ</string>
+    <string name="filter">Filter</string>
     <string name="done">ធ្វើរួច</string>
     <string name="not_found">រកមិនឃើញលទ្ធផលទេ</string>
     <string name="all">ទាំងអស់</string>
@@ -810,10 +810,10 @@
     <string name="pending">កំពុងរង់ចាំ</string>
     <string name="approveval">អនុម័ត</string>
     <string name="Post_Renewal">ប្រកាសឡើងវិញ</string>
-    <string name="renew_post">តើអ្នកចង់ប្រកាសឡើងវិញដែរទេ?</string>
+    <string name="renew_post">តើលោក-អ្នកចង់ប្រកាសជាថ្មីមែនទេ?</string>
 
     <string name="newl">ថ្មី</string>
-    <string name="used">ប្រើ</string>
+    <string name="used">ប្រើប្រាស់រួច</string>
     <string name="blue">ខៀវ</string>
     <string name="black">ខ្មៅ</string>
     <string name="silver">ប្រាក់</string>
@@ -843,7 +843,7 @@
     </string-array>
     <string name="no_conversation">គ្មានការសន្ទនា!</string>
     <string name="no_internet">គ្មានការភ្ជាប់អ៊ីនធឺណិត</string>
-    <string name="upgrade">វិវឌ្ឍន៍ទៅជាអ្នកចែកចាយ</string>
+    <string name="upgrade">តម្លើងសិទ្ធិប្រើប្រាស់ទៅជាម្ចាស់ហាង</string>
     <string name="min_price">តម្លៃអប្បបរមា</string>
     <string name="max_price">តម្លៃអតិបរមា</string>
     <string name="result_name"> លទ្ធផល</string>
@@ -876,43 +876,46 @@
     <string name="shopname2">ឈ្មោះហាងទី២</string>
     <string name="shopname3">ឈ្មោះហាងទី៣</string>
     <string name="sold">បានលក់</string>
-    <string name="delete_photo">តើអ្នកពិតជាចង់លុបរូបថតនេះឬ?</string>
-    <string name="back_message">តើអ្នកប្រាកដជាចង់ចាកចេញពីទំព័រនេះមែនទេ?​ សូមចំណាំថាព័ត៌មានលម្អិតដែលអ្នកបានបំពេញនឹងមិនត្រូវបានរក្សាទុកទេ។</string>
+    <string name="delete_photo">តើលោក-អ្នកពិតជាចង់លុបរូបថតនេះឬ?</string>
+    <string name="back_message">តើលោក-អ្នកប្រាកដជាចង់ចាកចេញពីទំព័រនេះមែនទេ?​ សូមចំណាំថាព័ត៌មានលម្អិតដែលលោក-អ្នកបានបំពេញនឹងមិនត្រូវបានរក្សាទុកទេ ។</string>
     <string name="back_no">បិទ</string>
     <string name="back_ok">យល់ព្រម</string>
     <string name="deleting">កំពុងធ្វើការលុប ...</string>
     <string name="no_notification">គ្មានការជូនដំណឹងទេ</string>
-    <string name="dealer_shop">ហាងចែកចាយ</string>
+    <string name="dealer_shop">ម្ចាស់ហាង</string>
     <string name="shop">ហាងទី</string>
     <string name="store">ហាង</string>
-    <string name="dealer_store">ហាងចែកចាយ</string>
+    <string name="dealer_store">ម្ចាស់ហាង</string>
     <string name="tab_postlist">បញ្ជីការប្រកាស</string>
     <string name="tab_store">ហាង</string>
     <string name="add_store">បន្ថែមហាង</string>
     <string name="countview">ចំនួនអ្នកមើល</string>
-    <string name="signin">ចូល</string>
+    <string name="signin">ចូលប្រើប្រាស់</string>
     <string name="welcome">សូមស្វាគមន៍</string>
-    <string name="signup">ចុះ​ឈ្មោះ</string>
+    <string name="signup">ចុះ​ឈ្មោះប្រើប្រាស់</string>
     <string name="continue_signin">ចូលដើម្បីបន្ត</string>
     <string name="best_match">Best match</string>
     <string name="privacy">By tapping Register, Continue with Facebook or Continue with Google, you agrees to our Term and Conditions and Privacy Statement</string>
-    <string name="invalid_username">ឈ្មោះ​អ្នកប្រើប្រាស់​មិន​ត្រឹមត្រូវ</string>
-    <string name="invalid_gender">ភេទមិនត្រឹមត្រូវ</string>
-    <string name="invalid_email">អ៊ីមែលមិនត្រឹមត្រូវ</string>
-    <string name="invalid_password">ពាក្យសម្ងាត់មិនត្រឹមត្រូវ</string>
-    <string name="invalid_date">ថ្ងៃខែឆ្នាំកំណើតមិនត្រឹមត្រូវ</string>
-    <string name="invalid_address">អាសយដ្ឋានមិនត្រឹមត្រូវ</string>
-    <string name="invalid_map">ផែនទីមិនត្រឹមត្រូវ</string>
-    <string name="invalid_wing_number">លេខគណនីវីងមិនត្រឹមត្រូវ</string>
-    <string name="invalid_wing_account">គណនីវីងមិនត្រឹមត្រូវ</string>
-    <string name="invalid_category">ប្រភេទមិនត្រឹមត្រូវ</string>
-    <string name="invalid_post_type">ប្រភេទប្រកាសមិនត្រឹមត្រូវ</string>
-    <string name="invalid_year">ឆ្នាំមិនត្រឹមត្រូវ</string>
-    <string name="invalid_model">ម៉ូដែលមិនត្រឹមត្រូវ</string>
-    <string name="invalid_brand">ម៉ាកមិនត្រឹមត្រូវ</string>
-    <string name="invalid_price">តម្លៃមិនត្រឹមត្រូវ</string>
-    <string name="invalid_condition">លក្ខខណ្ឌមិនត្រឹមត្រូវ</string>
+    <string name="invalid_username">សូមបំពេញឈ្មោះ​អ្នកប្រើប្រាស់​</string>
+    <string name="invalid_gender">សូមជ្រើសរើសភេទ</string>
+    <string name="invalid_email">សូមបំពេញអ៊ីមែល</string>
+    <string name="invalid_password">សូមបំពេញពាក្យសម្ងាត់</string>
+    <string name="invalid_date">សូមបំពេញថ្ងៃខែឆ្នាំកំណើត</string>
+    <string name="invalid_address">សូមបំពេញអាស័យដ្ឋាន</string>
+    <string name="invalid_map">សូមបំពេញផែនទី</string>
+    <string name="invalid_wing_number">សូមបំពេញលេខគណនីវីង</string>
+    <string name="invalid_wing_account">សូមបំពេញគណនីវីង</string>
+    <string name="invalid_category">សូមជ្រើសរើសប្រភេទផលិតផល</string>
+    <string name="invalid_post_type">សូមជ្រើសរើសប្រភេទប្រកាស</string>
+    <string name="invalid_year">សូមជ្រើសរើសឆ្នាំផលិត</string>
+    <string name="invalid_model">សូមជ្រើសរើសម៉ូដែល</string>
+    <string name="invalid_brand">សូមជ្រើសរើសម៉ាកផលិតផល</string>
+    <string name="invalid_price">សូមបំពេញតម្លៃផលិតផល</string>
+    <string name="invalid_condition">សូមជ្រើសរើសលក្ខខណ្ឌ</string>
+    <string name="invalid_shop_name">សូមបំពេញឈ្មោះហាង</string>
     <string name="store_list">បញ្ជីផ្ទុក</string>
+    <string name="add">Add</string>
+    <string name="map">Map</string>
 
     //Loan info
     <string name="loan_form">ទម្រង់ប្រាក់កម្ចី</string>
@@ -920,30 +923,32 @@
     <string name="private_info">ព័ត៌មានឯកជន</string>
     <string name="borrow_info">ព័ត៌មានខ្ចី</string>
     <string name="save_draft">រក្សាទុកសេចក្តីព្រាង</string>
-    <string name="invalid_relationship">ទំនាក់ទំនងអ្នកចូលរួមខ្ចីមិនត្រឹមត្រូវ</string>
-    <string name="invalid_co_borrower_job">មុខរបររបស់អ្នកខ្ចីប្រាក់មិនត្រឹមត្រូវ</string>
-    <string name="invalid_co_borrower_job_period">រយៈពេលប្រកបការងាររបស់អ្នកចូលរួមខ្ចីប្រាក់មិនត្រឹមត្រូវ</string>
-    <string name="invalid_name">ឈ្មោះមិនត្រឹមត្រូវ</string>
-    <string name="invalid_job">មុខរបរមិនត្រឹមត្រូវ</string>
-    <string name="invalid_job_period">រយៈពេលប្រកបការងារមិនត្រឹមត្រូវ</string>
-    <string name="invalid_income">ប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចីមិនត្រឹមត្រូវ</string>
-    <string name="invalid_expense">ប្រាក់ចំណាយសរុបអ្នកខ្ចី និងអ្នករួមខ្ចីមិនត្រឹមត្រូវ</string>
-    <string name="invalid_net_income">ប្រាក់ចំណូលមិនត្រឹមត្រូវ</string>
-    <string name="invalid_district">ស្រុកមិនត្រឹមត្រូវ</string>
-    <string name="invalid_commune">ឃុំមិនត្រឹមត្រូវ</string>
-    <string name="invalid_village">ភូមិមិនត្រឹមត្រូវ</string>
-    <string name="invalid_loan_amount">ប្រាក់ស្នើកម្ចីមិនត្រឹមត្រូវ</string>
-    <string name="invalid_loan_term">រយៈពេលមិនត្រឹមត្រូវ</string>
-    <string name="invalid_repayment_type">របៀបសងប្រាប់មិនត្រឹមត្រូវ</string>
-    <string name="invalid_contributions">ទឹកប្រាក់ចូលរួមកម្ចីមិនត្រឹមត្រូវ</string>
-    <string name="invalid_number_institutions">ចំនួនស្ថាប័នដែលកំពុងជាប់បំណុលមិនត្រឹមត្រូវ</string>
-    <string name="invalid_monthly_amount">ចំនួនទឹកប្រាក់ប្រចាំខែមិនត្រឹមត្រូវ</string>
-    <string name="invalid_residence">ការធានារ៉ាប់រងផលិតផលមិនត្រឹមត្រូវ</string>
-    <string name="invalid_product_insurance">ការធានារ៉ាប់រងផលិតផលមិនត្រឹមត្រូវ</string>
+    <string name="invalid_relationship">សូមជ្រើសរើសទំនាក់ទំនងអ្នកចូលរួមខ្ចី</string>
+    <string name="invalid_co_borrower_job">សូមជ្រើសរើសមុខរបររបស់អ្នកចូលរួមខ្ចីប្រាក់</string>
+    <string name="invalid_co_borrower_job_period">សូមបំពេញរយៈពេលប្រកបការងាររបស់អ្នកចូលរួមខ្ចីប្រាក់</string>
+    <string name="invalid_name">សូមបំពេញឈ្មោះ</string>
+    <string name="invalid_job">សូមជ្រើសរើសមុខរបរអ្នកខ្ចីប្រាក់</string>
+    <string name="invalid_job_period">សូមបំពេញរយៈពេលប្រកបការងាររបស់អ្នកខ្ចីប្រាក់</string>
+    <string name="invalid_income">សូមបំពេញប្រាក់ចំណូលសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី</string>
+    <string name="invalid_expense">សូមបំពេញប្រាក់ចំណាយសរុបអ្នកខ្ចី និងអ្នករួមខ្ចី</string>
+    <string name="invalid_net_income">សូមបំពេញប្រាក់ចំណូល</string>
+    <string name="invalid_district">សូមជ្រើសរើសស្រុក</string>
+    <string name="invalid_commune">សូមជ្រើសរើសឃុំ</string>
+    <string name="invalid_village">សូមជ្រើសរើសភូមិ</string>
+    <string name="invalid_loan_amount">សូមបំពេញប្រាក់ស្នើកម្ចី</string>
+    <string name="invalid_loan_term">សូមបំពេញរយៈពេល (គិតជាខែ)</string>
+    <string name="invalid_repayment_type">សូមជ្រើសរើសរបៀបសងប្រាក់</string>
+    <string name="invalid_contributions">សូមបំពេញទឹកប្រាក់ចូលរួមកម្ចី</string>
+    <string name="invalid_number_institutions">សូមបំពេញចំនួនស្ថាប័នដែលកំពុងជាប់បំណុល</string>
+    <string name="invalid_monthly_amount">សូមបំពេញចំនួនទឹកប្រាក់សរុបដែលត្រូវសងប្រចាំខែ</string>
+    <string name="invalid_residence">សូមជ្រើសរើសការអនុញ្ញាតឲភ្នាក់ងារចុះជួបដល់លំនៅដ្ឋាន</string>
+    <string name="invalid_product_insurance">សូមជ្រើសរើសការទិញធានារ៉ាប់រងផលិតផល</string>
+    <string name="invalid_province">សូមជ្រើសរើសខេត្ត</string>
     <string name="enter_information">បញ្ចូលព័ត៌មាន</string>
     <string name="private_information">ព័ត៌មានឯកជន</string>
     <string name="borrow_information">ព័ត៌មានអ្នកខ្ចី</string>
     <string name="co_borrower_information">ព័ត៌មានរបស់អ្នកចូលរួមខ្ចី</string>
     <string name="save">រក្សាទុក</string>
-    <string name="please_fill_information">សូមបំពេញព័ត៌មានរបស់អ្នកអោយបានត្រឹមត្រូវ</string>
+    <string name="please_fill_information">សូមបំពេញព័ត៌មានរបស់លោក-អ្នកអោយបានត្រឹមត្រូវ</string>
+    <string name="add_new_card">Add New Card</string>
 </resources>
