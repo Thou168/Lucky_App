@@ -115,7 +115,7 @@ public class CreateShop extends AppCompatActivity {
     private List<NewCardViewModel> newCard;
     private Button bt_add,bt_edit;
     private RelativeLayout layout_phone1,layout_phone2,layout_add_new_card;
-    private int mDealerShopId=0,mProvinceID;
+    private int mDealerShopId=0,mProvinceID,mCardId=0;
     private LocationManager locationManager;
     private double latitude,longtitude;
     private List<province_Item> listData;
@@ -221,7 +221,7 @@ public class CreateShop extends AppCompatActivity {
                intent12.putExtra("address",storeLocation);
                intent12.putExtra("shop_image",storeImage);
                startActivity(intent12);
-           }else if (register == null){
+           }else if (register != null){
                Intent intent12 = new Intent(CreateShop.this, Register.class);
                startActivity(intent12);
            }else
@@ -570,15 +570,24 @@ public class CreateShop extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mProgress.dismiss();
-                            String wing_account = editWing_account1.getText().toString();
-                            String wing_number  = et_new_card1.getText().toString();
-                            newCard.add(new NewCardViewModel(mDealerShopId,wing_account,wing_number,1));
-                            if(newCard.size()>0){
-                                for(int i=0;i<newCard.size();i++){
-                                    postNewCard(newCard.get(i),encode);
+                            JSONObject obj = null;
+                            try {
+                                obj = new JSONObject(message);
+                                int shopID = obj.getInt("id");
+                                Log.e("shop id",""+shopID);
+                                String wing_account = editWing_account1.getText().toString();
+                                String wing_number  = et_new_card1.getText().toString();
+                                newCard.add(new NewCardViewModel(mCardId,shopID,wing_account,wing_number,1));
+                                if(newCard.size()>0){
+                                    for(int i=0;i<newCard.size();i++){
+                                        postNewCard(newCard.get(i),encode);
+                                    }
                                 }
                             }
+                            catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            mProgress.dismiss();
 
                         }
                     });
@@ -637,12 +646,13 @@ public class CreateShop extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Log.e("card id",""+mCardId);
                             String wing_account = editWing_account1.getText().toString();
                             String wing_number  = et_new_card1.getText().toString();
-                            newCard.add(new NewCardViewModel(mDealerShopId,wing_account,wing_number,1));
+                            newCard.add(new NewCardViewModel(mCardId,mDealerShopId,wing_account,wing_number,1));
                             if(newCard.size()>0){
                                 for(int i=0;i<newCard.size();i++){
-                                    EditNewCard(newCard.get(i).getShopId(),newCard.get(i),encode);
+                                    EditNewCard(newCard.get(i).getId(),newCard.get(i),encode);
                                 }
                             }
                             mProgress.dismiss();
@@ -706,7 +716,7 @@ public class CreateShop extends AppCompatActivity {
             post1.put("shop",newCard.getShopId());
             post1.put("wing_account_number",newCard.getWing_number());
             post1.put("wing_account_name",newCard.getWing_account());
-            post1.put("record_status",1);
+            post1.put("record_status",2);
             Log.e(TAG,post1.toString());
             RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
             String auth = "Basic " + encode;

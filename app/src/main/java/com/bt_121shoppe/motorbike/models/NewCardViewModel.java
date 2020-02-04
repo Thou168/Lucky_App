@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.models;
 import android.graphics.Bitmap;
 
 public class NewCardViewModel {
+    private int id;
     private int shopId;
     private String wing_account;
     private String wing_number;
@@ -12,12 +13,15 @@ public class NewCardViewModel {
 
     public NewCardViewModel(){}
 
-    public NewCardViewModel(int shopId, String wing_account, String wing_number, int record_status){
+    public NewCardViewModel(int id,int shopId, String wing_account, String wing_number, int record_status){
+        this.id=id;
         this.shopId=shopId;
         this.wing_account=wing_account;
         this.wing_number=wing_number;
         this.record_status=record_status;
     }
+
+    public int getId(){ return id; }
 
     public int getRecord_status() {
         return record_status;
@@ -58,4 +62,6 @@ public class NewCardViewModel {
     public void setEdit(boolean edit) {
         isEdit = edit;
     }
+
+    public void setId(int id){ id = id;}
 }
