@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/gray_light"
+    android:background="@color/white"
     tools:context=".chats.ChatMainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,6 +25,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:visibility="gone"
                 android:id="@+id/profile_image"/>
 
             <TextView
@@ -33,8 +34,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="@string/chat_toolbar"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_gravity="center" />
+                android:fontFamily="@font/opensans_semibold"
+                android:textSize="18dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
             <!--
             <TextView
                 android:layout_width="wrap_content"
@@ -47,24 +49,70 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            app:tabTextAppearance="@style/MineCustomTabText"
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="#FFF"
-            app:tabSelectedTextColor="@color/colorPrimaryDark"
-            app:tabIndicatorColor="@color/colorPrimaryDark"
-            app:tabTextColor="@color/colorPrimaryDark"/>
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            app:tabTextAppearance="@style/MineCustomTabText"-->
+<!--            android:id="@+id/tab_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:background="#FFF"-->
+<!--            app:tabSelectedTextColor="@color/colorPrimaryDark"-->
+<!--            app:tabIndicatorColor="@color/colorPrimaryDark"-->
+<!--            app:tabTextColor="@color/colorPrimaryDark"/>-->
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/view_pager"-->
+<!--        android:layout_below="@id/app_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="?android:attr/actionBarSize"/>-->
+
+    <RelativeLayout
         android:layout_below="@id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="?android:attr/actionBarSize"/>
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:padding="@dimen/dp_8"
+            android:background="#ffffff"
+            android:visibility="gone"
+            android:id="@+id/rl_noResult">
+
+            <ImageView
+                android:id="@+id/notification_empty_logo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone"
+                android:src="@drawable/group_2293"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_below="@id/notification_empty_logo"
+                android:text="@string/no_conversation"/>
+
+        </RelativeLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:visibility="gone"

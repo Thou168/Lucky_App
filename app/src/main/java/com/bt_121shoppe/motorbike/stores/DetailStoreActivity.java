@@ -25,7 +25,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
-import com.bt_121shoppe.motorbike.activities.Dealerstore;
+import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.fragments.List_store_post;
 import com.bt_121shoppe.motorbike.fragments.history_store;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -36,9 +36,9 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class DetailStoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
-    private static final String TAG= Detail_store.class.getSimpleName();
+    private static final String TAG= DetailStoreActivity.class.getSimpleName();
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences prefer;
@@ -96,7 +96,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
 
 //        tv_location.setText(location);
 //        tv_dealer.setText(storeName);
-//        Glide.with(Detail_store.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+//        Glide.with(DetailStoreActivity.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
 //            @Override
 //            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 //                img_user.setImageBitmap(resource);
@@ -113,7 +113,7 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Detail_store.this, Dealerstore.class);
+                Intent intent=new Intent(DetailStoreActivity.this, DealerStoreActivity.class);
                 startActivity(intent);
             }
         });
@@ -121,7 +121,8 @@ public class Detail_store extends AppCompatActivity implements TabLayout.OnTabSe
         btAdd_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Detail_store.this, Camera.class);
+                Intent intent = new Intent(DetailStoreActivity.this, Camera.class);
+                intent.putExtra("shopId",shopId);
                 startActivity(intent);
             }
         });

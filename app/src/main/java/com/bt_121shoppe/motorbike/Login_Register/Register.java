@@ -811,7 +811,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     private void registerUserFirebase(String email,String username, String pass1, String group,String imageURL){
         Log.d(TAG,"email: "+email+"  username:"+username+ " password "+pass1+" group :"+group);
         String password=group.equals("1")?pass1+"__":pass1; //if group=1 is public user
-        auth.createUserWithEmailAndPassword(email,password)
+        //.createUserWithEmailAndPassword(email,password)
+        auth.createUserWithEmailAndPassword(email,ConsumeAPI.DEFAULT_FIREBASE_PASSWORD_ACC)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -921,7 +922,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
 
     private void registerUserAccount(String email,String username, String pass1, String group, int id,String imageURL){
         String password=group.equals("3")?pass1+"__":pass1;
-        auth.createUserWithEmailAndPassword(email,password)
+        //auth.createUserWithEmailAndPassword(email,password)
+        auth.createUserWithEmailAndPassword(email,ConsumeAPI.DEFAULT_FIREBASE_PASSWORD_ACC)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -1453,7 +1455,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     HashMap<String,Object> map=new HashMap<>();
                     map.put("imageURL",image);
                     reference.updateChildren(map);
-                    androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(Register.this).create();
                     alertDialog.setTitle(getString(R.string.title_edit_account));
                     alertDialog.setMessage(getString(R.string.edit_success_message));
                     alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
@@ -1462,7 +1464,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         dialog.dismiss();
                     });
                     alertDialog.show();
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

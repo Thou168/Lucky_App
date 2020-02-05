@@ -15,6 +15,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
 import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
@@ -74,6 +75,8 @@ public interface Service {
 
     @GET("postbyuser/?status=")
     Call<AllResponse> getPostbyuser(@Header("Authorization") String authorization);
+    @GET("postbyuser/{id}/")
+    Call<Item> getPostItem(@Path("id") int id,@Header("Authorization") String authorization);
     @GET("posybyuserhistory/?status=2")
     Call<AllResponse> getpostbyhistory(@Header("Authorization") String authorization);
     @GET("likebyuser/")
@@ -97,6 +100,7 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/loan/{id}/")
     Call<Item_loan> getputcancelloan(@Path("id") int id, @Body Item_loan item_loan, @Header("Authorization") String authorization);
+
     @GET("loanbyuserhistory/")
     Call<AllResponse> getloanhistory(@Header("Authorization") String authorization);
 
@@ -169,4 +173,13 @@ public interface Service {
     @GET("api/v1/shop/")
     Call<APIShopResponse> GetStoreList();
 
+    @GET("api/v1/postdealershop/?record_status=1&shop=")
+    Call<APIStorePostResponse> GetStoreActivePost(@Query("shop") int shop);
+
+    @GET("api/v1/postdealershop/?record_status=2&shop=")
+    Call<APIStorePostResponse> GetStoreHistoryPost(@Query("shop") int shop);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("api/v1/shop/{id}/")
+    Call<ShopViewModel> updateShopCountView(@Path("id") int id, @Body ShopViewModel shopViewModel);
 }

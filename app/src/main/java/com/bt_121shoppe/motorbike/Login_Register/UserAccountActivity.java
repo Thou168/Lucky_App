@@ -17,12 +17,10 @@ import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.CheckGroup;
-import com.bt_121shoppe.motorbike.activities.Dealerstore;
+import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.activities.Home;
-import com.bt_121shoppe.motorbike.activities.NotificationActivity;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
-import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.models.User;
@@ -423,7 +421,7 @@ public class UserAccountActivity extends AppCompatActivity {
 //                                        finish();
 //                                        break;
                                     case "camera":
-                                        intent = new Intent(UserAccountActivity.this, Dealerstore.class);
+                                        intent = new Intent(UserAccountActivity.this, DealerStoreActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();

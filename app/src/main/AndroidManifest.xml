@@ -35,7 +35,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -138,7 +137,7 @@
             android:name=".activities.Account"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.Dealerstore"
+            android:name=".activities.DealerStoreActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login_Register.FacebookLoginActivity"
@@ -188,7 +187,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".stores.Detail_store"
+            android:name=".stores.DetailStoreActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login_Register.UserAccountActivity"

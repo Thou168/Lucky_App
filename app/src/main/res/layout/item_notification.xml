@@ -18,11 +18,11 @@
         android:background="?android:selectableItemBackground">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/notification_image"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@drawable/path_3746"/>
 
         <RelativeLayout
             android:layout_toRightOf="@id/imageView"

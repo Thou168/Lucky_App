@@ -208,15 +208,16 @@ public class ChatActivity extends AppCompatActivity {
                     com.bt_121shoppe.motorbike.models.User uuser=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
 
                     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                    if (fuser.getMetadata()!=null) {
-                        cal.setTimeInMillis(fuser.getMetadata().getLastSignInTimestamp());
-                        String date = DateFormat.format("dd-MM-yyyy hh:mm:ss", cal).toString();
-                        if (uuser.getUsername().equals(postUserId)) {
+                    cal.setTimeInMillis(fuser.getMetadata().getLastSignInTimestamp());
+                    String date = DateFormat.format("dd-MM-yyyy hh:mm:ss", cal).toString();
+                    if(uuser.getUsername()!=null){
+                        if(uuser.getUsername().equals(postUserId)){
                             //tvreceiver.setText(uuser.getId());
-                            readMessage(fuser.getUid(), uuser.getId(), postId, uuser.getImageURL());
+                            readMessage(fuser.getUid(),uuser.getId(),postId,uuser.getImageURL());
                             setUserId(uuser.getId());
                         }
                     }
+
                 }
             }
 

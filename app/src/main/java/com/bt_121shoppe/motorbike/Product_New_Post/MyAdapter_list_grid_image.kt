@@ -142,19 +142,24 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
             //            GradientDrawable backgroundGradient = (GradientDrawable)tvColor1.getBackground();
 //            backgroundGradient.setColor(itemView.getContext().getResources().getColor(R.color.logo_green));
-            val splitColor: Array<String> = item.color.split(",").toTypedArray()
+            if(item.color!= null){
+                val splitColor: Array<String> = item.color.split(",").toTypedArray()
+                val shape = GradientDrawable()
+                if(splitColor[0].isNotEmpty()){
 
-            val shape = GradientDrawable()
-            shape.shape = GradientDrawable.OVAL
-            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])))
-            tvColor1.background = shape
-            tvColor2.visibility = View.GONE
-            if (splitColor.size > 1) {
-                tvColor2.visibility = View.VISIBLE
-                val shape1 = GradientDrawable()
-                shape1.shape = GradientDrawable.OVAL
-                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])))
-                tvColor2.background = shape
+                    shape.shape = GradientDrawable.OVAL
+                    shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])))
+                    tvColor1.background = shape
+                    tvColor2.visibility = View.GONE
+
+                }
+                if (splitColor.size > 1) {
+                    tvColor2.visibility = View.VISIBLE
+                    val shape1 = GradientDrawable()
+                    shape1.shape = GradientDrawable.OVAL
+                    shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])))
+                    tvColor2.background = shape
+                }
             }
 
             var lang:String = tv_user_view.text as String

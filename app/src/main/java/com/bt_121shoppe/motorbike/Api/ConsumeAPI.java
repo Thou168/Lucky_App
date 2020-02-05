@@ -25,5 +25,5 @@ public class ConsumeAPI {
 //    public static final String PREFIX_EMAIL="produser121";
 
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
-
+    public static final String DEFAULT_FIREBASE_PASSWORD_ACC="123456";
 }

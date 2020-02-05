@@ -35,9 +35,9 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Locale;
 
 
-public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class DealerStoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
-    private static final String TAG= Dealerstore.class.getSimpleName();
+    private static final String TAG= DealerStoreActivity.class.getSimpleName();
 
     private SharedPreferences mSharedPreferences;
     private DrawerLayout mDrawerLayout;
@@ -80,7 +80,7 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
         btAdd_store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Dealerstore.this, CreateShop.class);
+                Intent intent = new Intent(DealerStoreActivity.this, CreateShop.class);
                 startActivity(intent);
             }
         });
@@ -92,18 +92,18 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
             switch (menuItem.getItemId()){
                 case R.id.home:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        startActivity(new Intent(Dealerstore.this, Home.class));
+                        startActivity(new Intent(DealerStoreActivity.this, Home.class));
                     }else{
-                        Intent intent=new Intent(Dealerstore.this, UserAccountActivity.class);
+                        Intent intent=new Intent(DealerStoreActivity.this, UserAccountActivity.class);
                         intent.putExtra("verify","home");
                         startActivity(intent);
                     }
                     break;
                 case R.id.notification:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        startActivity(new Intent(Dealerstore.this, StoreListActivity.class));
+                        startActivity(new Intent(DealerStoreActivity.this, StoreListActivity.class));
                     }else{
-                        Intent intent=new Intent(Dealerstore.this, UserAccountActivity.class);
+                        Intent intent=new Intent(DealerStoreActivity.this, UserAccountActivity.class);
                         intent.putExtra("verify","notification");
                         startActivity(intent);
                     }
@@ -112,18 +112,18 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
                     break;
                 case R.id.message:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        startActivity(new Intent(Dealerstore.this, ChatMainActivity.class));
+                        startActivity(new Intent(DealerStoreActivity.this, ChatMainActivity.class));
                     }else{
-                        Intent intent=new Intent(Dealerstore.this, UserAccountActivity.class);
+                        Intent intent=new Intent(DealerStoreActivity.this, UserAccountActivity.class);
                         intent.putExtra("verify","message");
                         startActivity(intent);
                     }
                     break;
                 case R.id.account:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
-                        startActivity(new Intent(Dealerstore.this, Account.class));
+                        startActivity(new Intent(DealerStoreActivity.this, Account.class));
                     }else{
-                        Intent intent=new Intent(Dealerstore.this, UserAccountActivity.class);
+                        Intent intent=new Intent(DealerStoreActivity.this, UserAccountActivity.class);
                         intent.putExtra("verify","account");
                         startActivity(intent);
                     }
@@ -150,7 +150,7 @@ public class Dealerstore extends AppCompatActivity implements TabLayout.OnTabSel
 
         if (verify!=null){
             if ("camera".equals(verify)) {
-                Intent i2 = new Intent(Dealerstore.this,Home.class);
+                Intent i2 = new Intent(DealerStoreActivity.this,Home.class);
                 startActivity(i2);
             }
         }else {

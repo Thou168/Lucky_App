@@ -125,7 +125,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                         break;
                     case R.id.dealer:
                         if(prefs.contains("token") || prefs.contains("id")){
-                            startActivity(new Intent(NotificationActivity.this, Dealerstore.class));
+                            startActivity(new Intent(NotificationActivity.this, DealerStoreActivity.class));
                         }else{
                             Intent intent=new Intent(NotificationActivity.this, LoginActivity.class);
                             intent.putExtra("verify","camera");
@@ -225,7 +225,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         }
         /*end implementation bottom navigation */
 
-         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 

@@ -203,22 +203,23 @@ public class Detail_1 extends Fragment {
                             postCode.setText(postDetail.getPost_code().toString());
 
                             //get color
-                            if (postDetail.getColor()!=null) {
-//                                color.setText(String.valueOf(postDetail.getColor()));
-                                Log.d("Show color", String.valueOf(postDetail.getColor()));
-                                String[] splitColor = postDetail.getColor().split(",");
-                                GradientDrawable shape = new GradientDrawable();
+//                            color.setText(postDetail.getColor().toString());
+                            String[] splitColor=postDetail.getColor().split(",");
+                            GradientDrawable shape = new GradientDrawable();
+                            if(!splitColor[0].isEmpty()){
                                 shape.setShape(GradientDrawable.OVAL);
                                 shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
                                 tvColor1.setBackground(shape);
-                                tvColor2.setVisibility(View.GONE);
-                                if (splitColor.length > 1) {
-                                    tvColor2.setVisibility(View.VISIBLE);
-                                    GradientDrawable shape1 = new GradientDrawable();
-                                    shape1.setShape(GradientDrawable.OVAL);
-                                    shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                                    tvColor2.setBackground(shape);
-                                }
+                            }
+
+                            tvColor2.setVisibility(View.GONE);
+
+                            if(splitColor.length>1){
+                                tvColor2.setVisibility(View.VISIBLE);
+                                GradientDrawable shape1 = new GradientDrawable();
+                                shape1.setShape(GradientDrawable.OVAL);
+                                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+                                tvColor2.setBackground(shape);
                             }
                             //end
                             con = postDetail.getCondition().toString();

@@ -27,8 +27,10 @@ import com.bt_121shoppe.motorbike.Api.api.adapter_for_shop.Adapter_store_post;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -55,13 +57,14 @@ public class List_store_post extends Fragment {
     private Adapter_store_post mAdapter;
     private ProgressBar progressBar;
     private TextView no_result;
-    private TextView tv_back,tv_dealer,tv_location,tv_phone;
+    private TextView tv_back,tv_dealer,tv_location,tv_phone,tv_rate,tv_viewcount;
     private CircleImageView img_user;
     private int pk,shopId;
     private String basic_Encode;
     public  List_store_post(){}
 //    private String storeName,storeLocation,storeImage;
     private TextView btn_edit;
+    private List<StorePostViewModel> postListItems;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store_detail_post_list, container, false);
@@ -75,6 +78,8 @@ public class List_store_post extends Fragment {
         tv_phone    = view.findViewById(R.id.phone);
         img_user    = view.findViewById(R.id.img_user);
         btn_edit    = view.findViewById(R.id.btn_edit);
+        tv_rate=view.findViewById(R.id.rate);
+        tv_viewcount=view.findViewById(R.id.view);
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +107,8 @@ public class List_store_post extends Fragment {
 
         getShop_Detail(shopId);
         getShop_Info(pk,Encode);
-        getListStore(pk,Encode);
+        //getListStore(pk,Encode);
+        getListStore(shopId);
 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
@@ -116,12 +122,10 @@ public class List_store_post extends Fragment {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                 if (!response.isSuccessful()){
-                    Log.d("TAG","55"+response.code()+": "+response.errorBody());
+                    //Log.d("TAG","55"+response.code()+": "+response.errorBody());
                 }
                 listData = response.body().getresults();
-//                progressBar.setVisibility(View.GONE);
-//                mAdapter = new Adapter_store_post(listData);
-//                recyclerView.setAdapter(mAdapter);
+
                 if (listData.size() == 0) {
                     progressBar.setVisibility(View.GONE);
                     no_result.setVisibility(View.VISIBLE);
@@ -142,28 +146,51 @@ public class List_store_post extends Fragment {
                                 change_status_post ch = new change_status_post(2);
                                 Movetohistory((int) listData.get(i).getId(),ch,basic_Encode);
                             }
-
-//                                SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//                                Date d = in.parse(listData.get(i).getApproved_date());
-//                                SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
-//                                String outDate = out.format(date);
-//                                String valida1 = out.format(valida);
-//
-//                                Log.d("3232323date1", String.valueOf(outDate));
-//                                Log.d("Validd", String.valueOf(valida1));
-//                                Log.d("3232323date", String.valueOf(date));
-//                                Log.d("validate ",String.valueOf(valida));
-//                                Log.d("3232323", String.valueOf(ago));
                         } catch (ParseException e) { e.printStackTrace(); }
                     }
                 }
                 progressBar.setVisibility(View.GONE);
-//                    mAdapter = new Adapter_postbyuser(listData, getContext());
-                Adapter_store_post mAdapter=new Adapter_store_post(listData);
+                //Adapter_store_post mAdapter=new Adapter_store_post(listData);
                 recyclerView.setAdapter(mAdapter);
             }
             @Override
             public void onFailure(Call<AllResponse> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+    private void getListStore(int shopId){
+        Service api=Client.getClient().create(Service.class);
+        Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
+        model.enqueue(new Callback<APIStorePostResponse>() {
+            @Override
+            public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
+                if (!response.isSuccessful()){
+                    Log.d("TAG","55"+response.code()+": "+response.errorBody());
+                }
+
+                postListItems=response.body().getResults();
+                int count=response.body().getCount();
+                if(count==0)
+                {
+                    progressBar.setVisibility(View.GONE);
+                    no_result.setVisibility(View.VISIBLE);
+                }else{
+                    progressBar.setVisibility(View.GONE);
+                    for(int i=0;i<postListItems.size();i++){
+                        StorePostViewModel item=postListItems.get(i);
+                        Log.e("SL","Post ID "+item.getPost()+" Shop ID "+item.getShop());
+                    }
+                    Adapter_store_post mAdapter=new Adapter_store_post(postListItems);
+                    recyclerView.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<APIStorePostResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
 
             }
         });
@@ -213,6 +240,8 @@ public class List_store_post extends Fragment {
                 if (response.isSuccessful()) {
                     tv_dealer.setText(response.body().getShop_name());
                     tv_location.setText(response.body().getShop_address());
+                    tv_rate.setText(String.valueOf(response.body().getShop_rate()));
+                    tv_viewcount.setText(String.valueOf(response.body().getShop_view()));
                     String image = response.body().getShop_image();
                     Glide.with(List_store_post.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
                         @Override

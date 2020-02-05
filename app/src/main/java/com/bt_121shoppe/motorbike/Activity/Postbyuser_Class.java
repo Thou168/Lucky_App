@@ -181,20 +181,26 @@ public class Postbyuser_Class extends AppCompatActivity {
         String auth = "Basic" + encode;
         if (pt == 1) {
             url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
-            request = new Request.Builder()
-                    .url(url)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .header("Authorization", auth)
-                    .build();
+//            request = new Request.Builder()
+//                    .url(url)
+//                    .header("Accept", "application/json")
+//                    .header("Content-Type", "application/json")
+//                    .header("Authorization", auth)
+//                    .build();
         } else {
             url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
-            request = new Request.Builder()
-                    .url(url)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .build();
+//            request = new Request.Builder()
+//                    .url(url)
+//                    .header("Accept", "application/json")
+//                    .header("Content-Type", "application/json")
+//                    .build();
         }
+        //url=ConsumeAPI.BASE_URL+"api/v1/post/"+postId;
+        request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -293,7 +299,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         slider.removeTimerSlide();
                         slider.getIndicator();
 
-                        tv_postcode.setText(postDetail.getPost_code().toString());
+                        tv_postcode.setText(postDetail.getPost_code()!=null?postDetail.getPost_code().toString():"");
                         //get color
 //                            color.setText(postDetail.getColor().toString());
                         String[] splitColor=postDetail.getColor().split(",");

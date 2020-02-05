@@ -30,14 +30,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.Startup.Search1;
 import com.bt_121shoppe.motorbike.activities.Item_API;
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapter;
+import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
 import com.bt_121shoppe.motorbike.models.PostProduct;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
@@ -91,7 +97,7 @@ public class StoreDetailActivity extends AppCompatActivity {
 
     //seekbar
     int min;
-    int max;
+    int max,shopId=0;
     String view;
     TextView shopname,location,contact,count_view,number_rate;
     CircleImageView cr_image;
@@ -125,10 +131,14 @@ public class StoreDetailActivity extends AppCompatActivity {
 
         Bundle bundle=getIntent().getExtras();
         if(bundle!=null){
+            shopId=bundle.getInt("id",0);
             mShopName=bundle.getString("shopinfo");
             location_shop=bundle.getString("shop_location");
             profile_shop=bundle.getString("shop_image");
         }
+        //submit count shop view
+        submitcountshopview(shopId);
+
         shopname.setText(mShopName);
         location.setText(location_shop);
         Glide.with(StoreDetailActivity.this).load(profile_shop).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_image);
@@ -152,7 +162,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
-
+        filter.setVisibility(View.GONE);
         best_match.setOnClickListener(v -> {
 
             View dialogView = StoreDetailActivity.this.getLayoutInflater().inflate(R.layout.best_match_dialog,null);
@@ -240,127 +250,272 @@ public class StoreDetailActivity extends AppCompatActivity {
         prepareAllPostsContent(index);
         //mAllPostProgressbar.setVisibility(View.GONE);
     }
+
     private void prepareAllPostsContent(int index){
-
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
-        Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
         mAllPosts=new ArrayList<>();
-        myQuery.addValueEventListener(new ValueEventListener() {
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
+        model.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mAllPosts=new ArrayList<>();
-                mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    try{
-                        JSONObject obj=new JSONObject((Map) snapshot.getValue());
-                        String type=obj.getString("type");
-//                        float category = obj.getInt("category");
-                        int status=obj.getInt("status");
-                        String discountAmount=obj.getString("discountAmount");
-                        if(status==4 && Double.parseDouble(discountAmount)<=0 && !type.equals("buy")){
-                            String createdAt = obj.getString("createdAt");
-                            long diffInDays=0;
-                            if(createdAt!=null) {
-                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                                Date date = utcFormat.parse(createdAt);
-                                Date currentdate = new Date();
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                                String ccdate=utcFormat.format(currentdate);
-                                Date startDate = date;
-                                Date endDate   = utcFormat.parse(ccdate);
-                                long duration  = endDate.getTime() - startDate.getTime();
-                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
-                            }
-                            if(diffInDays<=15) {
-                                String id = obj.getString("id");
-                                int user_id = obj.getInt("createdBy");
-                                String coverUrl = obj.getString("coverUrl");
-                                String price = obj.getString("price");
-                                String discountType = obj.getString("discountType");
-                                int viewCount = obj.getInt("viewCount");
-                                String title = obj.getString("subTitle");
-                                String fcolor=obj.getString("color");
-                                //String type = obj.getString("type");
-                                //String[] splitTitle=title.split(",");
-                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
-                            }
-                        }
-                    }catch (JSONException | ParseException je) {
-                        je.printStackTrace();
-                    }
+            public void onResponse(retrofit2.Call<APIStorePostResponse> call, retrofit2.Response<APIStorePostResponse> response) {
+                if (!response.isSuccessful()){
+                    Log.d("TAG","55"+response.code()+": "+response.errorBody());
                 }
-
-
-                if(mAllPosts.size()==0){
+                int count=response.body().getCount();
+                if(count==0){
                     mAllPostsNoResult.setVisibility(View.VISIBLE);
-                }else {
+                }else{
                     mAllPostsNoResult.setVisibility(View.GONE);
-                    //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                    switch (index){
-                        case 0:
-                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
-                            break;
-                        case 1:
-                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getCountView(), s1.getCountView()));
-                            break;
-                        case 2:
-                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getPostPrice()), Double.valueOf(s2.getPostPrice())));
-                            break;
-                        case 3:
-                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s2.getPostPrice()), Double.valueOf(s1.getPostPrice())));
-                            break;
+                    List<StorePostViewModel> postListItems=response.body().getResults();
+                    for(int i=0;i<postListItems.size();i++){
+                        StorePostViewModel item=postListItems.get(i);
+                        DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
+                        Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
+                        myQuery.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                mAllPosts=new ArrayList<>();
+                                mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
+                                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                                    try{
+                                        JSONObject obj=new JSONObject((Map) snapshot.getValue());
+                                        String dbPostId=obj.getString("id");
+                                        String type=obj.getString("type");
+                                        int status=obj.getInt("status");
+                                        String discountAmount=obj.getString("discountAmount");
+                                        if(status==4 && Double.parseDouble(discountAmount)<=0 && !type.equals("buy") && dbPostId.equals(String.valueOf(item.getPost()))){
+                                            String createdAt = obj.getString("createdAt");
+                                            long diffInDays=0;
+                                            if(createdAt!=null) {
+                                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                                Date date = utcFormat.parse(createdAt);
+                                                Date currentdate = new Date();
+                                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                                String ccdate=utcFormat.format(currentdate);
+                                                Date startDate = date;
+                                                Date endDate   = utcFormat.parse(ccdate);
+                                                long duration  = endDate.getTime() - startDate.getTime();
+                                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+                                            }
+                                            if(diffInDays<=15) {
+                                                String id = obj.getString("id");
+                                                int user_id = obj.getInt("createdBy");
+                                                String coverUrl = obj.getString("coverUrl");
+                                                String price = obj.getString("price");
+                                                String discountType = obj.getString("discountType");
+                                                int viewCount = obj.getInt("viewCount");
+                                                String title = obj.getString("subTitle");
+                                                String fcolor=obj.getString("color");
+                                                //String type = obj.getString("type");
+                                                //String[] splitTitle=title.split(",");
+                                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
+                                            }
+                                        }
+                                    }catch (JSONException | ParseException je) {
+                                        je.printStackTrace();
+                                    }
+                                }
+
+
+                                if(mAllPosts.size()==0){
+                                    mAllPostsNoResult.setVisibility(View.VISIBLE);
+                                }else {
+                                    mAllPostsNoResult.setVisibility(View.GONE);
+                                    //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
+                                    switch (index){
+                                        case 0:
+                                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
+                                            break;
+                                        case 1:
+                                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getCountView(), s1.getCountView()));
+                                            break;
+                                        case 2:
+                                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getPostPrice()), Double.valueOf(s2.getPostPrice())));
+                                            break;
+                                        case 3:
+                                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s2.getPostPrice()), Double.valueOf(s1.getPostPrice())));
+                                            break;
+                                    }
+
+
+                                    mAllPostAdapter.addItems(mAllPosts);
+                                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                    mAllPostAdapter.notifyDataSetChanged();
+                                }
+                                mListView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mListView.setImageResource(R.drawable.list_brown);
+                                        mGridView.setImageResource(R.drawable.grid);
+                                        mGallaryView.setImageResource(R.drawable.image);
+                                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
+                                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"List"));
+                                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+                                    }
+                                });
+
+                                mGridView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mListView.setImageResource(R.drawable.list);
+                                        mGridView.setImageResource(R.drawable.grid_brown);
+                                        mGallaryView.setImageResource(R.drawable.image);
+                                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
+                                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Grid"));
+                                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+                                    }
+                                });
+
+                                mGallaryView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        mListView.setImageResource(R.drawable.list);
+                                        mGridView.setImageResource(R.drawable.grid);
+                                        mGallaryView.setImageResource(R.drawable.image_brown);
+                                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
+                                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Image"));
+                                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
-
-
-                    mAllPostAdapter.addItems(mAllPosts);
-                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
-                    mAllPostAdapter.notifyDataSetChanged();
                 }
-                mListView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.list_brown);
-                        mGridView.setImageResource(R.drawable.grid);
-                        mGallaryView.setImageResource(R.drawable.image);
-                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"List"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-                    }
-                });
-
-                mGridView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.list);
-                        mGridView.setImageResource(R.drawable.grid_brown);
-                        mGallaryView.setImageResource(R.drawable.image);
-                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Grid"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-                    }
-                });
-
-                mGallaryView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mListView.setImageResource(R.drawable.list);
-                        mGridView.setImageResource(R.drawable.grid);
-                        mGallaryView.setImageResource(R.drawable.image_brown);
-                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
-                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Image"));
-                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-                    }
-                });
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onFailure(retrofit2.Call<APIStorePostResponse> call, Throwable t) {
 
             }
         });
+
+//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
+//        Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
+//
+//        myQuery.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                mAllPosts=new ArrayList<>();
+//                mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
+//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                    try{
+//                        JSONObject obj=new JSONObject((Map) snapshot.getValue());
+//                        String type=obj.getString("type");
+////                        float category = obj.getInt("category");
+//                        int status=obj.getInt("status");
+//                        String discountAmount=obj.getString("discountAmount");
+//                        if(status==4 && Double.parseDouble(discountAmount)<=0 && !type.equals("buy")){
+//                            String createdAt = obj.getString("createdAt");
+//                            long diffInDays=0;
+//                            if(createdAt!=null) {
+//                                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//                                Date date = utcFormat.parse(createdAt);
+//                                Date currentdate = new Date();
+//                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+//                                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//                                String ccdate=utcFormat.format(currentdate);
+//                                Date startDate = date;
+//                                Date endDate   = utcFormat.parse(ccdate);
+//                                long duration  = endDate.getTime() - startDate.getTime();
+//                                diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+//                            }
+//                            if(diffInDays<=15) {
+//                                String id = obj.getString("id");
+//                                int user_id = obj.getInt("createdBy");
+//                                String coverUrl = obj.getString("coverUrl");
+//                                String price = obj.getString("price");
+//                                String discountType = obj.getString("discountType");
+//                                int viewCount = obj.getInt("viewCount");
+//                                String title = obj.getString("subTitle");
+//                                String fcolor=obj.getString("color");
+//                                //String type = obj.getString("type");
+//                                //String[] splitTitle=title.split(",");
+//                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
+//                            }
+//                        }
+//                    }catch (JSONException | ParseException je) {
+//                        je.printStackTrace();
+//                    }
+//                }
+//
+//
+//                if(mAllPosts.size()==0){
+//                    mAllPostsNoResult.setVisibility(View.VISIBLE);
+//                }else {
+//                    mAllPostsNoResult.setVisibility(View.GONE);
+//                    //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
+//                    switch (index){
+//                        case 0:
+//                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
+//                            break;
+//                        case 1:
+//                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getCountView(), s1.getCountView()));
+//                            break;
+//                        case 2:
+//                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getPostPrice()), Double.valueOf(s2.getPostPrice())));
+//                            break;
+//                        case 3:
+//                            Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s2.getPostPrice()), Double.valueOf(s1.getPostPrice())));
+//                            break;
+//                    }
+//
+//
+//                    mAllPostAdapter.addItems(mAllPosts);
+//                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+//                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+//                    mAllPostAdapter.notifyDataSetChanged();
+//                }
+//                mListView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.list_brown);
+//                        mGridView.setImageResource(R.drawable.grid);
+//                        mGallaryView.setImageResource(R.drawable.image);
+//                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"List"));
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"List"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+//                    }
+//                });
+//
+//                mGridView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.list);
+//                        mGridView.setImageResource(R.drawable.grid_brown);
+//                        mGallaryView.setImageResource(R.drawable.image);
+//                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Grid"));
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Grid"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+//                    }
+//                });
+//
+//                mGallaryView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mListView.setImageResource(R.drawable.list);
+//                        mGridView.setImageResource(R.drawable.grid);
+//                        mGallaryView.setImageResource(R.drawable.image_brown);
+//                        //mAllPostsRecyclerView.setAdapter(new AllPostAdapterV2(mAllPosts,"Image"));
+//                        mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts,"Image"));
+//                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     private  void Search_data(String title, String category, String model, String year, int min, int max){
@@ -511,5 +666,36 @@ public class StoreDetailActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+    private void submitcountshopview(int shopId){
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<ShopViewModel> call=api.getDealerShop(shopId);
+        call.enqueue(new retrofit2.Callback<ShopViewModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                if(response.isSuccessful()){
+                    ShopViewModel shop=response.body();
+                    int oldView=shop.getShop_view();
+                    shop.setShop_view(oldView+1);
+                    retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(shopId,shop);
+                    call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                            Log.e("TAG","Submit count view sucess "+response.body());
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+                            Log.e("TAG","fail submit count view "+t.getMessage());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+            }
+        });
     }
 }

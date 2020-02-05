@@ -17,6 +17,11 @@ public class ShopViewModel {
     private String shop_image;
     @SerializedName("record_status")
     private int record_status;
+    @SerializedName("shop_view")
+    private int shop_view;
+    @SerializedName("shop_rate")
+    private String shop_rate;
+
 
     public ShopViewModel(){}
 
@@ -27,6 +32,16 @@ public class ShopViewModel {
         this.shop_address=shop_address;
         this.shop_image=shop_image;
         this.record_status=record_status;
+    }
+    public ShopViewModel(int id,int user,String shop_name,String shop_address,String shop_image,int record_status,int shop_view,String shop_rate){
+        this.id=id;
+        this.user=user;
+        this.shop_name=shop_name;
+        this.shop_address=shop_address;
+        this.shop_image=shop_image;
+        this.record_status=record_status;
+        this.shop_rate=shop_rate;
+        this.shop_view=shop_view;
     }
 
     public int getId() { return id; }
@@ -73,5 +88,21 @@ public class ShopViewModel {
 
     public void setUser(int user) {
         this.user = user;
+    }
+
+    public int getShop_view() {
+        return shop_view;
+    }
+
+    public String getShop_rate() {
+        return shop_rate;
+    }
+
+    public void setShop_rate(String shop_rate) {
+        this.shop_rate = shop_rate;
+    }
+
+    public void setShop_view(int shop_view) {
+        this.shop_view = shop_view;
     }
 }

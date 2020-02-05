@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,13 +16,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +32,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
@@ -45,11 +41,8 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
-import com.bt_121shoppe.motorbike.Login_Register.SelectUserTypeActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.activities.Account;
-import com.bt_121shoppe.motorbike.activities.Camera;
-import com.bt_121shoppe.motorbike.activities.Dealerstore;
+import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
@@ -214,7 +207,7 @@ public class CreateShop extends AppCompatActivity {
         img_shop.setOnClickListener(view -> selectImage());
         tv_back.setOnClickListener(view -> {
            if (edit != null){
-               Intent intent12 = new Intent(CreateShop.this, Detail_store.class);
+               Intent intent12 = new Intent(CreateShop.this, DetailStoreActivity.class);
                intent12.putExtra("edit_store",intent_edit);
                intent12.putExtra("shopId",mDealerShopId);
                intent12.putExtra("shop_name",storeName);
@@ -516,7 +509,7 @@ public class CreateShop extends AppCompatActivity {
                             }
                         }
                         mProgress.dismiss();
-                        startActivity(new Intent(CreateShop.this,Dealerstore.class));
+                        startActivity(new Intent(CreateShop.this, DealerStoreActivity.class));
                     }
                 });
             }

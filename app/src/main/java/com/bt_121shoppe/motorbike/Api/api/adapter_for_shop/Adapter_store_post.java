@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
@@ -30,14 +29,17 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Adapter_store_post extends RecyclerView.Adapter<BaseViewHolder> {
@@ -45,12 +47,15 @@ public class Adapter_store_post extends RecyclerView.Adapter<BaseViewHolder> {
     private static final int VIEW_TYPE_EMPTY=0;
     private static final int VIEW_TYPE_NORMAL=1;
 
-    private List<Item> mPostList;
+    //private List<Item> mPostList;
     SharedPreferences prefer;
     String name,pass,basic_Encode;
     int pk=0;
-
-    public Adapter_store_post(List<Item> postlist){
+    private List<StorePostViewModel> mPostList;
+//    public Adapter_store_post(List<Item> postlist){
+//        this.mPostList=postlist;
+//    }
+    public Adapter_store_post(List<StorePostViewModel> postlist){
         this.mPostList=postlist;
     }
 
@@ -90,7 +95,11 @@ public class Adapter_store_post extends RecyclerView.Adapter<BaseViewHolder> {
             return 0;
     }
 
-    public void addItems(List<Item> postList){
+//    public void addItems(List<Item> postList){
+//        mPostList.addAll(postList);
+//        notifyDataSetChanged();
+//    }
+        public void addItems(List<StorePostViewModel> postList){
         mPostList.addAll(postList);
         notifyDataSetChanged();
     }
@@ -98,33 +107,7 @@ public class Adapter_store_post extends RecyclerView.Adapter<BaseViewHolder> {
     public interface Callback{
         void onEmptyViewRetryClick();
     }
-//    public class ViewHolder extends BaseViewHolder{
-//
-//
-//        public ViewHolder(View itemView){
-//            super(itemView);
-//
-//        }
-//
-//        @Override
-//        protected void clear() {
-//
-//        }
-//
-//        public void onBind(int position){
-//            super.onBind(position);
-//            final ShopViewModel mPost=mPostList.get(position);
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent=new Intent(itemView.getContext(), Postbyuser_Class.class);
-//                    itemView.getContext().startActivity(intent);
-//                }
-//            });
-//
-//        }
-//    }
+
 public class ViewHolder extends BaseViewHolder{
 
     TextView tvTitle,tvCost,tvDiscount,tvView,tvPostType,tvCountView,ds_price;
@@ -165,8 +148,25 @@ public class ViewHolder extends BaseViewHolder{
 
     public void onBind(int position){
         super.onBind(position);
-        final Item mPost=mPostList.get(position);
-        String lang=tvView.getText().toString();
+        final StorePostViewModel item =mPostList.get(position);
+        Service api=Client.getClient().create(Service.class);
+        Call call=api.getPostItem(item.getPost(),basic_Encode);
+        call.enqueue(new retrofit2.Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(!response.isSuccessful()){
+                    try{
+                        Log.d("Error",response.errorBody().string());
+                    }
+                    catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+
+                Object obj=response.body();
+                Item mPost= (Item) obj;
+                if(mPost!=null){
+                            String lang=tvView.getText().toString();
         String strPostTitle="";
         //post image
         Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).centerCrop().into(ivPostImage);
@@ -242,9 +242,9 @@ public class ViewHolder extends BaseViewHolder{
         //count view
         try{
             Service apiServiece = Client.getClient().create(Service.class);
-            Call<AllResponse> call = apiServiece.getCount(String.valueOf((int)mPost.getId()),basic_Encode);
+            Call<AllResponse> call1 = apiServiece.getCount(String.valueOf((int)mPost.getId()),basic_Encode);
             //Log.d("111111",basic_Encode);
-            call.enqueue(new retrofit2.Callback<AllResponse>() {
+            call1.enqueue(new retrofit2.Callback<AllResponse>() {
                 @Override
                 public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                     tvCountView.setText(String.valueOf(response.body().getCount()));
@@ -260,6 +260,8 @@ public class ViewHolder extends BaseViewHolder{
 //                btRenewal.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
 //                btRenewal.setTextColor(Color.parseColor("#FF9400"));
 //                btRenewal.setText(R.string.pending);
+            btRenewal.setVisibility(View.GONE);
+            btnSold.setVisibility(View.GONE);
             pending_appprove.setText(R.string.pending);
             pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
             btRenewal.setTextColor(Color.parseColor("#0A0909"));
@@ -275,8 +277,8 @@ public class ViewHolder extends BaseViewHolder{
                         }
                         change_status_delete change_status = new change_status_delete(4,date,pk,"");
                         Service api = Client.getClient().create(Service.class);
-                        Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                        call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                        Call<change_status_delete> call2 = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                        call2.enqueue(new retrofit2.Callback<change_status_delete>() {
                             @Override
                             public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
                                 if (!response.isSuccessful()){
@@ -313,8 +315,8 @@ public class ViewHolder extends BaseViewHolder{
                         }
                         change_status_delete change_status = new change_status_delete(4,date,pk,"");
                         Service api = Client.getClient().create(Service.class);
-                        Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                        call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                        Call<change_status_delete> call3 = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                        call3.enqueue(new retrofit2.Callback<change_status_delete>() {
                             @Override
                             public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
                                 if (!response.isSuccessful()){
@@ -396,6 +398,17 @@ public class ViewHolder extends BaseViewHolder{
                 itemView.getContext().startActivity(intent);
             }
         });
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+
+//        final Item mPost=mPostList.get(position);
+
 
     }
 }

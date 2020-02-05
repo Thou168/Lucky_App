@@ -183,7 +183,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private String edit_name,edit_email,edit_phone,edit_address,edit_address_name;
     private ArrayList<Integer> selectedColor;
     private int seekbar_price = 0,seekbar_rearr = 0,seekbar_screww = 0, seekbar_engine = 0, seekbar_head = 0,assembly = 0,seekbar_accessorie = 0,seekbar_consolee = 0,seekbar_pump = 0,whole_ink=0;
-    private int pk,mmodel=1,edit_id;
+    private int pk,mmodel=1,edit_id,shopId=0;
     private int process_type=0,category=0;
     private int cate=0,brand=0,model=0,year=0,type=0;
     private int id_typeother;
@@ -262,6 +262,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
         bundle = getIntent().getExtras();
         if (bundle!=null) {
+            shopId=bundle.getInt("shopId",0);
+            Log.e(TAG,"shop Id "+shopId);
             post               = bundle.getString("post");
             road               = bundle.getString("road");
             latlng             = bundle.getString("location");
@@ -1537,7 +1539,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             String auth = "Basic " + encode;
             Request request = new Request.Builder()
                     .url(url)
-
                     .post(body)
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
@@ -1573,7 +1574,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String postCode=obj.getString("post_code");
                                             String postSubTitle=obj.getString("post_sub_title");
                                             String fcolor=obj.getString("color");
-
                                             String eta1 = obj.getString("used_eta1");
                                             String eta2 = obj.getString("used_eta2");
                                             String eta3 = obj.getString("used_eta3");
@@ -1583,9 +1583,47 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String machine3 = obj.getString("used_machine3");
                                             String machine4 = obj.getString("used_machine4");
                                             String other1 = obj.getString("used_other1");
-
                                             int pStatus=obj.getInt("status");
+                                            if(shopId>0){
+                                                Log.e("TAH","RUN submit shop post.");
+                                                String urlShopPost=ConsumeAPI.BASE_URL+"api/v1/postdealershop/";
+                                                OkHttpClient clientPost=new OkHttpClient();
+                                                JSONObject shopPostObj=new JSONObject();
+                                                try{
+                                                    shopPostObj.put("post",pID);
+                                                    shopPostObj.put("shop",shopId);
+                                                    shopPostObj.put("record_status",1);
+                                                    RequestBody bodyShopPost=RequestBody.create(ConsumeAPI.MEDIA_TYPE,shopPostObj.toString());
+                                                    String auth = "Basic " + encode;
+                                                    Request request1 = new Request.Builder()
+                                                            .url(urlShopPost)
+                                                            .post(bodyShopPost)
+                                                            .header("Accept","application/json")
+                                                            .header("Content-Type","application/json")
+                                                            .header("Authorization",auth)
+                                                            .build();
+                                                    clientPost.newCall(request1).enqueue(new Callback() {
+                                                        @Override
+                                                        public void onFailure(Call call, IOException e) {
+                                                            String message = e.getMessage().toString();
+                                                            Log.d("failure Response",message);
+                                                            //mProgress.dismiss();
+                                                        }
+
+                                                        @Override
+                                                        public void onResponse(Call call, Response response) throws IOException {
+                                                            String message = response.body().string();
+                                                            Log.d(TAG,"Submit Shop for Post "+ message);
+                                                        }
+                                                    });
+                                                }catch (JSONException je)
+                                                {
+                                                    je.printStackTrace();
+                                                }
+                                            }
+
                                             FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,fcolor);
+                                            //added on Feb 05 2020 For Dealer Post Product
 
 
                                         }catch (JSONException e){

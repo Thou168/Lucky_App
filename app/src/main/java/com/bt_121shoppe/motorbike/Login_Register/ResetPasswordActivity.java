@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Login_Register;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -75,7 +76,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         mProgress.setMessage(getString(R.string.progress_waiting));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
-
+        prefer = getSharedPreferences("Register",MODE_PRIVATE);
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
         /*
@@ -115,7 +116,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!etPassword.getText().toString().trim().isEmpty() && !etConfirmPassword.getText().toString().isEmpty()) {
-                    mProgress.show();
+                    //mProgress.show();
                     if (etPassword.getText().toString().trim().equals(etConfirmPassword.getText().toString().trim())) {
                         postResetPassword(etPassword.getText().toString().trim(), etConfirmPassword.getText().toString().trim());
                     } else {
@@ -146,6 +147,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user=dataSnapshot.getValue(User.class);
+                String fpassword=user.getPassword();
                 Log.d(TAG,user.getEmail());
                 //setFirebaseUserPassword(user.getPassword());
 
@@ -174,88 +176,92 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String st = response.body().string();
+                        Log.e(TAG,st);
                         String newPassword;
                         if(user.getGroup().equals("1")){
                             newPassword=password1+"__";
                         }
                         else
                             newPassword=password1;
-                        /*update firebase password*/
+
                         databaseReference=FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
                         HashMap<String,Object> hashMap=new HashMap<>();
                         hashMap.put("password",newPassword);
                         databaseReference.updateChildren(hashMap);
 
-                        //reset password for firebase user
-                        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
-                        AuthCredential credential= EmailAuthProvider.getCredential(user.getEmail(),user.getPassword());
-                        firebaseUser.reauthenticate(credential)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            firebaseUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful()){
-                                                        Log.d(TAG,"Password updated");
-
-                                                    }else{
-                                                        Log.d(TAG,"Error password not update");
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
+//                        //reset password for firebase user
+//                        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+//                        //AuthCredential credential= EmailAuthProvider.getCredential(user.getEmail(),user.getPassword());
+//                        AuthCredential credential= EmailAuthProvider.getCredential(user.getEmail(),fpassword);
+//                        firebaseUser.reauthenticate(credential)
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if(task.isSuccessful()){
+//                                            firebaseUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<Void> task) {
+//                                                    if(task.isSuccessful()){
+//                                                        Log.d(TAG,"Password updated");
+//                                                        /*update firebase password*/
+//
+//
+//                                                        SharedPreferences.Editor editor = prefer.edit();
+//                                                        editor.clear();
+//                                                        editor.commit();
+//                                                        startActivity(new Intent(ResetPasswordActivity.this, Home.class));
+//                                                        //dialog.dismiss();
+//
+//                                                    }else{
+//                                                        Log.d(TAG,"Error password not update");
+//                                                    }
+//                                                }
+//                                            });
+//                                        }
+//                                    }
+//                                });
 
                         Gson gson = new Gson();
                         ChangepassModel model = new ChangepassModel();
                         try{
+
                             model=gson.fromJson(st,ChangepassModel.class);
                             if (model!=null){
-                                int statusCode = model.getStatus();
-                                if (statusCode==201){
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
-                                            alertDialog.setTitle(getString(R.string.reset_password_title));
-                                            alertDialog.setMessage("Your password has been reset.");
-                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                                    new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            SharedPreferences.Editor editor = prefer.edit();
-                                                            editor.clear();
-                                                            editor.commit();
-                                                            startActivity(new Intent(ResetPasswordActivity.this, Home.class));
-                                                            dialog.dismiss();
-                                                        }
-                                                    });
-                                            alertDialog.show();
-                                        }
-                                    });
-
-                                }else {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(getApplicationContext(),st,Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.dismiss();
+//                                        AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
+//                                        alertDialog.setTitle(getString(R.string.reset_password_title));
+//                                        alertDialog.setMessage("Your password has been reset.");
+//                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                                                new DialogInterface.OnClickListener() {
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                        SharedPreferences.Editor editor = prefer.edit();
+//                                                        editor.clear();
+//                                                        editor.commit();
+//                                                        startActivity(new Intent(ResetPasswordActivity.this, Home.class));
+//                                                        //dialog.dismiss();
+//
+//                                                    }
+//                                                });
+//                                        alertDialog.show();
+                                    }
+                                });
 
                             }else {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        mProgress.dismiss();
                                         AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
                                         alertDialog.setTitle(getString(R.string.reset_password_title));
                                         alertDialog.setMessage("Your password has been error while changing.");
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.dismiss();
+                                                        //dialog.dismiss();
+
                                                     }
                                                 });
                                         alertDialog.show();

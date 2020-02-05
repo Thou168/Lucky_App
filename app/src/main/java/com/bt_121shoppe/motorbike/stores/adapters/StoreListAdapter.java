@@ -15,6 +15,8 @@ import com.bt_121shoppe.motorbike.stores.StoreDetailActivity;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,6 +59,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView txtShopLocation;
         TextView txtCountView;
         CircleImageView imgShopProfile;
+        TextView txtRateNumber;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -64,6 +67,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             txtShopLocation=itemView.findViewById(R.id.textview_shoplocation);
             txtCountView=itemView.findViewById(R.id.view);
             imgShopProfile=itemView.findViewById(R.id.imageview_shopprofile);
+            txtRateNumber= itemView.findViewById(R.id.number_of_rate);
         }
 
         @Override
@@ -79,7 +83,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             txtPostTitle.setText(mShop.getShop_name());
             txtShopLocation.setText(mShop.getShop_address());
             Glide.with(itemView.getContext()).load(mShop.getShop_image()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgShopProfile);
-
+            txtCountView.setText(String.valueOf(mShop.getShop_view()));
+            txtRateNumber.setText(mShop.getShop_rate());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

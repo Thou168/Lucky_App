@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
         GraphRequest request=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
-                Log.d("bjfjfjfjjfjjj",response.toString());
+                //Log.d("bjfjfjfjjfjjj",response.toString());
                 try{
                     String name=object.getString("name");
                     String facebookid=object.getString("id");
@@ -303,27 +303,31 @@ public class LoginActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Log.e("LOG",snapshot.getKey());
                     com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
-                    if(user.getUsername().equals(username)){
-                        String group=user.getGroup();
-                        String password=user.getPassword();
-                        String email=user.getEmail();
-                        if(group.equals("1"))
-                            password=password.substring(0,4);
+                    if(user.getUsername()!=null){
+                        if(user.getUsername().equals(username)){
+                            String group=user.getGroup();
+                            String password=user.getPassword();
+                            String email=user.getEmail();
+                            if(group.equals("1"))
+                                password=password.substring(0,4);
 
-                        String finalPassword = password;
-                        auth.signInWithEmailAndPassword(email,user.getPassword())
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful()){
-                                            loginWithAPI(username, finalPassword);
+                            String finalPassword = password;
+                            //auth.signInWithEmailAndPassword(email,user.getPassword())
+                            auth.signInWithEmailAndPassword(email,ConsumeAPI.DEFAULT_FIREBASE_PASSWORD_ACC)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if(task.isSuccessful()){
+                                                loginWithAPI(username, finalPassword);
+                                            }
                                         }
-                                    }
-                                });
+                                    });
 
-                        Log.d(TAG,"Group "+group+" password "+password);
-                        return;
+                            Log.d(TAG,"Group "+group+" password "+password);
+                            return;
+                        }
                     }
+
                 }
             }
 
@@ -699,51 +703,49 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
-                    Log.e("user",""+user);
-                    Log.e("username",""+username);
-                    Log.e("email", "" + user.getEmail());
-                    Log.e("password", "" + user.getPassword());
-                    if (user.getUsername() != null) {
-                        if (user.getUsername().equals(username)) {
-                            auth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                    if(user.getUsername()!=null){
+                        if(user.getUsername().equals(username)){
+                            Log.e("email",""+user.getEmail());
+                            Log.e("password",""+user.getPassword());
+                            //auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
+                            auth.signInWithEmailAndPassword(user.getEmail(),ConsumeAPI.DEFAULT_FIREBASE_PASSWORD_ACC)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                setfirebasepassword(user.getId(), user.getPassword());
+                                            if(task.isSuccessful()){
+                                                setfirebasepassword(user.getId(),user.getPassword());
                                                 //changeFirebasePassword();
                                                 Intent intent;
-                                                if (login_verify == null) {
+                                                if(login_verify==null) {
                                                     intent = new Intent(LoginActivity.this, Home.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
-                                                } else {
+                                                }else {
                                                     switch (login_verify) {
-//                                                        case "notification":
-//                                                            intent = new Intent(LoginActivity.this, NotificationActivity.class);
-//                                                            intent.putExtra("verify",verify);
-//                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                                            startActivity(intent);
-//                                                            finish();
-//                                                            break;
+                                                        case "notification":
+                                                            intent = new Intent(LoginActivity.this, NotificationActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            break;
                                                         case "camera":
                                                             intent = new Intent(LoginActivity.this, Camera.class);
-                                                            intent.putExtra("Login_verify", login_verify);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
                                                             break;
                                                         case "message":
                                                             intent = new Intent(LoginActivity.this, ChatMainActivity.class);
-                                                            intent.putExtra("Login_verify", login_verify);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
                                                             break;
                                                         case "account":
                                                             intent = new Intent(LoginActivity.this, Account.class);
-                                                            intent.putExtra("Login_verify", login_verify);
+                                                            intent.putExtra("verify",verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
@@ -751,7 +753,6 @@ public class LoginActivity extends AppCompatActivity {
                                                         case "detail":
                                                             intent = new Intent(LoginActivity.this, Detail_new_post_java.class);
                                                             intent.putExtra("ID", product_id);
-                                                            intent.putExtra("Login_verify",login_verify);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             startActivity(intent);
                                                             finish();
@@ -765,8 +766,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     }
                                                 }
                                                 mProgress.dismiss();
-                                            } else {
-                                                Toast.makeText(LoginActivity.this, "You cannot login with email or password.", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else{
+                                                Toast.makeText(LoginActivity.this,"You cannot login with email or password.",Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });

@@ -25,14 +25,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -48,7 +45,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bt_121shoppe.motorbike.Activity.Camera_new;
 import com.bt_121shoppe.motorbike.Activity.CheckNetworkConnectionHelper;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
@@ -57,9 +53,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Slider;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.Startup.Filter;
 import com.bt_121shoppe.motorbike.Startup.Search1;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
@@ -67,12 +61,10 @@ import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
 import com.bt_121shoppe.motorbike.models.User;
-import com.bt_121shoppe.motorbike.nointernet.NoInternetActivity;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bumptech.glide.Glide;
 import com.custom.sliderimage.logic.SliderImage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -88,13 +80,10 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.Inflater;
 
 import io.paperdb.Paper;
 import okhttp3.Call;
@@ -103,8 +92,6 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, WSCallerVersionListener {
 
@@ -150,9 +137,10 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_search_type);
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-        }
+        //block screenshot
+//        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+//        }
         //check app version update from playstore
         new GooglePlayStoreAppVersionNameLoader(getApplicationContext(), this).execute();
         SharedPreferences prefer=getSharedPreferences("Settings", Activity.MODE_PRIVATE);
@@ -262,7 +250,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                         break;
                     case R.id.dealer:
                         if(sharedPref.contains("token") || sharedPref.contains("id")){
-                            startActivity(new Intent(Home.this, Dealerstore.class));
+                            startActivity(new Intent(Home.this, DealerStoreActivity.class));
                         }else{
                             Intent intent=new Intent(Home.this, LoginActivity.class);
                             intent.putExtra("Login_verify","camera");

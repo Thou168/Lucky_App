@@ -1,50 +1,34 @@
 package com.bt_121shoppe.motorbike.stores;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
-import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.CheckGroup;
-import com.bt_121shoppe.motorbike.activities.Dealerstore;
+import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.activities.Home;
-import com.bt_121shoppe.motorbike.adapters.AllPostAdapter;
-import com.bt_121shoppe.motorbike.adapters.ShopAdapter;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.stores.adapters.StoreListAdapter;
-import com.bt_121shoppe.motorbike.useraccount.EditAccountActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -341,7 +325,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                 break;
             case R.id.dealer:
                 if (prefer.contains("token") || prefer.contains("id")) {
-                    startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
+                    startActivity(new Intent(StoreListActivity.this, DealerStoreActivity.class));
                 }else {
                     Intent intent=new Intent(StoreListActivity.this, LoginActivity.class);
                     intent.putExtra("Login_verify","camera");
@@ -411,7 +395,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
 //                        break;
 //                    case R.id.dealer:
 //                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, Dealerstore.class));
+//                            startActivity(new Intent(StoreListActivity.this, DealerStoreActivity.class));
 //                        } else {
 //                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
 //                            intent.putExtra("verify","message");

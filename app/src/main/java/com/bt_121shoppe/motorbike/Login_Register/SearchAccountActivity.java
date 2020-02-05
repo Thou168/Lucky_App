@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -82,6 +83,7 @@ public class SearchAccountActivity extends AppCompatActivity {
 
         try{
             JSONObject obj=new JSONObject(result);
+            Log.e(TAG,obj.toString());
             int count=obj.getInt("count");
             if(count==0){
                 //user not found
@@ -115,24 +117,30 @@ public class SearchAccountActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                             User user=snapshot.getValue(User.class);
-                            if(user.getUsername().equals(phonenumber)){
-                                FirebaseAuth auth=FirebaseAuth.getInstance();
-                                auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
-                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if(task.isSuccessful()){
-                                                    Intent intent=new Intent(SearchAccountActivity.this,ResetPasswordActivity.class);
-                                                    intent.putExtra("phoneNumber",phonenumber);
-                                                    intent.putExtra("password",user.getPassword());
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    startActivity(intent);
-                                                    finish();
+                            if(user.getUsername()!=null){
+                                Log.e(TAG,user.getUsername()+" "+phonenumber);
+                                if(user.getUsername().equals(phonenumber)){
+                                    Log.e(TAG,"User found");
+                                    FirebaseAuth auth=FirebaseAuth.getInstance();
+                                    //auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
+                                    auth.signInWithEmailAndPassword(user.getEmail(),ConsumeAPI.DEFAULT_FIREBASE_PASSWORD_ACC)
+                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if(task.isSuccessful()){
+                                                        Intent intent=new Intent(SearchAccountActivity.this,ResetPasswordActivity.class);
+                                                        intent.putExtra("phoneNumber",phonenumber);
+                                                        intent.putExtra("password",user.getPassword());
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
                                                 }
-                                            }
-                                        });
-                                return;
+                                            });
+                                    return;
+                                }
                             }
+
                         }
                     }
 
