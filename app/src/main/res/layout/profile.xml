@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
+            android:text="@string/profile"
             android:fontFamily="@font/opensans_semibold"
             android:textSize="18dp"
             android:textColor="#FFFFFF"
@@ -34,7 +34,7 @@
         <Button
             android:visibility="gone"
             android:id="@+id/sign_up"
-            android:layout_width="90dp"
+            android:layout_width="110dp"
             android:layout_height="35dp"
             android:layout_gravity="right"
             android:gravity="center"
@@ -45,7 +45,7 @@
             android:fontFamily="@font/opensans_semibold"
             android:textColor="@color/white"
             android:background="@drawable/button_dealer"
-            android:text="Sign up" />
+            android:text="@string/signup" />
         <Button
             android:visibility="gone"
             android:id="@+id/update"
@@ -60,31 +60,33 @@
             android:textColor="@color/white"
             android:fontFamily="@font/opensans_semibold"
             android:background="@drawable/button_dealer"
-            android:text="Update" />
+            android:text="@string/updatee" />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="15dp">
+
             <Button
                 android:id="@+id/btn_upgrade"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:visibility="gone"
                 android:layout_gravity="center"
+                android:background="#FABF6A"
+                android:fontFamily="@font/opensans_semibold"
                 android:text="@string/upgrade"
                 android:textAllCaps="false"
-                android:background="#FABF6A"
                 android:textColor="#FFFFFF"
-                android:fontFamily="@font/opensans_semibold"
-                android:textSize="@dimen/dp_15"/>
+                android:textSize="@dimen/dp_15"
+                android:visibility="gone" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
@@ -98,19 +100,19 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgCamera"
-                android:src="@drawable/camera_green"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="-20dp"
-                android:layout_gravity="center"/>
+                android:src="@drawable/camera_green" />
 
             <TextView
                 android:id="@+id/tv_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/username"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -119,19 +121,19 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Enter your name"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="@string/enter_information"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/username_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
@@ -141,8 +143,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/hit_gender"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -151,21 +153,21 @@
                 android:id="@+id/et_gender"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Select your gender"
-                android:layout_marginTop="@dimen/dp_8"
-                android:maxLength="10"
-                android:textSize="14sp"
-                android:drawableRight="@drawable/ic_arrow_drop_down_black"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:drawableRight="@drawable/ic_arrow_drop_down_black"
+                android:hint="@string/select"
+                android:maxLength="10"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/gender_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
@@ -173,163 +175,173 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/phone_number"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:text="@string/phone_number"
                     android:textColor="#000"
                     android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/et_phone"
-                    android:layout_below="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:hint="099 000 000"
-                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_below="@+id/tv_phone"
+                    android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="099 000 000"
+                    android:inputType="number"
                     android:maxLength="10"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/dp_16" />
+                    android:textSize="14sp" />
+
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/tv_add"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_phone"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Add"/>
+                    android:text="@string/add"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone" />
+
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/tv_cancel"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_phone"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Cancel"/>
+                    android:text="@string/cancel"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/phone_alert"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_below="@id/et_phone"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/layout_phone1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
                 <TextView
                     android:id="@+id/tv_phone1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number 1"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:text="@string/hit_phone1"
                     android:textColor="#000"
                     android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/et_phone1"
-                    android:layout_below="@+id/tv_phone1"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:hint="099 000 000"
-                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_below="@+id/tv_phone1"
+                    android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="099 000 000"
+                    android:inputType="number"
                     android:maxLength="10"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/dp_16" />
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/tv_add1"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_phone1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Add"/>
+                    android:text="@string/add"
+                    android:textColor="@color/colorPrimary" />
+
                 <TextView
                     android:id="@+id/phone_alert1"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_below="@id/et_phone1"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/layout_phone2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
                 <TextView
                     android:id="@+id/tv_phone2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number 2"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:text="@string/hit_phone2"
                     android:textColor="#000"
                     android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/et_phone2"
-                    android:layout_below="@+id/tv_phone2"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:hint="099 000 000"
+                    android:layout_below="@+id/tv_phone2"
+                    android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
+                    android:hint="099 000 000"
+                    android:inputType="number"
                     android:maxLength="10"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/dp_16" />
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/tv_add2"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="13dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_phone2"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:text="Add"/>
+                    android:text="@string/add"
+                    android:textColor="@color/colorPrimary" />
+
                 <TextView
                     android:id="@+id/phone_alert2"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_below="@id/et_phone2"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp" />
@@ -340,8 +352,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/email"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -350,19 +362,19 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="example123@gmail.com"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="example123@gmail.com"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/email_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
@@ -372,8 +384,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/Password"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -382,20 +394,20 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Enter your password"
-                android:layout_marginTop="@dimen/dp_8"
-                android:maxLength="10"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="@string/enter_information"
+                android:maxLength="10"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/password_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
@@ -405,9 +417,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
-                android:text="Re-password"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text="@string/re_password"
                 android:textColor="#000"
                 android:textSize="12sp" />
 
@@ -415,20 +427,20 @@
                 android:id="@+id/et_re_password"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Enter your re-password"
-                android:layout_marginTop="@dimen/dp_8"
-                android:maxLength="10"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="@string/enter_information"
+                android:maxLength="10"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/re_password_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
@@ -436,128 +448,131 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date of birth"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:text="@string/birth"
                     android:textColor="#000"
                     android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/et_date"
-                    android:layout_below="@+id/tv_date"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:hint="Select"
+                    android:layout_below="@+id/tv_date"
+                    android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/dp_16" />
+                    android:hint="@string/select"
+                    android:textSize="14sp" />
+
                 <ImageView
                     android:id="@+id/tv_cal"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5.5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_date"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5.5dp"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
                     android:src="@drawable/calendar"
-                    android:text="Add"/>
+                    android:text="@string/add"
+                    android:textColor="@color/colorPrimary" />
+
                 <TextView
                     android:id="@+id/date_alert"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_below="@id/et_date"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp" />
             </RelativeLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_wing_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/hit_wingaccount"
                 android:textColor="#000"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <EditText
-                android:visibility="gone"
                 android:id="@+id/et_wing_account"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Enter your account"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="@string/enter_information"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/wing_account_acc_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:visibility="gone" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_wing_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/hit_wingnumber"
                 android:textColor="#000"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <EditText
-                android:visibility="gone"
                 android:id="@+id/et_wing_number"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Enter your number"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="@string/enter_information"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/wing_number_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:text="@string/address"
                 android:textColor="#000"
                 android:textSize="12sp" />
@@ -566,19 +581,19 @@
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:hint="Enter your information"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="14sp"
                 android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_8" />
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:hint="@string/enter_information"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/address_alert"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginBottom="@dimen/dp_8dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8dp"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
@@ -586,68 +601,72 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tv_map"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Map"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:text="@string/map"
                     android:textColor="#000"
                     android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/et_map"
-                    android:layout_below="@+id/tv_map"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
+                    android:layout_below="@+id/tv_map"
+                    android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/dp_16" />
+                    android:textSize="14sp" />
+
                 <ImageView
                     android:id="@+id/map"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5.5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_map"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5.5dp"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:gravity="right"
                     android:padding="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:src="@drawable/map" />
+                    android:src="@drawable/map"
+                    android:textColor="@color/colorPrimary" />
+
                 <TextView
                     android:id="@+id/map_alert"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_below="@id/et_map"
-                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8dp"
                     android:text=""
                     android:textColor="#000"
                     android:textSize="8sp" />
             </RelativeLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_privacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginEnd="30dp"
-                android:text="@string/privacy"/>
+                android:text="@string/privacy"
+                android:textAlignment="center"
+                android:visibility="gone" />
+
             <CheckBox
-                android:visibility="gone"
                 android:id="@+id/term_privacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_16"
-                android:layout_gravity="center"
-                android:text="Terms of service"/>
+                android:text="@string/term_of_service"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

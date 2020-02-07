@@ -35,15 +35,24 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_list_draft;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.child.two;
 import com.bt_121shoppe.motorbike.loan.LoanSectionOneFragment;
+import com.bt_121shoppe.motorbike.loan.model.Draft;
 import com.bt_121shoppe.motorbike.loan.model.Province;
+import com.bt_121shoppe.motorbike.loan.model.District;
+import com.bt_121shoppe.motorbike.loan.model.Commune;
+import com.bt_121shoppe.motorbike.loan.model.Village;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
+import com.bt_121shoppe.motorbike.loan.model.draft_Item;
 import com.bt_121shoppe.motorbike.loan.model.province_Item;
+import com.bt_121shoppe.motorbike.loan.model.district_Item;
+import com.bt_121shoppe.motorbike.loan.model.commune_Item;
+import com.bt_121shoppe.motorbike.loan.model.village_Item;
 
 import java.util.*;
 
@@ -61,6 +70,7 @@ public class one extends Fragment{
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
+    private static final String DRAFT = "draft";
 
     public  SendItemOne SM;
     private Button mBtnNext;
@@ -74,31 +84,36 @@ public class one extends Fragment{
     private Create_Load createLoad;
     private AlertDialog dialog;
     private item_one itemOne;
+    private List<draft_Item> list_darft;
     private List<province_Item> listData;
+    private List<district_Item> listDistrict;
+    private List<commune_Item> list_Commmune;
+    private List<village_Item> list_village;
 
     private SharedPreferences preferences;
     private String username,password,Encode;
     private String basicEncode,currentLanguage;
-    private String mPrice;
-    private String[] provine = new String[28];
+    private String mPrice,mDraft;
+    private String[] provine,district,commune,village;
     private String[] Job = {"seller","state staff","private company staff","service provider","other",""};
     private String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
     private String[] rJob ;
     private String[] rRela;
     private int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
-    private int mProductID;
+    private int mProductID,mDistrictID,mCommuneID,mVillageID;
     private int pk;
     private boolean radioCheck = false,Co_borrower,mFromLoan;
     private boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
     private boolean bNet_income,bDistrict,bCommune,bVillage;
 
-    public static one newInstance(int number,String price,int loanid,boolean fromLoan) {
+    public static one newInstance(int number,String price,int loanid,boolean fromLoan,String Draft) {
         one fragment = new one();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
         args.putString(PRICE,price);
         args.putInt(LOANID,loanid);
         args.putBoolean(FROMLOAN,fromLoan);
+        args.putString(DRAFT,Draft);
         fragment.setArguments(args);
         return fragment;
     }
@@ -117,6 +132,7 @@ public class one extends Fragment{
             mPrice = args.getString(PRICE);
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
+            mDraft = args.getString(DRAFT);
             Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
         }
         createLoad = (Create_Load)getActivity();
@@ -141,7 +157,9 @@ public class one extends Fragment{
 
         if (mFromLoan){
             GetLoan();
-        }else {
+        }else if (mDraft!= null){
+            getLoan_draft();
+        } else {
             getDetailUser();
             mTotal_Income.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -242,6 +260,7 @@ public class one extends Fragment{
                     Log.d("Error121211",response.code()+" ");
                 }
                 listData = response.body().getresults();
+                provine = new String[listData.size()];
                 Log.d("333333333333", String.valueOf(listData.size()));
                 for (int i=0;i<listData.size();i++){
                     if (currentLanguage.equals("en")){
@@ -256,6 +275,108 @@ public class one extends Fragment{
             }
             @Override
             public void onFailure(Call<AllResponse> call, Throwable t) {
+                Log.d("OnFailure",t.getMessage());
+            }
+        });
+    }
+    private void getdistrict(int provinceID){
+        Log.e("Province ID",""+provinceID);
+        Service api = Client.getClient().create(Service.class);
+        Call<District> call = api.getDistrict();
+        call.enqueue(new Callback<District>() {
+            @Override
+            public void onResponse(Call<District> call, Response<District> response) {
+                if (!response.isSuccessful()){
+                    Log.d("Error121211",response.code()+" ");
+                }
+                listDistrict = response.body().getresults();
+                district = new String[listDistrict.size()];
+                Log.d("size district", String.valueOf(listDistrict.size()));
+                int count=0;
+                for (int i=0;i<listDistrict.size();i++){
+                    if (listDistrict.get(i).getProvinceId() == provinceID) {
+                        if (currentLanguage.equals("en")) {
+                            district[count] = listDistrict.get(i).getDistrict();
+                            Log.d("District", listDistrict.get(i).getDistrict() + listDistrict.get(i).getId());
+                            Log.e("Pk", "" + pk + Encode + " user " + username + "  pass  " + password + " List " + listDistrict.size());
+                        } else {
+                            Log.d("District", listDistrict.get(i).getDistrict() + listDistrict.get(i).getId());
+                            district[count] = listDistrict.get(i).getDistrict_kh();
+                        }
+                        count++;
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<District> call, Throwable t) {
+                Log.d("OnFailure",t.getMessage());
+            }
+        });
+    }
+    private void getCommune(int districtID){
+        Log.e("District ID",""+districtID);
+        Service api = Client.getClient().create(Service.class);
+        Call<Commune> call = api.getCommune();
+        call.enqueue(new Callback<Commune>() {
+            @Override
+            public void onResponse(Call<Commune> call, Response<Commune> response) {
+                if (!response.isSuccessful()){
+                    Log.d("Error121211",response.code()+" ");
+                }
+                list_Commmune = response.body().getresults();
+                commune = new String[list_Commmune.size()];
+                int count=0;
+                Log.d("size commune", String.valueOf(list_Commmune.size()));
+                for (int i=0;i<list_Commmune.size();i++){
+                    if (list_Commmune.get(i).getDistrictId() == districtID) {
+                        if (currentLanguage.equals("en")) {
+                            commune[count] = list_Commmune.get(i).getCommune();
+                            Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
+                            Log.e("Pk", "" + pk + Encode + " user " + username + "  pass  " + password + " List " + list_Commmune.size());
+                        } else {
+                            Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
+                            commune[count] = list_Commmune.get(i).getCommune_kh();
+                        }
+                        count++;
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Commune> call, Throwable t) {
+                Log.d("OnFailure",t.getMessage());
+            }
+        });
+    }
+    private void getVillage(int communeID){
+        Log.e("Commune ID",""+communeID);
+        Service api = Client.getClient().create(Service.class);
+        Call<Village> call = api.getVillage();
+        call.enqueue(new Callback<Village>() {
+            @Override
+            public void onResponse(Call<Village> call, Response<Village> response) {
+                if (!response.isSuccessful()){
+                    Log.d("Error121211",response.code()+" ");
+                }
+                list_village = response.body().getresults();
+                village = new String[list_village.size()];
+                int count=0;
+                Log.d("size village", String.valueOf(list_Commmune.size()));
+                for (int i=0;i<list_village.size();i++){
+                    if (list_village.get(i).getCommuneId() == communeID) {
+                        if (currentLanguage.equals("en")) {
+                            village[count] = list_village.get(i).getVillage();
+                            Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
+                            Log.e("Pk", "" + pk + Encode + " user " + username + "  pass  " + password + " List " + list_Commmune.size());
+                        } else {
+                            Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
+                            village[count] = list_village.get(i).getVillage_kh();
+                        }
+                        count++;
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Village> call, Throwable t) {
                 Log.d("OnFailure",t.getMessage());
             }
         });
@@ -340,10 +461,18 @@ public class one extends Fragment{
         mCo_borrower_Job.setOnClickListener(v -> {
             createLoad.AlertDialog(rJob,mCo_borrower_Job);
         });
-        mAddress.setOnClickListener(v -> AlertDialog(provine,mAddress));
-        mDistrict.setOnClickListener(v -> AlertDialog(provine,mDistrict));
-        mVillage.setOnClickListener(v -> AlertDialog(provine,mVillage));
-        mCommune.setOnClickListener(v -> AlertDialog(provine,mCommune));
+        mAddress.setOnClickListener(v -> {
+            AlertDialog(provine, mAddress);
+        });
+        mDistrict.setOnClickListener(v -> {
+            AlertDialog(district,mDistrict);
+        });
+        mVillage.setOnClickListener(v -> {
+            AlertDialog(village,mVillage);
+        });
+        mCommune.setOnClickListener(v -> {
+            AlertDialog(commune,mCommune);
+        });
         mJob.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -455,6 +584,12 @@ public class one extends Fragment{
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which+1;
+            mDistrictID = which+1;
+            mCommuneID  = which+1;
+            mVillageID  = which+1;
+            getdistrict(mProvinceID);
+            getCommune(mDistrictID);
+            getVillage(mCommuneID);
             editText.setText(items[which]);
             dialog.dismiss();
         });
@@ -552,6 +687,59 @@ public class one extends Fragment{
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) {
 
+            }
+        });
+    }
+    private void getLoan_draft(){
+        Service apiService = Client.getClient().create(Service.class);
+        Call<Draft> call = apiService.getList_draft(basicEncode);
+        call.enqueue(new Callback<Draft>() {
+            @Override
+            public void onResponse(Call<Draft> call, Response<Draft> response) {
+                list_darft = response.body().getresults();
+                Log.e("list 1",""+list_darft.size());
+                if (list_darft.size() >0){
+                    for (int i=0;i<list_darft.size();i++){
+                        mName.setText(list_darft.get(i).getUsername());
+                        mPhone_Number.setText(list_darft.get(i).getTelephone());
+                        for (int j=0;j<Job.length;j++){
+                            if (list_darft.get(i).getJob().equals(Job[j])){
+                                mJob.setText(rJob[j]);
+                                indextJom = j;
+                            }
+                        }
+                        mJob_Period.setText(String.valueOf(list_darft.get(i).getBorrower_job_period()));
+                        if (list_darft.get(i).ismIs_Co_borrower()){
+                            mCo_borrower.check(R.id.radio1);
+                            radio1.toggle();
+                            for (int j=0;j<rRela.length;j++){
+                                if (list_darft.get(i).getmRelationship().equals(Rela[j].toLowerCase())) {
+                                    mRelationship.setText(rRela[j]);
+                                    indexRela = j;
+                                }
+                            }
+                            for (int j=0;j<rJob.length;j++){
+                                if (list_darft.get(j).getmCoborrower_job().equals(Job[j].toLowerCase())){
+                                    mCo_borrower_Job.setText(rJob[j]);
+                                    indexCoborow_job = j;
+                                }
+                            }
+                            mCo_Job_Period.setText(String.valueOf(list_darft.get(i).getmCoborrower_job_period()));
+                        }else {
+                            mCo_borrower.check(R.id.radio2);
+                            radio2.toggle();
+                            mRelationship.setText(null);
+                            mCo_Job_Period.setText("0");
+                        }
+                        mTotal_Income.setText(String.valueOf(list_darft.get(i).getAverage_income()));
+                        mTotal_Expense.setText(String.valueOf(list_darft.get(i).getAverage_expense()));
+                        mNet_Income.setText(list_darft.get(i).getAverage_income()- list_darft.get(i).getAverage_expense()+"");
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Draft> call, Throwable t) {
+                Log.d("Error",t.getMessage());
             }
         });
     }

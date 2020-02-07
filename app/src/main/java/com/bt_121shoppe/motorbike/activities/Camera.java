@@ -2427,33 +2427,33 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             Log.e("Select : ",""+color);
                         } else {
                             color = String.valueOf(selectedColor.get(i));
-                            Log.e("Select : ",""+color);
+                            Log.e("UnSelect : ",""+color);
                         }
                     }
                 }
                 switch (color) {
-                    case "2131231204":
+                    case "2131231207":
                         strColor = "white";
                         break;
-                    case "2131230842":
+                    case "2131230843":
                         strColor = "blue";
                         break;
-                    case "2131231065":
+                    case "2131231068":
                         strColor = "black";
                         break;
-                    case "2131231161":
+                    case "2131231164":
                         strColor = "red";
                         break;
-                    case "2131231206":
+                    case "2131231209":
                         strColor = "yellow";
                         break;
-                    case "2131231156":
+                    case "2131231159":
                         strColor = "pink";
                         break;
-                    case "2131231159":
+                    case "2131231162":
                         strColor = "purple";
                         break;
-                    case "2131231121":
+                    case "2131231124":
                         strColor = "orange";
                         break;
                 }

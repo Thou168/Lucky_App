@@ -543,7 +543,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             btnShopname1.setVisibility(View.VISIBLE);
                             btnShopname.setVisibility(View.GONE);
                             mDealerShopId2=2;
-                            userShops.add(new UserShopViewModel(mDealerShopId2,pk,shop,addr,bitmapImage,1,"",false,true));
+//                            userShops.add(new UserShopViewModel(mDealerShopId2,pk,shop,addr,bitmapImage,1,"",false,true));
                             alertDialog.dismiss();
                         }
                     });
@@ -594,7 +594,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                             btnShopname1.setVisibility(View.GONE);
                             btnShopname.setVisibility(View.GONE);
                             mDealerShopId3=3;
-                            userShops.add(new UserShopViewModel(mDealerShopId3,pk,shop,addr,bitmapImage,1,"",false,true));
+//                            userShops.add(new UserShopViewModel(mDealerShopId3,pk,shop,addr,bitmapImage,1,"",false,true));
                             alertDialog.dismiss();
                         }
                     });
@@ -668,7 +668,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     }
                                 }
                             }else
-                                userShops.add(new UserShopViewModel(mDealerShopId1,pk,shop,addr,bitmapImage,1,"",false,true));
+//                                userShops.add(new UserShopViewModel(mDealerShopId1,pk,shop,addr,bitmapImage,1,"",false,true));
                             etShop_name.setText(shop);
                             alertDialog.dismiss();
 
@@ -742,7 +742,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     }
                                 }
                             }else
-                                userShops.add(new UserShopViewModel(mDealerShopId2,pk,shop,addr,bitmapImage,1,"",false,true));
+//                                userShops.add(new UserShopViewModel(mDealerShopId2,pk,shop,addr,bitmapImage,1,"",false,true));
 
                             etShop_name1.setText(shop);
                             alertDialog.dismiss();
@@ -815,7 +815,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                     }
                                 }
                             }else
-                                userShops.add(new UserShopViewModel(mDealerShopId3,pk,shop,addr,bitmapImage,1,"",false,true));
+//                                userShops.add(new UserShopViewModel(mDealerShopId3,pk,shop,addr,bitmapImage,1,"",false,true));
 
                             etShop_name2.setText(shop);
                             alertDialog.dismiss();
@@ -1025,7 +1025,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                             etShop_name.setText(models.get(0));
 //                                            mDealerShop1.setText(shopViewModel.getId());
                                             mDealerShopId1=id_models.get(0);
-                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
+//                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                         case 1:
                                             Log.e(TAG,"Here second shop");
@@ -1037,7 +1037,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                             btnShopname.setVisibility(View.GONE);
 //                                            mDealerShop2.setText(shopViewModel.getId());
                                             mDealerShopId2=id_models.get(1);
-                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
+//                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                         case 2:
                                             etShop_name2.setText(models.get(2));
@@ -1048,7 +1048,7 @@ public class EditAccountActivity extends AppCompatActivity implements OnMapReady
                                             btnShopname.setVisibility(View.GONE);
                                             //mDealerShop3.setText(shopViewModel.getId());
                                             mDealerShopId3=id_models.get(2);
-                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
+//                                            userShops.add(new UserShopViewModel(shopViewModel.getId(),shopViewModel.getUser(),shopViewModel.getShop_name(),shopViewModel.getShop_address(),null,shopViewModel.getRecord_status(),shopViewModel.getShop_image(),false,false));
                                             break;
                                     }
                                 }

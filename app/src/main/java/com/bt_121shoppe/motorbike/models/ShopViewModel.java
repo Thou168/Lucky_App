@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ShopViewModel {
     @SerializedName("id")
     private int id;
@@ -21,7 +23,8 @@ public class ShopViewModel {
     private int shop_view;
     @SerializedName("shop_rate")
     private String shop_rate;
-
+    @SerializedName("cards")
+    private List<Cards> cards;
 
     public ShopViewModel(){}
 
@@ -104,5 +107,54 @@ public class ShopViewModel {
 
     public void setShop_view(int shop_view) {
         this.shop_view = shop_view;
+    }
+
+    public List<Cards> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Cards> cards) {
+        this.cards = cards;
+    }
+
+    public class Cards {
+        @SerializedName("id")
+        private int id;
+        @SerializedName("shop")
+        private int shopId;
+        @SerializedName("wing_account_name")
+        private String wing_account_name;
+        @SerializedName("wing_account_number")
+        private String wing_account_number;
+
+        public int getId() {
+            return id;
+        }
+        public int getShopId() {
+            return shopId;
+        }
+
+        public String getWing_account_name() {
+            return wing_account_name;
+        }
+
+        public String getWing_account_number() {
+            return wing_account_number;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+        public void setShopId(int shopId) {
+            this.shopId = shopId;
+        }
+
+        public void setWing_account_name(String wing_account_name) {
+            this.wing_account_name = wing_account_name;
+        }
+
+        public void setWing_account_number(String wing_account_number) {
+            this.wing_account_number = wing_account_number;
+        }
     }
 }

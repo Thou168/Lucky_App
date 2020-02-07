@@ -56,7 +56,7 @@ import com.android.volley.toolbox.Volley;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.Convert_Json_Java;
 import com.bt_121shoppe.motorbike.Api.User;
-import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
@@ -216,6 +216,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         mProgress.setIndeterminate(true);
 
         intent = getIntent();
+        register_verify = intent.getStringExtra("Register_verify");
+        Log.e("verify",""+register_verify);
         edit_profile = intent.getStringExtra("edit_profile");
         user_group = intent.getIntExtra("user_group",0);
         Log.e("group",""+user_group);
@@ -279,7 +281,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         mProfile = intent.getStringExtra("Profile");
         location = intent.getStringExtra("road");
         lat_long = intent.getStringExtra("location");
-        register_verify = intent.getStringExtra("Register_verify");
         product_id      = intent.getIntExtra("product_id",0);
         address = intent.getStringExtra("address");
         date1 = intent.getStringExtra("date");
@@ -334,7 +335,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         btUpgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Register.this,CreateShop.class));
+                Intent intent = new Intent(Register.this,CreateShop.class);
+                intent.putExtra("image",image);
+                startActivity(intent);
             }
         });
 
@@ -352,7 +355,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             @Override
             public void onClick(View view) {
                 if (mProfile!=null){
-                    startActivity(new Intent(Register.this, SelectUserTypeActivity.class));
+                    Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
+                    intent.putExtra("Register_verify",register_verify);
+                    startActivity(intent);
                 }else if (pk != 0){
                     startActivity(new Intent(Register.this, AccountSettingActivity.class));
                 }else {
@@ -660,7 +665,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     @Override
     public void onBackPressed() {
         if (mProfile!=null){
-            startActivity(new Intent(Register.this, SelectUserTypeActivity.class));
+            Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
+            intent.putExtra("Register_verify",register_verify);
+            startActivity(intent);
         }else if (pk != 0){
             startActivity(new Intent(Register.this, AccountSettingActivity.class));
         }else {
@@ -890,7 +897,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                         finish();
                                         break;
                                     case "detail":
-                                        intent = new Intent(Register.this, Detail_New_Post.class);
+                                        intent = new Intent(Register.this, Detail_new_post_java.class);
                                         intent.putExtra("ID", product_id);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
@@ -1313,8 +1320,19 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                         if (user.getImageURL().equals("default")) {
                                             Glide.with(Register.this).load(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgProfile);
                                         } else {
-                                            Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgProfile);
-                                            image = Uri.parse(user.getImageURL());
+                                            Glide.with(Register.this).asBitmap().load(user.getImageURL()).into(new CustomTarget<Bitmap>() {
+                                                @Override
+                                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                    imgProfile.setImageBitmap(resource);
+                                                    bitmap = resource;
+                                                    bitmapProfileImage = resource;
+                                                }
+
+                                                @Override
+                                                public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                                }
+                                            });
                                         }
                                     }
 
@@ -1421,7 +1439,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             convertJsonJava = gson.fromJson(mMessage, Convert_Json_Java.class);
             int id = convertJsonJava.getId();
             String apiImageURL=convertJsonJava.getProfile().getProfile_photo();
-//            Log.e("TAG","Profile Image:"+apiImageURL);
+            Log.e("TAG","Profile Image:"+apiImageURL);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1464,13 +1482,25 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         dialog.dismiss();
                     });
                     alertDialog.show();
-                    //mProgress.dismiss();
+                    mProgress.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
+        }else {
+            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
+            alertDialog.setTitle(getString(R.string.title_edit_account));
+            alertDialog.setMessage(getString(R.string.edit_fail_message));
+            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            mProgress.dismiss();
         }
     }
     private void Variable_Field(){

@@ -38,7 +38,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     private AlertDialog dialog;
     private boolean From_Loan;
     private int product_id,mCardID,mLoandID;
-    private String price;
+    private String price,draft;
     private Button btnList_Draft;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +55,20 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         Intent intent = getIntent();
+
         product_id = intent.getIntExtra("product_id",0);
         mLoandID = intent.getIntExtra("LoanID",0);
         From_Loan = intent.getBooleanExtra("LoanEdit",false);
         price = intent.getStringExtra("price");
+        draft = intent.getStringExtra("draft");
 
         back = findViewById(R.id.tv_back);
         back.setOnClickListener(v -> onBackPressed());
 
         btnList_Draft = findViewById(R.id.list_draft);
-        btnList_Draft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Create_Load.this,Draft_loan.class);
-                startActivity(intent);
-            }
+        btnList_Draft.setOnClickListener(view -> {
+            Intent intent1 = new Intent(Create_Load.this,Draft_loan.class);
+            startActivity(intent1);
         });
 
     }
@@ -173,13 +172,13 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         public Fragment getItem(int position) {
             Fragment fragment = null;
             if (position == 0) {
-                fragment = new one().newInstance(product_id,price,mLoandID,From_Loan);
+                fragment = new one().newInstance(product_id,price,mLoandID,From_Loan,draft);
 
             } else if (position == 1) {
-                fragment = new two().newInstance(product_id,price,mLoandID,From_Loan);
+                fragment = new two().newInstance(product_id,price,mLoandID,From_Loan,draft);
 
             } else if (position == 2) {
-                fragment = new three().newInstance(product_id,price,mLoandID,From_Loan);
+                fragment = new three().newInstance(product_id,price,mLoandID,From_Loan,draft);
             }
             return fragment;
         }

@@ -5,13 +5,15 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="46dp"
         android:background="@drawable/background_cardview">
 
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_16"
             android:textColor="@color/black"
             android:textSize="@dimen/dp_20"
             android:text="List Draft 1"/>

@@ -34,6 +34,8 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.LoanActivity;
+import com.bt_121shoppe.motorbike.loan.model.Draft;
+import com.bt_121shoppe.motorbike.loan.model.draft_Item;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
@@ -58,6 +60,7 @@ public class two extends Fragment {
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
+    private static final String DRAFT = "draft";
 
     public  SendItemTwo SM;
     private SharedPreferences preferences;
@@ -74,20 +77,22 @@ public class two extends Fragment {
     private item_two itemTwo;
     private AlertDialog dialog;
     private String basicEncode;
-    private String mPrice;
+    private String mPrice,mDraft;
+    private List<draft_Item> list_darft;
     private String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
     private int mProductID,mLoanID;
     private int index=3;
     private int pk;
     private boolean mVisit_home,mBuy_product_insurance,check_return;
     private boolean mFromLoan,bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid,bResidence,bProduct_insurance;
-    public static two newInstance(int number,String price,int loanid,boolean fromLoan) {
+    public static two newInstance(int number,String price,int loanid,boolean fromLoan,String Draft) {
         two fragment = new two();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
         args.putString(PRICE,price);
         args.putInt(LOANID,loanid);
         args.putBoolean(FROMLOAN,fromLoan);
+        args.putString(DRAFT,Draft);
         fragment.setArguments(args);
         return fragment;
     }
@@ -106,7 +111,8 @@ public class two extends Fragment {
             mPrice = args.getString(PRICE);
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
-            Log.e("Fragment Two",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
+            mDraft = args.getString(DRAFT);
+            Log.e("Fragment Two",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+mDraft);
         }
         createLoad = (Create_Load)getActivity();
         initView(view);
@@ -253,7 +259,9 @@ public class two extends Fragment {
 
         if (mFromLoan){
             GetLoan();
-        }else {
+        }else if (mDraft != null){
+            getLoan_draft();
+        } else {
             mLoan_amount.setText(cuteString(mPrice,0));
             mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(mPrice,0)))});
             mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(mPrice,0)))});
@@ -435,6 +443,117 @@ public class two extends Fragment {
             public void onFailure(Call<loan_item> call, Throwable t) { }
         });
     }
+    private void getLoan_draft(){
+        Service apiService = Client.getClient().create(Service.class);
+        Call<Draft> call = apiService.getList_draft(basicEncode);
+        call.enqueue(new Callback<Draft>() {
+            @Override
+            public void onResponse(Call<Draft> call, Response<Draft> response) {
+                list_darft = response.body().getresults();
+                Log.e("list 2",""+list_darft.size());
+                if (list_darft.size() >0){
+                    for (int i=0;i<list_darft.size();i++){
+                        Log.e("Item Loan",""+list_darft.get(i).getLoan_amount()+list_darft.get(i).getLoan_duration()+list_darft.get(i).getLoan_deposit_amount());
+                        mLoan_amount.setText(cuteString(String.valueOf(list_darft.get(i).getLoan_amount()),0));
+                        mLoan_Term.setText(String.valueOf(list_darft.get(i).getLoan_duration()));
+                        mLoan_Contributions.setText(String.valueOf(list_darft.get(i).getLoan_deposit_amount()));
+                        mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)list_darft.get(i).getLoan_amount()+(int)list_darft.get(i).getLoan_deposit_amount())});
+                        mLoan_amount.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
+                                    mLoan_Contributions.setText("0");
+                                }else mLoan_Contributions.setText(null);
+                            }
+                            @Override
+                            public void afterTextChanged(Editable s) { }
+                        });
+                        double price = list_darft.get(i).getLoan_amount() + list_darft.get(i).getLoan_deposit_amount();
+                        mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
+                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
+
+                        mLoan_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                if (!hasFocus) {
+                                    mLoan_Contributions.setText(cuteString(String.valueOf(price - Double.parseDouble(mLoan_amount.getText().toString())),0));
+                                }
+                            }
+                        });
+
+                        if (list_darft.get(i).isIs_product_insurance()){
+                            mBuy_product_insurance= true;
+                            mProduct_insurance.check(R.id.radio1_product_insurance);
+                            rdProduct_insurance.toggle();
+                        }else {
+                            mBuy_product_insurance= false;
+                            mProduct_insurance.check(R.id.radio2_product_insurance);
+                            rdProduct_insurance.toggle();
+                        }
+                        if (list_darft.get(i).isIs_home_visit()){
+                            mVisit_home= true;
+                            mResidence.check(R.id.radio1_residence);
+                            rdResidence.toggle();
+                        }else {
+                            mVisit_home= false;
+                            mResidence.check(R.id.radio2_residence);
+                            rdResidence.toggle();
+                        }
+
+                        mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                if (!s.toString().isEmpty()&&!s.toString().equals("0")){
+                                    mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(15)});
+                                    mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
+                                    mLoan_amount.setText(cuteString(String.valueOf(price - Double.parseDouble(s.toString())),0));
+                                }
+                            }
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                if (s.toString().equals("0") || s.toString().equals("0.0")){
+                                    mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
+                                }
+                            }
+                        });
+                        mloan_RepaymentType.setText(list_darft.get(i).getLoan_repayment_type());
+                        String repay = list_darft.get(i).getLoan_repayment_type();
+                        if (repay.equals("monthly annuity repayment")){
+                            mloan_RepaymentType.setText(getString(R.string.monthly_annuity_repay));
+                        }else mloan_RepaymentType.setText(getString(R.string.monlthly_declining_repay));
+                        mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
+                                    for (int i=0;i<list_darft.size();i++) {
+                                        mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int) list_darft.get(i).getLoan_amount() + (int) list_darft.get(i).getLoan_deposit_amount() - Integer.parseInt(mLoan_amount.getText().toString()))});
+                                    }
+                                }
+                            }
+                            @Override
+                            public void afterTextChanged(Editable s) { }
+                        });
+                        mNumber_institution.setText(String.valueOf(list_darft.get(i).getLending_intitution_owned()));
+                        if (list_darft.get(i).getLending_intitution_owned()!=0){
+                            mMonthly_Amount_Paid.setText(String.valueOf(list_darft.get(i).getAmount_paid_intitution()));
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Draft> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+    }
+
     public void getItemOne(item_one item)
     {
         Log.e("item_one",""+item);

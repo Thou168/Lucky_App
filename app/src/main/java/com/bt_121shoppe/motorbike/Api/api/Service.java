@@ -18,7 +18,11 @@ import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
+import com.bt_121shoppe.motorbike.loan.model.District;
+import com.bt_121shoppe.motorbike.loan.model.Commune;
+import com.bt_121shoppe.motorbike.loan.model.Village;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
+import com.bt_121shoppe.motorbike.loan.model.Draft;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
@@ -84,6 +88,9 @@ public interface Service {
     @GET("loanbyuser/?loan_status=9")
     Call<AllResponse> getLoanbyuser(@Header("Authorization") String authorization);
 
+    @GET("get_loan_draft_by_user/")
+    Call<Draft> getList_draft(@Header("Authorization") String authorization);
+
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("like/{id}/")
     Call<change_status_unlike> getputStatusUnlike(@Path("id") int id, @Body change_status_unlike change_status, @Header("Authorization") String authorization);
@@ -132,6 +139,21 @@ public interface Service {
     Call<AllResponse> getProvince();
     @GET("api/v1/provinces/{id}/")
     Call<Province> getProvince(@Path("id") int id);
+
+    @GET("api/v1/district/")
+    Call<District> getDistrict();
+    @GET("api/v1/district/{id}/")
+    Call<District> getDistrict(@Path("id") int id);
+
+    @GET("api/v1/commune/")
+    Call<Commune> getCommune();
+    @GET("api/v1/commune/{id}/")
+    Call<Commune> getCommune(@Path("id") int id);
+
+    @GET("api/v1/village/")
+    Call<Village> getVillage();
+    @GET("api/v1/village/{id}/")
+    Call<Village> getVillage(@Path("id") int id);
 
     @GET("api/v1/users/{id}/")
     Call<User> getuser(@Path("id")int id);

@@ -29,11 +29,14 @@ import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.model.Draft;
+import com.bt_121shoppe.motorbike.loan.model.draft_Item;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -49,6 +52,7 @@ public class three extends Fragment {
     private static final String PRICE = "price";
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
+    private static final String DRAFT = "draft";
 
     private Button mBtnSubmit,mBtnSaveDraft;
     private RadioGroup etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
@@ -60,19 +64,21 @@ public class three extends Fragment {
     private String username,password,Encode,language;
     private loan_item loanItem;
     private String basicEncode;
-    private String mPrice;
+    private String mPrice,mDraft;
+    private List<draft_Item> list_darft;
     private int mProductID,mLoanID;
     private int pk;
     private int index = 3;
     private boolean mFromLoan;
     private boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
-    public static three newInstance(int number,String price,int loanid,boolean fromLoan) {
+    public static three newInstance(int number,String price,int loanid,boolean fromLoan,String Draft) {
         three fragment = new three();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
         args.putString(PRICE,price);
         args.putInt(LOANID,loanid);
         args.putBoolean(FROMLOAN,fromLoan);
+        args.putString(DRAFT,Draft);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,6 +98,7 @@ public class three extends Fragment {
             mPrice = args.getString(PRICE);
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
+            mDraft = args.getString(DRAFT);
             Log.e("Fragment Three",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
         }
         initView(view);
@@ -110,24 +117,51 @@ public class three extends Fragment {
             final View clearDialogView = factory.inflate(R.layout.save_dialog,null);
             final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
             clearDialog.setView(clearDialogView);
-            TextView title   = (TextView) clearDialogView.findViewById(R.id.textView_title);
-            TextView name    = (TextView) clearDialogView.findViewById(R.id.tv_draft);
-            Button btnSave   = (Button) clearDialogView.findViewById(R.id.btnSave);
-            Button btnCancel = (Button) clearDialogView.findViewById(R.id.btnCancel);
+            EditText draft_name = (EditText) clearDialogView.findViewById(R.id.et_draft);
+            TextView title      = (TextView) clearDialogView.findViewById(R.id.textView_title);
+            TextView name       = (TextView) clearDialogView.findViewById(R.id.tv_draft);
+            Button btnSave      = (Button) clearDialogView.findViewById(R.id.btnSave);
+            Button btnCancel    = (Button) clearDialogView.findViewById(R.id.btnCancel);
             title.setText(getString(R.string.save_draft));
             name.setText(getString(R.string.name));
             btnCancel.setText(getString(R.string.cancel));
             btnSave.setText(getString(R.string.save));
-            clearDialogView.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clearDialog.dismiss();
-                }
-            });
-            clearDialogView.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            clearDialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> clearDialog.dismiss());
+            clearDialogView.findViewById(R.id.btnSave).setOnClickListener(v -> {
+                Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
+                if (itemTwo != null) {
+                    Service api = Client.getClient().create(Service.class);
+                    loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
+                            itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
+                            pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,
+                            0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
+                            itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,
+                            mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),
+                            itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),
+                            itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,
+                            itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),
+                            itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()),draft_name.getText().toString(),true);
+                    Log.e("loan item",""+loanItem);
+                    Call<loan_item> call = api.setCreateLoan(loanItem,basicEncode);
+                    call.enqueue(new Callback<loan_item>() {
+                        @Override
+                        public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                            if (response.isSuccessful()){
+                                SaveDraftDialog();
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Call<loan_item> call, Throwable t) {
+                            Log.d("ErroronFailure121212", t.getMessage());
+                        }
+                    });
+                }else {
+                    AlertDialog builder = new AlertDialog.Builder(getContext()).create();
+                    builder.setMessage(getString(R.string.please_fill_information));
+                    builder.setCancelable(false);
+                    builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), (dialogInterface, i) -> builder.dismiss());
+                    builder.show();
                 }
             });
             clearDialog.setCancelable(false);
@@ -136,7 +170,6 @@ public class three extends Fragment {
         mBtnSubmit.setOnClickListener(v -> {
                 Log.e("From Loan",String.valueOf(mFromLoan));
                 if (mFromLoan){
-//                    Editloan();
                     dialog_Editloan();
                 }else {
                     Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
@@ -146,12 +179,7 @@ public class three extends Fragment {
                         android.app.AlertDialog builder = new android.app.AlertDialog.Builder(getContext()).create();
                         builder.setMessage(getString(R.string.please_fill_information));
                         builder.setCancelable(false);
-                        builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                builder.dismiss();
-                            }
-                        });
+                        builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), (dialogInterface, i) -> builder.dismiss());
                         builder.show();
                     }
                 }
@@ -385,6 +413,8 @@ public class three extends Fragment {
 
         if (mFromLoan){
             GetLoan();
+        }else if (mDraft != null){
+            getLoan_draft();
         }
 
     }
@@ -393,6 +423,19 @@ public class three extends Fragment {
         androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
         alertDialog.setTitle(getString(R.string.title_create_loan));
         alertDialog.setMessage(getString(R.string.loan_message));
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
+            Intent intent = new Intent(getContext(), Detail_new_post_java.class);
+            intent.putExtra("ID",mProductID);
+            startActivity(intent);
+            mProgress.show();
+            getActivity().finish();
+            dialog.dismiss();
+        });
+        alertDialog.show();
+    }
+    private void SaveDraftDialog(){
+        androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
+        alertDialog.setMessage(getString(R.string.save_draft_message));
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
             Intent intent = new Intent(getContext(), Detail_new_post_java.class);
             intent.putExtra("ID",mProductID);
@@ -490,6 +533,103 @@ public class three extends Fragment {
             }
             @Override
             public void onFailure(Call<loan_item> call, Throwable t) { }
+        });
+    }
+
+    private void getLoan_draft(){
+        Service apiService = Client.getClient().create(Service.class);
+        Call<Draft> call = apiService.getList_draft(basicEncode);
+        call.enqueue(new Callback<Draft>() {
+            @Override
+            public void onResponse(Call<Draft> call, Response<Draft> response) {
+                list_darft = response.body().getresults();
+                Log.e("list 3",""+list_darft.size());
+                if (list_darft.size() >0){
+                    for (int i=0;i<list_darft.size();i++){
+                        Log.e("list draft",""+list_darft.get(i).isFamily_book()+list_darft.get(i).isStaff_id()+list_darft.get(i).isIs_borrower_photo());
+                        if (list_darft.get(i).isState_id()){
+                            mCard_ID = true;
+                            etID_card.check(R.id.radio1_ID_card);
+                            rdID_card_yes.toggle();
+                        } else {
+                            mCard_ID = false;
+                            etID_card.check(R.id.radio2_ID_card);
+                            rdID_card_no.toggle();
+                        }
+
+                        if (list_darft.get(i).isFamily_book()){
+                            mFamily_Book = true;
+                            etFamily_book.check(R.id.radio1_Family_book);
+                            rdFamily_book_yes.toggle();
+                        } else{
+                            mFamily_Book =false;
+                            etFamily_book.check(R.id.radio2_Family_book);
+                            rdFamily_book_no.toggle();
+                        }
+                        if (list_darft.get(i).isIs_borrower_photo()){
+                            mPhoto = true;
+                            etPhotos.check(R.id.radio1_Photos);
+                            rdPhotos_yes.toggle();
+                        } else {
+                            mPhoto = false;
+                            etPhotos.check(R.id.radio2_Photos);
+                            rdPhotos_no.toggle();
+                        }
+
+                        if (list_darft.get(i).isStaff_id()){
+                            mCard_Work = true;
+                            etEmployment_card.check(R.id.radio1_Employment_card);
+                            rdEmployment_card_yes.toggle();
+                        } else{
+                            mCard_Work = false;
+                            etEmployment_card.check(R.id.radio2_Employment_card);
+                            rdEmployment_card_no.toggle();
+                        }
+
+                        //co-borrow
+                        if (list_darft.get(i).isIs_coborrower_idcard()){
+                            mCard_ID1 = true;
+                            etID_card1.check(R.id.radio1_ID_card1);
+                            rdID_card1_yes.toggle();
+                        }else {
+                            mCard_ID1 = false;
+                            etID_card1.check(R.id.radio2_ID_card1);
+                            rdID_card1_no.toggle();
+                        }
+                        if (list_darft.get(i).isIs_coborrower_familybook()){
+                            mFamily_Book1 = true;
+                            etFamily_book1.check(R.id.radio1_Family_book1);
+                            rdFamily_book1_yes.toggle();
+                        }else {
+                            mFamily_Book1 = false;
+                            etFamily_book1.check(R.id.radio2_Family_book1);
+                            rdFamily_book1_no.toggle();
+                        }
+                        if (list_darft.get(i).isIs_coborrower_photo()){
+                            mPhoto1= true;
+                            etPhotos1.check(R.id.radio1_Photos1);
+                            rdPhotos1_yes.toggle();
+                        }else {
+                            mPhoto1 = false;
+                            etPhotos1.check(R.id.radio2_Photos1);
+                            rdPhotos1_no.toggle();
+                        }
+                        if (list_darft.get(i).isIs_coborrower_payslip()){
+                            mCard_Work1= true;
+                            etEmployment_card1.check(R.id.radio1_Employment_card1);
+                            rdEmployment_card1_yes.toggle();
+                        }else {
+                            mCard_Work1= false;
+                            etEmployment_card1.check(R.id.radio2_Employment_card1);
+                            rdEmployment_card1_no.toggle();
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Draft> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
         });
     }
 

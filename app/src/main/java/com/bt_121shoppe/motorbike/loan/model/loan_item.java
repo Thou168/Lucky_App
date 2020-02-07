@@ -7,6 +7,8 @@ import java.io.Serializable;
 public class loan_item implements Serializable{
 
     //field required
+    @SerializedName("id")
+    private float id;
     @SerializedName("loan_amount")
     private float Loan_amount;
     @SerializedName("loan_interest_rate")
@@ -107,6 +109,10 @@ public class loan_item implements Serializable{
     private int mCoborrower_job_period;
     @SerializedName("is_coborrower")
     private boolean mIs_Co_borrower;
+    @SerializedName("draft_name")
+    private String draft_name;
+    @SerializedName("is_draft")
+    private boolean is_draft;
     public loan_item(float loan_amount, float loan_interest_rate, int loan_duration, float average_income,
                      float average_expense, int loan_status, int record_status, int created_by, int post,
                      int loan_to, int modified_by ,String loan_purpose, String username, String gender,
@@ -170,6 +176,60 @@ public class loan_item implements Serializable{
         Post = post;
         Loan_status = loan_status;
         Record_status = record_status;
+    }
+    public loan_item(float loan_amount, float loan_interest_rate, int loan_duration, float average_income,
+                     float average_expense, int loan_status, int record_status, int created_by, int post,
+                     int loan_to, int modified_by ,String loan_purpose, String username, String gender,
+                     int age, String job, String telephone, String address,String distrmict,String commune,String village, boolean state_id, boolean family_book,
+                     boolean staff_id,  boolean is_borrower_photo,int province_id,String borrower_job, int borrower_job_period,
+                     String loan_repayment_type, float loan_deposit_amount, boolean is_product_insurance,
+                     boolean is_home_visit, int lending_intitution_owned, boolean is_coborrower_idcard,
+                     boolean is_coborrower_familybook, boolean is_coborrower_photo,boolean is_coborrower_payslip,
+                     String relationship,String coborrower_job,int mcoborrower_job_period,boolean mis_Co_borrower,float amount_paid_intitution,String draftName,boolean isDraft) {
+        Loan_amount = loan_amount;
+        Loan_interest_rate = loan_interest_rate;
+        Loan_duration = loan_duration;
+        Average_income = average_income;
+        Average_expense = average_expense;
+        Loan_status = loan_status;
+        Record_status = record_status;
+        Created_by = created_by;
+        Post = post;
+        Loan_to = loan_to;
+        Modified_by = modified_by;
+        Loan_purpose = loan_purpose;
+        Username = username;
+        Gender = gender;
+        Age = age;
+        Job = job;
+        Telephone = telephone;
+        Address = address;
+        Distrmict = distrmict;
+        Commune = commune;
+        Village = village;
+        State_id = state_id;
+        Family_book = family_book;
+        Staff_id = staff_id;
+        Province_id = province_id;
+        Borrower_job = borrower_job;
+        Borrower_job_period = borrower_job_period;
+        Loan_repayment_type = loan_repayment_type;
+        Loan_deposit_amount = loan_deposit_amount;
+        Is_product_insurance = is_product_insurance;
+        Is_home_visit = is_home_visit;
+        Lending_intitution_owned = lending_intitution_owned;
+        Is_borrower_photo = is_borrower_photo;
+        Is_coborrower_idcard = is_coborrower_idcard;
+        Is_coborrower_familybook = is_coborrower_familybook;
+        Is_coborrower_photo = is_coborrower_photo;
+        Is_coborrower_payslip = is_coborrower_payslip;
+        mRelationship = relationship;
+        mCoborrower_job = coborrower_job;
+        mCoborrower_job_period = mcoborrower_job_period;
+        mIs_Co_borrower = mis_Co_borrower;
+        Amount_paid_intitution = amount_paid_intitution;
+        draft_name=draftName;
+        is_draft=isDraft;
     }
 
     public boolean ismIs_Co_borrower() {
@@ -554,5 +614,29 @@ public class loan_item implements Serializable{
 
     public void setPost(int post) {
         Post = post;
+    }
+
+    public String getDraft_name() {
+        return draft_name;
+    }
+
+    public void setDraft_name(String draft_name) {
+        this.draft_name = draft_name;
+    }
+
+    public boolean isIs_draft() {
+        return is_draft;
+    }
+
+    public void setIs_draft(boolean is_draft) {
+        this.is_draft = is_draft;
+    }
+
+    public float getId() {
+        return id;
+    }
+
+    public void setId(float id) {
+        this.id = id;
     }
 }

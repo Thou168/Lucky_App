@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="false"
-    android:orientation="vertical"
-    tools:context=".stores.CreateShop">
+    android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:textStyle="bold"
             android:textColor="#fff"
             android:textSize="@dimen/dp_16"
-            android:text="List Draft"
+            android:text="@string/list_draft"
             android:drawablePadding="@dimen/dp_8"
             android:gravity="center_vertical"
             android:drawableLeft="@drawable/arrow_backspace"/>
@@ -29,11 +28,13 @@
     <ScrollView
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <androidx.recyclerview.widget.RecyclerView
+            android:padding="@dimen/dp_8"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
 

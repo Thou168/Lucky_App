@@ -53,7 +53,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     private EditText et_search;
     private Uri bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
     private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,wing_account,wing_number,register_verify;
-    private Uri image,photo;
+    private Uri image,photo,bitmap;
     private GoogleMap mMap;
     private double latitude,longtitude;
     private int user_group,process_type,modelID,brandID,categoryID,yearID,typeID;
@@ -74,6 +74,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         get_location(true);
 
         Intent intent = getIntent();
+        bitmap             = intent.getParcelableExtra("image");
         edit_store         = intent.getStringExtra("edit");
         shopId             = intent.getIntExtra("shopId",0);
         edit               = intent.getStringExtra("edit");
@@ -252,6 +253,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("photo", photo);
                     intent.putExtra("wing_number", number_wing);
                     intent.putExtra("wing_name", account_wing);
+                    intent.putExtra("image",bitmap);
                     startActivity(intent);
                 }
             }

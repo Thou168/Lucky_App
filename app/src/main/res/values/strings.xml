@@ -611,6 +611,7 @@
     <string name="title_create_loan">Create your loan</string>
     <string name="loan_feedback">Please check again!!</string>
     <string name="loan_feedback1">Your loan has not been edit</string>
+    <string name="save_draft_message">Save to draft</string>
     //filter
     <string name="title_post">Post ads</string>
     <string name="post_fail_message">This Post ads has been error while submitting.</string>
@@ -663,7 +664,7 @@
     <string name="edit_fail_message">Account information has been error while submitting.</string>
     <string name="update">Updating…</string>
     <string name="title_unlike">Remove Save Ad</string>
-    <string name="unlike_message">Are you sure to remove this save ad?uploading</string>
+    <string name="unlike_message">Are you sure to remove this save ad?</string>
     <string name="like_post">You Liked this post</string>
     <string name="forget_pwd">Forget Password?</string>
     <string name="search_account_title">Search Account</string>
@@ -1111,4 +1112,12 @@
     <string name="save">Save</string>
     <string name="please_fill_information">Please fill your information correctly.</string>
     <string name="add_new_card">Add New Card</string>
+    <string name="profile">Profile</string>
+    <string name="term_of_service">Term of service</string>
+    <string name="dealer">Dealer</string>
+    <string name="publicc">Public</string>
+    <string name="select_option">Select Option</string>
+    <string name="updatee">Update</string>
+    <string name="list_draft">List Draft</string>
+    <string name="re_password">Re-Password</string>
 </resources>

@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Option"
+            android:text="@string/select_option"
             android:fontFamily="@font/opensans_semibold"
             android:textSize="18dp"
             android:textColor="#FFFFFF"
@@ -44,7 +44,7 @@
             android:textSize="@dimen/dp_18"
             android:fontFamily="@font/opensans_semibold"
             android:textColor="@color/colorPrimary"
-            android:text="Public"/>
+            android:text="@string/publicc"/>
         <TextView
             android:id="@+id/store"
             android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
             android:textSize="@dimen/dp_18"
             android:fontFamily="@font/opensans_semibold"
             android:textColor="@color/colorPrimary"
-            android:text="Dealer"/>
+            android:text="@string/dealer"/>
         <TextView
             android:id="@+id/location_store"
             android:layout_width="wrap_content"

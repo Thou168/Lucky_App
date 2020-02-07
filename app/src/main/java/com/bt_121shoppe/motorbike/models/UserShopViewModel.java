@@ -2,6 +2,8 @@ package com.bt_121shoppe.motorbike.models;
 
 import android.graphics.Bitmap;
 
+import org.json.JSONArray;
+
 public class UserShopViewModel {
     private int id;
     private int user;
@@ -96,4 +98,5 @@ public class UserShopViewModel {
     public void setAddNew(boolean addNew) {
         isAddNew = addNew;
     }
+    
 }

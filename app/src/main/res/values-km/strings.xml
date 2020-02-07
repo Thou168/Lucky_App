@@ -20,7 +20,7 @@
     <string name="description">ព័ត៌មានលំអិត</string>
     <string name="Description">ការពណ៌នា</string>
     <string name="tax">ប្រភេទពន្ធ</string>
-    <string name="postcode">លេខកូដ</string>
+    <string name="postcode">លេខសំគាល់</string>
     <string name="brand">ម៉ាក</string>
     <string name="year">ឆ្នាំផលិត</string>
     <string name="price">តម្លៃ</string>
@@ -178,7 +178,7 @@
     <string name="already_select_shop">អ្នកបានជ្រើសរើសរួចហើយ</string>
 
     //delete and edit
-    <string name="button_remove">យកចេញ</string>
+    <string name="button_remove">លុបចេញ</string>
     <string name="button_edit">កែប្រែ</string>
     <string name="button_delete">លុប</string>
 //Buy Sell Rent
@@ -650,6 +650,7 @@
     <string name="yes_leave">បាទ/ចាស</string>
     <string name="no_leave">ទេ</string>
     <string name="title_create_loan">បង្កើតឥណទានរបស់អ្នក</string>
+    <string name="save_draft_message">រក្សាទុកក្នុងសេចក្តីព្រាង</string>
     <string name="loan_feedback">សូមពិនិត្យម្តងទៀត !!</string>
     <string name="loan_feedback1">ឥណទានរបស់អ្នកមិនត្រូវបានកែសម្រួលទេ</string>
     <string name="loan_fail_message">សំណើបង្កើតឥណទានរបស់អ្នកមានកំហុសខណៈពេលដាក់ស្នើ</string>
@@ -914,7 +915,7 @@
     <string name="invalid_condition">សូមជ្រើសរើសលក្ខខណ្ឌ</string>
     <string name="invalid_shop_name">សូមបំពេញឈ្មោះហាង</string>
     <string name="store_list">បញ្ជីផ្ទុក</string>
-    <string name="add">Add</string>
+    <string name="add">បន្ថែម</string>
     <string name="map">Map</string>
 
     //Loan info
@@ -950,5 +951,13 @@
     <string name="co_borrower_information">ព័ត៌មានរបស់អ្នកចូលរួមខ្ចី</string>
     <string name="save">រក្សាទុក</string>
     <string name="please_fill_information">សូមបំពេញព័ត៌មានរបស់លោក-អ្នកអោយបានត្រឹមត្រូវ</string>
-    <string name="add_new_card">Add New Card</string>
+    <string name="add_new_card">បន្ថែមកាតថ្មី</string>
+    <string name="profile">ប្រវត្តិរូប</string>
+    <string name="term_of_service">Term of service</string>
+    <string name="dealer">ម្ចាស់ហាង</string>
+    <string name="publicc">អ្នកប្រើទូទៅ</string>
+    <string name="select_option">ជ្រើសរើស</string>
+    <string name="updatee">កែប្រែ</string>
+    <string name="list_draft">បញ្ជីសេចក្តីព្រាង</string>
+    <string name="re_password">បញ្ជាក់ពាក្យសម្ងាត់</string>
 </resources>

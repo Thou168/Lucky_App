@@ -91,21 +91,22 @@ public class CreateShop extends AppCompatActivity {
     ImageView img_map;
     CircleImageView img_shop;
     String[] photo_select;
-    private Uri imageUri,photo;
+    private Uri imageUri,photo,image;
     private FileCompressor mCompressor;
     private int pk=0;
     SharedPreferences prefer;
     private ProgressDialog mProgress;
     private File mPhotoFile;
-    private Bitmap bitmap;
+    private Bitmap bitmap,bitmpaDefault,bitmap_profile;
     private EditText editPhone,editShopname,editAddress,editMap,editWing_number,editWing_account;
-    private EditText editPhone1,editPhone2,et_new_card1,editWing_account1,editWing_account2;
+    private EditText editPhone1,editPhone2,et_new_card1,editWing_account1;
     private TextView PhoneError,shopname_alert,map_alert,address_alert;
     private TextView tv_wing_number,tv_wing_account,wing_number_alert,wing_account_alert,tv_add,tv_add1,tv_cancel,tv_new_card,new_card1_alert;
     private String shopName,number_wing,account_wing,addresses,phone_number,phone_number1,phone_number2,location,lat_long,register;
     private String url,name,pass1,Encode,intent_edit,edit;
     private List<UserShopViewModel> userShops;
     private List<NewCardViewModel> newCard;
+    private List<ShopViewModel.Cards> listCard;
     private Button bt_add,bt_edit;
     private RelativeLayout layout_phone1,layout_phone2,layout_add_new_card;
     private int mDealerShopId=0,mProvinceID,mCardId=0;
@@ -127,6 +128,7 @@ public class CreateShop extends AppCompatActivity {
         editMap.setFocusable(false);
         userShops   = new ArrayList<>();
         newCard     = new ArrayList<>();
+        listCard    = new ArrayList<>();
         mCompressor = new FileCompressor(this);
         mProgress   = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.update));
@@ -147,6 +149,8 @@ public class CreateShop extends AppCompatActivity {
         Encode = getEncodedString(name,pass1);
 
         Intent intent = getIntent();
+        image         = intent.getParcelableExtra("image");
+        Log.e("image",""+image);
         shopName      = intent.getStringExtra("shop");
         number_wing   = intent.getStringExtra("wing_number");
         account_wing  = intent.getStringExtra("wing_name");
@@ -192,6 +196,17 @@ public class CreateShop extends AppCompatActivity {
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 img_shop.setImageBitmap(resource);
                 bitmap = resource;
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
+        Glide.with(CreateShop.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                bitmap_profile = resource;
             }
 
             @Override
@@ -321,6 +336,7 @@ public class CreateShop extends AppCompatActivity {
                 intent1.putExtra("phone_number1",editPhone1.getText().toString());
                 intent1.putExtra("phone_number2",editPhone2.getText().toString());
                 intent1.putExtra("photo",imageUri);
+                intent1.putExtra("image",image);
                 intent1.putExtra("wing_number",editWing_account.getText().toString());
                 intent1.putExtra("wing_account",editWing_number.getText().toString());
                 startActivity(intent1);
@@ -461,9 +477,17 @@ public class CreateShop extends AppCompatActivity {
             pro.put("group",3);
             pro.put("wing_account_number",editWing_number.getText().toString());
             pro.put("wing_account_name",editWing_account.getText().toString());
+            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.logo_121);
+            if(image==null){
+                pro.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmpaDefault)));
+            }else{
+                pro.put("profile_photo",ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmap_profile)));
+            }
             data.put("profile",pro);
             data.put("groups", new JSONArray("[\"1\"]"));
         }catch (JSONException e){
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         Log.d(TAG,data.toString());
@@ -497,16 +521,22 @@ public class CreateShop extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String shop = editShopname.getText().toString();
-                        String address = editAddress.getText().toString();
-                        userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new));
-                        if(userShops.size()>0){
-                            for(int i=0;i<userShops.size();i++){
-                                if(userShops.get(i).isEdit())
-                                    putUserShop(userShops.get(i).getId(),userShops.get(i),encode);
-                                else if(userShops.get(i).isAddNew())
-                                    postUserShop(userShops.get(i),encode);
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(message);
+                            String shop = editShopname.getText().toString();
+                            String address = editAddress.getText().toString();
+                            userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new));
+                            if(userShops.size()>0){
+                                for(int i=0;i<userShops.size();i++){
+                                    if(userShops.get(i).isEdit())
+                                        putUserShop(userShops.get(i).getId(),userShops.get(i),encode);
+                                    else if(userShops.get(i).isAddNew())
+                                        postUserShop(userShops.get(i),encode);
+                                }
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                         mProgress.dismiss();
                         startActivity(new Intent(CreateShop.this, DealerStoreActivity.class));
@@ -709,13 +739,13 @@ public class CreateShop extends AppCompatActivity {
             post1.put("shop",newCard.getShopId());
             post1.put("wing_account_number",newCard.getWing_number());
             post1.put("wing_account_name",newCard.getWing_account());
-            post1.put("record_status",2);
+            post1.put("record_status",1);
             Log.e(TAG,post1.toString());
             RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
             String auth = "Basic " + encode;
             Request request1 = new Request.Builder()
                     .url(usershopurl)
-                    .post(body1)
+                    .put(body1)
                     .header("Accept","application/json")
                     .header("Content-Type","application/json")
                     .header("Authorization",auth)
@@ -853,6 +883,17 @@ public class CreateShop extends AppCompatActivity {
 
                         }
                     });
+                    listCard = response.body().getCards();
+                    if (listCard.size()>0) {
+                        for (int i = 0; i < listCard.size(); i++) {
+                            mCardId = listCard.get(i).getId();
+                            if (!listCard.get(i).getWing_account_name().isEmpty() && !listCard.get(i).getWing_account_number().isEmpty()) {
+                                layout_add_new_card.setVisibility(View.VISIBLE);
+                                editWing_account1.setText(listCard.get(i).getWing_account_name());
+                                et_new_card1.setText(listCard.get(i).getWing_account_number());
+                            }
+                        }
+                    }
                 }
             }
             @Override

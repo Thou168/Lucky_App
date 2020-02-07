@@ -53,6 +53,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
             facebookname = intent.getStringExtra("facebookname");
             imageurl = intent.getStringExtra("imageurl");
             register_verify = intent.getStringExtra("Register_verify");
+            Log.e("verify",""+register_verify);
         }
 
         tv_back.setOnClickListener(new View.OnClickListener() {

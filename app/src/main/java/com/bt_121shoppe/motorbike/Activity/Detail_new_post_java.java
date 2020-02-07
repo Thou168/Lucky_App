@@ -48,10 +48,12 @@ import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_1;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_2;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_3;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
+import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.chats.ChatActivity;
+import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
@@ -169,12 +171,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 if (sharedPref.contains("token") || sharedPref.contains("id")) {
                     Like_post(Encode);
                 }else{
-                    Intent intent =new  Intent(Detail_new_post_java.this, UserAccountActivity.class);
+                    Intent intent =new  Intent(Detail_new_post_java.this, LoginActivity.class);
                     intent.putExtra("Login_verify","detail");
+                    intent.putExtra("verify","detail");
                     intent.putExtra("product_id",postId);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();
                 }
             }
         });
@@ -192,7 +194,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         //chat
         message.setOnClickListener(v -> {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                Intent intent =new  Intent(Detail_new_post_java.this, ChatActivity.class);
+                Intent intent =new  Intent(Detail_new_post_java.this, ChatMainActivity.class);
                 intent.putExtra("postId",postId);
                 intent.putExtra("postTitle",postTitle);
                 intent.putExtra("postPrice",postPrice);
@@ -203,12 +205,11 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 intent.putExtra("postType",postType);
                 startActivity(intent);
             }else{
-                Intent intent =new  Intent(Detail_new_post_java.this, UserAccountActivity.class);
+                Intent intent =new  Intent(Detail_new_post_java.this, LoginActivity.class);
                 intent.putExtra("verify","detail");
                 intent.putExtra("product_id",postId);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -218,7 +219,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 @Override
                 public void onClick(View v) {
                     if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
-                        Intent intent = new Intent(Detail_new_post_java.this, UserAccountActivity.class);
+                        Intent intent = new Intent(Detail_new_post_java.this, LoginActivity.class);
                         intent.putExtra("verify", "detail");
                         intent.putExtra("product_id", postId);
                         startActivity(intent);
@@ -236,8 +237,20 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 }
             });
         }else {
-            encodeAuth = "Basic "+ getEncodedString(name,pass);
-            getMyLoan();
+            loan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
+                        Intent intent = new Intent(Detail_new_post_java.this, LoginActivity.class);
+                        intent.putExtra("verify", "detail");
+                        intent.putExtra("product_id", postId);
+                        startActivity(intent);
+                    } else {
+                        encodeAuth = "Basic "+ getEncodedString(name,pass);
+                        getMyLoan();
+                    }
+                }
+            });
         }
 
         btn_share.setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Share!",Toast.LENGTH_SHORT).show());

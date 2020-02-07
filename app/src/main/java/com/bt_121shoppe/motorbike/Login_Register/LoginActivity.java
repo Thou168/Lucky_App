@@ -139,7 +139,11 @@ public class LoginActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, Home.class));
+                if (login_verify != null || verify != null){
+                    finish();
+                }else {
+                    startActivity(new Intent(LoginActivity.this, Home.class));
+                }
             }
         });
         tv_signup.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +204,14 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     } //create
+    @Override
+    public void onBackPressed() {
+        if (login_verify != null || verify != null){
+            finish();
+        }else {
+            startActivity(new Intent(LoginActivity.this, Home.class));
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         callbackManager.onActivityResult(requestCode,resultCode,data);
@@ -417,13 +429,13 @@ public class LoginActivity extends AppCompatActivity {
                         editor.commit();
                         //mProgress.dismiss();
                         Intent intent;
-                        if(login_verify==null){
+                        if(verify==null){
                             intent = new Intent(LoginActivity.this, Home.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
                         }else {
-                            switch (login_verify) {
+                            switch (verify) {
 //                                case "notification":
 //                                    intent = new Intent(LoginActivity.this, NotificationActivity.class);
 //                                    intent.putExtra("verify",verify);
@@ -716,13 +728,13 @@ public class LoginActivity extends AppCompatActivity {
                                                 setfirebasepassword(user.getId(),user.getPassword());
                                                 //changeFirebasePassword();
                                                 Intent intent;
-                                                if(login_verify==null) {
+                                                if(verify==null) {
                                                     intent = new Intent(LoginActivity.this, Home.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                 }else {
-                                                    switch (login_verify) {
+                                                    switch (verify) {
                                                         case "notification":
                                                             intent = new Intent(LoginActivity.this, NotificationActivity.class);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
