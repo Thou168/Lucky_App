@@ -52,7 +52,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     private Button back,pin;
     private EditText et_search;
     private Uri bitmapImage1,bitmapImage2,bitmapImage3,bitmapImage4,bitmapImage5,bitmapImage6;
-    private String road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,wing_account,wing_number,register_verify;
+    private String intent_edit,road,location1,address,date,re_password,password,email,phone,phone1,phone2,gender,username,wing_account,wing_number,register_verify;
     private Uri image,photo,bitmap;
     private GoogleMap mMap;
     private double latitude,longtitude;
@@ -74,6 +74,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         get_location(true);
 
         Intent intent = getIntent();
+        intent_edit        = intent.getStringExtra("edit_store");
         bitmap             = intent.getParcelableExtra("image");
         edit_store         = intent.getStringExtra("edit");
         shopId             = intent.getIntExtra("shopId",0);
@@ -241,6 +242,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                     Intent intent = new Intent(FragmentMap.this, CreateShop.class);
                     intent.putExtra("edit",edit_store);
                     intent.putExtra("shopId",shopId);
+                    intent.putExtra("edit_store",intent_edit);
                     intent.putExtra("user_group", user_group);
                     intent.putExtra("Register_verify", register_verify);
                     intent.putExtra("road", et_search.getText().toString());

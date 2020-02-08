@@ -62,6 +62,7 @@ public class three extends Fragment {
     private SharedPreferences preferences;
     private ProgressDialog mProgress;
     private String username,password,Encode,language;
+    private LinearLayout layout_coborrower;
     private loan_item loanItem;
     private String basicEncode;
     private String mPrice,mDraft;
@@ -298,6 +299,7 @@ public class three extends Fragment {
         rdPhotos1_no            = (RadioButton) view.findViewById(R.id.radio2_Photos1);
         rdEmployment_card1_yes  = (RadioButton) view.findViewById(R.id.radio1_Employment_card1);
         rdEmployment_card1_no   = (RadioButton) view.findViewById(R.id.radio2_Employment_card1);
+        layout_coborrower       = (LinearLayout)view.findViewById(R.id.layout_co_borrower);
 
         etID_card = view.findViewById(R.id.radio_group_ID_card);
         etID_card.setOnCheckedChangeListener((group, checkedId) -> {

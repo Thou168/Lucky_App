@@ -71,6 +71,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -115,7 +116,7 @@ public class CreateShop extends AppCompatActivity {
     private List<province_Item> listData;
     private String basicEncode,currentLanguage;
     private String mPrice;
-    private String[] provine = new String[28];
+    private String[] provine;
     private AlertDialog dialog;
     private String storeName,storeLocation,storeImage;
 
@@ -150,7 +151,6 @@ public class CreateShop extends AppCompatActivity {
 
         Intent intent = getIntent();
         image         = intent.getParcelableExtra("image");
-        Log.e("image",""+image);
         shopName      = intent.getStringExtra("shop");
         number_wing   = intent.getStringExtra("wing_number");
         account_wing  = intent.getStringExtra("wing_name");
@@ -329,6 +329,7 @@ public class CreateShop extends AppCompatActivity {
             }else {
                 Intent intent1 = new Intent(CreateShop.this, FragmentMap.class);
                 intent1.putExtra("edit","edit");
+                intent1.putExtra("edit_store",intent_edit);
                 intent1.putExtra("shopId",mDealerShopId);
                 intent1.putExtra("addresses",editAddress.getText().toString());
                 intent1.putExtra("shop",editShopname.getText().toString());
@@ -790,6 +791,7 @@ public class CreateShop extends AppCompatActivity {
                     Log.d("Error121211",response.code()+" ");
                 }
                 listData = response.body().getresults();
+                provine = new String[listData.size()];
                 Log.d("333333333333", String.valueOf(listData.size()));
                 for (int i=0;i<listData.size();i++){
                     if (currentLanguage.equals("en")){
@@ -852,7 +854,32 @@ public class CreateShop extends AppCompatActivity {
                     editPhone.setText(method(stphone));
                     editWing_account.setText(response.body().getProfile().getWing_account_name());
                     editWing_number.setText(response.body().getProfile().getWing_account_number());
-                    editMap.setText(response.body().getProfile().getResponsible_officer());
+                    String locat = response.body().getProfile().getResponsible_officer();
+                    Geocoder geocoder;
+                    List<Address> addresses;
+                    geocoder = new Geocoder(getApplication(), Locale.getDefault());
+                    if (!locat.isEmpty()) {
+                        String add[] = locat.split(",");
+                        Double latetitude = Double.parseDouble(add[0]);
+                        Double longtitude = Double.parseDouble(add[1]);
+                        try {
+                            addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                            String road = addresses.get(0).getAddressLine(0);
+                            if (road.length() > 30) {
+                                String loca = road.substring(0,30) + "...";
+                                if (road != null){
+                                    if (road.length() > 30) {
+                                        String locate = road.substring(0,30) + "...";
+                                        editMap.setText(locate);
+                                    }
+                                }else {
+                                    editMap.setText(loca);
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
             @Override
