@@ -278,6 +278,8 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                                            Intent intent = new Intent(mContext, Account.class);
 //                                            mContext.startActivity(intent);
 //                                            ((Activity)mContext).finish();
+                                            String respone = String.valueOf(response.body());
+                                            Log.d("Respone unlike",respone);
 
 // delete item without intent by samang 9/9/19
                                             datas.remove(position);
@@ -339,7 +341,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             imgUserProfile=view.findViewById(R.id.img_user);
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
-            cate = itemView.findViewById(R.id.cate);
+            cate = view.findViewById(R.id.cate);
         }
     }
 }

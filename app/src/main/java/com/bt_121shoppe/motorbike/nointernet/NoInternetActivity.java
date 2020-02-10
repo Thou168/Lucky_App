@@ -39,7 +39,6 @@ public class NoInternetActivity extends AppCompatActivity implements SwipeRefres
                 if(haveNetwork()){
                     // App has internet connection
                     startActivity(new Intent(NoInternetActivity.this, Home.class));
-                    finish();
                 }else{
                     startActivity(new Intent(NoInternetActivity.this, SplashScreenActivity.class));
                 }

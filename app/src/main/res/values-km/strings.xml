@@ -435,6 +435,13 @@
         <item>ថ្មី</item>
         <item>ប្រើ</item>
     </string-array>
+
+    //Filter type
+    <string-array name="filter_type">
+        <item>All</item>
+        <item>លក់</item>
+        <item>ជួល</item>
+    </string-array>
     // Color
     <string-array name="color">
         <item>ខៀវ</item>
@@ -572,8 +579,8 @@
     <string name="enter_new_password">បញ្ចូលលេខសម្ងាត់ថ្មី</string>
     <string name="old_password">លេខសម្ងាត់ចាស់</string>
     <string name="enter_old_password">បញ្ចូលលេខសម្ងាត់ចាស់របស់អ្នក</string>
-    <string name="renew_password">បញ្ជាកលេខសម្ងាត់ថ្មី</string>
-    <string name="enter_renew_password">បញ្ជាកលេខសម្ងាត់ថ្មីម្តងទៀត</string>
+    <string name="renew_password">បញ្ជាក់លេខសម្ងាត់ថ្មី</string>
+    <string name="enter_renew_password">បញ្ជាក់លេខសម្ងាត់ថ្មីម្តងទៀត</string>
     <string name="condition_change_password">អ្នកនឹងប្រើពាក្យសម្ងាត់ថ្មីដើម្បីចូលប្រើគណនីរបស់អ្នក</string>
 
     //enable disable
@@ -676,6 +683,7 @@
     <string name="book_family">សៀវភៅគ្រួសារមិនអាចទទេបានទេ</string>
     <string name="delete_loan">តើអ្នកពិតជាចង់បោះបង់ឥណទាននេះមែនទេ?</string>
     <string name="remove_po">តើអ្នកពិតជាចង់លុបប្រកាសនេះមែនទេ?</string>
+    <string name="sold_po">តើអ្នកពិតជាចង់លក់ការប្រកាសនេះមែនទេ?</string>
     <string name="cancel_loan">បោះបង់ឥណទាន</string>
 
     //permission

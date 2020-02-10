@@ -55,6 +55,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     SharedPreferences prefer;
     String name,pass,basic_Encode;
     int pk=0;
+    String key = "";
 
     public UserPostActiveAdapter(List<Item> postlist){
         this.mPostList=postlist;
@@ -237,40 +238,6 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
                 btSold.setVisibility(View.GONE);
                 btRenewal.setVisibility(View.GONE);
-                btRenewal.setTextColor(Color.parseColor("#0A0909"));
-                btRenewal.setText(R.string.renew);
-                btRenewal.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
-                        .setTitle(R.string.Post_Renewal)
-                        .setMessage(R.string.renew_post)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                            String date = null;
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                date = Instant.now().toString();
-                            }
-                            change_status_delete change_status = new change_status_delete(4,date,pk,"");
-                            Service api = Client.getClient().create(Service.class);
-                            Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                            call.enqueue(new retrofit2.Callback<change_status_delete>() {
-                                @Override
-                                public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-                                    if (!response.isSuccessful()){
-                                        Log.d("10101", String.valueOf(response.code()));
-                                        return;
-                                    }
-                                    FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
-                                    Intent intent = new Intent(itemView.getContext(), Account.class);
-                                    itemView.getContext().startActivity(intent);
-                                }
-
-                                @Override
-                                public void onFailure(Call<change_status_delete> call, Throwable t) {
-                                    Log.d("Error12",t.getMessage());
-                                }
-                            });
-                        })
-                        .setNegativeButton(android.R.string.no,null)
-                        .show());
             }else{
                 //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
                 pending_appprove.setText(R.string.approveval);
@@ -356,6 +323,8 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 //                            .setNegativeButton(R.string.no, dialogClickListener).show();
                 }
             });
+//            intent.putExtra("remove",key);
+//            intent.putExtra("sold",key);
 
             btEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -370,37 +339,74 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             btSold.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String[] delet_item = itemView.getContext().getResources().getStringArray(R.array.dailog_delete);
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(itemView.getContext());
-                    dialog.setItems(delet_item, (dialog1, which) -> {
-                        if (delet_item[which].equals(delet_item[3])){
-                            dialog1.dismiss();
-                        }else {
-                            String date = null;
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                date = Instant.now().toString();
-                            }
-                            String item = delet_item[which];
-                            change_status_delete change_status = new change_status_delete(7,date,pk,item);
-                            Service api = Client.getClient().create(Service.class);
-                            Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                            call.enqueue(new retrofit2.Callback<change_status_delete>() {
-                                @Override
-                                public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-
-                                    Intent intent = new Intent(itemView.getContext(), Account.class);
-                                    itemView.getContext().startActivity(intent);
-                                    ((Activity)itemView.getContext()).finish();
+//                    String[] delet_item = itemView.getContext().getResources().getStringArray(R.array.dailog_delete);
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(itemView.getContext());
+//                    dialog.setItems(delet_item, (dialog1, which) -> {
+//                        if (delet_item[which].equals(delet_item[3])){
+//                            dialog1.dismiss();
+//                        }else {
+//                            String date = null;
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                date = Instant.now().toString();
+//                            }
+//                            String item = delet_item[which];
+//                            change_status_delete change_status = new change_status_delete(7,date,pk,item);
+//                            Service api = Client.getClient().create(Service.class);
+//                            Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+//                            call.enqueue(new retrofit2.Callback<change_status_delete>() {
+//                                @Override
+//                                public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+//
+//                                    Intent intent = new Intent(itemView.getContext(), Account.class);
+//                                    itemView.getContext().startActivity(intent);
+//                                    ((Activity)itemView.getContext()).finish();
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<change_status_delete> call, Throwable t) {
+//
+//                                }
+//                            });
+//                        }
+//                    });
+//                    dialog.create().show();
+                    DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Toast.makeText(itemView.getContext(),R.string.sold,Toast.LENGTH_SHORT).show();
+                                String date = null;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    date = Instant.now().toString();
                                 }
+                                String removeSt = "";
+                                change_status_delete change_status = new change_status_delete(7,date,pk,removeSt);
+                                Service api = Client.getClient().create(Service.class);
+                                Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                                call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                                    @Override
+                                    public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
 
-                                @Override
-                                public void onFailure(Call<change_status_delete> call, Throwable t) {
+                                        Intent intent = new Intent(itemView.getContext(), Account.class);
+                                        itemView.getContext().startActivity(intent);
+                                        ((Activity)itemView.getContext()).finish();
+                                    }
 
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<change_status_delete> call, Throwable t) {
+
+                                    }
+                                });
+                                dialog.dismiss();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialog.dismiss();
+                                break;
                         }
-                    });
-                    dialog.create().show();
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setMessage(R.string.sold_po).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                            .setNegativeButton(R.string.no_remove, dialogClickListener).show();
                 }
             });
             Double finalPrice=cost;

@@ -7,28 +7,32 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_15">
             <RelativeLayout
-                android:background="@color/light_gray_inactive_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/title"
+                android:text="@string/choose_province"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/choose_province"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="4dp"
+                android:textSize="@dimen/dp_24"
                 />
             <ImageView
                 android:id="@+id/close"
-                android:padding="@dimen/dp_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
                 android:layout_alignParentEnd="true"
-                android:layout_width="25dp"
-                android:src="@drawable/close_1"
-                android:layout_height="25dp"/>
+                android:textSize="15dp"
+                android:padding="10dp"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -57,10 +61,82 @@
                             android:layoutDirection="rtl"
                             android:textAlignment="textStart"
                             android:layout_gravity="start"
+                            android:text="@string/all"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/kandal"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/kratie"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/kampong_spue"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/siem_reap"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/pailin"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/battambang"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
                             android:text="@string/phnompenh"
                             android:buttonTint="@color/colorPrimary"
                             android:textSize="14sp" />
-
                         <RadioButton
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -68,18 +144,7 @@
                             android:layoutDirection="rtl"
                             android:textAlignment="textStart"
                             android:layout_gravity="start"
-                            android:text="@string/pursat"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/banteay_meanchey"
+                            android:text="@string/kompongthom"
                             android:buttonTint="@color/colorPrimary"
                             android:textSize="14sp" />
                         <RadioButton
@@ -109,127 +174,17 @@
                             android:layoutDirection="rtl"
                             android:textAlignment="textStart"
                             android:layout_gravity="start"
-                            android:text="@string/kampong_spue"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/kampot"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/kandal"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/Kep"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/koh_kong"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/kratie"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/mondulkiri"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/oddor_meanchey"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/pailin"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/preyveng"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/rattanakiri"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/siem_reap"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
                             android:text="@string/sihanouk"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/Takeo"
                             android:buttonTint="@color/colorPrimary"
                             android:textSize="14sp" />
                         <RadioButton
@@ -259,17 +214,7 @@
                             android:layoutDirection="rtl"
                             android:textAlignment="textStart"
                             android:layout_gravity="start"
-                            android:text="@string/Takeo"
-                            android:buttonTint="@color/colorPrimary"
-                            android:textSize="14sp" />
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:layoutDirection="rtl"
-                            android:textAlignment="textStart"
-                            android:layout_gravity="start"
-                            android:text="@string/kompongthom"
+                            android:text="@string/preyveng"
                             android:buttonTint="@color/colorPrimary"
                             android:textSize="14sp" />
                         <RadioButton
@@ -289,6 +234,66 @@
                             android:layoutDirection="rtl"
                             android:textAlignment="textStart"
                             android:layout_gravity="start"
+                            android:text="@string/mondulkiri"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/rattanakiri"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/pursat"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/oddor_meanchey"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/kampot"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/Kep"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
                             android:text="@string/tbong_khmum"
                             android:buttonTint="@color/colorPrimary"
                             android:textSize="14sp" />
@@ -299,7 +304,17 @@
                             android:layoutDirection="rtl"
                             android:textAlignment="textStart"
                             android:layout_gravity="start"
-                            android:text="@string/battambang"
+                            android:text="@string/koh_kong"
+                            android:buttonTint="@color/colorPrimary"
+                            android:textSize="14sp" />
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="textStart"
+                            android:layout_gravity="start"
+                            android:text="@string/banteay_meanchey"
                             android:buttonTint="@color/colorPrimary"
                             android:textSize="14sp" />
                     </RadioGroup>
@@ -309,6 +324,7 @@
             </LinearLayout>
 
             <Button
+                android:layout_marginTop="@dimen/dp_15"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginEnd="@dimen/dp_8"

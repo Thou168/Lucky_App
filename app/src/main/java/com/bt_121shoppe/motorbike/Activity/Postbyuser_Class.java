@@ -247,7 +247,7 @@ public class Postbyuser_Class extends AppCompatActivity {
 //                            tv_dox.setVisibility(View.VISIBLE);
 //                            tv_discount_per.setVisibility(View.VISIBLE);
 //                        }
-//                        else {
+                        if (discount != 0.00){
                             double cost=Double.parseDouble(postDetail.getCost());
                             double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
                             double result = cost - discountPrice;
@@ -257,7 +257,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                             tv_discount.setText("$"+postDetail.getDiscount());
                             tv_discount_per.setVisibility(View.VISIBLE);
                             tv_dox.setVisibility(View.GONE);
-//                        }
+                        }
                         if (discount == 0.00){
                             tv_discount.setVisibility(View.GONE);
                             tv_discount_per.setVisibility(View.GONE);

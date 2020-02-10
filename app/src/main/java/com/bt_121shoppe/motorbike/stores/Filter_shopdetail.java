@@ -225,7 +225,6 @@ public class Filter_shopdetail extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     indexB = group.indexOfChild(radioButton);
-//                    btnBrand.setText(brandListItems[indexB]);
                     brand = brandIDlist[indexB];
                     if (language!=null) {
                         if (language.equals("km")) {
@@ -275,6 +274,7 @@ public class Filter_shopdetail extends AppCompatActivity {
                 });
 
                 ok.setOnClickListener(v12 -> {
+                    btnBrand.setText(brandListItems[indexB]);
                     if (brand==0){
                         stBrand = String.valueOf(brand);
                         getBrand();
@@ -537,7 +537,7 @@ public class Filter_shopdetail extends AppCompatActivity {
         });
 
 // add filter condition by samang 27/08
-        typeListItems = getResources().getStringArray(R.array.filter_condition);
+        typeListItems = getResources().getStringArray(R.array.filter_type);
         rela_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -558,7 +558,6 @@ public class Filter_shopdetail extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     index = group.indexOfChild(radioButton);
-                    btnType.setText(typeListItems[index]);
                     type = index;
                     if (language!=null) {
                         if (language.equals("km")) {
@@ -590,6 +589,7 @@ public class Filter_shopdetail extends AppCompatActivity {
                 });
 
                 ok.setOnClickListener(v12 -> {
+                    btnType.setText(typeListItems[type]);
                     if (type==0){
                         stType = "";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);

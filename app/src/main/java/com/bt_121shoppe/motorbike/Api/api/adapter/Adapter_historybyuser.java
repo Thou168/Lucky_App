@@ -1,12 +1,15 @@
 package com.bt_121shoppe.motorbike.Api.api.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -27,14 +30,19 @@ import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -52,6 +60,8 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     SharedPreferences prefer;
     String name,pass,basic_Encode;
     private int pk=0;
+    Bundle bundle;
+    String newString;
 
     public Adapter_historybyuser(List<Item> datas, Context mContext) {
         this.datas = datas;
@@ -184,18 +194,36 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             mContext.startActivity(intent);
         });
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
-        if (model.getPost_type().equals("sell")){
-            view.item_type.setText(R.string.sell_t);
-//            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
-            view.item_type.setBackgroundResource(R.drawable.roundimage);
-        }else if (model.getPost_type().equals("buy")){
-            view.item_type.setText(R.string.buy_t);
-            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
-        }else {
-            view.item_type.setText(R.string.rent);
-//            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_rent));
-            view.item_type.setBackgroundResource(R.drawable.roundimage_rent);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+//        String date = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            currentDate = Instant.now().toString();
         }
+        view.item_type.setVisibility(View.VISIBLE);
+        view.item_type.setTextColor(mContext.getResources().getColor(R.color.white));
+        String removeSt = "";
+        change_status_delete change_status = new change_status_delete(2,currentDate,pk,removeSt);
+        int status = (int) change_status.getStatus();
+        if (status != 2){
+            view.item_type.setText(R.string.sold);
+            view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
+        }else {
+            view.item_type.setText(R.string.button_remove);
+            view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
+        }
+
+//        if (model.getPost_type().equals("sell")){
+//            view.item_type.setText(R.string.sell_t);
+//            view.item_type.setBackgroundResource(R.drawable.roundimage);
+//        }else if (model.getPost_type().equals("buy")){
+////            view.item_type.setText(R.string.buy_t);
+////            view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_buy));
+//        }else {
+//            view.item_type.setText(R.string.rent);
+//            view.item_type.setBackgroundResource(R.drawable.roundimage_rent);
+//        }
         try{
             Service apiServiece = Client.getClient().create(Service.class);
             Call<AllResponse> call = apiServiece.getCount(iditem,basic_Encode);

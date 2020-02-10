@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
+import android.os.Bundle
 import android.provider.MediaStore
 import android.text.SpannableString
 import android.text.Spanned
@@ -18,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
@@ -41,8 +43,17 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
     internal var isMoreDataAvailable = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        if (type.equals("List")) {
+        if (type.equals("Relate")){
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_relatepost, parent, false)
+            Log.d("Type ",type.toString())
+            return ViewHolder(layout)
+        } else if (type.equals("List")) {
             val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list_for_search, parent, false)
+            Log.d("Type ",type.toString())
+            return ViewHolder(layout)
+        }else if (type.equals("List_home")){
+            Log.d("Type",type.toString())
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
             Log.d("Type ",type.toString())
             return ViewHolder(layout)
         }else if (type.equals("Grid")){
@@ -55,7 +66,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             return ViewHolder(layout)
         }else{
             Log.d("Type ",type.toString())
-            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
+            val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false) //item_image
             return ViewHolder(layout)
         }
     }
@@ -82,7 +93,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
         val lang = itemView.findViewById<TextView>(R.id.user_view1)
         var tvColor1 = itemView.findViewById<TextView>(R.id.tv_color1)
         var tvColor2 = itemView.findViewById<TextView>(R.id.tv_color2)
-        val category = itemView.findViewById<TextView>(R.id.cate);
+        val category = itemView.findViewById<TextView>(R.id.cate)
+        val cardView = itemView.findViewById<CardView>(R.id.cardView)
 
         fun bindItems(item: Item_API,context: Context) {
 
@@ -162,7 +174,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 }
             }
 
-            var lang:String = tv_user_view.text as String
+            val lang:String = tv_user_view.text as String
             if(lang == "View:") {
                 if (item.postType.equals("sell")) {
 //                    post_type.setImageResource(R.drawable.sell)

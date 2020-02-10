@@ -25,16 +25,20 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.AccountTab.MainLoanList;
 import com.bt_121shoppe.motorbike.AccountTab.MainPostList;
+import com.bt_121shoppe.motorbike.Api.Profile;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
+import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
@@ -102,11 +106,22 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     String[] photo_select;
     Bundle bundle;
     String login_verify,register_intent;
+    RelativeLayout rela_profile;
 //    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tab_layout1);
+
+        //profile_click
+        rela_profile = findViewById(R.id.relative_profile);
+        rela_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Account.this, Register.class);
+                startActivity(i);
+            }
+        });
 //        locale();
         bundle = getIntent().getExtras();
         if (bundle!=null){

@@ -52,7 +52,7 @@
                 android:numStars="5"
                 android:progressTint="@color/colorPrimary"
                 android:secondaryProgressTint="@color/sunflower_yellow_500"
-                android:rating="5"
+                android:rating="3.5"
                 android:stepSize="0.5" />
             <TextView
                 android:id="@+id/number_of_rate"
@@ -61,7 +61,7 @@
                 android:textColor="#404040"
                 android:textSize="12dp"
                 android:layout_marginStart="4.6dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:fontFamily="@font/opensans_regular"
                 android:layout_height="17dp"/>
@@ -88,7 +88,7 @@
                 android:layout_marginEnd="10dp">
                 <TextView
                     android:id="@+id/view"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     android:textColor="#404040"
                     android:text="12K"
                     android:fontFamily="@font/opensans_regular"

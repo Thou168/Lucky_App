@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,9 +27,9 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final String TAG=StoreListAdapter.class.getSimpleName();
 
-    private List<ShopViewModel> mShopList;
+    private ArrayList<ShopViewModel> mShopList;
 
-    public StoreListAdapter(List<ShopViewModel> shoplist){
+    public StoreListAdapter(ArrayList<ShopViewModel> shoplist){
         this.mShopList=shoplist;
     }
 

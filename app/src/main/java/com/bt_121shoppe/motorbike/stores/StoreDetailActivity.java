@@ -162,7 +162,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
-        filter.setVisibility(View.GONE);
+        filter.setVisibility(View.VISIBLE);
         best_match.setOnClickListener(v -> {
 
             View dialogView = StoreDetailActivity.this.getLayoutInflater().inflate(R.layout.best_match_dialog,null);

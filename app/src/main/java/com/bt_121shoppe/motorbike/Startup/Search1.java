@@ -239,6 +239,8 @@ public class Search1 extends AppCompatActivity {
                                                     MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                                     rv.setAdapter(adapterUserPost);
                                                     rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+//                                                    rv.setAdapter(new MyAdapter_list_grid_image(item_apis, "List", Search1.this));
+//                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this,1,GridLayoutManager.VERTICAL,false));
 //                                                        viewlist.setImageResource(R.drawable.icon_list);
 //                                                        viewlist.setOnClickListener(new View.OnClickListener() {
 //                                                            @Override

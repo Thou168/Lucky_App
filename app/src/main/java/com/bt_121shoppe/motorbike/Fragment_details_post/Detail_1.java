@@ -62,6 +62,7 @@ public class Detail_1 extends Fragment {
     PostViewModel postDetail = new PostViewModel();
 
     private int pt=0;
+    private int pk=0;
     private int postId = 0;
 
     SharedPreferences prefer;
@@ -73,6 +74,7 @@ public class Detail_1 extends Fragment {
     View line_rela;
     RelativeLayout rela_eta;
     TextView tvColor1,tvColor2;
+    TextView tv_below;
 
     @Nullable
     @Override
@@ -88,6 +90,8 @@ public class Detail_1 extends Fragment {
         tvColor1=view.findViewById(R.id.tv_color1);
         tvColor2=view.findViewById(R.id.tv_color2);
 
+        tv_below=view.findViewById(R.id.tv_below);
+
         //basic
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -96,6 +100,11 @@ public class Detail_1 extends Fragment {
         basic_Encode = "Basic "+getEncodedString(name,pass);
         pt = getActivity().getIntent().getIntExtra("postt",0);
         postId = getActivity().getIntent().getIntExtra("ID",0);
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk",0);
+        } else if (prefer.contains("id")) {
+            pk = prefer.getInt("id", 0);
+        }
         detail_fragment_1(Encode);
 
         //relate_post
@@ -201,6 +210,11 @@ public class Detail_1 extends Fragment {
                             Log.e(TAG, "D" + mMessage);
                             description.setText(postDetail.getDescription().toString());
                             postCode.setText(postDetail.getPost_code().toString());
+
+                            int create_by = Integer.parseInt(postDetail.getCreated_by());
+                            if (create_by == pk){
+                                tv_below.setVisibility(View.GONE);
+                            }
 
                             //get color
 //                            color.setText(postDetail.getColor().toString());
@@ -433,9 +447,9 @@ public class Detail_1 extends Fragment {
                                     itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle,category));
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                                     no_result.setVisibility(View.GONE);
-                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "List", getActivity()));
-                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
-//                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));
+//                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                                 }
                             }
                         } catch (JsonParseException | JSONException e) {

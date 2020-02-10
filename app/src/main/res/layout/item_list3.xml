@@ -148,6 +148,19 @@
                     android:id="@+id/tv_color2" />
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/cate"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginBottom="11dp"
+                android:layout_below="@+id/tv_price"
+                android:layout_marginTop="5dp"
+                android:visibility="visible"
+                android:layout_toEndOf="@+id/llColor"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/opensans_regular"
+                android:text="Kong"
+                android:textSize="12dp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_user"

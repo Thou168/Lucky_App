@@ -147,10 +147,12 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         view.item_type.setBackgroundResource(R.drawable.roundimage_rent);
                     }
 
+                    view.textViewStatus.setVisibility(View.VISIBLE);
                     int status=(int)response.body().getStatus();
                     switch (status){
                         case 9:
                             view.textViewStatus.setText(R.string.pending);
+                            view.textViewStatus.setTextColor(Color.parseColor("#CCCCCC"));
                             break;
                         case 10:
                             view.textViewStatus.setText(R.string.approveval);

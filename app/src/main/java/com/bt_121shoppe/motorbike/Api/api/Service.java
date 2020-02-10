@@ -53,6 +53,14 @@ public interface Service {
     @POST("api/v1/postdealershop/")
     Call<dealershop> pushdealershop (@Body dealershop change_status);
 
+    @GET("api/v1/postdealershop/?post=&shop=66")
+    Call<APIShopResponse> getAllShop();
+    //@Query("post") int post,@Query("shop") int shop
+
+    @GET("api/v1/shop/?shop_province")
+    Call<APIShopResponse> getProvince_name(@Query("shop_province") String shop_province);
+    //?shop_province=19
+
     @GET("api/v1/shop/{id}/")
     Call<ShopViewModel> getDealerShop(@Path("id") int id);
 

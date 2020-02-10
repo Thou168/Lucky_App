@@ -638,6 +638,7 @@
 
     <string name="delete_loan">Are you sure you want to cancel this loan?</string>
     <string name="remove_po">Are you sure you want to remove this post?</string>
+    <string name="sold_po">Are you sure you want to sold this post?</string>
     <string name="cancel_loan">Cancel loan</string>
     <string name="permission">Need Permissions</string>
     <string name="setting_permission">This phone needs permission to use this feature. You can grant them in phone settings.</string>
@@ -899,6 +900,11 @@
         <item>All</item>
         <item>New</item>
         <item>Used</item>
+    </string-array>
+    <string-array name="filter_type">
+        <item>All</item>
+        <item>Sell</item>
+        <item>Rent</item>
     </string-array>
     <string-array name="color">
         <item>Blue</item>

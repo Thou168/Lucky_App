@@ -307,7 +307,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                                 val dividerDrawable = ContextCompat.getDrawable(context1, R.drawable.divider)
                                                 recyclrview.addItemDecoration(com.bt_121shoppe.motorbike.classes.DividerItemDecoration(dividerDrawable))
-                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "image",context1)
+                                                recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "",context1)
                                             }
 
                                         } catch (e: JsonParseException) {

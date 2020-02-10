@@ -158,7 +158,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         pt = getIntent().getIntExtra("postt",0);
         loanID = getIntent().getIntExtra("id",0);
         EditLoan = getIntent().getBooleanExtra("LoanEdit",false);
-        initialProductPostDetail(Encode);
+        initialProductPostDetail(basic_Encode);
         submitCountView(Encode);
         countPostView(Encode);
         back_view.setOnClickListener(v -> onBackPressed());
@@ -183,7 +183,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         like1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Unlike_post();
+                Unlike_post(Encode);
             }
         });
         //call
@@ -488,6 +488,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         int create_by = Integer.parseInt(postDetail.getCreated_by());
                         if (create_by == pk){
                             layout_call_chat_like_loan.setVisibility(View.GONE);
+                            tabLayout.removeTabAt(2);
                         }
                         postFrontImage=postDetail.getFront_image_path();
                         postPrice=discount.toString();
@@ -502,15 +503,20 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                            tv_dox.setVisibility(View.VISIBLE);
 //                            tvDiscountPer.setVisibility(View.VISIBLE);
 //                        }else {
+                        if (discount!=0.00) {
                             double pricefull = Double.parseDouble(postDetail.getCost());
-                            double discountPrice=pricefull*(Double.parseDouble(postDetail.getDiscount())/100);
-                            int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
+                            double discountPrice = pricefull * (Double.parseDouble(postDetail.getDiscount()) / 100);
+                            int per1 = (int) (Double.parseDouble(postDetail.getDiscount()));
                             double result = pricefull - discountPrice;
-                            tvPrice.setText("$"+ result);
-                            tvDiscount.setText("$"+postDetail.getDiscount());
-                            tvDiscountPer.setText("- "+per1+"%");
+                            tvPrice.setText("$" + result);
+                            tvDiscount.setText("$" + postDetail.getDiscount());
+                            tvDiscountPer.setText("- " + per1 + "%");
                             tv_dox.setVisibility(View.GONE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
+//                            if (pricefull==0.00){
+//                                tvPrice.setText("$ 0.00");
+//                            }
+                        }
 //                        }
                         if (discount == 0.00){
                             tvDiscount.setVisibility(View.GONE);
@@ -636,20 +642,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-//                                            AlertDialog.Builder alertDialog = new  AlertDialog.Builder(Detail_new_post_java.this);
-//                                            alertDialog.setMessage(getString(R.string.like_post));
-//                                            alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-//                                                @Override
-//                                                public void onClick(DialogInterface dialog, int which) {
-//                                                    dialog.dismiss();
-//                                                }
-//                                            });
-//                                            alertDialog.show();
                                             Toast.makeText(getApplicationContext(),R.string.like_post,Toast.LENGTH_SHORT).show();
                                             like1.setVisibility(View.VISIBLE);
                                             like1.setImageResource(R.drawable.android_heart);
                                             like1.setMaxWidth(30);
                                             like1.setMaxHeight(30);
+                                            like.setVisibility(View.GONE);
                                         }
                                     });
                                 }
@@ -664,37 +662,47 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             }
         });
     }
-    private void Unlike_post(){
-//        LikebyUser model = new LikebyUser();
-//        String iditem=String.valueOf((int)model.getPost());
-//        String itemid_like=String.valueOf((int)model.getId());
+    private void Unlike_post(String encode){
         final LikebyUser model = new LikebyUser();
         String iditem = String.valueOf((int)model.getPost());
         String itemid_like = String.valueOf((int)model.getLike_by());
-        try {
-            Service api1 = Client.getClient().create(Service.class);
-            change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,1);
-            retrofit2.Call<change_status_unlike> call = api1.getputStatusUnlike(Integer.valueOf(itemid_like),unlike,basic_Encode);
-            call.enqueue(new retrofit2.Callback<change_status_unlike>() {
-                @Override
-                public void onResponse(retrofit2.Call<change_status_unlike> call, retrofit2.Response<change_status_unlike> response) {
 
-                    String response1 = String.valueOf(response.body());
-                    Log.d("Response unlike",response1);
-                    Toast.makeText(Detail_new_post_java.this,"Unlike",Toast.LENGTH_SHORT).show();
-                    like.setVisibility(View.VISIBLE);
-                    like.setImageResource(R.drawable.group_28);
-                    like.setMaxWidth(30);
-                    like.setMaxHeight(30);
-                    like1.setVisibility(View.GONE);
-                    recreate();
-                }
-                @Override
-                public void onFailure(retrofit2.Call<change_status_unlike> call, Throwable t) {
+        Service api = Client.getClient().create(Service.class);
+        retrofit2.Call<Item> call = api.getDetailpost(Integer.parseInt(iditem),basic_Encode);
+        call.enqueue(new retrofit2.Callback<Item>() {
+            @Override
+            public void onResponse(retrofit2.Call<Item> call, retrofit2.Response<Item> response) {
+                try {
+                    Service api1 = Client.getClient().create(Service.class);
+                    change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
 
-                }
-            });
-        }catch (Exception e){}
+                    retrofit2.Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.valueOf(itemid_like),unlike,basic_Encode);
+                    call_unlike.enqueue(new retrofit2.Callback<change_status_unlike>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<change_status_unlike> call, retrofit2.Response<change_status_unlike> response) {
+                            String response1 = String.valueOf(response.body());
+                            Log.d("Response unlike", response1);
+//                    Toast.makeText(Detail_new_post_java.this,"Unlike",Toast.LENGTH_SHORT).show();
+//                            like.setVisibility(View.VISIBLE);
+//                            like.setImageResource(R.drawable.group_28);
+//                            like.setMaxWidth(30);
+//                            like.setMaxHeight(30);
+//                            like1.setVisibility(View.GONE);
+//                            recreate();
+                        }
+                        @Override
+                        public void onFailure(retrofit2.Call<change_status_unlike> call, Throwable t) {
+
+                        }
+                    });
+                }catch (Exception e){}
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Item> call, Throwable t) {
+
+            }
+        });
     }
 
     private void already_like(String encode){
@@ -724,6 +732,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         @Override
                         public void run() {
                             if (jsonCount==1){
+                                like.setVisibility(View.GONE);
                                 like1.setVisibility(View.VISIBLE);
                                 like1.setImageResource(R.drawable.android_heart);
                                 like1.setMaxHeight(30);

@@ -12,6 +12,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -80,6 +82,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     boolean radioCheck = false;
     private FirebaseUser fuser;
     private DatabaseReference reference;
+    private int pk=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +97,13 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
 
         mSwipeRefreshLayout=findViewById(R.id.refresh_setting);
         mSwipeRefreshLayout.setEnabled(false);
+
+        SharedPreferences preferences= getApplication().getSharedPreferences("Register",MODE_PRIVATE);
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         old_pass=findViewById(R.id.old_pass);
@@ -124,7 +134,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         initToolbar();
         Notification();
         locale();
-
+        change_pass();
     }
 
     //for notification
@@ -161,6 +171,28 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         old_pass.clearFocus();
         new_pass.clearFocus();
         renew_pass.clearFocus();
+    }
+
+    private void change_pass(){
+        CheckGroup check = new CheckGroup();
+        int g = check.getGroup(pk,this);
+        if (g!=3){
+            old_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
+            new_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
+            renew_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
+
+            old_pass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            new_pass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            renew_pass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        }else {
+            old_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
+            new_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
+            renew_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
+
+            old_pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            new_pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            renew_pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
     }
 
     //language

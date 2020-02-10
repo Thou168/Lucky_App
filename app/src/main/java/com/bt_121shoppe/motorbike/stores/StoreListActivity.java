@@ -2,6 +2,8 @@ package com.bt_121shoppe.motorbike.stores;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -11,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -20,6 +23,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
+import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
@@ -29,11 +33,18 @@ import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.stores.adapters.StoreListAdapter;
+import com.bt_121shoppe.motorbike.utils.API;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,18 +56,24 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
 
     private TextView mButtonLocation,mButtonSort;
     private RecyclerView mRecyclerViewStoreList;
-    private LinearLayoutManager mLayoutManager;
     private StoreListAdapter mAdapter;
-    private List<ShopViewModel> mStoreList;
+    private ArrayList<ShopViewModel> mStoreList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView ads;
     int index = 4;
+    int index_province = 26;
     BottomNavigationView bnaviga,bnaviga1;
     private BottomSheetBehavior sheetBehavior;
     private int pk=0;
     SharedPreferences prefer;
     private String name,pass,Encode;
     int g = 0;
+    private String stProvince="";
+    private String [] ProvinceList;
+    private int [] provinceIntList;
+    private int provInt=0;
+    TextView no_result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,99 +81,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         bnaviga=findViewById(R.id.bnaviga);
         bnaviga1=findViewById(R.id.bottom_nav);
         mButtonLocation= findViewById(R.id.button_location);
-        mButtonLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View dialogView = StoreListActivity.this.getLayoutInflater().inflate(R.layout.province_string_array,null);
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreListActivity.this);
-                bottomSheetDialog.setContentView(dialogView);
-//                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                bottomSheetDialog.show();
-                ImageView close = dialogView.findViewById(R.id.close);
-                RadioGroup group = dialogView.findViewById(R.id.radiogroup);
-                Button ok = dialogView.findViewById(R.id.click_btn);
-                close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
-                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        View radioButton = group.findViewById(checkedId);
-                        index = group.indexOfChild(radioButton);
-//                        best_m = bestm[index];
-                        switch (checkedId){
-                            case 0:
-                                index=0;
-                                break;
-                            case 1:
-                                index=1;
-                                break;
-                            case 2:
-                                index=2;
-                                break;
-                            case 3:
-                                index=3;
-                                break;
-                        }
-                    }
-                });
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (index==0){
-                            mButtonLocation.setText(R.string.phnompenh);
-                        }else if (index==1){
-                            mButtonLocation.setText(R.string.pursat);
-                        }else if (index==2){
-                            mButtonLocation.setText(R.string.banteay_meanchey);
-                        }else if (index==3){
-                            mButtonLocation.setText(R.string.kampong_cham);
-                        }else if (index==4){
-                            mButtonLocation.setText(R.string.kampong_chnang);
-                        }else if (index==5){
-                            mButtonLocation.setText(R.string.kampong_spue);
-                        }else if (index==6){
-                            mButtonLocation.setText(R.string.kampot);
-                        }else if (index==7){
-                            mButtonLocation.setText(R.string.kandal);
-                        }else if (index==8){
-                            mButtonLocation.setText(R.string.Kep);
-                        }else if (index==9){
-                            mButtonLocation.setText(R.string.koh_kong);
-                        }else if (index==10){
-                            mButtonLocation.setText(R.string.kratie);
-                        }else if (index==11){
-                            mButtonLocation.setText(R.string.mondulkiri);
-                        }else if (index==12){
-                            mButtonLocation.setText(R.string.oddor_meanchey);
-                        }else if (index==13){
-                            mButtonLocation.setText(R.string.pailin);
-                        }else if (index==14){
-                            mButtonLocation.setText(R.string.preyveng);
-                        }else if (index==15){
-                            mButtonLocation.setText(R.string.rattanakiri);
-                        }else if (index==16){
-                            mButtonLocation.setText(R.string.siem_reap);
-                        }else if (index==17){
-                            mButtonLocation.setText(R.string.sihanouk);
-                        }else if (index==18){
-                            mButtonLocation.setText(R.string.stung_treng);
-                        }else if (index==19){
-                            mButtonLocation.setText(R.string.svay_reang);
-                        }else if (index==20){
-                            mButtonLocation.setText(R.string.Takeo);
-                        }else if (index==21){
-                            mButtonLocation.setText(R.string.kompongthom);
-                        }else if (index==22){
-                            mButtonLocation.setText(R.string.preah_vihear);
-                        }else if (index==23){
-                            mButtonLocation.setText(R.string.tbong_khmum);
-                        }else if (index==24){
-                            mButtonLocation.setText(R.string.battambang);
-                        }
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-            }
-        });
+        no_result=findViewById(R.id.no_result);
 //        mButtonSort=(Button)findViewById(R.id.button_sort);
         ads = findViewById(R.id.best_match);
         ads.setOnClickListener(v -> {
@@ -218,33 +143,10 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
 
 //        mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerViewStoreList.setHasFixedSize(true);
-        mLayoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewStoreList.setLayoutManager(mLayoutManager);
         mStoreList=new ArrayList<>();
         mAdapter=new StoreListAdapter(mStoreList);
-        //get storelist from api here
-        Service apiService= Client.getClient().create(Service.class);
-        Call<APIShopResponse> call=apiService.GetStoreList();
-        call.enqueue(new Callback<APIShopResponse>() {
-            @Override
-            public void onResponse(Call<APIShopResponse> call, Response<APIShopResponse> response) {
-                if(!response.isSuccessful()){
-                    Log.e("TAG","Get Shop Result failure:"+response.code());
-                }else{
-                    Log.e("TAG",response.body().getresults().toString());
-                    mStoreList=response.body().getresults();
-                    mAdapter.addItems(mStoreList);
-                    mRecyclerViewStoreList.setAdapter(mAdapter);
-                    ViewCompat.setNestedScrollingEnabled(mRecyclerViewStoreList,false);
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<APIShopResponse> call, Throwable t) {
-                Log.e("TAG","Get Filter Result failure:"+t.getMessage());
-            }
-        });
 
 //        bottomNavigation();
         prefer = getSharedPreferences("Register",MODE_PRIVATE);
@@ -270,7 +172,193 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             bnaviga.getMenu().getItem(1).setChecked(true);
             bnaviga.setOnNavigationItemSelectedListener(mlistener);
         }
+
+        getAllProvince();
+        mButtonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View dialogView = StoreListActivity.this.getLayoutInflater().inflate(R.layout.province_string_array,null);
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreListActivity.this);
+                bottomSheetDialog.setContentView(dialogView);
+//                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                bottomSheetDialog.show();
+                ImageView close = dialogView.findViewById(R.id.close);
+                RadioGroup group = dialogView.findViewById(R.id.radiogroup);
+                Button ok = dialogView.findViewById(R.id.click_btn);
+                close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
+                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        View radioButton = group.findViewById(checkedId);
+                        index_province = group.indexOfChild(radioButton);
+                        provInt = index_province;
+                    }
+                });
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (provInt==0){
+                            getAllProvince();
+//                            getProvince();
+                            mButtonLocation.setText(R.string.all);
+                        } else if (provInt==1){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kandal);
+                        }else if (provInt==2){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kratie);
+                        }else if (provInt==3){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kampong_spue);
+                        }else if (provInt==4){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.siem_reap);
+                        }else if (provInt==5){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.pailin);
+                        }else if (provInt==6){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.battambang);
+                        }else if (provInt==7){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.phnompenh);
+                        }else if (provInt==8){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kompongthom);
+                        }else if (provInt==9){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kampong_cham);
+                        }else if (provInt==10){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kampong_chnang);
+                        }else if (provInt==11){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.sihanouk);
+                        }else if (provInt==12){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.Takeo);
+                        }else if (provInt==13){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.stung_treng);
+                        }else if (provInt==14){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.svay_reang);
+                        }else if (provInt==15){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.preyveng);
+                        }else if (provInt==16){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.preah_vihear);
+                        }else if (provInt==17){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.mondulkiri);
+                        }else if (provInt==18){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.rattanakiri);
+                        }else if (provInt==19){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.pursat);
+                        }else if (provInt==20){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.oddor_meanchey);
+                        }else if (provInt==21){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.kampot);
+                        }else if (provInt==22){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.Kep);
+                        }else if (provInt==23){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.tbong_khmum);
+                        }else if (provInt==24){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.koh_kong);
+                        }else if (provInt==25){
+//                            getProvince();
+                            mButtonLocation.setText(R.string.banteay_meanchey);
+                        }
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+            }
+        });
     }
+
+    private void getAllProvince(){
+        //get storelist from api here
+        mStoreList.clear();
+        mAdapter.notifyDataSetChanged();
+        Service apiService= Client.getClient().create(Service.class);
+        Call<APIShopResponse> call=apiService.GetStoreList();
+        call.enqueue(new Callback<APIShopResponse>() {
+            @Override
+            public void onResponse(Call<APIShopResponse> call, Response<APIShopResponse> response) {
+                if(!response.isSuccessful()){
+                    Log.e("TAG","Get Shop Result failure:"+response.code());
+                }else{
+                    mStoreList = response.body().getresults();
+                    if (mStoreList.size()!=0) {
+                        mRecyclerViewStoreList.setVisibility(View.VISIBLE);
+                        no_result.setVisibility(View.GONE);
+                        Log.e("TAG1", response.body().getresults().toString());
+                        Log.e("TAG2", String.valueOf(response.body().getCount()));
+
+                        mAdapter.addItems(mStoreList);
+                        mRecyclerViewStoreList.setAdapter(mAdapter);
+                        mRecyclerViewStoreList.setItemAnimator(new DefaultItemAnimator());
+                        ViewCompat.setNestedScrollingEnabled(mRecyclerViewStoreList, false);
+                        mAdapter.notifyDataSetChanged();
+                    }else {
+                        mRecyclerViewStoreList.setVisibility(View.GONE);
+                        no_result.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<APIShopResponse> call, Throwable t) {
+                Log.e("TAG","Get Filter Result failure:"+t.getMessage());
+            }
+        });
+    }
+
+//    private void getProvince(){
+//        mStoreList.clear();
+//        mAdapter.notifyDataSetChanged();
+//        Service apiService= Client.getClient().create(Service.class);
+//        Call<APIShopResponse> call=apiService.getProvince_name(String.valueOf(provInt));
+//        Log.d("Provinnnnn", String.valueOf(provInt));
+//        call.enqueue(new Callback<APIShopResponse>() {
+//            @Override
+//            public void onResponse(Call<APIShopResponse> call, Response<APIShopResponse> response) {
+//                if(!response.isSuccessful()){
+//                    Log.e("TAG","Get Shop Result failure:"+response.code());
+//                }else{
+//                    mStoreList=response.body().getresults();
+//                    if (mStoreList.size()!=0){
+//                        no_result.setVisibility(View.GONE);
+//                        mRecyclerViewStoreList.setVisibility(View.VISIBLE);
+//                        Log.e("TAG1",response.body().getresults().toString());
+//                        Log.e("TAG2", String.valueOf(response.body().getCount()));
+//
+//                        mAdapter.addItems(mStoreList);
+//                        mRecyclerViewStoreList.setAdapter(mAdapter);
+//                        mRecyclerViewStoreList.setItemAnimator(new DefaultItemAnimator());
+//                        ViewCompat.setNestedScrollingEnabled(mRecyclerViewStoreList, false);
+//                        mAdapter.notifyDataSetChanged();
+//                    }else {
+//                        mRecyclerViewStoreList.setVisibility(View.GONE);
+//                        no_result.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<APIShopResponse> call, Throwable t) {
+//                Log.e("TAG","Get Filter Result failure:"+t.getMessage());
+//            }
+//        });
+//    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mlistener
             = item -> {

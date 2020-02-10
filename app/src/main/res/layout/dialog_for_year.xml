@@ -114,8 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
                         android:layoutDirection="rtl"
-                        android:textAlignment="textEnd"
-                        android:layout_gravity="end"
+                        android:textAlignment="textStart"
+                        android:layout_gravity="start"
                         android:text="@string/year7"
                         android:textSize="14sp" />
                     <RadioButton

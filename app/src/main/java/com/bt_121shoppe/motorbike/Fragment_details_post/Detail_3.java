@@ -133,9 +133,9 @@ public class Detail_3 extends Fragment {
                 calculateLoanMonthlyPayment();
                 String zero = s.toString();
                 if (zero.equals(term)){
-                    tvMonthly.setText("0.00 $");
+                    tvMonthly.setText("$0.00");
                 }else if (zero.isEmpty()){
-                    tvMonthly.setText("0.00 $");
+                    tvMonthly.setText("$0.00");
                     edTerm.setHint("0");
                 }
             }
