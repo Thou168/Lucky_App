@@ -293,6 +293,10 @@ public class CommonFunction {
                 strColor="Green";
                 strColorKH="បៃតង";
                 break;
+
+            default:
+                strColor="#00000000";
+                break;
         }
         postSubTitleEN=postSubTitleEN+" "+strColor;
         postSubTitleKH=postSubTitleKH+" "+strColorKH;

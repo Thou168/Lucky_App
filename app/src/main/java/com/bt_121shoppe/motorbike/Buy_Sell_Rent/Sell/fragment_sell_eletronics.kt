@@ -121,6 +121,7 @@ class fragment_sell_eletronics : Fragment() {
                             val discount = `object`.getDouble("discount")
                             val postsubtitle = `object`.getString("post_sub_title")
                             val color = `object`.getString("color")
+                            val color_mul = `object`.getString("multi_color_code")
                             val model = `object`.getInt("modeling")
                             val year = `object`.getInt("year")
                             val category = `object`.getInt("category")
@@ -148,7 +149,7 @@ class fragment_sell_eletronics : Fragment() {
                                         val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                            item.add(Item_API(id,user_id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
+                                            item.add(Item_API(id,user_id, image, img_user, title, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category,color_mul))
                                             Log.d("Item: ", item.size.toString())
                                             recycleeview!!.layoutManager = GridLayoutManager(context,1)
                                             recycleeview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)

@@ -94,6 +94,7 @@ class user_post_list: Passdata() {
                                 val discount = obj.getDouble("discount")
                                 val postsubtitle = obj.getString("post_sub_title")
                                 val color = obj.getString("color")
+                                val color_mul = obj.getString("multi_color_code")
                                 val model = obj.getInt("modeling")
                                 val year = obj.getInt("year")
                                 val category = obj.getInt("category")
@@ -121,7 +122,7 @@ class user_post_list: Passdata() {
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             activity!!.runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category,color_mul))
                                                 recyclrview!!.adapter = MyAdapter_list_grid_image(itemApi, "List",context1)
                                                 recyclrview!!.layoutManager = GridLayoutManager(context,1) as RecyclerView.LayoutManager?
                                             }

@@ -1087,6 +1087,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             val discount = obj.getDouble("discount")
                             val postsubtitle = obj.getString("post_sub_title")
                             val color = obj.getString("color")
+                            val color_mul = obj.getString("multi_color_code")
                             val model = obj.getInt("modeling")
                             val year = obj.getInt("year")
                             val category = obj.getInt("category")
@@ -1100,7 +1101,7 @@ class Detail_New_Post : AppCompatActivity() , OnMapReadyCallback {
                             var ago=""
                             if(postId != id) {
 
-                                itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
+                                itemApi.add(Item_API(id,user_id,img_user, image, title, cost, condition, postType, ago.toString(), jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category,color_mul))
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                                 tex_noresult.visibility = View.GONE
                             }

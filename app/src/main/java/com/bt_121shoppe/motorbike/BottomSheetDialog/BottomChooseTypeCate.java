@@ -94,36 +94,38 @@ public class BottomChooseTypeCate extends BottomSheetDialogFragment implements V
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            type=0;
-                            JSONObject jsonObject = new JSONObject(respon);
-                            JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            typeListItems=new String[jsonArray.length()];
-                            typeListItemkh=new String[jsonArray.length()];
-                            typeIdListItems=new int[jsonArray.length()];
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int id = object.getInt("id");
-                                String name = object.getString("type");
-                                String type=object.getString("type_kh");
-                                typeListItemkh[i]=type;
-                                typeListItems[i]=name;
-                                typeIdListItems[i]=id;
+                if (getActivity()!=null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                type = 0;
+                                JSONObject jsonObject = new JSONObject(respon);
+                                JSONArray jsonArray = jsonObject.getJSONArray("results");
+                                typeListItems = new String[jsonArray.length()];
+                                typeListItemkh = new String[jsonArray.length()];
+                                typeIdListItems = new int[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    int id = object.getInt("id");
+                                    String name = object.getString("type");
+                                    String type = object.getString("type_kh");
+                                    typeListItemkh[i] = type;
+                                    typeListItems[i] = name;
+                                    typeIdListItems[i] = id;
+                                }
+                                if (language.equals("en")) {
+                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItems);
+                                } else if (language.equals("km")) {
+                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItemkh);
+                                }
+                                ls_type_cate.setAdapter(adapter);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            if (language.equals("en")) {
-                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItems);
-                            }else if (language.equals("km")){
-                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, typeListItemkh);
-                            }
-                            ls_type_cate.setAdapter(adapter);
-                        }catch (JSONException e){
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+                }
 
             }
         });

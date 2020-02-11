@@ -183,30 +183,24 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.txt_discount.setText("$"+co_price);
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Double finalRs_price = rs_price;
-        view.linearLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, Postbyuser_Class.class);
-            intent.putExtra("Price", model.getCost());
-            intent.putExtra("Discount", finalRs_price);
-            if (model.getStatus() == 2){
-                intent.putExtra("postt", 2);
-            }
-            intent.putExtra("ID",Integer.parseInt(iditem));
-            mContext.startActivity(intent);
-        });
 
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
 
-        Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-//        String date = null;
+//        Calendar calendar = Calendar.getInstance();
+        String currentDate = String.valueOf(DateFormat.getDateInstance(DateFormat.FULL));
+        String date = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             currentDate = Instant.now().toString();
         }
         view.item_type.setVisibility(View.VISIBLE);
         view.item_type.setTextColor(mContext.getResources().getColor(R.color.white));
+
+        //date current remove and sold
+        view.date.setVisibility(View.GONE);
+        view.date.setText(currentDate);
+
         String removeSt = "";
-        change_status_delete change_status = new change_status_delete(2,currentDate,pk,removeSt);
+        change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
         int status = (int) change_status.getStatus();
         if (status != 2){
             view.item_type.setText(R.string.sold);
@@ -215,6 +209,21 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.item_type.setText(R.string.button_remove);
             view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
         }
+
+        Double finalRs_price = rs_price;
+        view.linearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, Postbyuser_Class.class);
+            intent.putExtra("Price", model.getCost());
+            intent.putExtra("Discount", finalRs_price);
+            if (model.getStatus() == 2){
+                intent.putExtra("postt", 2);
+            }
+            if (change_status.getStatus()==2){
+                intent.putExtra("Sold_Remove",status);
+            }
+            intent.putExtra("ID",Integer.parseInt(iditem));
+            mContext.startActivity(intent);
+        });
 
 //        if (model.getPost_type().equals("sell")){
 //            view.item_type.setText(R.string.sell_t);
@@ -279,7 +288,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
             cate=view.findViewById(R.id.cate);
-            date=view.findViewById(R.id.date);
+            date=view.findViewById(R.id.txt_date);
             mCardView=view.findViewById(R.id.cardView);
         }
     }

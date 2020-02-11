@@ -203,7 +203,8 @@ public class Search1 extends AppCompatActivity {
                                 String post_type = object.getString("post_type");
                                 String discount_type = object.getString("discount_type");
                                 Double discount = object.getDouble("discount");
-                                String color = object.getString("multi_color_code");
+                                String color = object.getString("color");
+                                String color_mul = object.getString("multi_color_code");
                                 int model1 = object.getInt("modeling");
                                 int year1 = object.getInt("year");
                                 int category = object.getInt("category");
@@ -238,7 +239,7 @@ public class Search1 extends AppCompatActivity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle,category));
+                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle,category,color_mul));
                                                     MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                                     rv.setAdapter(adapterUserPost);
                                                     rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));

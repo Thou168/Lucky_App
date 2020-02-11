@@ -224,6 +224,8 @@ public class Detail_1 extends Fragment {
                                 shape.setShape(GradientDrawable.OVAL);
                                 shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
                                 tvColor1.setBackground(shape);
+                            }else {
+                                tvColor1.setVisibility(View.GONE);
                             }
 
                             tvColor2.setVisibility(View.GONE);
@@ -438,13 +440,14 @@ public class Detail_1 extends Fragment {
                                 double discount = obj.getDouble("discount");
                                 String postsubtitle = obj.getString("post_sub_title");
                                 String color = obj.getString("color");
+                                String color_mul = obj.getString("multi_color_code");
                                 int model = obj.getInt("modeling");
                                 int year = obj.getInt("year");
                                 int category = obj.getInt("category");
 
                                 String ago = "";
                                 if (postId != id) {
-                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle,category));
+                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle,category,color_mul));
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
                                     no_result.setVisibility(View.GONE);
                                     recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));

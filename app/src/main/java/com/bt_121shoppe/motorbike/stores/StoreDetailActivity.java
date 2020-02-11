@@ -101,7 +101,7 @@ public class StoreDetailActivity extends AppCompatActivity {
     String view;
     TextView shopname,location,contact,count_view,number_rate;
     CircleImageView cr_image;
-    String name_shop,location_shop,profile_shop;
+    String name_shop,location_shop,profile_shop,view_shop,ratenum_shop;
     byte[] decodedBytes;
     TextView shopbar;
     ImageView backbar;
@@ -135,12 +135,16 @@ public class StoreDetailActivity extends AppCompatActivity {
             mShopName=bundle.getString("shopinfo");
             location_shop=bundle.getString("shop_location");
             profile_shop=bundle.getString("shop_image");
+            view_shop=bundle.getString("shop_view");
+            ratenum_shop=bundle.getString("shop_rate_num");
         }
         //submit count shop view
         submitcountshopview(shopId);
 
         shopname.setText(mShopName);
         location.setText(location_shop);
+        count_view.setText(view_shop);
+        number_rate.setText(ratenum_shop);
         Glide.with(StoreDetailActivity.this).load(profile_shop).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_image);
 
 //        initToolbar(mShopName);
@@ -562,6 +566,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                                 String discount_type = object.getString("discount_type");
                                 Double discount = object.getDouble("discount");
                                 String color = object.getString("color");
+                                String color_mul = object.getString("multi_color_code");
                                 int model1 = object.getInt("modeling");
                                 int year1 = object.getInt("year");
                                 int category = object.getInt("category");
@@ -596,7 +601,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle,category));
+                                                    item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle,category,color_mul));
                                                     MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List", StoreDetailActivity.this);
                                                     mAllPostsRecyclerView.setAdapter(adapterUserPost);
                                                     mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(StoreDetailActivity.this, 1));

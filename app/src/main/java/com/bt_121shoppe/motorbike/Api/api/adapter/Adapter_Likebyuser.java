@@ -202,6 +202,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                        intent.putExtra("ID",Integer.parseInt(iditem));
 //                        mContext.startActivity(intent);
 //                    });
+                    view.date.setVisibility(View.GONE);
                     if (response.body().getPost_type().equals("sell")){
                         view.item_type.setText(R.string.sell_t);
 //                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));
@@ -331,7 +332,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
             title = view.findViewById(R.id.title);
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);
-//            date = view.findViewById(R.id.date);
+            date = view.findViewById(R.id.txt_date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.user_view);
             txtview1 = view.findViewById(R.id.user_view1);

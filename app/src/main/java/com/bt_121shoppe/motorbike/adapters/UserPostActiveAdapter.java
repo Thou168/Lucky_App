@@ -419,8 +419,10 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                     intent.putExtra("Discount", finalPrice);
                     if (mPost.getStatus()==3){
                         intent.putExtra("postt", 2);
-                    }else
+                    }else if (mPost.getStatus()!=2) {
                         intent.putExtra("postt", 1);
+                    }
+                    intent.putExtra("muticolor",splitColor);
                     intent.putExtra("ID",(int)mPost.getId());
                     itemView.getContext().startActivity(intent);
                 }

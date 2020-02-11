@@ -386,6 +386,7 @@ public class HomeFragment extends Fragment {
                                 String title = obj.getString("subTitle");
                                 //String[] splitTitle=title.split(",");
                                 String fcolor=obj.getString("color");
+//                                String fcolor=obj.getString("multi_color_code");
                                 mPostBestDeals.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
                             }
                         }
@@ -611,6 +612,7 @@ public class HomeFragment extends Fragment {
                                 int viewCount = obj.getInt("viewCount");
                                 String title = obj.getString("subTitle");
                                 String fcolor=obj.getString("color");
+//                                String fcolor=obj.getString("multi_color_code");
                                 //String type = obj.getString("type");
                                 //String[] splitTitle=title.split(",");
                                 mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
@@ -720,6 +722,7 @@ public class HomeFragment extends Fragment {
                                         int viewCount = obj.getInt("viewCount");
                                         String title = obj.getString("subTitle");
                                         String fcolor=obj.getString("color");
+//                                        String fcolor=obj.getString("multi_color_code");
                                         //String type = obj.getString("type");
                                         //String[] splitTitle=title.split(",");
                                         mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
@@ -789,6 +792,7 @@ public class HomeFragment extends Fragment {
                                         int viewCount = obj.getInt("viewCount");
                                         String title = obj.getString("subTitle");
                                         String fcolor=obj.getString("color");
+//                                        String fcolor=obj.getString("multi_color_code");
                                         //String type = obj.getString("type");
                                         //String[] splitTitle=title.split(",");
                                         mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
@@ -859,6 +863,7 @@ public class HomeFragment extends Fragment {
                                         int viewCount = obj.getInt("viewCount");
                                         String title = obj.getString("subTitle");
                                         String fcolor=obj.getString("color");
+//                                        String fcolor=obj.getString("multi_color_code");
                                         //String type = obj.getString("type");
                                         //String[] splitTitle=title.split(",");
                                         mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));

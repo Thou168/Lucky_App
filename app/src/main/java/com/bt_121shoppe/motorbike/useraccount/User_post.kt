@@ -276,6 +276,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                 val discount = obj.getDouble("discount")
                                 val postsubtitle = obj.getString("post_sub_title")
                                 val color = obj.getString("color")
+                                val color_mul = obj.getString("multi_color_code")
                                 val model = obj.getInt("modeling")
                                 val year = obj.getInt("year")
                                 val category = obj.getInt("category")
@@ -303,7 +304,7 @@ class User_post : AppCompatActivity() , OnMapReadyCallback{
                                             val jsonObject= JSONObject(mMessage)
                                             val jsonCount=jsonObject.getInt("count")
                                             runOnUiThread {
-                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,"",jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
+                                                itemApi.add(Item_API(id,user_id,img_user,image,title,cost,condition,postType,"",jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category,color_mul))
                                                 recyclrview!!.layoutManager = GridLayoutManager(this@User_post,1) as RecyclerView.LayoutManager?
                                                 val dividerDrawable = ContextCompat.getDrawable(context1, R.drawable.divider)
                                                 recyclrview.addItemDecoration(com.bt_121shoppe.motorbike.classes.DividerItemDecoration(dividerDrawable))

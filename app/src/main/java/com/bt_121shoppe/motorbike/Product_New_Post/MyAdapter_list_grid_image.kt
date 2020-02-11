@@ -172,8 +172,8 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 //            backgroundGradient.setColor(itemView.getContext().getResources().getColor(R.color.logo_green));
             tvColor2.visibility = View.GONE
             tvColor1.visibility = View.GONE
-            if(item.color!= null){
-                val splitColor: Array<String> = item.color.split(",").toTypedArray()
+            if(item.multiColor!= null){
+                val splitColor: Array<String> = item.multiColor.split(",").toTypedArray()
                 val shape = GradientDrawable()
                 if(splitColor[0].isNotEmpty()){
                     tvColor1.visibility = View.VISIBLE

@@ -10,14 +10,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.bt_121shoppe.motorbike.R
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.custom.sliderimage.logic.SliderImage
-import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image
+import com.bt_121shoppe.motorbike.R
+import com.bt_121shoppe.motorbike.activities.Item_API
 import com.bt_121shoppe.motorbike.utils.CommonFunction
+import com.custom.sliderimage.logic.SliderImage
 import com.google.gson.JsonParseException
 import okhttp3.*
 import org.json.JSONException
@@ -109,6 +109,7 @@ class fragment_buy_vehicle : Fragment() {
                             val discount = `object`.getDouble("discount")
                             val postsubtitle = `object`.getString("post_sub_title")
                             val color = `object`.getString("color")
+                            val color_mul: String = `object`.getString("multi_color_code")
                             val model = `object`.getInt("modeling")
                             val year = `object`.getInt("year")
                             val category = `object`.getInt("category")
@@ -137,7 +138,7 @@ class fragment_buy_vehicle : Fragment() {
 //                                        val jsonObject= JSONObject(mMessage)
                                         val jsonCount=jsonObject.getInt("count")
                                         activity!!.runOnUiThread {
-                                             item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category))
+                                             item.add(Item_API(id,user_id, image, img_user, postsubtitle, cost, condition, postType,ago.toString(),jsonCount.toString(),color,model,year,discount_type,discount,postsubtitle,category,color_mul))
                                             Log.d("Item: ", item.size.toString())
                                             reecycleview!!.layoutManager = GridLayoutManager(context, 1)
                                             reecycleview!!.adapter = MyAdapter_list_grid_image(item, "List",context1)
