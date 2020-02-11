@@ -159,9 +159,10 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            else if(mPost.getPostType().equals("buy"))
 //                Glide.with(itemView.getContext()).load(R.drawable.buy).thumbnail(0.1f).into(typeImageView);
 
-            String lang=postLang.getText().toString();
+            //String lang=postLang.getText().toString();
             String strPostTitle="";
-            if(lang.equals("View:"))
+            Log.e("TAG","DIscount language "+postLang+" "+mPost.getPostTitle());
+            if(postLang.getText().toString().equals("View"))
                 strPostTitle=mPost.getPostTitle().split(",")[0];
             else
                 if(strPostTitle.length()>1)
@@ -171,7 +172,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             postTitle.setText(strPostTitle);
 
             String[] splitColor=mPost.getColor().split(",");
-            Log.d("COLOOOOOr",splitColor.length+splitColor[0]);
+            //Log.d("COLOOOOOr",splitColor.length+splitColor[0]);
             GradientDrawable shape = new GradientDrawable();
             shape.setShape(GradientDrawable.OVAL);
             if(!splitColor[0].isEmpty())
@@ -183,7 +184,7 @@ public class PostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 GradientDrawable shape1 = new GradientDrawable();
                 shape1.setShape(GradientDrawable.OVAL);
                 shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                tvColor2.setBackground(shape);
+                tvColor2.setBackground(shape1);
             }
 
 //            postLocationDT.setText(mPost.getLocationDuration());

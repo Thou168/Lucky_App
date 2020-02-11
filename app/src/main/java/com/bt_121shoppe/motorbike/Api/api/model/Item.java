@@ -43,6 +43,7 @@ public class Item implements Serializable {
     private String contact_address;
     private String color;
     private String post_sub_title;
+    private String multi_color_code;
 
     @SerializedName("sales")
     private List<Type_item> sales;
@@ -332,6 +333,14 @@ public class Item implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getMulti_color_code() {
+        return multi_color_code;
+    }
+
+    public void setMulti_color_code(String multi_color_code) {
+        this.multi_color_code = multi_color_code;
     }
 
     public static class buy_item{

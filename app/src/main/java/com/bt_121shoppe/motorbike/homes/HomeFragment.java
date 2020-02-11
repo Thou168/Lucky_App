@@ -11,6 +11,7 @@ import android.icu.util.DateInterval;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -118,6 +119,7 @@ public class HomeFragment extends Fragment {
     int index = 0;
     RadioButton radioButton1,radioButton2,radioButton3,radioButton4;
 
+    Parcelable state;
     TextView connection;
     RelativeLayout rl_besdeal;
     RelativeLayout rl_newpost;
@@ -238,6 +240,20 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        state = mLayoutManager.onSaveInstanceState();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        state = mLayoutManager.onSaveInstanceState();
+//        if (mListState != null) {
+//            mLayoutManager.onRestoreInstanceState(mListState);
+//        }
+    }
 //    public static void hideSoftKeyboard(Activity activity) {
 //        InputMethodManager inputMethodManager =
 //                (InputMethodManager) activity.getSystemService(
@@ -382,7 +398,7 @@ public class HomeFragment extends Fragment {
                     mBestDealNoResult.setVisibility(View.VISIBLE);
                 else {
                     //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
-                    Collections.sort(mPostBestDeals, (s1, s2) -> Integer.compare(s1.getPostId(), s2.getPostId()));
+                    Collections.sort(mPostBestDeals, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
                     mPostBestDealAdpater.addItems(mPostBestDeals);
                     mBestDealRecyclerView.setAdapter(mPostBestDealAdpater);
                     mPostBestDealAdpater.notifyDataSetChanged();

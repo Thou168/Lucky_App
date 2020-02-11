@@ -69,9 +69,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
 
         intent=getIntent();
-        username=intent.getStringExtra("phonenumber");
+        username=intent.getStringExtra("phoneNumber");
         password=intent.getStringExtra("password");
-
+        Log.e("TAG","REset password "+username+" "+password);
         mProgress = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.progress_waiting));
         mProgress.setCancelable(false);
@@ -131,34 +131,34 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private void postResetPassword(String password1,String password2){
 
-        String url= ConsumeAPI.BASE_URL+"resetpassword/";
-        OkHttpClient client=new OkHttpClient();
-        JSONObject object=new JSONObject();
-        try{
-            object.put("new_password1",password1);
-            object.put("new_password2",password2);
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-        RequestBody body = RequestBody.create(ConsumeAPI.MEDIA_TYPE, object.toString());
-
         databaseReference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user=dataSnapshot.getValue(User.class);
                 String fpassword=user.getPassword();
-                Log.d(TAG,user.getEmail());
+                //Log.d(TAG,user.getEmail());
                 //setFirebaseUserPassword(user.getPassword());
 
                 //check to get password
-                if(user.getGroup().equals("1")){
-                    String pwd=password.substring(0,3);
-                    //Log.d(TAG,"password "+pwd);
-                    encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,pwd);
-                }else{
-                    encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,password);
+//                if(user.getGroup().equals("1")){
+//                    String pwd=password.substring(0,4);
+//                    Log.d(TAG,"password "+pwd);
+//                    encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,pwd);
+//                }else{
+//                    encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,password);
+//                }
+                encodeAuth= "Basic "+ CommonFunction.getEncodedString(username,fpassword);
+                String url= ConsumeAPI.BASE_URL+"resetpassword/";
+                OkHttpClient client=new OkHttpClient();
+                JSONObject object=new JSONObject();
+                try{
+                    object.put("new_password1",password1);
+                    object.put("new_password2",password2);
+                }catch (JSONException e){
+                    e.printStackTrace();
                 }
+                RequestBody body = RequestBody.create(ConsumeAPI.MEDIA_TYPE, object.toString());
 
                 Request request = new Request.Builder()
                         .url(url)
@@ -170,24 +170,50 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-
+                        e.printStackTrace();
+                        Log.e("TAG","Fail to reset password.");
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        String st = response.body().string();
-                        Log.e(TAG,st);
+                        Log.e("TAG","REset password success full "+response.body().string());
+                        //String st = response.body().string();
                         String newPassword;
-                        if(user.getGroup().equals("1")){
-                            newPassword=password1+"__";
-                        }
-                        else
-                            newPassword=password1;
-
+//                        if(user.getGroup().equals("1")){
+//                            newPassword=password1+"__";
+//                        }
+//                        else
+//                            newPassword=password1;
+                        newPassword=password1;
                         databaseReference=FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
                         HashMap<String,Object> hashMap=new HashMap<>();
                         hashMap.put("password",newPassword);
                         databaseReference.updateChildren(hashMap);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mProgress.dismiss();
+//                                Intent intent=new Intent(ResetPasswordActivity.this,LoginActivity.class);
+//                                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                startActivity(intent);
+                                //finish();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
+                                        alertDialog.setTitle(getString(R.string.reset_password_title));
+                                        alertDialog.setMessage("Your password has been reset.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        SharedPreferences.Editor editor = prefer.edit();
+                                                        editor.clear();
+                                                        editor.commit();
+                                                        startActivity(new Intent(ResetPasswordActivity.this, Home.class));
+                                                        //dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
+                            }
+                        });
 
 //                        //reset password for firebase user
 //                        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
@@ -221,56 +247,59 @@ public class ResetPasswordActivity extends AppCompatActivity {
 //                                    }
 //                                });
 
-                        Gson gson = new Gson();
-                        ChangepassModel model = new ChangepassModel();
-                        try{
-
-                            model=gson.fromJson(st,ChangepassModel.class);
-                            if (model!=null){
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mProgress.dismiss();
+//                        Gson gson = new Gson();
+//                        ChangepassModel model = new ChangepassModel();
+//                        try{
+//                            model=gson.fromJson(st,ChangepassModel.class);
+//                            if (model!=null){
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        mProgress.dismiss();
+//                                        Intent intent=new Intent(ResetPasswordActivity.this,LoginActivity.class);
+//                                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                        startActivity(intent);
+//                                        finish();
+////                                        AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
+////                                        alertDialog.setTitle(getString(R.string.reset_password_title));
+////                                        alertDialog.setMessage("Your password has been reset.");
+////                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+////                                                new DialogInterface.OnClickListener() {
+////                                                    public void onClick(DialogInterface dialog, int which) {
+////                                                        SharedPreferences.Editor editor = prefer.edit();
+////                                                        editor.clear();
+////                                                        editor.commit();
+////                                                        startActivity(new Intent(ResetPasswordActivity.this, Home.class));
+////                                                        //dialog.dismiss();
+////
+////                                                    }
+////                                                });
+////                                        alertDialog.show();
+//                                    }
+//                                });
+//
+//                            }else {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        mProgress.dismiss();
 //                                        AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
 //                                        alertDialog.setTitle(getString(R.string.reset_password_title));
-//                                        alertDialog.setMessage("Your password has been reset.");
+//                                        alertDialog.setMessage("Your password has been error while changing.");
 //                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
 //                                                new DialogInterface.OnClickListener() {
 //                                                    public void onClick(DialogInterface dialog, int which) {
-//                                                        SharedPreferences.Editor editor = prefer.edit();
-//                                                        editor.clear();
-//                                                        editor.commit();
-//                                                        startActivity(new Intent(ResetPasswordActivity.this, Home.class));
 //                                                        //dialog.dismiss();
 //
 //                                                    }
 //                                                });
 //                                        alertDialog.show();
-                                    }
-                                });
-
-                            }else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mProgress.dismiss();
-                                        AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
-                                        alertDialog.setTitle(getString(R.string.reset_password_title));
-                                        alertDialog.setMessage("Your password has been error while changing.");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        //dialog.dismiss();
-
-                                                    }
-                                                });
-                                        alertDialog.show();
-                                    }
-                                });
-                            }
-                        }catch (JsonParseException e){
-                            e.printStackTrace();
-                        }
+//                                    }
+//                                });
+//                            }
+//                        }catch (JsonParseException e){
+//                            e.printStackTrace();
+//                        }
                     }
                 });
             }

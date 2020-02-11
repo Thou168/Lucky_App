@@ -1490,11 +1490,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             post.put("contact_address", latlng);
 // end check
 
-            Log.e("color",""+strColor);
+            //Log.e("color",""+strColor);
             post.put("color", "black");
             post.put("multi_color_code",strColor);
 
-            Log.e("item",""+year+category+model+brand+type);
+            //Log.e("item",""+year+category+model+brand+type);
 
             //enhance sep 19 2019
             post.put("post_code", show_ID.getText().toString());
@@ -1576,7 +1576,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String createdAt=obj.getString("created");
                                             String postCode=obj.getString("post_code");
                                             String postSubTitle=obj.getString("post_sub_title");
-                                            String fcolor=obj.getString("color");
+                                            //String fcolor=obj.getString("color");
+                                            String fcolor=obj.getString("multi_color_code");
                                             String eta1 = obj.getString("used_eta1");
                                             String eta2 = obj.getString("used_eta2");
                                             String eta3 = obj.getString("used_eta3");
@@ -1977,7 +1978,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String createdAt = obj.getString("created");
                                             String postSubTitle=obj.getString("post_sub_title");
 
-                                            String fcolor=obj.getString("color");
+                                            //String fcolor=obj.getString("color");
+                                            String fcolor=obj.getString("multi_color_code");
                                             String eta1 = obj.getString("used_eta1");
                                             String eta2 = obj.getString("used_eta2");
                                             String eta3 = obj.getString("used_eta3");

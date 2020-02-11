@@ -109,15 +109,14 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     SliderImage sliderImage;
     String front_image,right_image,back_image,left_image;
     String postTitle;
+    TextView tvUsername;
     private String postPrice;
     private String postFrontImage;
     private String postUsername;
     private String postUserId;
     private String postType;
-
     private boolean isChecked = false;
     RelativeLayout layout_call_chat_like_loan;
-
     Double discount = 0.0;
     private int REQUEST_PHONE_CALL =1;
     TabLayout tabLayout;
@@ -128,9 +127,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     boolean EditLoan;
     private List<LikebyUser> datas;
     String basic_Encode;
-    int loanID;
+    int loanID,userOwnerId=0;
     String login_verify;
     Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,9 +162,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         submitCountView(Encode);
         countPostView(Encode);
         back_view.setOnClickListener(v -> onBackPressed());
-
+        tvUsername=findViewById(R.id.post_username);
         //like
         already_like(Encode);
+
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,18 +184,27 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         like1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Unlike_post(Encode);
+                //Unlike_post();
+                AlertDialog.Builder alertDialog = new  AlertDialog.Builder(Detail_new_post_java.this);
+                alertDialog.setMessage("You liked this post already.");
+                alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    }
+                        });
+                                            alertDialog.show();
             }
         });
         //call
         if (ContextCompat.checkSelfPermission(Detail_new_post_java.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Detail_new_post_java.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
         }
-
         //chat
         message.setOnClickListener(v -> {
             if (sharedPref.contains("token") || sharedPref.contains("id")) {
-                Intent intent =new  Intent(Detail_new_post_java.this, ChatMainActivity.class);
+                postUserId=tvUsername.getText().toString();
+                Intent intent =new  Intent(Detail_new_post_java.this, ChatActivity.class);
                 intent.putExtra("postId",postId);
                 intent.putExtra("postTitle",postTitle);
                 intent.putExtra("postPrice",postPrice);
@@ -203,6 +213,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 intent.putExtra("postUsername",postUsername);
                 intent.putExtra("postUserId",postUserId);
                 intent.putExtra("postType",postType);
+                intent.putExtra("postOwnerId",userOwnerId);
                 startActivity(intent);
             }else{
                 Intent intent =new  Intent(Detail_new_post_java.this, LoginActivity.class);
@@ -416,7 +427,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 phone2.setText("  "+splitPhone[1]);
                 phone3.setText("  "+splitPhone[2]);
 
-                Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2]);
+                //Log.d("Phone 3:",splitPhone[0]+","+ splitPhone[1] +","+ splitPhone[2]);
                 phone1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -478,12 +489,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String mMessage = response.body().string();
-                Log.d(TAG+"3333",mMessage);
+                //Log.d(TAG+"3333",mMessage);
                 Gson json = new Gson();
                 try {
                     runOnUiThread(() -> {
                         postDetail = json.fromJson(mMessage,PostViewModel.class);
-                        Log.e(TAG,"D"+mMessage);
+                        //Log.e(TAG,"D"+mMessage);
 
                         int create_by = Integer.parseInt(postDetail.getCreated_by());
                         if (create_by == pk){
@@ -492,6 +503,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         }
                         postFrontImage=postDetail.getFront_image_path();
                         postPrice=discount.toString();
+                        postType=postDetail.getPost_type();
+
 //                        if (postDetail.getDiscount_type().equals("percent")) {
 //                            Double cost=Double.parseDouble(postDetail.getCost());
 //                            Double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
@@ -503,11 +516,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                            tv_dox.setVisibility(View.VISIBLE);
 //                            tvDiscountPer.setVisibility(View.VISIBLE);
 //                        }else {
+                        double result=0;
                         if (discount!=0.00) {
                             double pricefull = Double.parseDouble(postDetail.getCost());
                             double discountPrice = pricefull * (Double.parseDouble(postDetail.getDiscount()) / 100);
                             int per1 = (int) (Double.parseDouble(postDetail.getDiscount()));
-                            double result = pricefull - discountPrice;
+                            result = pricefull - discountPrice;
                             tvPrice.setText("$" + result);
                             tvDiscount.setText("$" + postDetail.getDiscount());
                             tvDiscountPer.setText("- " + per1 + "%");
@@ -518,6 +532,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                            }
                         }
 //                        }
+                        postPrice=String.valueOf(result);
                         if (discount == 0.00){
                             tvDiscount.setVisibility(View.GONE);
                             tvDiscountPer.setVisibility(View.GONE);
@@ -560,7 +575,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         if (postDetail.getExtra_image2()!=null){
                             arrayList2.add(postDetail.getExtra_image2());
                         }
-                        Log.d("@ moret image","numbers:"+extra_image1+","+extra_image2);
                         sliderImage.setItems(arrayList2);
                         sliderImage.addTimerToSlide(3000);
                         sliderImage.removeTimerSlide();
@@ -578,6 +592,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             typeView.setTextSize(16);
                             typeView.setBackgroundResource(R.drawable.roundimage_sell_newpost);
                         }
+                        userOwnerId=Integer.parseInt(postDetail.getCreated_by());
+                        getPostOwnerInformation(userOwnerId);
                     });
                 } catch (JsonParseException e) {
                     e.printStackTrace();
@@ -589,7 +605,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
     private void Like_post(String encode) {
         String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
-        Log.d("asdf",url_like);
+        //Log.d("asdf",url_like);
         OkHttpClient client =new  OkHttpClient();
         Request request =new  Request.Builder()
                 .url(url_like)
@@ -638,16 +654,20 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     String respon = String.valueOf(response.body());
-                                    Log.d("Response", respon);
+                                    Log.d("Like", respon);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             Toast.makeText(getApplicationContext(),R.string.like_post,Toast.LENGTH_SHORT).show();
                                             like1.setVisibility(View.VISIBLE);
                                             like1.setImageResource(R.drawable.android_heart);
-                                            like1.setMaxWidth(30);
+                                            //like1.setMaxWidth(30);
                                             like1.setMaxHeight(30);
                                             like.setVisibility(View.GONE);
+                                            //like.setVisibility(View.GONE);
+//                                            like1.setImageResource(R.drawable.group_28);
+//                                            like1.setMaxWidth(30);
+//                                            like1.setMaxHeight(30);
                                         }
                                     });
                                 }
@@ -731,12 +751,15 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (jsonCount==1){
+                            if (jsonCount>0){
                                 like.setVisibility(View.GONE);
                                 like1.setVisibility(View.VISIBLE);
-                                like1.setImageResource(R.drawable.android_heart);
-                                like1.setMaxHeight(30);
-                                like1.setMaxWidth(30);
+                                //like1.setImageResource(R.drawable.android_heart);
+//                                like1.setMaxHeight(30);
+//                                like1.setMaxWidth(30);
+                            }else{
+                                like.setVisibility(View.VISIBLE);
+                                like1.setVisibility(View.GONE);
                             }
                         }
                     });
@@ -846,7 +869,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
             // Calculate inSampleSize
             options.inSampleSize = BitmapUtil.calculateInSampleSize(options, reqWidth, reqHeight);
-            Log.d(TAG, "options inSampleSize "+options.inSampleSize);
+            //Log.d(TAG, "options inSampleSize "+options.inSampleSize);
             // Decode bitmap with inSampleSize set
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeFile(filePath, options);
@@ -949,12 +972,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int post_id = object.getInt("post");
                                 int re_status = object.getInt("record_status");
-                                Log.d("Status Id123", String.valueOf(post_id));
-                                Log.d("Status 123",postId.toString());
+//                                Log.d("Status Id123", String.valueOf(post_id));
+//                                Log.d("Status 123",postId.toString());
                                 if (re_status != 12)
                                     IDPOST.add(post_id);
                             }
-                            Log.d("ARRayList", String.valueOf(IDPOST.size()));
+                            //Log.d("ARRayList", String.valueOf(IDPOST.size()));
                             for (int i=0;i<IDPOST.size();i++){
                                 if (IDPOST.get(i).equals(postId)){
                                     loaned = true;
@@ -969,7 +992,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                     }else{
                                         Intent intent = new  Intent(Detail_new_post_java.this, Create_Load.class);
                                         intent.putExtra("product_id",postId);
-                                        intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
+                                        //intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
+                                        intent.putExtra("price",postPrice);
                                         startActivity(intent);
                                     }
                                 }
@@ -982,6 +1006,27 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
             }
         });
+    }
+    private void getPostOwnerInformation(int id){
+        Service api = com.bt_121shoppe.motorbike.Api.api.Client.getClient().create(Service.class);
+        retrofit2.Call<User> call = api.getuser(id);
+        call.enqueue(new retrofit2.Callback<com.bt_121shoppe.motorbike.Api.User>() {
+            @Override
+            public void onResponse(retrofit2.Call<User> call, retrofit2.Response<User> response) {
+                if (response.isSuccessful()){
+                    postUserId=response.body().getUsername();
+                    postUsername=response.body().getFirst_name();
+                    //Log.e("TAG","username in view detail initail "+response.body().getUsername());
+                    tvUsername.setText(response.body().getUsername());
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+
     }
 
     private void withStyle() {
@@ -997,4 +1042,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         builder.setCancelable(false);
         builder.show();
     }
+
+
 }

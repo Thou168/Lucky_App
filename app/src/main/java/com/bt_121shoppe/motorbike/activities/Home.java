@@ -131,7 +131,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //connecttion on and off
-        onConnectionChange();
+        //onConnectionChange();
 
         locale();
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
@@ -146,7 +146,6 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         SharedPreferences prefer=getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language=prefer.getString("My_Lang","");
 
-
         StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -160,7 +159,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
         }
-        Log.e("pk", String.valueOf(pk));
+        Log.e("pk", String.valueOf(preferences.getInt("group",0)));
 
         search_homepage = findViewById(R.id.search_homepage);
         setSearch_homepage();
@@ -339,7 +338,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
             public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
                 mImages = response.body().getresults();
                 if (!response.isSuccessful()){
-                    Log.d("211111111111111212", String.valueOf(response.code()));
+                    //Log.d("211111111111111212", String.valueOf(response.code()));
                 }
                 for (int i=0;i<mImages.size();i++){
                     mImages1.add(mImages.get(i).getImg());
@@ -590,7 +589,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     }
                 }).withErrorListener(error ->
                 //Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show()
-                Log.e(TAG,"Error occurred.")
+                Log.e(TAG,"Error occurred Permission")
         )
                 .onSameThread()
                 .check();

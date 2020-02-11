@@ -179,23 +179,23 @@ public class Postbyuser_Class extends AppCompatActivity {
         String url;
         Request request;
         String auth = "Basic" + encode;
-        if (pt == 1) {
-            url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
-//            request = new Request.Builder()
-//                    .url(url)
-//                    .header("Accept", "application/json")
-//                    .header("Content-Type", "application/json")
-//                    .header("Authorization", auth)
-//                    .build();
-        } else {
-            url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
-//            request = new Request.Builder()
-//                    .url(url)
-//                    .header("Accept", "application/json")
-//                    .header("Content-Type", "application/json")
-//                    .build();
-        }
-        //url=ConsumeAPI.BASE_URL+"api/v1/post/"+postId;
+//        if (pt == 1) {
+//            url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
+////            request = new Request.Builder()
+////                    .url(url)
+////                    .header("Accept", "application/json")
+////                    .header("Content-Type", "application/json")
+////                    .header("Authorization", auth)
+////                    .build();
+//        } else {
+//            url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
+////            request = new Request.Builder()
+////                    .url(url)
+////                    .header("Accept", "application/json")
+////                    .header("Content-Type", "application/json")
+////                    .build();
+//        }
+        url=ConsumeAPI.BASE_URL+"detailposts/"+postId;
         request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")
@@ -227,7 +227,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         if (title_language==null || title_language.isEmpty()){
 
                         }else {
-                            if(language.equals("View:"))
+                            if(language.equals("View"))
                                 strPostTitle=title_language.split(",")[0];
                             else
                                 strPostTitle=title_language.split(",")[1];
@@ -293,7 +293,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         if (postDetail.getExtra_image2()!=null){
                             arrayList2.add(postDetail.getExtra_image2());
                         }
-                        Log.d("@ moret image","numbers:"+extra_image1+","+extra_image2);
+                        //Log.d("@ moret image","numbers:"+extra_image1+","+extra_image2);
                         slider.setItems(arrayList2);
                         slider.addTimerToSlide(3000);
                         slider.removeTimerSlide();
@@ -302,7 +302,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         tv_postcode.setText(postDetail.getPost_code()!=null?postDetail.getPost_code().toString():"");
                         //get color
 //                            color.setText(postDetail.getColor().toString());
-                        String[] splitColor=postDetail.getColor().split(",");
+                        String[] splitColor=postDetail.getMulti_color_code().split(",");
                         GradientDrawable shape = new GradientDrawable();
                         shape.setShape(GradientDrawable.OVAL);
                         shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
@@ -314,7 +314,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                             GradientDrawable shape1 = new GradientDrawable();
                             shape1.setShape(GradientDrawable.OVAL);
                             shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                            tvColor2.setBackground(shape);
+                            tvColor2.setBackground(shape1);
                         }
                         //end
                         con = postDetail.getCondition().toString();

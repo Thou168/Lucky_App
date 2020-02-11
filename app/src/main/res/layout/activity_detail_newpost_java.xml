@@ -34,6 +34,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="77dp">
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/post_username"/>
+                    <TextView
                         android:id="@+id/title"
                         android:paddingStart="16dp"
                         android:textColor="@color/white"
@@ -98,7 +103,7 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_marginEnd="@dimen/dp_16"
                         android:layout_alignParentEnd="true"
-                        android:text="SElllllll"
+                        android:text=""
                         android:textColor="@color/white"
                         android:fontFamily="@font/opensans_semibold"
                         android:textSize="15dp"
@@ -175,20 +180,19 @@
         <RelativeLayout
             android:layout_gravity="right"
             android:layout_width="40dp"
-            android:background="@drawable/roundimage_newpost"
             android:gravity="center"
             android:layout_marginEnd="@dimen/dp_8"
             android:layout_height="40dp">
             <ImageView
                 android:id="@+id/btn_like"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/group_28" />
             <ImageView
                 android:id="@+id/btn_like1"
                 android:visibility="gone"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/heart_red" />
         </RelativeLayout>
         <RelativeLayout

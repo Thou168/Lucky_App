@@ -3,6 +3,7 @@ package com.bt_121shoppe.motorbike.Api.api.adapter_for_shop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -17,18 +18,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
+import com.bt_121shoppe.motorbike.models.DealerPostViewModel;
 import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
@@ -178,7 +181,7 @@ public class ViewHolder extends BaseViewHolder{
         }
         if(mPost.getPost_sub_title()==null||mPost.getPost_sub_title().isEmpty()){}
         else{
-            if(lang.equals("View:"))
+            if(lang.equals("View"))
                 strPostTitle=mPost.getPost_sub_title().split(",")[0];
             else
                 strPostTitle=mPost.getPost_sub_title().split(",")[1];
@@ -196,19 +199,19 @@ public class ViewHolder extends BaseViewHolder{
 //                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_rent));
         }
 
-        String[] splitColor=mPost.getColor().split(",");
+        String[] splitColor=mPost.getMulti_color_code().split(",");
 
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.OVAL);
-//            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-//            tvColor1.setBackground(shape);
+        shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+        tvColor1.setBackground(shape);
         tvColor2.setVisibility(View.GONE);
         if(splitColor.length>1){
             tvColor2.setVisibility(View.VISIBLE);
             GradientDrawable shape1 = new GradientDrawable();
             shape1.setShape(GradientDrawable.OVAL);
             shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-            tvColor2.setBackground(shape);
+            tvColor2.setBackground(shape1);
         }
 
         //post price
@@ -220,18 +223,21 @@ public class ViewHolder extends BaseViewHolder{
         }
         else{
             cost=Double.parseDouble(mPost.getCost());
-            if(mPost.getDiscount_type().equals("amount")) {
-                cost = cost - Double.parseDouble(mPost.getDiscount());
-//                    double ds = Double.parseDouble(mPost.getDiscount());
-//                    ds_price.setText("$"+ds);
-//                    relativeLayout.setVisibility(View.GONE);
-            }
-            else if(mPost.getDiscount_type().equals("percent")){
-                Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
+//            if(mPost.getDiscount_type().equals("amount")) {
+//                cost = cost - Double.parseDouble(mPost.getDiscount());
+////                    double ds = Double.parseDouble(mPost.getDiscount());
+////                    ds_price.setText("$"+ds);
+////                    relativeLayout.setVisibility(View.GONE);
+//            }
+//            else if(mPost.getDiscount_type().equals("percent")){
+//                Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
+////                    int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
+//                cost = cost - per;
+////                    ds_price.setText(per1+"%");
+//            }
+            Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
 //                    int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
-                cost = cost - per;
-//                    ds_price.setText(per1+"%");
-            }
+            cost = cost - per;
             tvCost.setText("$"+cost);
             tvDiscount.setVisibility(View.VISIBLE);
             Double co_price = Double.parseDouble(mPost.getCost());
@@ -364,14 +370,50 @@ public class ViewHolder extends BaseViewHolder{
                         String item = delet_item[which];
                         change_status_delete change_status = new change_status_delete(2,date,pk,item);
                         Service api = Client.getClient().create(Service.class);
+
                         Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
                         call.enqueue(new retrofit2.Callback<change_status_delete>() {
                             @Override
                             public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
 
-                                Intent intent = new Intent(itemView.getContext(), Account.class);
-                                itemView.getContext().startActivity(intent);
-                                ((Activity)itemView.getContext()).finish();
+                                Call<APIStorePostResponse> call1=api.GetStorePostItembyPost((int)mPost.getId());
+                                call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
+                                    @Override
+                                    public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
+                                        if(response.isSuccessful()){
+                                            Log.e("TAG","Result "+response.body().getCount());
+                                            if(response.body().getCount()>0){
+                                                StorePostViewModel item=response.body().getResults().get(0);
+                                                item.setRecord_status(2);
+                                                Call<StorePostViewModel> call2=api.updateDealerPostStatus(item.getId(),item);
+                                                call2.enqueue(new retrofit2.Callback<StorePostViewModel>() {
+                                                    @Override
+                                                    public void onResponse(Call<StorePostViewModel> call, Response<StorePostViewModel> response) {
+                                                        Log.e("TAG","update record post dealer status success. "+response.body());
+                                                        Intent intent = new Intent(itemView.getContext(), Account.class);
+                                                        itemView.getContext().startActivity(intent);
+                                                        ((Activity)itemView.getContext()).finish();
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<StorePostViewModel> call, Throwable t) {
+
+                                                    }
+                                                });
+
+                                            }else{
+
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<APIStorePostResponse> call, Throwable t) {
+
+                                    }
+                                });
+
+
                             }
 
                             @Override
@@ -379,11 +421,93 @@ public class ViewHolder extends BaseViewHolder{
 
                             }
                         });
+
+
                     }
                 });
                 dialog.create().show();
             }
         });
+
+                    btnSold.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                                switch (which){
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        //Toast.makeText(itemView.getContext(),R.string.button_remove,Toast.LENGTH_SHORT).show();
+                                        String date = null;
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            date = Instant.now().toString();
+                                        }
+                                        String removeSt = "";
+                                        change_status_delete change_status = new change_status_delete(7,date,pk,removeSt);
+                                        Service api = Client.getClient().create(Service.class);
+                                        Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                                        call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                                            @Override
+                                            public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+
+                                                Call<APIStorePostResponse> call1=api.GetStorePostItembyPost((int)mPost.getId());
+                                                call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
+                                                    @Override
+                                                    public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
+                                                        if(response.isSuccessful()){
+                                                            Log.e("TAG","Result "+response.body().getCount());
+                                                            if(response.body().getCount()>0){
+                                                                StorePostViewModel item=response.body().getResults().get(0);
+                                                                item.setRecord_status(2);
+                                                                Call<StorePostViewModel> call2=api.updateDealerPostStatus(item.getId(),item);
+                                                                call2.enqueue(new retrofit2.Callback<StorePostViewModel>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<StorePostViewModel> call, Response<StorePostViewModel> response) {
+                                                                        Log.e("TAG","update record post dealer status success. "+response.body());
+                                                                        Intent intent = new Intent(itemView.getContext(), Account.class);
+                                                                        itemView.getContext().startActivity(intent);
+                                                                        ((Activity)itemView.getContext()).finish();
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFailure(Call<StorePostViewModel> call, Throwable t) {
+
+                                                                    }
+                                                                });
+
+                                                            }else{
+
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<APIStorePostResponse> call, Throwable t) {
+
+                                                    }
+                                                });
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<change_status_delete> call, Throwable t) {
+
+                                            }
+                                        });
+                                        dialog.dismiss();
+                                        break;
+
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        dialog.dismiss();
+                                        break;
+                                }
+                            };
+                            AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                            builder.setMessage(R.string.post_sold_message_confirm).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                                    .setNegativeButton(R.string.no_remove, dialogClickListener).show();
+//                    builder.setMessage(R.string.remove_po).setPositiveButton(R.string.yes, dialogClickListener)
+//                            .setNegativeButton(R.string.no, dialogClickListener).show();
+                        }
+                    });
+
         Double finalPrice=cost;
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

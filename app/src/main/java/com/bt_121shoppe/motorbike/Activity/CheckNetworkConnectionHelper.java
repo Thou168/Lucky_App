@@ -109,7 +109,7 @@ public class CheckNetworkConnectionHelper extends SubscribeNetworkObserverChange
 
         if (getNetworkObserverList().isEmpty()
                 && mNetworkBroadcastReceiver != null) {
-            mAppCompatActivity.unregisterReceiver(mNetworkBroadcastReceiver);
+            //mAppCompatActivity.unregisterReceiver(mNetworkBroadcastReceiver);
             mCurrentContext = null;
             mNetworkBroadcastReceiver = null;
             removeInstance();

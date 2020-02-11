@@ -37,6 +37,7 @@ import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -132,10 +133,10 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 //            else
 //                strPostTitle=fullTitle.split(",")[1];
         }else {
-            if (lang.equals("View:")) {
+            if (lang.equals("View")) {
                 strPostTitle = model.getPost_sub_title().split(",")[0];
             } else {
-                strPostTitle = model.getPost_sub_title().split(",")[0];
+                strPostTitle = model.getPost_sub_title().split(",")[1];
             }
         }
         view.title.setText(strPostTitle);
@@ -146,7 +147,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.cate.setText(R.string.motor);
         }
 
-        String[] splitColor=model.getColor().split(",");
+        String[] splitColor=model.getMulti_color_code().split(",");
 
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.OVAL);
@@ -158,7 +159,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             GradientDrawable shape1 = new GradientDrawable();
             shape1.setShape(GradientDrawable.OVAL);
             shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-            view.tvColor2.setBackground(shape);
+            view.tvColor2.setBackground(shape1);
         }
 
         view.imgUserProfile.setVisibility(View.GONE);
@@ -176,7 +177,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 //                rs_price = rs_price - per;
 //            }
             double result = rs_price - Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
-            view.cost.setText("$"+result);
+            view.cost.setText("$"+String.format("%.2f", result));
             view.txt_discount.setVisibility(View.VISIBLE);
             double co_price = Double.parseDouble(model.getCost());
             view.txt_discount.setText("$"+co_price);
@@ -193,6 +194,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             intent.putExtra("ID",Integer.parseInt(iditem));
             mContext.startActivity(intent);
         });
+
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
 
         Calendar calendar = Calendar.getInstance();
@@ -259,6 +261,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         LinearLayout linearLayout;
         TextView tvColor1,tvColor2;
         TextView cate;
+        MaterialCardView mCardView;
         ViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.title);
@@ -277,6 +280,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             tvColor2=view.findViewById(R.id.tv_color2);
             cate=view.findViewById(R.id.cate);
             date=view.findViewById(R.id.date);
+            mCardView=view.findViewById(R.id.cardView);
         }
     }
 }

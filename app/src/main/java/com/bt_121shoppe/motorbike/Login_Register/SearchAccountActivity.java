@@ -129,7 +129,8 @@ public class SearchAccountActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                                     if(task.isSuccessful()){
                                                         Intent intent=new Intent(SearchAccountActivity.this,ResetPasswordActivity.class);
-                                                        intent.putExtra("phoneNumber",phonenumber);
+                                                        //intent.putExtra("phoneNumber",phonenumber);
+                                                        intent.putExtra("phoneNumber",user.getUsername());
                                                         intent.putExtra("password",user.getPassword());
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                         startActivity(intent);

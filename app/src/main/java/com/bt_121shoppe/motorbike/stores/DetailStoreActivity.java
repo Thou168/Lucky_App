@@ -27,7 +27,7 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.fragments.List_store_post;
-import com.bt_121shoppe.motorbike.fragments.history_store;
+import com.bt_121shoppe.motorbike.fragments.StoreHistoryFragment;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.android.material.tabs.TabLayout;
 
@@ -200,7 +200,10 @@ public class DetailStoreActivity extends AppCompatActivity implements TabLayout.
                     tab1.setArguments(bundle);
                     return tab1;
                 case 1:
-                    history_store tab2 = new history_store();
+                    Bundle bundle1=new Bundle();
+                    StoreHistoryFragment tab2 = new StoreHistoryFragment();
+                    bundle1.putInt("shopId",shopId);
+                    tab2.setArguments(bundle1);
                     return tab2;
                 default:
                     return null;

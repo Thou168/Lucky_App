@@ -25,7 +25,7 @@
                 android:id="@+id/tvBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/chevron_left_36"
+                android:drawableLeft="@drawable/back_arrow_x1"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_16" />
@@ -53,6 +53,7 @@
                     android:id="@+id/tv_active_duration"
                     android:textSize="11sp"
                     android:text=""
+                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:gravity="center" />
                 <TextView
@@ -71,6 +72,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/bar_layout"
         android:padding="4dp"
+
         android:background="@color/white"
         android:id="@+id/rlPost">
 
@@ -138,10 +140,10 @@
             android:layout_centerVertical="true"/>
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:id="@+id/btn_send"
-            android:background="@drawable/ic_action_name"
+            android:background="@drawable/path_3741"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true" />
 

@@ -58,7 +58,7 @@ public class Search1 extends AppCompatActivity {
     RecyclerView rv;
     ArrayList<Item> items;
 //    Bundle bundle;
-    String category,model,year,title_filter;
+    String category,model,year,title_filter,post_type;
     TextView not_found;
     ImageView tv_filter;
     TextView show_view;
@@ -130,7 +130,7 @@ public class Search1 extends AppCompatActivity {
                 cardView.setVisibility(View.GONE);
 
                 String title = sv.getQuery().toString();
-                Search_data(title,category,model,year, min, max);
+                Search_data(title,category,model,year, min, max,post_type);
                 return false;
             }
 
@@ -157,9 +157,12 @@ public class Search1 extends AppCompatActivity {
         currentFragment = this.getSupportFragmentManager().findFragmentById(R.id.frameLayout);
     }
 
-    private  void Search_data(String title, String category, String model, String year, int min, int max){
-//        String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
-        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?post_type="+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
+    private  void Search_data(String title, String category, String model, String year, int min, int max,String post_type){
+       //String url1 = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
+        post_type=post_type==null?"":post_type;
+        String strmin=min==0?"":String.valueOf(min);
+        String strmax=max==0?"":String.valueOf(max);
+        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
         Log.d("Url:",url1);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -200,7 +203,7 @@ public class Search1 extends AppCompatActivity {
                                 String post_type = object.getString("post_type");
                                 String discount_type = object.getString("discount_type");
                                 Double discount = object.getDouble("discount");
-                                String color = object.getString("color");
+                                String color = object.getString("multi_color_code");
                                 int model1 = object.getInt("modeling");
                                 int year1 = object.getInt("year");
                                 int category = object.getInt("category");
@@ -304,11 +307,12 @@ public class Search1 extends AppCompatActivity {
                     year = data.getStringExtra("year");
                     min = data.getIntExtra("min_price",0);
                     max = data.getIntExtra("max_price",0);
+                    post_type=data.getStringExtra("posttype");
                     sv.setQuery(title_filter, false);
 
                     mProgress.setVisibility(View.VISIBLE);
-                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+",");
-                    Search_data(title_filter, category, model, year,min,max);
+                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+","+post_type);
+                    Search_data(title_filter, category, model, year,min,max,post_type);
                 }
             }
         }

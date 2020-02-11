@@ -162,6 +162,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
+        //filter.setVisibility(View.GONE);
         filter.setVisibility(View.VISIBLE);
         best_match.setOnClickListener(v -> {
 
@@ -269,6 +270,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                     List<StorePostViewModel> postListItems=response.body().getResults();
                     for(int i=0;i<postListItems.size();i++){
                         StorePostViewModel item=postListItems.get(i);
+
                         DatabaseReference reference= FirebaseDatabase.getInstance().getReference();
                         Query myQuery=reference.child(ConsumeAPI.FB_POST).orderByChild("createdAt");
                         myQuery.addValueEventListener(new ValueEventListener() {
@@ -283,7 +285,8 @@ public class StoreDetailActivity extends AppCompatActivity {
                                         String type=obj.getString("type");
                                         int status=obj.getInt("status");
                                         String discountAmount=obj.getString("discountAmount");
-                                        if(status==4 && Double.parseDouble(discountAmount)<=0 && !type.equals("buy") && dbPostId.equals(String.valueOf(item.getPost()))){
+                                        if(status==4 && !type.equals("buy") && dbPostId.equals(String.valueOf(item.getPost()))){
+
                                             String createdAt = obj.getString("createdAt");
                                             long diffInDays=0;
                                             if(createdAt!=null) {
@@ -300,6 +303,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                                                 diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
                                             }
                                             if(diffInDays<=15) {
+
                                                 String id = obj.getString("id");
                                                 int user_id = obj.getInt("createdBy");
                                                 String coverUrl = obj.getString("coverUrl");
@@ -311,6 +315,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                                                 //String type = obj.getString("type");
                                                 //String[] splitTitle=title.split(",");
                                                 mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
+                                                Log.e("TAG","Filter Post "+id+" Size "+mAllPosts.size());
                                             }
                                         }
                                     }catch (JSONException | ParseException je) {
@@ -318,11 +323,10 @@ public class StoreDetailActivity extends AppCompatActivity {
                                     }
                                 }
 
-
                                 if(mAllPosts.size()==0){
-                                    mAllPostsNoResult.setVisibility(View.VISIBLE);
+                                    //mAllPostsNoResult.setVisibility(View.VISIBLE);
                                 }else {
-                                    mAllPostsNoResult.setVisibility(View.GONE);
+                                    //mAllPostsNoResult.setVisibility(View.GONE);
                                     //Collections.sort(mAllPosts, (s1, s2)->Integer.compare(s2.getId(),s1.getId()));
                                     switch (index){
                                         case 0:
@@ -338,7 +342,6 @@ public class StoreDetailActivity extends AppCompatActivity {
                                             Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s2.getPostPrice()), Double.valueOf(s1.getPostPrice())));
                                             break;
                                     }
-
 
                                     mAllPostAdapter.addItems(mAllPosts);
                                     mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
@@ -674,14 +677,15 @@ public class StoreDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
                 if(response.isSuccessful()){
+                    Log.e("TAG","Shop Detail "+response.body().getShop_view());
                     ShopViewModel shop=response.body();
                     int oldView=shop.getShop_view();
                     shop.setShop_view(oldView+1);
                     retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(shopId,shop);
                     call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
                         @Override
-                        public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
-                            Log.e("TAG","Submit count view sucess "+response.body());
+                        public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response1) {
+                            Log.e("TAG","Submit count view sucess "+response1.message());
                         }
 
                         @Override

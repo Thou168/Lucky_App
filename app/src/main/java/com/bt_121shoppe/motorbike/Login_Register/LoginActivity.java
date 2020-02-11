@@ -380,6 +380,7 @@ public class LoginActivity extends AppCompatActivity {
                     converting(mMessage,username,password);
                 }else {
                     //mProgress.dismiss();
+                    Log.e("TAG","Login Error "+response.body());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -623,6 +624,7 @@ public class LoginActivity extends AppCompatActivity {
                     converting(mMessage);
 
                 }else {
+                    Log.e("TAG","Login error "+response.body().string());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

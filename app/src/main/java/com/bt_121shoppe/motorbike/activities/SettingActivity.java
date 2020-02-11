@@ -366,7 +366,8 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         });
     }
     private void ChangePassWithFirebase(String newPass){
-        String newPassword=newPass+"__";
+        //String newPassword=newPass+"__";
+        String newPassword=newPass;
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         if (fuser != null) {
             Query query = reference.child("users").orderByChild(fuser.getUid());

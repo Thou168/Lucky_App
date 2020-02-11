@@ -27,6 +27,7 @@ public class UserProfileModel {
     private String place_of_birth;
     private String status;
     private int[] groups;
+    private int group;
 
     public int getId(){return id;}
     public String getUsername(){return username;}
@@ -89,5 +90,13 @@ public class UserProfileModel {
 
     public void setGroups(int[] groups) {
         this.groups = groups;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 }

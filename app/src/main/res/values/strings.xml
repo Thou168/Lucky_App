@@ -176,7 +176,7 @@
     <string name="account_setting">Account Setting</string>
     <string name="txt_account_setting">Account Setting</string>
     <string name="hit_fistname">Fist Name</string>
-    
+
     //call to
     <string name="call_to_seller">Call to the seller</string>
 
@@ -638,7 +638,6 @@
 
     <string name="delete_loan">Are you sure you want to cancel this loan?</string>
     <string name="remove_po">Are you sure you want to remove this post?</string>
-    <string name="sold_po">Are you sure you want to sold this post?</string>
     <string name="cancel_loan">Cancel loan</string>
     <string name="permission">Need Permissions</string>
     <string name="setting_permission">This phone needs permission to use this feature. You can grant them in phone settings.</string>
@@ -1126,4 +1125,6 @@
     <string name="updatee">Update</string>
     <string name="list_draft">List Draft</string>
     <string name="re_password">Re-Password</string>
+    <string name="post_sold_message_confirm">Message</string>
+    <string name="sold_po">Sale</string>
 </resources>

@@ -562,7 +562,6 @@ public class ChatMainActivity extends AppCompatActivity {
                 }
             }
 
-
         }
     private void lastMessage(String userid, String postid, TextView last_msg) {
         theLastMessage = "default";
@@ -574,9 +573,11 @@ public class ChatMainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
-                    if ((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) && chat.getPost().equals(postid)) {
-                        theLastMessage = chat.getMessage();
+                    if(chat.getReceiver()!=null){
+                        if ((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
+                                chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) && chat.getPost().equals(postid)) {
+                            theLastMessage = chat.getMessage();
+                        }
                     }
                 }
                 switch (theLastMessage) {
@@ -608,14 +609,17 @@ public class ChatMainActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
                     Log.e("isSeen", String.valueOf(chat.isIsseen()));
-                    if ((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) && chat.getPost().equals(postid)) {
-                        if (!chat.isIsseen()) {
-                            title.setTextAppearance(ChatMainActivity.this, R.style.ListnUnseen);
-                        } else {
-                            title.setTextAppearance(ChatMainActivity.this, R.style.ListSeen);
+                    if(chat.getReceiver()!=null){
+                        if ((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
+                                chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) && chat.getPost().equals(postid)) {
+                            if (!chat.isIsseen()) {
+                                title.setTextAppearance(ChatMainActivity.this, R.style.ListnUnseen);
+                            } else {
+                                title.setTextAppearance(ChatMainActivity.this, R.style.ListSeen);
+                            }
                         }
                     }
+
                 }
             }
 

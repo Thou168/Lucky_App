@@ -121,7 +121,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                        else
 //                            strPostTitle=fullTitle.split(",")[1];
                     }else {
-                        if (lang.equals("View:")) {
+                        if (lang.equals("View")) {
                             strPostTitle = response.body().getPost_sub_title().split(",")[0];
                         } else {
                             if(strPostTitle.length()>1)
@@ -140,7 +140,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                    }
 //
 //End
-                    String[] splitColor=response.body().getColor().split(",");
+                    String[] splitColor=response.body().getMulti_color_code().split(",");
 
                     GradientDrawable shape = new GradientDrawable();
                     shape.setShape(GradientDrawable.OVAL);
@@ -152,7 +152,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         GradientDrawable shape1 = new GradientDrawable();
                         shape1.setShape(GradientDrawable.OVAL);
                         shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                        view.tvColor2.setBackground(shape);
+                        view.tvColor2.setBackground(shape1);
                     }
 
                     Double rs_price=0.0;
@@ -160,10 +160,10 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         Double co_cost = Double.parseDouble(response.body().getCost());
                         view.cost.setText("$"+co_cost);
                         view.linearLayout.setOnClickListener(v -> {
-                        Intent intent = new Intent(mContext, Detail_new_post_java.class);
-                        intent.putExtra("ID",Integer.parseInt(iditem));
-                        mContext.startActivity(intent);
-                    });
+                            Intent intent = new Intent(mContext, Detail_new_post_java.class);
+                            intent.putExtra("ID",Integer.parseInt(iditem));
+                            mContext.startActivity(intent);
+                        });
                     }else {
 //                        rs_price = Double.parseDouble(response.body().getCost());
 //                        if (response.body().getDiscount_type().equals("amount")){

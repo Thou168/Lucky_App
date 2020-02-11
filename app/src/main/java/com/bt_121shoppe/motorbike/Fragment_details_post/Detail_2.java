@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,10 +29,15 @@ import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
+import com.bt_121shoppe.motorbike.post.PostDetailMapActivity;
 import com.bt_121shoppe.motorbike.stores.StoreDetailActivity;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -81,8 +88,8 @@ public class Detail_2 extends Fragment {
     SharedPreferences prefer;
     private String name,pass,Encode;
     String basic_Encode;
-
     String postUsername,postUserId;
+    ImageView mapImageView;
 
     @Nullable
     @Override
@@ -98,6 +105,7 @@ public class Detail_2 extends Fragment {
 
         cr_img = view.findViewById(R.id.cr_img);
         username = view.findViewById(R.id.us_name);
+        mapImageView=view.findViewById(R.id.map_icon);
 
         tv_phone.setText("PHONE");
         tv_email.setText("EMAIL");
@@ -147,11 +155,13 @@ public class Detail_2 extends Fragment {
                             public void run() {
                                 CommomAPIFunction.getUserProfileFB(getActivity(),cr_img,user1.getUsername());
 
-                                if(user1.getProfile().getFirst_name()==null)
+                                if(user1.getFirst_name()==null)
                                     postUsername=user1.getUsername();
                                 else
-                                    postUsername=user1.getProfile().getFirst_name();
+                                    postUsername=user1.getFirst_name();
                                 postUserId=user1.getUsername();
+                                username.setText(postUsername);
+
 
 //                        user_telephone.setText(user1.profile.telephone)
 //                        user_email.setText(user1.email)
@@ -177,27 +187,6 @@ public class Detail_2 extends Fragment {
             }
         });
     }
-
-//    private void onMapReady(GoogleMap googleMap) {
-//        // Creating a marker
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        // Setting the position for the marker
-//        markerOptions.position(new LatLng(latitude,longtitude));
-//        if (googleMap != null) {
-//            mMap = googleMap;
-//        }
-//        LatLng current_location = new  LatLng(latitude, longtitude);
-//        mMap.animateCamera(CameraUpdateFactory.zoomIn());
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(5f), 2000, null);
-//        CameraPosition cameraPosition = new  CameraPosition.Builder()
-//                .target(current_location)
-//                .zoom(14f)
-//                .bearing(90f)
-//                .tilt(30f)
-//                .build();
-//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//        mMap.addMarker(markerOptions);
-//    }
 
     private void detail_fragment_2(String encode){
         String url;
@@ -232,13 +221,29 @@ public class Detail_2 extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String mMessage = response.body().string();
-                Log.d(TAG+"3333",mMessage);
+                //Log.d(TAG+"3333",mMessage);
                 Gson json = new Gson();
                 try {
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(() -> {
                             postDetail = json.fromJson(mMessage, PostViewModel.class);
                             Log.e(TAG, "D" + mMessage);
+                            Service api = Client.getClient().create(Service.class);
+                            retrofit2.Call<APIStorePostResponse> call1=api.GetStorePostItembyPost(postId);
+                            call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
+                                @Override
+                                public void onResponse(retrofit2.Call<APIStorePostResponse> call, retrofit2.Response<APIStorePostResponse> response) {
+                                    if(response.isSuccessful()){
+                                        Log.e("TAG","Count Shop Post "+response.body().getCount());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(retrofit2.Call<APIStorePostResponse> call, Throwable t) {
+
+                                }
+                            });
+
                             tv_email.setText(postDetail.getContact_email());
                             username.setText(postDetail.getMachine_code());
                             int created_by = Integer.parseInt(postDetail.getCreated_by());
@@ -257,9 +262,11 @@ public class Detail_2 extends Fragment {
 
                             //address
                             String addr = postDetail.getContact_address();
+                            //Log.e("TAG","Post Address "+addr);
                             if (addr.isEmpty()) {
 
                             } else {
+
                                 String[] splitAddr = (addr.split(","));
                                 latitude = Double.valueOf(splitAddr[0]);
                                 longtitude = Double.valueOf(splitAddr[1]);
@@ -276,6 +283,21 @@ public class Detail_2 extends Fragment {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+
+                                mapImageView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if(ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)
+                                                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                                                (getContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                                            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+                                        }else{
+                                            Intent intent=new Intent(getActivity(), PostDetailMapActivity.class);
+                                            intent.putExtra("addresslatlong",addr);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
                             }
                         });
                     }

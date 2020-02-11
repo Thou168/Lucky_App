@@ -196,9 +196,9 @@ public class CommonFunction {
         }catch (IOException ioe){
             ioe.printStackTrace();
         }
-
-        postSubTitleEN=postSubTitleEN+" "+colorEn;
-        postSubTitleKH=postSubTitleKH+" "+colorKH;
+        //block on feb 10 2020
+        //postSubTitleEN=postSubTitleEN+" "+colorEn;
+        //postSubTitleKH=postSubTitleKH+" "+colorKH;
 
         return postSubTitleEN+","+postSubTitleKH;
     }
@@ -304,6 +304,7 @@ public class CommonFunction {
     }
 
     public static String getColorHexbyColorName(String color){
+
         String hexColor="";
         switch (color){
             case "blue":
@@ -340,6 +341,7 @@ public class CommonFunction {
                 hexColor="#00000000";
                 break;
         }
+        Log.e("TAG","Color with Code "+color+":"+hexColor);
         return hexColor;
     }
 }

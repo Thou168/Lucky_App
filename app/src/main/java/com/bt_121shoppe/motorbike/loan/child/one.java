@@ -360,7 +360,7 @@ public class one extends Fragment{
                 list_village = response.body().getresults();
                 village = new String[list_village.size()];
                 int count=0;
-                Log.d("size village", String.valueOf(list_Commmune.size()));
+                //Log.d("size village", String.valueOf(list_Commmune.size()));
                 for (int i=0;i<list_village.size();i++){
                     if (list_village.get(i).getCommuneId() == communeID) {
                         if (currentLanguage.equals("en")) {

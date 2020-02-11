@@ -54,6 +54,7 @@ public class PostViewModel {
     private String used_machine3;
     private String used_machine4;
     private String used_other1;
+    private String multi_color_code;
     private List<detail_shop> dealer_shops;
 
     public String getUsed_eta1() {
@@ -455,6 +456,12 @@ public class PostViewModel {
         this.post_sub_title = post_sub_title;
     }
 
+    public String getMulti_color_code() {
+        return multi_color_code;
+    }
 
+    public void setMulti_color_code(String multi_color_code) {
+        this.multi_color_code = multi_color_code;
+    }
 }
 

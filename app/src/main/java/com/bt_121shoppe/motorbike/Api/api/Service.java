@@ -25,8 +25,10 @@ import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.loan.model.Draft;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
+import com.bt_121shoppe.motorbike.models.DealerPostViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.models.YearViewModel;
 
@@ -89,7 +91,9 @@ public interface Service {
     Call<AllResponse> getPostbyuser(@Header("Authorization") String authorization);
     @GET("postbyuser/{id}/")
     Call<Item> getPostItem(@Path("id") int id,@Header("Authorization") String authorization);
-    @GET("posybyuserhistory/?status=2")
+//    @GET("posybyuserhistory/?status=2")
+//    Call<AllResponse> getpostbyhistory(@Header("Authorization") String authorization);
+    @GET("posybyuserhistory/")
     Call<AllResponse> getpostbyhistory(@Header("Authorization") String authorization);
     @GET("likebyuser/")
     Call<AllResponse> getLikebyuser(@Header("Authorization") String authorization);
@@ -202,6 +206,8 @@ public interface Service {
 
     @GET("api/v1/shop/")
     Call<APIShopResponse> GetStoreList();
+    @GET("api/v1/shop/?shop_province=")
+    Call<APIShopResponse> GetStoreList(@Query("shop_province") int shop_province);
 
     @GET("api/v1/postdealershop/?record_status=1&shop=")
     Call<APIStorePostResponse> GetStoreActivePost(@Query("shop") int shop);
@@ -209,7 +215,15 @@ public interface Service {
     @GET("api/v1/postdealershop/?record_status=2&shop=")
     Call<APIStorePostResponse> GetStoreHistoryPost(@Query("shop") int shop);
 
+    @GET("api/v1/postdealershop/?record_status=&shop=&post=")
+    Call<APIStorePostResponse> GetStorePostItembyPost(@Query("post") int post);
+
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/shop/{id}/")
     Call<ShopViewModel> updateShopCountView(@Path("id") int id, @Body ShopViewModel shopViewModel);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("api/v1/postdealershop/{id}/")
+    Call<StorePostViewModel> updateDealerPostStatus(@Path("id") int id, @Body StorePostViewModel shopViewModel);
+
 }

@@ -35,6 +35,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?,val context: Context) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
@@ -72,7 +75,15 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(itemList[position],context)
+
+        //holder.bindItems(itemList[position],context)
+        if(position<itemList.size){
+            val item=itemList.get(position)
+            if(item!=null){
+                holder.bindItems(item,context)
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -111,9 +122,12 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 price = item.cost - item.discount!!.toInt()
                 discount =  item.cost* (item.discount?.div(100))!!
                 price = item.cost - discount
-                cost.text = "$$price"
+                val stprice=NumberFormat.getNumberInstance(Locale.US).format(price)
+                //cost.text = "$$price"
+                cost.text = "$$stprice"
 
-                val st = "$"+item.cost.toString()
+                //val st = "$"+item.cost.toString()
+                val st = "$"+NumberFormat.getNumberInstance(Locale.US).format(item.cost)
                 val ms = SpannableString(st)
                 val mst = StrikethroughSpan()
                 ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -122,10 +136,12 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             language=lang.text.toString()
             var strPostTitle:String = ""
             if (item.postsubtitle.isNotEmpty()){
-                if (language.equals("View:")){
+                if (language.equals("View")){
                     strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                 }else{
-                    strPostTitle = item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                    val spit=item.postsubtitle.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    if(spit.size>1)
+                        strPostTitle = spit[1]
                 }
             } else{
 //                val postTitle=CommonFunction.generatePostSubTitle(item.modeling,item.year,item.color)
@@ -154,11 +170,13 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
 
             //            GradientDrawable backgroundGradient = (GradientDrawable)tvColor1.getBackground();
 //            backgroundGradient.setColor(itemView.getContext().getResources().getColor(R.color.logo_green));
+            tvColor2.visibility = View.GONE
+            tvColor1.visibility = View.GONE
             if(item.color!= null){
                 val splitColor: Array<String> = item.color.split(",").toTypedArray()
                 val shape = GradientDrawable()
                 if(splitColor[0].isNotEmpty()){
-
+                    tvColor1.visibility = View.VISIBLE
                     shape.shape = GradientDrawable.OVAL
                     shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])))
                     tvColor1.background = shape
@@ -170,7 +188,7 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                     val shape1 = GradientDrawable()
                     shape1.shape = GradientDrawable.OVAL
                     shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])))
-                    tvColor2.background = shape
+                    tvColor2.background = shape1
                 }
             }
 

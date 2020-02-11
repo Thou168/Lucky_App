@@ -104,7 +104,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
 //                            strPostTitle=fullTitle.split(",")[1];
                     }else {
                         String[] splitTitle=response.body().getPost_sub_title().split(",");
-                        if (lang.equals("View:")) {
+                        if (lang.equals("View")) {
                             strPostTitle = splitTitle[0];
                         } else {
                             strPostTitle = splitTitle.length==1?splitTitle[0]:splitTitle[1];
@@ -119,7 +119,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         view.cate.setText(R.string.motor);
                     }
 
-                    String[] splitColor=response.body().getColor().split(",");
+                    String[] splitColor=response.body().getMulti_color_code().split(",");
 
                     GradientDrawable shape = new GradientDrawable();
                     shape.setShape(GradientDrawable.OVAL);
@@ -131,7 +131,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         GradientDrawable shape1 = new GradientDrawable();
                         shape1.setShape(GradientDrawable.OVAL);
                         shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                        view.tvColor2.setBackground(shape);
+                        view.tvColor2.setBackground(shape1);
                     }
 
                     if (response.body().getPost_type().equals("sell")){

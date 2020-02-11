@@ -13,48 +13,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2f9b0df-44e8-4b4f-a85b-945da936516e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/responses/APIStorePostResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/DealerPostViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/StorePostViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/BottomSheetDialog/BottomChooseProvince.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/FBPostViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/post/PostDetailMapActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/roundimage_history.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_post_detail_map.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/choose_province.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/CheckNetworkConnectionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/CheckNetworkConnectionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Detail_new_post_java.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Detail_new_post_java.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Postbyuser_Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Postbyuser_Class.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_ListStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_ListStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historyloan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historyloan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post_history.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post_history.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/UserResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/UserResponseModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/Register.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ResetPasswordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ResetPasswordActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/SearchAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/SearchAccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/UserAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/UserAccountActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Dealerstore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/DealerStoreActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/CheckGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/CheckGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/DealerStoreActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/DealerStoreActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/NotificationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/NotificationActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/AllPostAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/AllPostAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/PostBestDealAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/PostBestDealAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/List_store_post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/List_store_post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/ShopViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/ShopViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/CreateShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/CreateShop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/Detail_store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/DetailStoreActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/history_store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/StoreHistoryFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/PostViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/PostViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/UserProfileModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/UserProfileModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/DetailStoreActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/DetailStoreActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/Filter_shopdetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/Filter_shopdetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommomAPIFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommomAPIFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_chat_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_chat_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_reset_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_reset_password.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_search_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_search_account.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/dealer_store.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/dealer_store.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/detail_store.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/detail_store.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommonFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommonFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_chat.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_detail_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_detail_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_detail_newpost_java.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_detail_newpost_java.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_list2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_list2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_list_store.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_list_store.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +84,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="84RDU16B15004614" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RKQGGA75SWBYQWNJ" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -120,158 +139,70 @@
     <favorites_list name="app" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.48456377">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/ListStore.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/ShopViewModel.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-954">
-                  <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-                  <folding>
-                    <element signature="e#2346#2347#0" expanded="true" />
-                    <element signature="e#2378#2379#0" expanded="true" />
-                    <element signature="e#2414#2415#0" expanded="true" />
-                    <element signature="e#2446#2447#0" expanded="true" />
-                    <element signature="e#2496#2497#0" expanded="true" />
-                    <element signature="e#2538#2539#0" expanded="true" />
-                    <element signature="e#2585#2586#0" expanded="true" />
-                    <element signature="e#2627#2628#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/history_store.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="433">
-                  <caret line="90" column="85" selection-start-line="90" selection-start-column="85" selection-end-line="90" selection-end-column="85" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/List_store_post.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="205">
-                  <caret line="185" column="61" selection-start-line="185" selection-start-column="61" selection-end-line="185" selection-end-column="61" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="450">
-                  <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
-                  <folding>
-                    <element signature="e#2114#2115#0" expanded="true" />
-                    <element signature="e#2143#2144#0" expanded="true" />
-                    <element signature="e#6427#6446#0" expanded="true" />
-                    <element signature="e#6490#6504#0" expanded="true" />
-                    <element signature="e#7027#7042#0" expanded="true" />
-                    <element signature="e#7316#7329#0" expanded="true" />
-                    <element signature="e#10628#10644#0" expanded="true" />
-                    <element signature="e#10814#10828#0" expanded="true" />
-                    <element signature="e#10954#10975#0" expanded="true" />
-                    <element signature="e#11009#11028#0" expanded="true" />
-                    <element signature="e#13014#13033#0" expanded="true" />
-                    <element signature="e#13203#13217#0" expanded="true" />
-                    <element signature="e#13343#13364#0" expanded="true" />
-                    <element signature="e#13398#13417#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="198">
-                  <caret line="223" column="30" selection-start-line="223" selection-start-column="30" selection-end-line="223" selection-end-column="30" />
-                  <folding>
-                    <element signature="class#3593:4507" />
-                    <element signature="class#4552:7743" />
-                    <element signature="e#5471#5486#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="122">
-                  <caret line="80" column="33" selection-start-line="80" selection-start-column="33" selection-end-line="80" selection-end-column="34" />
-                  <folding>
-                    <element signature="e#908#909#0" expanded="true" />
-                    <element signature="e#947#948#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/List_store_post.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="100" column="21" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="21" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="234">
-                  <caret line="238" column="25" selection-start-line="238" selection-start-column="25" selection-end-line="238" selection-end-column="25" />
-                  <folding>
-                    <element signature="e#5713#5714#0" expanded="true" />
-                    <element signature="e#5753#5754#0" expanded="true" />
-                    <element signature="e#5881#8079#0" />
-                    <element signature="e#17284#26689#0" />
-                    <element signature="e#26695#27689#0" />
-                    <element signature="e#27861#27973#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/DetailStoreActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="331">
-                  <caret line="197" column="29" selection-start-line="197" selection-start-column="29" selection-end-line="197" selection-end-column="29" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3942">
+              <caret line="400" column="20" selection-start-line="400" selection-start-column="20" selection-end-line="400" selection-end-column="114" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="505" column="32" selection-start-line="505" selection-start-column="32" selection-end-line="505" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="93" column="75" selection-start-line="93" selection-start-column="75" selection-end-line="93" selection-end-column="75" />
+              <folding>
+                <element signature="e#978#979#0" expanded="true" />
+                <element signature="e#1017#1018#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="316" column="182" selection-start-line="316" selection-start-column="168" selection-end-line="316" selection-end-column="182" />
+              <folding>
+                <element signature="e#27948#37353#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/postbyuser_layout.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="329" selection-start-line="329" selection-end-line="329" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="211" column="31" selection-start-line="211" selection-start-column="17" selection-end-line="211" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -279,33 +210,15 @@
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
         <option value="Interface" />
-        <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
-        <option value="layoutResourceFile" />
+        <option value="resourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ACCESS_NETWORK_STATE</find>
-      <find>Dexter</find>
-      <find>isForceUpdate</find>
-      <find>buildAlertMessageNoGps</find>
-      <find>circle</find>
-      <find>mNestedScrollView</find>
-      <find>com.squareup.okhttp</find>
-      <find>com.google.firebase:firebase</find>
-      <find>red</find>
-      <find>searchFBUser</find>
-      <find>MyStyle</find>
-      <find>StoreListActivity</find>
-      <find>onRefresh</find>
-      <find>com.google.android.material:material</find>
-      <find>email</find>
-      <find>userEmail</find>
-      <find>registerUserFirebase</find>
-      <find>tv_dox</find>
       <find>back_view</find>
       <find>image</find>
       <find>bitmapImage1</find>
@@ -318,6 +231,24 @@
       <find>RUN RESULT</find>
       <find>postbyuser</find>
       <find>getputStatus</find>
+      <find>getPostItem</find>
+      <find>postId</find>
+      <find>postFrontImage</find>
+      <find>postTitle</find>
+      <find>text_userid</find>
+      <find>tvreceiver</find>
+      <find>userId</find>
+      <find>userOwnerId</find>
+      <find>getUserToInformation</find>
+      <find>postUserId</find>
+      <find>Response</find>
+      <find>ItemClickListener</find>
+      <find>strColorKH</find>
+      <find>onConnectionChange</find>
+      <find>Error occurred.</find>
+      <find>map_icon</find>
+      <find>getGroup</find>
+      <find>location1</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -333,64 +264,65 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/res/layout/item_list.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/AllPostAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/res/anim/fadein.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/SplashScreenActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/best_match_dialog.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Detail_new_post_java.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Dealerstore.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/dealer_item.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/drawable-hdpi/post_background.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/dealer_store.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/detail_store.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_store_detail_post_list.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommomAPIFunction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Postbyuser_Class.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/PostBestDealAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/HomeOldActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_chat.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_search_account.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_reset_password.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/SearchAccountActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ResetPasswordActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_chat_main.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/NotificationActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/item_notification.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/Register.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/ShopViewModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/DealerPostViewModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/Detail_store.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/DetailStoreActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_ListStore.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/CreateShop.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/responses/APIStorePostResponse.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/StorePostViewModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/List_store_post.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_detail_newpost_java.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Filter.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/province_string_array.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/choose_province.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/BottomSheetDialog/BottomChooseProvince.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_store_list.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/Register.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/Item.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommonFunction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/AllPostAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/PostViewModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historyloan.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/CheckNetworkConnectionHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_detail_2.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/UserProfileModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/UserResponseModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/CheckGroup.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_post_detail_map.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/post/PostDetailMapActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_2.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Detail_new_post_java.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommomAPIFunction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Postbyuser_Class.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/PostBestDealAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+    <option name="x" value="951" />
+    <option name="y" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -401,15 +333,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="RKQGGA75SWBYQWNJ" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-12-24T08:50:36.352Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-02-08T07:43:34.612Z" />
     <property name="ExportApk.ApkPath" value="D:\Bokor Technology\Source Code\121Shoppe\121\app" />
     <property name="ExportApk.BuildVariants" value="release" />
     <property name="ExportApk.SignV1" value="true" />
@@ -434,11 +366,11 @@
       <recent name="com.example.lucky_app.useraccount" />
     </key>
     <key name="android.template.packageName">
+      <recent name="com.bt_121shoppe.motorbike.post" />
       <recent name="com.bt_121shoppe.motorbike.activities" />
       <recent name="com.bt_121shoppe.motorbike.Activity" />
       <recent name="com.bt_121shoppe.motorbike.Fragment" />
       <recent name="com.bt_121shoppe.motorbike.loan" />
-      <recent name="com.bt_121shoppe.motorbike.homes" />
     </key>
     <key name="android.template.parentActivityClass">
       <recent name="" />
@@ -557,13 +489,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1561799883606</updated>
-    </task>
-    <task id="LOCAL-00012" summary="count view, show view, convert post time">
-      <created>1562988109150</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1562988109150</updated>
     </task>
     <task id="LOCAL-00013" summary="count view, show view, convert post time">
       <created>1563164664100</created>
@@ -901,7 +826,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579660613296</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Fix bug">
+      <created>1580900700887</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1580900700888</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TodoView">
@@ -925,25 +857,25 @@
       <window_info id="Resources Explorer" order="5" weight="0.3261745" />
       <window_info id="Favorites" order="6" side_tool="true" weight="0.3295302" />
       <window_info id="Captures" order="7" sideWeight="0.50708216" side_tool="true" weight="0.5696118" />
-      <window_info content_ui="combo" id="Project" order="8" sideWeight="0.48866856" weight="0.25637585" />
+      <window_info content_ui="combo" id="Project" order="8" sideWeight="0.48866856" weight="0.2033557" />
       <window_info anchor="bottom" id="TODO" order="0" weight="0.32719547" />
       <window_info anchor="bottom" id="Debug" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.32857144" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.2865772" side_tool="true" weight="0.33002833" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.31342283" side_tool="true" weight="0.28186968" />
       <window_info anchor="bottom" id="Flutter Performance" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Android Profiler" order="5" sideWeight="0.4962527" weight="0.39548022" />
       <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49731544" weight="0.5339943" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.6308725" weight="0.35977337" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.6865772" weight="0.28186968" />
       <window_info anchor="bottom" id="Find" order="8" weight="0.5184136" />
       <window_info anchor="bottom" id="Logcat" order="9" weight="0.5495751" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32909605" />
-      <window_info anchor="bottom" id="Run" order="11" sideWeight="0.71342283" weight="0.3555241" />
+      <window_info active="true" anchor="bottom" id="Run" order="11" sideWeight="0.7127517" visible="true" weight="0.305949" />
       <window_info anchor="right" id="Kotlin Bytecode" order="0" weight="0.32976446" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.3295302" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Flutter Inspector" order="4" />
-      <window_info anchor="right" id="Preview" order="5" sideWeight="0.49858356" weight="0.35369128" />
+      <window_info anchor="right" id="Preview" order="5" sideWeight="0.49858356" weight="0.34630874" />
       <window_info anchor="right" id="Flutter Outline" order="6" weight="0.32929516" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Assistant" order="8" weight="0.33221477" />
@@ -991,7 +923,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="speed performance..." />
     <MESSAGE value="performance loading with firebase" />
     <MESSAGE value="chat notification...." />
     <MESSAGE value="Other fixing" />
@@ -1016,7 +947,8 @@
     <MESSAGE value="fix bug change profile image" />
     <MESSAGE value="user store" />
     <MESSAGE value="Fix bug with upload profile image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bug with upload profile image" />
+    <MESSAGE value="Fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1031,450 +963,422 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainLoanList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/Loadbyuser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1152">
+        <state relative-caret-position="342">
           <caret line="92" column="42" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/ResetPasswordActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Product_New_Post/MyAdapter_list_grid_image.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2322">
-          <caret line="178" column="38" selection-start-line="178" selection-start-column="38" selection-end-line="178" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="222" column="82" lean-forward="true" selection-start-line="222" selection-start-column="82" selection-end-line="222" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/FacebookLoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/UserAccountActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="172" column="45" lean-forward="true" selection-start-line="172" selection-start-column="45" selection-end-line="172" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="490" column="36" selection-start-line="490" selection-start-column="17" selection-end-line="490" selection-end-column="36" />
+        <state relative-caret-position="2070">
+          <caret line="168" column="63" selection-start-line="168" selection-start-column="63" selection-end-line="168" selection-end-column="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="278" lean-forward="true" selection-start-line="278" selection-end-line="278" />
+        <state relative-caret-position="-122">
+          <caret line="611" column="25" selection-start-line="611" selection-start-column="25" selection-end-line="611" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="367" column="77" selection-start-line="367" selection-start-column="77" selection-end-line="367" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_notification.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/BottomSheetDialog/BottomChooseBrand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_chat_all.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_chat_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/NotificationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2718">
-          <caret line="323" column="79" selection-start-line="323" selection-start-column="79" selection-end-line="323" selection-end-column="79" />
-          <folding>
-            <element signature="e#4046#10767#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_notification.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatAllFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-90">
-          <caret line="71" column="56" selection-start-line="71" selection-start-column="56" selection-end-line="71" selection-end-column="56" />
-          <folding>
-            <element signature="method#onCreateView#0;class#ChatAllFragment#0" />
-            <element signature="e#3514#5876#1" />
-            <element signature="class#RecyclerviewAdapter#0;class#ChatAllFragment#0" />
-            <element signature="method#Check_seen_unseen#0;class#ChatAllFragment#0" />
-            <element signature="method#updateData#0;class#ChatAllFragment#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../build.gradle">
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/widget/ArrayAdapter.class">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/loan/child/one.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="357" column="46" selection-start-line="357" selection-start-column="46" selection-end-line="357" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Startup/Search1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-586">
+          <caret line="181" column="80" lean-forward="true" selection-start-line="181" selection-start-column="80" selection-end-line="181" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="177" column="73" selection-start-line="177" selection-start-column="73" selection-end-line="177" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_detail_2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="61" column="45" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="45" />
+          <folding>
+            <element signature="e#3084#3098#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/history_postbyuser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="66" column="74" selection-start-line="66" selection-start-column="74" selection-end-line="66" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/CheckNetworkConnectionHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1602">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1548#1549#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_discount.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="179" column="50" selection-start-line="179" selection-start-column="41" selection-end-line="179" selection-end-column="50" />
+          <folding>
+            <element signature="e#8604#8618#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/UserProfileModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="99" column="8" selection-start-line="99" selection-start-column="8" selection-end-line="99" selection-end-column="27" />
+          <folding>
+            <element signature="e#4353#4354#0" expanded="true" />
+            <element signature="e#4381#4382#0" expanded="true" />
+            <element signature="e#4420#4421#0" expanded="true" />
+            <element signature="e#4454#4455#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/CheckGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/UserResponseModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="31" />
+          <folding>
+            <element signature="e#1068#1069#0" expanded="true" />
+            <element signature="e#1098#1099#0" expanded="true" />
+            <element signature="e#1154#1155#0" expanded="true" />
+            <element signature="e#1192#1193#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_map.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="36" selection-end-column="47" />
+          <folding>
+            <element signature="e#255#647#0" />
+            <element signature="e#652#1291#0" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_post_detail_map.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/post/PostDetailMapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1120">
+          <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="118" column="14" lean-forward="true" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
+        <state relative-caret-position="162">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/Register.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="1462" column="75" selection-start-line="1462" selection-start-column="74" selection-end-line="1462" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="254" column="41" selection-start-line="254" selection-start-column="41" selection-end-line="254" selection-end-column="41" />
-          <folding>
-            <element signature="method#onStart#0;class#ChatMainActivity#0" />
-            <element signature="method#updateData#0;class#ChatMainActivity#0" />
-            <element signature="method#updateToken#0;class#ChatMainActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_store_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="89" column="41" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="41" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/dealer_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="58" column="45" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="45" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10826">
-          <caret line="150" column="68" selection-start-line="150" selection-start-column="68" selection-end-line="150" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="43" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/TypeViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/DealerPostViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4338">
-          <caret line="326" column="22" selection-start-line="326" selection-start-column="8" selection-end-line="326" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_store_detail_post_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1314">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/detail_store.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="34" column="49" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="49" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/DealerStoreActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="218" column="40" selection-start-line="218" selection-start-column="40" selection-end-line="218" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/responses/APIStorePostResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#282#283#0" expanded="true" />
-            <element signature="e#303#304#0" expanded="true" />
-            <element signature="e#381#382#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/responses/APIShopResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="1622" column="45" lean-forward="true" selection-start-line="1622" selection-start-column="45" selection-end-line="1622" selection-end-column="45" />
-          <folding>
-            <element signature="class#27850:34115" />
-          </folding>
+        <state relative-caret-position="1080">
+          <caret line="151" column="52" selection-start-line="151" selection-start-column="52" selection-end-line="151" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/CreateShop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="715" column="52" lean-forward="true" selection-start-line="715" selection-start-column="52" selection-end-line="715" selection-end-column="52" />
+        <state relative-caret-position="4482">
+          <caret line="329" column="67" selection-start-line="329" selection-start-column="67" selection-end-line="329" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/StorePostViewModel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/FragmentMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="25" />
+        <state relative-caret-position="4374">
+          <caret line="286" column="41" selection-start-line="286" selection-start-column="41" selection-end-line="286" selection-end-column="41" />
           <folding>
-            <element signature="e#604#605#0" expanded="true" />
-            <element signature="e#640#641#0" expanded="true" />
-            <element signature="e#666#667#0" expanded="true" />
-            <element signature="e#691#692#0" expanded="true" />
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#746#747#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#801#802#0" expanded="true" />
-            <element signature="e#856#857#0" expanded="true" />
-            <element signature="e#906#907#0" expanded="true" />
-            <element signature="e#939#940#0" expanded="true" />
-            <element signature="e#967#968#0" expanded="true" />
-            <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
-            <element signature="e#1073#1074#0" expanded="true" />
-            <element signature="e#1105#1106#0" expanded="true" />
+            <element signature="e#16392#19668#0" />
+            <element signature="e#19673#19937#0" />
+            <element signature="e#19943#21574#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post_history.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Fragment_details_post/Detail_2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="170" column="61" selection-start-line="170" selection-start-column="61" selection-end-line="170" selection-end-column="61" />
+        <state relative-caret-position="122">
+          <caret line="267" column="36" selection-start-line="267" selection-start-column="36" selection-end-line="267" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_ListStore.java">
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="57" column="18" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="18" />
+        <state relative-caret-position="108">
+          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="1128" column="31" selection-start-line="1128" selection-start-column="31" selection-end-line="1128" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Postbyuser_Class.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/ConsumeAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="182" column="51" selection-start-line="182" selection-start-column="41" selection-end-line="182" selection-end-column="51" />
+        <state relative-caret-position="72">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/AllResponse.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/UserPostActiveAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        <state relative-caret-position="153">
+          <caret line="408" column="55" selection-start-line="408" selection-start-column="48" selection-end-line="408" selection-end-column="55" />
+          <folding>
+            <element signature="e#20334#20350#0" expanded="true" />
+            <element signature="e#20370#20389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Camera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24323">
+          <caret line="1975" column="11" selection-start-line="1975" selection-start-column="11" selection-end-line="1975" selection-end-column="11" />
+          <folding>
+            <element signature="e#42701#61502#0" />
+            <element signature="e#61507#62198#0" />
+            <element signature="e#62204#67464#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="383" column="67" selection-start-line="383" selection-start-column="67" selection-end-line="383" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/DealerStoreActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="221" column="34" selection-start-line="221" selection-start-column="34" selection-end-line="221" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/ListStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
+        <state relative-caret-position="298">
+          <caret line="87" column="38" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/change_status_delete.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_ListStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/model/change_status_unlike.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-244">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/models/ShopViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-954">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="e#2346#2347#0" expanded="true" />
-            <element signature="e#2378#2379#0" expanded="true" />
-            <element signature="e#2414#2415#0" expanded="true" />
-            <element signature="e#2446#2447#0" expanded="true" />
-            <element signature="e#2496#2497#0" expanded="true" />
-            <element signature="e#2538#2539#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2627#2628#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/history_store.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="90" column="85" selection-start-line="90" selection-start-column="85" selection-end-line="90" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="223" column="30" selection-start-line="223" selection-start-column="30" selection-end-line="223" selection-end-column="30" />
-          <folding>
-            <element signature="class#3593:4507" />
-            <element signature="class#4552:7743" />
-            <element signature="e#5471#5486#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="316">
+          <caret line="68" column="59" selection-start-line="68" selection-start-column="59" selection-end-line="68" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/DetailStoreActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="197" column="29" selection-start-line="197" selection-start-column="29" selection-end-line="197" selection-end-column="29" />
+        <state relative-caret-position="226">
+          <caret line="197" column="31" selection-start-line="197" selection-start-column="31" selection-end-line="197" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/AccountSettingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="80" column="33" selection-start-line="80" selection-start-column="33" selection-end-line="80" selection-end-column="34" />
+        <state relative-caret-position="352">
+          <caret line="89" column="82" selection-start-line="89" selection-start-column="82" selection-end-line="89" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_setting2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="161" column="20" selection-start-line="161" selection-start-column="20" selection-end-line="161" selection-end-column="20" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/group_2293.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/postbyuser_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="329" selection-start-line="329" selection-end-line="329" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/SettingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="373" column="42" selection-start-line="373" selection-start-column="42" selection-end-line="373" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Detail_new_post_java.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="685">
+          <caret line="585" column="53" selection-start-line="585" selection-start-column="53" selection-end-line="585" selection-end-column="53" />
           <folding>
-            <element signature="e#908#909#0" expanded="true" />
-            <element signature="e#947#948#0" expanded="true" />
+            <element signature="e#25180#25192#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/utils/CommomAPIFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="57" column="29" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Activity/Postbyuser_Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="222" column="54" lean-forward="true" selection-start-line="222" selection-start-column="54" selection-end-line="222" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/PostBestDealAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1702">
+          <caret line="174" column="14" selection-start-line="174" selection-start-column="14" selection-end-line="174" selection-end-column="14" />
+          <folding>
+            <element signature="e#1622#1623#0" expanded="true" />
+            <element signature="e#1656#1657#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Likebyuser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-215">
+          <caret line="157" column="40" selection-start-line="157" selection-start-column="40" selection-end-line="157" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3942">
+          <caret line="400" column="20" selection-start-line="400" selection-start-column="20" selection-end-line="400" selection-end-column="114" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/List_store_post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="100" column="21" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="21" />
+        <state relative-caret-position="460">
+          <caret line="185" column="64" selection-start-line="185" selection-start-column="64" selection-end-line="185" selection-end-column="64" />
+          <folding>
+            <element signature="method#getListStore#0;class#List_store_post#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
+        <state relative-caret-position="126">
+          <caret line="514" column="71" lean-forward="true" selection-start-line="514" selection-start-column="71" selection-end-line="514" selection-end-column="71" />
           <folding>
-            <element signature="e#2114#2115#0" expanded="true" />
-            <element signature="e#2143#2144#0" expanded="true" />
-            <element signature="e#6427#6446#0" expanded="true" />
-            <element signature="e#6490#6504#0" expanded="true" />
-            <element signature="e#7027#7042#0" expanded="true" />
-            <element signature="e#7316#7329#0" expanded="true" />
-            <element signature="e#10628#10644#0" expanded="true" />
-            <element signature="e#10814#10828#0" expanded="true" />
-            <element signature="e#10954#10975#0" expanded="true" />
-            <element signature="e#11009#11028#0" expanded="true" />
-            <element signature="e#13014#13033#0" expanded="true" />
-            <element signature="e#13203#13217#0" expanded="true" />
-            <element signature="e#13343#13364#0" expanded="true" />
-            <element signature="e#13398#13417#0" expanded="true" />
+            <element signature="e#2368#2369#0" expanded="true" />
+            <element signature="e#2407#2408#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="505" column="32" selection-start-line="505" selection-start-column="32" selection-end-line="505" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/adapters/StoreListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="93" column="75" selection-start-line="93" selection-start-column="75" selection-end-line="93" selection-end-column="75" />
+          <folding>
+            <element signature="e#978#979#0" expanded="true" />
+            <element signature="e#1017#1018#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="211" column="31" selection-start-line="211" selection-start-column="17" selection-end-line="211" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/adapters/AllPostAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3393">
+          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="238" column="25" selection-start-line="238" selection-start-column="25" selection-end-line="238" selection-end-column="25" />
+        <state relative-caret-position="232">
+          <caret line="316" column="182" selection-start-line="316" selection-start-column="168" selection-end-line="316" selection-end-column="182" />
           <folding>
-            <element signature="e#5713#5714#0" expanded="true" />
-            <element signature="e#5753#5754#0" expanded="true" />
-            <element signature="e#5881#8079#0" />
-            <element signature="e#17284#26689#0" />
-            <element signature="e#26695#27689#0" />
-            <element signature="e#27861#27973#0" />
+            <element signature="e#27948#37353#0" />
           </folding>
         </state>
       </provider>

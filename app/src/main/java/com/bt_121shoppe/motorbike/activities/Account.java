@@ -553,6 +553,5 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         editor.putString("My_Lang", lang);
         editor.apply();
     }
-
 }
 

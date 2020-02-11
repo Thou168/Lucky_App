@@ -71,12 +71,24 @@ public class Filter_shopdetail extends AppCompatActivity {
     private String stPriceMin,stPriceMax;
     private Integer postId = 0;
     //for bottomsheetdialog
+    private SharedPreferences prefer;
+    private String name,pass,Encode;
+    int pk=0;
 
     private int index=3,indexB=6,indexY=23;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_shopdetail);
+        prefer = getSharedPreferences("Register",MODE_PRIVATE);
+        name = prefer.getString("name","");
+        pass = prefer.getString("pass","");
+        Encode = CommonFunction.getEncodedString(name,pass);
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk",0);
+        }else if (prefer.contains("id")) {
+            pk = prefer.getInt("id", 0);
+        }
         //seekbar
         simpleRangeBar = findViewById(R.id.rangeBar);
         minText = findViewById(R.id.text_min);
@@ -625,6 +637,7 @@ public class Filter_shopdetail extends AppCompatActivity {
 
     private void Result(){
         Intent intent = new Intent();
+        intent.putExtra("user",pk);
         intent.putExtra("title_search",stTitle);
         intent.putExtra("category",stCategory);
         intent.putExtra("brand",stBrand);
@@ -634,7 +647,7 @@ public class Filter_shopdetail extends AppCompatActivity {
         setResult(2,intent);
         finish();
 
-        Log.d("FIlter",stTitle+","+stCategory+","+stBrand+","+stYear);
+        //Log.d("FIlter",stTitle+","+stCategory+","+stBrand+","+stYear);
     }
 
     private void getPosttype(String postType){

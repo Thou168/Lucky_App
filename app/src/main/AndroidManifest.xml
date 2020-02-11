@@ -3,7 +3,7 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bt_121shoppe.motorbike"
-    android:versionName="1.0.6">
+    android:versionName="1.0.8">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -39,7 +39,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.SettingActivity"></activity>
+        <activity android:name=".post.PostDetailMapActivity"></activity>
+        <activity android:name=".activities.SettingActivity" />
         <activity android:name=".activities.AccountSettingActivity" />
         <activity android:name=".stores.StoreDetailActivity" />
         <activity android:name=".stores.StoreListActivity" />
@@ -109,7 +110,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme"
+                <data
+                    android:scheme="@string/fb_login_protocol_scheme"
                     tools:ignore="ManifestResource" />
             </intent-filter>
         </activity> <!-- <activity -->
@@ -175,7 +177,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".fragments.FragmentMap"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.NotificationActivity"
             android:screenOrientation="portrait" />
@@ -185,7 +187,7 @@
         <activity
             android:name=".stores.CreateShop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".stores.DetailStoreActivity"
             android:screenOrientation="portrait" />
@@ -202,7 +204,7 @@
         <activity
             android:name=".Login_Register.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.Home"
             android:screenOrientation="portrait" />
@@ -238,12 +240,14 @@
             android:name=".Product_New_Post.Detail_New_Post"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Activity.Detail_new_post_java"
+        <activity
+            android:name=".Activity.Detail_new_post_java"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".Activity.Postbyuser_Class"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activity.Postbyuser_Class"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Buy_Sell_Rent.Sell.Sell"
             android:screenOrientation="portrait" />

@@ -753,11 +753,13 @@ public class Filter extends AppCompatActivity {
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==1){
-                        stType = "new";
+                        //stType = "new";
+                        stType="sell";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==2){
-                        stType = "used";
+                        //stType = "used";
+                        stType="rent";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
@@ -791,6 +793,7 @@ public class Filter extends AppCompatActivity {
 //        finish();
 
         Intent intent = new Intent();
+        intent.putExtra("posttype",stType);
         intent.putExtra("title_search",stTitle);
         intent.putExtra("category",stCategory);
         intent.putExtra("brand",stBrand);

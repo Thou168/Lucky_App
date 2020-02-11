@@ -172,7 +172,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             String strPostTitle="";
             Glide.with(itemView.getContext()).load(mPost.getPostImage()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
             String lang=postLang.getText().toString();
-            if(lang.equals("View:")) {
+            if(lang.equals("View")) {
                 if (mPost.getPostType().equals("sell")) {
 //                    Glide.with(itemView.getContext()).load(R.drawable.sell).thumbnail(0.1f).into(typeView);
                     typeView.setText(R.string.sell);
@@ -220,7 +220,7 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 GradientDrawable shape1 = new GradientDrawable();
                 shape1.setShape(GradientDrawable.OVAL);
                 shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                tvColor2.setBackground(shape);
+                tvColor2.setBackground(shape1);
             }
             cate.setVisibility(View.GONE);
             double mPrice=0;

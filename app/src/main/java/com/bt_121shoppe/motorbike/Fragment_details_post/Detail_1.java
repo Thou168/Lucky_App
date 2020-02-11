@@ -218,7 +218,7 @@ public class Detail_1 extends Fragment {
 
                             //get color
 //                            color.setText(postDetail.getColor().toString());
-                            String[] splitColor=postDetail.getColor().split(",");
+                            String[] splitColor=postDetail.getMulti_color_code().split(",");
                             GradientDrawable shape = new GradientDrawable();
                             if(!splitColor[0].isEmpty()){
                                 shape.setShape(GradientDrawable.OVAL);
@@ -233,7 +233,7 @@ public class Detail_1 extends Fragment {
                                 GradientDrawable shape1 = new GradientDrawable();
                                 shape1.setShape(GradientDrawable.OVAL);
                                 shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                                tvColor2.setBackground(shape);
+                                tvColor2.setBackground(shape1);
                             }
                             //end
                             con = postDetail.getCondition().toString();

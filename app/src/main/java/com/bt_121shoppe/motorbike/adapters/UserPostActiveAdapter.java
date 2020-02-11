@@ -161,7 +161,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             }
             if(mPost.getPost_sub_title()==null||mPost.getPost_sub_title().isEmpty()){}
             else{
-                if(lang.equals("View:"))
+                if(lang.equals("View"))
                     strPostTitle=mPost.getPost_sub_title().split(",")[0];
                 else
                     strPostTitle=mPost.getPost_sub_title().split(",")[1];
@@ -179,8 +179,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 //                tvPostType.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color_rent));
             }
 
-            String[] splitColor=mPost.getColor().split(",");
-
+            //String[] splitColor=mPost.getColor().split(",");
+            String[] splitColor=mPost.getMulti_color_code().split(",");
+            //Log.e("TAG","Post Color "+splitColor[0]+" 2 "+splitColor[1]);
             GradientDrawable shape = new GradientDrawable();
             shape.setShape(GradientDrawable.OVAL);
             shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
@@ -191,7 +192,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 GradientDrawable shape1 = new GradientDrawable();
                 shape1.setShape(GradientDrawable.OVAL);
                 shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                tvColor2.setBackground(shape);
+                tvColor2.setBackground(shape1);
             }
 
             //post price
