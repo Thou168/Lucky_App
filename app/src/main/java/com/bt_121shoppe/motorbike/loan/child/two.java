@@ -140,7 +140,7 @@ public class two extends Fragment {
             createLoad.requstFocus(bPayment_Method,mloan_RepaymentType,mloan_RepaymentType_alert,getString(R.string.invalid_repayment_type));
             createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,getString(R.string.invalid_contributions));
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,getString(R.string.invalid_number_institutions));
-            createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,getString(R.string.invalid_monthly_amount));
+//            createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,getString(R.string.invalid_monthly_amount));
 
             if (checkEd()){
             itemTwo = new item_two(Float.parseFloat(
@@ -314,8 +314,8 @@ public class two extends Fragment {
         bPayment_Method      = createLoad.Checked(mloan_RepaymentType);
         bLoan_Contributions  = createLoad.CheckedYear(mLoan_Contributions);
         bNumber_institution  = createLoad.CheckedYear(mNumber_institution);
-        bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
-        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution&&bMonthly_Amount_Paid;
+//        bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
+        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution;
     }
     public class InputFilterMinMax implements InputFilter {
         private int min;

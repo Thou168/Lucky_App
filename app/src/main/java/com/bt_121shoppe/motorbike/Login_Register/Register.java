@@ -705,7 +705,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 post_body.put("wing_account_name",editWing_number.getText().toString());
             }
             //added by Rith
-            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.logo_121);
+            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.group_2293);
             if(bitmapProfileImage==null){
                 post_body.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmpaDefault)));
             }else{

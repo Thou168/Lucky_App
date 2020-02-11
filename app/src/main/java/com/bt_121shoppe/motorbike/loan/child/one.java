@@ -259,17 +259,18 @@ public class one extends Fragment{
                 if (!response.isSuccessful()){
                     Log.d("Error121211",response.code()+" ");
                 }
-                listData = response.body().getresults();
-                provine = new String[listData.size()];
-                Log.d("333333333333", String.valueOf(listData.size()));
-                for (int i=0;i<listData.size();i++){
-                    if (currentLanguage.equals("en")){
-                        provine[i] = listData.get(i).getProvince();
-                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
-                        Log.e("Pk",""+ pk + Encode+" user "+ username+"  pass  "+password+ " List " +listData.size());
-                    }else {
-                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
-                        provine[i] = listData.get(i).getProvince_kh();
+                if (response.body().getresults() != null) {
+                    listData = response.body().getresults();
+                    provine = new String[listData.size()];
+//                    Log.d("333333333333", String.valueOf(listData.size()));
+                    for (int i = 0; i < listData.size(); i++) {
+                        if (currentLanguage.equals("en")) {
+                            provine[i] = listData.get(i).getProvince();
+                            Log.d("Province", listData.get(i).getProvince() + listData.get(i).getId());
+                        } else {
+                            Log.d("Province", listData.get(i).getProvince_kh() + listData.get(i).getId());
+                            provine[i] = listData.get(i).getProvince_kh();
+                        }
                     }
                 }
             }
@@ -289,21 +290,24 @@ public class one extends Fragment{
                 if (!response.isSuccessful()){
                     Log.d("Error121211",response.code()+" ");
                 }
-                listDistrict = response.body().getresults();
-                district = new String[listDistrict.size()];
-                Log.d("size district", String.valueOf(listDistrict.size()));
-                int count=0;
-                for (int i=0;i<listDistrict.size();i++){
-                    if (listDistrict.get(i).getProvinceId() == provinceID) {
-                        if (currentLanguage.equals("en")) {
-                            district[count] = listDistrict.get(i).getDistrict();
-                            Log.d("District", listDistrict.get(i).getDistrict() + listDistrict.get(i).getId());
-                            Log.e("Pk", "" + pk + Encode + " user " + username + "  pass  " + password + " List " + listDistrict.size());
-                        } else {
-                            Log.d("District", listDistrict.get(i).getDistrict() + listDistrict.get(i).getId());
-                            district[count] = listDistrict.get(i).getDistrict_kh();
+                if (response.body().getresults() != null) {
+                    listDistrict = response.body().getresults();
+                    int count=0,ccount=0;
+                    for (int i = 0; i < listDistrict.size(); i++) {
+                        if (listDistrict.get(i).getProvinceId() == provinceID) {
+                            count++;
                         }
-                        count++;
+                    }
+                    district = new String[count];
+                    for (int i = 0; i < listDistrict.size(); i++) {
+                        if (listDistrict.get(i).getProvinceId() == provinceID) {
+                            if (currentLanguage.equals("en")) {
+                                district[ccount] = listDistrict.get(i).getDistrict();
+                            } else {
+                                district[ccount] = listDistrict.get(i).getDistrict_kh();
+                            }
+                            ccount++;
+                        }
                     }
                 }
             }
@@ -323,21 +327,26 @@ public class one extends Fragment{
                 if (!response.isSuccessful()){
                     Log.d("Error121211",response.code()+" ");
                 }
-                list_Commmune = response.body().getresults();
-                commune = new String[list_Commmune.size()];
-                int count=0;
-                Log.d("size commune", String.valueOf(list_Commmune.size()));
-                for (int i=0;i<list_Commmune.size();i++){
-                    if (list_Commmune.get(i).getDistrictId() == districtID) {
-                        if (currentLanguage.equals("en")) {
-                            commune[count] = list_Commmune.get(i).getCommune();
-                            Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
-                            Log.e("Pk", "" + pk + Encode + " user " + username + "  pass  " + password + " List " + list_Commmune.size());
-                        } else {
-                            Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
-                            commune[count] = list_Commmune.get(i).getCommune_kh();
+                if (response.body().getresults() != null) {
+                    list_Commmune = response.body().getresults();
+                    int count=0,ccount=0;
+                    for (int i = 0; i < list_Commmune.size(); i++) {
+                        if (list_Commmune.get(i).getDistrictId() == districtID) {
+                            count++;
                         }
-                        count++;
+                    }
+                    commune = new String[count];
+                    for (int i = 0; i < list_Commmune.size(); i++) {
+                        if (list_Commmune.get(i).getDistrictId() == districtID) {
+                            if (currentLanguage.equals("en")) {
+                                commune[ccount] = list_Commmune.get(i).getCommune();
+                                Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
+                            } else {
+                                Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
+                                commune[ccount] = list_Commmune.get(i).getCommune_kh();
+                            }
+                            ccount++;
+                        }
                     }
                 }
             }
@@ -357,21 +366,26 @@ public class one extends Fragment{
                 if (!response.isSuccessful()){
                     Log.d("Error121211",response.code()+" ");
                 }
-                list_village = response.body().getresults();
-                village = new String[list_village.size()];
-                int count=0;
-                //Log.d("size village", String.valueOf(list_Commmune.size()));
-                for (int i=0;i<list_village.size();i++){
-                    if (list_village.get(i).getCommuneId() == communeID) {
-                        if (currentLanguage.equals("en")) {
-                            village[count] = list_village.get(i).getVillage();
-                            Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
-                            Log.e("Pk", "" + pk + Encode + " user " + username + "  pass  " + password + " List " + list_Commmune.size());
-                        } else {
-                            Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
-                            village[count] = list_village.get(i).getVillage_kh();
+                if (response.body().getresults() != null) {
+                    list_village = response.body().getresults();
+                    int count=0,ccount=0;
+                    for (int i = 0; i < list_village.size(); i++) {
+                        if (list_village.get(i).getCommuneId() == communeID) {
+                            count++;
                         }
-                        count++;
+                    }
+                    village = new String[count];
+                    for (int i = 0; i < list_village.size(); i++) {
+                        if (list_village.get(i).getCommuneId() == communeID) {
+                            if (currentLanguage.equals("en")) {
+                                village[ccount] = list_village.get(i).getVillage();
+                                Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
+                            } else {
+                                Log.d("Village", list_village.get(i).getVillage_kh() + list_village.get(i).getId());
+                                village[ccount] = list_village.get(i).getVillage_kh();
+                            }
+                            ccount++;
+                        }
                     }
                 }
             }
@@ -465,13 +479,13 @@ public class one extends Fragment{
             AlertDialog(provine, mAddress);
         });
         mDistrict.setOnClickListener(v -> {
-            AlertDialog(district,mDistrict);
+            AlertDialog_District(district,mDistrict);
         });
         mVillage.setOnClickListener(v -> {
-            AlertDialog(village,mVillage);
+            AlertDialog_village(village,mVillage);
         });
         mCommune.setOnClickListener(v -> {
-            AlertDialog(commune,mCommune);
+            AlertDialog_Commune(commune,mCommune);
         });
         mJob.addTextChangedListener(new TextWatcher() {
             @Override
@@ -584,12 +598,48 @@ public class one extends Fragment{
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which+1;
-            mDistrictID = which+1;
-            mCommuneID  = which+1;
-            mVillageID  = which+1;
             getdistrict(mProvinceID);
+            editText.setText(items[which]);
+            mDistrict.setText("");
+            dialog.dismiss();
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+    private void AlertDialog_District(String[] items, EditText editText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
+        builder.setTitle(getString(R.string.choose_item));
+        int checkedItem = 0;
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            mDistrictID = which+1;
             getCommune(mDistrictID);
+            editText.setText(items[which]);
+            mCommune.setText("");
+            dialog.dismiss();
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+    private void AlertDialog_Commune(String[] items, EditText editText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
+        builder.setTitle(getString(R.string.choose_item));
+        int checkedItem = 0;
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            mCommuneID = which+1;
             getVillage(mCommuneID);
+            editText.setText(items[which]);
+            mVillage.setText("");
+            dialog.dismiss();
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+    private void AlertDialog_village(String[] items, EditText editText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
+        builder.setTitle(getString(R.string.choose_item));
+        int checkedItem = 0;
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            mVillageID = which+1;
             editText.setText(items[which]);
             dialog.dismiss();
         });

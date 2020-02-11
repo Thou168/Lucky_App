@@ -196,6 +196,14 @@ public class three extends Fragment {
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
         }
+        if (itemTwo != null) {
+            Log.e("co-borrower", "" + itemTwo.getItemOne().getIndex());
+            if (itemTwo.getItemOne().getIndex() == 1) {
+                layout_coborrower.setVisibility(View.GONE);
+            } else {
+                layout_coborrower.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 

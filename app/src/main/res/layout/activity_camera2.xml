@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:textAllCaps="false"
-                android:text="@string/update"
+                android:text="@string/updatee"
                 android:layout_below="@+id/map_post"
                 android:textColor="#FFF"
                 android:background="@drawable/post_background"/>

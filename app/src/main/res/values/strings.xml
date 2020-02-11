@@ -1079,7 +1079,7 @@
     <string name="invalid_price">Price can`t be empty</string>
     <string name="invalid_condition">Condition can`t be empty</string>
     <string name="invalid_shop_name">Shop Name can`t be empty</string>
-    <string name="store_list">Sotre Lists</string>
+    <string name="store_list">Store Lists</string>
     <string name="add">Add</string>
     <string name="map">Map</string>
 
