@@ -2366,8 +2366,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
             final ColorAdapter adapter = new ColorAdapter(FunctionColor.itemcolor, getApplication());
             gridView.setAdapter(adapter);
-            adapter.selectedPositions.add(index[0]);
-            adapter.selectedPositions.add(index[1]);
+            if (index.length == 2) {
+                adapter.selectedPositions.add(index[0]);
+                adapter.selectedPositions.add(index[1]);
+            }else {
+                adapter.selectedPositions.add(index[0]);
+            }
             customView.display(true);
         }
     }
