@@ -1127,4 +1127,5 @@
     <string name="re_password">Re-Password</string>
     <string name="post_sold_message_confirm">Message</string>
     <string name="sold_po">Sale</string>
+    <string name="remove_shop_message_confirmation">Do you want to remove this shop?</string>
 </resources>

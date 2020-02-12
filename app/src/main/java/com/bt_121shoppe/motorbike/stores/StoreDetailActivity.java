@@ -682,7 +682,7 @@ public class StoreDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
                 if(response.isSuccessful()){
-                    Log.e("TAG","Shop Detail "+response.body().getShop_view());
+                    //Log.e("TAG","Shop Detail "+response.body().getShop_view());
                     ShopViewModel shop=response.body();
                     int oldView=shop.getShop_view();
                     shop.setShop_view(oldView+1);

@@ -72,7 +72,6 @@ public class ChatActivity extends AppCompatActivity {
     private int userPk,postOwnerID=0;
     private String postUsername,postTitle,postPrice,postImage,postUserId,postId,postType,userId;
 
-
     private MessageAdapter messageAdapter;
     List<Chat> mChat;
     RecyclerView recyclerView;
@@ -242,7 +241,7 @@ public class ChatActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(Call<com.bt_121shoppe.motorbike.Api.User> call, Response<com.bt_121shoppe.motorbike.Api.User> response) {
                                             if (response.isSuccessful()){
-                                                tvusername.setText(response.body().getFirst_name());
+                                                //tvusername.setText(response.body().getFirst_name());
                                             }
                                         }
 

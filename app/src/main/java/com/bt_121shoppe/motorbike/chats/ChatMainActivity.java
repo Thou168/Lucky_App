@@ -245,13 +245,15 @@ public class ChatMainActivity extends AppCompatActivity {
                     userChatList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Chat chat = snapshot.getValue(Chat.class);
-                        if (chat.getSender().equals(firebaseUser.getUid())) {
+                        if (chat.getSender().equals(firebaseUser.getUid()) )  {
                             userChatList.add(new UserChat(chat.getReceiver(), chat.getPost()));
                         }
+                        if(chat.getReceiver()!=null){
+                            if (chat.getReceiver().equals(firebaseUser.getUid())) {
+                                userChatList.add(new UserChat(chat.getSender(), chat.getPost()));
+                            }
+                        }
 
-//                        if (chat.getReceiver().equals(fuser.getUid())) {
-//                            userChatList.add(new UserChat(chat.getSender(), chat.getPost()));
-//                        }
                         Log.d("ERROR Receiver", chat.getReceiver() + "," + firebaseUser.getUid());
                     }
 

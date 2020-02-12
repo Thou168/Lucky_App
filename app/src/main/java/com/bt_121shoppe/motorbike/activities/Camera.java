@@ -823,7 +823,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         if (cate == 2){
                             type = Integer.parseInt(tvType_cate.getText().toString());
                         }
-                        Log.d("Type id brs", String.valueOf(type));
+                        //Log.d("Type id brs", String.valueOf(type));
                         PostData(Encode);
                     }
                 } else  {
@@ -1322,7 +1322,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             post.put("user",pk );
 
             strPostType = tvPostType.getText().toString().toLowerCase();
-            Log.e("post type",""+strPostType);
+            //Log.e("post type",""+strPostType);
             if (strPostType == "buy") {
                 post.put("discount", "0");
                 post.put("discount_type","percent");
@@ -1494,7 +1494,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     break;
             }
 
-            Log.d(TAG,post.toString());
+            Log.d(TAG,"Post Colorr " +strColor);
 
             RequestBody body = RequestBody.create(MEDIA_TYPE, post.toString());
             String auth = "Basic " + encode;

@@ -83,7 +83,13 @@ public class ListStore extends Fragment {
                 if (!response.isSuccessful()){
                     Log.d("TAG","55"+response.code()+": "+response.errorBody());
                 }
-                listData = response.body().getShops();
+                //listData = response.body().getShops();
+                listData=new ArrayList<>();
+                List<ShopViewModel> shopResults=response.body().getShops();
+                for(int i=0;i<shopResults.size();i++){
+                    if(shopResults.get(i).getRecord_status()==1)
+                        listData.add(shopResults.get(i));
+                }
                 progressBar.setVisibility(View.GONE);
                 mAdapter = new Adapter_ListStore(listData,getContext());
                 recyclerView.setAdapter(mAdapter);

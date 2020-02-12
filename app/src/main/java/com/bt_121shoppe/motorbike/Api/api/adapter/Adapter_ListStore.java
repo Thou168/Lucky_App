@@ -1,29 +1,43 @@
 package com.bt_121shoppe.motorbike.Api.api.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
+import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.stores.DetailStoreActivity;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
 import com.bumptech.glide.Glide;
 
+import java.time.Instant;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.ViewHolder> {
 
@@ -56,7 +70,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         final ShopViewModel model = datas.get(position);
         updateView(Paper.book().read("language"),view);
         int shopId = model.getId();
-        Log.e("Shop","Image "+model.getShop_image());
+        //Log.e("Shop","Image "+model.getShop_image());
         String imageUrl="";
         if(model.getShop_image()!=null){
             imageUrl= ConsumeAPI.BASE_URL_IMG+model.getShop_image();
@@ -72,6 +86,61 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         });
         view.txtRate.setText(model.getShop_rate());
         view.view1.setText(String.valueOf(model.getShop_view()));
+
+        view.btRemoveStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Log.e("TAG","Selected Shop id is "+model.getId());
+                            Service api=Client.getClient().create(Service.class);
+                            retrofit2.Call<ShopViewModel> call=api.getDealerShop(model.getId());
+                            call.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                                @Override
+                                public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                                    if(response.isSuccessful()){
+                                        //Log.e("TAG","Shop Detail "+response.body().getShop_view());
+                                        ShopViewModel shop=response.body();
+                                        shop.setRecord_status(2);
+                                        retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(model.getId(),shop);
+                                        call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                                            @Override
+                                            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response1) {
+                                                Log.e("TAG","Remove Store Successfully. "+response1.message());
+                                                Intent intent = new Intent(view.getContext(), DealerStoreActivity.class);
+                                                view.getContext().startActivity(intent);
+                                                ((Activity)view.getContext()).finish();
+                                            }
+
+                                            @Override
+                                            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+                                                Log.e("TAG","fail submit count view "+t.getMessage());
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                                }
+                            });
+
+
+                            dialog.dismiss();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            dialog.dismiss();
+                            break;
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage(R.string.remove_shop_message_confirmation).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                        .setNegativeButton(R.string.no_remove, dialogClickListener).show();
+            }
+        });
     }
 
     @Override
@@ -86,6 +155,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtview1,shopname,view1,address,txtRate;
         CircleImageView img_user;
+        ImageView btRemoveStore;
         ViewHolder(View view){
             super(view);
             txtview1 = view.findViewById(R.id.view1);
@@ -94,6 +164,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
             address = view.findViewById(R.id.location_store);
             img_user = view.findViewById(R.id.img_user);
             txtRate=view.findViewById(R.id.rate);
+            btRemoveStore=view.findViewById(R.id.bt_clear);
         }
     }
 }

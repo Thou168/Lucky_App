@@ -253,6 +253,10 @@ public class CommonFunction {
         }
         //get color
         switch (color){
+            case "white":
+                strColor="White";
+                strColorKH="ស";
+                break;
             case "blue":
                 strColor="Blue";
                 strColorKH="ខៀវ";
@@ -261,17 +265,9 @@ public class CommonFunction {
                 strColor="Black";
                 strColorKH="ខ្មៅ";
                 break;
-            case "silver":
-                strColor="Silver";
-                strColorKH="ខៀវ";
-                break;
             case "red":
                 strColor="Red";
                 strColorKH="ក្រហម";
-                break;
-            case "gray":
-                strColor="Gray";
-                strColorKH="ប្រផេះ";
                 break;
             case "yellow":
                 strColor="Yellow";
@@ -293,7 +289,47 @@ public class CommonFunction {
                 strColor="Green";
                 strColorKH="បៃតង";
                 break;
+            case "silver":
+                strColor="Silver";
+                strColorKH="ខៀវ";
+                break;
+            case "gray":
+                strColor="Gray";
+                strColorKH="ប្រផេះ";
+                break;
 
+            case "brown":
+                strColor="Brown";
+                strColorKH="ត្នោត";
+                break;
+            case "blue sky":
+                strColor="Blue Sky";
+                strColorKH="ប្រផេះ";
+                break;
+            case "light green":
+                strColor="Light Green";
+                strColorKH="ប្រផេះ";
+                break;
+            case "light red":
+                strColor="Light Red";
+                strColorKH="ប្រផេះ";
+                break;
+            case "light blue sky":
+                strColor="Light Blue Sky";
+                strColorKH="ប្រផេះ";
+                break;
+            case "dark red":
+                strColor="Dark Red";
+                strColorKH="ប្រផេះ";
+                break;
+            case "dark green":
+                strColor="Dark Green";
+                strColorKH="ប្រផេះ";
+                break;
+            case "dark blue":
+                strColor="Dark Blue";
+                strColorKH="ប្រផេះ";
+                break;
             default:
                 strColor="#00000000";
                 break;
@@ -340,6 +376,30 @@ public class CommonFunction {
                 break;
             case "green":
                 hexColor="#008000";
+                break;
+            case "brown":
+                hexColor="#806326";
+                break;
+            case "blue sky":
+                hexColor="#b3d9ff";
+                break;
+            case "light green":
+                hexColor="#00cc00";
+                break;
+            case "light red":
+                hexColor="#cc0000";
+                break;
+            case "light blue sky":
+                hexColor="#99ffff";
+                break;
+            case "dark red":
+                hexColor="#660000";
+                break;
+            case "dark green":
+                hexColor="#394d00";
+                break;
+            case "dark blue":
+                hexColor="#002266";
                 break;
             default:
                 hexColor="#00000000";

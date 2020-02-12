@@ -156,7 +156,7 @@ public class one extends Fragment{
 
         SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         currentLanguage = preferences.getString("My_Lang", "");
-
+        getprovince();
         if (mFromLoan){
             GetLoan();
         }else if (mDraft!= null){
@@ -223,7 +223,7 @@ public class one extends Fragment{
                 }
             });
         }
-        getprovince();
+
     }
     public String method(String str) {
         for (int i=0;i<str.length();i++){
@@ -264,8 +264,10 @@ public class one extends Fragment{
                 if (response.body().getresults() != null) {
                     listData = response.body().getresults();
                     provine = new String[listData.size()];
+                    provinceId=new int[listData.size()];
 //                    Log.d("333333333333", String.valueOf(listData.size()));
                     for (int i = 0; i < listData.size(); i++) {
+                        provinceId[i]=(int)listData.get(i).getId();
                         if (currentLanguage.equals("en")) {
                             provine[i] = listData.get(i).getProvince();
                             Log.d("Province", listData.get(i).getProvince() + listData.get(i).getId());
@@ -301,8 +303,10 @@ public class one extends Fragment{
                         }
                     }
                     district = new String[count];
+                    districtId=new int[count];
                     for (int i = 0; i < listDistrict.size(); i++) {
                         if (listDistrict.get(i).getProvinceId() == provinceID) {
+                            districtId[ccount]=(int)listDistrict.get(i).getId();
                             if (currentLanguage.equals("en")) {
                                 district[ccount] = listDistrict.get(i).getDistrict();
                             } else {
@@ -345,8 +349,10 @@ public class one extends Fragment{
                         }
                     }
                     commune = new String[count];
+                    communeId=new int[count];
                     for (int i = 0; i < list_Commmune.size(); i++) {
                         if (list_Commmune.get(i).getDistrictId() == districtID) {
+                            communeId[ccount]=(int)list_Commmune.get(i).getId();
                             if (currentLanguage.equals("en")) {
                                 commune[ccount] = list_Commmune.get(i).getCommune();
                                 Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
@@ -391,8 +397,10 @@ public class one extends Fragment{
                         }
                     }
                     village = new String[count];
+                    villageId=new int[count];
                     for (int i = 0; i < list_village.size(); i++) {
                         if (list_village.get(i).getCommuneId() == communeID) {
+                            villageId[ccount]=(int)list_village.get(i).getId();
                             if (currentLanguage.equals("en")) {
                                 village[ccount] = list_village.get(i).getVillage();
                                 Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
@@ -608,12 +616,16 @@ public class one extends Fragment{
             return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
         }
     }
+
     public void AlertDialog(String[] items, EditText editText){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            mProvinceID = which+1;
+            //mProvinceID = which+1;
+
+            mProvinceID=provinceId[which];
+            Log.e("TAG","Selected Province id "+which+" "+mProvinceID);
             getdistrict(mProvinceID);
             editText.setText(items[which]);
             mDistrict.setText("");
@@ -627,8 +639,9 @@ public class one extends Fragment{
         builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            mDistrictID = which+1;
-//            getCommune(mDistrictID);
+            //mDistrictID = which+1;
+            mDistrictID=districtId[which];
+           getCommune(mDistrictID);
             editText.setText(items[which]);
             mCommune.setText("");
             dialog.dismiss();
@@ -641,8 +654,9 @@ public class one extends Fragment{
         builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            mCommuneID = which+1;
-//            getVillage(mCommuneID);
+            //mCommuneID = which+1;
+            mCommuneID=communeId[which];
+            getVillage(mCommuneID);
             editText.setText(items[which]);
             mVillage.setText("");
             dialog.dismiss();
@@ -655,7 +669,8 @@ public class one extends Fragment{
         builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            mVillageID = which+1;
+            //mVillageID = which+1;
+            mVillageID=villageId[which];
             editText.setText(items[which]);
             dialog.dismiss();
         });

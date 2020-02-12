@@ -53,7 +53,8 @@ public class CommomAPIFunction {
                                 } else {
                                     Glide.with(context.getApplicationContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(imageView);
                                 }
-                                Log.e("TAG","User Image Url "+user.getImageURL());
+                                //
+                                // Log.e("TAG","User Image Url "+user.getImageURL());
                                 return;
                             }
                         }
