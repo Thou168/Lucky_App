@@ -53,6 +53,7 @@ import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import com.bt_121shoppe.motorbike.loan.model.district_Item;
 import com.bt_121shoppe.motorbike.loan.model.commune_Item;
 import com.bt_121shoppe.motorbike.loan.model.village_Item;
+import com.google.android.gms.common.util.ArrayUtils;
 
 import java.util.*;
 
@@ -99,8 +100,9 @@ public class one extends Fragment{
     private String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
     private String[] rJob ;
     private String[] rRela;
-    private int index=3,indextJom,indexRela,indexCoborow_job,mProvinceID,mLoanID;
-    private int mProductID,mDistrictID,mCommuneID,mVillageID;
+    private int [] provinceId,districtId,communeId,villageId;
+    private int index=3,indextJom,indexRela,indexCoborow_job,mProductID,mLoanID;
+    private int mProvinceID,mDistrictID,mCommuneID,mVillageID;
     private int pk;
     private boolean radioCheck = false,Co_borrower,mFromLoan;
     private boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
@@ -306,7 +308,14 @@ public class one extends Fragment{
                             } else {
                                 district[ccount] = listDistrict.get(i).getDistrict_kh();
                             }
+                            districtId[ccount] = (int) listDistrict.get(i).getId();
                             ccount++;
+                        }
+                    }
+                    Log.e("district ID",""+districtId.length);
+                    for (int i=0;i<districtId.length;i++){
+                        if (districtId.equals(mProvinceID)){
+                            getCommune(provinceID);
                         }
                     }
                 }
@@ -345,7 +354,14 @@ public class one extends Fragment{
                                 Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
                                 commune[ccount] = list_Commmune.get(i).getCommune_kh();
                             }
+                            communeId[ccount] = (int) list_Commmune.get(i).getId();
                             ccount++;
+                        }
+                    }
+                    Log.e("commune ID",""+communeId.length);
+                    for (int i=0;i<communeId.length;i++){
+                        if (communeId.equals(mCommuneID)){
+                            getVillage(mCommuneID);
                         }
                     }
                 }
@@ -612,7 +628,7 @@ public class one extends Fragment{
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mDistrictID = which+1;
-            getCommune(mDistrictID);
+//            getCommune(mDistrictID);
             editText.setText(items[which]);
             mCommune.setText("");
             dialog.dismiss();
@@ -626,7 +642,7 @@ public class one extends Fragment{
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mCommuneID = which+1;
-            getVillage(mCommuneID);
+//            getVillage(mCommuneID);
             editText.setText(items[which]);
             mVillage.setText("");
             dialog.dismiss();

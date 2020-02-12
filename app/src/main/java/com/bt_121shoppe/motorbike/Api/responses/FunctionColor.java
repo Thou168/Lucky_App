@@ -86,6 +86,7 @@ public class FunctionColor {
                 case "blue sky":
                     index = new int[]{17};
                     break;
+
                 case "white,black":
                     index = new int[]{0,2};
                     break;
@@ -131,6 +132,7 @@ public class FunctionColor {
                 case "white,green":
                     index = new int[]{0,14};
                     break;
+
                 case "black,silver":
                     index = new int[]{2,15};
                     break;
@@ -173,12 +175,330 @@ public class FunctionColor {
                 case "black,green":
                     index = new int[]{2,14};
                     break;
+
+                case "blue,silver":
+                    index = new int[]{1,15};
+                    break;
+                case "blue,red":
+                    index = new int[]{1,3};
+                    break;
+                case "blue,orange":
+                    index = new int[]{1,7};
+                    break;
+                case "blue,yellow":
+                    index = new int[]{1,4};
+                    break;
+                case "blue,pink":
+                    index = new int[]{1,5};
+                    break;
+                case "blue,purple":
+                    index = new int[]{1,6};
+                    break;
+                case "blue,dark blue":
+                    index = new int[]{1,8};
+                    break;
+                case "blue,brown":
+                    index = new int[]{1,9};
+                    break;
+                case "blue,dark green":
+                    index = new int[]{1,10};
+                    break;
+                case "blue,dark red":
+                    index = new int[]{1,11};
+                    break;
+                case "blue,light blue sky":
+                    index = new int[]{1,12};
+                    break;
+                case "blue,light red":
+                    index = new int[]{1,13};
+                    break;
+                case "blue,green":
+                    index = new int[]{1,14};
+                    break;
+
+                case "red,silver":
+                    index = new int[]{3,15};
+                    break;
+                case "red,orange":
+                    index = new int[]{3,7};
+                    break;
+                case "red,yellow":
+                    index = new int[]{3,4};
+                    break;
+                case "red,pink":
+                    index = new int[]{3,5};
+                    break;
+                case "red,purple":
+                    index = new int[]{3,6};
+                    break;
+                case "red,dark blue":
+                    index = new int[]{3,8};
+                    break;
+                case "red,brown":
+                    index = new int[]{3,9};
+                    break;
+                case "red,dark green":
+                    index = new int[]{3,10};
+                    break;
+                case "red,dark red":
+                    index = new int[]{3,11};
+                    break;
+                case "red,light blue sky":
+                    index = new int[]{3,12};
+                    break;
+                case "red,light red":
+                    index = new int[]{3,13};
+                    break;
+                case "red,green":
+                    index = new int[]{3,14};
+                    break;
+
+                case "yellow,silver":
+                    index = new int[]{4,15};
+                    break;
+                case "yellow,orange":
+                    index = new int[]{4,7};
+                    break;
+                case "yellow,pink":
+                    index = new int[]{4,5};
+                    break;
+                case "yellow,purple":
+                    index = new int[]{4,6};
+                    break;
+                case "yellow,dark blue":
+                    index = new int[]{4,8};
+                    break;
+                case "yellow,brown":
+                    index = new int[]{4,9};
+                    break;
+                case "yellow,dark green":
+                    index = new int[]{4,10};
+                    break;
+                case "yellow,dark red":
+                    index = new int[]{4,11};
+                    break;
+                case "yellow,light blue sky":
+                    index = new int[]{4,12};
+                    break;
+                case "yellow,light red":
+                    index = new int[]{4,13};
+                    break;
+                case "yellow,green":
+                    index = new int[]{4,14};
+                    break;
+
+                case "pink,silver":
+                    index = new int[]{5,15};
+                    break;
+                case "pink,orange":
+                    index = new int[]{5,7};
+                    break;
+                case "pink,purple":
+                    index = new int[]{5,6};
+                    break;
+                case "pink,dark blue":
+                    index = new int[]{5,8};
+                    break;
+                case "pink,brown":
+                    index = new int[]{5,9};
+                    break;
+                case "pink,dark green":
+                    index = new int[]{5,10};
+                    break;
+                case "pink,dark red":
+                    index = new int[]{5,11};
+                    break;
+                case "pink,light blue sky":
+                    index = new int[]{5,12};
+                    break;
+                case "pink,light red":
+                    index = new int[]{5,13};
+                    break;
+                case "pink,green":
+                    index = new int[]{5,14};
+                    break;
+
+                case "purple,silver":
+                    index = new int[]{6,15};
+                    break;
+                case "purple,orange":
+                    index = new int[]{6,7};
+                    break;
+                case "purple,dark blue":
+                    index = new int[]{6,8};
+                    break;
+                case "purple,brown":
+                    index = new int[]{6,9};
+                    break;
+                case "purple,dark green":
+                    index = new int[]{6,10};
+                    break;
+                case "purple,dark red":
+                    index = new int[]{6,11};
+                    break;
+                case "purple,light blue sky":
+                    index = new int[]{6,12};
+                    break;
+                case "purple,light red":
+                    index = new int[]{6,13};
+                    break;
+                case "purple,green":
+                    index = new int[]{6,14};
+                    break;
+
+                case "orange,silver":
+                    index = new int[]{7,15};
+                    break;
+                case "orange,dark blue":
+                    index = new int[]{7,8};
+                    break;
+                case "orange,brown":
+                    index = new int[]{7,9};
+                    break;
+                case "orange,dark green":
+                    index = new int[]{7,10};
+                    break;
+                case "orange,dark red":
+                    index = new int[]{7,11};
+                    break;
+                case "orange,light blue sky":
+                    index = new int[]{7,12};
+                    break;
+                case "orange,light red":
+                    index = new int[]{7,13};
+                    break;
+                case "orange,green":
+                    index = new int[]{7,14};
+                    break;
+
+                case "green,silver":
+                    index = new int[]{14,15};
+                    break;
+                case "green,dark blue":
+                    index = new int[]{14,8};
+                    break;
+                case "green,brown":
+                    index = new int[]{14,9};
+                    break;
+                case "green,dark green":
+                    index = new int[]{14,10};
+                    break;
+                case "green,dark red":
+                    index = new int[]{14,11};
+                    break;
+                case "green,light blue sky":
+                    index = new int[]{14,12};
+                    break;
+                case "green,light red":
+                    index = new int[]{14,13};
+                    break;
+
+                case "silver,dark blue":
+                    index = new int[]{15,8};
+                    break;
+                case "silver,brown":
+                    index = new int[]{15,9};
+                    break;
+                case "silver,dark green":
+                    index = new int[]{15,10};
+                    break;
+                case "silver,dark red":
+                    index = new int[]{15,11};
+                    break;
+                case "silver,light blue sky":
+                    index = new int[]{15,12};
+                    break;
+                case "silver,light red":
+                    index = new int[]{15,13};
+                    break;
+
+                case "brown,dark blue":
+                    index = new int[]{9,8};
+                    break;
+                case "brown,dark green":
+                    index = new int[]{9,10};
+                    break;
+                case "brown,dark red":
+                    index = new int[]{9,11};
+                    break;
+                case "brown,light blue sky":
+                    index = new int[]{9,12};
+                    break;
+                case "brown,light red":
+                    index = new int[]{9,13};
+                    break;
+
+                case "blue sky,dark blue":
+                    index = new int[]{17,8};
+                    break;
+                case "blue sky,dark green":
+                    index = new int[]{17,10};
+                    break;
+                case "blue sky,dark red":
+                    index = new int[]{17,11};
+                    break;
+                case "blue sky,light blue sky":
+                    index = new int[]{17,12};
+                    break;
+                case "blue sky,light red":
+                    index = new int[]{17,13};
+                    break;
+
+                case "light green,dark blue":
+                    index = new int[]{16,8};
+                    break;
+                case "light green,dark green":
+                    index = new int[]{16,10};
+                    break;
+                case "light green,dark red":
+                    index = new int[]{16,11};
+                    break;
+                case "light green,light blue sky":
+                    index = new int[]{16,12};
+                    break;
+                case "light green,light red":
+                    index = new int[]{16,13};
+                    break;
+
+                case "light red,dark blue":
+                    index = new int[]{13,8};
+                    break;
+                case "light red,dark green":
+                    index = new int[]{13,10};
+                    break;
+                case "light red,dark red":
+                    index = new int[]{13,11};
+                    break;
+                case "light red,light blue sky":
+                    index = new int[]{13,12};
+                    break;
+
+                case "light blue sky,dark blue":
+                    index = new int[]{12,8};
+                    break;
+                case "light blue sky,dark green":
+                    index = new int[]{12,10};
+                    break;
+                case "light blue sky,dark red":
+                    index = new int[]{12,11};
+                    break;
+
+                case "dark red,dark green":
+                    index = new int[]{11,10};
+                    break;
+                case "dark red,dark blue":
+                    index = new int[]{11,8};
+                    break;
+
+                case "dark green,dark blue":
+                    index = new int[]{10,8};
+                    break;
             }
         }
         return index;
     }
     public static String setColor(List<String> arrayColor){
-        String strColor = "";
+        String strColor = "white";
         if (arrayColor.size() > 0){
             switch (arrayColor.size()) {
                 case 1:
@@ -190,7 +510,7 @@ public class FunctionColor {
                         strColor = "black";
                     }else if (arrayColor.contains("2131231164")){
                         strColor = "red";
-                    }else if (arrayColor.contains("2131231209")){
+                    }else if (arrayColor.contains("2131231212")){
                         strColor = "yellow";
                     }else if (arrayColor.contains("2131231159")){
                         strColor = "pink";
@@ -227,7 +547,7 @@ public class FunctionColor {
                         strColor = "white" + "," + "black";
                     }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231164")){
                         strColor = "white" + "," + "red";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231209")){
+                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231212")){
                         strColor = "white" + "," + "yellow";
                     }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231159")){
                         strColor = "white" + "," + "pink";
@@ -260,7 +580,7 @@ public class FunctionColor {
                         strColor = "blue" + "," + "black";
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231164")){
                         strColor = "blue" + "," + "red";
-                    }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231209")){
+                    }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231212")){
                         strColor = "blue" + "," + "yellow";
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231159")){
                         strColor = "blue" + "," + "pink";
@@ -289,11 +609,9 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131230926")){
                         strColor = "blue" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231068") && arrayColor.contains("2131230843")) {
-                        strColor = "black" + "," + "blue";
-                    }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231164")){
+                    else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231164")){
                         strColor = "black" + "," + "red";
-                    }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231209")){
+                    }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231212")){
                         strColor = "black" + "," + "yellow";
                     }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231159")){
                         strColor = "black" + "," + "pink";
@@ -322,11 +640,7 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131230926")){
                         strColor = "black" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230843")) {
-                        strColor = "red" + "," + "blue";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231068")){
-                        strColor = "red" + "," + "black";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231209")){
+                    else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231212")){
                         strColor = "red" + "," + "yellow";
                     }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231159")){
                         strColor = "red" + "," + "pink";
@@ -355,48 +669,34 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230926")){
                         strColor = "red" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230843")) {
-                        strColor = "yellow" + "," + "blue";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231068")){
-                        strColor = "yellow" + "," + "black";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231164")){
-                        strColor = "yellow" + "," + "red";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231159")){
+                    else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231159")){
                         strColor = "yellow" + "," + "pink";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231162")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231162")){
                         strColor = "yellow" + "," + "purple";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231124")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231124")){
                         strColor = "yellow" + "," + "orange";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231070")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231070")){
                         strColor = "yellow" + "," + "green";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231069")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231069")){
                         strColor = "yellow" + "," + "silver";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230927")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230927")){
                         strColor = "yellow" + "," + "brown";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230844")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230844")){
                         strColor = "yellow" + "," + "blue sky";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230956")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230956")){
                         strColor = "yellow" + "," + "light green";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231067")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231067")){
                         strColor = "yellow" + "," + "light red";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131231066")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231066")){
                         strColor = "yellow" + "," + "light blue sky";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230929")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230929")){
                         strColor = "yellow" + "," + "dark red";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230928")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230928")){
                         strColor = "yellow" + "," + "dark green";
-                    }else if (arrayColor.contains("2131231209") && arrayColor.contains("2131230926")){
+                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230926")){
                         strColor = "yellow" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231159") && arrayColor.contains("2131230843")) {
-                        strColor = "pink" + "," + "blue";
-                    }else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231068")){
-                        strColor = "pink" + "," + "black";
-                    }else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231164")){
-                        strColor = "pink" + "," + "red";
-                    }else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231209")){
-                        strColor = "pink" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231162")){
+                    else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231162")){
                         strColor = "pink" + "," + "purple";
                     }else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231124")) {
                         strColor = "pink" + "," + "orange";
@@ -421,17 +721,7 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131231159") && arrayColor.contains("2131230926")){
                         strColor = "pink" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231162") && arrayColor.contains("2131230843")) {
-                        strColor = "purple" + "," + "blue";
-                    }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231068")){
-                        strColor = "purple" + "," + "black";
-                    }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231164")){
-                        strColor = "purple" + "," + "red";
-                    }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231209")){
-                        strColor = "purple" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231159")){
-                        strColor = "purple" + "," + "pink";
-                    }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231124")){
+                    else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231124")){
                         strColor = "purple" + "," + "orange";
                     }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131231070")){
                         strColor = "purple" + "," + "green";
@@ -454,50 +744,125 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131231162") && arrayColor.contains("2131230926")){
                         strColor = "purple" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230843")) {
-                        strColor = "orange" + "," + "blue";
-                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231068")){
-                        strColor = "orange" + "," + "black";
-                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231164")){
-                        strColor = "orange" + "," + "red";
-                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231209")){
-                        strColor = "orange" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231159")){
-                        strColor = "orange" + "," + "pink";
-                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231162")){
-                        strColor = "orange" + "," + "purple";
+                    else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231070")){
+                        strColor = "orange" + "," + "green";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231069")){
+                        strColor = "orange" + "," + "silver";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230927")){
+                        strColor = "orange" + "," + "brown";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230844")){
+                        strColor = "orange" + "," + "blue sky";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230956")){
+                        strColor = "orange" + "," + "light green";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231067")){
+                        strColor = "orange" + "," + "light red";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131231066")){
+                        strColor = "orange" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230929")){
+                        strColor = "orange" + "," + "dark red";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230928")){
+                        strColor = "orange" + "," + "dark green";
+                    }else if (arrayColor.contains("2131231124") && arrayColor.contains("2131230926")){
+                        strColor = "orange" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230843")) {
-                        strColor = "green" + "," + "blue";
-                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231068")){
-                        strColor = "green" + "," + "black";
-                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231164")){
-                        strColor = "green" + "," + "red";
-                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231209")){
-                        strColor = "green" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231159")){
-                        strColor = "green" + "," + "pink";
-                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231162")){
-                        strColor = "green" + "," + "purple";
-                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231124")){
-                        strColor = "green" + "," + "orange";
+                    else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231069")){
+                        strColor = "green" + "," + "silver";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230927")){
+                        strColor = "green" + "," + "brown";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230844")){
+                        strColor = "green" + "," + "blue sky";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230956")){
+                        strColor = "green" + "," + "light green";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231067")){
+                        strColor = "green" + "," + "light red";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131231066")){
+                        strColor = "green" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230929")){
+                        strColor = "green" + "," + "dark red";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230928")){
+                        strColor = "green" + "," + "dark green";
+                    }else if (arrayColor.contains("2131231070") && arrayColor.contains("2131230926")){
+                        strColor = "green" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230843")) {
-                        strColor = "silver" + "," + "blue";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231068")){
-                        strColor = "silver" + "," + "black";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231164")){
-                        strColor = "silver" + "," + "red";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231209")){
-                        strColor = "silver" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231159")){
-                        strColor = "silver" + "," + "pink";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231162")){
-                        strColor = "silver" + "," + "purple";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231124")){
-                        strColor = "silver" + "," + "orange";
-                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231070")){
-                        strColor = "silver" + "," + "green";
+                    else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230927")){
+                        strColor = "silver" + "," + "brown";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230844")){
+                        strColor = "silver" + "," + "blue sky";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230956")){
+                        strColor = "silver" + "," + "light green";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231067")){
+                        strColor = "silver" + "," + "light red";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131231066")){
+                        strColor = "silver" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230929")){
+                        strColor = "silver" + "," + "dark red";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230928")){
+                        strColor = "silver" + "," + "dark green";
+                    }else if (arrayColor.contains("2131231069") && arrayColor.contains("2131230926")){
+                        strColor = "silver" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131230927") && arrayColor.contains("2131230844")){
+                        strColor = "brown" + "," + "blue sky";
+                    }else if (arrayColor.contains("2131230927") && arrayColor.contains("2131230956")){
+                        strColor = "brown" + "," + "light green";
+                    }else if (arrayColor.contains("2131230927") && arrayColor.contains("2131231067")){
+                        strColor = "brown" + "," + "light red";
+                    }else if (arrayColor.contains("2131230927") && arrayColor.contains("2131231066")){
+                        strColor = "brown" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131230927") && arrayColor.contains("2131230929")){
+                        strColor = "brown" + "," + "dark red";
+                    }else if (arrayColor.contains("2131230927") && arrayColor.contains("2131230928")){
+                        strColor = "brown" + "," + "dark green";
+                    }else if (arrayColor.contains("2131230927") && arrayColor.contains("2131230926")){
+                        strColor = "brown" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131230844") && arrayColor.contains("2131230956")){
+                        strColor = "blue sky" + "," + "light green";
+                    }else if (arrayColor.contains("2131230844") && arrayColor.contains("2131231067")){
+                        strColor = "blue sky" + "," + "light red";
+                    }else if (arrayColor.contains("2131230844") && arrayColor.contains("2131231066")){
+                        strColor = "blue sky" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131230844") && arrayColor.contains("2131230929")){
+                        strColor = "blue sky" + "," + "dark red";
+                    }else if (arrayColor.contains("2131230844") && arrayColor.contains("2131230928")){
+                        strColor = "blue sky" + "," + "dark green";
+                    }else if (arrayColor.contains("2131230844") && arrayColor.contains("2131230926")){
+                        strColor = "blue sky" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131230956") && arrayColor.contains("2131231067")){
+                        strColor = "light green" + "," + "light red";
+                    }else if (arrayColor.contains("2131230956") && arrayColor.contains("2131231066")){
+                        strColor = "light green" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131230956") && arrayColor.contains("2131230929")){
+                        strColor = "light green" + "," + "dark red";
+                    }else if (arrayColor.contains("2131230956") && arrayColor.contains("2131230928")){
+                        strColor = "light green" + "," + "dark green";
+                    }else if (arrayColor.contains("2131230956") && arrayColor.contains("2131230926")){
+                        strColor = "light green" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131231067") && arrayColor.contains("2131231066")){
+                        strColor = "light red" + "," + "light blue sky";
+                    }else if (arrayColor.contains("2131231067") && arrayColor.contains("2131230929")){
+                        strColor = "light red" + "," + "dark red";
+                    }else if (arrayColor.contains("2131231067") && arrayColor.contains("2131230928")){
+                        strColor = "light red" + "," + "dark green";
+                    }else if (arrayColor.contains("2131231067") && arrayColor.contains("2131230926")){
+                        strColor = "light red" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131231066") && arrayColor.contains("2131230929")){
+                        strColor = "light blue sky" + "," + "dark red";
+                    }else if (arrayColor.contains("2131231066") && arrayColor.contains("2131230928")){
+                        strColor = "light blue sky" + "," + "dark green";
+                    }else if (arrayColor.contains("2131231066") && arrayColor.contains("2131230926")){
+                        strColor = "light blue sky" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131230929") && arrayColor.contains("2131230928")){
+                        strColor = "dark red" + "," + "dark green";
+                    }else if (arrayColor.contains("2131230929") && arrayColor.contains("2131230926")){
+                        strColor = "dark red" + "," + "dark blue";
+                    }
+                    else if (arrayColor.contains("2131230928") && arrayColor.contains("2131230926")){
+                        strColor = "dark green" + "," + "dark blue";
                     }
                     break;
                 case 3:

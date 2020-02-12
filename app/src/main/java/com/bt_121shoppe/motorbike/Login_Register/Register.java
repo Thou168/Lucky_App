@@ -207,7 +207,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         editDate.setFocusable(false);
         editGender.setFocusable(false);
         editMap.setFocusable(false);
-        photo_select = getResources().getStringArray(R.array.select_option);
+        photo_select = getResources().getStringArray(R.array.select_photo);
         mCompressor = new FileCompressor(this);
 
         mProgress = new ProgressDialog(this);
@@ -1046,6 +1046,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     requestStoragePermission(false);
                     break;
                 case 2:
+                    RemoveImage();
+                    break;
+                case 3:
                     break;
             }
         });
@@ -1504,6 +1507,50 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     });
             alertDialog.show();
             mProgress.dismiss();
+        }
+    }
+    private void RemoveImage(){
+
+        final ProgressDialog pd=new ProgressDialog(Register.this);
+        pd.setMessage(getString(R.string.uploading));
+        pd.show();
+        try {
+            image = Uri.fromFile(createImageFile());
+            Log.e("remove image",""+image);
+            if(image!=null){
+                final StorageReference fileReference=storageReference.child(System.currentTimeMillis()
+                        +"."+getFileExtenstion(image));
+                uploadTask=fileReference.putFile(image);
+                uploadTask.continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) task -> {
+                    if(!task.isSuccessful()){
+                        throw task.getException();
+                    }
+                    return fileReference.getDownloadUrl();
+                }).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Uri downloadUri= (Uri) task.getResult();
+                        String mUri=downloadUri.toString();
+                        reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                        HashMap<String,Object> map=new HashMap<>();
+                        map.put("imageURL",mUri);
+                        reference.updateChildren(map);
+                        pd.dismiss();
+                    }else{
+                        Toast.makeText(Register.this,"Failed",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Register.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                        pd.dismiss();
+                    }
+                });
+            }
+            else {
+                Toast.makeText(Register.this,"No image selected.",Toast.LENGTH_LONG).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     private void Variable_Field(){
