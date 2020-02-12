@@ -235,8 +235,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         pre_id = getSharedPreferences("id",MODE_PRIVATE);
         Variable_Field();
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_post);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_post);
         DropDown();
         mSeekbar();
         initialUserInformation(pk,Encode);
@@ -303,22 +302,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     tvPostType.setText(R.string.ren);
                     toolbar.setBackgroundColor(getColor(R.color.logo_red));
                 }
-
-                if(category == 1){
-                    layout_estimate.setVisibility(View.GONE);
-                    tvType_elec.setVisibility(View.VISIBLE);
-                    tvType_cate.setVisibility(View.VISIBLE);
-                }else {
-                    tvType_elec.setVisibility(View.GONE);
-                    tvType_cate.setVisibility(View.GONE);
-                    if (condition != null){
-                        if (condition.equals("used") || condition.equals("ប្រើ")){
-                            layout_estimate.setVisibility(View.VISIBLE);
-                        }else if (condition.equals("new") || condition.equals("ថ្មី")){
-                            layout_estimate.setVisibility(View.GONE);
-                        }
-                    }
-                }
             }else{
                 bt_update.setVisibility(View.VISIBLE);
                 submit_post.setVisibility(View.GONE);
@@ -354,6 +337,22 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_screw.setProgress(seekbar_screww);
             seekbar_rear.setProgress(seekbar_rearr);
             etMap.setText(road);
+
+            if(category == 1){
+                layout_estimate.setVisibility(View.GONE);
+                tvType_elec.setVisibility(View.VISIBLE);
+                tvType_cate.setVisibility(View.VISIBLE);
+            }else {
+                tvType_elec.setVisibility(View.GONE);
+                tvType_cate.setVisibility(View.GONE);
+                if (condition != null){
+                    if (condition.equals("used") || condition.equals("ប្រើ")){
+                        layout_estimate.setVisibility(View.VISIBLE);
+                    }else if (condition.equals("new") || condition.equals("ថ្មី")){
+                        layout_estimate.setVisibility(View.GONE);
+                    }
+                }
+            }
 
             Glide.with(Camera.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
                 @Override

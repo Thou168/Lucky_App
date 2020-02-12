@@ -316,12 +316,6 @@ public class one extends Fragment{
                             ccount++;
                         }
                     }
-                    Log.e("district ID",""+districtId.length);
-                    for (int i=0;i<districtId.length;i++){
-                        if (districtId.equals(mProvinceID)){
-                            getCommune(provinceID);
-                        }
-                    }
                 }
             }
             @Override
@@ -362,12 +356,6 @@ public class one extends Fragment{
                             }
                             communeId[ccount] = (int) list_Commmune.get(i).getId();
                             ccount++;
-                        }
-                    }
-                    Log.e("commune ID",""+communeId.length);
-                    for (int i=0;i<communeId.length;i++){
-                        if (communeId.equals(mCommuneID)){
-                            getVillage(mCommuneID);
                         }
                     }
                 }
@@ -629,6 +617,8 @@ public class one extends Fragment{
             getdistrict(mProvinceID);
             editText.setText(items[which]);
             mDistrict.setText("");
+            mCommune.setText("");
+            mVillage.setText("");
             dialog.dismiss();
         });
         dialog = builder.create();
@@ -644,6 +634,7 @@ public class one extends Fragment{
            getCommune(mDistrictID);
             editText.setText(items[which]);
             mCommune.setText("");
+            mVillage.setText("");
             dialog.dismiss();
         });
         dialog = builder.create();
