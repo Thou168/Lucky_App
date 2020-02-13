@@ -18,6 +18,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -124,6 +126,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     boolean isForceUpdate = true;
 
     private ImageView search_homepage;
+    boolean doubleBackToExitPressedOnce = true;
 
     private List<Slider> mImages=new ArrayList<>();
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -498,10 +501,18 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onBackPressed(){
+        //old
         if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
             mDrawerLayout.closeDrawer(GravityCompat.START);
         else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                super.finish();
+            }
             Log.e(TAG, "Run on back pressed event.");
         }
     }

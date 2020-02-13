@@ -23,12 +23,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.custom.sliderimage.logic.SliderImage;
 import com.google.gson.Gson;
@@ -42,6 +48,7 @@ import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -86,6 +93,7 @@ public class Postbyuser_Class extends AppCompatActivity {
     Double longtitude= (double) 0;
     TextView tvColor1,tvColor2;
     int i = 0;
+    String postUsername,postUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -321,12 +329,19 @@ public class Postbyuser_Class extends AppCompatActivity {
                             shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
                             tvColor2.setBackground(shape1);
                         }
+                        //if empty color
+                        if (postDetail.getMulti_color_code().isEmpty()){
+                            tvColor1.setVisibility(View.GONE);
+                            tvColor2.setVisibility(View.GONE);
+                        }
                         //end
                         con = postDetail.getCondition().toString();
                         if (con.equals("new")) {
                             tv_condition.setText(R.string.newl);
                         } else if (con.equals("used")) {
                             tv_condition.setText(R.string.used);
+                        }else {
+                            tv_condition.setText("");
                         }
                         //type
                         int inType = postDetail.getCategory();
@@ -338,6 +353,8 @@ public class Postbyuser_Class extends AppCompatActivity {
 //                                line_rela.setVisibility(View.VISIBLE);
                                 rela_eta.setVisibility(View.VISIBLE);
                             }
+                        }else {
+                            tv_type.setText("");
                         }
                         //brand
 //                        tv_brand.setText(String.valueOf(postDetail.getModeling()));
@@ -392,6 +409,8 @@ public class Postbyuser_Class extends AppCompatActivity {
                             }else if (postDetail.getYear() == 24){
                                 tv_year.setText(R.string.year24);
                             }
+                        }else {
+                            tv_year.setText("");
                         }
 
                         //model
@@ -422,6 +441,9 @@ public class Postbyuser_Class extends AppCompatActivity {
                                 tv_brand.setText(R.string.honda);
                                 tv_model.setText(R.string.zoomer_x);
                             }
+                        }else {
+                            tv_brand.setText("");
+                            tv_model.setText("");
                         }
 
                         //for section
@@ -463,8 +485,11 @@ public class Postbyuser_Class extends AppCompatActivity {
                         accessories.setText(in_o1 + " %");
                         //end section
 
-                        //contact
-                        tv_seller.setText(postDetail.getMachine_code());
+                        //post owner name
+                        int created_by = Integer.parseInt(postDetail.getCreated_by());
+                        getUserProfile(created_by,auth);
+
+                        //phone number
                         String contact_phone = postDetail.getContact_phone();
                         String[] splitPhone = contact_phone.split(",");
                         if (splitPhone.length ==1){
@@ -517,71 +542,46 @@ public class Postbyuser_Class extends AppCompatActivity {
         });
     }
 
-//    private void initialRelatedPost(String encode,String postType,int category,int modeling,float cost){
-//        ArrayList itemApi =  new ArrayList<Item_API>();
-//        String URL_ENDPOINT=ConsumeAPI.BASE_URL+"relatedpost/?post_type="+postType+"&category="+category+"&modeling="+modeling+"&min_price="+(cost-500)+"&max_price="+(cost+500);
-//        Log.d("URL123",URL_ENDPOINT);
-//        OkHttpClient client= new  OkHttpClient();
-//        Request request= new Request.Builder()
-//                .url(URL_ENDPOINT)
-//                .header("Accept","application/json")
-//                .header("Content-Type","application/json")
-//                .header("Authorization",encode)
-//                .build();
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                String mMessage = e.getMessage().toString();
-//                Log.w("failure Response", mMessage);
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                String mMessage = response.body().string();
-//                runOnUiThread(() -> {
-//                        try {
-//                            JSONObject object = new JSONObject(mMessage);
-//                            JSONArray jsonArray = object.getJSONArray("results");
-//                            int jsonCount = object.getInt("count");
-//                            Log.w("Relate", mMessage);
-//                            progressBar.setVisibility(View.GONE);
-//                            if (jsonCount == 0) {
-//                                no_result.setVisibility(View.VISIBLE);
-//                            } else {
-//                                no_result.setVisibility(View.GONE);
-//                            }
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                JSONObject obj = jsonArray.getJSONObject(i);
-//                                String title = obj.getString("title");
-//                                int id = obj.getInt("id");
-//                                int user_id = obj.getInt("created_by");
-//                                String condition = obj.getString("condition");
-//                                double cost = obj.getDouble("cost");
-//                                String image = obj.getString("front_image_path");
-//                                String img_user = obj.getString("right_image_path");
-//                                String postType = obj.getString("post_type");
-//                                String phoneNumber = obj.getString("contact_phone");
-//                                String discount_type = obj.getString("discount_type");
-//                                double discount = obj.getDouble("discount");
-//                                String postsubtitle = obj.getString("post_sub_title");
-//                                String color = obj.getString("color");
-//                                int model = obj.getInt("modeling");
-//                                int year = obj.getInt("year");
-//
-//                                String ago = "";
-//                                if (postId != id) {
-//                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle));
-////                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
-//                                    no_result.setVisibility(View.GONE);
-//                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Grid", getApplicationContext()));
-//                                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-//                                }
-//                            }
-//                        } catch (JsonParseException | JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    });
-//                }
-//        });
-//    }
+    private void getUserProfile(int id,String encode){
+        String URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+id;
+        MediaType MEDIA_TYPE=MediaType.parse("application/json");
+        OkHttpClient client= new  OkHttpClient();
+        Request request= new Request.Builder()
+                .url(URL_ENDPOINT)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                //.header("Authorization",encode)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String mMessage = e.getMessage().toString();
+                Log.w("failure Response", mMessage);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String mMessage = response.body().string();
+                Gson gson = new  Gson();
+                try {
+                    User user1= gson.fromJson(mMessage,User.class);
+                    Log.d(TAG,"TAH"+mMessage);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(user1.getFirst_name()==null)
+                                    postUsername=user1.getUsername();
+                                else
+                                    postUsername=user1.getFirst_name();
+                                postUserId=user1.getUsername();
+                                tv_seller.setText(postUsername);
+                            }
+                        });
+                }catch (JsonParseException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

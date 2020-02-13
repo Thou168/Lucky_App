@@ -75,6 +75,7 @@ public class Detail_1 extends Fragment {
     RelativeLayout rela_eta;
     TextView tvColor1,tvColor2;
     TextView tv_below;
+    View line2,tvTypeTitle,bool_title;
 
     @Nullable
     @Override
@@ -91,6 +92,11 @@ public class Detail_1 extends Fragment {
         tvColor2=view.findViewById(R.id.tv_color2);
 
         tv_below=view.findViewById(R.id.tv_below);
+
+        //type_remove moto
+        line2=view.findViewById(R.id.line2);
+        tvTypeTitle=view.findViewById(R.id.tvTypeTitle);
+        bool_title=view.findViewById(R.id.bool3);
 
         //basic
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
@@ -239,16 +245,24 @@ public class Detail_1 extends Fragment {
                             }
                             //end
                             con = postDetail.getCondition().toString();
-                            if (con.equals("new")) {
-                                condition.setText(R.string.newl);
-                            } else if (con.equals("used")) {
-                                condition.setText(R.string.used);
+                            if (con.isEmpty()){
+                                condition.setText("");
+                            }else {
+                                if (con.equals("new")) {
+                                    condition.setText(R.string.newl);
+                                } else if (con.equals("used")) {
+                                    condition.setText(R.string.used);
+                                }
                             }
                             //type
                             int inType = postDetail.getCategory();
                             if (inType == 1) {
                                 type.setText(R.string.electronic);
                             } else if (inType == 2) {
+                                type.setVisibility(View.GONE);
+                                line2.setVisibility(View.GONE);
+                                tvTypeTitle.setVisibility(View.GONE);
+                                bool_title.setVisibility(View.GONE);
                                 type.setText(R.string.motor);
                                 if (con.equals("used")) {
                                     line_rela.setVisibility(View.GONE);
@@ -258,6 +272,9 @@ public class Detail_1 extends Fragment {
                             //brand
                             brand.setText(String.valueOf(postDetail.getModeling()));
                             //year
+                            if (postDetail.getYear()==0){
+                                year.setText("");
+                            }
                             if (postDetail.getYear()!=0) {
                                 if (postDetail.getYear() == 1) {
                                     year.setText(R.string.year1);
@@ -299,6 +316,18 @@ public class Detail_1 extends Fragment {
                                     year.setText(R.string.year19);
                                 } else if (postDetail.getYear() == 20) {
                                     year.setText(R.string.year20);
+                                } else if (postDetail.getYear() == 21){
+                                    year.setText(R.string.year21);
+                                } else if (postDetail.getYear() == 22){
+                                    year.setText(R.string.year22);
+                                } else if (postDetail.getYear() == 23){
+                                    year.setText(R.string.year23);
+                                } else if (postDetail.getYear() == 24){
+                                    year.setText(R.string.year24);
+                                }else if (postDetail.getYear() == 25){
+                                    year.setText(R.string.year25);
+                                }else if (postDetail.getYear() == 26){
+                                    year.setText(R.string.year26);
                                 }
                             }
                             //model
@@ -452,7 +481,7 @@ public class Detail_1 extends Fragment {
                                     no_result.setVisibility(View.GONE);
                                     recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));
 //                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
                                 }
                             }
                         } catch (JsonParseException | JSONException e) {

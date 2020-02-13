@@ -49,6 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 Log.e(TAG, "onConnected");
                                 Intent intent = new Intent(SplashScreenActivity.this, Home.class);
                                 startActivity(intent);
+                                finish();
                             }
 
                             @Override

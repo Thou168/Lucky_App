@@ -288,12 +288,23 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:textSize="12dp"
                     android:layout_height="wrap_content"/>
-                <com.example.roman.thesimplerangebar.SimpleRangeBar
-                    android:layout_width="fill_parent"
+<!--                <com.example.roman.thesimplerangebar.SimpleRangeBar-->
+<!--                    android:layout_width="fill_parent"-->
+<!--                    android:id="@+id/rangeBar"-->
+<!--                    app:colorRangeBar="@color/seekbar_range"-->
+<!--                    android:layout_below="@+id/text_min"-->
+<!--                    android:layout_height="30dp"/>-->
+                <com.innovattic.rangeseekbar.RangeSeekBar
                     android:id="@+id/rangeBar"
-                    app:colorRangeBar="@color/seekbar_range"
-                    android:layout_below="@+id/text_min"
-                    android:layout_height="30dp"/>
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_max"
+                    app:rsb_maxThumbDrawable="@drawable/thump_circle"
+                    app:rsb_minThumbDrawable="@drawable/thump_circle"
+                    app:rsb_trackColor="#DDDDDD"
+                    app:rsb_initialMaxThumbValue="20000"
+                    app:rsb_initialMinThumbValue="0"
+                    app:rsb_trackSelectedColor="#E5A74F" />
                 <Button
                     android:id="@+id/btnSubmit_filter"
                     android:layout_width="match_parent"

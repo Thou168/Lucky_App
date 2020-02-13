@@ -7,15 +7,22 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -114,7 +121,7 @@ public class Detail_3 extends Fragment {
             }
         });
 
-        edDeposit.setText("$ 0.00");
+        edDeposit.setHint("$ 0.00");
         edTerm.setText("24");
         edTerm.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -146,8 +153,49 @@ public class Detail_3 extends Fragment {
             }
         });
         tvMonthly.setHint("Monthly");
+
+        edPrice.clearFocus();
+        edPrice.setLongClickable(false);
         edPrice.setFocusable(false);
+        edPrice.setFocusableInTouchMode(false);
+        edPrice.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+        });
+        edDeposit.clearFocus();
+        edDeposit.setLongClickable(false);
         edDeposit.setFocusable(false);
+        edDeposit.setFocusableInTouchMode(false);
+        edDeposit.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+        });
     }
 
     private void detail_fragment3(String encode){

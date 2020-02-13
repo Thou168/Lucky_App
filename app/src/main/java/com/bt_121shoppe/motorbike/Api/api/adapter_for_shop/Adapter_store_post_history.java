@@ -130,8 +130,8 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
                         view.cate.setText(R.string.motor);
                     }
 
-                    String[] splitColor=model.getColor().split(",");
-
+                    String[] splitColor=model.getMulti_color_code().split(",");
+                    //Log.e("TAG","Post Color "+splitColor[0]+" 2 "+splitColor[1]);
                     GradientDrawable shape = new GradientDrawable();
                     shape.setShape(GradientDrawable.OVAL);
                     shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
@@ -142,7 +142,7 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
                         GradientDrawable shape1 = new GradientDrawable();
                         shape1.setShape(GradientDrawable.OVAL);
                         shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                        view.tvColor2.setBackground(shape);
+                        view.tvColor2.setBackground(shape1);
                     }
 
                     //        view.imgUserProfile.setVisibility(View.GONE);

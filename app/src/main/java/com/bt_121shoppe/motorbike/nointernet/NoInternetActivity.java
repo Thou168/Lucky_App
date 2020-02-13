@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.nointernet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
@@ -25,6 +26,7 @@ public class NoInternetActivity extends AppCompatActivity implements SwipeRefres
     private static final String TAG = NoInternetActivity.class.getSimpleName();
     private TextView btntryagin;
     private SwipeRefreshLayout swipeRefreshLayout;
+    boolean doubleBackToExitPressedOnce = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class NoInternetActivity extends AppCompatActivity implements SwipeRefres
                         //Do your task on Network Connected!
                         Log.e(TAG, "onConnected");
                         startActivity(new Intent(NoInternetActivity.this,SplashScreenActivity.class));
+                        finish();
                     }
 
                     @Override
@@ -98,5 +101,17 @@ public class NoInternetActivity extends AppCompatActivity implements SwipeRefres
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
         startActivity(new Intent(NoInternetActivity.this, SplashScreenActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        Log.e(TAG, "Run on back pressed event.");
+        Log.e(TAG, "Run on back pressed event.");
     }
 }

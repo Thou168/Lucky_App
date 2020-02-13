@@ -499,9 +499,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         int create_by = Integer.parseInt(postDetail.getCreated_by());
                         if (create_by == pk){
                             layout_call_chat_like_loan.setVisibility(View.GONE);
-                            if (postDetail.getPost_type().equals("sell")) {
-                                tabLayout.removeTabAt(2);
-                            }
+//                            if (postDetail.getPost_type().equals("sell")) {
+//                                tabLayout.removeTabAt(2);
+//                            }
                         }
                         postFrontImage=postDetail.getFront_image_path();
                         postPrice=discount.toString();

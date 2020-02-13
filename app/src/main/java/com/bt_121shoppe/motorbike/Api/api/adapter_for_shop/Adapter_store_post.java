@@ -272,38 +272,6 @@ public class ViewHolder extends BaseViewHolder{
             pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
             btRenewal.setTextColor(Color.parseColor("#0A0909"));
             btRenewal.setText(R.string.renew);
-            btRenewal.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
-                    .setTitle(R.string.Post_Renewal)
-                    .setMessage(R.string.renew_post)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        String date = null;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            date = Instant.now().toString();
-                        }
-                        change_status_delete change_status = new change_status_delete(4,date,pk,"");
-                        Service api = Client.getClient().create(Service.class);
-                        Call<change_status_delete> call2 = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                        call2.enqueue(new retrofit2.Callback<change_status_delete>() {
-                            @Override
-                            public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-                                if (!response.isSuccessful()){
-                                    Log.d("10101", String.valueOf(response.code()));
-                                    return;
-                                }
-                                FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
-                                Intent intent = new Intent(itemView.getContext(), Account.class);
-                                itemView.getContext().startActivity(intent);
-                            }
-
-                            @Override
-                            public void onFailure(Call<change_status_delete> call, Throwable t) {
-                                Log.d("Error12",t.getMessage());
-                            }
-                        });
-                    })
-                    .setNegativeButton(android.R.string.no,null)
-                    .show());
         }else{
             //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
             pending_appprove.setText(R.string.approveval);

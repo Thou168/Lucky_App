@@ -26,6 +26,7 @@ import com.example.roman.thesimplerangebar.SimpleRangeBar;
 import com.example.roman.thesimplerangebar.SimpleRangeBarOnChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
+import com.innovattic.rangeseekbar.RangeSeekBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +42,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class Filter_shopdetail extends AppCompatActivity {
+public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar.SeekBarChangeListener {
 
 
 //   private  TextView btnCategory,btnBrand,btnyear ,btnCondition,submit_filter,tv_result,tv_done;
@@ -64,7 +65,8 @@ public class Filter_shopdetail extends AppCompatActivity {
     private  int [] cateIDlist,brandIDlist,yearIDlist;
     private LinearLayout rela_cate,rela_brand,rela_year,rela_type;
 
-    private SimpleRangeBar simpleRangeBar;
+//    private SimpleRangeBar simpleRangeBar;
+    private RangeSeekBar rangeBar;
     private TextView minText;
     private TextView maxText;
     private int mMinPrice = 0,mMaxPrice = 20000;
@@ -90,30 +92,59 @@ public class Filter_shopdetail extends AppCompatActivity {
             pk = prefer.getInt("id", 0);
         }
         //seekbar
-        simpleRangeBar = findViewById(R.id.rangeBar);
+//        simpleRangeBar = findViewById(R.id.rangeBar);
+        rangeBar = findViewById(R.id.rangeBar);
         minText = findViewById(R.id.text_min);
         maxText = findViewById(R.id.text_max);
         postId = getIntent().getIntExtra("ID",0);
         dbPrice = getIntent().getDoubleExtra("price",0);
-        simpleRangeBar.setOnSimpleRangeBarChangeListener(new SimpleRangeBarOnChangeListener() {
+
+        minText.setText(String.valueOf(mMinPrice));
+        maxText.setText(String.valueOf(mMaxPrice));
+        rangeBar.setMinRange(mMinPrice);
+        rangeBar.setMax(mMaxPrice);
+        rangeBar.setMinThumbValue(mMinPrice);
+        rangeBar.setMaxThumbValue(mMaxPrice);
+        rangeBar.setSeekBarChangeListener(new RangeSeekBar.SeekBarChangeListener() {
             @Override
-            public void leftThumbValueChanged(long l) {
-                mMinPrice = Integer.valueOf(String.valueOf(l));
-                minText.setText(String.valueOf(mMinPrice));
+            public void onStartedSeeking() {
+
             }
 
             @Override
-            public void rightThumbValueChanged(long l) {
-                mMaxPrice = Integer.valueOf(String.valueOf(l));
+            public void onStoppedSeeking() {
+
+            }
+
+            @Override
+            public void onValueChanged(int i, int i1) {
+                mMinPrice=i;
+                mMaxPrice=i1;
+                minText.setText(String.valueOf(mMinPrice));
                 maxText.setText(String.valueOf(mMaxPrice));
             }
         });
-        simpleRangeBar.setRanges(mMinPrice,mMaxPrice);
-        simpleRangeBar.setThumbValues(mMinPrice, mMaxPrice);
-        simpleRangeBar.setRangeBarColor(getResources().getColor(R.color.seekbar_range));
-        simpleRangeBar.setThumbColor(getResources().getColor(R.color.colorPrimary));
-        simpleRangeBar.setRangeColor(getResources().getColor(R.color.colorPrimary));
-        simpleRangeBar.setThumbColorPressed(getResources().getColor(R.color.colorPrimary));
+        rangeBar.getSeekBarChangeListener();
+
+//        simpleRangeBar.setOnSimpleRangeBarChangeListener(new SimpleRangeBarOnChangeListener() {
+//            @Override
+//            public void leftThumbValueChanged(long l) {
+//                mMinPrice = Integer.valueOf(String.valueOf(l));
+//                minText.setText(String.valueOf(mMinPrice));
+//            }
+//
+//            @Override
+//            public void rightThumbValueChanged(long l) {
+//                mMaxPrice = Integer.valueOf(String.valueOf(l));
+//                maxText.setText(String.valueOf(mMaxPrice));
+//            }
+//        });
+//        simpleRangeBar.setRanges(mMinPrice,mMaxPrice);
+//        simpleRangeBar.setThumbValues(mMinPrice, mMaxPrice);
+//        simpleRangeBar.setRangeBarColor(getResources().getColor(R.color.seekbar_range));
+//        simpleRangeBar.setThumbColor(getResources().getColor(R.color.colorPrimary));
+//        simpleRangeBar.setRangeColor(getResources().getColor(R.color.colorPrimary));
+//        simpleRangeBar.setThumbColorPressed(getResources().getColor(R.color.colorPrimary));
 
         locale();
         tv_result = findViewById(R.id.tv_result);
@@ -634,6 +665,23 @@ public class Filter_shopdetail extends AppCompatActivity {
             }
         });
     } // create
+
+    @Override
+    public void onStartedSeeking() {
+
+    }
+
+    @Override
+    public void onStoppedSeeking() {
+
+    }
+
+    @Override
+    public void onValueChanged(int i, int i1) {
+
+    }
+
+
 
     private void Result(){
         Intent intent = new Intent();

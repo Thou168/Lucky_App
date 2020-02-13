@@ -122,12 +122,12 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 price = item.cost - item.discount!!.toInt()
                 discount =  item.cost* (item.discount?.div(100))!!
                 price = item.cost - discount
-                val stprice=NumberFormat.getNumberInstance(Locale.US).format(price)
+//                val stprice=NumberFormat.getNumberInstance(Locale.US).format(price)
                 //cost.text = "$$price"
-                cost.text = "$$stprice"
+                cost.text = "$$price"
 
-                //val st = "$"+item.cost.toString()
-                val st = "$"+NumberFormat.getNumberInstance(Locale.US).format(item.cost)
+                val st = "$"+item.cost.toString()
+//                val st = "$"+NumberFormat.getNumberInstance(Locale.US).format(item.cost)
                 val ms = SpannableString(st)
                 val mst = StrikethroughSpan()
                 ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

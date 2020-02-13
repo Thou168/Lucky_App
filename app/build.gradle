@@ -151,4 +151,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
     implementation 'org.jsoup:jsoup:1.10.2'
+
+    implementation 'com.github.Innovattic:range-seek-bar:v1.0.6'
+
+    implementation 'com.github.Jay-Goo:RangeSeekBar:v1.0.6'
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -31,12 +32,15 @@ import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.adapters.ShopAdapter;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.post.PostDetailMapActivity;
 import com.bt_121shoppe.motorbike.stores.StoreDetailActivity;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
@@ -72,7 +76,7 @@ public class Detail_2 extends Fragment {
     private TextView tv_email;
     private TextView tv_address;
     private CircleImageView cr_img;
-    private TextView username;
+    private TextView user_shop;
     private int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     private GoogleMap mMap;
@@ -90,6 +94,9 @@ public class Detail_2 extends Fragment {
     String basic_Encode;
     String postUsername,postUserId;
     ImageView mapImageView;
+    private ShopAdapter customAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView listShop;
 
     @Nullable
     @Override
@@ -101,16 +108,17 @@ public class Detail_2 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         tv_phone = view.findViewById(R.id.tv_phone);
         tv_email = view.findViewById(R.id.tv_email);
-        tv_address = view.findViewById(R.id.address);
+        tv_address = view.findViewById(R.id.tv_address);
 
         cr_img = view.findViewById(R.id.cr_img);
-        username = view.findViewById(R.id.us_name);
+        user_shop = view.findViewById(R.id.us_shop);
         mapImageView=view.findViewById(R.id.map_icon);
 
-        tv_phone.setText("PHONE");
-        tv_email.setText("EMAIL");
-        tv_address.setText("ADDRESS");
+        listShop=view.findViewById(R.id.list_shop);
 
+        tv_phone.setText("");
+        tv_email.setText("");
+        tv_address.setText("");
         //basic
         if (getActivity()!=null) {
             prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
@@ -160,24 +168,7 @@ public class Detail_2 extends Fragment {
                                 else
                                     postUsername=user1.getFirst_name();
                                 postUserId=user1.getUsername();
-                                username.setText(postUsername);
-
-
-//                        user_telephone.setText(user1.profile.telephone)
-//                        user_email.setText(user1.email)
-//                                findViewById<CircleImageView>(R.id.cr_img).setOnClickListener {
-//                                    //                            Log.d(TAG,"Tdggggggggggggg"+user1.profile.telephone)
-//                                    val intent = Intent(this@Detail_New_Post, User_post::class.java)
-//                                    intent.putExtra("ID",user1.id.toString())
-//                                    intent.putExtra("Phone",user1.profile.telephone)
-//                                    intent.putExtra("Email",user1.email)
-//                                    intent.putExtra("map_address",user1.profile.address)
-//                                    intent.putExtra("map_post",address_map)         // use for user detail when user no address shop
-//                                    //intent.putExtra("Phone",phone.text)
-//                                    intent.putExtra("Username",user1.username)
-//                                    intent.putExtra("Name",user1.first_name)
-//                                    startActivity(intent)
-//                                }
+//                                user_shop.setText(postUsername);
                             }
                         });
                     }
@@ -245,9 +236,24 @@ public class Detail_2 extends Fragment {
                             });
 
                             tv_email.setText(postDetail.getContact_email());
-                            username.setText(postDetail.getMachine_code());
+
+//                            username.setText(postDetail.getMachine_code());
                             int created_by = Integer.parseInt(postDetail.getCreated_by());
                             getUserProfile(created_by,auth);
+
+                            //shop name
+                            for (int i = 0 ; i< postDetail.getDealer_shops().size();i++){
+                                if (postDetail.getDealer_shops().get(i).getRecord_status()==1){
+                                    if (postDetail.getDealer_shops().size() != 0){
+                                        user_shop.setVisibility(View.GONE);
+                                        customAdapter = new ShopAdapter(getActivity(), postDetail.getDealer_shops());
+                                        mLayoutManager =new LinearLayoutManager(getActivity());
+                                        listShop.setLayoutManager(mLayoutManager);
+                                        listShop.setAdapter(customAdapter);
+                                    }
+                                }
+
+                            }
 //                            Glide.with(getActivity()).load(postDetail.getCreated_by()).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_img);
 
                             String contact_phone = postDetail.getContact_phone();
@@ -262,23 +268,21 @@ public class Detail_2 extends Fragment {
 
                             //address
                             String addr = postDetail.getContact_address();
-                            //Log.e("TAG","Post Address "+addr);
                             if (addr.isEmpty()) {
 
                             } else {
-
                                 String[] splitAddr = (addr.split(","));
                                 latitude = Double.valueOf(splitAddr[0]);
                                 longtitude = Double.valueOf(splitAddr[1]);
                                 try {
                                     Geocoder geo = new Geocoder(getActivity(), Locale.getDefault());
                                     List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+                                    String select_add = addresses.get(0).getAddressLine(0);
                                     if (addresses.isEmpty()) {
-                                        tv_address.setText("Waiting for Location");
+                                        tv_address.setText("no location");
                                     } else {
-                                        if (addresses.size() > 0) {
-                                            tv_address.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
-                                        }
+                                        addresses.size();
+                                        tv_address.setText(select_add);
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
