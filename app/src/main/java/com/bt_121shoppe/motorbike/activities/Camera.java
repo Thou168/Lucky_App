@@ -54,6 +54,7 @@ import android.widget.Toast;
 
 
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.adapters.CustomView;
 import com.bt_121shoppe.motorbike.adapters.ColorAdapter;
 import com.bt_121shoppe.motorbike.Api.api.Client;
@@ -170,6 +171,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private int process_type=0,category=0;
     private int cate=0,brand=0,model=0,year=0,type=0;
     private int id_typeother;
+    private int selectedIndex;
     private File mPhotoFile;
     private FileCompressor mCompressor;
     private SharedPreferences prefer,pre_id;
@@ -190,7 +192,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private SeekBar seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
 
     private TextView tv_add,tv_add1,tv_cancel,tvType_elec,tv_name,title_dicount,show_ID;
-    private TextView phone_alert,email_alert,address_alert,map_alert;
+    private TextView phone_alert,email_alert,address_alert,map_alert,name_alert;
     private TextView price_alert,dis_price_alert,post_type_alert,category_alert,type_alert,brand_alert,model_alert,year_alert,info_alert,conditon_alert;
     private TextView whole_alert,console_alert,assembly_alert,engine_head_alert,right_engine_alert,screw_alert,accessories_alert,rear_alert,pumps_alert;
     private TextView tvConsole,tvAssecssorie,tvWhole_int,tvRear,tvScrew,tvPumps,tvRight_engine,tvEngine_head,tvAssembly;
@@ -278,7 +280,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_accessorie = bundle.getInt("accessories",0);
             name_post          = bundle.getString("name_post");
             cat                = bundle.getString("cat");
-            color              = bundle.getString("color");
+            strColor           = bundle.getString("color");
             image1             = bundle.getParcelable("image1");
             image2             = bundle.getParcelable("image2");
             image3             = bundle.getParcelable("image3");
@@ -307,6 +309,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 submit_post.setVisibility(View.GONE);
                 tv_name.setVisibility(View.VISIBLE);
                 etName.setVisibility(View.VISIBLE);
+                name_alert.setVisibility(View.VISIBLE);
                 edit_id = bundle.getInt("id_product", 0);
                 getData_Post(Encode,edit_id);
             }
@@ -337,6 +340,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_screw.setProgress(seekbar_screww);
             seekbar_rear.setProgress(seekbar_rearr);
             etMap.setText(road);
+            setColor(FunctionColor.selectItemColor(strColor));
 
             if(category == 1){
                 layout_estimate.setVisibility(View.GONE);
@@ -346,12 +350,17 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 tvType_elec.setVisibility(View.GONE);
                 tvType_cate.setVisibility(View.GONE);
                 if (condition != null){
-                    if (condition.equals("used") || condition.equals("ប្រើ")){
+                    if (condition.equals("used") || condition.equals("ប្រើប្រាស់រួច")){
                         layout_estimate.setVisibility(View.VISIBLE);
                     }else if (condition.equals("new") || condition.equals("ថ្មី")){
                         layout_estimate.setVisibility(View.GONE);
                     }
                 }
+            }
+            if (shopId>0){
+                getInfo_store(pk,Encode);
+                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                getLocation(true);
             }
 
             Glide.with(Camera.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
@@ -1175,6 +1184,47 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }
         });
     }
+    private void getInfo_store(int pk,String encode){
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<ShopViewModel> call=api.getDealerShop(shopId);
+        call.enqueue(new retrofit2.Callback<ShopViewModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                if(response.isSuccessful()){
+                    etName.setText(response.body().getShop_name());
+                    etAddress.setText(response.body().getShop_address());
+                    Service api = Client.getClient().create(Service.class);
+                    retrofit2.Call<User_Detail> call1 = api.getDetailUser(pk,encode);
+                    call1.enqueue(new retrofit2.Callback<User_Detail>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
+                            if (response.isSuccessful()) {
+                                String stphone = response.body().getProfile().getTelephone();
+                                etPhone1.setText(method(stphone));
+                            }
+                        }
+                        @Override
+                        public void onFailure(retrofit2.Call<User_Detail> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+            }
+        });
+    }
+    public String method(String str) {
+        for (int i=0;i<str.length();i++){
+            if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+                str = str.substring(0, str.length() - 1);
+            }
+        }
+        return str;
+    }
 
     private void initialUserInformation(int pk, String encode) {
 //        if (bundle==null || bundle.isEmpty()) {
@@ -1288,7 +1338,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
             post.put("category", category);
             post.put("status", 3);
-            if (con.equals("used") || con.equals("ប្រើ")){
+            if (con.equals("used") || con.equals("ប្រើប្រាស់រួច")){
                 condition1 = "used";
             }else if (con.equals("new") || con.equals("ថ្មី")){
                 condition1 = "new";
@@ -1712,7 +1762,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         if(model==0)
             model=mmodel;
         try {
-            if (con.equals("used") || con.equals("ប្រើ")){
+            if (con.equals("used") || con.equals("ប្រើប្រាស់រួច")){
                 condition1 = "used";
             }else if (con.equals("new") || con.equals("ថ្មី")){
                 condition1 = "new";
@@ -2361,17 +2411,16 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private void setColor(int[] index){
         Log.e("Index",""+index.length);
         for (int i=0;i<index.length;i++) {
-            CustomView customView = new CustomView(getBaseContext());
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
             final ColorAdapter adapter = new ColorAdapter(FunctionColor.itemcolor, getApplication());
             gridView.setAdapter(adapter);
+            selectedIndex = adapter.selectedPositions.indexOf(index);
             if (index.length == 2) {
                 adapter.selectedPositions.add(index[0]);
                 adapter.selectedPositions.add(index[1]);
             }else {
                 adapter.selectedPositions.add(index[0]);
             }
-            customView.display(true);
         }
     }
     private void DropDown() {
@@ -2381,7 +2430,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         final ColorAdapter adapter = new ColorAdapter(FunctionColor.itemcolor,getApplication());
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener((parent, v, position, id) -> {
-            int selectedIndex = adapter.selectedPositions.indexOf(position);
+            selectedIndex = adapter.selectedPositions.indexOf(position);
             if (selectedIndex > - 1) {
                 adapter.selectedPositions.remove(selectedIndex);
                 ((CustomView)v).display(false);
@@ -2406,6 +2455,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }
             Log.e("list color",""+arrayColor.size());
             strColor = FunctionColor.setColor(arrayColor);
+            Log.e("color select:",""+strColor);
         });
 
         imgAdd_color.setVisibility(View.VISIBLE);
@@ -2509,7 +2559,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     intent.putExtra("accessories",seekbar_accessorie);
                     intent.putExtra("category_post",category);
                     intent.putExtra("cat",tvType_cate.getText().toString());
-                    intent.putExtra("color",color);
+                    intent.putExtra("color",strColor);
                     intent.putExtra("image1",image1);
                     intent.putExtra("image2",image2);
                     intent.putExtra("image3",image3);
@@ -2560,6 +2610,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         btremove_pic5    = (ImageButton) findViewById(R.id.remove_pic5);
         btremove_pic6    = (ImageButton) findViewById(R.id.remove_pic6);
 
+        name_alert        = (TextView) findViewById(R.id.name_alert);
         pumps_alert       = (TextView) findViewById(R.id.pumps_alert);
         accessories_alert = (TextView) findViewById(R.id.accessories_alert);
         whole_alert       = (TextView) findViewById(R.id.whole_alert);
@@ -3341,7 +3392,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         }else {
             tvType_elec.setVisibility(View.GONE);
             tvType_cate.setVisibility(View.GONE);
-            if (con.equals("Used") || con.equals("ប្រើ")) {
+            if (con.equals("Used") || con.equals("ប្រើប្រាស់រួច")) {
                 layout_estimate.setVisibility(View.VISIBLE);
             }else {
                 layout_estimate.setVisibility(View.GONE);

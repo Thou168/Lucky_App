@@ -502,15 +502,15 @@ public class FunctionColor {
         if (arrayColor.size() > 0){
             switch (arrayColor.size()) {
                 case 1:
-                    if (arrayColor.contains("2131231207")) {
+                    if (arrayColor.contains("2131231215")) {
                         strColor = "white";
                     }else if (arrayColor.contains("2131230843")){
                         strColor = "blue";
                     }else if (arrayColor.contains("2131231068")){
                         strColor = "black";
-                    }else if (arrayColor.contains("2131231164")){
+                    }else if (arrayColor.contains("2131231165")){
                         strColor = "red";
-                    }else if (arrayColor.contains("2131231212")){
+                    }else if (arrayColor.contains("2131231217")){
                         strColor = "yellow";
                     }else if (arrayColor.contains("2131231159")){
                         strColor = "pink";
@@ -541,46 +541,46 @@ public class FunctionColor {
                     }
                     break;
                 case 2:
-                    if (arrayColor.contains("2131231207") && arrayColor.contains("2131230843")) {
+                    if (arrayColor.contains("2131231215") && arrayColor.contains("2131230843")) {
                         strColor = "white" + "," + "blue";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231068")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231068")){
                         strColor = "white" + "," + "black";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231164")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231165")){
                         strColor = "white" + "," + "red";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231212")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231217")){
                         strColor = "white" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231159")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231159")){
                         strColor = "white" + "," + "pink";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231162")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231162")){
                         strColor = "white" + "," + "purple";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231124")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231124")){
                         strColor = "white" + "," + "orange";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231070")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231070")){
                         strColor = "white" + "," + "green";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231069")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231069")){
                         strColor = "white" + "," + "silver";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131230927")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131230927")){
                         strColor = "white" + "," + "brown";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131230844")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131230844")){
                         strColor = "white" + "," + "blue sky";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131230956")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131230956")){
                         strColor = "white" + "," + "light green";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231067")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231067")){
                         strColor = "white" + "," + "light red";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131231066")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131231066")){
                         strColor = "white" + "," + "light blue sky";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131230929")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131230929")){
                         strColor = "white" + "," + "dark red";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131230928")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131230928")){
                         strColor = "white" + "," + "dark green";
-                    }else if (arrayColor.contains("2131231207") && arrayColor.contains("2131230926")){
+                    }else if (arrayColor.contains("2131231215") && arrayColor.contains("2131230926")){
                         strColor = "white" + "," + "dark blue";
                     }
                     else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231068")){
                         strColor = "blue" + "," + "black";
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231164")){
                         strColor = "blue" + "," + "red";
-                    }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231212")){
+                    }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231217")){
                         strColor = "blue" + "," + "yellow";
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231159")){
                         strColor = "blue" + "," + "pink";
@@ -611,7 +611,7 @@ public class FunctionColor {
                     }
                     else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231164")){
                         strColor = "black" + "," + "red";
-                    }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231212")){
+                    }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231217")){
                         strColor = "black" + "," + "yellow";
                     }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231159")){
                         strColor = "black" + "," + "pink";
@@ -640,60 +640,60 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131230926")){
                         strColor = "black" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231212")){
+                    else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231217")){
                         strColor = "red" + "," + "yellow";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231159")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231159")){
                         strColor = "red" + "," + "pink";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231162")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231162")){
                         strColor = "red" + "," + "purple";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231124")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231124")){
                         strColor = "red" + "," + "orange";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231070")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231070")){
                         strColor = "red" + "," + "green";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231069")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231069")){
                         strColor = "red" + "," + "silver";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230927")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131230927")){
                         strColor = "red" + "," + "brown";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230844")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131230844")){
                         strColor = "red" + "," + "blue sky";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230956")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131230956")){
                         strColor = "red" + "," + "light green";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231067")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231067")){
                         strColor = "red" + "," + "light red";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131231066")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131231066")){
                         strColor = "red" + "," + "light blue sky";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230929")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131230929")){
                         strColor = "red" + "," + "dark red";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230928")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131230928")){
                         strColor = "red" + "," + "dark green";
-                    }else if (arrayColor.contains("2131231164") && arrayColor.contains("2131230926")){
+                    }else if (arrayColor.contains("2131231165") && arrayColor.contains("2131230926")){
                         strColor = "red" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231159")){
+                    else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231159")){
                         strColor = "yellow" + "," + "pink";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231162")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231162")){
                         strColor = "yellow" + "," + "purple";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231124")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231124")){
                         strColor = "yellow" + "," + "orange";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231070")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231070")){
                         strColor = "yellow" + "," + "green";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231069")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231069")){
                         strColor = "yellow" + "," + "silver";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230927")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131230927")){
                         strColor = "yellow" + "," + "brown";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230844")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131230844")){
                         strColor = "yellow" + "," + "blue sky";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230956")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131230956")){
                         strColor = "yellow" + "," + "light green";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231067")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231067")){
                         strColor = "yellow" + "," + "light red";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131231066")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131231066")){
                         strColor = "yellow" + "," + "light blue sky";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230929")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131230929")){
                         strColor = "yellow" + "," + "dark red";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230928")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131230928")){
                         strColor = "yellow" + "," + "dark green";
-                    }else if (arrayColor.contains("2131231212") && arrayColor.contains("2131230926")){
+                    }else if (arrayColor.contains("2131231217") && arrayColor.contains("2131230926")){
                         strColor = "yellow" + "," + "dark blue";
                     }
                     else if (arrayColor.contains("2131231159") && arrayColor.contains("2131231162")){
