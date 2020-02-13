@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,11 +34,12 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, year, genre;
-
+        LinearLayout ln;
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.name);
             genre = view.findViewById(R.id.idshop);
+            ln = view.findViewById(R.id.ln);
 //            year = (TextView) view.findViewById(R.id.year);
         }
     }
@@ -83,6 +85,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             holder.genre.setVisibility(View.GONE);
             holder.itemView.setVisibility(View.GONE);
             holder.title.setVisibility(View.GONE);
+            holder.ln.setVisibility(View.GONE);
         }
     }
 

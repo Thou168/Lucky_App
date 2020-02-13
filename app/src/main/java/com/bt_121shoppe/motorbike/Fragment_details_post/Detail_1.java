@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -76,6 +78,8 @@ public class Detail_1 extends Fragment {
     TextView tvColor1,tvColor2;
     TextView tv_below;
     View line2,tvTypeTitle,bool_title;
+    LinearLayoutManager linearLayoutManager;
+    HorizontalScrollView horizontalScrollView;
 
     @Nullable
     @Override
@@ -481,7 +485,9 @@ public class Detail_1 extends Fragment {
                                     no_result.setVisibility(View.GONE);
                                     recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));
 //                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
-                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1,GridLayoutManager.HORIZONTAL,false));
+                                    linearLayoutManager = new GridLayoutManager(getActivity(), 1,GridLayoutManager.HORIZONTAL, false);
+                                    recyclerView.setLayoutManager(linearLayoutManager);
+//                                    recyclerView.setAdapter(horizontalAdapter);
                                 }
                             }
                         } catch (JsonParseException | JSONException e) {

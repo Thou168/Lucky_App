@@ -355,9 +355,10 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             @Override
             public void onClick(View view) {
                 if (mProfile!=null){
-                    Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
-                    intent.putExtra("Register_verify",register_verify);
-                    startActivity(intent);
+//                    Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
+//                    intent.putExtra("Register_verify",register_verify);
+//                    startActivity(intent);
+                    finish();
                 }else if (pk != 0){
                     startActivity(new Intent(Register.this, AccountSettingActivity.class));
                 }else {
@@ -664,10 +665,20 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
 
     @Override
     public void onBackPressed() {
+//        if (mProfile!=null){
+//            Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
+//            intent.putExtra("Register_verify",register_verify);
+//            startActivity(intent);
+//        }else if (pk != 0){
+//            startActivity(new Intent(Register.this, AccountSettingActivity.class));
+//        }else {
+//            finish();
+//        }
         if (mProfile!=null){
-            Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
-            intent.putExtra("Register_verify",register_verify);
-            startActivity(intent);
+//            Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
+//            intent.putExtra("Register_verify",register_verify);
+//            startActivity(intent);
+            finish();
         }else if (pk != 0){
             startActivity(new Intent(Register.this, AccountSettingActivity.class));
         }else {

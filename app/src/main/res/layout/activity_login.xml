@@ -36,158 +36,168 @@
 
        <ScrollView
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+           android:layout_height="match_parent">
            <RelativeLayout
-               android:background="@drawable/border"
-               android:layout_margin="15dp"
-               android:elevation="@dimen/dp_8"
-               android:layout_width="wrap_content"
-               android:padding="15dp"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:background="@drawable/border"
+                android:layout_margin="15dp"
+                android:elevation="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:layout_height="wrap_content">
 
-               <RelativeLayout
-                   android:id="@+id/text"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-                   <TextView
-                       android:id="@+id/welcome"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:fontFamily="@font/opensans_bold"
-                       android:textColor="#333333"
-                       android:text="@string/welcome"
-                       android:textSize="30dp"/>
-                   <TextView
-                       android:id="@+id/sign_up"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/colorPrimary"
-                       android:layout_alignParentRight="true"
-                       android:layout_marginTop="10dp"
-                       android:fontFamily="@font/opensans_bold"
-                       android:text="@string/signup"
-                       android:textSize="@dimen/dp_15"/>
-                   <TextView
-                       android:fontFamily="@font/opensans_regular"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/black"
-                       android:layout_below="@+id/welcome"
-                       android:text="@string/continue_signin"
-                       android:textSize="15dp"/>
-               </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/welcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_bold"
+                        android:textColor="#333333"
+                        android:text="@string/welcome"
+                        android:textSize="30dp"/>
+                    <TextView
+                        android:id="@+id/sign_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/opensans_bold"
+                        android:text="@string/signup"
+                        android:textSize="@dimen/dp_15"/>
+                    <TextView
+                        android:fontFamily="@font/opensans_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_below="@+id/welcome"
+                        android:text="@string/continue_signin"
+                        android:textSize="15dp"/>
+                </RelativeLayout>
 
-               <RelativeLayout
-                   android:id="@+id/phone"
-                   android:layout_below="@+id/text"
-                   android:layout_marginTop="30dp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-                   <TextView
-                       android:id="@+id/textView4"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:fontFamily="@font/opensans_semibold"
-                       android:text="@string/phone_number"
-                       android:textColor="#333333"
-                       android:textSize="@dimen/dp_15" />
+                <RelativeLayout
+                    android:id="@+id/phone"
+                    android:layout_below="@+id/text"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/phone_number"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/dp_15" />
 
-                   <EditText
-                       android:id="@+id/editPhoneLogin"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:inputType="number"
-                       android:text=""
-                       android:layout_below="@+id/textView4"
-                       android:maxLength="10"
-                       android:fontFamily="@font/opensans_regular"
-                       android:textSize="@dimen/dp_20" />
+                    <EditText
+                        android:id="@+id/editPhoneLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text=""
+                        android:layout_below="@+id/textView4"
+                        android:maxLength="10"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textSize="@dimen/dp_20" />
 
-                   <TextView
-                       android:id="@+id/phone_alert"
-                       android:layout_width="match_parent"
-                       android:layout_height="10dp"
-                       android:layout_marginBottom="@dimen/dp_8dp"
-                       android:text=""
-                       android:layout_below="@id/editPhoneLogin"
-                       android:textColor="#000"
-                       android:fontFamily="@font/opensans_regular"
-                       android:textSize="8sp" />
-               </RelativeLayout>
+                    <TextView
+                        android:id="@+id/phone_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="@dimen/dp_8dp"
+                        android:text=""
+                        android:layout_below="@id/editPhoneLogin"
+                        android:textColor="#000"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textSize="8sp" />
+                </RelativeLayout>
 
-               <RelativeLayout
-                   android:layout_below="@+id/phone"
-                   android:id="@+id/pass"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-                   <TextView
-                       android:id="@+id/textView5"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:fontFamily="@font/opensans_semibold"
-                       android:text="@string/Password"
-                       android:textColor="#333333"
-                       android:textSize="@dimen/dp_15" />
+                <RelativeLayout
+                    android:layout_below="@+id/phone"
+                    android:id="@+id/pass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/Password"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/dp_15" />
 
-                   <EditText
-                       android:id="@+id/editPasswordLogin"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/textView5"
-                       android:ems="8"
-                       android:inputType="textPassword"
-                       android:fontFamily="@font/opensans_regular"
-                       android:textSize="@dimen/dp_20" />
-                   <TextView
-                       android:id="@+id/password_alert"
-                       android:layout_width="match_parent"
-                       android:layout_height="10dp"
-                       android:layout_below="@+id/editPasswordLogin"
-                       android:text=""
-                       android:textColor="#000"
-                       android:fontFamily="@font/opensans_regular"
-                       android:textSize="8sp" />
-               </RelativeLayout>
+                    <EditText
+                        android:id="@+id/editPasswordLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView5"
+                        android:ems="8"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textSize="@dimen/dp_20" />
+                    <TextView
+                        android:id="@+id/password_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_below="@+id/editPasswordLogin"
+                        android:text=""
+                        android:textColor="#000"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textSize="8sp" />
+                </RelativeLayout>
 
-               <TextView
-                   android:id="@+id/tv_forget_password"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_below="@id/pass"
-                   android:textSize="15dp"
-                   android:textColor="@color/colorPrimary"
-                   android:fontFamily="@font/opensans_regular"
-                   android:layout_alignParentRight="true"
-                   android:layout_marginTop="-15dp"
-                   android:text="@string/forget_pwd" />
+                <TextView
+                    android:id="@+id/tv_forget_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pass"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/opensans_regular"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-15dp"
+                    android:text="@string/forget_pwd" />
 
-               <Button
-                   android:layout_below="@+id/tv_forget_password"
-                   android:id="@+id/btnSubmitLogin"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:background="@drawable/button"
-                   android:layout_marginStart="@dimen/dp_24"
-                   android:layout_marginTop="@dimen/dp_24"
-                   android:layout_marginEnd="@dimen/dp_24"
-                   android:layout_marginBottom="@dimen/dp_24"
-                   android:text="@string/ok"
-                   android:textSize="15dp"
-                   android:fontFamily="@font/opensans_regular"
-                   android:textColor="#FFF" />
-
+                <Button
+                    android:layout_below="@+id/tv_forget_password"
+                    android:id="@+id/btnSubmitLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:text="@string/ok"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textColor="#FFF" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_below="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.facebook.login.widget.LoginButton
+                    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                    facebook:com_facebook_login_text="@string/facebook_login"
+                    android:id="@+id/login_button"
+                    android:layout_marginTop="235.05dp"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp_8" />
+            </RelativeLayout>
            </RelativeLayout>
        </ScrollView>
 
-        <com.facebook.login.widget.LoginButton
-            xmlns:facebook="http://schemas.android.com/apk/res-auto"
-            facebook:com_facebook_login_text="@string/facebook_login"
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="@dimen/dp_24"
-            android:layout_gravity="center"
-            android:padding="@dimen/dp_8" />
     </LinearLayout>
 
 </RelativeLayout>

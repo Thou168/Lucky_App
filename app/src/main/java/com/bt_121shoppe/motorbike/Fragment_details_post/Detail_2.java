@@ -35,6 +35,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.CheckGroup;
 import com.bt_121shoppe.motorbike.adapters.ShopAdapter;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
@@ -97,6 +98,8 @@ public class Detail_2 extends Fragment {
     private ShopAdapter customAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView listShop;
+    private int pk = 0;
+    private int g = 0;
 
     @Nullable
     @Override
@@ -120,8 +123,15 @@ public class Detail_2 extends Fragment {
         tv_email.setText("");
         tv_address.setText("");
         //basic
+        CheckGroup check = new CheckGroup();
         if (getActivity()!=null) {
             prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
+            if (prefer.contains("token")) {
+                pk = prefer.getInt("Pk",0);
+            }else if (prefer.contains("id")) {
+                pk = prefer.getInt("id", 0);
+            }
+            g = check.getGroup(pk,getContext());
         }
         name = prefer.getString("name","");
         pass = prefer.getString("pass","");
@@ -162,13 +172,17 @@ public class Detail_2 extends Fragment {
                             @Override
                             public void run() {
                                 CommomAPIFunction.getUserProfileFB(getActivity(),cr_img,user1.getUsername());
-
-                                if(user1.getFirst_name()==null)
-                                    postUsername=user1.getUsername();
-                                else
-                                    postUsername=user1.getFirst_name();
-                                postUserId=user1.getUsername();
-//                                user_shop.setText(postUsername);
+                                if (g!=3) {
+                                    if (user1.getFirst_name() == null)
+                                        postUsername = user1.getUsername();
+                                    else
+                                        postUsername = user1.getFirst_name();
+                                    postUserId = user1.getUsername();
+                                    user_shop.setText(postUsername);
+                                }else {
+                                    user_shop.setVisibility(View.GONE);
+                                    listShop.setVisibility(View.VISIBLE);
+                                }
                             }
                         });
                     }
@@ -238,21 +252,26 @@ public class Detail_2 extends Fragment {
                             tv_email.setText(postDetail.getContact_email());
 
 //                            username.setText(postDetail.getMachine_code());
+
                             int created_by = Integer.parseInt(postDetail.getCreated_by());
-                            getUserProfile(created_by,auth);
+                            getUserProfile(created_by, auth);
 
                             //shop name
-                            for (int i = 0 ; i< postDetail.getDealer_shops().size();i++){
-                                if (postDetail.getDealer_shops().get(i).getRecord_status()==1){
-                                    if (postDetail.getDealer_shops().size() != 0){
+
+                            for (int i = 0; i < postDetail.getDealer_shops().size(); i++) {
+                                if (postDetail.getDealer_shops().get(i).getRecord_status() == 1) {
+                                    if (postDetail.getDealer_shops().size() > 0) {
                                         user_shop.setVisibility(View.GONE);
+                                        listShop.setVisibility(View.VISIBLE);
                                         customAdapter = new ShopAdapter(getActivity(), postDetail.getDealer_shops());
-                                        mLayoutManager =new LinearLayoutManager(getActivity());
+                                        mLayoutManager = new LinearLayoutManager(getActivity());
                                         listShop.setLayoutManager(mLayoutManager);
                                         listShop.setAdapter(customAdapter);
                                     }
+                                }else {
+                                    listShop.setVisibility(View.GONE);
+                                    user_shop.setVisibility(View.VISIBLE);
                                 }
-
                             }
 //                            Glide.with(getActivity()).load(postDetail.getCreated_by()).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_img);
 

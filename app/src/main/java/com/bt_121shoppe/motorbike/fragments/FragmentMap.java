@@ -150,16 +150,18 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (register != null){
-                    if (mProfile != null) {
-                        startActivity(new Intent(FragmentMap.this, CreateShop.class));
-                    }else if (edit != null){
-                        startActivity(new Intent(FragmentMap.this,Register.class));
-                    }
-                }else if (post != null){
-                    startActivity(new Intent(FragmentMap.this,Camera.class));
-                }else
-                    finish();
+                onBackPressed();
+//                if (register != null){
+//                    if (mProfile != null) {
+//                        startActivity(new Intent(FragmentMap.this, CreateShop.class));
+//                    }else if (edit != null){
+//                        startActivity(new Intent(FragmentMap.this,Register.class));
+//                    }
+//                }else if (post != null){
+////                    startActivity(new Intent(FragmentMap.this,Camera.class));
+//                    finish();
+//                }else
+//                    finish();
             }
         });
         pin.setOnClickListener(new View.OnClickListener() {
@@ -271,12 +273,15 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
     public void onBackPressed() {
         if (register != null){
             if (mProfile != null) {
-                startActivity(new Intent(FragmentMap.this, CreateShop.class));
+//                startActivity(new Intent(FragmentMap.this, CreateShop.class));
+                finish();
             }else if (edit != null){
-                startActivity(new Intent(FragmentMap.this,Register.class));
+//                startActivity(new Intent(FragmentMap.this,Register.class));
+                finish();
             }
         }else if (post != null){
-            startActivity(new Intent(FragmentMap.this,Camera.class));
+//            startActivity(new Intent(FragmentMap.this,Camera.class));
+            finish();
         }else
             finish();
     }
