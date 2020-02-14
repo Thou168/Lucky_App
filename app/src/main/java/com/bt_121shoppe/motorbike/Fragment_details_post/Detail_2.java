@@ -172,17 +172,17 @@ public class Detail_2 extends Fragment {
                             @Override
                             public void run() {
                                 CommomAPIFunction.getUserProfileFB(getActivity(),cr_img,user1.getUsername());
-                                if (g!=3) {
+//                                if (g!=3) {
                                     if (user1.getFirst_name() == null)
                                         postUsername = user1.getUsername();
                                     else
                                         postUsername = user1.getFirst_name();
                                     postUserId = user1.getUsername();
                                     user_shop.setText(postUsername);
-                                }else {
-                                    user_shop.setVisibility(View.GONE);
-                                    listShop.setVisibility(View.VISIBLE);
-                                }
+//                                }else {
+//                                    user_shop.setVisibility(View.GONE);
+//                                    listShop.setVisibility(View.VISIBLE);
+//                                }
                             }
                         });
                     }

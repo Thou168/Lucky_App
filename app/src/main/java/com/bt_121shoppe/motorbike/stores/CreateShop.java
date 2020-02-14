@@ -263,18 +263,18 @@ public class CreateShop extends AppCompatActivity {
                 }else {
                     PhoneError.setText("");
                 }
-                if (editWing_account.getText().toString().isEmpty()){
-                    wing_account_alert.setTextColor(getColor(R.color.red));
-                    wing_account_alert.setText(getString(R.string.invalid_wing_account));
-                }else {
-                    wing_account_alert.setText("");
-                }
-                if (editWing_number.getText().toString().isEmpty()){
-                    wing_number_alert.setTextColor(getColor(R.color.red));
-                    wing_number_alert.setText(getString(R.string.invalid_wing_number));
-                }else {
-                    wing_number_alert.setText("");
-                }
+//                if (editWing_account.getText().toString().isEmpty()){
+//                    wing_account_alert.setTextColor(getColor(R.color.red));
+//                    wing_account_alert.setText(getString(R.string.invalid_wing_account));
+//                }else {
+//                    wing_account_alert.setText("");
+//                }
+//                if (editWing_number.getText().toString().isEmpty()){
+//                    wing_number_alert.setTextColor(getColor(R.color.red));
+//                    wing_number_alert.setText(getString(R.string.invalid_wing_number));
+//                }else {
+//                    wing_number_alert.setText("");
+//                }
             }else {
                 mProgress.show();
                 PhoneError.setText("");
@@ -553,7 +553,8 @@ public class CreateShop extends AppCompatActivity {
         try{
             post1.put("user",pk);
             post1.put("shop_name",usershop.getShop_name());
-            post1.put("shop_address",usershop.getShop_address());
+//            post1.put("shop_address",usershop.getShop_address());
+            post1.put("shop_province",usershop.getShop_address());
             post1.put("record_status",1);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
@@ -630,7 +631,8 @@ public class CreateShop extends AppCompatActivity {
         try{
             post1.put("user",pk);
             post1.put("shop_name",usershop.getShop_name());
-            post1.put("shop_address",usershop.getShop_address());
+//            post1.put("shop_address",usershop.getShop_address());
+            post1.put("shop_province",usershop.getShop_address());
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
             }else{
