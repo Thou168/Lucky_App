@@ -578,7 +578,7 @@ public class FunctionColor {
                     }
                     else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231068")){
                         strColor = "blue" + "," + "black";
-                    }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231164")){
+                    }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231165")){
                         strColor = "blue" + "," + "red";
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131231217")){
                         strColor = "blue" + "," + "yellow";
@@ -609,7 +609,7 @@ public class FunctionColor {
                     }else if (arrayColor.contains("2131230843") && arrayColor.contains("2131230926")){
                         strColor = "blue" + "," + "dark blue";
                     }
-                    else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231164")){
+                    else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231165")){
                         strColor = "black" + "," + "red";
                     }else if (arrayColor.contains("2131231068") && arrayColor.contains("2131231217")){
                         strColor = "black" + "," + "yellow";

@@ -774,6 +774,9 @@ public class one extends Fragment{
                     for (int i=0;i<list_darft.size();i++){
                         mName.setText(list_darft.get(i).getUsername());
                         mPhone_Number.setText(list_darft.get(i).getTelephone());
+                        mDistrict.setText(list_darft.get(i).getDistrmict());
+                        mCommune.setText(list_darft.get(i).getCommune());
+                        mVillage.setText(list_darft.get(i).getVillage());
                         for (int j=0;j<Job.length;j++){
                             if (list_darft.get(i).getJob().equals(Job[j])){
                                 mJob.setText(rJob[j]);
@@ -791,7 +794,7 @@ public class one extends Fragment{
                                 }
                             }
                             for (int j=0;j<rJob.length;j++){
-                                if (list_darft.get(j).getmCoborrower_job().equals(Job[j].toLowerCase())){
+                                if (list_darft.get(i).getmCoborrower_job().equals(Job[j].toLowerCase())){
                                     mCo_borrower_Job.setText(rJob[j]);
                                     indexCoborow_job = j;
                                 }
@@ -806,6 +809,21 @@ public class one extends Fragment{
                         mTotal_Income.setText(String.valueOf(list_darft.get(i).getAverage_income()));
                         mTotal_Expense.setText(String.valueOf(list_darft.get(i).getAverage_expense()));
                         mNet_Income.setText(list_darft.get(i).getAverage_income()- list_darft.get(i).getAverage_expense()+"");
+                        mProvinceID = list_darft.get(i).getProvince_id();
+                        Call<Province> call1 = apiService.getProvince(list_darft.get(i).getProvince_id());
+                        call1.enqueue(new Callback<Province>() {
+                            @Override
+                            public void onResponse(Call<Province> call, Response<Province> response) {
+                                if (!response.isSuccessful()){
+                                    Log.e("ONRESPONSE Province", String.valueOf(response.code()));
+                                }
+                                if (currentLanguage.equals("en"))
+                                    mAddress.setText(response.body().getProvince());
+                                else  mAddress.setText(response.body().getProvince_kh());
+                            }
+                            @Override
+                            public void onFailure(Call<Province> call, Throwable t) { }
+                        });
                     }
                 }
             }

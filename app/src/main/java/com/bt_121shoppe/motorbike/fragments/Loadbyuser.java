@@ -22,6 +22,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_Loanbyuser;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 import java.util.List;
@@ -39,6 +40,8 @@ public class Loadbyuser extends Fragment {
     Adapter_Loanbyuser mAdapter;
     ProgressBar progressBar;
     TextView no_result;
+    private int LoanID;
+    private boolean draft;
     public Loadbyuser(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,5 +104,4 @@ public class Loadbyuser extends Fragment {
             }
         });
     }
-
 }

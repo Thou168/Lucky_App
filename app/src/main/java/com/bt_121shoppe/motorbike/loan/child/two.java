@@ -141,6 +141,12 @@ public class two extends Fragment {
             createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,getString(R.string.invalid_contributions));
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,getString(R.string.invalid_number_institutions));
 //            createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,getString(R.string.invalid_monthly_amount));
+            String monthly;
+            if (mMonthly_Amount_Paid.getText().toString().isEmpty()){
+                monthly = "0";
+            }else {
+                monthly = mMonthly_Amount_Paid.getText().toString();
+            }
 
             if (checkEd()){
             itemTwo = new item_two(Float.parseFloat(
@@ -150,7 +156,7 @@ public class two extends Fragment {
                     Float.parseFloat(mLoan_Contributions.getText().toString()),
                     mBuy_product_insurance,mVisit_home,
                     mNumber_institution.getText().toString(),
-                    mMonthly_Amount_Paid.getText().toString(),itemOne);
+                    monthly,itemOne);
             SM.sendItemTwo(itemTwo,2);
             }
         });

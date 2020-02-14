@@ -41,8 +41,6 @@ public class Draft_loan extends AppCompatActivity {
     private List<draft_Item> listData;
     private Adapter_list_draft mAdapter;
     private int pk;
-//    ProgressBar progressBar;
-//    TextView no_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +61,6 @@ public class Draft_loan extends AppCompatActivity {
 
         basic_Encode = "Basic "+getEncodedString(name,pass);
         getLoan_draft();
-
-//        progressBar = findViewById(R.id.progress_bar);
-//        progressBar.setVisibility(View.VISIBLE);
-//        no_result = findViewById(R.id.text);
 
         tv_back = findViewById(R.id.tv_back);
         tv_back.setOnClickListener(new View.OnClickListener() {
@@ -89,11 +83,6 @@ public class Draft_loan extends AppCompatActivity {
             public void onResponse(Call<Draft> call, Response<Draft> response) {
                 listData = response.body().getresults();
                 Log.e("list",""+listData.size());
-                if (listData.size()==0){
-//                    progressBar.setVisibility(View.GONE);
-//                    no_result.setVisibility(View.VISIBLE);
-                }
-//                progressBar.setVisibility(View.GONE);
                 mAdapter = new Adapter_list_draft(getBaseContext(),listData);
                 recyclerView.setAdapter(mAdapter);
             }

@@ -227,7 +227,7 @@
                 android:gravity="center"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:background="#00FFFFFF"
-                android:text="Remove" />
+                android:text="@string/button_remove" />
 
             <Button
                 android:layout_marginLeft="@dimen/dp_8"
