@@ -63,6 +63,7 @@ public class BottomChooseCategory extends BottomSheetDialogFragment implements V
         super.onViewCreated(view, savedInstanceState);
         bt_clear = view.findViewById(R.id.bt_clear);
         ls_type = view.findViewById(R.id.category);
+        categoryListItemkh = getResources().getStringArray(R.array.category);
         SharedPreferences preferences = getActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = preferences.getString("My_Lang", "");
 
@@ -94,14 +95,14 @@ public class BottomChooseCategory extends BottomSheetDialogFragment implements V
                             JSONObject jsonObject = new JSONObject(respon);
                             JSONArray jsonArray = jsonObject.getJSONArray("results");
                             categoryListItems=new String[jsonArray.length()];
-                            categoryListItemkh=new String[jsonArray.length()];
+//                            categoryListItemkh=new String[jsonArray.length()];
                             categoryIdListItems=new int[jsonArray.length()];
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int id = object.getInt("id");
                                 String name = object.getString("cat_name");
                                 String category=object.getString("cat_name_kh");
-                                categoryListItemkh[i]=category;
+//                                categoryListItemkh[i]=category;
                                 categoryListItems[i]=name;
                                 categoryIdListItems[i]=id;
                                 Log.e("category",""+id+","+name);

@@ -92,8 +92,8 @@
     <!--    <string name="fb_login_protocol_scheme">fb2638303279534710</string>-->
 
     <string-array name="category">
-        <item>Motorbike</item>
         <item>Electronic</item>
+        <item>Motorbike</item>
     </string-array>
     <string-array name="brand">
         <item>Honda</item>
@@ -1128,4 +1128,5 @@
     <string name="post_sold_message_confirm">Message</string>
     <string name="sold_po">Sale</string>
     <string name="remove_shop_message_confirmation">Do you want to remove this shop?</string>
+    <string name="select_color">You cannot choose three colors</string>
 </resources>

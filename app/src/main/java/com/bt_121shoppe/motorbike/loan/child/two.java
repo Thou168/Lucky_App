@@ -114,9 +114,6 @@ public class two extends Fragment {
             mDraft = args.getString(DRAFT);
             Log.e("Fragment Two",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+mDraft);
         }
-        createLoad = (Create_Load)getActivity();
-        initView(view);
-        checkEd();
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
@@ -127,6 +124,9 @@ public class two extends Fragment {
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
         }
+        createLoad = (Create_Load)getActivity();
+        initView(view);
+        checkEd();
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
         createLoad = (Create_Load)this.getActivity();
         mBtnNext = view.findViewById(R.id.btn_next);

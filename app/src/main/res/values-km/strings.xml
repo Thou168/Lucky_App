@@ -109,7 +109,7 @@
 
     //category
     <string name="motor">ម៉ូតូ</string>
-    <string name="electronic">អេឡិចត្រូនិច</string>
+    <string name="electronic">សម្ភារអេឡិចត្រូនិក</string>
     <string name="vehicle">យានយន្ត</string>
 
     //type
@@ -363,8 +363,8 @@
     </string-array>
 
     <string-array name="category">
+        <item>សម្ភារអេឡិចត្រូនិក</item>
         <item>ម៉ូតូ</item>
-        <item>អេឡិចត្រូនិច</item>
     </string-array>
 
     <string-array name="gender">
@@ -969,4 +969,6 @@
     <string name="list_draft">បញ្ជីសេចក្តីព្រាង</string>
     <string name="re_password">បញ្ជាក់ពាក្យសម្ងាត់</string>
     <string name="post_sold_message_confirm">Message</string>
+    <string name="remove_shop_message_confirmation">តើលោក-អ្នកចង់លុបហាងនេះមែនឬទេ?</string>
+    <string name="select_color">លោក-អ្នកមិនអាចជ្រើសរើសពណ៌បីបានទេ</string>
 </resources>

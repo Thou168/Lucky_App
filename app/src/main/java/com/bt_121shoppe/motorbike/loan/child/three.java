@@ -102,6 +102,24 @@ public class three extends Fragment {
             mDraft = args.getString(DRAFT);
             Log.e("Fragment Three",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
         }
+        preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
+        username=preferences.getString("name","");
+        password=preferences.getString("pass","");
+        Encode = getEncodedString(username,password);
+        basicEncode = "Basic "+Encode;
+        if (preferences.contains("token")) {
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")) {
+            pk = preferences.getInt("id", 0);
+        }
+        if (itemTwo != null) {
+            Log.e("co-borrower", "" + itemTwo.getItemOne().getIndex());
+            if (itemTwo.getItemOne().getIndex() == 1) {
+                layout_coborrower.setVisibility(View.GONE);
+            } else {
+                layout_coborrower.setVisibility(View.VISIBLE);
+            }
+        }
         initView(view);
         mBtnSaveDraft = view.findViewById(R.id.btn_back);
         mBtnSubmit = view.findViewById(R.id.btn_submit);
@@ -185,25 +203,6 @@ public class three extends Fragment {
                     }
                 }
         });
-
-        preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
-        username=preferences.getString("name","");
-        password=preferences.getString("pass","");
-        Encode = getEncodedString(username,password);
-        basicEncode = "Basic "+Encode;
-        if (preferences.contains("token")) {
-            pk = preferences.getInt("Pk",0);
-        }else if (preferences.contains("id")) {
-            pk = preferences.getInt("id", 0);
-        }
-        if (itemTwo != null) {
-            Log.e("co-borrower", "" + itemTwo.getItemOne().getIndex());
-            if (itemTwo.getItemOne().getIndex() == 1) {
-                layout_coborrower.setVisibility(View.GONE);
-            } else {
-                layout_coborrower.setVisibility(View.VISIBLE);
-            }
-        }
 
     }
 

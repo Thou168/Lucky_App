@@ -137,11 +137,6 @@ public class one extends Fragment{
             mDraft = args.getString(DRAFT);
             Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
         }
-        createLoad = (Create_Load)getActivity();
-        rJob = getResources().getStringArray(R.array.job);
-        rRela = getResources().getStringArray(R.array.relationship);
-        initView(view);
-
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
@@ -152,6 +147,11 @@ public class one extends Fragment{
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
         }
+        createLoad = (Create_Load)getActivity();
+        rJob = getResources().getStringArray(R.array.job);
+        rRela = getResources().getStringArray(R.array.relationship);
+        initView(view);
+
         Log.d("Pk",""+ pk + basicEncode+"  user "+ username+"  pass  "+password);
 
         SharedPreferences preferences = getContext().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
