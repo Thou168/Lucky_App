@@ -25,17 +25,26 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
+import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.stores.DetailStoreActivity;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -93,31 +102,65 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                     switch (which){
                         case DialogInterface.BUTTON_POSITIVE:
-                            //Log.e("TAG","Selected Shop id is "+model.getId());
+                            Log.e("TAG","Selected Shop id is "+model.getId());
                             Service api=Client.getClient().create(Service.class);
                             retrofit2.Call<ShopViewModel> call=api.getDealerShop(model.getId());
                             call.enqueue(new retrofit2.Callback<ShopViewModel>() {
                                 @Override
                                 public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
                                     if(response.isSuccessful()){
-                                        //Log.e("TAG","Shop Detail "+response.body().getShop_view());
+                                        Log.e("TAG","Shop Detail "+response.body().getId());
                                         ShopViewModel shop=response.body();
                                         shop.setRecord_status(2);
-                                        retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(model.getId(),shop);
-                                        call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                                        String surl=ConsumeAPI.BASE_URL+"api/v1/shop/"+shop.getId()+"/";
+                                        OkHttpClient client=new OkHttpClient();
+                                        JSONObject obj=new JSONObject();
+                                        try{
+                                            obj.put("user",shop.getUser());
+                                            obj.put("record_status",2);
+                                        }catch (JSONException e){
+                                            e.printStackTrace();
+                                        }
+
+                                        RequestBody body=RequestBody.create(ConsumeAPI.MEDIA_TYPE,obj.toString());
+                                        Request request = new Request.Builder()
+                                                .url(surl)
+                                                .put(body)
+                                                .header("Accept", "application/json")
+                                                .header("Content-Type", "application/json")
+                                                .build();
+                                        client.newCall(request).enqueue(new Callback() {
                                             @Override
-                                            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response1) {
-                                                Log.e("TAG","Remove Store Successfully. "+response1.message());
+                                            public void onFailure(okhttp3.Call call, IOException e) {
+
+                                            }
+
+                                            @Override
+                                            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                                                Log.e("TAG","Remove Store Successfully. "+response.message());
                                                 Intent intent = new Intent(view.getContext(), DealerStoreActivity.class);
                                                 view.getContext().startActivity(intent);
                                                 ((Activity)view.getContext()).finish();
                                             }
-
-                                            @Override
-                                            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
-                                                Log.e("TAG","fail submit count view "+t.getMessage());
-                                            }
                                         });
+
+
+//                                        retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(shop.getId(),shop);
+//
+//                                        call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
+//                                            @Override
+//                                            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response1) {
+//                                                Log.e("TAG","Remove Store Successfully. "+response1.message());
+//                                                Intent intent = new Intent(view.getContext(), DealerStoreActivity.class);
+//                                                view.getContext().startActivity(intent);
+//                                                ((Activity)view.getContext()).finish();
+//                                            }
+//
+//                                            @Override
+//                                            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+//                                                Log.e("TAG","fail submit count view "+t.getMessage());
+//                                            }
+//                                        });
                                     }
                                 }
 

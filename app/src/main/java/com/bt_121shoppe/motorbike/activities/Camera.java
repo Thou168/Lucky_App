@@ -1596,6 +1596,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String machine3 = obj.getString("used_machine3");
                                             String machine4 = obj.getString("used_machine4");
                                             String other1 = obj.getString("used_other1");
+                                            int fcategory=obj.getInt("category");
                                             int pStatus=obj.getInt("status");
                                             if(shopId>0){
                                                 Log.e("TAH","RUN submit shop post.");
@@ -1635,7 +1636,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 }
                                             }
 
-                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),pTitle,pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,fcolor);
+                                            FBPostCommonFunction.SubmitPost(String.valueOf(pID),String.valueOf(fcategory),pType,pCoverURL,price,dicountPrice,dicountType,location,createdAt,pStatus,pk,postSubTitle,postCode,fcolor);
                                             //added on Feb 05 2020 For Dealer Post Product
 
 
@@ -1998,8 +1999,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             String machine3 = obj.getString("used_machine3");
                                             String machine4 = obj.getString("used_machine4");
                                             String other1 = obj.getString("used_other1");
-                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), pTitle, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1,fcolor);
-
+                                            String fcategory=String.valueOf(obj.getInt("category"));
+                                            FBPostCommonFunction.modifiedPost(String.valueOf(pID), fcategory, pCoverURL, price, dicountPrice, dicountType, location, createdAt,postSubTitle,eta1,eta2,eta3,eta4,machine1,machine2,machine3,machine4,other1,fcolor);
 
                                         }catch (JSONException e){
                                             e.printStackTrace();

@@ -2,8 +2,9 @@ package com.bt_121shoppe.motorbike.Fragment_details_post;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +13,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,8 @@ import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Item_API;
+import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
+import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
 import com.bt_121shoppe.motorbike.models.BuyViewModel;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
@@ -426,8 +431,24 @@ public class Detail_1 extends Fragment {
 
     private void initialRelatedPost(String encode,String postType,int category,int modeling,float cost){
         ArrayList itemApi =  new ArrayList<Item_API>();
+        Display mDisplay=getActivity().getWindowManager().getDefaultDisplay();
+        final int height=mDisplay.getHeight();
+        PreCachingLayoutManager mLayoutManager=new PreCachingLayoutManager(getContext());
+        mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mLayoutManager.setExtraLayoutSpace(height);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        Drawable dividerDrawable= ContextCompat.getDrawable(getContext(),R.drawable.divider_drawable);
+        recyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+
         String URL_ENDPOINT=ConsumeAPI.BASE_URL+"relatedpost/?post_type="+postType+"&category="+category+"&modeling="+modeling+"&min_price="+(cost-500)+"&max_price="+(cost+500);
-        Log.d("URL123",URL_ENDPOINT);
+        //Log.d("URL123",URL_ENDPOINT);
         OkHttpClient client= new  OkHttpClient();
         Request request= new Request.Builder()
                 .url(URL_ENDPOINT)
@@ -451,45 +472,43 @@ public class Detail_1 extends Fragment {
                             JSONObject object = new JSONObject(mMessage);
                             JSONArray jsonArray = object.getJSONArray("results");
                             int jsonCount = object.getInt("count");
-                            Log.w("Relate", mMessage);
+                            //Log.w("Relate", mMessage);
                             progressBar.setVisibility(View.GONE);
                             if (jsonCount == 0) {
                                 no_result.setVisibility(View.VISIBLE);
                             } else {
                                 no_result.setVisibility(View.GONE);
-                            }
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject obj = jsonArray.getJSONObject(i);
-                                String title = obj.getString("title");
-                                int id = obj.getInt("id");
-                                int user_id = obj.getInt("created_by");
-                                String condition = obj.getString("condition");
-                                double cost = obj.getDouble("cost");
-                                String image = obj.getString("front_image_path");
-                                String img_user = obj.getString("right_image_path");
-                                String postType = obj.getString("post_type");
-                                String phoneNumber = obj.getString("contact_phone");
-                                String discount_type = obj.getString("discount_type");
-                                double discount = obj.getDouble("discount");
-                                String postsubtitle = obj.getString("post_sub_title");
-                                String color = obj.getString("color");
-                                String color_mul = obj.getString("multi_color_code");
-                                int model = obj.getInt("modeling");
-                                int year = obj.getInt("year");
-                                int category = obj.getInt("category");
-
-                                String ago = "";
-                                if (postId != id) {
-                                    itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle,category,color_mul));
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject obj = jsonArray.getJSONObject(i);
+                                    String title = obj.getString("title");
+                                    int id = obj.getInt("id");
+                                    int user_id = obj.getInt("created_by");
+                                    String condition = obj.getString("condition");
+                                    double cost = obj.getDouble("cost");
+                                    String image = obj.getString("front_image_path");
+                                    String img_user = obj.getString("right_image_path");
+                                    String postType = obj.getString("post_type");
+                                    String phoneNumber = obj.getString("contact_phone");
+                                    String discount_type = obj.getString("discount_type");
+                                    double discount = obj.getDouble("discount");
+                                    String postsubtitle = obj.getString("post_sub_title");
+                                    String color = obj.getString("color");
+                                    String color_mul = obj.getString("multi_color_code");
+                                    int model = obj.getInt("modeling");
+                                    int year = obj.getInt("year");
+                                    int category = obj.getInt("category");
+                                    String ago = "";
+                                    if (postId != id) {
+                                        itemApi.add(new Item_API(id, user_id, img_user, image, title, cost, condition, postType, ago, String.valueOf(jsonCount), color, model, year, discount_type, discount, postsubtitle,category,color_mul));
 //                                itemApi.add(Modeling(id,userId,img_user,image,title,cost,condition,postType,location_duration,jsonCount.toString(),discount_type,discount))
-                                    no_result.setVisibility(View.GONE);
-                                    recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));
+                                        no_result.setVisibility(View.GONE);
+                                        recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));
 //                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
-                                    linearLayoutManager = new GridLayoutManager(getActivity(), 1,GridLayoutManager.HORIZONTAL, false);
-                                    recyclerView.setLayoutManager(linearLayoutManager);
-//                                    recyclerView.setAdapter(horizontalAdapter);
+                                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
+                                    }
                                 }
                             }
+
                         } catch (JsonParseException | JSONException e) {
                             e.printStackTrace();
                         }

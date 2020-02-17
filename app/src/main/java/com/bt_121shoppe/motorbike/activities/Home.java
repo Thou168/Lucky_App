@@ -60,6 +60,7 @@ import com.bt_121shoppe.motorbike.Startup.Search1;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
 import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
+import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
 import com.bt_121shoppe.motorbike.models.User;
@@ -135,7 +136,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         super.onCreate(savedInstanceState);
         //connecttion on and off
         //onConnectionChange();
-
+        //FBPostCommonFunction.updatePostStatus("459",2);
         locale();
         mSharedPreferences=getSharedPreferences(myReferences, Context.MODE_PRIVATE);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);

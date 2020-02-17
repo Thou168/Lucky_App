@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.Api.api.model;
 
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -51,6 +52,8 @@ public class Item implements Serializable {
     private List<buy_item> buy;
     @SerializedName("rents")
     private List<rent_item> rent;
+    @SerializedName("dealer_shops")
+    private List<StorePostViewModel> dealer_shops;
 
     public List<Type_item> getSales() {
         return sales;
@@ -341,6 +344,14 @@ public class Item implements Serializable {
 
     public void setMulti_color_code(String multi_color_code) {
         this.multi_color_code = multi_color_code;
+    }
+
+    public List<StorePostViewModel> getDealer_shops() {
+        return dealer_shops;
+    }
+
+    public void setDealer_shops(List<StorePostViewModel> dealer_shops) {
+        this.dealer_shops = dealer_shops;
     }
 
     public static class buy_item{

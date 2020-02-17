@@ -622,18 +622,19 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                         }else {
                             date_alert.setText("");
                         }
-                        if (wing_account.isEmpty()){
-                            wing_account_alert.setTextColor(getColor(R.color.red));
-                            wing_account_alert.setText(getString(R.string.invalid_wing_account));
-                        }else {
-                            wing_account_alert.setText("");
-                        }
-                        if (wing_number.isEmpty()){
-                            wing_number_alert.setTextColor(getColor(R.color.red));
-                            wing_number_alert.setText(getString(R.string.invalid_wing_number));
-                        }else {
-                            wing_number_alert.setText("");
-                        }
+                        //Blocked by Terd Feb 14 2020 No need validation for wing account
+//                        if (wing_account.isEmpty()){
+//                            wing_account_alert.setTextColor(getColor(R.color.red));
+//                            wing_account_alert.setText(getString(R.string.invalid_wing_account));
+//                        }else {
+//                            wing_account_alert.setText("");
+//                        }
+//                        if (wing_number.isEmpty()){
+//                            wing_number_alert.setTextColor(getColor(R.color.red));
+//                            wing_number_alert.setText(getString(R.string.invalid_wing_number));
+//                        }else {
+//                            wing_number_alert.setText("");
+//                        }
                         if (firstname.isEmpty()){
                             username_alert.setTextColor(getColor(R.color.red));
                             username_alert.setText(getString(R.string.invalid_username));
@@ -708,7 +709,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             post_body.put("gender",gender1);
             post_body.put("address",address);
             post_body.put("responsible_officer",lat_long);
-            post_body.put("date_of_birth",convertDateofBirth(editDate.getText().toString()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                post_body.put("date_of_birth", convertDateofBirth(editDate.getText().toString()));
+            }
             post_body.put("telephone", number_phone+","+editPhone1.getText().toString()+","+editPhone2.getText().toString());
             post_body.put("group",group);
             if (user_group == group){
@@ -1168,14 +1171,17 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         String dd= null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             dd = Instant.now().toString();
+
+            String d[]=dd.split("-");
+            for(int i=0;i<d.length;i++){
+                Log.e(TAG,d[i]);
+            }
+            String dob=String.format("%s-%s-%s",year,d[1],d[2]);
+            Log.d(TAG,dob);
+            return dob;
         }
-        String d[]=dd.split("-");
-        for(int i=0;i<d.length;i++){
-            Log.e(TAG,d[i]);
-        }
-        String dob=String.format("%s-%s-%s",year,d[1],d[2]);
-        Log.d(TAG,dob);
-        return dob;
+        return dd;
+
     }
     public void showBottomSheet(View view) {
         BottomChooseGender addPhotoBottomDialogFragment = BottomChooseGender.newInstance();
@@ -1377,7 +1383,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             data.put("password",pass1);
             data.put("email",editEmail.getText().toString());
             data.put("first_name",editUsername.getText().toString());
-            pro.put("date_of_birth",convertDateofBirth(editDate.getText().toString()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                pro.put("date_of_birth", convertDateofBirth(editDate.getText().toString()));
+            }
             pro.put("address",editAddress.getText().toString());
             pro.put("responsible_officer",lat_long);
             if (g.equals("female") || g.equals("ស្រី")){
@@ -1392,7 +1400,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             pro.put("wing_account_number",editWing_number.getText().toString());
             pro.put("wing_account_name",editWing_account.getText().toString());
             //added by Rith
-            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.logo_121);
+            bitmpaDefault=BitmapFactory.decodeResource(this.getResources(),R.drawable.group_2293);
             if(bitmapProfileImage==null){
                 pro.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmpaDefault)));
             }else{

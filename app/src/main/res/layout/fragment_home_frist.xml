@@ -39,6 +39,13 @@
                 android:id="@+id/horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                android:id="@+id/indicator"
+                android:layout_below="@id/horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <ProgressBar
                 android:visibility="gone"
                 android:layout_marginTop="80dp"
@@ -110,6 +117,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ct_layout"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -118,6 +126,7 @@
                 android:id="@+id/list_new_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 tools:ignore="MissingConstraints" />
 
             <TextView

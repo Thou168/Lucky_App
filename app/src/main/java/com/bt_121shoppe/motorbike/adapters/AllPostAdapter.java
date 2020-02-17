@@ -241,6 +241,15 @@ public class AllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 postPrice.setText("$ "+mPost.getPostPrice());
             }
             postView.setText(String.valueOf(mPost.getCountView()));
+
+            cate.setVisibility(View.VISIBLE);
+            if(mPost.getLocationDuration().equals("1")){
+                cate.setText(R.string.electronic);
+            }else if(mPost.getLocationDuration().equals("2")){
+                cate.setText(R.string.motor);
+            }else
+                cate.setText("");
+
             double finalMPrice = mPrice;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

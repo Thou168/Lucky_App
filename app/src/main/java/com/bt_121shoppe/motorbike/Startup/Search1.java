@@ -160,9 +160,13 @@ public class Search1 extends AppCompatActivity {
     private  void Search_data(String title, String category, String model, String year, int min, int max,String post_type){
        //String url1 = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
         post_type=post_type==null?"":post_type;
-        String strmin=min==0?"":String.valueOf(min);
-        String strmax=max==0?"":String.valueOf(max);
         String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
+        if(min==0 && max==0)
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price=&year="+year;
+        else if(min==0)
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price="+max+"&year="+year;
+        else if(max==0)
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price=&year="+year;
         Log.d("Url:",url1);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

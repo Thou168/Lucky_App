@@ -358,6 +358,7 @@ public class ViewHolder extends BaseViewHolder{
                                                     @Override
                                                     public void onResponse(Call<StorePostViewModel> call, Response<StorePostViewModel> response) {
                                                         Log.e("TAG","update record post dealer status success. "+response.body());
+                                                        FBPostCommonFunction.deletePost(String.valueOf(item.getId()));
                                                         Intent intent = new Intent(itemView.getContext(), Account.class);
                                                         itemView.getContext().startActivity(intent);
                                                         ((Activity)itemView.getContext()).finish();
@@ -431,6 +432,7 @@ public class ViewHolder extends BaseViewHolder{
                                                                     @Override
                                                                     public void onResponse(Call<StorePostViewModel> call, Response<StorePostViewModel> response) {
                                                                         Log.e("TAG","update record post dealer status success. "+response.body());
+                                                                        FBPostCommonFunction.soldPost(String.valueOf((int)item.getId()));
                                                                         Intent intent = new Intent(itemView.getContext(), Account.class);
                                                                         itemView.getContext().startActivity(intent);
                                                                         ((Activity)itemView.getContext()).finish();

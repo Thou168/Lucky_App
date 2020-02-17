@@ -11,8 +11,8 @@ android {
         applicationId 'com.bt_121shoppe.motorbike'
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 20
-        versionName "1.0.8"
+        versionCode 23
+        versionName "1.0.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "7f07b09034fb44879e413e1314e73b0b"]
     }
@@ -155,4 +155,5 @@ dependencies {
     implementation 'com.github.Innovattic:range-seek-bar:v1.0.6'
 
     implementation 'com.github.Jay-Goo:RangeSeekBar:v1.0.6'
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.1.0"
 }

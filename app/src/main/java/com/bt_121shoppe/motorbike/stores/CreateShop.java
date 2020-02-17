@@ -299,18 +299,18 @@ public class CreateShop extends AppCompatActivity {
                 }else {
                     PhoneError.setText("");
                 }
-                if (editWing_account.getText().toString().isEmpty()){
-                    wing_account_alert.setTextColor(getColor(R.color.red));
-                    wing_account_alert.setText(getString(R.string.invalid_wing_account));
-                }else {
-                    wing_account_alert.setText("");
-                }
-                if (editWing_number.getText().toString().isEmpty()){
-                    wing_number_alert.setTextColor(getColor(R.color.red));
-                    wing_number_alert.setText(getString(R.string.invalid_wing_number));
-                }else {
-                    wing_number_alert.setText("");
-                }
+//                if (editWing_account.getText().toString().isEmpty()){
+//                    wing_account_alert.setTextColor(getColor(R.color.red));
+//                    wing_account_alert.setText(getString(R.string.invalid_wing_account));
+//                }else {
+//                    wing_account_alert.setText("");
+//                }
+//                if (editWing_number.getText().toString().isEmpty()){
+//                    wing_number_alert.setTextColor(getColor(R.color.red));
+//                    wing_number_alert.setText(getString(R.string.invalid_wing_number));
+//                }else {
+//                    wing_number_alert.setText("");
+//                }
             }else {
                 mProgress.show();
                 PhoneError.setText("");

@@ -41,6 +41,7 @@ import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.fragments.DealerPostHistoryFragment;
 import com.bt_121shoppe.motorbike.fragments.Like_byuser;
 import com.bt_121shoppe.motorbike.fragments.history_postbyuser;
 import com.bt_121shoppe.motorbike.models.User;
@@ -434,7 +435,8 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 case 0:
                     //MainPostList tab1 = new MainPostList();
                     if(g==3){
-                        history_postbyuser n2 = new history_postbyuser();
+                        //history_postbyuser n2 = new history_postbyuser();
+                        DealerPostHistoryFragment n2=new DealerPostHistoryFragment();
                         return n2;
                     }
                     else{

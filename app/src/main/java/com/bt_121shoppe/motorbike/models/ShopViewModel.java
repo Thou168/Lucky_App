@@ -25,6 +25,10 @@ public class ShopViewModel {
     private String shop_rate;
     @SerializedName("cards")
     private List<Cards> cards;
+    @SerializedName("shop_address_map")
+    private String shop_address_map;
+    @SerializedName("shop_province")
+    private String shop_province;
 
     public ShopViewModel(){}
 

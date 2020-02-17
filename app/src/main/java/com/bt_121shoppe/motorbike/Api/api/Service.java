@@ -81,8 +81,12 @@ public interface Service {
 //    Call<AllResponse> getBestdeal();
     @GET("countview/?post=")
     Call<AllResponse> getCount(@Query("post") String post, @Header("Authorization") String authorization);
+    @GET("countview/?post=")
+    Call<AllResponse> getCount(@Query("post") String post);
     @GET("detailposts/{id}/")
     Call<Item> getDetailpost(@Path("id") int id, @Header("Authorization") String authorization);
+    @GET("detailposts/{id}/")
+    Call<Item> getDetailpost(@Path("id") int id);
 
     @PATCH("postbyuser/{id}/")
     Call<change_status_post> getMovehistory(@Path("id") int id, @Body change_status_post changeStatusPost, @Header("Authorization") String authorization);

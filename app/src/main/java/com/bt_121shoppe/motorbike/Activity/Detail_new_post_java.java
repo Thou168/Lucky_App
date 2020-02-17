@@ -85,7 +85,8 @@ import okhttp3.Response;
 
 public class Detail_new_post_java extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     TextView back_view;
-    ImageButton btn_share;
+    //ImageButton btn_share;
+    RelativeLayout btn_share;
     ImageView like,like1,call,message,loan;
     private Integer postId = 0;
     private int pk=0;
@@ -460,24 +461,30 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         String url;
         Request request;
         String auth = "Basic" + encode;
-        if (pt==1){
-            url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
-            request = new  Request.Builder()
-                    .url(url)
-                    .header("Accept","application/json")
-                    .header("Content-Type","application/json")
-                    .header("Authorization",auth)
-                    .build();
-        }
-        else {
-            url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
-            request = new  Request.Builder()
-                    .url(url)
-                    .header("Accept","application/json")
-                    .header("Content-Type", "application/json")
-                    .build();
-        }
+//        if (pt==1){
+//            url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
+//            request = new  Request.Builder()
+//                    .url(url)
+//                    .header("Accept","application/json")
+//                    .header("Content-Type","application/json")
+//                    .header("Authorization",auth)
+//                    .build();
+//        }
+//        else {
+//            url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
+//            request = new  Request.Builder()
+//                    .url(url)
+//                    .header("Accept","application/json")
+//                    .header("Content-Type", "application/json")
+//                    .build();
+//        }
 
+        url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
+        request = new  Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type", "application/json")
+                .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override

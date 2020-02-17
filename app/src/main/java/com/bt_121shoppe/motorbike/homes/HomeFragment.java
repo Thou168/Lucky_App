@@ -89,6 +89,7 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class HomeFragment extends Fragment {
 
@@ -114,6 +115,7 @@ public class HomeFragment extends Fragment {
     //private List<PostViewModel> mAllPosts;
     private List<PostProduct> mAllPosts;
     private List<PostProduct> mPostBestDeals;
+    ScrollingPagerIndicator recyclerIndicator;
 
     TextView best_match;
     int index = 0;
@@ -144,6 +146,7 @@ public class HomeFragment extends Fragment {
         mBestDealText=view.findViewById(R.id.bestDeal);
         rl_newpost= view.findViewById(R.id.rl_newpost);
         ct_layout=view.findViewById(R.id.ct_layout);
+        recyclerIndicator = view.findViewById(R.id.indicator);
 
 //        best match
         best_match=view.findViewById(R.id.best_match);
@@ -300,8 +303,12 @@ public class HomeFragment extends Fragment {
         mBestDealRecyclerView.setNestedScrollingEnabled(false);
         mBestDealRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Drawable dividerDrawable= ContextCompat.getDrawable(getContext(),R.drawable.divider_drawable);
-        mBestDealRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+        //mBestDealRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+        //mBestDealRecyclerView.addItemDecoration(new LinePagerIndicatorDecoration());
         //mPostBestDealAdpater=new PostBestDealAdapterV2(new ArrayList<>());
+
+        //recyclerIndicator.attachToRecyclerView(mBestDealRecyclerView);
+
         mPostBestDealAdpater=new PostBestDealAdapter(new ArrayList<>());
         prepareBestDealContent();
 //        mBestDealRecyclerView.setAdapter(mPostBestDealAdpater);
@@ -427,7 +434,7 @@ public class HomeFragment extends Fragment {
         mAllPostsRecyclerView.setNestedScrollingEnabled(false);
         mAllPostsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Drawable dividerDrawable=ContextCompat.getDrawable(getContext(),R.drawable.divider_drawable);
-        mAllPostsRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+        //mAllPostsRecyclerView.addItemDecoration(new DividerItemDecoration(dividerDrawable));
 //        mAllPostAdapter=new AllPostAdapter(new ArrayList<>(),"List");
         prepareAllPostsContent(index);
     }
@@ -615,7 +622,8 @@ public class HomeFragment extends Fragment {
 //                                String fcolor=obj.getString("multi_color_code");
                                 //String type = obj.getString("type");
                                 //String[] splitTitle=title.split(",");
-                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
+                                String fcategory=obj.getString("title");
+                                mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, fcategory, viewCount, discountType, discountAmount,fcolor));
                             }
                         }
                     }catch (JSONException | ParseException je) {
@@ -661,7 +669,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
 
     }
 
@@ -725,7 +732,8 @@ public class HomeFragment extends Fragment {
 //                                        String fcolor=obj.getString("multi_color_code");
                                         //String type = obj.getString("type");
                                         //String[] splitTitle=title.split(",");
-                                        mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
+                                        String fcategory=obj.getString("title");
+                                        mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, fcategory, viewCount, discountType, discountAmount,fcolor));
                                         mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts, "List"));
                                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
                                     }
@@ -792,6 +800,7 @@ public class HomeFragment extends Fragment {
                                         int viewCount = obj.getInt("viewCount");
                                         String title = obj.getString("subTitle");
                                         String fcolor=obj.getString("color");
+                                        //String fcategory=obj.getString("title");
 //                                        String fcolor=obj.getString("multi_color_code");
                                         //String type = obj.getString("type");
                                         //String[] splitTitle=title.split(",");
@@ -866,7 +875,8 @@ public class HomeFragment extends Fragment {
 //                                        String fcolor=obj.getString("multi_color_code");
                                         //String type = obj.getString("type");
                                         //String[] splitTitle=title.split(",");
-                                        mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, "", viewCount, discountType, discountAmount,fcolor));
+                                        String fcategory=obj.getString("title");
+                                        mAllPosts.add(new PostProduct(Integer.parseInt(id), user_id, title, type, coverUrl, price, fcategory, viewCount, discountType, discountAmount,fcolor));
                                         mAllPostsRecyclerView.setAdapter(new AllPostAdapter(mAllPosts, "Image"));
                                         mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
                                     }

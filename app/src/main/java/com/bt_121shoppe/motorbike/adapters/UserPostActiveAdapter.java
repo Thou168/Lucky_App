@@ -298,7 +298,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                 call.enqueue(new retrofit2.Callback<change_status_delete>() {
                                     @Override
                                     public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-
+                                        FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
                                         Intent intent = new Intent(itemView.getContext(), Account.class);
                                         itemView.getContext().startActivity(intent);
                                         ((Activity)itemView.getContext()).finish();
@@ -386,7 +386,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                 call.enqueue(new retrofit2.Callback<change_status_delete>() {
                                     @Override
                                     public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-
+                                        FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
                                         Intent intent = new Intent(itemView.getContext(), Account.class);
                                         itemView.getContext().startActivity(intent);
                                         ((Activity)itemView.getContext()).finish();

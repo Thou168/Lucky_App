@@ -63,7 +63,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
     TextView mBestDealNoResult;
     ArrayList<PostProduct> mPostBestDeals;
     ArrayList<PostProduct> mAllPosts;
-    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=4";
+    String mBestDealUrl=ConsumeAPI.BASE_URL+"posts/?page=1";
     String mAllPostUrl=ConsumeAPI.BASE_URL+"allposts/?page=1";
     boolean isLoading=false,isAPLoading=false;
     int itemCount=0;
@@ -205,7 +205,8 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             String locationDT="";
                             int id=object.getInt("id");
                             int user_id = object.getInt("created_by");
-                            String title = object.getString("title");
+                            //String title = object.getString("title");
+                            String title = object.getString("category");
                             String type = object.getString("post_type");
                             String cost = object.getString("cost");
                             String address = object.getString("contact_address");
@@ -214,7 +215,7 @@ public class HomeOldActivity extends AppCompatActivity implements PostBestDealAd
                             String discountType=object.getString("discount_type");
                             String discountAmount=object.getString("discount");
                             int pstatus=object.getInt("status");
-                            String color=object.getString("color");
+                            String color=object.getString("multi_color_code");
                             String postCode=object.getString("post_code");
 //                            String eta1 = obj.getString("used_eta1");
 //                            String eta2 = obj.getString("used_eta2");
