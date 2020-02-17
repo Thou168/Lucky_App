@@ -763,6 +763,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             if (jsonCount>0){
                                 like.setVisibility(View.GONE);
                                 like1.setVisibility(View.VISIBLE);
+                                like1.setImageResource(R.drawable.android_heart);
+                                like1.setMaxHeight(30);
                                 //like1.setImageResource(R.drawable.android_heart);
 //                                like1.setMaxHeight(30);
 //                                like1.setMaxWidth(30);

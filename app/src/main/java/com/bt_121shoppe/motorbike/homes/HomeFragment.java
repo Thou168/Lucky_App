@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.icu.util.DateInterval;
 import android.os.Build;
@@ -409,6 +410,7 @@ public class HomeFragment extends Fragment {
                     Collections.sort(mPostBestDeals, (s1, s2) -> Integer.compare(s2.getPostId(), s1.getPostId()));
                     mPostBestDealAdpater.addItems(mPostBestDeals);
                     mBestDealRecyclerView.setAdapter(mPostBestDealAdpater);
+                    recyclerIndicator.attachToRecyclerView(mBestDealRecyclerView);
                     mPostBestDealAdpater.notifyDataSetChanged();
                 }
             }

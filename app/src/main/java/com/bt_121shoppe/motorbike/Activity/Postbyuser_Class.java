@@ -89,6 +89,9 @@ public class Postbyuser_Class extends AppCompatActivity {
     private TextView no_result;
     private TextView description;
 
+    View line2;
+    TextView tvTypeTitle,bool_title;
+
     Double latitude= (double) 0;
     Double longtitude= (double) 0;
     TextView tvColor1,tvColor2;
@@ -107,6 +110,11 @@ public class Postbyuser_Class extends AppCompatActivity {
         tv_dox = findViewById(R.id.style_dox);
         tv_discount = findViewById(R.id.tv_discount);
         tv_discount_per = findViewById(R.id.tv_discount_per);
+
+        //type_remove moto
+        line2=findViewById(R.id.line2);
+        tvTypeTitle=findViewById(R.id.tvTypeTitle);
+        bool_title=findViewById(R.id.bool3);
 
         tv_postcode = findViewById(R.id.tvPostCode);
         tv_brand = findViewById(R.id.tvBrand);
@@ -349,6 +357,10 @@ public class Postbyuser_Class extends AppCompatActivity {
                             tv_type.setText(R.string.electronic);
                         } else if (inType == 2) {
                             tv_type.setText(R.string.motor);
+                            tv_type.setVisibility(View.GONE);
+                            line2.setVisibility(View.GONE);
+                            tvTypeTitle.setVisibility(View.GONE);
+                            bool_title.setVisibility(View.GONE);
                             if (con.equals("used")) {
 //                                line_rela.setVisibility(View.VISIBLE);
                                 rela_eta.setVisibility(View.VISIBLE);

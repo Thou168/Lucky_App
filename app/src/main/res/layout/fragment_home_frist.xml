@@ -31,21 +31,28 @@
 
         <RelativeLayout
             android:id="@+id/rl_besdeal"
-            android:layout_marginBottom="34dp"
+            android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:id="@+id/horizontal"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-            <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
-                android:id="@+id/indicator"
-                android:layout_below="@id/horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+                <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="70dp"
+                    android:layout_gravity="center"
+                    app:spi_dotColor="#DDDDDD"
+                    app:spi_dotSelectedColor="#E5A74F"
+                    android:layout_marginTop="11dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <ProgressBar
                 android:visibility="gone"
                 android:layout_marginTop="80dp"

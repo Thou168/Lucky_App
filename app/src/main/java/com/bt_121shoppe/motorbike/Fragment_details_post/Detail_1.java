@@ -82,7 +82,8 @@ public class Detail_1 extends Fragment {
     RelativeLayout rela_eta;
     TextView tvColor1,tvColor2;
     TextView tv_below;
-    View line2,tvTypeTitle,bool_title;
+    View line2;
+    TextView tvTypeTitle,bool_title;
     LinearLayoutManager linearLayoutManager;
     HorizontalScrollView horizontalScrollView;
 
@@ -504,7 +505,9 @@ public class Detail_1 extends Fragment {
                                         no_result.setVisibility(View.GONE);
                                         recyclerView.setAdapter(new MyAdapter_list_grid_image(itemApi, "Relate", getActivity()));
 //                                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
-                                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
+//                                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.HORIZONTAL,false));
+                                        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+                                        recyclerView.setLayoutManager(linearLayoutManager);
                                     }
                                 }
                             }

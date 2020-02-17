@@ -9,6 +9,20 @@
         <item name="android:windowAnimationStyle">@style/customActivityAnimation</item>
     </style>
 
+    //scrollbar style
+    <attr name="scrollbarStyle" format="reference"/>
+
+    <style name="scrollbar_shape_style">
+        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+        <item name="android:scrollbarStyle">outsideInset</item>
+        <item name="android:scrollbars">horizontal</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/thumb</item>
+        <item name="android:scrollbarTrackHorizontal">@drawable/track</item>
+        <item name="android:scrollbarSize">7dp</item>
+    </style>
+    //end scroll bar
+
     <style name="customActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
