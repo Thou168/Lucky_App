@@ -34,6 +34,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.fragments.Postbyuser;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -44,7 +45,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -186,18 +189,17 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
 
-//        Calendar calendar = Calendar.getInstance();
-        String currentDate = String.valueOf(DateFormat.getDateInstance(DateFormat.FULL));
         String date = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            currentDate = Instant.now().toString();
+            date = Instant.now().toString();
         }
         view.item_type.setVisibility(View.VISIBLE);
         view.item_type.setTextColor(mContext.getResources().getColor(R.color.white));
 
         //date current remove and sold
+
         view.date.setVisibility(View.GONE);
-        view.date.setText(currentDate);
+        view.date.setText("");
 
         String removeSt = "";
         change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);

@@ -816,7 +816,6 @@
                 android:scrollbars="horizontal"
                 android:fadeScrollbars="false"
                 style="@style/scrollbar_shape_style"
-                android:scrollbarSize="7dp"
                 android:layout_height="200dp"/>
 <!--            <HorizontalScrollView-->
 <!--                android:layout_below="@+id/list_rela"-->

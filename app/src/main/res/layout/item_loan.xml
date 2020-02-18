@@ -223,7 +223,7 @@
                 <!--android:textAllCaps="false" />-->
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/txt_date"
                 android:text="OCT 26, 2019"
                 android:textColor="#999999"
                 android:gravity="center"

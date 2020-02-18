@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.BottomSheetDialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class BottomChooseProvince extends BottomSheetDialogFragment implements V
     private TextView btnClear;
     private ListView ls_province;
     private int[] provinceIdListItems;
-    private String[] provinceListItems;
+    private String[] provinceListItems,provinceListItems_kh;
     SharedPreferences preferences;
     private String name,pass,Encode;
     private ItemClickListener mListener;
@@ -60,6 +61,9 @@ public class BottomChooseProvince extends BottomSheetDialogFragment implements V
         super.onViewCreated(view, savedInstanceState);
         btnClear = view.findViewById(R.id.bt_clear);
         ls_province = view.findViewById(R.id.province);
+
+        SharedPreferences preferences = getActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
 
         preferences = getActivity().getSharedPreferences("Register",getActivity().MODE_PRIVATE);
         name = preferences.getString("name","");
@@ -90,8 +94,10 @@ public class BottomChooseProvince extends BottomSheetDialogFragment implements V
                     int count=0;
                     provinceListItems=new String[jsonArray.length()+1];
                     provinceIdListItems=new int[jsonArray.length()+1];
+                    provinceListItems_kh=new String[jsonArray.length()+1];
                     provinceIdListItems[0]=0;
                     provinceListItems[0]="All";
+                    provinceListItems_kh[0]="ទាំងអស់";
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -100,11 +106,17 @@ public class BottomChooseProvince extends BottomSheetDialogFragment implements V
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     int id = object.getInt("id");
                                     String name = object.getString("province");
+                                    String name_kh = object.getString("province_kh");
                                     //Log.e("Year",""+id+name);
                                     provinceListItems[i+1]=name;
+                                    provinceListItems_kh[i+1]=name_kh;
                                     provinceIdListItems[i+1]=id;
                                 }
-                                adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, provinceListItems);
+                                if (language.equals("en")) {
+                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, provinceListItems);
+                                }else {
+                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, provinceListItems_kh);
+                                }
                                 ls_province.setAdapter(adapter);
                             }catch (JSONException e){
                                 e.printStackTrace();

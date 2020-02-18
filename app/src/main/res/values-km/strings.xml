@@ -507,12 +507,12 @@
     <string name="shop_other3">ឈ្មោះហាងទី៣</string>
 
     //public user string
-    <string name="post_info">Post Infomation</string>
-    <string name="post_id">Post ID</string>
-    <string name="showid">Show ID</string>
-    <string name="ds_pri_percent">Discount Price</string>
-    <string name="st_ds_pri_percent">Discount Price(0%)</string>
-    <string name="ds_pri_amount">Discount Price($)</string>
+    <string name="post_info">ព័ត៌មានការប្រកាស</string>
+    <string name="post_id">លេខសម្គាល់ការប្រកាស</string>
+    <string name="showid">លេខសម្គាល់ការប្រកាស</string>
+    <string name="ds_pri_percent">តំលៃបញ្ចុះតំលៃ</string>
+    <string name="st_ds_pri_percent">តំលៃបញ្ចុះតំលៃ(0%)</string>
+    <string name="ds_pri_amount">តំលៃបញ្ចុះតំលៃ($)</string>
 
     //post ad
     <string name="post_type">ប្រភេទប្រកាស</string>
@@ -922,7 +922,7 @@
     <string name="invalid_shop_name">សូមបំពេញឈ្មោះហាង</string>
     <string name="store_list">បញ្ជីផ្ទុក</string>
     <string name="add">បន្ថែម</string>
-    <string name="map">Map</string>
+    <string name="map">ផែនទី</string>
 
     //Loan info
     <string name="loan_form">ទម្រង់ប្រាក់កម្ចី</string>

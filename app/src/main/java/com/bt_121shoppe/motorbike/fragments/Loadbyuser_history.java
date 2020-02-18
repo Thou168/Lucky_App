@@ -24,6 +24,8 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,11 +41,14 @@ public class Loadbyuser_history extends Fragment {
     Adapter_historyloan mAdapter;
     ProgressBar progressBar;
     TextView no_result;
+
+    TextView txt_date;
     public Loadbyuser_history(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);
 
+        txt_date = view.findViewById(R.id.txt_date);
         recyclerView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -86,9 +91,28 @@ public class Loadbyuser_history extends Fragment {
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
                 listData = response.body().getresults();
                 if (listData.size()==0){
+                    txt_date.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                     no_result.setVisibility(View.VISIBLE);
                 }
+
+                //date history
+                for (int i = 0;i<listData.size();i++) {
+                    txt_date.setVisibility(View.VISIBLE);
+                    Log.d("MODIFIED", listData.get(i).getModified());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1;
+                    try {
+                        date1 = sdf.parse(listData.get(i).getModified());
+                        Log.d("MODIFIELD DATETETETETE1", String.valueOf(date1));
+                        txt_date.setText(String.valueOf(date1));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                //end
+
                 progressBar.setVisibility(View.GONE);
                 mAdapter = new Adapter_historyloan(listData,getContext());
                 recyclerView.setAdapter(mAdapter);

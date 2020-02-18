@@ -39,6 +39,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -118,6 +120,23 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     }else {
                         view.cate.setText(R.string.motor);
                     }
+
+                    //date history
+//                    for (int i = 0;i<response.body().getModified().length();i++) {
+//                        view.date.setVisibility(View.VISIBLE);
+//                        Log.d("MODIFIED", response.body().getModified());
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                        Date date1;
+//                        try {
+//                            date1 = sdf.parse(String.valueOf(response.body().getModified().length()));
+//                            Log.d("MODIFIELD DATETETETETE1", String.valueOf(date1));
+//                            view.date.setText(String.valueOf(date1));
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+                    //end
 
                     String[] splitColor=response.body().getMulti_color_code().split(",");
 
@@ -293,7 +312,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
             title = view.findViewById(R.id.title);
             imageView = view.findViewById(R.id.image);
             cost = view.findViewById(R.id.tv_price);
-//            date = view.findViewById(R.id.date);
+            date = view.findViewById(R.id.txt_date);
             item_type = view.findViewById(R.id.item_type);
             txtview = view.findViewById(R.id.view);
             btn_edit = view.findViewById(R.id.btnedit);

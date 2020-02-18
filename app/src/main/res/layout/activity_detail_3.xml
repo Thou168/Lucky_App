@@ -61,7 +61,7 @@
             <RelativeLayout
                 android:id="@+id/rela_2"
                 android:layout_below="@+id/rela_1"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginEnd="@dimen/dp_15"
                 android:layout_width="match_parent"
@@ -83,13 +83,12 @@
                     android:layout_marginEnd="@dimen/dp_4"
                     android:textColor="@color/black"
                     android:layout_below="@+id/deposit_loan_title"
-                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <SeekBar
                     android:id="@+id/sbDeposit"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:progressTint="@color/colorPrimary"
                     android:thumbTint="@color/colorPrimary"
                     android:layout_below="@+id/tvSb"

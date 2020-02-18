@@ -326,7 +326,7 @@ public class Detail_3 extends Fragment {
                                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                             calculateLoanMonthlyPayment();
                                             tvSBRate.setText(progress + "%");
-                                            int x = seekBar.getThumb().getBounds().left;
+                                            int x = seekBar.getThumb().getBounds().centerX();
                                             tvSBRate.setX(x);
                                         }
 
@@ -390,7 +390,7 @@ public class Detail_3 extends Fragment {
 //        DecimalFormat me = new  DecimalFormat("#.##", df);
 //        me.setRoundingMode(RoundingMode.HALF_EVEN);
 //        tvMonthly.setText(me.format(monthlypayment) + " $ ");
-        DecimalFormat bd = new DecimalFormat("#.##");
+        DecimalFormat bd = new DecimalFormat("##0.00");
         tvMonthly.setText("$"+bd.format(monthlypayment));
     }
 }
