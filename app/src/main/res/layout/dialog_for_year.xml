@@ -12,10 +12,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
             android:textColor="@color/black"
-            android:layout_marginStart="4dp"
             android:textSize="@dimen/dp_24"/>
         <ImageView
             android:id="@+id/icon_close"
@@ -23,6 +22,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_16"
             android:textSize="15dp"
             android:padding="10dp"
             />
@@ -31,6 +32,7 @@
         android:id="@+id/scroll_layout"
         android:layout_below="@+id/rela"
         android:layout_width="match_parent"
+        android:layout_margin="@dimen/dp_16"
         android:layout_height="300dp">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -260,14 +262,11 @@
     <Button
         android:id="@+id/btn_ok"
         android:layout_below="@+id/scroll_layout"
-        android:background="@drawable/shap_ratangle1"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dp_16"
+        android:background="@drawable/button"
         android:text="@string/ok"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_margin="4dp"
-        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_margin="@dimen/dp_16"
         android:layout_height="wrap_content"/>
 </RelativeLayout>

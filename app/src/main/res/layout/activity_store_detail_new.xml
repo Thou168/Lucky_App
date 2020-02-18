@@ -179,7 +179,8 @@
                 android:text="@string/new_post"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_20"
-                android:fontFamily="@font/opensans_regular" />
+                android:fontFamily="@font/opensans_regular"
+                android:drawableRight="@drawable/ic_arrow_drop_down_gray"/>
 
             <ImageView
                 android:id="@+id/filter_detail"

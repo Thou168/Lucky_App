@@ -47,7 +47,6 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:hint="@string/enter_information"
                 android:inputType="text"
-                android:focusable="false"
                 android:textSize="12dp" />
             <TextView
                 android:id="@+id/name_alert"
@@ -79,7 +78,6 @@
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_8"
                 android:inputType="phone"
-                android:focusable="false"
                 android:textSize="12dp" />
             <TextView
                 android:id="@+id/phone_alert"

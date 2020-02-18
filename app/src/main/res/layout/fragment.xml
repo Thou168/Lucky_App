@@ -21,7 +21,6 @@
     </ProgressBar>
     <TextView
         android:visibility="gone"
-        android:textSize="15dp"
         android:fontFamily="@font/opensans_regular"
         android:textColor="@color/loan_pening"
         android:id="@+id/text"

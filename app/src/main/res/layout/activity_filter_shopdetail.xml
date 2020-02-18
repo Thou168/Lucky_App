@@ -109,7 +109,7 @@
                         android:textAllCaps="false"
                         android:gravity="left|center_vertical"
                         android:layout_below="@+id/title_type"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_gray"
                         >
                     </TextView>
                 </RelativeLayout>
@@ -154,7 +154,7 @@
                         android:textAllCaps="false"
                         android:gravity="left|center_vertical"
                         android:layout_below="@+id/title_cate"
-                        android:drawableRight="@drawable/ic_arrow_drop_down"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_gray"
                         >
                     </TextView>
                 </RelativeLayout>
@@ -200,7 +200,7 @@
                         android:textAllCaps="false"
                         android:layout_below="@+id/title_brand"
                         android:gravity="left|center_vertical"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_gray"
                         >
                     </TextView>
                 </RelativeLayout>
@@ -245,7 +245,7 @@
                         android:textAllCaps="false"
                         android:layout_below="@+id/title_year"
                         android:gravity="left|center_vertical"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_gray"
                         >
                     </TextView>
                 </RelativeLayout>
