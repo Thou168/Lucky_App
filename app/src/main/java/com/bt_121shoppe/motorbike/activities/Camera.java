@@ -2441,12 +2441,18 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 ((CustomView)v).display(true);
                 selectedColor.add((Integer) parent.getItemAtPosition(position));
             }
+            Log.e("select index",""+selectedIndex);
             if (selectedColor.size() > 2 ){
                 AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                 alertDialog.setMessage(Camera.this.getString(R.string.select_color));
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                         (dialog, which) -> {
+                            selectedIndex = selectedColor.size()-1;
+                            if (selectedIndex > -1 ) {
+                                adapter.selectedPositions.remove(selectedIndex);
+                            }
                             ((CustomView)v).display(false);
+                            selectedColor.remove((Integer) parent.getItemAtPosition(position));
                             dialog.dismiss();
                         });
                 alertDialog.show();

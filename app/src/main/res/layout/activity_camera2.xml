@@ -875,7 +875,7 @@
                         android:text="@string/phone_number"
                         android:layout_marginStart="@dimen/dp_8"
                         android:textColor="#000"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/etphone1"
@@ -886,7 +886,7 @@
                         android:hint="099 000 000"
                         android:layout_marginTop="@dimen/dp_8"
                         android:maxLength="10"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <TextView
@@ -941,7 +941,7 @@
                         android:text="@string/hit_phone1"
                         android:layout_marginStart="@dimen/dp_8"
                         android:textColor="#000"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/etphone2"
@@ -952,7 +952,7 @@
                         android:hint="099 000 000"
                         android:layout_marginTop="@dimen/dp_8"
                         android:maxLength="10"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <TextView
@@ -993,7 +993,7 @@
                         android:text="@string/hit_phone2"
                         android:layout_marginStart="@dimen/dp_8"
                         android:textColor="#000"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/etphone3"
@@ -1004,7 +1004,7 @@
                         android:hint="099 000 000"
                         android:layout_marginTop="@dimen/dp_8"
                         android:maxLength="10"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <TextView
@@ -1042,7 +1042,7 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:text="@string/email"
                     android:textColor="#000"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -1050,7 +1050,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/enter_information"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8" />
 
@@ -1076,7 +1076,7 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:text="@string/address"
                     android:textColor="#000"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_address"
@@ -1084,7 +1084,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/enter_information"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8" />
 
@@ -1110,7 +1110,7 @@
                         android:text="@string/map"
                         android:layout_marginStart="@dimen/dp_8"
                         android:textColor="#000"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/et_map"
@@ -1118,7 +1118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dp_8"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8" />
                     <ImageView

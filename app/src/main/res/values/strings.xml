@@ -1128,5 +1128,6 @@
     <string name="post_sold_message_confirm">Message</string>
     <string name="sold_po">Sale</string>
     <string name="remove_shop_message_confirmation">Do you want to remove this shop?</string>
-    <string name="select_color">You cannot choose three colors</string>
+    <string name="select_color">You cannot choose more than two colors.</string>
+    <string name="dialog_camera">Camera</string>
 </resources>
