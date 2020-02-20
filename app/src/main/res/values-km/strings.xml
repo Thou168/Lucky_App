@@ -32,14 +32,14 @@
     <string name="no_internet_connection">គ្មានការភ្ជាប់អ៊ីនធឺណិត</string>
 
     //brand name
-    <string name="scoopy">Scoopy</string>
-    <string name="icon">Icon</string>
-    <string name="dream">Dream</string>
-    <string name="panasonicc">Panasonic 3.5W</string>
+    <string name="scoopy">Scoopy-I 2020</string>
+    <string name="icon">អាយខុន</string>
+    <string name="dream">ឌ្រីម</string>
+    <string name="panasonicc">Panasonic 3.5kW</string>
     <string name="lgg_4k_full">LG 4K Full HD</string>
     <string name="lgg_86_4k">LG 86 4K</string>
     <string name="smash_v">Smash-V</string>
-    <string name="zoomer_x">Zoomer X</string>
+    <string name="zoomer_x">Zoomer-X 2020</string>
 
     //loan_yes_or_no
     <string name="yes_loan">យល់ព្រម</string>

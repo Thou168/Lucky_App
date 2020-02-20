@@ -217,7 +217,7 @@
 
     //enable disable
     <string name="enable">Enable</string>
-    <string name="disable">disable</string>
+    <string name="disable">Disable</string>
 
     <string name="reset_password">Reset Password</string>
 
@@ -243,14 +243,14 @@
     <string name="closed_search">BACK</string>
 
     //brand name
-    <string name="scoopy">Scoopy</string>
+    <string name="scoopy">Scoopy-I 2020</string>
     <string name="icon">Icon</string>
     <string name="dream">Dream</string>
-    <string name="panasonicc">Panasonic 3.5W</string>
+    <string name="panasonicc">Panasonic 3.5kW</string>
     <string name="lgg_4k_full">LG 4K Full HD</string>
     <string name="lgg_86_4k">LG 86 4K</string>
-    <string name="smash_v">Smash-V</string>
-    <string name="zoomer_x">Zoomer X</string>
+    <string name="smash_v">Suzuki Smash-V</string>
+    <string name="zoomer_x">Zoomer-X 2020</string>
 
     //change password
 

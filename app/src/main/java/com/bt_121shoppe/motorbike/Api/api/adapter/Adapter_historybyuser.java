@@ -1,7 +1,6 @@
 package com.bt_121shoppe.motorbike.Api.api.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,31 +22,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
-import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.activities.Account;
-import com.bt_121shoppe.motorbike.fragments.Postbyuser;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.card.MaterialCardView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,7 +64,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list2,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_history,viewGroup,false);
 
         prefer = mContext.getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -196,10 +186,63 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         view.item_type.setVisibility(View.VISIBLE);
         view.item_type.setTextColor(mContext.getResources().getColor(R.color.white));
 
-        //date current remove and sold
-
+        //date
         view.date.setVisibility(View.GONE);
-        view.date.setText("");
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "MMM dd, yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Service apiService = Client.getClient().create(Service.class);
+        Call<AllResponse> call_date = apiService.getpostbyhistory(basic_Encode);
+        call_date.enqueue(new Callback<AllResponse>() {
+            @Override
+            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                if (!response.isSuccessful()){
+                    Log.d("Response", String.valueOf(response.code()));
+                }else {
+                    datas = response.body().getresults();
+                    if (datas.size() == 0) {
+                        view.date.setVisibility(View.GONE);
+                    }
+//                    Date dd;
+//                    String tt;
+
+//                    for (int i = 0; i < datas.size(); i++) {
+//                        try {
+//                            dd = inputFormat.parse(model.getModified());
+//                            Log.d("Date dddd", String.valueOf(dd));
+//                            tt = outputFormat.format(dd);
+//                            Log.d("SHow tttttrttt",tt);
+//                            view.date.setText(tt);
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+                    Date d;
+                    long dd = 0;
+                    for (int i = 0;i<datas.size();i++) {
+                        try {
+                            d = inputFormat.parse(model.getModified());
+                            dd = d.getTime();
+                            Log.d("VVVVVVVVVV", String.valueOf(dd));
+                            String tt = outputFormat.format(dd);
+                            Log.d("Show ddddddddddddd", tt);
+                            view.date.setText(tt);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllResponse> call, Throwable t) {
+
+            }
+        });
+
+        //end
 
         String removeSt = "";
         change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
@@ -258,9 +301,13 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
     }
     @Override
     public int getItemCount() {
-        return datas.size();
+        if (datas != null) {
+            return datas.size();
+        }
+        return 0;
     }
-    private String getEncodedString(String username,String password){
+
+    private String getEncodedString(String username, String password){
         String userpass = username+":"+password;
         return Base64.encodeToString(userpass.trim().getBytes(), Base64.NO_WRAP);
     }
@@ -291,7 +338,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             tvColor2=view.findViewById(R.id.tv_color2);
             cate=view.findViewById(R.id.cate);
             date=view.findViewById(R.id.txt_date);
-            mCardView=view.findViewById(R.id.cardView);
+//            mCardView=view.findViewById(R.id.cardView);
         }
     }
 }

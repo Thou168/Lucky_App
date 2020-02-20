@@ -95,22 +95,21 @@ public class Loadbyuser_history extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     no_result.setVisibility(View.VISIBLE);
                 }
-
                 //date history
-                for (int i = 0;i<listData.size();i++) {
-                    txt_date.setVisibility(View.VISIBLE);
-                    Log.d("MODIFIED", listData.get(i).getModified());
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date1;
-                    try {
-                        date1 = sdf.parse(listData.get(i).getModified());
-                        Log.d("MODIFIELD DATETETETETE1", String.valueOf(date1));
-                        txt_date.setText(String.valueOf(date1));
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+//                for (int i = 0;i<listData.size();i++) {
+//                    txt_date.setVisibility(View.VISIBLE);
+//                    Log.d("MODIFIED", listData.get(i).getModified());
+//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                    Date date1;
+//                    try {
+//                        date1 = sdf.parse(listData.get(i).getModified());
+//                        Log.d("MODIFIELD DATETETETETE1", String.valueOf(date1));
+//                        txt_date.setText(String.valueOf(date1));
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 //end
 
                 progressBar.setVisibility(View.GONE);

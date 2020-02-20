@@ -27,6 +27,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class history_postbyuser extends Fragment {
     SharedPreferences prefer;
     private String name,pass,Encode;
     String basic_Encode;
-    private List<Item> listData;
+    private List<Item> listData = new ArrayList<>();
     Adapter_historybyuser mAdapter;
     ProgressBar progressBar;
     TextView no_result;
@@ -57,6 +58,7 @@ public class history_postbyuser extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
 
         prefer = getActivity().getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -64,31 +66,12 @@ public class history_postbyuser extends Fragment {
         Encode = CommonFunction.getEncodedString(name,pass);
         basic_Encode = "Basic "+getEncodedString(name,pass);
         gethistory();
-//        getModifildDate();
 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
         no_result = view.findViewById(R.id.text);
         return view;
     }
-
-//    private void getModifildDate(){
-//        Service apiService = Client.getClient().create(Service.class);
-//        Call<Item> call = apiService.get_posthistory_modified(Encode);
-//        call.enqueue(new Callback<Item>() {
-//            @Override
-//            public void onResponse(Call<Item> call, Response<Item> response) {
-////                String st = response.message();
-//                String st = response.body().getColor();
-//                Log.d("MODIFIED",st);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Item> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
     private void gethistory(){
         Service apiService = Client.getClient().create(Service.class);
@@ -106,24 +89,33 @@ public class history_postbyuser extends Fragment {
                 progressBar.setVisibility(View.GONE);
 
                 //date history
-                for (int i = 0;i<listData.size();i++) {
-                    date_text.setVisibility(View.VISIBLE);
-                    Log.d("MODIFIED", listData.get(i).getModified());
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date1;
-                    try {
-                        date1 = sdf.parse(String.valueOf(listData.get(i).getModified()));
-                        Log.d("MODIFIELD DATETETETETE1", String.valueOf(date1));
-                        date_text.setText(String.valueOf(date1));
-
-                        if (listData.get(i).getModified()==null){
-                            date_text.setVisibility(View.GONE);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+//                for (int i = 0;i<listData.size();i++) {
+//                    date_text.setVisibility(View.VISIBLE);
+//                    Log.d("MODIFIED", listData.get(i).getModified());
+//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                    Date date1,date2;
+//                    try {
+//                        date1 = sdf.parse(String.valueOf(listData.get(i).getModified()));
+//                        date2 = sdf.parse(String.valueOf(listData.get(i).getModified()));
+//                        if (date1 == date2){
+//
+//                        }
+//                        if (i!=0) {
+//                            Log.d("MODIFIELD 1111111111", String.valueOf(date1));
+//                            date_text.setText(String.valueOf(date1));
+//                        }else {
+//                            Log.d("MODIFIELD 2222222222", String.valueOf(date1));
+//                            date_text.setText(String.valueOf(date1));
+//                        }
+//
+//                        if (listData.get(i).getModified()==null){
+//                            date_text.setVisibility(View.GONE);
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 //end
 
                 mAdapter = new Adapter_historybyuser(listData,getContext());

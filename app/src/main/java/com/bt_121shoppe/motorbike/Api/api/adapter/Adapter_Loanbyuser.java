@@ -39,6 +39,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -121,21 +122,42 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         view.cate.setText(R.string.motor);
                     }
 
-                    //date history
-//                    for (int i = 0;i<response.body().getModified().length();i++) {
-//                        view.date.setVisibility(View.VISIBLE);
-//                        Log.d("MODIFIED", response.body().getModified());
-//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                        Date date1;
-//                        try {
-//                            date1 = sdf.parse(String.valueOf(response.body().getModified().length()));
-//                            Log.d("MODIFIELD DATETETETETE1", String.valueOf(date1));
-//                            view.date.setText(String.valueOf(date1));
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    //date
+                    view.date.setVisibility(View.VISIBLE);
+                    String inputPattern = "yyyy-MM-dd";
+                    String outputPattern = "MMM dd, yyyy";
+                    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                    SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+                    Service apiService = Client.getClient().create(Service.class);
+                    Call<AllResponse> call_date = apiService.getLoanbyuser(basic_Encode);
+                    call_date.enqueue(new Callback<AllResponse>() {
+                        @Override
+                        public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                            Date dd;
+                            String tt;
+                            datas = response.body().getresults();
+                            if (datas.size()==0){
+                                view.date.setVisibility(View.GONE);
+                            }
+                            for (int i = 0;i<datas.size();i++) {
+                                try {
+                                    dd = inputFormat.parse(datas.get(i).getCreated());
+                                    tt = outputFormat.format(dd);
+                                    view.date.setText(tt);
+                                    Log.e("===============", "======currentData======" + tt);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AllResponse> call, Throwable t) {
+
+                        }
+                    });
+
                     //end
 
                     String[] splitColor=response.body().getMulti_color_code().split(",");

@@ -62,8 +62,8 @@ public class BottomChooseProvince extends BottomSheetDialogFragment implements V
         btnClear = view.findViewById(R.id.bt_clear);
         ls_province = view.findViewById(R.id.province);
 
-        SharedPreferences preferences = getActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = preferences.getString("My_Lang", "");
+        SharedPreferences prefer = getActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefer.getString("My_Lang", "");
 
         preferences = getActivity().getSharedPreferences("Register",getActivity().MODE_PRIVATE);
         name = preferences.getString("name","");

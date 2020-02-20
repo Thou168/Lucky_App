@@ -32,6 +32,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -58,7 +59,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_loan,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_loan_history,viewGroup,false);
 
         prefer = mContext.getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = prefer.getString("name","");
@@ -109,6 +110,44 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                             strPostTitle = splitTitle.length==1?splitTitle[0]:splitTitle[1];
                         }
                     }
+
+                    //date
+                    view.date.setVisibility(View.GONE);
+
+                    String inputPattern = "yyyy-MM-dd";
+                    String outputPattern = "MMM dd, yyyy";
+                    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                    SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+                    Service apiService = Client.getClient().create(Service.class);
+                    Call<AllResponse> call_date = apiService.getLoanbyuser(basic_Encode);
+                    call_date.enqueue(new Callback<AllResponse>() {
+                        @Override
+                        public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                            Date dd;
+                            String tt;
+                            datas = response.body().getresults();
+                            if (datas.size()==0){
+                                view.date.setVisibility(View.GONE);
+                            }
+                            for (int i = 0;i<datas.size();i++) {
+                                try {
+                                    dd = inputFormat.parse(datas.get(i).getCreated());
+                                    tt = outputFormat.format(dd);
+                                    view.date.setText(tt);
+                                    Log.e("===============", "Loan history" + tt);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AllResponse> call, Throwable t) {
+
+                        }
+                    });
+                    //end
 
                     if (response.body().getCategory()==1){
                         view.cate.setText(R.string.electronic);
@@ -253,7 +292,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             tvColor1=view.findViewById(R.id.tv_color1);
             tvColor2=view.findViewById(R.id.tv_color2);
             cate=view.findViewById(R.id.cate);
-            date=view.findViewById(R.id.date);
+            date=view.findViewById(R.id.txt_date);
         }
     }
 }

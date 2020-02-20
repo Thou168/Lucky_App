@@ -85,7 +85,7 @@
                         android:checked="false"
                         android:fontFamily="@font/opensans_regular"
                         android:buttonTint="@color/logo_green"
-                        android:layout_marginStart="139dp"
+                        android:layout_marginStart="160dp"
                         android:layout_marginTop="-24dp"
                         android:textSize="15sp" />
 
@@ -93,7 +93,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_height="wrap_content"
                     android:text="@string/language"
                     android:fontFamily="@font/opensans_semibold"
                     android:layout_marginStart="15dp"
@@ -113,7 +113,7 @@
                     <RadioButton
                         android:id="@+id/radio_khmerlanguage"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_20"
+                        android:layout_height="wrap_content"
                         android:layoutDirection="rtl"
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
@@ -125,7 +125,7 @@
                     <RadioButton
                         android:id="@+id/radio_englishlanguage"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_20"
+                        android:layout_height="wrap_content"
                         android:layoutDirection="rtl"
                         android:textAlignment="textStart"
                         android:layout_gravity="start"
@@ -138,7 +138,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:text="@string/change_password"
                     android:fontFamily="@font/opensans_semibold"
                     android:textColor="@color/black"

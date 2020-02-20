@@ -280,7 +280,7 @@ public class Detail_1 extends Fragment {
                                 }
                             }
                             //brand
-                            brand.setText(String.valueOf(postDetail.getModeling()));
+//                            brand.setText(String.valueOf(postDetail.getModeling()));
                             //year
                             if (postDetail.getYear()==0){
                                 year.setText("");
