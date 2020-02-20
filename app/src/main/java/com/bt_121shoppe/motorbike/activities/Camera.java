@@ -2444,6 +2444,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             Log.e("select index",""+selectedIndex);
             if (selectedColor.size() > 2 ){
                 AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                alertDialog.setCancelable(false);
                 alertDialog.setMessage(Camera.this.getString(R.string.select_color));
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                         (dialog, which) -> {
