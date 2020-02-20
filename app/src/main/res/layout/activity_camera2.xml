@@ -318,7 +318,7 @@
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
