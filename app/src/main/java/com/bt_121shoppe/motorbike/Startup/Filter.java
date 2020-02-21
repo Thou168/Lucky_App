@@ -72,6 +72,7 @@ public class Filter extends AppCompatActivity {
     private int mMinPrice = 0,mMaxPrice = 20000;
     private String stPriceMin,stPriceMax;
     private Integer postId = 0;
+    String currentLanguage;
     //for bottomsheetdialog
 
     private int index=3,indexB=6,indexY=23;
@@ -86,6 +87,9 @@ public class Filter extends AppCompatActivity {
         rangeBar = findViewById(R.id.rangeBar);
         postId = getIntent().getIntExtra("ID",0);
         dbPrice = getIntent().getDoubleExtra("price",0);
+
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = preferences.getString("My_Lang", "");
 
         //range seekbar
         minText.setText(String.valueOf(mMinPrice));
@@ -218,35 +222,35 @@ public class Filter extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     index = group.indexOfChild(radioButton);
-                    btnCategory.setText(categoryItemkg[index]);
-                    cate = cateIDlist[index];
-                    if (language!=null) {
-                        if (language.equals("km")) {
-                            switch (cate) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        } else if (language.equals("en")) {
-                            switch (cate) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        }
-                    }
+//                    btnCategory.setText(categoryItemkg[index]);
+//                    cate = cateIDlist[index];
+//                    if (language!=null) {
+//                        if (language.equals("km")) {
+//                            switch (cate) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        } else if (language.equals("en")) {
+//                            switch (cate) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        }
+//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
@@ -272,6 +276,12 @@ public class Filter extends AppCompatActivity {
                     }else {
                         Toast.makeText(getApplicationContext(), "Please select item", Toast.LENGTH_SHORT).show();
                     }
+                    if (currentLanguage.equals("en")){
+                        btnCategory.setText(cateListItems[index]);
+                    }else {
+                        btnCategory.setText(categoryItemkg[index]);
+                    }
+                    cate = cateIDlist[index];
                 });
             }
         });
@@ -337,53 +347,51 @@ public class Filter extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     indexB = group.indexOfChild(radioButton);
-                    btnBrand.setText(brandListItems[indexB]);
-                    brand = brandIDlist[indexB];
-                    if (language!=null) {
-                        if (language.equals("km")) {
-                            switch (brand) {
-                                case 0:
-                                    indexB=0;
-                                    break;
-                                case 1:
-                                    indexB=1;
-                                    break;
-                                case 2:
-                                    indexB=2;
-                                    break;
-                                case 3:
-                                    indexB=3;
-                                    break;
-                                case 4:
-                                    indexB=4;
-                                    break;
-                                case 5:
-                                    indexB=5;
-                                    break;
-                            }
-                        } else if (language.equals("en")) {
-                            switch (brand) {
-                                case 0:
-                                    indexB=0;
-                                    break;
-                                case 1:
-                                    indexB=1;
-                                    break;
-                                case 2:
-                                    indexB=2;
-                                    break;
-                                case 3:
-                                    indexB=3;
-                                    break;
-                                case 4:
-                                    indexB=4;
-                                    break;
-                                case 5:
-                                    indexB=5;
-                                    break;
-                            }
-                        }
-                    }
+//                    if (language!=null) {
+//                        if (language.equals("km")) {
+//                            switch (brand) {
+//                                case 0:
+//                                    indexB=0;
+//                                    break;
+//                                case 1:
+//                                    indexB=1;
+//                                    break;
+//                                case 2:
+//                                    indexB=2;
+//                                    break;
+//                                case 3:
+//                                    indexB=3;
+//                                    break;
+//                                case 4:
+//                                    indexB=4;
+//                                    break;
+//                                case 5:
+//                                    indexB=5;
+//                                    break;
+//                            }
+//                        } else if (language.equals("en")) {
+//                            switch (brand) {
+//                                case 0:
+//                                    indexB=0;
+//                                    break;
+//                                case 1:
+//                                    indexB=1;
+//                                    break;
+//                                case 2:
+//                                    indexB=2;
+//                                    break;
+//                                case 3:
+//                                    indexB=3;
+//                                    break;
+//                                case 4:
+//                                    indexB=4;
+//                                    break;
+//                                case 5:
+//                                    indexB=5;
+//                                    break;
+//                            }
+//                        }
+//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
@@ -418,6 +426,12 @@ public class Filter extends AppCompatActivity {
 //                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
+                    if (currentLanguage.equals("en")) {
+                        btnBrand.setText(brandListItems[indexB]);
+                    }else {
+                        btnBrand.setText(brandItemkh[indexB]);
+                    }
+                    brand = brandIDlist[indexB];
                 });
             }
         });
@@ -489,89 +503,87 @@ public class Filter extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     indexY = group.indexOfChild(radioButton);
-                    btnyear.setText(yearListItems[indexY]);
-                    year_fil = yearIDlist[indexY];
 
-                            if (year_fil == 0) {
-                                stYear = "";
-                            }
-                            switch (year_fil) {
-                                case 0:
-                                    indexY=0;
-                                    break;
-                                case 1:
-                                    indexY=1;
-                                    break;
-                                case 2:
-                                    indexY=2;
-                                    break;
-                                case 3:
-                                    indexY=3;
-                                    break;
-                                case 4:
-                                    indexY=4;
-                                    break;
-                                case 5:
-                                    indexY=5;
-                                    break;
-                                case 6:
-                                    indexY=6;
-                                    break;
-                                case 7:
-                                    indexY=7;
-                                    break;
-                                case 8:
-                                    indexY=8;
-                                    break;
-                                case 9:
-                                    indexY=9;
-                                    break;
-                                case 10:
-                                    indexY=10;
-                                    break;
-                                case 11:
-                                    indexY=11;
-                                    break;
-                                case 12:
-                                    indexY=12;
-                                    break;
-                                case 13:
-                                    indexY=13;
-                                    break;
-                                case 14:
-                                    indexY=14;
-                                    break;
-                                case 15:
-                                    indexY=15;
-                                    break;
-                                case 16:
-                                    indexY=16;
-                                    break;
-                                case 17:
-                                    indexY=17;
-                                    break;
-                                case 18:
-                                    indexY=18;
-                                    break;
-                                case 19:
-                                    indexY=19;
-                                    break;
-                                case 20:
-                                    indexY=20;
-                                    break;
-                                case 21:
-                                    indexY=21;
-                                    break;
-                                case 22:
-                                    indexY=22;
-                                    break;
-                                case 23:
-                                    indexY=23;
-                                    break;
-                                case 24:
-                                    indexY=24;
-                                    break;
-                            }
+//                            if (year_fil == 0) {
+//                                stYear = "";
+//                            }
+//                            switch (year_fil) {
+//                                case 0:
+//                                    indexY=0;
+//                                    break;
+//                                case 1:
+//                                    indexY=1;
+//                                    break;
+//                                case 2:
+//                                    indexY=2;
+//                                    break;
+//                                case 3:
+//                                    indexY=3;
+//                                    break;
+//                                case 4:
+//                                    indexY=4;
+//                                    break;
+//                                case 5:
+//                                    indexY=5;
+//                                    break;
+//                                case 6:
+//                                    indexY=6;
+//                                    break;
+//                                case 7:
+//                                    indexY=7;
+//                                    break;
+//                                case 8:
+//                                    indexY=8;
+//                                    break;
+//                                case 9:
+//                                    indexY=9;
+//                                    break;
+//                                case 10:
+//                                    indexY=10;
+//                                    break;
+//                                case 11:
+//                                    indexY=11;
+//                                    break;
+//                                case 12:
+//                                    indexY=12;
+//                                    break;
+//                                case 13:
+//                                    indexY=13;
+//                                    break;
+//                                case 14:
+//                                    indexY=14;
+//                                    break;
+//                                case 15:
+//                                    indexY=15;
+//                                    break;
+//                                case 16:
+//                                    indexY=16;
+//                                    break;
+//                                case 17:
+//                                    indexY=17;
+//                                    break;
+//                                case 18:
+//                                    indexY=18;
+//                                    break;
+//                                case 19:
+//                                    indexY=19;
+//                                    break;
+//                                case 20:
+//                                    indexY=20;
+//                                    break;
+//                                case 21:
+//                                    indexY=21;
+//                                    break;
+//                                case 22:
+//                                    indexY=22;
+//                                    break;
+//                                case 23:
+//                                    indexY=23;
+//                                    break;
+//                                case 24:
+//                                    indexY=24;
+//                                    break;
+//                            }
                 });
 
                 ok.setOnClickListener(v12 -> {
@@ -691,6 +703,8 @@ public class Filter extends AppCompatActivity {
                         getYear();
                         bottomSheetDialog.dismiss();
                     }
+                    btnyear.setText(yearListItems[indexY]);
+                    year_fil = yearIDlist[indexY];
                 });
             }
         });
@@ -748,53 +762,59 @@ public class Filter extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     index = group.indexOfChild(radioButton);
-                    btnType.setText(typeListItems[index]);
-                    type = index;
-                    if (language!=null) {
-                        if (language.equals("km")) {
-                            switch (type) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        } else if (language.equals("en")) {
-                            switch (type) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        }
-                    }
+//                    btnType.setText(typeListItems[index]);
+//                    type = index;
+//                    if (language!=null) {
+//                        if (language.equals("km")) {
+//                            switch (type) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        } else if (language.equals("en")) {
+//                            switch (type) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        }
+//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
                     if (type==0){
-                        stType = "";
+//                        stType = "";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==1){
                         //stType = "new";
-                        stType="sell";
+//                        stType="sell";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==2){
                         //stType = "used";
-                        stType="rent";
+//                        stType="rent";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
+                    if (currentLanguage.equals("en")) {
+                        btnType.setText(typeListItems[index]);
+                    }else {
+                        btnType.setText(typeListItems[index]);
+                    }
+                    type = index;
                 });
             }
         });
@@ -863,8 +883,12 @@ public class Filter extends AppCompatActivity {
                     cateListItems = new String[jsonArray.length()+1];
                     categoryItemkg=new String[jsonArray.length()+1];
                     cateIDlist = new int[jsonArray.length()+1];
-                    cateListItems[0] = "All";
-                    categoryItemkg[0]=getString(R.string.all);
+                    if (currentLanguage.equals("en")) {
+                        cateListItems[0] = "All";
+                    }else {
+                        cateListItems[0] = "ទាំងអស់";
+                    }
+                    categoryItemkg[0]= "ទាំងអស់";
 
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
@@ -943,8 +967,13 @@ public class Filter extends AppCompatActivity {
                         brandListItems = new String[jsonArray.length()+1];
                         brandIDlist = new int[jsonArray.length()+1];
                         brandItemkh=new String[jsonArray.length()+1];
-                        brandListItems[0] = "ALL";
-                        brandItemkh[0]=getString(R.string.all);
+                        if (currentLanguage.equals("en")) {
+                            brandListItems[0] = "All";
+                        }else {
+//                            brandListItems[0] = "ទាំងអស់";
+                            brandItemkh[0]= "ទាំងអស់";
+                        }
+
                         for (int i=1;i<=jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i-1);
                             int id = object.getInt("id");
@@ -968,8 +997,13 @@ public class Filter extends AppCompatActivity {
                         brandListItems = new String[count+1];
                         brandItemkh=new String[count+1];
                         brandIDlist = new int[count+1];
-                        brandListItems[0] = "All";
-                        brandItemkh[0]=getString(R.string.all);
+                        if (currentLanguage.equals("en")) {
+                            brandListItems[0] = "All";
+                        }else {
+//                            brandListItems[0] = "ទាំងអស់";
+                            brandItemkh[0]= "ទាំងអស់";
+                        }
+
                         int ccount = 0;
                         for (int i=1;i<=jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i-1);
@@ -1021,13 +1055,17 @@ public class Filter extends AppCompatActivity {
                     yearListItems = new String[jsonArray.length()+1];
                     yearIDlist = new int[jsonArray.length()+1];
                     yearlistItemkh=new String[jsonArray.length()+1];
-                    yearlistItemkh[0]=getString(R.string.all);
-                    yearListItems[0] = "All";
+
+                    if (!currentLanguage.equals("en")) {
+                        yearListItems[0] = "ទាំងអស់";
+                    }else {
+                        yearListItems[0] = "All";
+                    }
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
                         int id = object.getInt("id");
                         String name = object.getString("year");
-                        yearlistItemkh[i]=name;
+                        yearlistItemkh[i] = name;
                         yearListItems[i] = name;
                         yearIDlist[i] = id;
 

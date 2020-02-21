@@ -291,13 +291,16 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     date = Instant.now().toString();
                                 }
-                                String removeSt = "";
-                                change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
+                                change_status_delete change_status = new change_status_delete(2,date,pk,"");
                                 Service api = Client.getClient().create(Service.class);
                                 Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
                                 call.enqueue(new retrofit2.Callback<change_status_delete>() {
                                     @Override
                                     public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+                                        if (!response.isSuccessful()){
+                                            Log.d("Error Remove", String.valueOf(response.code()));
+                                            return;
+                                        }
                                         FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
                                         Intent intent = new Intent(itemView.getContext(), Account.class);
                                         itemView.getContext().startActivity(intent);
@@ -379,8 +382,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     date = Instant.now().toString();
                                 }
-                                String removeSt = "";
-                                change_status_delete change_status = new change_status_delete(7,date,pk,removeSt);
+                                change_status_delete change_status = new change_status_delete(7,date,pk,"");
                                 Service api = Client.getClient().create(Service.class);
                                 Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
                                 call.enqueue(new retrofit2.Callback<change_status_delete>() {

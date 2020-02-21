@@ -36,8 +36,8 @@
     <string name="icon">អាយខុន</string>
     <string name="dream">ឌ្រីម</string>
     <string name="panasonicc">Panasonic 3.5kW</string>
-    <string name="lgg_4k_full">LG 4K Full HD</string>
-    <string name="lgg_86_4k">LG 86 4K</string>
+<!--    <string name="lgg_4k_full">LG 4K Full HD</string>-->
+    <string name="lgg_tv_28">ជីអិល ធីវី28L</string>
     <string name="smash_v">Smash-V</string>
     <string name="zoomer_x">Zoomer-X 2020</string>
 
@@ -61,32 +61,32 @@
     <string name="new_post">ការប្រកាសថ្មីៗ</string>
 
     //year string
-    <string name="year1">2010</string>  //1
-    <string name="year2">2011</string>  //2
-    <string name="year3">2012</string>  //3
-    <string name="year4">2013</string>  //4
-    <string name="year5">2014</string>  //5
-    <string name="year6">2015</string>  //6
-    <string name="year7">2016</string>  //7
-    <string name="year8">2017</string>  //8
-    <string name="year9">2018</string>  //9
-    <string name="year10">2019</string> //10
-    <string name="year11">2020</string> //11
-    <string name="year12">2009</string> //12
-    <string name="year13">2008</string> //13
-    <string name="year14">2007</string> //14
-    <string name="year15">2006</string> //15
-    <string name="year16">2005</string> //16
-    <string name="year17">2004</string> //17
-    <string name="year18">2003</string> //18
-    <string name="year19">2002</string> //19
-    <string name="year20">2001</string> //20
-    <string name="year21">2000</string> //21
-    <string name="year22">1999</string> //22
-    <string name="year23">1998</string> //23
-    <string name="year24">1997</string> //24
-    <string name="year25">1996</string> //25
-    <string name="year26">1995</string> //26
+    <string name="year1">2000</string> //1
+    <string name="year2">2001</string> //2
+    <string name="year3">2002</string> //3
+    <string name="year4">2003</string> //4
+    <string name="year5">2004</string> //5
+    <string name="year6">2005</string> //6
+    <string name="year7">2006</string> //7
+    <string name="year8">2007</string> //8
+    <string name="year9">2008</string> //9
+    <string name="year10">2009</string> //10
+    <string name="year11">2010</string> //11
+    <string name="year12">2011</string> //12
+    <string name="year13">2012</string> //13
+    <string name="year14">2013</string> //14
+    <string name="year15">2015</string> //15
+    <string name="year16">2016</string> //16
+    <string name="year17">2017</string> //17
+    <string name="year18">2018</string> //18
+    <string name="year19">2019</string> //19
+    <string name="year20">2020</string> //20
+    <string name="year21">2021</string> //21
+    <string name="year22">2022</string> //22
+    <string name="year23">2023</string> //23
+    <string name="year24">2024</string> //24
+    <string name="year25">2025</string> //25
+    <string name="year26">2026</string> //26
 
     //select
     <string name="select">ជ្រើសរើស</string>
@@ -438,7 +438,7 @@
 
     //Filter type
     <string-array name="filter_type">
-        <item>All</item>
+        <item>ទាំងអស់</item>
         <item>លក់</item>
         <item>ជួល</item>
     </string-array>
@@ -780,7 +780,7 @@
 
     //filter
     <string name="result">លទ្ធផល</string>
-    <string name="filter">Filter</string>
+    <string name="filter">ច្រោះ</string>
     <string name="done">ធ្វើរួច</string>
     <string name="not_found">រកមិនឃើញលទ្ធផលទេ</string>
     <string name="all">ទាំងអស់</string>

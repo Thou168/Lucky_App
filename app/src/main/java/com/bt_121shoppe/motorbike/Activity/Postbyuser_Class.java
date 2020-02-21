@@ -430,32 +430,34 @@ public class Postbyuser_Class extends AppCompatActivity {
                         if (postDetail.getModeling()!=0) {
                             if (postDetail.getModeling() == 1) {
                                 tv_brand.setText(R.string.honda);
+                                tv_model.setText(R.string.pcx);
+                            } else if (postDetail.getModeling() == 2) {
+                                tv_brand.setText(R.string.honda);
                                 tv_model.setText(R.string.dream);
                             } else if (postDetail.getModeling() == 3) {
                                 tv_brand.setText(R.string.lg);
-                                tv_model.setText(R.string.lgg_86_4k);
-                            } else if (postDetail.getModeling() == 4) {
-                                tv_brand.setText(R.string.lg);
-                                tv_model.setText(R.string.lgg_4k_full);
-                            } else if (postDetail.getModeling() == 8) {
-                                tv_brand.setText(R.string.susuki);
-                                tv_model.setText(R.string.smash_v);
-                            } else if (postDetail.getModeling() == 7) {
-                                tv_brand.setText(R.string.panasonic);
-                                tv_model.setText(R.string.panasonicc);
-                            } else if (postDetail.getModeling() == 6) {
-                                tv_brand.setText(R.string.honda);
-                                tv_model.setText(R.string.scoopy);
-                            } else if (postDetail.getModeling() == 2) {
-                                tv_brand.setText(R.string.honda);
-                                tv_model.setText(R.string.icon);
-                            } else if (postDetail.getModeling() == 5) {
-                                tv_brand.setText(R.string.honda);
-                                tv_model.setText(R.string.zoomer_x);
+                                tv_model.setText(R.string.lgg_tv_28);
                             }
-                        }else {
-                            tv_brand.setText("");
-                            tv_model.setText("");
+//                            else if (postDetail.getModeling() == 4) {
+//                                tv_brand.setText(R.string.lg);
+//                                tv_model.setText(R.string.lgg_tv_28);
+//                            } else if (postDetail.getModeling() == 5) {
+//                                tv_brand.setText(R.string.honda);
+//                                tv_model.setText(R.string.zoomer_x);
+//                            } else if (postDetail.getModeling() == 6) {
+//                                tv_brand.setText(R.string.honda);
+//                                tv_model.setText(R.string.scoopy);
+//                            } else if (postDetail.getModeling() == 7) {
+//                                tv_brand.setText(R.string.panasonic);
+//                                tv_model.setText(R.string.panasonicc);
+//                            } else if (postDetail.getModeling() == 8) {
+//                                tv_brand.setText(R.string.susuki);
+//                                tv_model.setText(R.string.smash_v);
+//                            }
+                            else {
+                                tv_brand.setText("");
+                                tv_model.setText("");
+                            }
                         }
 
                         //for section

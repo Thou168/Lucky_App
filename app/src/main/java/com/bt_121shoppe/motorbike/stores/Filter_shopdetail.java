@@ -76,6 +76,7 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
     private SharedPreferences prefer;
     private String name,pass,Encode;
     int pk=0;
+    String currentLanguage;
 
     private int index=3,indexB=6,indexY=23;
     @Override
@@ -98,6 +99,9 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
         maxText = findViewById(R.id.text_max);
         postId = getIntent().getIntExtra("ID",0);
         dbPrice = getIntent().getDoubleExtra("price",0);
+
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = preferences.getString("My_Lang", "");
 
         minText.setText(String.valueOf(mMinPrice));
         maxText.setText(String.valueOf(mMaxPrice));
@@ -190,35 +194,33 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     index = group.indexOfChild(radioButton);
-                    btnCategory.setText(categoryItemkg[index]);
-                    cate = cateIDlist[index];
-                    if (language!=null) {
-                        if (language.equals("km")) {
-                            switch (cate) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        } else if (language.equals("en")) {
-                            switch (cate) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        }
-                    }
+//                    if (language!=null) {
+//                        if (language.equals("km")) {
+//                            switch (cate) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        } else if (language.equals("en")) {
+//                            switch (cate) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        }
+//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
@@ -244,6 +246,12 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                     }else {
                         Toast.makeText(getApplicationContext(), "Please select item", Toast.LENGTH_SHORT).show();
                     }
+                    if (currentLanguage.equals("en")){
+                        btnCategory.setText(cateListItems[index]);
+                    }else {
+                        btnCategory.setText(categoryItemkg[index]);
+                    }
+                    cate = cateIDlist[index];
                 });
             }
         });
@@ -268,56 +276,61 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     indexB = group.indexOfChild(radioButton);
-                    brand = brandIDlist[indexB];
-                    if (language!=null) {
-                        if (language.equals("km")) {
-                            switch (brand) {
-                                case 0:
-                                    indexB=0;
-                                    break;
-                                case 1:
-                                    indexB=1;
-                                    break;
-                                case 2:
-                                    indexB=2;
-                                    break;
-                                case 3:
-                                    indexB=3;
-                                    break;
-                                case 4:
-                                    indexB=4;
-                                    break;
-                                case 5:
-                                    indexB=5;
-                                    break;
-                            }
-                        } else if (language.equals("en")) {
-                            switch (brand) {
-                                case 0:
-                                    indexB=0;
-                                    break;
-                                case 1:
-                                    indexB=1;
-                                    break;
-                                case 2:
-                                    indexB=2;
-                                    break;
-                                case 3:
-                                    indexB=3;
-                                    break;
-                                case 4:
-                                    indexB=4;
-                                    break;
-                                case 5:
-                                    indexB=5;
-                                    break;
-                            }
-                        }
-                    }
+
+//                    if (language!=null) {
+//                        if (language.equals("km")) {
+//                            switch (brand) {
+//                                case 0:
+//                                    indexB=0;
+//                                    break;
+//                                case 1:
+//                                    indexB=1;
+//                                    break;
+//                                case 2:
+//                                    indexB=2;
+//                                    break;
+//                                case 3:
+//                                    indexB=3;
+//                                    break;
+//                                case 4:
+//                                    indexB=4;
+//                                    break;
+//                                case 5:
+//                                    indexB=5;
+//                                    break;
+//                            }
+//                        } else if (language.equals("en")) {
+//                            switch (brand) {
+//                                case 0:
+//                                    indexB=0;
+//                                    break;
+//                                case 1:
+//                                    indexB=1;
+//                                    break;
+//                                case 2:
+//                                    indexB=2;
+//                                    break;
+//                                case 3:
+//                                    indexB=3;
+//                                    break;
+//                                case 4:
+//                                    indexB=4;
+//                                    break;
+//                                case 5:
+//                                    indexB=5;
+//                                    break;
+//                            }
+//                        }
+//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
-                    btnBrand.setText(brandListItems[indexB]);
+                    if (currentLanguage.equals("en")) {
+                        btnBrand.setText(brandListItems[indexB]);
+                    }else {
+                        btnBrand.setText(brandItemkh[indexB]);
+                    }
+                    brand = brandIDlist[indexB];
                     if (brand==0){
                         stBrand = String.valueOf(brand);
                         getBrand();
@@ -373,89 +386,88 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     indexY = group.indexOfChild(radioButton);
-                    btnyear.setText(yearListItems[indexY]);
-                    year_fil = yearIDlist[indexY];
 
-                            if (year_fil == 0) {
-                                stYear = "";
-                            }
-                            switch (year_fil) {
-                                case 0:
-                                    indexY=0;
-                                    break;
-                                case 1:
-                                    indexY=1;
-                                    break;
-                                case 2:
-                                    indexY=2;
-                                    break;
-                                case 3:
-                                    indexY=3;
-                                    break;
-                                case 4:
-                                    indexY=4;
-                                    break;
-                                case 5:
-                                    indexY=5;
-                                    break;
-                                case 6:
-                                    indexY=6;
-                                    break;
-                                case 7:
-                                    indexY=7;
-                                    break;
-                                case 8:
-                                    indexY=8;
-                                    break;
-                                case 9:
-                                    indexY=9;
-                                    break;
-                                case 10:
-                                    indexY=10;
-                                    break;
-                                case 11:
-                                    indexY=11;
-                                    break;
-                                case 12:
-                                    indexY=12;
-                                    break;
-                                case 13:
-                                    indexY=13;
-                                    break;
-                                case 14:
-                                    indexY=14;
-                                    break;
-                                case 15:
-                                    indexY=15;
-                                    break;
-                                case 16:
-                                    indexY=16;
-                                    break;
-                                case 17:
-                                    indexY=17;
-                                    break;
-                                case 18:
-                                    indexY=18;
-                                    break;
-                                case 19:
-                                    indexY=19;
-                                    break;
-                                case 20:
-                                    indexY=20;
-                                    break;
-                                case 21:
-                                    indexY=21;
-                                    break;
-                                case 22:
-                                    indexY=22;
-                                    break;
-                                case 23:
-                                    indexY=23;
-                                    break;
-                                case 24:
-                                    indexY=24;
-                                    break;
-                            }
+
+//                            if (year_fil == 0) {
+//                                stYear = "";
+//                            }
+//                            switch (year_fil) {
+//                                case 0:
+//                                    indexY=0;
+//                                    break;
+//                                case 1:
+//                                    indexY=1;
+//                                    break;
+//                                case 2:
+//                                    indexY=2;
+//                                    break;
+//                                case 3:
+//                                    indexY=3;
+//                                    break;
+//                                case 4:
+//                                    indexY=4;
+//                                    break;
+//                                case 5:
+//                                    indexY=5;
+//                                    break;
+//                                case 6:
+//                                    indexY=6;
+//                                    break;
+//                                case 7:
+//                                    indexY=7;
+//                                    break;
+//                                case 8:
+//                                    indexY=8;
+//                                    break;
+//                                case 9:
+//                                    indexY=9;
+//                                    break;
+//                                case 10:
+//                                    indexY=10;
+//                                    break;
+//                                case 11:
+//                                    indexY=11;
+//                                    break;
+//                                case 12:
+//                                    indexY=12;
+//                                    break;
+//                                case 13:
+//                                    indexY=13;
+//                                    break;
+//                                case 14:
+//                                    indexY=14;
+//                                    break;
+//                                case 15:
+//                                    indexY=15;
+//                                    break;
+//                                case 16:
+//                                    indexY=16;
+//                                    break;
+//                                case 17:
+//                                    indexY=17;
+//                                    break;
+//                                case 18:
+//                                    indexY=18;
+//                                    break;
+//                                case 19:
+//                                    indexY=19;
+//                                    break;
+//                                case 20:
+//                                    indexY=20;
+//                                    break;
+//                                case 21:
+//                                    indexY=21;
+//                                    break;
+//                                case 22:
+//                                    indexY=22;
+//                                    break;
+//                                case 23:
+//                                    indexY=23;
+//                                    break;
+//                                case 24:
+//                                    indexY=24;
+//                                    break;
+//                            }
                 });
 
                 ok.setOnClickListener(v12 -> {
@@ -575,12 +587,14 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                         getYear();
                         bottomSheetDialog.dismiss();
                     }
+                    btnyear.setText(yearListItems[indexY]);
+                    year_fil = yearIDlist[indexY];
                 });
             }
         });
 
 // add filter condition by samang 27/08
-        typeListItems = getResources().getStringArray(R.array.filter_type);
+        typeListItems = getResources().getStringArray(R.array.filter_condition);
         rela_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -601,48 +615,53 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     index = group.indexOfChild(radioButton);
-                    type = index;
-                    if (language!=null) {
-                        if (language.equals("km")) {
-                            switch (type) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        } else if (language.equals("en")) {
-                            switch (type) {
-                                case 0:
-                                    index=0;
-                                    break;
-                                case 1:
-                                    index=1;
-                                    break;
-                                case 2:
-                                    index=2;
-                                    break;
-                            }
-                        }
-                    }
+
+//                    if (language!=null) {
+//                        if (language.equals("km")) {
+//                            switch (type) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        } else if (language.equals("en")) {
+//                            switch (type) {
+//                                case 0:
+//                                    index=0;
+//                                    break;
+//                                case 1:
+//                                    index=1;
+//                                    break;
+//                                case 2:
+//                                    index=2;
+//                                    break;
+//                            }
+//                        }
+//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
-                    btnType.setText(typeListItems[type]);
+                    type = index;
+                    if (currentLanguage.equals("en")) {
+                        btnType.setText(typeListItems[index]);
+                    }else {
+                        btnType.setText(typeListItems[index]);
+                    }
                     if (type==0){
-                        stType = "";
+//                        stType = "";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==1){
-                        stType = "sell";
+//                        stType = "sell";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }else if (type==2){
-                        stType = "rent";
+//                        stType = "rent";
 //                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
                         bottomSheetDialog.dismiss();
                     }
@@ -661,7 +680,6 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
             @Override
             public void onClick(View v) {
                Result();
-
             }
         });
     } // create
@@ -737,8 +755,11 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                     cateListItems = new String[jsonArray.length()+1];
                     categoryItemkg=new String[jsonArray.length()+1];
                     cateIDlist = new int[jsonArray.length()+1];
-                    cateListItems[0] = "All";
-                    categoryItemkg[0]=getString(R.string.all);
+                    if (currentLanguage.equals("en")) {
+                        cateListItems[0] = "All";
+                    }else {
+                        categoryItemkg[0] = "ទាំងអស់";
+                    }
 
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
@@ -817,8 +838,11 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                         brandListItems = new String[jsonArray.length()+1];
                         brandIDlist = new int[jsonArray.length()+1];
                         brandItemkh=new String[jsonArray.length()+1];
-                        brandListItems[0] = "ALL";
-                        brandItemkh[0]=getString(R.string.all);
+                        if (currentLanguage.equals("en")) {
+                            brandListItems[0] = "All";
+                        }else {
+                            brandItemkh[0] = "ទាំងអស់";
+                        }
                         for (int i=1;i<=jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i-1);
                             int id = object.getInt("id");
@@ -842,8 +866,11 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                         brandListItems = new String[count+1];
                         brandItemkh=new String[count+1];
                         brandIDlist = new int[count+1];
-                        brandListItems[0] = "All";
-                        brandItemkh[0]=getString(R.string.all);
+                        if (currentLanguage.equals("en")) {
+                            brandListItems[0] = "All";
+                        }else {
+                            brandItemkh[0] = "ទាំងអស់";
+                        }
                         int ccount = 0;
                         for (int i=1;i<=jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i-1);
@@ -895,8 +922,11 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
                     yearListItems = new String[jsonArray.length()+1];
                     yearIDlist = new int[jsonArray.length()+1];
                     yearlistItemkh=new String[jsonArray.length()+1];
-                    yearlistItemkh[0]=getString(R.string.all);
-                    yearListItems[0] = "All";
+                    if (!currentLanguage.equals("en")) {
+                        yearlistItemkh[0] = "ទាំងអស់";
+                    }else {
+                        yearListItems[0] = "All";
+                    }
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
                         int id = object.getInt("id");

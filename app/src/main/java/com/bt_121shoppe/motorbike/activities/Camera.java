@@ -2355,7 +2355,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             String namekh=jsonObject.getString("modeling_name_kh");
                             if (language.equals("km")){
                                 brand=brandId;
-                                tvModel.setText(name);
+                                tvModel.setText(namekh);
                                 getBrandName(Encode,brand);
                             }else if (language.equals("en")){
                                 brand=brandId;

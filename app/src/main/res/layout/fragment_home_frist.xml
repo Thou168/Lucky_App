@@ -49,7 +49,7 @@
                     android:layout_width="70dp"
                     android:layout_gravity="center"
                     app:spi_dotColor="#DDDDDD"
-                    app:spi_dotSelectedColor="#E5A74F"
+                    app:spi_dotSelectedColor="@color/colorPrimary"
                     android:layout_marginTop="11dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>

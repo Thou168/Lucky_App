@@ -108,6 +108,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     Bundle bundle;
     String login_verify,register_intent;
     RelativeLayout rela_profile;
+    private int process_type=0;
 //    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         if (bundle!=null){
             login_verify = bundle.getString("Login_verify");
             register_intent = bundle.getString("Register_verify");
+            process_type = bundle.getInt("process_type",0);
         }
         photo_select = getResources().getStringArray(R.array.select_photo);
         logo_kh = findViewById(R.id.khmer);
@@ -530,6 +532,8 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     @Override
     public void onBackPressed() {
         if (login_verify != null || register_intent != null){
+            startActivity(new Intent(Account.this,Home.class));
+        } else if (process_type!=1 || process_type!=2){
             startActivity(new Intent(Account.this,Home.class));
         } else finish();
     }
