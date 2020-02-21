@@ -28,9 +28,11 @@ import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.DealerPostViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
 import com.bt_121shoppe.motorbike.models.ModelingViewModel;
+import com.bt_121shoppe.motorbike.models.NotificationViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.models.UserProfileModel;
+import com.bt_121shoppe.motorbike.models.NotificationDataViewModel;
 import com.bt_121shoppe.motorbike.models.YearViewModel;
 
 import retrofit2.Call;
@@ -232,5 +234,12 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/postdealershop/{id}/")
     Call<StorePostViewModel> updateDealerPostStatus(@Path("id") int id, @Body StorePostViewModel shopViewModel);
+
+    @GET("api/v1/notification/?user_id=")
+    Call<NotificationViewModel> getNotification(@Query("user_id") int user_id, @Header("Authorization") String authorization);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @PUT("api/v1/notification/{id}")
+    Call<NotificationViewModel> updateNotification(@Path("id") int id, @Body NotificationViewModel notificationViewModel);
 
 }

@@ -234,15 +234,15 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="14dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/list_new_post"
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                tools:ignore="MissingConstraints" />
+                android:visibility="visible"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
             <TextView
                 android:visibility="gone"

@@ -966,7 +966,7 @@
     <string name="updatee">កែប្រែ</string>
     <string name="list_draft">បញ្ជីសេចក្តីព្រាង</string>
     <string name="re_password">បញ្ជាក់ពាក្យសម្ងាត់</string>
-    <string name="post_sold_message_confirm">Message</string>
+    <string name="post_sold_message_confirm">តើអ្នកពិតជាចង់លក់ការប្រកាសនេះមែនទេ?</string>
     <string name="remove_shop_message_confirmation">តើលោក-អ្នកចង់លុបហាងនេះមែនឬទេ?</string>
     <string name="select_color">លោក-អ្នកមិនអាចជ្រើសរើសច្រើនជាងពីរពណ៌ទេ។</string>
     <string name="dialog_camera">ម៉ាស៊ីនថត</string>
