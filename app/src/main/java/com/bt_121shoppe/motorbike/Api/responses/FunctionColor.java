@@ -871,4 +871,604 @@ public class FunctionColor {
         }
         return strColor;
     }
+    public static ArrayList<Integer> getItemColor(String strColor){
+        ArrayList<Integer> index = new ArrayList<>();
+        if (strColor != null){
+            switch (strColor) {
+                case "black":
+                    index.add(2131231068);
+                    break;
+                case "blue":
+                    index.add(2131230843);
+                    break;
+                case "red":
+                    index.add(2131231165);
+                    break;
+                case "orange":
+                    index.add(2131231124);
+                    break;
+                case "white":
+                    index.add(2131231217);
+                    break;
+                case "yellow":
+                    index.add(2131231219);
+                    break;
+                case "pink":
+                    index.add(2131231159);
+                    break;
+                case "purple":
+                    index.add(2131231163);
+                    break;
+                case "dark blue":
+                    index.add(2131230926);
+                    break;
+                case "brown":
+                    index.add(2131230927);
+                    break;
+                case "dark green":
+                    index.add(2131230928);
+                    break;
+                case "dark red":
+                    index.add(2131230929);
+                    break;
+                case "light blue sky":
+                    index.add(2131231066);
+                    break;
+                case "light red":
+                    index.add(2131231067);
+                    break;
+                case "green":
+                    index.add(2131231070);
+                    break;
+                case "silver":
+                    index.add(2131231069);
+                    break;
+                case "light green":
+                    index.add(2131230956);
+                    break;
+                case "blue sky":
+                    index.add(2131230844);
+                    break;
+
+                case "white,black":
+                    index.add(2131231217);
+                    index.add(2131231068);
+                    break;
+                case "white,silver":
+                    index.add(2131231217);
+                    index.add(2131231069);
+                    break;
+                case "white,blue":
+                    index.add(2131231217);
+                    index.add(2131230843);
+                    break;
+                case "white,red":
+                    index.add(2131231217);
+                    index.add(2131231165);
+                    break;
+                case "white,orange":
+                    index.add(2131231217);
+                    index.add(2131231124);
+                    break;
+                case "white,yellow":
+                    index.add(2131231217);
+                    index.add(2131231219);
+                    break;
+                case "white,pink":
+                    index.add(2131231217);
+                    index.add(2131231159);
+                    break;
+                case "white,purple":
+                    index.add(2131231217);
+                    index.add(2131231163);
+                    break;
+                case "white,dark blue":
+                    index.add(2131231217);
+                    index.add(2131230926);
+                    break;
+                case "white,brown":
+                    index.add(2131231217);
+                    index.add(2131230927);
+                    break;
+                case "white,dark green":
+                    index.add(2131231217);
+                    index.add(2131230928);
+                    break;
+                case "white,dark red":
+                    index.add(2131231217);
+                    index.add(2131230929);
+                    break;
+                case "white,light blue sky":
+                    index.add(2131231217);
+                    index.add(2131231066);
+                    break;
+                case "white,light red":
+                    index.add(2131231217);
+                    index.add(2131231067);
+                    break;
+                case "white,green":
+                    index.add(2131231217);
+                    index.add(2131231070);
+                    break;
+
+                case "black,silver":
+                    index.add(2131231068);
+                    index.add(2131231069);
+                    break;
+                case "black,blue":
+                    index.add(2131231068);
+                    index.add(2131230843);
+                    break;
+                case "black,red":
+                    index.add(2131231068);
+                    index.add(2131231165);
+                    break;
+                case "black,orange":
+                    index.add(2131231068);
+                    index.add(2131231124);
+                    break;
+                case "black,yellow":
+                    index.add(2131231068);
+                    index.add(2131231219);
+                    break;
+                case "black,pink":
+                    index.add(2131231068);
+                    index.add(2131231159);
+                    break;
+                case "black,purple":
+                    index.add(2131231068);
+                    index.add(2131231163);
+                    break;
+                case "black,dark blue":
+                    index.add(2131231068);
+                    index.add(2131230926);
+                    break;
+                case "black,brown":
+                    index.add(2131231068);
+                    index.add(2131230927);
+                    break;
+                case "black,dark green":
+                    index.add(2131231068);
+                    index.add(2131230928);
+                    break;
+                case "black,dark red":
+                    index.add(2131231068);
+                    index.add(2131230929);
+                    break;
+                case "black,light blue sky":
+                    index.add(2131231068);
+                    index.add(2131231066);
+                    break;
+                case "black,light red":
+                    index.add(2131231068);
+                    index.add(2131231067);
+                    break;
+                case "black,green":
+                    index.add(2131231068);
+                    index.add(2131231070);
+                    break;
+
+                case "blue,silver":
+                    index.add(2131230843);
+                    index.add(2131231069);
+                    break;
+                case "blue,red":
+                    index.add(2131230843);
+                    index.add(2131231165);
+                    break;
+                case "blue,orange":
+                    index.add(2131230843);
+                    index.add(2131231124);
+                    break;
+                case "blue,yellow":
+                    index.add(2131230843);
+                    index.add(2131231219);
+                    break;
+                case "blue,pink":
+                    index.add(2131230843);
+                    index.add(2131231159);
+                    break;
+                case "blue,purple":
+                    index.add(2131230843);
+                    index.add(2131231163);
+                    break;
+                case "blue,dark blue":
+                    index.add(2131230843);
+                    index.add(2131230926);
+                    break;
+                case "blue,brown":
+                    index.add(2131230843);
+                    index.add(2131230927);
+                    break;
+                case "blue,dark green":
+                    index.add(2131230843);
+                    index.add(2131230928);
+                    break;
+                case "blue,dark red":
+                    index.add(2131230843);
+                    index.add(2131230929);
+                    break;
+                case "blue,light blue sky":
+                    index.add(2131230843);
+                    index.add(2131231066);
+                    break;
+                case "blue,light red":
+                    index.add(2131230843);
+                    index.add(2131231067);
+                    break;
+                case "blue,green":
+                    index.add(2131230843);
+                    index.add(2131231070);
+                    break;
+
+                case "red,silver":
+                    index.add(2131231165);
+                    index.add(2131231069);
+                    break;
+                case "red,orange":
+                    index.add(2131231165);
+                    index.add(2131231124);
+                    break;
+                case "red,yellow":
+                    index.add(2131231165);
+                    index.add(2131231219);
+                    break;
+                case "red,pink":
+                    index.add(2131231165);
+                    index.add(2131231159);
+                    break;
+                case "red,purple":
+                    index.add(2131231165);
+                    index.add(2131231163);
+                    break;
+                case "red,dark blue":
+                    index.add(2131231165);
+                    index.add(2131230926);
+                    break;
+                case "red,brown":
+                    index.add(2131231165);
+                    index.add(2131230927);
+                    break;
+                case "red,dark green":
+                    index.add(2131231165);
+                    index.add(2131230928);
+                    break;
+                case "red,dark red":
+                    index.add(2131231165);
+                    index.add(2131230929);
+                    break;
+                case "red,light blue sky":
+                    index.add(2131231165);
+                    index.add(2131231066);
+                    break;
+                case "red,light red":
+                    index.add(2131231165);
+                    index.add(2131231067);
+                    break;
+                case "red,green":
+                    index.add(2131231165);
+                    index.add(2131231070);
+                    break;
+
+                case "yellow,silver":
+                    index.add(2131231219);
+                    index.add(2131231069);
+                    break;
+                case "yellow,orange":
+                    index.add(2131231219);
+                    index.add(2131231124);
+                    break;
+                case "yellow,pink":
+                    index.add(2131231219);
+                    index.add(2131231159);
+                    break;
+                case "yellow,purple":
+                    index.add(2131231219);
+                    index.add(2131231163);
+                    break;
+                case "yellow,dark blue":
+                    index.add(2131231219);
+                    index.add(2131230926);
+                    break;
+                case "yellow,brown":
+                    index.add(2131231219);
+                    index.add(2131230927);
+                    break;
+                case "yellow,dark green":
+                    index.add(2131231219);
+                    index.add(2131230928);
+                    break;
+                case "yellow,dark red":
+                    index.add(2131231219);
+                    index.add(2131230929);
+                    break;
+                case "yellow,light blue sky":
+                    index.add(2131231219);
+                    index.add(2131231066);
+                    break;
+                case "yellow,light red":
+                    index.add(2131231219);
+                    index.add(2131231067);
+                    break;
+                case "yellow,green":
+                    index.add(2131231219);
+                    index.add(2131231070);
+                    break;
+
+                case "pink,silver":
+                    index.add(2131231159);
+                    index.add(2131231069);
+                    break;
+                case "pink,orange":
+                    index.add(2131231159);
+                    index.add(2131231124);
+                    break;
+                case "pink,purple":
+                    index.add(2131231159);
+                    index.add(2131231163);
+                    break;
+                case "pink,dark blue":
+                    index.add(2131231159);
+                    index.add(2131230926);
+                    break;
+                case "pink,brown":
+                    index.add(2131231159);
+                    index.add(2131230927);
+                    break;
+                case "pink,dark green":
+                    index.add(2131231159);
+                    index.add(2131230928);
+                    break;
+                case "pink,dark red":
+                    index.add(2131231159);
+                    index.add(2131230929);
+                    break;
+                case "pink,light blue sky":
+                    index.add(2131231159);
+                    index.add(2131231066);
+                    break;
+                case "pink,light red":
+                    index.add(2131231159);
+                    index.add(2131231067);
+                    break;
+                case "pink,green":
+                    index.add(2131231159);
+                    index.add(2131231070);
+                    break;
+
+                case "purple,silver":
+                    index.add(2131231163);
+                    index.add(2131231069);
+                    break;
+                case "purple,orange":
+                    index.add(2131231163);
+                    index.add(2131231124);
+                    break;
+                case "purple,dark blue":
+                    index.add(2131231163);
+                    index.add(2131230926);
+                    break;
+                case "purple,brown":
+                    index.add(2131231163);
+                    index.add(2131230927);
+                    break;
+                case "purple,dark green":
+                    index.add(2131231163);
+                    index.add(2131230928);
+                    break;
+                case "purple,dark red":
+                    index.add(2131231163);
+                    index.add(2131230929);
+                    break;
+                case "purple,light blue sky":
+                    index.add(2131231163);
+                    index.add(2131231066);
+                    break;
+                case "purple,light red":
+                    index.add(2131231163);
+                    index.add(2131231067);
+                    break;
+                case "purple,green":
+                    index.add(2131231163);
+                    index.add(2131231070);
+                    break;
+
+                case "orange,silver":
+                    index.add(2131231124);
+                    index.add(2131231069);
+                    break;
+                case "orange,dark blue":
+                    index.add(2131231124);
+                    index.add(2131230926);
+                    break;
+                case "orange,brown":
+                    index.add(2131231124);
+                    index.add(2131230927);
+                    break;
+                case "orange,dark green":
+                    index.add(2131231124);
+                    index.add(2131230928);
+                    break;
+                case "orange,dark red":
+                    index.add(2131231124);
+                    index.add(2131230929);
+                    break;
+                case "orange,light blue sky":
+                    index.add(2131231124);
+                    index.add(2131231066);
+                    break;
+                case "orange,light red":
+                    index.add(2131231124);
+                    index.add(2131231067);
+                    break;
+                case "orange,green":
+                    index.add(2131231124);
+                    index.add(2131231070);
+                    break;
+
+                case "green,silver":
+                    index.add(2131231070);
+                    index.add(2131231069);
+                    break;
+                case "green,dark blue":
+                    index.add(2131231070);
+                    index.add(2131230926);
+                    break;
+                case "green,brown":
+                    index.add(2131231070);
+                    index.add(2131230927);
+                    break;
+                case "green,dark green":
+                    index.add(2131231070);
+                    index.add(2131230928);
+                    break;
+                case "green,dark red":
+                    index.add(2131231070);
+                    index.add(2131230929);
+                    break;
+                case "green,light blue sky":
+                    index.add(2131231070);
+                    index.add(2131231066);
+                    break;
+                case "green,light red":
+                    index.add(2131231070);
+                    index.add(2131231067);
+                    break;
+
+                case "silver,dark blue":
+                    index.add(2131231069);
+                    index.add(2131230926);
+                    break;
+                case "silver,brown":
+                    index.add(2131231069);
+                    index.add(2131230927);
+                    break;
+                case "silver,dark green":
+                    index.add(2131231069);
+                    index.add(2131230928);
+                    break;
+                case "silver,dark red":
+                    index.add(2131231069);
+                    index.add(2131230929);
+                    break;
+                case "silver,light blue sky":
+                    index.add(2131231069);
+                    index.add(2131231066);
+                    break;
+                case "silver,light red":
+                    index.add(2131231069);
+                    index.add(2131231067);
+                    break;
+
+                case "brown,dark blue":
+                    index.add(2131230927);
+                    index.add(2131230926);
+                    break;
+                case "brown,dark green":
+                    index.add(2131230927);
+                    index.add(2131230928);
+                    break;
+                case "brown,dark red":
+                    index.add(2131230927);
+                    index.add(2131230929);
+                    break;
+                case "brown,light blue sky":
+                    index.add(2131230927);
+                    index.add(2131231066);
+                    break;
+                case "brown,light red":
+                    index.add(2131230927);
+                    index.add(2131231067);
+                    break;
+
+                case "blue sky,dark blue":
+                    index.add(2131230844);
+                    index.add(2131230926);
+                    break;
+                case "blue sky,dark green":
+                    index.add(2131230844);
+                    index.add(2131230928);
+                    break;
+                case "blue sky,dark red":
+                    index.add(2131230844);
+                    index.add(2131230929);
+                    break;
+                case "blue sky,light blue sky":
+                    index.add(2131230844);
+                    index.add(2131231066);
+                    break;
+                case "blue sky,light red":
+                    index.add(2131230844);
+                    index.add(2131231067);
+                    break;
+
+                case "light green,dark blue":
+                    index.add(2131230956);
+                    index.add(2131230926);
+                    break;
+                case "light green,dark green":
+                    index.add(2131230956);
+                    index.add(2131230928);
+                    break;
+                case "light green,dark red":
+                    index.add(2131230956);
+                    index.add(2131230929);
+                    break;
+                case "light green,light blue sky":
+                    index.add(2131230956);
+                    index.add(2131231066);
+                    break;
+                case "light green,light red":
+                    index.add(2131230956);
+                    index.add(2131231067);
+                    break;
+
+                case "light red,dark blue":
+                    index.add(2131231067);
+                    index.add(2131230926);
+                    break;
+                case "light red,dark green":
+                    index.add(2131231067);
+                    index.add(2131230928);
+                    break;
+                case "light red,dark red":
+                    index.add(2131231067);
+                    index.add(2131230929);
+                    break;
+                case "light red,light blue sky":
+                    index.add(2131231067);
+                    index.add(2131231066);
+                    break;
+
+                case "light blue sky,dark blue":
+                    index.add(2131231067);
+                    index.add(2131230926);
+                    break;
+                case "light blue sky,dark green":
+                    index.add(2131231067);
+                    index.add(2131231217);
+                    break;
+                case "light blue sky,dark red":
+                    index.add(2131231067);
+                    index.add(2131230929);
+                    break;
+
+                case "dark red,dark green":
+                    index.add(2131230929);
+                    index.add(2131230928);
+                    break;
+                case "dark red,dark blue":
+                    index.add(2131230929);
+                    index.add(2131230926);
+                    break;
+
+                case "dark green,dark blue":
+                    index.add(2131230928);
+                    index.add(2131230926);
+                    break;
+            }
+        }
+        Log.e("select color",""+index);
+        return index;
+    }
 }

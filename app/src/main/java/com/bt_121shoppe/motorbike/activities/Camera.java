@@ -2415,14 +2415,98 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
             final ColorAdapter adapter = new ColorAdapter(FunctionColor.itemcolor, getApplication());
             gridView.setAdapter(adapter);
-            selectedIndex = adapter.selectedPositions.indexOf(index);
             if (index.length == 2) {
                 adapter.selectedPositions.add(index[0]);
                 adapter.selectedPositions.add(index[1]);
+                gridView.setOnItemClickListener((parent, v, position, id) -> {
+                    selectedIndex = adapter.selectedPositions.indexOf(position);
+                    if (selectedIndex > - 1) {
+                        adapter.selectedPositions.remove(selectedIndex);
+                        ((CustomView)v).display(false);
+                        selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                    } else {
+                        adapter.selectedPositions.add(position);
+                        ((CustomView)v).display(true);
+                        selectedColor.add((Integer) parent.getItemAtPosition(position));
+                    }
+                    if (selectedColor.size() > 2 ){
+                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(Camera.this.getString(R.string.select_color));
+                        alertDialog.setCancelable(false);
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                (dialog, which) -> {
+                                    selectedIndex = selectedColor.size()-1;
+                                    if (selectedIndex > -1 ) {
+                                        adapter.selectedPositions.remove(selectedIndex);
+                                    }
+                                    ((CustomView)v).display(false);
+                                    selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                                    dialog.dismiss();
+                                });
+                        alertDialog.show();
+                    }
+                    arrayColor = new ArrayList<>();
+                    if (selectedColor.size() > 0) {
+                        for (int j = 0; j < selectedColor.size(); j++) {
+                            if (j < selectedColor.size() - 1) {
+                                color = String.valueOf(selectedColor.get(j));
+                                Log.e("Select", "" + color);
+                            } else {
+                                color = String.valueOf(selectedColor.get(j));
+                                Log.e("Select", "" + color);
+                            }
+                            arrayColor.add(color);
+                        }
+                    }
+                    strColor = FunctionColor.setColor(arrayColor);
+                    Log.e("color select:",""+strColor);
+                });
             }else {
                 adapter.selectedPositions.add(index[0]);
+                gridView.setOnItemClickListener((parent, v, position, id) -> {
+                    selectedIndex = adapter.selectedPositions.indexOf(position);
+                    if (selectedIndex > - 1) {
+                        adapter.selectedPositions.remove(selectedIndex);
+                        ((CustomView)v).display(false);
+                        selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                    } else {
+                        adapter.selectedPositions.add(position);
+                        ((CustomView)v).display(true);
+                        selectedColor.add((Integer) parent.getItemAtPosition(position));
+                    }
+                    if (selectedColor.size() > 2 ){
+                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setMessage(Camera.this.getString(R.string.select_color));
+                        alertDialog.setCancelable(false);
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                (dialog, which) -> {
+                                    selectedIndex = selectedColor.size()-1;
+                                    if (selectedIndex > -1 ) {
+                                        adapter.selectedPositions.remove(selectedIndex);
+                                    }
+                                    ((CustomView)v).display(false);
+                                    selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                                    dialog.dismiss();
+                                });
+                        alertDialog.show();
+                    }
+                    arrayColor = new ArrayList<>();
+                    if (selectedColor.size() > 0) {
+                        for (int j = 0; j < selectedColor.size(); j++) {
+                            if (j < selectedColor.size() - 1) {
+                                color = String.valueOf(selectedColor.get(j));
+                            } else {
+                                color = String.valueOf(selectedColor.get(j));
+                            }
+                            arrayColor.add(color);
+                        }
+                    }
+                    strColor = FunctionColor.setColor(arrayColor);
+                    Log.e("color select:",""+strColor);
+                });
             }
         }
+        selectedColor = FunctionColor.getItemColor(strColor);
     }
     private void DropDown() {
 
