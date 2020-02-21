@@ -30,10 +30,13 @@ import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
+import com.bt_121shoppe.motorbike.models.BrandViewModel;
+import com.bt_121shoppe.motorbike.models.ModelingViewModel;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.YearViewModel;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.custom.sliderimage.logic.SliderImage;
@@ -87,7 +90,7 @@ public class Postbyuser_Class extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private TextView no_result;
-    private TextView description;
+    private TextView description,txtBrandTitle;
 
     View line2;
     TextView tvTypeTitle,bool_title;
@@ -149,6 +152,7 @@ public class Postbyuser_Class extends AppCompatActivity {
         tv_phone = findViewById(R.id.tv_phone);
         tv_email = findViewById(R.id.tv_email);
         tv_address = findViewById(R.id.address);
+        txtBrandTitle=findViewById(R.id.brandTitle);
 
         postId = getIntent().getIntExtra("ID",0);
         discount = getIntent().getDoubleExtra("Discount",0.0);
@@ -372,55 +376,22 @@ public class Postbyuser_Class extends AppCompatActivity {
 //                        tv_brand.setText(String.valueOf(postDetail.getModeling()));
                         //year
                         if (postDetail.getYear()!=0) {
-                            if (postDetail.getYear() == 1) {
-                                tv_year.setText(R.string.year1);
-                            } else if (postDetail.getYear() == 2) {
-                                tv_year.setText(R.string.year2);
-                            } else if (postDetail.getYear() == 3) {
-                                tv_year.setText(R.string.year3);
-                            } else if (postDetail.getYear() == 4) {
-                                tv_year.setText(R.string.year4);
-                            } else if (postDetail.getYear() == 5) {
-                                tv_year.setText(R.string.year5);
-                            } else if (postDetail.getYear() == 6) {
-                                tv_year.setText(R.string.year6);
-                            } else if (postDetail.getYear() == 7) {
-                                tv_year.setText(R.string.year7);
-                            } else if (postDetail.getYear() == 8) {
-                                tv_year.setText(R.string.year8);
-                            } else if (postDetail.getYear() == 9) {
-                                tv_year.setText(R.string.year9);
-                            } else if (postDetail.getYear() == 10) {
-                                tv_year.setText(R.string.year10);
-                            } else if (postDetail.getYear() == 11) {
-                                tv_year.setText(R.string.year11);
-                            } else if (postDetail.getYear() == 12) {
-                                tv_year.setText(R.string.year12);
-                            } else if (postDetail.getYear() == 13) {
-                                tv_year.setText(R.string.year13);
-                            } else if (postDetail.getYear() == 14) {
-                                tv_year.setText(R.string.year14);
-                            } else if (postDetail.getYear() == 15) {
-                                tv_year.setText(R.string.year15);
-                            } else if (postDetail.getYear() == 16) {
-                                tv_year.setText(R.string.year16);
-                            } else if (postDetail.getYear() == 17) {
-                                tv_year.setText(R.string.year17);
-                            } else if (postDetail.getYear() == 18) {
-                                tv_year.setText(R.string.year18);
-                            } else if (postDetail.getYear() == 19) {
-                                tv_year.setText(R.string.year19);
-                            } else if (postDetail.getYear() == 20) {
-                                tv_year.setText(R.string.year20);
-                            } else if (postDetail.getYear() == 21){
-                                tv_year.setText(R.string.year21);
-                            }else if (postDetail.getYear() == 22){
-                                tv_year.setText(R.string.year22);
-                            }else if (postDetail.getYear() == 23){
-                                tv_year.setText(R.string.year23);
-                            }else if (postDetail.getYear() == 24){
-                                tv_year.setText(R.string.year24);
-                            }
+                            Service apiService= Client.getClient().create(Service.class);
+                            retrofit2.Call<YearViewModel> call1=apiService.getYearDetail(postDetail.getYear());
+                            call1.enqueue(new retrofit2.Callback<YearViewModel>() {
+                                @Override
+                                public void onResponse(retrofit2.Call<YearViewModel> call, retrofit2.Response<YearViewModel> response) {
+                                    if(response.isSuccessful()){
+                                        tv_year.setText(response.body().getYear());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(retrofit2.Call<YearViewModel> call, Throwable t) {
+
+                                }
+                            });
+
                         }else {
                             tv_year.setText("");
                         }
@@ -428,36 +399,48 @@ public class Postbyuser_Class extends AppCompatActivity {
                         //model
 //                        tv_model.setText(String.valueOf(postDetail.getModeling()));
                         if (postDetail.getModeling()!=0) {
-                            if (postDetail.getModeling() == 1) {
-                                tv_brand.setText(R.string.honda);
-                                tv_model.setText(R.string.pcx);
-                            } else if (postDetail.getModeling() == 2) {
-                                tv_brand.setText(R.string.honda);
-                                tv_model.setText(R.string.dream);
-                            } else if (postDetail.getModeling() == 3) {
-                                tv_brand.setText(R.string.lg);
-                                tv_model.setText(R.string.lgg_tv_28);
-                            }
-//                            else if (postDetail.getModeling() == 4) {
-//                                tv_brand.setText(R.string.lg);
-//                                tv_model.setText(R.string.lgg_tv_28);
-//                            } else if (postDetail.getModeling() == 5) {
-//                                tv_brand.setText(R.string.honda);
-//                                tv_model.setText(R.string.zoomer_x);
-//                            } else if (postDetail.getModeling() == 6) {
-//                                tv_brand.setText(R.string.honda);
-//                                tv_model.setText(R.string.scoopy);
-//                            } else if (postDetail.getModeling() == 7) {
-//                                tv_brand.setText(R.string.panasonic);
-//                                tv_model.setText(R.string.panasonicc);
-//                            } else if (postDetail.getModeling() == 8) {
-//                                tv_brand.setText(R.string.susuki);
-//                                tv_model.setText(R.string.smash_v);
-//                            }
-                            else {
-                                tv_brand.setText("");
-                                tv_model.setText("");
-                            }
+                            Service apiService=Client.getClient().create(Service.class);
+                            retrofit2.Call<ModelingViewModel> call1=apiService.getModelDetail(postDetail.getModeling());
+                            call1.enqueue(new retrofit2.Callback<ModelingViewModel>() {
+                                @Override
+                                public void onResponse(retrofit2.Call<ModelingViewModel> call, retrofit2.Response<ModelingViewModel> response) {
+                                    if(response.isSuccessful()){
+                                        String lang=txtBrandTitle.getText().toString();
+                                        if(lang.equals("Brand"))
+                                            tv_model.setText(response.body().getModeling_name());
+                                        else
+                                            tv_model.setText(response.body().getModeling_name_kh());
+
+                                        //Get Brand Detail
+                                        retrofit2.Call<BrandViewModel> call2=apiService.getBrandDetail(response.body().getBrand());
+                                        call2.enqueue(new retrofit2.Callback<BrandViewModel>() {
+                                            @Override
+                                            public void onResponse(retrofit2.Call<BrandViewModel> call, retrofit2.Response<BrandViewModel> response) {
+                                                if(response.isSuccessful()){
+                                                    if(lang.equals("Brand"))
+                                                        tv_brand.setText(response.body().getBrand_name());
+                                                    else
+                                                        tv_brand.setText(response.body().getBrand_name_kh());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(retrofit2.Call<BrandViewModel> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(retrofit2.Call<ModelingViewModel> call, Throwable t) {
+
+                                }
+                            });
+
+                        }else {
+                            tv_brand.setText("");
+                            tv_model.setText("");
                         }
 
                         //for section

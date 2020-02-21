@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseProvince;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
@@ -257,20 +258,53 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
-        CheckGroup check = new CheckGroup();
-        g = check.getGroup(pk,this);
-        Log.e("MSMSMS","Group "+g);
-        if (g == 3){
-            bnaviga1.setVisibility(View.VISIBLE);
-            bnaviga.setVisibility(View.GONE);
-            bnaviga1.getMenu().getItem(1).setChecked(true);
-            bnaviga1.setOnNavigationItemSelectedListener(mlistener1);
-        }else {
-            bnaviga1.setVisibility(View.GONE);
-            bnaviga.setVisibility(View.VISIBLE);
-            bnaviga.getMenu().getItem(1).setChecked(true);
-            bnaviga.setOnNavigationItemSelectedListener(mlistener);
-        }
+
+        Service apiService=Client.getClient().create(Service.class);
+        Call<UserResponseModel> call=apiService.getUserProfile(pk);
+        call.enqueue(new Callback<UserResponseModel>() {
+            @Override
+            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
+                if(response.isSuccessful()){
+                    int group=response.body().getProfile().getGroup();
+                    if(group==3){
+                        bnaviga1.setVisibility(View.VISIBLE);
+                        bnaviga.setVisibility(View.GONE);
+                        bnaviga1.getMenu().getItem(1).setChecked(true);
+                        bnaviga1.setOnNavigationItemSelectedListener(mlistener1);
+                    }else{
+                        bnaviga1.setVisibility(View.GONE);
+                        bnaviga.setVisibility(View.VISIBLE);
+                        bnaviga.getMenu().getItem(1).setChecked(true);
+                        bnaviga.setOnNavigationItemSelectedListener(mlistener);
+                    }
+                }else{
+                    bnaviga1.setVisibility(View.GONE);
+                    bnaviga.setVisibility(View.VISIBLE);
+                    bnaviga.getMenu().getItem(1).setChecked(true);
+                    bnaviga.setOnNavigationItemSelectedListener(mlistener);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponseModel> call, Throwable t) {
+
+            }
+        });
+
+//        CheckGroup check = new CheckGroup();
+//        g = check.getGroup(pk,this);
+//        //Log.e("MSMSMS","Group "+g);
+//        if (g == 3){
+//            bnaviga1.setVisibility(View.VISIBLE);
+//            bnaviga.setVisibility(View.GONE);
+//            bnaviga1.getMenu().getItem(1).setChecked(true);
+//            bnaviga1.setOnNavigationItemSelectedListener(mlistener1);
+//        }else {
+//            bnaviga1.setVisibility(View.GONE);
+//            bnaviga.setVisibility(View.VISIBLE);
+//            bnaviga.getMenu().getItem(1).setChecked(true);
+//            bnaviga.setOnNavigationItemSelectedListener(mlistener);
+//        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mlistener
@@ -359,122 +393,18 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
     @Override
     protected void onStart() {
         super.onStart();
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
-        if (g == 3){
-            bnaviga1.getMenu().getItem(1).setChecked(true);
-        }else {
-            bnaviga.getMenu().getItem(1).setChecked(true);
-        }
-    }
+        bnaviga1.getMenu().getItem(1).setChecked(true);
+        bnaviga.getMenu().getItem(1).setChecked(true);
 
-//    private void bottomNavigation(){
 //        CheckGroup check = new CheckGroup();
 //        int g = check.getGroup(pk,this);
-//        if (g==3) {
-//            bnaviga=findViewById(R.id.bottom_nav);
-//            bnaviga.setVisibility(View.VISIBLE);
-//            bnaviga.getMenu().getItem(1).setChecked(true);
-//            bnaviga.setOnNavigationItemSelectedListener(menuItem -> {
-//                switch (menuItem.getItemId()) {
-//                    case R.id.home:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, Home.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            intent.putExtra("verify","home");
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                    case R.id.notification:
-////                    if(prefer.contains("token") || prefer.contains("id")){
-////                        startActivity(new Intent(StoreListActivity.this, StoreListActivity.class));
-////                    }else{
-////                        Intent intent=new Intent(StoreListActivity.this, UserAccountActivity.class);
-////                        startActivity(intent);
-////                    }
-//                        break;
-//                    case R.id.dealer:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, DealerStoreActivity.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            intent.putExtra("verify","message");
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                    case R.id.message:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            intent.putExtra("verify","message");
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                    case R.id.account:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, Account.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            intent.putExtra("verify","account");
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                }
-//                return false;
-//            });
-//        }else {
-//            bnaviga1=findViewById(R.id.bnaviga);
-//            bnaviga1.setVisibility(View.VISIBLE);
+//        if (g == 3){
 //            bnaviga1.getMenu().getItem(1).setChecked(true);
-//            bnaviga1.setOnNavigationItemSelectedListener(menuItem -> {
-//                switch (menuItem.getItemId()) {
-//                    case R.id.home:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, Home.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                    case R.id.notification:
-////                    if(prefer.contains("token") || prefer.contains("id")){
-////                        startActivity(new Intent(StoreListActivity.this, StoreListActivity.class));
-////                    }else{
-////                        Intent intent=new Intent(StoreListActivity.this, UserAccountActivity.class);
-////                        startActivity(intent);
-////                    }
-//                        break;
-//                    case R.id.camera:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, Camera.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                    case R.id.message:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, ChatMainActivity.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                    case R.id.account:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(StoreListActivity.this, Account.class));
-//                        } else {
-//                            Intent intent = new Intent(StoreListActivity.this, UserAccountActivity.class);
-//                            startActivity(intent);
-//                        }
-//                        break;
-//                }
-//                return true;
-//            });
+//        }else {
+//            bnaviga.getMenu().getItem(1).setChecked(true);
 //        }
-//    }
+    }
+
 
     @Override
     public void onRefresh() {

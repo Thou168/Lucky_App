@@ -27,6 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.CheckGroup;
@@ -67,6 +70,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatMainActivity extends AppCompatActivity {
 
@@ -117,87 +123,178 @@ public class ChatMainActivity extends AppCompatActivity {
             pk = prefer.getInt("id", 0);
         }
         //check active and deactive account by samang 2/09/19
-        Active_user activeUser = new Active_user();
-        String active;
-        active = activeUser.isUserActive(pk, this);
-        if (active.equals("false")) {
-            activeUser.clear_session(this);
-        }
+//        Active_user activeUser = new Active_user();
+//        String active;
+//        active = activeUser.isUserActive(pk, this);
+//        if (active.equals("false")) {
+//            activeUser.clear_session(this);
+//        }
         // end
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk, this);
-        if (g == 3) {
-            bnavigation1 = findViewById(R.id.bottom_nav);
-            bnavigation1.setVisibility(View.VISIBLE);
-            bnavigation1.getMenu().getItem(3).setChecked(true);
-            bnavigation1.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), Home.class));
-                        break;
-                    case R.id.notification:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
-                        break;
-                    case R.id.dealer:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), DealerStoreActivity.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
-                        break;
-                    case R.id.message:
-                        break;
-                    case R.id.account:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Account.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
-                        break;
+
+        bnavigation1 = findViewById(R.id.bottom_nav);
+        bnavigation = findViewById(R.id.bnaviga);
+        Service apiService= Client.getClient().create(Service.class);
+        Call<UserResponseModel> call=apiService.getUserProfile(pk);
+        call.enqueue(new Callback<UserResponseModel>() {
+            @Override
+            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
+                if(response.isSuccessful()){
+                    int group=response.body().getProfile().getGroup();
+                    if (group == 3) {
+
+                        bnavigation1.setVisibility(View.VISIBLE);
+                        bnavigation1.getMenu().getItem(3).setChecked(true);
+                        bnavigation1.setOnNavigationItemSelectedListener(menuItem -> {
+                            switch (menuItem.getItemId()) {
+                                case R.id.home:
+                                    startActivity(new Intent(getApplicationContext(), Home.class));
+                                    break;
+                                case R.id.notification:
+                                    if (prefer.contains("token") || prefer.contains("id")) {
+                                        startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                    break;
+                                case R.id.dealer:
+                                    if (prefer.contains("token") || prefer.contains("id")) {
+                                        startActivity(new Intent(getApplicationContext(), DealerStoreActivity.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                    break;
+                                case R.id.message:
+                                    break;
+                                case R.id.account:
+                                    if (prefer.contains("token") || prefer.contains("id")) {
+                                        startActivity(new Intent(getApplicationContext(), Account.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                    break;
+                            }
+                            return false;
+                        });
+                    } else {
+
+                        bnavigation.setVisibility(View.VISIBLE);
+                        bnavigation.getMenu().getItem(3).setChecked(true);
+                        bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                            switch (menuItem.getItemId()) {
+                                case R.id.home:
+                                    Intent intent = new Intent(getApplicationContext(), Home.class);
+                                    startActivity(intent);
+                                    break;
+                                case R.id.notification:
+                                    if (prefer.contains("token") || prefer.contains("id")) {
+                                        startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                    break;
+                                case R.id.camera:
+                                    if (prefer.contains("token") || prefer.contains("id")) {
+                                        startActivity(new Intent(getApplicationContext(), Camera.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                    break;
+                                case R.id.message:
+                                    break;
+                                case R.id.account:
+                                    if (prefer.contains("token") || prefer.contains("id")) {
+                                        startActivity(new Intent(getApplicationContext(), Account.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    }
+                                    break;
+                            }
+                            return false;
+                        });
+                    }
                 }
-                return false;
-            });
-        } else {
-            bnavigation = findViewById(R.id.bnaviga);
-            bnavigation.setVisibility(View.VISIBLE);
-            bnavigation.getMenu().getItem(3).setChecked(true);
-            bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.home:
-                        Intent intent = new Intent(getApplicationContext(), Home.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.notification:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
-                        break;
-                    case R.id.camera:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Camera.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
-                        break;
-                    case R.id.message:
-                        break;
-                    case R.id.account:
-                        if (prefer.contains("token") || prefer.contains("id")) {
-                            startActivity(new Intent(getApplicationContext(), Account.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }
-                        break;
-                }
-                return false;
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponseModel> call, Throwable t) {
+
+            }
+        });
+
+//        CheckGroup check = new CheckGroup();
+//        int g = check.getGroup(pk, this);
+//        if (g == 3) {
+//            bnavigation1 = findViewById(R.id.bottom_nav);
+//            bnavigation1.setVisibility(View.VISIBLE);
+//            bnavigation1.getMenu().getItem(3).setChecked(true);
+//            bnavigation1.setOnNavigationItemSelectedListener(menuItem -> {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.home:
+//                        startActivity(new Intent(getApplicationContext(), Home.class));
+//                        break;
+//                    case R.id.notification:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+//                        } else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
+//                        break;
+//                    case R.id.dealer:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), DealerStoreActivity.class));
+//                        } else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
+//                        break;
+//                    case R.id.message:
+//                        break;
+//                    case R.id.account:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), Account.class));
+//                        } else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
+//                        break;
+//                }
+//                return false;
+//            });
+//        } else {
+//            bnavigation = findViewById(R.id.bnaviga);
+//            bnavigation.setVisibility(View.VISIBLE);
+//            bnavigation.getMenu().getItem(3).setChecked(true);
+//            bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.home:
+//                        Intent intent = new Intent(getApplicationContext(), Home.class);
+//                        startActivity(intent);
+//                        break;
+//                    case R.id.notification:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+//                        } else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
+//                        break;
+//                    case R.id.camera:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), Camera.class));
+//                        } else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
+//                        break;
+//                    case R.id.message:
+//                        break;
+//                    case R.id.account:
+//                        if (prefer.contains("token") || prefer.contains("id")) {
+//                            startActivity(new Intent(getApplicationContext(), Account.class));
+//                        } else {
+//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                        }
+//                        break;
+//                }
+//                return false;
+//            });
+//        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

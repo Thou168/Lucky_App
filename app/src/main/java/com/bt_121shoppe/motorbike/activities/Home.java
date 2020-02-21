@@ -53,6 +53,7 @@ import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Slider;
+import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 import com.bt_121shoppe.motorbike.R;
@@ -237,105 +238,176 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 //        nav_term = menu.findItem(R.id.nav_privacy);
 
         /* start implementation bottom navigation */
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
-        if (g == 3){
-            mBottomNavigation1=findViewById(R.id.bottom_nav);
-            mBottomNavigation1.setVisibility(View.VISIBLE);
-            mBottomNavigation1.getMenu().getItem(0).setChecked(true);
-            mBottomNavigation1.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()){
-                    case R.id.home:
-                        mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
-                        break;
-                    case R.id.notification:
-                        startActivity(new Intent(Home.this, StoreListActivity.class));
-                        break;
-                    case R.id.dealer:
-                        if(sharedPref.contains("token") || sharedPref.contains("id")){
-                            startActivity(new Intent(Home.this, DealerStoreActivity.class));
-                        }else{
-                            Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("Login_verify","camera");
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.message:
-                        if(sharedPref.contains("token") || sharedPref.contains("id")){
-                            startActivity(new Intent(Home.this, ChatMainActivity.class));
-                        }else{
-                            Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("Login_verify","message");
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.account:
-                        if(sharedPref.contains("token") || sharedPref.contains("id")){
-                            startActivity(new Intent(Home.this, Account.class));
-                        }else{
-                            Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("Login_verify","account");
-                            startActivity(intent);
-                        }
-                        break;
-                }
-                return false;
-            });
-        }else {
-            mBottomNavigation=findViewById(R.id.bnaviga);
-            mBottomNavigation.setVisibility(View.VISIBLE);
-            mBottomNavigation.getMenu().getItem(0).setChecked(true);
-            mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()){
-                    case R.id.home:
-                        mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
-                        break;
-                    case R.id.notification:
-                        startActivity(new Intent(Home.this, StoreListActivity.class));
-                        break;
-                    case R.id.camera:
-                        if(sharedPref.contains("token") || sharedPref.contains("id")){
-                            startActivity(new Intent(Home.this, Camera.class));
-                        }else{
-                            Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("Login_verify","camera");
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.message:
-                        if(sharedPref.contains("token") || sharedPref.contains("id")){
-                            startActivity(new Intent(Home.this, ChatMainActivity.class));
-                        }else{
-                            Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("Login_verify","message");
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.account:
-                        if(sharedPref.contains("token") || sharedPref.contains("id")){
+        mBottomNavigation1=findViewById(R.id.bottom_nav);
+        mBottomNavigation=findViewById(R.id.bnaviga);
+
+        Service apiService= Client.getClient().create(Service.class);
+        retrofit2.Call<UserResponseModel> call1=apiService.getUserProfile(pk);
+        call1.enqueue(new retrofit2.Callback<UserResponseModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<UserResponseModel> call, retrofit2.Response<UserResponseModel> response) {
+                //Log.e("TAG","User id in check group "+response.body().toString());
+                if(response.isSuccessful()){
+                    int group=response.body().getProfile().getGroup();
+                    Log.e("TAG","group in function in "+group);
+                    //g=group;
+                    if (group == 3){
+
+                        mBottomNavigation1.setVisibility(View.VISIBLE);
+                        mBottomNavigation1.getMenu().getItem(0).setChecked(true);
+                        mBottomNavigation1.setOnNavigationItemSelectedListener(menuItem -> {
+                            switch (menuItem.getItemId()){
+                                case R.id.home:
+                                    mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
+                                    break;
+                                case R.id.notification:
+                                    startActivity(new Intent(Home.this, StoreListActivity.class));
+                                    break;
+                                case R.id.dealer:
+                                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                        startActivity(new Intent(Home.this, DealerStoreActivity.class));
+                                    }else{
+                                        Intent intent=new Intent(Home.this, LoginActivity.class);
+                                        intent.putExtra("Login_verify","camera");
+                                        startActivity(intent);
+                                    }
+                                    break;
+                                case R.id.message:
+                                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                        startActivity(new Intent(Home.this, ChatMainActivity.class));
+                                    }else{
+                                        Intent intent=new Intent(Home.this, LoginActivity.class);
+                                        intent.putExtra("Login_verify","message");
+                                        startActivity(intent);
+                                    }
+                                    break;
+                                case R.id.account:
+                                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                        startActivity(new Intent(Home.this, Account.class));
+                                    }else{
+                                        Intent intent=new Intent(Home.this, LoginActivity.class);
+                                        intent.putExtra("Login_verify","account");
+                                        startActivity(intent);
+                                    }
+                                    break;
+                            }
+                            return false;
+                        });
+
+                    }else {
+
+                        mBottomNavigation.setVisibility(View.VISIBLE);
+                        mBottomNavigation.getMenu().getItem(0).setChecked(true);
+                        mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                            switch (menuItem.getItemId()){
+                                case R.id.home:
+                                    mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
+                                    break;
+                                case R.id.notification:
+                                    startActivity(new Intent(Home.this, StoreListActivity.class));
+                                    break;
+                                case R.id.camera:
+                                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                        startActivity(new Intent(Home.this, Camera.class));
+                                    }else{
+                                        Intent intent=new Intent(Home.this, LoginActivity.class);
+                                        intent.putExtra("Login_verify","camera");
+                                        startActivity(intent);
+                                    }
+                                    break;
+                                case R.id.message:
+                                    if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                        startActivity(new Intent(Home.this, ChatMainActivity.class));
+                                    }else{
+                                        Intent intent=new Intent(Home.this, LoginActivity.class);
+                                        intent.putExtra("Login_verify","message");
+                                        startActivity(intent);
+                                    }
+                                    break;
+                                case R.id.account:
+                                    if(sharedPref.contains("token") || sharedPref.contains("id")){
 //                        if(Active_user.isUserActive(this,pk)){
 //                            startActivity(new Intent(Home.this, Account.class));
 //                        }else{
 //                            Active_user.clearSession(this);
 //                        }
-                            startActivity(new Intent(Home.this, Account.class));
-                        }else{
-                            Intent intent=new Intent(Home.this, LoginActivity.class);
-                            intent.putExtra("Login_verify","account");
-                            startActivity(intent);
-                        }
+                                        startActivity(new Intent(Home.this, Account.class));
+                                    }else{
+                                        Intent intent=new Intent(Home.this, LoginActivity.class);
+                                        intent.putExtra("Login_verify","account");
+                                        startActivity(intent);
+                                    }
 
-                        break;
+                                    break;
+                            }
+                            return false;
+                        });
+                    }
+                }else{
+                    mBottomNavigation.setVisibility(View.VISIBLE);
+                    mBottomNavigation.getMenu().getItem(0).setChecked(true);
+                    mBottomNavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                        switch (menuItem.getItemId()){
+                            case R.id.home:
+                                mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
+                                break;
+                            case R.id.notification:
+                                startActivity(new Intent(Home.this, StoreListActivity.class));
+                                break;
+                            case R.id.camera:
+                                if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                    startActivity(new Intent(Home.this, Camera.class));
+                                }else{
+                                    Intent intent=new Intent(Home.this, LoginActivity.class);
+                                    intent.putExtra("Login_verify","camera");
+                                    startActivity(intent);
+                                }
+                                break;
+                            case R.id.message:
+                                if(sharedPref.contains("token") || sharedPref.contains("id")){
+                                    startActivity(new Intent(Home.this, ChatMainActivity.class));
+                                }else{
+                                    Intent intent=new Intent(Home.this, LoginActivity.class);
+                                    intent.putExtra("Login_verify","message");
+                                    startActivity(intent);
+                                }
+                                break;
+                            case R.id.account:
+                                if(sharedPref.contains("token") || sharedPref.contains("id")){
+//                        if(Active_user.isUserActive(this,pk)){
+//                            startActivity(new Intent(Home.this, Account.class));
+//                        }else{
+//                            Active_user.clearSession(this);
+//                        }
+                                    startActivity(new Intent(Home.this, Account.class));
+                                }else{
+                                    Intent intent=new Intent(Home.this, LoginActivity.class);
+                                    intent.putExtra("Login_verify","account");
+                                    startActivity(intent);
+                                }
+
+                                break;
+                        }
+                        return false;
+                    });
                 }
-                return false;
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<UserResponseModel> call, Throwable t) {
+                Log.e("TAG","New Initial User group error "+t.getMessage());
+            }
+        });
+
+//        CheckGroup check = new CheckGroup();
+//        int g = check.getGroup(pk,this);
+
         /*end implementation bottom navigation */
 
         /* start implementation slider navigation */
         SliderImage mSliderImages=findViewById(R.id.slider);
         List<String> mImages1 =new ArrayList<>();
-        Service apiService = Client.getClient().create(Service.class);
+        //Service apiService = Client.getClient().create(Service.class);
         retrofit2.Call<AllResponse> call = apiService.getSliderImage();
         call.enqueue(new retrofit2.Callback<AllResponse>() {
             @Override
@@ -521,15 +593,17 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     @Override
     public void onStart(){
         super.onStart();
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
-        if (g == 3){
-            mBottomNavigation1.getMenu().getItem(0).setChecked(true);
-        }else {
-            mBottomNavigation.getMenu().getItem(0).setChecked(true);
-        }
+//        CheckGroup check = new CheckGroup();
+//        int g = check.getGroup(pk,this);
+//        if (g == 3){
+//            mBottomNavigation1.getMenu().getItem(0).setChecked(true);
+//        }else {
+//            mBottomNavigation.getMenu().getItem(0).setChecked(true);
+//        }
+        mBottomNavigation.getMenu().getItem(0).setChecked(true);
+        mBottomNavigation1.getMenu().getItem(0).setChecked(true);
         currentFragment = this.getFragmentManager().findFragmentById(R.id.frameLayout);
-        Log.e(TAG,"current Fragment onStart "+currentFragment);
+        //Log.e(TAG,"current Fragment onStart "+currentFragment);
     }
 
     @Override

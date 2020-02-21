@@ -27,6 +27,7 @@ import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.DealerPostViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
+import com.bt_121shoppe.motorbike.models.ModelingViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.models.UserProfileModel;
@@ -207,6 +208,8 @@ public interface Service {
 
     @GET("api/v1/wallpaper/")
     Call<AllResponse> getSliderImage();
+    @GET("api/v1/models/{modeling}/")
+    Call<ModelingViewModel> getModelDetail(@Path("modeling") int modeling);
 
     @GET("api/v1/shop/")
     Call<APIShopResponse> GetStoreList();

@@ -30,15 +30,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Modeling;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Item_API;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
+import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.BuyViewModel;
+import com.bt_121shoppe.motorbike.models.ModelingViewModel;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.RentViewModel;
 import com.bt_121shoppe.motorbike.models.SaleViewModel;
+import com.bt_121shoppe.motorbike.models.YearViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -51,6 +57,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import javax.net.ssl.SNIServerName;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -86,6 +94,7 @@ public class Detail_1 extends Fragment {
     TextView tvTypeTitle,bool_title;
     LinearLayoutManager linearLayoutManager;
     HorizontalScrollView horizontalScrollView;
+    TextView txtBrandTitle;
 
     @Nullable
     @Override
@@ -147,6 +156,7 @@ public class Detail_1 extends Fragment {
         rela_eta = view.findViewById(R.id.relative_eta);
         line_rela.setVisibility(View.GONE);
         rela_eta.setVisibility(View.GONE);
+        txtBrandTitle=view.findViewById(R.id.brandTitle);
         return view;
 
     }
@@ -285,93 +295,92 @@ public class Detail_1 extends Fragment {
                             if (postDetail.getYear()==0){
                                 year.setText("");
                             }
-                            if (postDetail.getYear()!=0) {
-                                if (postDetail.getYear() == 1) {
-                                    year.setText(R.string.year1);
-                                } else if (postDetail.getYear() == 2) {
-                                    year.setText(R.string.year2);
-                                } else if (postDetail.getYear() == 3) {
-                                    year.setText(R.string.year3);
-                                } else if (postDetail.getYear() == 4) {
-                                    year.setText(R.string.year4);
-                                } else if (postDetail.getYear() == 5) {
-                                    year.setText(R.string.year5);
-                                } else if (postDetail.getYear() == 6) {
-                                    year.setText(R.string.year6);
-                                } else if (postDetail.getYear() == 7) {
-                                    year.setText(R.string.year7);
-                                } else if (postDetail.getYear() == 8) {
-                                    year.setText(R.string.year8);
-                                } else if (postDetail.getYear() == 9) {
-                                    year.setText(R.string.year9);
-                                } else if (postDetail.getYear() == 10) {
-                                    year.setText(R.string.year10);
-                                } else if (postDetail.getYear() == 11) {
-                                    year.setText(R.string.year11);
-                                } else if (postDetail.getYear() == 12) {
-                                    year.setText(R.string.year12);
-                                } else if (postDetail.getYear() == 13) {
-                                    year.setText(R.string.year13);
-                                } else if (postDetail.getYear() == 14) {
-                                    year.setText(R.string.year14);
-                                } else if (postDetail.getYear() == 15) {
-                                    year.setText(R.string.year15);
-                                } else if (postDetail.getYear() == 16) {
-                                    year.setText(R.string.year16);
-                                } else if (postDetail.getYear() == 17) {
-                                    year.setText(R.string.year17);
-                                } else if (postDetail.getYear() == 18) {
-                                    year.setText(R.string.year18);
-                                } else if (postDetail.getYear() == 19) {
-                                    year.setText(R.string.year19);
-                                } else if (postDetail.getYear() == 20) {
-                                    year.setText(R.string.year20);
-                                } else if (postDetail.getYear() == 21){
-                                    year.setText(R.string.year21);
-                                } else if (postDetail.getYear() == 22){
-                                    year.setText(R.string.year22);
-                                } else if (postDetail.getYear() == 23){
-                                    year.setText(R.string.year23);
-                                } else if (postDetail.getYear() == 24){
-                                    year.setText(R.string.year24);
-                                }else if (postDetail.getYear() == 25){
-                                    year.setText(R.string.year25);
-                                }else if (postDetail.getYear() == 26){
-                                    year.setText(R.string.year26);
-                                }
+                            else{
+                                Service apiService= Client.getClient().create(Service.class);
+                                retrofit2.Call<YearViewModel> call1=apiService.getYearDetail(postDetail.getYear());
+                                call1.enqueue(new retrofit2.Callback<YearViewModel>() {
+                                    @Override
+                                    public void onResponse(retrofit2.Call<YearViewModel> call, retrofit2.Response<YearViewModel> response) {
+                                        if(response.isSuccessful()){
+                                            year.setText(response.body().getYear());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(retrofit2.Call<YearViewModel> call, Throwable t) {
+
+                                    }
+                                });
                             }
                             //model
                             if (postDetail.getModeling()!=0) {
-                                if (postDetail.getModeling() == 1) {
-                                    brand.setText(R.string.honda);
-                                    model.setText(R.string.pcx);
-                                } else if (postDetail.getModeling() == 2) {
-                                    brand.setText(R.string.honda);
-                                    model.setText(R.string.dream);
-                                } else if (postDetail.getModeling() == 3) {
-                                    brand.setText(R.string.lg);
-                                    model.setText(R.string.lgg_tv_28);
-                                }
-//                                else if (postDetail.getModeling() == 4) {
+                                Service apiService=Client.getClient().create(Service.class);
+                                retrofit2.Call<ModelingViewModel> call1=apiService.getModelDetail(postDetail.getModeling());
+                                call1.enqueue(new retrofit2.Callback<ModelingViewModel>() {
+                                    @Override
+                                    public void onResponse(retrofit2.Call<ModelingViewModel> call, retrofit2.Response<ModelingViewModel> response) {
+                                        if(response.isSuccessful()){
+                                            String lang=txtBrandTitle.getText().toString();
+                                            if(lang.equals("Brand"))
+                                                model.setText(response.body().getModeling_name());
+                                            else
+                                                model.setText(response.body().getModeling_name_kh());
+
+                                            //Get Brand Detail
+                                            retrofit2.Call<BrandViewModel> call2=apiService.getBrandDetail(response.body().getBrand());
+                                            call2.enqueue(new retrofit2.Callback<BrandViewModel>() {
+                                                @Override
+                                                public void onResponse(retrofit2.Call<BrandViewModel> call, retrofit2.Response<BrandViewModel> response) {
+                                                    if(response.isSuccessful()){
+                                                        if(lang.equals("Brand"))
+                                                            brand.setText(response.body().getBrand_name());
+                                                        else
+                                                            brand.setText(response.body().getBrand_name_kh());
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(retrofit2.Call<BrandViewModel> call, Throwable t) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(retrofit2.Call<ModelingViewModel> call, Throwable t) {
+
+                                    }
+                                });
+
+//                                if (postDetail.getModeling() == 1) {
+//                                    brand.setText(R.string.honda);
+//                                    model.setText(R.string.dream);
+//                                } else if (postDetail.getModeling() == 3) {
 //                                    brand.setText(R.string.lg);
-//                                    model.setText(R.string.lgg_tv_28);
-//                                } else if (postDetail.getModeling() == 5) {
-//                                    brand.setText(R.string.honda);
-//                                    model.setText(R.string.zoomer_x);
-//                                } else if (postDetail.getModeling() == 6) {
-//                                    brand.setText(R.string.honda);
-//                                    model.setText(R.string.scoopy);
-//                                } else if (postDetail.getModeling() == 7) {
-//                                    brand.setText(R.string.panasonic);
-//                                    model.setText(R.string.panasonicc);
+//                                    model.setText(R.string.lgg_86_4k);
+//                                } else if (postDetail.getModeling() == 4) {
+//                                    brand.setText(R.string.lg);
+//                                    model.setText(R.string.lgg_4k_full);
 //                                } else if (postDetail.getModeling() == 8) {
 //                                    brand.setText(R.string.susuki);
 //                                    model.setText(R.string.smash_v);
+//                                } else if (postDetail.getModeling() == 7) {
+//                                    brand.setText(R.string.panasonic);
+//                                    model.setText(R.string.panasonicc);
+//                                } else if (postDetail.getModeling() == 6) {
+//                                    brand.setText(R.string.honda);
+//                                    model.setText(R.string.scoopy);
+//                                } else if (postDetail.getModeling() == 2) {
+//                                    brand.setText(R.string.honda);
+//                                    model.setText(R.string.icon);
+//                                } else if (postDetail.getModeling() == 5) {
+//                                    brand.setText(R.string.honda);
+//                                    model.setText(R.string.zoomer_x);
 //                                }
-                                else {
-                                    brand.setText("");
-                                    model.setText("");
-                                }
+                            }else{
+                                brand.setText("");
+                                model.setText("");
                             }
                             //for section
                             //Convert

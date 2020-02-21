@@ -95,6 +95,7 @@ public class Loadbyuser_history extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     no_result.setVisibility(View.VISIBLE);
                 }
+
                 //date history
 //                for (int i = 0;i<listData.size();i++) {
 //                    txt_date.setVisibility(View.VISIBLE);

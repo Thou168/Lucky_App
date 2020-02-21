@@ -608,6 +608,7 @@ public class CreateShop extends AppCompatActivity {
                                         postNewCard(newCard.get(i),encode);
                                     }
                                 }
+                                startActivity(new Intent(CreateShop.this, DealerStoreActivity.class));
                             }
                             catch (JSONException e) {
                                 e.printStackTrace();
@@ -682,6 +683,7 @@ public class CreateShop extends AppCompatActivity {
                                 }
                             }
                             mProgress.dismiss();
+                            startActivity(new Intent(CreateShop.this, DealerStoreActivity.class));
                         }
                     });
                     //finish();
