@@ -1,12 +1,14 @@
 package com.bt_121shoppe.motorbike.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +20,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
+import com.bt_121shoppe.motorbike.Api.api.Client;
+import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
+import com.bt_121shoppe.motorbike.loan.model.loan_item;
+import com.bt_121shoppe.motorbike.models.NotificationViewModel;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.notifications.DetailNotification;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
@@ -50,6 +59,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -80,14 +93,16 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         //mTitle.setText(getString(R.string.notification));
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        prefs=getSharedPreferences("Register", Context.MODE_PRIVATE);
-        username=prefs.getString("name","");
-        password=prefs.getString("pass","");
-        encodeAuth="Basic "+ CommonFunction.getEncodedString(username,password);
+        prefs = getSharedPreferences("Register",MODE_PRIVATE);
+        username = prefs.getString("name","");
+        password = prefs.getString("pass","");
+        encodeAuth = getEncodedString(username,password);
         if(prefs.contains("token"))
-            pk=prefs.getInt("PK",0);
+            pk=prefs.getInt("Pk",0);
         else
             pk=prefs.getInt("id",0);
+
+        Log.d("Pk",""+pk);
 
         Active_user activeUser=new Active_user();
         String active=activeUser.isUserActive(pk,this);
@@ -237,44 +252,77 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         NotificationAdapter mAdapter=new NotificationAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        fuser= FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(fuser.getUid());
-        query.addValueEventListener(new ValueEventListener() {
+//        fuser= FirebaseAuth.getInstance().getCurrentUser();
+//        reference= FirebaseDatabase.getInstance().getReference();
+//        Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(fuser.getUid());
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                mNotifications.clear();
+//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                    JSONObject obj1=new JSONObject((Map) snapshot.getValue());
+//                    DataSnapshot meta = snapshot.child("data");
+//                    try {
+//                        JSONObject obj = new JSONObject((String) meta.getValue());
+//                        String userId = obj.getString("to");
+//                        String title=obj.getString("title");
+//                        String message=obj.getString("message");
+//                        String datetime = obj1.getString("datetime");
+//                        Boolean isSeen = obj1.getBoolean("isSeen");
+//                        mNotifications.add(new NotificationViewModel(message,title,userId,datetime,isSeen));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                if(mNotifications.size()>0)
+//                    mNoNotification.setVisibility(View.GONE);
+//                else
+//                    mNoNotification.setVisibility(View.VISIBLE);
+//
+//                mAdapter.setNotificationList(getBaseContext(),mNotifications);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//        updateToken(FirebaseInstanceId.getInstance().getToken());
+        Service api = Client.getClient().create(Service.class);
+        Call<NotificationViewModel> call = api.getNotification(1,encodeAuth);
+        call.enqueue(new retrofit2.Callback<NotificationViewModel>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mNotifications.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    JSONObject obj1=new JSONObject((Map) snapshot.getValue());
-                    DataSnapshot meta = snapshot.child("data");
-                    try {
-                        JSONObject obj = new JSONObject((String) meta.getValue());
-                        String userId = obj.getString("to");
-                        String title=obj.getString("title");
-                        String message=obj.getString("message");
-                        String datetime = obj1.getString("datetime");
-                        Boolean isSeen = obj1.getBoolean("isSeen");
-                        mNotifications.add(new NotificationViewModel(message,title,userId,datetime,isSeen));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+            public void onResponse(retrofit2.Call<NotificationViewModel> call, retrofit2.Response<NotificationViewModel> response) {
+                if (response.isSuccessful()) {
+                    String userId        = response.body().getUserId();
+                    String title         = response.body().getTitle();
+                    String notify        = response.body().getNotify();
+                    String reject_reason = response.body().getReject_reason();
+                    int ref_id           = response.body().getRef_id();
+                    Boolean isSeen       = response.body().getisSeen();
+                    String datetime      = response.body().getDatatime();
+                    Log.e("data",""+userId+","+title+","+notify+","+reject_reason+","+ref_id+","+isSeen+","+datetime);
+                    mNotifications.add(new NotificationViewModel(notify,reject_reason,title,isSeen,ref_id,userId,datetime));
+                    if(mNotifications.size()>0) {
+                        mNoNotification.setVisibility(View.GONE);
+                    }else{
+                        mNoNotification.setVisibility(View.VISIBLE);
                     }
+                    mAdapter.setNotificationList(getBaseContext(),mNotifications);
                 }
-
-                if(mNotifications.size()>0)
-                    mNoNotification.setVisibility(View.GONE);
-                else
-                    mNoNotification.setVisibility(View.VISIBLE);
-
-                mAdapter.setNotificationList(getBaseContext(),mNotifications);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onFailure(retrofit2.Call<NotificationViewModel> call, Throwable t) {
 
             }
         });
-
-        updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+    private String getEncodedString(String username, String password) {
+        final String userpass = username+":"+password;
+        return Base64.encodeToString(userpass.getBytes(),Base64.NO_WRAP);
     }
 
     @Override
@@ -329,32 +377,57 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         public void onBindViewHolder(NotificationAdapter.MyViewHolder holder, int position) {
             NotificationViewModel notification=notificationList.get(position);
             holder.tvTitle.setText(notification.getTitle());
-            holder.tvDescription.setText(notification.getBody());
-            holder.tvDatetime.setText(notification.getDatetime());
+            holder.tvDescription.setText(notification.getReject_reason());
+            holder.tvDatetime.setText(notification.getDatatime());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    reference= FirebaseDatabase.getInstance().getReference();
-                    Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(notification.getUserId());
-                    query.addValueEventListener(new ValueEventListener() {
+                    Service api = Client.getClient().create(Service.class);
+                    Call<NotificationViewModel> call = api.getNotification(pk,encodeAuth);
+                    call.enqueue(new retrofit2.Callback<NotificationViewModel>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                                String key= snapshot.getKey();
-                                updateData(key);
+                        public void onResponse(retrofit2.Call<NotificationViewModel> call, retrofit2.Response<NotificationViewModel> response) {
+                            if (response.isSuccessful()) {
+                                String userId        = response.body().getUserId();
+                                String title         = response.body().getTitle();
+                                String notify        = response.body().getNotify();
+                                String reject_reason = response.body().getReject_reason();
+                                int ref_id           = response.body().getRef_id();
+                                Boolean isSeen       = response.body().getisSeen();
+                                String datetime      = response.body().getDatatime();
+                                Log.e("data",""+userId+","+title+","+notify+","+reject_reason+","+ref_id+","+isSeen+","+datetime);
+                                if (isSeen.equals(false)) {
+                                    updateData(new NotificationViewModel(notify, reject_reason, title, true, ref_id, userId, datetime));
+                                }
                             }
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        public void onFailure(retrofit2.Call<NotificationViewModel> call, Throwable t) {
 
                         }
                     });
+//                    reference= FirebaseDatabase.getInstance().getReference();
+//                    Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(notification.getUserId());
+//                    query.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                                String key= snapshot.getKey();
+////                                updateData(key);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
                     Intent intent=new Intent(mContext, DetailNotification.class);
                     intent.putExtra("userId",notification.getUserId());
                     intent.putExtra("title",notification.getTitle());
-                    intent.putExtra("message",notification.getBody());
-                    intent.putExtra("datetime",notification.getDatetime());
+                    intent.putExtra("message",notification.getReject_reason());
+                    intent.putExtra("datetime",notification.getDatatime());
                     intent.putExtra("isSeen",notification.getisSeen());
                     startActivity(intent);
                 }
@@ -385,106 +458,145 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
             }
         }
     }
+//
+//    private class NotificationViewModel{
+//
+//        private String body;
+//        private String datetime;
+//        private String title;
+//        private String userId;
+//        private boolean isSeen;
+//
+//        public NotificationViewModel(){ }
+//
+//        public NotificationViewModel(String body,String title,String userId,String datetime, Boolean isSeen){
+//            this.body=body;
+//            this.datetime=datetime;
+//            this.title=title;
+//            this.userId=userId;
+//            this.isSeen=isSeen;
+//        }
+//
+//        public String getUserId() {
+//            return userId;
+//        }
+//
+//        public String getTitle() {
+//            return title;
+//        }
+//
+//        public String getDatetime() {
+//            return datetime;
+//        }
+//
+//        public String getBody() {
+//            return body;
+//        }
+//
+//        public boolean getisSeen() {
+//            return isSeen;
+//        }
+//
+//        public void setUserId(String userId) {
+//            this.userId = userId;
+//        }
+//
+//        public void setTitle(String title) {
+//            this.title = title;
+//        }
+//
+//        public void setisSeen(boolean seen) {
+//            isSeen = seen;
+//        }
+//
+//        public void setBody(String body) {
+//            this.body = body;
+//        }
+//
+//        public void setDatetime(String datetime) {
+//            this.datetime = datetime;
+//        }
+//    }
 
-    private class NotificationViewModel{
-
-        private String body;
-        private String datetime;
-        private String title;
-        private String userId;
-        private boolean isSeen;
-
-        public NotificationViewModel(){ }
-
-        public NotificationViewModel(String body,String title,String userId,String datetime, Boolean isSeen){
-            this.body=body;
-            this.datetime=datetime;
-            this.title=title;
-            this.userId=userId;
-            this.isSeen=isSeen;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDatetime() {
-            return datetime;
-        }
-
-        public String getBody() {
-            return body;
-        }
-
-        public boolean getisSeen() {
-            return isSeen;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setisSeen(boolean seen) {
-            isSeen = seen;
-        }
-
-        public void setBody(String body) {
-            this.body = body;
-        }
-
-        public void setDatetime(String datetime) {
-            this.datetime = datetime;
-        }
-    }
-
+//    private void Check_seen_unseen(TextView title){
+//        fuser= FirebaseAuth.getInstance().getCurrentUser();
+//        reference= FirebaseDatabase.getInstance().getReference();
+//        Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(fuser.getUid());
+//        query.addValueEventListener(new ValueEventListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                    JSONObject obj=new JSONObject((Map) snapshot.getValue());
+//                    try {
+//                        Boolean isSeen = obj.getBoolean("isSeen");
+//                        if (isSeen.equals(false)){
+//                            title.setTextAppearance(NotificationActivity.this, R.style.ListnUnseen);
+//                        }else {
+//                            title.setTextAppearance(NotificationActivity.this, R.style.ListSeen);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+//    private void updateData(String key) {
+//        FirebaseDatabase fuser = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = fuser.getReference();
+//        reference.child(ConsumeAPI.FB_Notification).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                dataSnapshot.getRef().child("isSeen").setValue(true);
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.d("User", databaseError.getMessage());
+//            }
+//        });
+//    }
     private void Check_seen_unseen(TextView title){
-        fuser= FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child(ConsumeAPI.FB_Notification).orderByChild("to").equalTo(fuser.getUid());
-        query.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("ResourceAsColor")
+        Service api = Client.getClient().create(Service.class);
+        Call<NotificationViewModel> call = api.getNotification(pk,encodeAuth);
+        call.enqueue(new retrofit2.Callback<NotificationViewModel>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    JSONObject obj=new JSONObject((Map) snapshot.getValue());
-                    try {
-                        Boolean isSeen = obj.getBoolean("isSeen");
-                        if (isSeen.equals(false)){
-                            title.setTextAppearance(NotificationActivity.this, R.style.ListnUnseen);
-                        }else {
-                            title.setTextAppearance(NotificationActivity.this, R.style.ListSeen);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+            public void onResponse(retrofit2.Call<NotificationViewModel> call, retrofit2.Response<NotificationViewModel> response) {
+                if (response.isSuccessful()) {
+                    Boolean isSeen = response.body().getisSeen();
+                    if (isSeen.equals(false)){
+                        title.setTextAppearance(NotificationActivity.this, R.style.ListnUnseen);
+                    }else {
+                        title.setTextAppearance(NotificationActivity.this, R.style.ListSeen);
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onFailure(retrofit2.Call<NotificationViewModel> call, Throwable t) {
 
             }
         });
     }
-    private void updateData(String key) {
-        FirebaseDatabase fuser = FirebaseDatabase.getInstance();
-        DatabaseReference reference = fuser.getReference();
-        reference.child(ConsumeAPI.FB_Notification).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void updateData(NotificationViewModel notification) {
+        Service api = Client.getClient().create(Service.class);
+        Call<NotificationViewModel> call = api.updateNotification(pk,notification);
+        call.enqueue(new Callback<NotificationViewModel>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().child("isSeen").setValue(true);
+            public void onResponse(Call<NotificationViewModel> call, Response<NotificationViewModel> response) {
+                if (response.isSuccessful()){
+                    Log.e("successfully",""+response.body());
+                }
             }
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("User", databaseError.getMessage());
+            public void onFailure(Call<NotificationViewModel> call, Throwable t) {
+                Log.e("Failed",""+t.getMessage());
             }
         });
     }

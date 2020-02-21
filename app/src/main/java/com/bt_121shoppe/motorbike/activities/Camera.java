@@ -1371,7 +1371,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             post.put("user",pk );
 
             strPostType = tvPostType.getText().toString().toLowerCase();
-            //Log.e("post type",""+strPostType);
+            Log.e("post type",""+strPostType);
             if (strPostType == "buy") {
                 post.put("discount", "0");
                 post.put("discount_type","percent");
@@ -1473,7 +1473,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             post.put("cost",etPrice.getText().toString());
             if (strPostType.equals("sell") || strPostType.equals("លក់")){
                 type_post = "sell";
-            }else if (strPostType.equals("rent") || strPostType.equals("ជូល")){
+            }else if (strPostType.equals("rent") || strPostType.equals("ជួល")){
                 type_post = "rent";
             }
             post.put("post_type",type_post);
