@@ -62,6 +62,7 @@ import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.checkupdates.GooglePlayStoreAppVersionNameLoader;
 import com.bt_121shoppe.motorbike.checkupdates.WSCallerVersionListener;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
+import com.bt_121shoppe.motorbike.homes.HomeApiFragment;
 import com.bt_121shoppe.motorbike.homes.HomeFragment;
 import com.bt_121shoppe.motorbike.listener.OnNetworkConnectionChangeListener;
 import com.bt_121shoppe.motorbike.models.User;
@@ -445,10 +446,12 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
             finish();
             return;
         }
-        currentFragment=new HomeFragment();
+        //currentFragment=new HomeFragment();
+        currentFragment=new HomeApiFragment();
         if (savedInstanceState == null) {
             // During initial setup, plug in the details fragment.
-            HomeFragment details = new HomeFragment();
+            //HomeFragment details = new HomeFragment();
+            HomeApiFragment details=new HomeApiFragment();
             //details.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(R.id.frameLayout, details).commit();
         }

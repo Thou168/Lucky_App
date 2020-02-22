@@ -97,11 +97,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     String lang = view.userview.getText().toString();
 
                     if(response.body().getPost_sub_title()==null){
-//                        String fullTitle= CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
-//                        if(lang.equals("View:"))
-//                            strPostTitle=fullTitle.split(",")[0];
-//                        else
-//                            strPostTitle=fullTitle.split(",")[1];
+
                     }else {
                         String[] splitTitle=response.body().getPost_sub_title().split(",");
                         if (lang.equals("View")) {
@@ -112,41 +108,42 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     }
 
                     //date
-                    view.date.setVisibility(View.GONE);
-
-                    String inputPattern = "yyyy-MM-dd";
-                    String outputPattern = "MMM dd, yyyy";
-                    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-                    SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-                    Service apiService = Client.getClient().create(Service.class);
-                    Call<AllResponse> call_date = apiService.getLoanbyuser(basic_Encode);
-                    call_date.enqueue(new Callback<AllResponse>() {
-                        @Override
-                        public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                            Date dd;
-                            String tt;
-                            datas = response.body().getresults();
-                            if (datas.size()==0){
-                                view.date.setVisibility(View.GONE);
-                            }
-                            for (int i = 0;i<datas.size();i++) {
-                                try {
-                                    dd = inputFormat.parse(datas.get(i).getCreated());
-                                    tt = outputFormat.format(dd);
-                                    view.date.setText(tt);
-                                    Log.e("===============", "Loan history" + tt);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<AllResponse> call, Throwable t) {
-
-                        }
-                    });
+                    //block cause of wrong process by Terd Feb 22 2020
+//                    view.date.setVisibility(View.GONE);
+//
+//                    String inputPattern = "yyyy-MM-dd";
+//                    String outputPattern = "MMM dd, yyyy";
+//                    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+//                    SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+//
+//                    Service apiService = Client.getClient().create(Service.class);
+//                    Call<AllResponse> call_date = apiService.getLoanbyuser(basic_Encode);
+//                    call_date.enqueue(new Callback<AllResponse>() {
+//                        @Override
+//                        public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+//                            Date dd;
+//                            String tt;
+//                            datas = response.body().getresults();
+//                            if (datas.size()==0){
+//                                view.date.setVisibility(View.GONE);
+//                            }
+//                            for (int i = 0;i<datas.size();i++) {
+//                                try {
+//                                    dd = inputFormat.parse(datas.get(i).getCreated());
+//                                    tt = outputFormat.format(dd);
+//                                    view.date.setText(tt);
+//                                    Log.e("===============", "Loan history" + tt);
+//                                } catch (ParseException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<AllResponse> call, Throwable t) {
+//
+//                        }
+//                    });
                     //end
 
                     if (response.body().getCategory()==1){
@@ -186,6 +183,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     }
 
                     int status=model.getLoan_status();
+                    Log.e("TAG ","My Loan Status"+status);
                     switch (status){
                         case 2:
                             view.textViewStatus.setText("Removed");

@@ -7,14 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,12 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
-import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
-import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
-import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
-import com.bt_121shoppe.motorbike.stores.DetailStoreActivity;
+import com.bt_121shoppe.motorbike.dealerstores.DealerStoreDetailActivity;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
 import com.bumptech.glide.Glide;
@@ -36,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,8 +39,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.ViewHolder> {
 
@@ -89,7 +81,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         view.shopname.setText(model.getShop_name());
         Glide.with(mContext).load(imageUrl).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(view.img_user);
         view.itemView.setOnClickListener(view1 -> {
-            Intent intent=new Intent(mContext, DetailStoreActivity.class);
+            Intent intent=new Intent(mContext, DealerStoreDetailActivity.class);
             intent.putExtra("shopId",shopId);
             mContext.startActivity(intent);
         });

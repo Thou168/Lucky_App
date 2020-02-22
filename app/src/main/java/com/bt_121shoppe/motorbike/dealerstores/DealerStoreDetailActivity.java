@@ -1,4 +1,4 @@
-package com.bt_121shoppe.motorbike.stores;
+package com.bt_121shoppe.motorbike.dealerstores;
 
 import android.app.Activity;
 import android.content.Context;
@@ -36,9 +36,9 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class DetailStoreActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class DealerStoreDetailActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
-    private static final String TAG= DetailStoreActivity.class.getSimpleName();
+    private static final String TAG= DealerStoreDetailActivity.class.getSimpleName();
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences prefer;
@@ -96,7 +96,7 @@ public class DetailStoreActivity extends AppCompatActivity implements TabLayout.
 
 //        tv_location.setText(location);
 //        tv_dealer.setText(storeName);
-//        Glide.with(DetailStoreActivity.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+//        Glide.with(DealerStoreDetailActivity.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
 //            @Override
 //            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 //                img_user.setImageBitmap(resource);
@@ -113,7 +113,7 @@ public class DetailStoreActivity extends AppCompatActivity implements TabLayout.
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(DetailStoreActivity.this, DealerStoreActivity.class);
+                Intent intent=new Intent(DealerStoreDetailActivity.this, DealerStoreActivity.class);
                 startActivity(intent);
             }
         });
@@ -121,7 +121,7 @@ public class DetailStoreActivity extends AppCompatActivity implements TabLayout.
         btAdd_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetailStoreActivity.this, Camera.class);
+                Intent intent = new Intent(DealerStoreDetailActivity.this, Camera.class);
                 intent.putExtra("shopId",shopId);
                 startActivity(intent);
             }

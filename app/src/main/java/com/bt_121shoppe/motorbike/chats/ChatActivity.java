@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.adapters.MessageAdapter;
 import com.bt_121shoppe.motorbike.interfaces.APIService;
@@ -148,6 +149,7 @@ public class ChatActivity extends AppCompatActivity {
 //                imageView.setImageBitmap(bitmapImage);
             }
             initialPostInformation(postId);
+            AllowChat(Integer.parseInt(postId));
         }
 
         fuser=FirebaseAuth.getInstance().getCurrentUser();
@@ -232,7 +234,7 @@ public class ChatActivity extends AppCompatActivity {
                                     tvposttitle.setText(postTitle[0]);
                                 }
                                 int postOwnerId=obj.getInt("createdBy");
-                                Log.e("TAG","POSt owner id "+postOwnerId);
+                                //Log.e("TAG","POSt owner id "+postOwnerId);
                                 /* post profile */
                                 try{
                                     Service api = com.bt_121shoppe.motorbike.Api.api.Client.getClient().create(Service.class);
@@ -370,5 +372,28 @@ public class ChatActivity extends AppCompatActivity {
     private void setUserId(String id){
         userId=id;
         //Log.d(TAG,"Call get user "+id);
+    }
+
+    private void AllowChat(int postId){
+        RelativeLayout layoutSend=findViewById(R.id.bottom);
+        Service apiService= com.bt_121shoppe.motorbike.Api.api.Client.getClient().create(Service.class);
+        Call<Item> call=apiService.getDetailpost(postId);
+        call.enqueue(new Callback<Item>() {
+            @Override
+            public void onResponse(Call<Item> call, Response<Item> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getStatus()==4)
+                        layoutSend.setVisibility(View.VISIBLE);
+                    else
+                        layoutSend.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Item> call, Throwable t) {
+
+            }
+        });
+
     }
 }

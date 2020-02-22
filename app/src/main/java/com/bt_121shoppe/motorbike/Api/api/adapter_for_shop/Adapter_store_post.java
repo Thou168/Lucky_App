@@ -186,7 +186,7 @@ public class ViewHolder extends BaseViewHolder{
             else
                 strPostTitle=mPost.getPost_sub_title().split(",")[1];
         }
-        Log.e(TAG,mPost.getPost_sub_title()+" " +strPostTitle );
+        //Log.e(TAG,mPost.getPost_sub_title()+" " +strPostTitle );
         tvTitle.setText(strPostTitle);
         //post type icon
         if(mPost.getPost_type().equals("sell")){
@@ -349,7 +349,7 @@ public class ViewHolder extends BaseViewHolder{
                                     @Override
                                     public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
                                         if(response.isSuccessful()){
-                                            Log.e("TAG","Result "+response.body().getCount());
+                                            //Log.e("TAG","Result "+response.body().getCount());
                                             if(response.body().getCount()>0){
                                                 StorePostViewModel item=response.body().getResults().get(0);
                                                 item.setRecord_status(2);

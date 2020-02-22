@@ -43,12 +43,12 @@ import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
+import com.bt_121shoppe.motorbike.dealerstores.DealerStoreDetailActivity;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
 import com.bt_121shoppe.motorbike.models.NewCardViewModel;
-import com.bt_121shoppe.motorbike.fragments.List_store_post;
 import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
 import com.bumptech.glide.Glide;
@@ -222,7 +222,7 @@ public class CreateShop extends AppCompatActivity {
         img_shop.setOnClickListener(view -> selectImage());
         tv_back.setOnClickListener(view -> {
            if (edit != null){
-               Intent intent12 = new Intent(CreateShop.this, DetailStoreActivity.class);
+               Intent intent12 = new Intent(CreateShop.this, DealerStoreDetailActivity.class);
                intent12.putExtra("edit_store",intent_edit);
                intent12.putExtra("shopId",mDealerShopId);
                intent12.putExtra("shop_name",storeName);

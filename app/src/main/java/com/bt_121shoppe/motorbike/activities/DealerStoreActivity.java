@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,7 +15,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -25,9 +23,9 @@ import androidx.fragment.app.Fragment;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
-import com.bt_121shoppe.motorbike.fragments.ListStore;
+import com.bt_121shoppe.motorbike.dealerstores.DealerStoreListFragment;
 import com.bt_121shoppe.motorbike.stores.CreateShop;
-import com.bt_121shoppe.motorbike.fragments.Postbyuser;
+import com.bt_121shoppe.motorbike.dealerstores.DealerStoreAllPostListFragment;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -219,9 +217,9 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
             //Returning the current tabs
             switch (position) {
                 case 0:
-                    return new ListStore();
+                    return new DealerStoreListFragment();
                 case 1:
-                    return new Postbyuser();
+                    return new DealerStoreAllPostListFragment();
                 default:
                     return null;
             }

@@ -1,4 +1,4 @@
-package com.bt_121shoppe.motorbike.fragments;
+package com.bt_121shoppe.motorbike.dealerstores;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -39,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListStore extends Fragment {
+public class DealerStoreListFragment extends Fragment {
     RecyclerView recyclerView;
     SharedPreferences prefer;
     private String name,pass,Encode;
@@ -48,7 +48,7 @@ public class ListStore extends Fragment {
     ProgressBar progressBar;
     TextView no_result;
     int pk;
-    public ListStore(){}
+    public DealerStoreListFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);

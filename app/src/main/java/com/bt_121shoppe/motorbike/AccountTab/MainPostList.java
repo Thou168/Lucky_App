@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
-import com.bt_121shoppe.motorbike.fragments.Postbyuser;
+import com.bt_121shoppe.motorbike.dealerstores.DealerStoreAllPostListFragment;
 import com.bt_121shoppe.motorbike.fragments.history_postbyuser;
 import com.google.android.material.tabs.TabLayout;
 
@@ -79,7 +79,7 @@ public class MainPostList extends Fragment {
         }
         else {
             NewsPagerAdapter adp = new NewsPagerAdapter(getChildFragmentManager());
-            Postbyuser n1 = new Postbyuser();
+            DealerStoreAllPostListFragment n1 = new DealerStoreAllPostListFragment();
             history_postbyuser n2 = new history_postbyuser();
             adp.addFrag(n1, resources.getString(R.string.active));
             adp.addFrag(n2, resources.getString(R.string.history));
