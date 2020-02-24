@@ -28,7 +28,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
-import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.Draft_loan;
 import com.bt_121shoppe.motorbike.loan.model.Draft;
 import com.bt_121shoppe.motorbike.loan.model.draft_Item;
 import com.bt_121shoppe.motorbike.loan.model.item_one;
@@ -145,36 +145,101 @@ public class three extends Fragment {
             name.setText(getString(R.string.name));
             btnCancel.setText(getString(R.string.cancel));
             btnSave.setText(getString(R.string.save));
+            if (mDraft != null){
+                Service api = Client.getClient().create(Service.class);
+                Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
+                call.enqueue(new Callback<loan_item>() {
+                    @Override
+                    public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                        if (response.body() != null){
+                            draft_name.setText(response.body().getDraft_name());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<loan_item> call, Throwable t) { }
+                });
+            }else {
+                draft_name.setText(R.string.list_draft);
+            }
             clearDialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> clearDialog.dismiss());
             clearDialogView.findViewById(R.id.btnSave).setOnClickListener(v -> {
-                Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
                 if (itemTwo != null) {
-                    Service api = Client.getClient().create(Service.class);
-                    loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
-                            itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
-                            pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,
-                            0,itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
-                            itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,
-                            mFamily_Book,mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),
-                            itemTwo.getItemOne().getJob_Period(),itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),
-                            itemTwo.getAllow_visito_home(),Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,
-                            itemTwo.getItemOne().getRelationship(),itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),
-                            itemTwo.getItemOne().isCo_borrower(),Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()),draft_name.getText().toString(),true);
-                    Log.e("loan item",""+loanItem);
-                    Call<loan_item> call = api.setCreateLoan(loanItem,basicEncode);
-                    call.enqueue(new Callback<loan_item>() {
-                        @Override
-                        public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-                            if (response.isSuccessful()){
-                                SaveDraftDialog();
+                    if (mDraft != null) {
+                        Service api = Client.getClient().create(Service.class);
+                        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
+                                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
+                                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,
+                                itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
+                                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,
+                                mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),
+                                itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),
+                                Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),
+                                itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),
+                                Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()), draft_name.getText().toString(), true);
+                        Call<loan_item> call = api.getEditLoan(mLoanID,loanItem,basicEncode);
+                        call.enqueue(new Callback<loan_item>() {
+                            @Override
+                            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                                if (!response.isSuccessful()){
+                                    try {
+                                        Log.d("ERROR",response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else {
+                                    LayoutInflater factory = LayoutInflater.from(getContext());
+                                    final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                                    final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
+                                    clearDialog.setView(clearDialogView);
+                                    TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
+                                    Mssloan.setText(R.string.loan_edit_draft);
+                                    Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
+                                    btnYes.setText(R.string.yes_leave);
+                                    Button btnNo = clearDialogView.findViewById(R.id.button_negative);
+                                    btnNo.setText(R.string.no_leave);
+                                    clearDialogView.findViewById(R.id.button_negative).setOnClickListener(v -> {
+                                        clearDialog.dismiss();
+                                    });
+                                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
+                                        mProgress.show();
+                                        Intent intent = new Intent(getContext(), Draft_loan.class);
+                                        startActivity(intent);
+                                    });
+                                    mProgress.dismiss();
+                                    clearDialog.show();
+                                }
                             }
-                        }
+                            @Override
+                            public void onFailure(Call<loan_item> call, Throwable t) {
+                            }
+                        });
+                    }else {
+                        Service api = Client.getClient().create(Service.class);
+                        loanItem = new loan_item(itemTwo.getLoan_Amount(), 0, Integer.parseInt(itemTwo.getLoan_Term()),
+                                itemTwo.getItemOne().getTotal_Income(), itemTwo.getItemOne().getTotal_Expense(), 9, 1,
+                                pk, itemTwo.getItemOne().getmProductId(), pk, pk, null, itemTwo.getItemOne().getName(), null,
+                                0, itemTwo.getItemOne().getJob(), itemTwo.getItemOne().getPhone_Number(), itemTwo.getItemOne().getProvince(),
+                                itemTwo.getItemOne().getDistrict(), itemTwo.getItemOne().getCommune(), itemTwo.getItemOne().getVillage(), mCard_ID,
+                                mFamily_Book, mCard_Work, mPhoto, itemTwo.getItemOne().getmProvinceID(), itemTwo.getItemOne().getJob(),
+                                itemTwo.getItemOne().getJob_Period(), itemTwo.getLoan_RepaymentType(), itemTwo.getDeposit_Amount(), itemTwo.getBuying_InsuranceProduct(),
+                                itemTwo.getAllow_visito_home(), Integer.parseInt(itemTwo.getNumber_institution()), mCard_ID1, mFamily_Book1, mPhoto1, mCard_Work1,
+                                itemTwo.getItemOne().getRelationship(), itemTwo.getItemOne().getCo_borrower_Job(), itemTwo.getItemOne().getCo_Job_Period(),
+                                itemTwo.getItemOne().isCo_borrower(), Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()), draft_name.getText().toString(), true);
+                        Call<loan_item> call = api.setCreateLoan(loanItem, basicEncode);
+                        call.enqueue(new Callback<loan_item>() {
+                            @Override
+                            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                                if (response.isSuccessful()) {
+                                    SaveDraftDialog();
+                                }
+                            }
 
-                        @Override
-                        public void onFailure(Call<loan_item> call, Throwable t) {
-                            Log.d("ErroronFailure121212", t.getMessage());
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<loan_item> call, Throwable t) {
+                                Log.d("Error on Failure", t.getMessage());
+                            }
+                        });
+                    }
                 }else {
                     AlertDialog builder = new AlertDialog.Builder(getContext()).create();
                     builder.setMessage(getString(R.string.please_fill_information));
@@ -287,6 +352,7 @@ public class three extends Fragment {
         mProgress.dismiss();
         clearDialog.show();
     }
+
 
     private void initView(View view) {
 
@@ -546,99 +612,92 @@ public class three extends Fragment {
     }
 
     private void getLoan_draft(){
-        Service apiService = Client.getClient().create(Service.class);
-        Call<Draft> call = apiService.getList_draft(basicEncode);
-        call.enqueue(new Callback<Draft>() {
+        Service api = Client.getClient().create(Service.class);
+        Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
+        call.enqueue(new Callback<loan_item>() {
             @Override
-            public void onResponse(Call<Draft> call, Response<Draft> response) {
-                list_darft = response.body().getresults();
-                Log.e("list 3",""+list_darft.size());
-                if (list_darft.size() >0){
-                    for (int i=0;i<list_darft.size();i++){
-                        Log.e("list draft",""+list_darft.get(i).isFamily_book()+list_darft.get(i).isStaff_id()+list_darft.get(i).isIs_borrower_photo());
-                        if (list_darft.get(i).isState_id()){
-                            mCard_ID = true;
-                            etID_card.check(R.id.radio1_ID_card);
-                            rdID_card_yes.toggle();
-                        } else {
-                            mCard_ID = false;
-                            etID_card.check(R.id.radio2_ID_card);
-                            rdID_card_no.toggle();
-                        }
+            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                if (response.body() != null){
+                    if (response.body().isState_id()){
+                        mCard_ID = true;
+                        etID_card.check(R.id.radio1_ID_card);
+                        rdID_card_yes.toggle();
+                    } else {
+                        mCard_ID = false;
+                        etID_card.check(R.id.radio2_ID_card);
+                        rdID_card_no.toggle();
+                    }
 
-                        if (list_darft.get(i).isFamily_book()){
-                            mFamily_Book = true;
-                            etFamily_book.check(R.id.radio1_Family_book);
-                            rdFamily_book_yes.toggle();
-                        } else{
-                            mFamily_Book =false;
-                            etFamily_book.check(R.id.radio2_Family_book);
-                            rdFamily_book_no.toggle();
-                        }
-                        if (list_darft.get(i).isIs_borrower_photo()){
-                            mPhoto = true;
-                            etPhotos.check(R.id.radio1_Photos);
-                            rdPhotos_yes.toggle();
-                        } else {
-                            mPhoto = false;
-                            etPhotos.check(R.id.radio2_Photos);
-                            rdPhotos_no.toggle();
-                        }
+                    if (response.body().isFamily_book()){
+                        mFamily_Book = true;
+                        etFamily_book.check(R.id.radio1_Family_book);
+                        rdFamily_book_yes.toggle();
+                    } else{
+                        mFamily_Book =false;
+                        etFamily_book.check(R.id.radio2_Family_book);
+                        rdFamily_book_no.toggle();
+                    }
+                    if (response.body().isIs_borrower_photo()){
+                        mPhoto = true;
+                        etPhotos.check(R.id.radio1_Photos);
+                        rdPhotos_yes.toggle();
+                    } else {
+                        mPhoto = false;
+                        etPhotos.check(R.id.radio2_Photos);
+                        rdPhotos_no.toggle();
+                    }
 
-                        if (list_darft.get(i).isStaff_id()){
-                            mCard_Work = true;
-                            etEmployment_card.check(R.id.radio1_Employment_card);
-                            rdEmployment_card_yes.toggle();
-                        } else{
-                            mCard_Work = false;
-                            etEmployment_card.check(R.id.radio2_Employment_card);
-                            rdEmployment_card_no.toggle();
-                        }
+                    if (response.body().isStaff_id()){
+                        mCard_Work = true;
+                        etEmployment_card.check(R.id.radio1_Employment_card);
+                        rdEmployment_card_yes.toggle();
+                    } else{
+                        mCard_Work = false;
+                        etEmployment_card.check(R.id.radio2_Employment_card);
+                        rdEmployment_card_no.toggle();
+                    }
 
-                        //co-borrow
-                        if (list_darft.get(i).isIs_coborrower_idcard()){
-                            mCard_ID1 = true;
-                            etID_card1.check(R.id.radio1_ID_card1);
-                            rdID_card1_yes.toggle();
-                        }else {
-                            mCard_ID1 = false;
-                            etID_card1.check(R.id.radio2_ID_card1);
-                            rdID_card1_no.toggle();
-                        }
-                        if (list_darft.get(i).isIs_coborrower_familybook()){
-                            mFamily_Book1 = true;
-                            etFamily_book1.check(R.id.radio1_Family_book1);
-                            rdFamily_book1_yes.toggle();
-                        }else {
-                            mFamily_Book1 = false;
-                            etFamily_book1.check(R.id.radio2_Family_book1);
-                            rdFamily_book1_no.toggle();
-                        }
-                        if (list_darft.get(i).isIs_coborrower_photo()){
-                            mPhoto1= true;
-                            etPhotos1.check(R.id.radio1_Photos1);
-                            rdPhotos1_yes.toggle();
-                        }else {
-                            mPhoto1 = false;
-                            etPhotos1.check(R.id.radio2_Photos1);
-                            rdPhotos1_no.toggle();
-                        }
-                        if (list_darft.get(i).isIs_coborrower_payslip()){
-                            mCard_Work1= true;
-                            etEmployment_card1.check(R.id.radio1_Employment_card1);
-                            rdEmployment_card1_yes.toggle();
-                        }else {
-                            mCard_Work1= false;
-                            etEmployment_card1.check(R.id.radio2_Employment_card1);
-                            rdEmployment_card1_no.toggle();
-                        }
+                    //co-borrow
+                    if (response.body().isIs_coborrower_idcard()){
+                        mCard_ID1 = true;
+                        etID_card1.check(R.id.radio1_ID_card1);
+                        rdID_card1_yes.toggle();
+                    }else {
+                        mCard_ID1 = false;
+                        etID_card1.check(R.id.radio2_ID_card1);
+                        rdID_card1_no.toggle();
+                    }
+                    if (response.body().isIs_coborrower_familybook()){
+                        mFamily_Book1 = true;
+                        etFamily_book1.check(R.id.radio1_Family_book1);
+                        rdFamily_book1_yes.toggle();
+                    }else {
+                        mFamily_Book1 = false;
+                        etFamily_book1.check(R.id.radio2_Family_book1);
+                        rdFamily_book1_no.toggle();
+                    }
+                    if (response.body().isIs_coborrower_photo()){
+                        mPhoto1= true;
+                        etPhotos1.check(R.id.radio1_Photos1);
+                        rdPhotos1_yes.toggle();
+                    }else {
+                        mPhoto1 = false;
+                        etPhotos1.check(R.id.radio2_Photos1);
+                        rdPhotos1_no.toggle();
+                    }
+                    if (response.body().isIs_coborrower_payslip()){
+                        mCard_Work1= true;
+                        etEmployment_card1.check(R.id.radio1_Employment_card1);
+                        rdEmployment_card1_yes.toggle();
+                    }else {
+                        mCard_Work1= false;
+                        etEmployment_card1.check(R.id.radio2_Employment_card1);
+                        rdEmployment_card1_no.toggle();
                     }
                 }
             }
             @Override
-            public void onFailure(Call<Draft> call, Throwable t) {
-                Log.d("Error",t.getMessage());
-            }
+            public void onFailure(Call<loan_item> call, Throwable t) { }
         });
     }
 

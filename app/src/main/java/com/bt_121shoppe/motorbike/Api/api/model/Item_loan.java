@@ -65,6 +65,37 @@ public class Item_loan extends LikebyUser{
         this.loan_status = loan_status;
         this.loan_record_status = loan_record_status;
     }
+    public Item_loan(int loan_to, String loan_amount, String loan_interest_rate, int loan_duration, String loan_purpose, int loan_status, int loan_record_status, String username, String gender, int age, String job, String average_income, String average_expense, String telephone, String address, boolean state_id, boolean family_book, boolean staff_id, boolean house_plant, int loan_created_by, String modified, String modified_by, String received_date, String rejected_date, String rejected_by, String rejected_comments, int loan_post) {
+        this.loan_to = loan_to;
+        this.loan_amount = loan_amount;
+        this.loan_interest_rate = loan_interest_rate;
+        this.loan_duration = loan_duration;
+        this.loan_purpose = loan_purpose;
+        this.loan_status = loan_status;
+        this.loan_record_status = loan_record_status;
+        this.username = username;
+        this.gender = gender;
+        this.age = age;
+        this.job = job;
+        this.average_income = average_income;
+        this.average_expense = average_expense;
+        this.telephone = telephone;
+        this.address = address;
+        this.state_id = state_id;
+        this.family_book = family_book;
+        this.staff_id = staff_id;
+        this.house_plant = house_plant;
+        this.loan_created_by = loan_created_by;
+        this.loan_modified_by = modified_by;
+        this.loan_received_date = received_date;
+        this.loan_rejected_date = rejected_date;
+        this.loan_rejected_by = rejected_by;
+        this.loan_rejected_comments = rejected_comments;
+        this.setRecord_status(loan_record_status);
+        this.setCreated(String.valueOf(loan_created_by));
+        this.setPost(loan_post);
+        this.setCreated_by(loan_created_by);
+    }
 
     public Item_loan(int loan_to, String loan_amount, String loan_interest_rate, int loan_duration, String loan_purpose, int loan_status, int loan_record_status, String username, String gender, int age, String job, String average_income, String average_expense, String telephone, String address, boolean state_id, boolean family_book, boolean staff_id, boolean house_plant, String mfi, String loan_created, int loan_created_by, String modified, String modified_by, String received_date, String received_by, String rejected_date, String rejected_by, String rejected_comments, int loan_post) {
         this.loan_to = loan_to;

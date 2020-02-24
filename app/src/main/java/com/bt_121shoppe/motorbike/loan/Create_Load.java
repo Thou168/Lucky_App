@@ -58,6 +58,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
 
         product_id = intent.getIntExtra("product_id",0);
         mLoandID = intent.getIntExtra("LoanID",0);
+        Log.e("loan id",""+mLoandID);
         From_Loan = intent.getBooleanExtra("LoanEdit",false);
         price = intent.getStringExtra("price");
         draft = intent.getStringExtra("draft");

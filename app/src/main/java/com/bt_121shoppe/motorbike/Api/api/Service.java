@@ -21,6 +21,7 @@ import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.District;
 import com.bt_121shoppe.motorbike.loan.model.Commune;
 import com.bt_121shoppe.motorbike.loan.model.Village;
+import com.bt_121shoppe.motorbike.loan.model.draft_Item;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.loan.model.Draft;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
@@ -104,10 +105,10 @@ public interface Service {
     Call<AllResponse> getpostbyhistory(@Header("Authorization") String authorization);
     @GET("likebyuser/")
     Call<AllResponse> getLikebyuser(@Header("Authorization") String authorization);
-    @GET("loanbyuser/?loan_status=9")
+    @GET("loanbyuser/?loan_status=9&&is_draft=false")
     Call<AllResponse> getLoanbyuser(@Header("Authorization") String authorization);
 
-    @GET("get_loan_draft_by_user/")
+    @GET("loanbyuser/?loan_status=9&&is_draft=true")
     Call<Draft> getList_draft(@Header("Authorization") String authorization);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})

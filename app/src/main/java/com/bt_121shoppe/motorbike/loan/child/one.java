@@ -763,73 +763,73 @@ public class one extends Fragment{
         });
     }
     private void getLoan_draft(){
-        Service apiService = Client.getClient().create(Service.class);
-        Call<Draft> call = apiService.getList_draft(basicEncode);
-        call.enqueue(new Callback<Draft>() {
+        Service api = Client.getClient().create(Service.class);
+        Call<loan_item> call = api.getDeailLoan(mLoanID,basicEncode);
+        call.enqueue(new Callback<loan_item>() {
             @Override
-            public void onResponse(Call<Draft> call, Response<Draft> response) {
-                list_darft = response.body().getresults();
-                Log.e("list 1",""+list_darft.size());
-                if (list_darft.size() >0){
-                    for (int i=0;i<list_darft.size();i++){
-                        mName.setText(list_darft.get(i).getUsername());
-                        mPhone_Number.setText(list_darft.get(i).getTelephone());
-                        mDistrict.setText(list_darft.get(i).getDistrmict());
-                        mCommune.setText(list_darft.get(i).getCommune());
-                        mVillage.setText(list_darft.get(i).getVillage());
-                        for (int j=0;j<Job.length;j++){
-                            if (list_darft.get(i).getJob().equals(Job[j])){
-                                mJob.setText(rJob[j]);
-                                indextJom = j;
-                            }
-                        }
-                        mJob_Period.setText(String.valueOf(list_darft.get(i).getBorrower_job_period()));
-                        if (list_darft.get(i).ismIs_Co_borrower()){
-                            mCo_borrower.check(R.id.radio1);
-                            radio1.toggle();
-                            for (int j=0;j<rRela.length;j++){
-                                if (list_darft.get(i).getmRelationship().equals(Rela[j].toLowerCase())) {
-                                    mRelationship.setText(rRela[j]);
-                                    indexRela = j;
-                                }
-                            }
-                            for (int j=0;j<rJob.length;j++){
-                                if (list_darft.get(i).getmCoborrower_job().equals(Job[j].toLowerCase())){
-                                    mCo_borrower_Job.setText(rJob[j]);
-                                    indexCoborow_job = j;
-                                }
-                            }
-                            mCo_Job_Period.setText(String.valueOf(list_darft.get(i).getmCoborrower_job_period()));
-                        }else {
-                            mCo_borrower.check(R.id.radio2);
-                            radio2.toggle();
-                            mRelationship.setText(null);
-                            mCo_Job_Period.setText("0");
-                        }
-                        mTotal_Income.setText(String.valueOf(list_darft.get(i).getAverage_income()));
-                        mTotal_Expense.setText(String.valueOf(list_darft.get(i).getAverage_expense()));
-                        mNet_Income.setText(list_darft.get(i).getAverage_income()- list_darft.get(i).getAverage_expense()+"");
-                        mProvinceID = list_darft.get(i).getProvince_id();
-                        Call<Province> call1 = apiService.getProvince(list_darft.get(i).getProvince_id());
-                        call1.enqueue(new Callback<Province>() {
-                            @Override
-                            public void onResponse(Call<Province> call, Response<Province> response) {
-                                if (!response.isSuccessful()){
-                                    Log.e("ONRESPONSE Province", String.valueOf(response.code()));
-                                }
-                                if (currentLanguage.equals("en"))
-                                    mAddress.setText(response.body().getProvince());
-                                else  mAddress.setText(response.body().getProvince_kh());
-                            }
-                            @Override
-                            public void onFailure(Call<Province> call, Throwable t) { }
-                        });
+            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+                if (!response.isSuccessful()){
+                    Log.d("5555555555555555",response.code()+"");
+                }
+                mName.setText(response.body().getUsername());
+                mPhone_Number.setText(response.body().getTelephone());
+                mDistrict.setText(response.body().getDistrmict());
+                mCommune.setText(response.body().getCommune());
+                mVillage.setText(response.body().getVillage());
+                for (int i=0;i<Job.length;i++){
+                    if (response.body().getJob().equals(Job[i])){
+                        mJob.setText(rJob[i]);
+                        indextJom = i;
                     }
                 }
+                mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
+                if (response.body().ismIs_Co_borrower()){
+                    mCo_borrower.check(R.id.radio1);
+                    radio1.toggle();
+                    for (int i=0;i<rRela.length;i++){
+                        if (response.body().getmRelationship().equals(Rela[i].toLowerCase())) {
+                            mRelationship.setText(rRela[i]);
+                            indexRela = i;
+                        }
+                    }
+                    for (int i=0;i<rJob.length;i++){
+                        if (response.body().getmCoborrower_job().equals(Job[i].toLowerCase())){
+                            mCo_borrower_Job.setText(rJob[i]);
+                            indexCoborow_job = i;
+                        }
+                    }
+                    mCo_Job_Period.setText(String.valueOf(response.body().getmCoborrower_job_period()));
+                }else {
+                    mCo_borrower.check(R.id.radio2);
+                    radio2.toggle();
+                    mRelationship.setText(null);
+                    mCo_Job_Period.setText("0");
+                }
+
+                mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
+                mTotal_Expense.setText(String.valueOf(response.body().getAverage_expense()));
+                mNet_Income.setText(response.body().getAverage_income()- response.body().getAverage_expense()+"");
+                mProvinceID = response.body().getProvince_id();
+                Call<Province> call1 = api.getProvince(response.body().getProvince_id());
+                call1.enqueue(new Callback<Province>() {
+                    @Override
+                    public void onResponse(Call<Province> call, Response<Province> response) {
+                        if (!response.isSuccessful()){
+                            Log.e("ONRESPONSE Province", String.valueOf(response.code()));
+                        }
+                        if (currentLanguage.equals("en"))
+                            mAddress.setText(response.body().getProvince());
+                        else  mAddress.setText(response.body().getProvince_kh());
+                    }
+                    @Override
+                    public void onFailure(Call<Province> call, Throwable t) { }
+                });
+
             }
+
             @Override
-            public void onFailure(Call<Draft> call, Throwable t) {
-                Log.d("Error",t.getMessage());
+            public void onFailure(Call<loan_item> call, Throwable t) {
+
             }
         });
     }

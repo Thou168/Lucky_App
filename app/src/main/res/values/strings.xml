@@ -602,6 +602,7 @@
     <string name="post_message">Your post is waiting for approval.</string>
     <string name="title_edit_loan">Edit your loan</string>
     <string name="loan_edit_m">Are you sure with your edit?</string>
+    <string name="loan_edit_draft">Are you sure with your edit draft loan?</string>
 
     <string name="loan_title_leave">Loan leave</string>
     <string name="loan_mss_leave">You want to leave this loan?</string>
@@ -637,8 +638,10 @@
     <string name="book_family">Family book can`t be empty</string>
 
     <string name="delete_loan">Are you sure you want to cancel this loan?</string>
+    <string name="delete_loan_draft">Are you sure you want to cancel this draft loan?</string>
     <string name="remove_po">Are you sure you want to remove this post?</string>
     <string name="cancel_loan">Cancel loan</string>
+    <string name="cancel_loan_draft">Cancel draft loan</string>
     <string name="permission">Need Permissions</string>
     <string name="setting_permission">This phone needs permission to use this feature. You can grant them in phone settings.</string>
     <string name="go_setting">GOTO SETTINGS</string>

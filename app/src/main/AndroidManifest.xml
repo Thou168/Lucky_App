@@ -69,7 +69,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".loan.Create_Load"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".loan.Draft_loan"
             android:screenOrientation="portrait" />

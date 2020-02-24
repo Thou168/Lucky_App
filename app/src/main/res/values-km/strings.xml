@@ -307,8 +307,8 @@
         <item>មិនមាន</item>
     </string-array>
     <string-array name="repayment">
-        <item>បង់រំលោះប្រចាំខែថេរ</item>
-        <item>បង់រំលោះប្រចាំខែថយចុះជាលំដាប់</item>
+        <item>បង់រំលស់ថេរប្រចាំខែ</item>
+        <item>បង់រំលស់ថយចុះប្រចាំខែ</item>
     </string-array>
     <string-array name="institute">
         <item>០</item>
@@ -323,7 +323,7 @@
     <string name="login_button">ចូល</string>
 
     <string name="menu_home">ទំព័រដើម</string>
-    <string name="menu_gallery">វិចិត្រសាល</string>
+    <string name="menu_gallery">ទាញយករូបភាព</string>
     <string name="menu_slideshow">បង្ហាញស្លាយ</string>
     <string name="menu_tools">ឧបករណ៍</string>
     <string name="menu_share">ចែករំលែក</string>
@@ -335,7 +335,7 @@
     <string name="login_username">លេខទូរស័ព្ទ</string>
     <string name="login_password">លេខសម្ងាត់</string>
 
-    <string name="category">ប្រភេទទំនិញ</string>
+    <string name="category">ប្រភេទផលិតផល</string>
 
     <string-array name="co_borrower">
         <item>មាន</item>
@@ -649,6 +649,7 @@
     <string name="post_message">ការប្រកាសរបស់លោក-អ្នកកំពុងរង់ចាំការអនុម័ត</string>
     <string name="title_edit_loan">កែសម្រួលឥណទានរបស់អ្នក</string>
     <string name="loan_edit_m">តើអ្នកប្រាកដជាមួយការកែរបស់អ្នកទេ?</string>
+    <string name="loan_edit_draft">តើអ្នកប្រាកដជាមួយការកែសេចក្តីព្រាងរបស់អ្នកទេ?</string>
 
     <string name="loan_title_leave">ចាកចេញ</string>
     <string name="loan_mss_leave">អ្នកចង់ចាកចេញពីការកម្ចីនេះរឺ?</string>
@@ -680,9 +681,11 @@
     <string name="title_land">ប្លង់ផ្ទះមិនអាចទទេបានទេ</string>
     <string name="book_family">សៀវភៅគ្រួសារមិនអាចទទេបានទេ</string>
     <string name="delete_loan">តើអ្នកពិតជាចង់បោះបង់ឥណទាននេះមែនទេ?</string>
+    <string name="delete_loan_draft">តើអ្នកពិតជាចង់បោះបង់សេចក្តីព្រាងទុកនេះមែនទេ?</string>
     <string name="remove_po">តើអ្នកពិតជាចង់លុបប្រកាសនេះមែនទេ?</string>
     <string name="sold_po">តើអ្នកពិតជាចង់លក់ការប្រកាសនេះមែនទេ?</string>
     <string name="cancel_loan">បោះបង់ឥណទាន</string>
+    <string name="cancel_loan_draft">បោះបង់សេចក្តីព្រាងទុក</string>
 
     //permission
     <string name="permission">ត្រូវការការអនុញ្ញាត</string>
