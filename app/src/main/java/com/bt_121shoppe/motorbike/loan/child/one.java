@@ -546,7 +546,7 @@ public class one extends Fragment{
         mBtnNext.setOnClickListener(view3 -> {
             editext();
             if (index == 0){
-                createLoad.requstFocus(bco_Relationship,mRelationship,mRelationship_alert,getString(R.string.invalid_relationship));
+                createLoad.requstFocus(bRelationship,mRelationship,mRelationship_alert,getString(R.string.invalid_relationship));
                 createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,getString(R.string.invalid_co_borrower_job));
                 createLoad.requstFocus(bCo_Job_Period,mCo_Job_Period,mCo_Job_Period_alert,getString(R.string.invalid_co_borrower_job_period));
             }
@@ -584,12 +584,12 @@ public class one extends Fragment{
     }
 
     private boolean editext(){
-        bname = createLoad.Checked(mName);
+        bname = createLoad.CheckedYear(mName);
         bphone = createLoad.Checked(mPhone_Number);
         baddress = createLoad.Checked(mAddress);
         bJob = createLoad.Checked(mJob);
         bJob_Period = createLoad.CheckedYear(mJob_Period);
-        bRelationship = createLoad.Checked(mRelationship);
+        bRelationship = createLoad.CheckedYear(mRelationship);
         bCo_borrower_Job = createLoad.CheckedYear(mCo_borrower_Job);
         bCo_Job_Period = createLoad.CheckedYear(mCo_Job_Period);
         bTotal_Income = createLoad.CheckedYear(mTotal_Income);

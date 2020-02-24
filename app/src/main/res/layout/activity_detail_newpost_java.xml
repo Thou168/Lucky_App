@@ -218,7 +218,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white">
         <RelativeLayout
-            android:layout_marginTop="@dimen/dp_15"
+
             android:layout_marginStart="77dp"
             android:layout_marginEnd="79.84dp"
             android:layout_width="wrap_content"
@@ -226,22 +226,25 @@
 
             <ImageView
                 android:id="@+id/btn_call"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="@dimen/dp_15"
                 android:src="@drawable/call"
                 android:layout_alignParentStart="true"/>
 
             <ImageView
                 android:id="@+id/btn_sms"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="@dimen/dp_15"
                 android:src="@drawable/group_2287"
                 android:layout_centerInParent="true"/>
 
             <ImageView
                 android:id="@+id/btn_loan"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="@dimen/dp_15"
                 android:src="@drawable/loan1"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>

@@ -56,6 +56,8 @@ import com.bt_121shoppe.motorbike.chats.ChatActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
+import com.bt_121shoppe.motorbike.loan.model.Province;
+import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.newversion.CustomViewPager;
 import com.custom.sliderimage.logic.SliderImage;
@@ -116,7 +118,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     private String postUsername;
     private String postUserId;
     private String postType;
-    private boolean isChecked = false;
+    private boolean isChecked = false,is_draft = false;
     RelativeLayout layout_call_chat_like_loan;
     Double discount = 0.0;
     private int REQUEST_PHONE_CALL =1;
@@ -953,6 +955,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     private void getMyLoan(){
         Log.e("Encode",""+encodeAuth);
         ArrayList<Integer> IDPOST = new ArrayList<>();
+        ArrayList<Boolean> IS_DRAFT = new ArrayList<>();
         String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/";
         OkHttpClient client= new OkHttpClient();
         Request request = new Request.Builder()
@@ -972,7 +975,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             public void onResponse(Call call, Response response) throws IOException {
                 assert response.body() != null;
                 String mMessage = response.body().string();
-                Log.d(TAG,"Laon_status "+mMessage);
+//                Log.d(TAG,"Laon_status "+mMessage);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -983,12 +986,14 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int post_id = object.getInt("post");
                                 int re_status = object.getInt("record_status");
+                                boolean isDraft = object.getBoolean("is_draft");
+                                IS_DRAFT.add(isDraft);
 //                                Log.d("Status Id123", String.valueOf(post_id));
 //                                Log.d("Status 123",postId.toString());
                                 if (re_status != 12)
                                     IDPOST.add(post_id);
                             }
-                            //Log.d("ARRayList", String.valueOf(IDPOST.size()));
+//                            Log.d("ARRayList", String.valueOf(IDPOST.size()));
                             for (int i=0;i<IDPOST.size();i++){
                                 if (IDPOST.get(i).equals(postId)){
                                     loaned = true;

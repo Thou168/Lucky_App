@@ -567,7 +567,7 @@
     <string name="deposit">ដាក់ប្រាក់ ($)</string>
     <string name="deposit_per">ដាក់ប្រាក់ (%)</string>
     <string name="term">រយៈពេលកម្ចី(គិតជាខែ)</string>
-    <string name="Monthly_payment">ការចំណាយប្រចាំខែ</string>
+    <string name="Monthly_payment"> ប្រាក់សំណងប្រចាំខែ</string>
     <string name="contact">ទំនាក់ទំនង</string>
     <string name="locaion">ទីតាំង​ :</string>
 
