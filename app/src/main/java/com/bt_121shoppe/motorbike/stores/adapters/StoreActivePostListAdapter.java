@@ -203,14 +203,14 @@ public class StoreActivePostListAdapter extends RecyclerView.Adapter<BaseViewHol
                             postOriginalPrice.setText("$ "+mPost.getCost());
                             postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             Double cost=Double.parseDouble(mPost.getCost());
-                            if(mPost.getDiscount_type().equals("amount")){
-                                cost=cost-Double.parseDouble(mPost.getDiscount());
-                            }else if(mPost.getDiscount_type().equals("percent")){
+//                            if(mPost.getDiscount_type().equals("amount")){
+//                                mPrice=cost-Double.parseDouble(mPost.getDiscount());
+//                            }else if(mPost.getDiscount_type().equals("percent")){
                                 Double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
-                                cost=cost-discountPrice;
-                            }
-                            mPrice=cost;
-                            postPrice.setText("$ "+cost.toString());
+                                mPrice=cost-discountPrice;
+//                            }
+//                            mPrice=cost;
+                            postPrice.setText("$ "+mPrice);
                         }else{
                             postPrice.setText("$ "+mPost.getCost());
                         }

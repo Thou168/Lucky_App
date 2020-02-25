@@ -50,7 +50,7 @@
             android:layoutDirection="rtl"
             android:textAlignment="textStart"
             android:layout_gravity="start"
-            android:text="@string/newl"
+            android:text="@string/sel"
             android:textSize="14sp" />
 
         <RadioButton
@@ -61,7 +61,7 @@
             android:layoutDirection="rtl"
             android:textAlignment="textStart"
             android:layout_gravity="start"
-            android:text="@string/used"
+            android:text="@string/ren"
             android:textSize="14sp" />
         </RadioGroup>
     <Button

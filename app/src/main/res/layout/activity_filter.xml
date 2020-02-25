@@ -69,7 +69,7 @@
             <LinearLayout
                 android:id="@+id/linea_type"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="45dp">
                 <RelativeLayout
                     android:id="@+id/rela_Type"
                     android:orientation="vertical"
@@ -114,14 +114,14 @@
 
             <LinearLayout
                 android:id="@+id/linea_cate"
+                android:layout_marginTop="22dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="45dp">
                 <RelativeLayout
                     android:id="@+id/rela_Category"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:background="@color/white">
                     <!--                    <ImageView-->
 
@@ -160,14 +160,14 @@
 
             <LinearLayout
                 android:id="@+id/linea_brand"
+                android:layout_marginTop="22dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="45dp">
                 <RelativeLayout
                     android:id="@+id/rela_brand"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:background="@color/white"
                     >
                     <!--                    <ImageView-->
@@ -205,14 +205,14 @@
 
             <LinearLayout
                 android:id="@+id/linea_year"
+                android:layout_marginTop="22dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="45dp">
                 <RelativeLayout
                     android:id="@+id/rela_Year"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:background="@color/white"
                     >
                     <!--                    <ImageView-->
@@ -249,9 +249,9 @@
             </LinearLayout>
             <RelativeLayout
                 android:id="@+id/rela_price"
+                android:layout_marginTop="22dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:paddingBottom="29dp"
                 android:background="@color/white">
                 <TextView

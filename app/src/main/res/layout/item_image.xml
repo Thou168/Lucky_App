@@ -118,6 +118,7 @@
                         android:id="@+id/tv_discount"
                         android:layout_below="@+id/location"
                         android:layout_marginLeft="@dimen/dp_4"
+                        android:textColor="#999999"
                         android:text="$0.00"
                         android:textSize="14dp"
                         android:layout_width="wrap_content"

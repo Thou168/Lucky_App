@@ -1,5 +1,6 @@
 package com.bt_121shoppe.motorbike.loan;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +43,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     private int product_id,mCardID,mLoandID;
     private String price,draft;
     private Button btnList_Draft;
+    String currentLanguage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,9 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
 
         back = findViewById(R.id.tv_back);
         back.setOnClickListener(v -> onBackPressed());
+
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = prefer.getString("My_Lang", "");
 
         btnList_Draft = findViewById(R.id.list_draft);
         btnList_Draft.setOnClickListener(view -> {

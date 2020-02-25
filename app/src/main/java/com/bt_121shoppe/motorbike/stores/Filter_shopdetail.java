@@ -594,7 +594,7 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
         });
 
 // add filter condition by samang 27/08
-        typeListItems = getResources().getStringArray(R.array.filter_condition);
+        typeListItems = getResources().getStringArray(R.array.filter_type);
         rela_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

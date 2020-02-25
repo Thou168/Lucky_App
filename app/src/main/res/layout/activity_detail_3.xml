@@ -95,6 +95,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
+                <LinearLayout xmlns:rsb="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/seekbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sbDeposit"
+                    android:visibility="gone"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:background="@android:color/holo_blue_bright"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RangeSeekbar from xml with ranges set with float value"
+                        android:textColor="@android:color/white" />
+
+                    <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                        android:id="@+id/rangeSeekbar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        rsb:absoluteMaxValue="999.99"
+                        rsb:absoluteMinValue="0.0" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="RangeSeekbar from programmatically with ranges set"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout

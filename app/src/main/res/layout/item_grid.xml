@@ -110,13 +110,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
                 <TextView
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/tv_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_below="@+id/location"
                     android:layout_marginStart="5dp"
-                    android:textColor="#333333"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#999999"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_toEndOf="@+id/tv_price"
                     android:fontFamily="@font/opensans_regular"

@@ -109,6 +109,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     String login_verify,register_intent;
     RelativeLayout rela_profile;
     private int process_type=0;
+    String currentLanguage;
 //    ImageButton im_back;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +145,9 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         username = preferences.getString("name","");
         password = preferences.getString("pass","");
         encodeAuth = "Basic "+getEncodedString(username,password);
+
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = prefer.getString("My_Lang", "");
         //Log.d("EncodeAuth",encodeAuth);
         if (preferences.contains("token")){
             pk = preferences.getInt("Pk",0);
@@ -463,11 +467,23 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         @Override
         public CharSequence getPageTitle(int position) {
             if (position==0) {
-                return getApplicationContext().getString(R.string.tab_post);
+                if (g!=3) {
+                    if (currentLanguage.equals("en")) {
+                        return "Post";
+                    } else return "ប្រកាស";
+                }else {
+                    if (currentLanguage.equals("en")) {
+                        return "History";
+                    } else return "ប្រវត្តិការប្រកាស";
+                }
             } else if (position==1) {
-                return getApplicationContext().getString(R.string.tab_like);
+                if (currentLanguage.equals("en")) {
+                    return "Like";
+                }else return "ចូលចិត្ត";
             } else {
-                return getApplicationContext().getString(R.string.tab_loan);
+                if (currentLanguage.equals("en")) {
+                    return "Loan";
+                }else return "ឥណទាន";
             }
         }
     }

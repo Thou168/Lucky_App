@@ -590,127 +590,130 @@ public class Filter extends AppCompatActivity {
                     if (indexY==0){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==1){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==2){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==3){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==4){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==5){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==6){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==7){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     } else if (indexY==8) {
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==9){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==10){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==11){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==12){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==13){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==14){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==15){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==16){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==17){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==18){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==19){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==20){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==21){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }else if (indexY==22){
                         stYear = String.valueOf(year_fil);
 //                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        getYear();
+//                        getYear();
                         bottomSheetDialog.dismiss();
                     }
-                    btnyear.setText(yearListItems[indexY]);
+                    if (currentLanguage.equals("en")) {
+                        btnyear.setText(yearListItems[indexY]);
+                    }else btnyear.setText(yearlistItemkh[indexY]);
                     year_fil = yearIDlist[indexY];
+                    getYear();
                 });
             }
         });
 
 // add filter condition by samang 27/08
-        typeListItems = getResources().getStringArray(R.array.filter_condition);
+        typeListItems = getResources().getStringArray(R.array.filter_type);
 //        rela_type.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

@@ -143,10 +143,11 @@ public class HomePostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder
             if(postLang.getText().toString().equals("View"))
                 strPostTitle=mPost.getPost_sub_title().split(",")[0];
             else
-            if(strPostTitle.length()>1)
-                strPostTitle=mPost.getPost_sub_title().split(",")[1];
-            else
-                strPostTitle=mPost.getPost_sub_title().split(",")[0];
+//            if(strPostTitle.length()>1)
+//                strPostTitle=mPost.getPost_sub_title().split(",")[1];
+//            else
+//                strPostTitle=mPost.getPost_sub_title().split(",")[0];
+                strPostTitle = mPost.getPost_sub_title().split(",").length>1?mPost.getPost_sub_title().split(",")[1]:mPost.getPost_sub_title().split(",")[0];
             postTitle.setText(strPostTitle);
             String[] splitColor=mPost.getMulti_color_code().split(",");
             GradientDrawable shape = new GradientDrawable();
