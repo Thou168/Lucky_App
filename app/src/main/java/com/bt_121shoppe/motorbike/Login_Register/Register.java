@@ -35,6 +35,7 @@ import android.view.inputmethod.EditorInfo;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -200,9 +201,19 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         pass1 = prefer.getString("pass","");
         Encode =getEncodedString(name,pass1);
 
-        btnSubmit.setVisibility(View.VISIBLE);
+        btnSubmit.setVisibility(View.GONE);
         term_privacy.setVisibility(View.VISIBLE);
         tv_privacy.setVisibility(View.VISIBLE);
+
+        term_privacy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    btnSubmit.setVisibility(View.VISIBLE);
+                }else
+                    btnSubmit.setVisibility(View.GONE);
+            }
+        });
 
         editDate.setFocusable(false);
         editGender.setFocusable(false);

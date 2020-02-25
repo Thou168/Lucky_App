@@ -32,6 +32,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.loan.model.loan_item;
+import com.bt_121shoppe.motorbike.models.NotificationResponseViewModel;
 import com.bt_121shoppe.motorbike.models.NotificationViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.notifications.DetailNotification;
@@ -291,31 +292,24 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
 //
 //        updateToken(FirebaseInstanceId.getInstance().getToken());
         Service api = Client.getClient().create(Service.class);
-        Call<NotificationViewModel> call = api.getNotification(1,encodeAuth);
-        call.enqueue(new retrofit2.Callback<NotificationViewModel>() {
+        Call<NotificationResponseViewModel> call = api.getNotificationListItems(pk,encodeAuth);
+        call.enqueue(new retrofit2.Callback<NotificationResponseViewModel>() {
             @Override
-            public void onResponse(retrofit2.Call<NotificationViewModel> call, retrofit2.Response<NotificationViewModel> response) {
+            public void onResponse(retrofit2.Call<NotificationResponseViewModel> call, retrofit2.Response<NotificationResponseViewModel> response) {
                 if (response.isSuccessful()) {
-                    String userId        = response.body().getUserId();
-                    String title         = response.body().getTitle();
-                    String notify        = response.body().getNotify();
-                    String reject_reason = response.body().getReject_reason();
-                    int ref_id           = response.body().getRef_id();
-                    Boolean isSeen       = response.body().getisSeen();
-                    String datetime      = response.body().getDatatime();
-                    Log.e("data",""+userId+","+title+","+notify+","+reject_reason+","+ref_id+","+isSeen+","+datetime);
-                    mNotifications.add(new NotificationViewModel(notify,reject_reason,title,isSeen,ref_id,userId,datetime));
-                    if(mNotifications.size()>0) {
-                        mNoNotification.setVisibility(View.GONE);
-                    }else{
+                    if(response.body().getCount()==0)
                         mNoNotification.setVisibility(View.VISIBLE);
+                    else {
+                        mNoNotification.setVisibility(View.GONE);
+                        mNotifications=response.body().getresults();
+                        mAdapter.setNotificationList(getBaseContext(),mNotifications);
                     }
-                    mAdapter.setNotificationList(getBaseContext(),mNotifications);
+
                 }
             }
 
             @Override
-            public void onFailure(retrofit2.Call<NotificationViewModel> call, Throwable t) {
+            public void onFailure(retrofit2.Call<NotificationResponseViewModel> call, Throwable t) {
 
             }
         });
@@ -383,7 +377,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                 @Override
                 public void onClick(View view) {
                     Service api = Client.getClient().create(Service.class);
-                    Call<NotificationViewModel> call = api.getNotification(pk,encodeAuth);
+                    Call<NotificationViewModel> call = api.getNotification(notification.getId());
                     call.enqueue(new retrofit2.Callback<NotificationViewModel>() {
                         @Override
                         public void onResponse(retrofit2.Call<NotificationViewModel> call, retrofit2.Response<NotificationViewModel> response) {
@@ -395,9 +389,10 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
                                 int ref_id           = response.body().getRef_id();
                                 Boolean isSeen       = response.body().getisSeen();
                                 String datetime      = response.body().getDatatime();
-                                Log.e("data",""+userId+","+title+","+notify+","+reject_reason+","+ref_id+","+isSeen+","+datetime);
+                                //Log.e("data",""+userId+","+title+","+notify+","+reject_reason+","+ref_id+","+isSeen+","+datetime);
                                 if (isSeen.equals(false)) {
-                                    updateData(new NotificationViewModel(notify, reject_reason, title, true, ref_id, userId, datetime));
+                                    //updateData(new NotificationViewModel(notify, reject_reason, title, true, ref_id, userId, datetime));
+                                    updateData(response.body());
                                 }
                             }
                         }
@@ -563,7 +558,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
 //    }
     private void Check_seen_unseen(TextView title){
         Service api = Client.getClient().create(Service.class);
-        Call<NotificationViewModel> call = api.getNotification(pk,encodeAuth);
+        Call<NotificationViewModel> call = api.getNotification(pk);
         call.enqueue(new retrofit2.Callback<NotificationViewModel>() {
             @Override
             public void onResponse(retrofit2.Call<NotificationViewModel> call, retrofit2.Response<NotificationViewModel> response) {
@@ -585,7 +580,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
     }
     private void updateData(NotificationViewModel notification) {
         Service api = Client.getClient().create(Service.class);
-        Call<NotificationViewModel> call = api.updateNotification(pk,notification);
+        Call<NotificationViewModel> call = api.updateNotification(notification.getId(),notification);
         call.enqueue(new Callback<NotificationViewModel>() {
             @Override
             public void onResponse(Call<NotificationViewModel> call, Response<NotificationViewModel> response) {

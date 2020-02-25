@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,12 +39,14 @@ import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_Likebyuser;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.LikebyUser;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
+import com.bt_121shoppe.motorbike.Api.responses.APILoanResponse;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_1;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_2;
 import com.bt_121shoppe.motorbike.Fragment_details_post.Detail_3;
@@ -54,6 +57,7 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.chats.ChatActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.loan.model.Province;
@@ -72,6 +76,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,11 +138,16 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     int loanID,userOwnerId=0;
     String login_verify;
     Bundle bundle;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_newpost_java);
+        pd=new ProgressDialog(Detail_new_post_java.this);
+        pd.setMessage("Processing....");
+        pd.setCancelable(false);
+
         locale();
         call_methot_id();
         layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan);
@@ -172,9 +182,11 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pd.show();
                 if (sharedPref.contains("token") || sharedPref.contains("id")) {
                     Like_post(Encode);
                 }else{
+                    pd.dismiss();
                     Intent intent =new  Intent(Detail_new_post_java.this, LoginActivity.class);
                     intent.putExtra("Login_verify","detail");
                     intent.putExtra("verify","detail");
@@ -233,12 +245,15 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             loan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    pd.show();
                     if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
+                        pd.dismiss();
                         Intent intent = new Intent(Detail_new_post_java.this, LoginActivity.class);
                         intent.putExtra("verify", "detail");
                         intent.putExtra("product_id", postId);
                         startActivity(intent);
                     } else {
+                        pd.dismiss();
                         Intent intent = new Intent(getApplicationContext(), Create_Load.class);
                         intent.putExtra("product_id", postId);
                         intent.putExtra("LoanID", loanID);
@@ -255,7 +270,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             loan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    pd.show();
                     if (!(sharedPref.contains("token") || sharedPref.contains("id"))) {
+                        pd.dismiss();
                         Intent intent = new Intent(Detail_new_post_java.this, LoginActivity.class);
                         intent.putExtra("verify", "detail");
                         intent.putExtra("product_id", postId);
@@ -464,23 +481,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         String url;
         Request request;
         String auth = "Basic" + encode;
-//        if (pt==1){
-//            url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
-//            request = new  Request.Builder()
-//                    .url(url)
-//                    .header("Accept","application/json")
-//                    .header("Content-Type","application/json")
-//                    .header("Authorization",auth)
-//                    .build();
-//        }
-//        else {
-//            url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
-//            request = new  Request.Builder()
-//                    .url(url)
-//                    .header("Accept","application/json")
-//                    .header("Content-Type", "application/json")
-//                    .build();
-//        }
 
         url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
         request = new  Request.Builder()
@@ -616,29 +616,13 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void Like_post(String encode) {
-        String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
-        //Log.d("asdf",url_like);
-        OkHttpClient client =new  OkHttpClient();
-        Request request =new  Request.Builder()
-                .url(url_like)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<AllResponse> call=api.GetPostLikedByUser(p,pk);
+        call.enqueue(new retrofit2.Callback<AllResponse>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                Log.d("Response",respon);
-
-                try {
-                    JSONObject jsonObject = new  JSONObject(respon);
-                    int count = jsonObject.getInt("count");
-                    if (count == 0){
+            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getCount()==0){
                         String url = ConsumeAPI.BASE_URL + "like/";
                         MediaType MEDIA_TYPE = MediaType.parse("application/json");
                         JSONObject post =new  JSONObject();
@@ -666,7 +650,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     String respon = String.valueOf(response.body());
-                                    Log.d("Like", respon);
+                                    //Log.d("Like", respon);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -676,10 +660,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                             //like1.setMaxWidth(30);
                                             like1.setMaxHeight(30);
                                             like.setVisibility(View.GONE);
-                                            //like.setVisibility(View.GONE);
-//                                            like1.setImageResource(R.drawable.group_28);
-//                                            like1.setMaxWidth(30);
-//                                            like1.setMaxHeight(30);
+                                            pd.dismiss();
                                         }
                                     });
                                 }
@@ -688,11 +669,16 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             e.printStackTrace();
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+
+            }
         });
+
+
     }
     private void Unlike_post(String encode){
         final LikebyUser model = new LikebyUser();
@@ -738,51 +724,30 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void already_like(String encode){
-        String url_like = ConsumeAPI.BASE_URL+"like/?post="+p+"&like_by="+pk;
-        OkHttpClient client =new  OkHttpClient();
-        Request request =new  Request.Builder()
-                .url(url_like)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<AllResponse> call=api.GetPostLikedByUser(p,pk);
+        call.enqueue(new retrofit2.Callback<AllResponse>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage();
-                Log.w("failure Response", mMessage);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                Log.d("Response alreadyLike",respon);
-
-                try {
-                    JSONObject jsonObject = new  JSONObject(respon);
-                    int jsonCount = jsonObject.getInt("count");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (jsonCount>0){
-                                like.setVisibility(View.GONE);
-                                like1.setVisibility(View.VISIBLE);
-                                like1.setImageResource(R.drawable.android_heart);
-                                like1.setMaxHeight(30);
-                                //like1.setImageResource(R.drawable.android_heart);
-//                                like1.setMaxHeight(30);
-//                                like1.setMaxWidth(30);
-                            }else{
-                                like.setVisibility(View.VISIBLE);
-                                like1.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getCount()>0){
+                        like.setVisibility(View.GONE);
+                        like1.setVisibility(View.VISIBLE);
+                        like1.setImageResource(R.drawable.android_heart);
+                        like1.setMaxHeight(30);
+                    }else{
+                        like.setVisibility(View.VISIBLE);
+                        like1.setVisibility(View.GONE);
+                    }
                 }
             }
+
+            @Override
+            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+
+            }
         });
+
     }
 
     private void submitCountView(String encode) {
@@ -823,45 +788,23 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void countPostView(String encode){
-        String URL_ENDPOINT=ConsumeAPI.BASE_URL+"countview/?post="+postId;
-        MediaType MEDIA_TYPE=MediaType.parse("application/json");
-        OkHttpClient client= new  OkHttpClient();
-        Request request=new Request.Builder()
-                .url(URL_ENDPOINT)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",encode)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<AllResponse> call=api.getCount(String.valueOf(postId));
+        call.enqueue(new retrofit2.Callback<AllResponse>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage();
-                Log.w("failure Response", mMessage);
+            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getCount()>1000)
+                        view.setText(""+response.body().getCount()+"K");
+                    else
+                        view.setText(""+response.body().getCount());
+                    FBPostCommonFunction.addCountView(String.valueOf(postId),response.body().getCount());
+                }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String mMessage = response.body().string();
-                //Log.d("JJJJJJJJJJJJJ",mMessage)
-                Gson gson =new  Gson();
-                try {
-                    JSONObject jsonObject =new  JSONObject(mMessage);
-                    int jsonCount = jsonObject.getInt("count");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.setText(""+jsonCount);
-                            if (jsonCount>1000){
-                                view.setText(""+jsonCount+"K");
-                            }
-                            //submit count view to firebase
-                            FBPostCommonFunction.addCountView(String.valueOf(postId),jsonCount);
-                        }
-                    });
+            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
 
-                } catch (JsonParseException | JSONException e){
-                    e.printStackTrace();
-                }
             }
         });
     }
@@ -954,72 +897,104 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void getMyLoan(){
-        Log.e("Encode",""+encodeAuth);
-        ArrayList<Integer> IDPOST = new ArrayList<>();
-        String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/?is_draft=false";
-        OkHttpClient client= new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(URL_ENDPOINT)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
-                .header("Authorization",encodeAuth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        //Log.e("Encode",""+encodeAuth);
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<APILoanResponse> call=api.getLoanRequestbyUser(encodeAuth);
+        call.enqueue(new retrofit2.Callback<APILoanResponse>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage();
-                Log.w("failure Response", mMessage);
+            public void onResponse(retrofit2.Call<APILoanResponse> call, retrofit2.Response<APILoanResponse> response) {
+                if(response.isSuccessful()){
+                    boolean isExist=false;
+                    for(int i=0;i<response.body().getResults().size();i++){
+                        int loanPostId=response.body().getResults().get(i).getPost();
+                        if(loanPostId==postId)
+                        {
+                            isExist=true;
+                            break;
+                        }
+                    }
+                    if(isExist) {
+                        pd.dismiss();
+                        withStyle();
+                    }else{
+                        pd.dismiss();
+                        Intent intent = new  Intent(Detail_new_post_java.this, Create_Load.class);
+                        intent.putExtra("product_id",postId);
+                        intent.putExtra("price",postPrice);
+                        startActivity(intent);
+                    }
+                }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                assert response.body() != null;
-                String mMessage = response.body().string();
-//                Log.d(TAG,"Laon_status "+mMessage);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            JSONObject jsonObject = new JSONObject(mMessage);
-                            JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                int post_id = object.getInt("post");
-                                int re_status = object.getInt("record_status");
-//                                Log.d("Status Id123", String.valueOf(post_id));
-//                                Log.d("Status 123",postId.toString());
-                                if (re_status != 12)
-                                    IDPOST.add(post_id);
-                            }
-//                            Log.d("ARRayList", String.valueOf(IDPOST.size()));
-                            for (int i=0;i<IDPOST.size();i++){
-                                if (IDPOST.get(i).equals(postId)){
-                                    loaned = true;
-                                }
-                            }
-                            loan.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (loaned){
-//                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
-                                        withStyle();
-                                    }else{
-                                        Intent intent = new  Intent(Detail_new_post_java.this, Create_Load.class);
-                                        intent.putExtra("product_id",postId);
-                                        //intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
-                                        intent.putExtra("price",postPrice);
-                                        startActivity(intent);
-                                    }
-                                }
-                            });
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                });
+            public void onFailure(retrofit2.Call<APILoanResponse> call, Throwable t) {
 
             }
         });
+
+//        ArrayList<Integer> IDPOST = new ArrayList<>();
+//        String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/?is_draft=false";
+//        OkHttpClient client= new OkHttpClient();
+//        Request request = new Request.Builder()
+//                .url(URL_ENDPOINT)
+//                .header("Accept","application/json")
+//                .header("Content-Type","application/json")
+//                .header("Authorization",encodeAuth)
+//                .build();
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                String mMessage = e.getMessage();
+//                Log.w("failure Response", mMessage);
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                assert response.body() != null;
+//                String mMessage = response.body().string();
+////                Log.d(TAG,"Laon_status "+mMessage);
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(mMessage);
+//                            JSONArray jsonArray = jsonObject.getJSONArray("results");
+//                            for (int i=0;i<jsonArray.length();i++){
+//                                JSONObject object = jsonArray.getJSONObject(i);
+//                                int post_id = object.getInt("post");
+//                                int re_status = object.getInt("record_status");
+//                                if (re_status != 12)
+//                                    IDPOST.add(post_id);
+//                            }
+////                            Log.d("ARRayList", String.valueOf(IDPOST.size()));
+//                            for (int i=0;i<IDPOST.size();i++){
+//                                if (IDPOST.get(i).equals(postId)){
+//                                    loaned = true;
+//                                }
+//                            }
+//                            loan.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    if (loaned){
+////                                Toast.makeText(this@Detail_New_Post,"Created",Toast.LENGTH_SHORT).show()
+//                                        withStyle();
+//                                    }else{
+//                                        Intent intent = new  Intent(Detail_new_post_java.this, Create_Load.class);
+//                                        intent.putExtra("product_id",postId);
+//                                        //intent.putExtra("price",cuteString(tvPrice.getText().toString(),1));
+//                                        intent.putExtra("price",postPrice);
+//                                        startActivity(intent);
+//                                    }
+//                                }
+//                            });
+//                        }catch (JSONException e){
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//
+//            }
+//        });
     }
     private void getPostOwnerInformation(int id){
         Service api = com.bt_121shoppe.motorbike.Api.api.Client.getClient().create(Service.class);

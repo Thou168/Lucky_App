@@ -153,7 +153,8 @@ public class ViewHolder extends BaseViewHolder{
         super.onBind(position);
         final StorePostViewModel item =mPostList.get(position);
         Service api=Client.getClient().create(Service.class);
-        Call call=api.getPostItem(item.getPost(),basic_Encode);
+        //Call call=api.getPostItem(item.getPost(),basic_Encode);
+        Call call=api.getDetailpost(item.getPost());
         call.enqueue(new retrofit2.Callback() {
             @Override
             public void onResponse(Call call, Response response) {

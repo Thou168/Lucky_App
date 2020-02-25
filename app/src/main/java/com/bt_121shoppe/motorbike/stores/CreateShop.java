@@ -45,6 +45,7 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.dealerstores.DealerStoreDetailActivity;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
+import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.province_Item;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.UserShopViewModel;
@@ -117,9 +118,10 @@ public class CreateShop extends AppCompatActivity {
     private String basicEncode,currentLanguage;
     private String mPrice;
     private String[] provine;
+    private int[] provinceIdListItems;
     private AlertDialog dialog;
     private String storeName,storeLocation,storeImage;
-
+    private int selectedProvinceId=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +167,7 @@ public class CreateShop extends AppCompatActivity {
         intent_edit   = intent.getStringExtra("edit_store");
         edit          = intent.getStringExtra("edit");
         mDealerShopId = intent.getIntExtra("shopId",0);
+        selectedProvinceId=intent.getIntExtra("shop_province",0);
         if (intent_edit != null){
             getShop_Detail(mDealerShopId);
             getShop_Info(pk,Encode);
@@ -190,7 +193,7 @@ public class CreateShop extends AppCompatActivity {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             getLocation(true);
         }
-
+        getprovince();
         Glide.with(CreateShop.this).asBitmap().load(photo).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -235,7 +238,16 @@ public class CreateShop extends AppCompatActivity {
            }else
                finish();
         });
-        editAddress.setOnClickListener(view -> AlertDialog(provine,editAddress));
+//        editAddress.setOnClickListener(view ->
+//                //AlertDialog(provine,editAddress)
+//        );
+        editAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.e("TAG","i clicked address.");
+                AlertDialog(provine,editAddress);
+            }
+        });
         tv_add.setVisibility(View.VISIBLE);
         tv_add.setOnClickListener(view -> {
             layout_phone1.setVisibility(View.VISIBLE);
@@ -340,13 +352,14 @@ public class CreateShop extends AppCompatActivity {
                 intent1.putExtra("image",image);
                 intent1.putExtra("wing_number",editWing_account.getText().toString());
                 intent1.putExtra("wing_account",editWing_number.getText().toString());
+                intent1.putExtra("shop_province",selectedProvinceId);
                 startActivity(intent1);
             }
         });
         tv_new_card.setOnClickListener(view -> {
             layout_add_new_card.setVisibility(View.VISIBLE);
         });
-        getprovince();
+
     }
     private String getEncodedString(String username, String password) {
         final String userpass = username+":"+password;
@@ -554,7 +567,8 @@ public class CreateShop extends AppCompatActivity {
             post1.put("user",pk);
             post1.put("shop_name",usershop.getShop_name());
 //            post1.put("shop_address",usershop.getShop_address());
-            post1.put("shop_province",usershop.getShop_address());
+            //post1.put("shop_province",usershop.getShop_address());
+            post1.put("shop_province",selectedProvinceId);
             post1.put("record_status",1);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
@@ -633,7 +647,8 @@ public class CreateShop extends AppCompatActivity {
             post1.put("user",pk);
             post1.put("shop_name",usershop.getShop_name());
 //            post1.put("shop_address",usershop.getShop_address());
-            post1.put("shop_province",usershop.getShop_address());
+            //post1.put("shop_province",usershop.getShop_address());
+            post1.put("shop_province",selectedProvinceId);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
             }else{
@@ -733,10 +748,10 @@ public class CreateShop extends AppCompatActivity {
         }
     }
     private void EditNewCard(int id,NewCardViewModel newCard,String encode){
-        Log.e("wing account",""+newCard.getWing_account());
-        Log.e("wing number",newCard.getWing_number());
-        Log.e("Shop ID",""+newCard.getShopId());
-        Log.e("id",""+id);
+//        Log.e("wing account",""+newCard.getWing_account());
+//        Log.e("wing number",newCard.getWing_number());
+//        Log.e("Shop ID",""+newCard.getShopId());
+//        Log.e("id",""+id);
         String usershopurl= ConsumeAPI.BASE_URL+"api/v1/shopcard/"+id+"/";
         OkHttpClient client1=new OkHttpClient();
         JSONObject post1=new JSONObject();
@@ -774,12 +789,15 @@ public class CreateShop extends AppCompatActivity {
         }
     }
     public void AlertDialog(String[] items, EditText editText){
+        //Log.e("TAG","province list "+items.length);
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle(getString(R.string.choose_item));
         int checkedItem = 0;
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             mProvinceID = which+1;
             editText.setText(items[which]);
+            selectedProvinceId=provinceIdListItems[which];
+            //Log.e("TAG","Seleteed Province id "+selectedProvinceId);
             dialog.dismiss();
         });
         dialog = builder.create();
@@ -796,13 +814,12 @@ public class CreateShop extends AppCompatActivity {
                 }
                 listData = response.body().getresults();
                 provine = new String[listData.size()];
-                Log.d("333333333333", String.valueOf(listData.size()));
+                provinceIdListItems=new int[listData.size()];
                 for (int i=0;i<listData.size();i++){
+                    provinceIdListItems[i]=(int)listData.get(i).getId();
                     if (currentLanguage.equals("en")){
                         provine[i] = listData.get(i).getProvince();
-                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
                     }else {
-                        Log.d("Province",listData.get(i).getProvince()+listData.get(i).getId());
                         provine[i] = listData.get(i).getProvince_kh();
                     }
                 }
@@ -900,7 +917,28 @@ public class CreateShop extends AppCompatActivity {
             public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
                 if (response.isSuccessful()) {
                     editShopname.setText(response.body().getShop_name());
-                    editAddress.setText(response.body().getShop_address());
+                    //editAddress.setText(response.body().getShop_address());
+
+                    selectedProvinceId=response.body().getShop_province();
+                    retrofit2.Call<Province> call1=api.getProvince(selectedProvinceId);
+                    call1.enqueue(new retrofit2.Callback<Province>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<Province> call, retrofit2.Response<Province> response) {
+                            TextView tvAddressTitle=findViewById(R.id.tv_address);
+                            if(response.isSuccessful()){
+                                if(tvAddressTitle.getText().toString().equals("Address"))
+                                    editAddress.setText(response.body().getProvince());
+                                else
+                                    editAddress.setText(response.body().getProvince_kh());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<Province> call, Throwable t) {
+
+                        }
+                    });
+
                     String image = response.body().getShop_image();
                     Glide.with(CreateShop.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
                         @Override

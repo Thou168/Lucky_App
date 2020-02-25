@@ -80,7 +80,8 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final StorePostViewModel item=datas.get(position);
         Service api=Client.getClient().create(Service.class);
-        Call<Item> call=api.getPostItem(item.getPost(),basic_Encode);
+        //Call<Item> call=api.getPostItem(item.getPost(),basic_Encode);
+        Call<Item> call=api.getDetailpost(item.getPost());
         call.enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {

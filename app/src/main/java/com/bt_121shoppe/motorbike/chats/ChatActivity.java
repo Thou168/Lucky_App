@@ -391,6 +391,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
+                //Caused by: org.gradle.api.internal.artifacts.ivyservice.DefaultLenientConfiguration$ArtifactResolveException: Could not resolve all task dependencies for configuration ':app:debugCompileClasspath'.
 
             }
         });

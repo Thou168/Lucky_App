@@ -14,6 +14,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
 import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
+import com.bt_121shoppe.motorbike.Api.responses.APILoanResponse;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
@@ -29,6 +30,7 @@ import com.bt_121shoppe.motorbike.models.CategoryViewModel;
 import com.bt_121shoppe.motorbike.models.DealerPostViewModel;
 import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
 import com.bt_121shoppe.motorbike.models.ModelingViewModel;
+import com.bt_121shoppe.motorbike.models.NotificationResponseViewModel;
 import com.bt_121shoppe.motorbike.models.NotificationViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.StorePostViewModel;
@@ -105,11 +107,12 @@ public interface Service {
     Call<AllResponse> getpostbyhistory(@Header("Authorization") String authorization);
     @GET("likebyuser/")
     Call<AllResponse> getLikebyuser(@Header("Authorization") String authorization);
-    @GET("loanbyuser/?loan_status=9&&is_draft=false")
+    @GET("loanbyuser/?loan_status=9&is_draft=false")
     Call<AllResponse> getLoanbyuser(@Header("Authorization") String authorization);
-
     @GET("loanbyuser/?loan_status=9&&is_draft=true")
     Call<Draft> getList_draft(@Header("Authorization") String authorization);
+    @GET("loanbyuser/?is_draft=false")
+    Call<APILoanResponse> getLoanRequestbyUser(@Header("Authorization") String authorization);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("like/{id}/")
@@ -231,16 +234,23 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/shop/{id}/")
     Call<ShopViewModel> updateShopCountView(@Path("id") int id, @Body ShopViewModel shopViewModel);
-
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/postdealershop/{id}/")
     Call<StorePostViewModel> updateDealerPostStatus(@Path("id") int id, @Body StorePostViewModel shopViewModel);
 
+    //--------------START Notification SECTION---------------------//
     @GET("api/v1/notification/?user_id=")
-    Call<NotificationViewModel> getNotification(@Query("user_id") int user_id, @Header("Authorization") String authorization);
-
+    Call<NotificationResponseViewModel> getNotificationListItems(@Query("user_id") int user_id, @Header("Authorization") String authorization);
+    @GET("api/v1/notification/{id}")
+    Call<NotificationViewModel> getNotification(@Path("id") int id);
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/notification/{id}")
     Call<NotificationViewModel> updateNotification(@Path("id") int id, @Body NotificationViewModel notificationViewModel);
+    //--------------END Notification SECTION-----------------------//
+
+    //--------------START LIKE SECTION---------------------//
+    @GET("like/?post=&like_by=")
+    Call<AllResponse> GetPostLikedByUser(@Query("post") int post,@Query("like_by") int like_by);
+    //--------------END LIKE SECTION-----------------------//
 
 }

@@ -157,7 +157,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
         CheckGroup check = new CheckGroup();
         g = check.getGroup(pk,this);
-        Log.e(TAG,"Group "+g);
+        //Log.e(TAG,"Group "+g);
         if (g == 3){
             bnavigation.setVisibility(View.GONE);
             bnavigation1.setVisibility(View.VISIBLE);
@@ -220,7 +220,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                         tvFullname.setText(user.getUsername());
-                        Log.e(TAG,"Profile pic "+user.getImageURL());
+                        //Log.e(TAG,"Profile pic "+user.getImageURL());
                     if (user.getImageURL().equals("default")) {
                         Glide.with(Account.this).load(R.drawable.group_2293).thumbnail(0.1f).into(upload);
 //                        img_profile.setImageResource(R.mipmap.ic_launcher_round);

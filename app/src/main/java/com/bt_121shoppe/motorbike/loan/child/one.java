@@ -521,7 +521,7 @@ public class one extends Fragment{
                 for (int i=0;i<rRela.length;i++){
                     if (s.toString().toLowerCase().equals(rRela[i].toLowerCase())){
                         indexRela = i;
-                        Log.d("1212121255555",Rela[indexRela]+"indext"+indexRela);
+                        //Log.d("1212121255555",Rela[indexRela]+"indext"+indexRela);
                     }
                 }
             }
@@ -545,6 +545,7 @@ public class one extends Fragment{
         });
         mBtnNext.setOnClickListener(view3 -> {
             editext();
+
             if (index == 0){
                 createLoad.requstFocus(bRelationship,mRelationship,mRelationship_alert,getString(R.string.invalid_relationship));
                 createLoad.requstFocus(bCo_borrower_Job,mCo_borrower_Job,mCo_Job_alert,getString(R.string.invalid_co_borrower_job));

@@ -137,6 +137,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         clearDialog.show();
     }
     public void requstFocus(boolean b,EditText editText,TextView textView,String text){
+        textView.setText("");
         if (!b) {
             if(!(editText ==null)) {
                 editText.requestFocus();

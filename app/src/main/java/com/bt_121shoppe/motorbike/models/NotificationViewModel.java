@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class NotificationViewModel {
 
+    @SerializedName("id")
+    private int id;
     @SerializedName("notify_type")
     private String notify;
     @SerializedName("reject_reason")
@@ -85,5 +87,13 @@ public class NotificationViewModel {
 
     public void setDatatime(String datetime) {
         this.datetime = datetime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
