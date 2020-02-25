@@ -102,7 +102,7 @@
                 android:layout_height="17dp"
                 android:layout_marginBottom="11dp"
                 android:layout_alignParentBottom="true"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_toEndOf="@+id/llColor"
                 android:layout_marginStart="2dp"
                 android:textColor="#404040"

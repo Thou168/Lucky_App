@@ -135,6 +135,7 @@ public class three extends Fragment {
             LayoutInflater factory = LayoutInflater.from(getContext());
             final View clearDialogView = factory.inflate(R.layout.save_dialog,null);
             final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
+            clearDialog.setCancelable(false);
             clearDialog.setView(clearDialogView);
             EditText draft_name = (EditText) clearDialogView.findViewById(R.id.et_draft);
             TextView title      = (TextView) clearDialogView.findViewById(R.id.textView_title);
@@ -359,6 +360,7 @@ public class three extends Fragment {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
         final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
+        clearDialog.setCancelable(false);
         clearDialog.setView(clearDialogView);
         TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
         Mssloan.setText(R.string.loan_edit_m);

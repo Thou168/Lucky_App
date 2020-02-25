@@ -185,7 +185,7 @@ public class HomeAllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
                 tvColor2.setBackground(shape1);
             }
-            cate.setVisibility(View.GONE);
+//            cate.setVisibility(View.GONE);
 
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
@@ -205,7 +205,7 @@ public class HomeAllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 postPrice.setText("$ "+mPost.getCost());
             }
 
-            cate.setVisibility(View.VISIBLE);
+//            cate.setVisibility(View.VISIBLE);
             if(mPost.getCategory()==1){
                 cate.setText(R.string.electronic);
             }else if(mPost.getCategory()==2){

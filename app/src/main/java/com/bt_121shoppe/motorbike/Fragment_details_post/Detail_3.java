@@ -240,34 +240,47 @@ public class Detail_3 extends Fragment {
                                 postDetail = json.fromJson(mMessage, PostViewModel.class);
                                 Log.e(TAG, "D" + mMessage);
                                 postPrice=discount.toString();
-                                float post_price_dc = Float.parseFloat(postDetail.getDiscount());
+                                float post_price_dc = Float.parseFloat(postDetail.getCost());
+                                float discountPrice = post_price_dc * (Float.parseFloat(postDetail.getDiscount()) / 100);
+                                float result = post_price_dc - discountPrice;
                                 edPrice.setText(postPrice);
                                 //get value of percent/100 and then mul
-                                sbDeposit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                                    @Override
-                                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                                        calculateLoanMonthlyPayment();
-                                        tvSB.setText(progress + "%");
-                                        int x = seekBar.getThumb().getBounds().centerX();
-                                        tvSB.setX(x);
-                                        correct = progress;
-                                        float percent = correct / 100;
-                                        float viewPrice = percent * post_price_dc;
-                                        BigDecimal bigDecimal = new BigDecimal(viewPrice);
-                                        bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_EVEN);
-                                        edDeposit.setText(bigDecimal+"$");
-                                    }
+                                if (discount != 0.00) {
+                                    sbDeposit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                        @Override
+                                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                            calculateLoanMonthlyPayment();
+                                            tvSB.setText(progress + "%");
+                                            int x = seekBar.getThumb().getBounds().centerX();
+                                            tvSB.setX(x);
+                                            correct = progress;
+                                            float percent = correct / 100;
+//                                        if (discount == 0.00) {
+//                                            float viewPrice = percent * post_price_dc;
+//                                            BigDecimal bigDecimal = new BigDecimal(viewPrice);
+//                                            bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_EVEN);
+//                                            edDeposit.setText(bigDecimal + "$");
+//                                        }
 
-                                    @Override
-                                    public void onStartTrackingTouch(SeekBar seekBar) {
+                                            float viewPriceDS = percent * result;
+                                            BigDecimal bigDecimal = new BigDecimal(viewPriceDS);
+                                            bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_EVEN);
+                                            edDeposit.setText(bigDecimal + "$");
 
-                                    }
 
-                                    @Override
-                                    public void onStopTrackingTouch(SeekBar seekBar) {
+                                        }
 
-                                    }
-                                });
+                                        @Override
+                                        public void onStartTrackingTouch(SeekBar seekBar) {
+
+                                        }
+
+                                        @Override
+                                        public void onStopTrackingTouch(SeekBar seekBar) {
+
+                                        }
+                                    });
+                                }
 
                                 //interestrate
                                 sbInterestRate.setProgress(10);

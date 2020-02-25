@@ -124,10 +124,12 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         if (lang.equals("View")) {
                             strPostTitle = response.body().getPost_sub_title().split(",")[0];
                         } else {
-                            if(strPostTitle.length()>1)
-                                strPostTitle = response.body().getPost_sub_title().split(",")[1];
-                            else
-                                strPostTitle = response.body().getPost_sub_title().split(",")[0];
+                            String[] splitTitle=response.body().getPost_sub_title().split(",");
+//                            if(strPostTitle.length()>1)
+//                                strPostTitle = response.body().getPost_sub_title().split(",")[1];
+//                            else
+//                                strPostTitle = response.body().getPost_sub_title().split(",")[0];
+                            strPostTitle = splitTitle.length==1?splitTitle[0]:splitTitle[1];
                         }
                     }
                     view.title.setText(strPostTitle);

@@ -817,8 +817,11 @@
     <string name="battambang">Battambang</string>
 
     //renew
+    <string name="removed">លប់ចោល</string>
     <string name="pending">កំពុងរង់ចាំ</string>
     <string name="approveval">អនុម័ត</string>
+    <string name="reject">បានបដិសេធ</string>
+    <string name="canceled">លុបចោល</string>
     <string name="Post_Renewal">ប្រកាសឡើងវិញ</string>
     <string name="renew_post">តើលោក-អ្នកចង់ប្រកាសជាថ្មីមែនទេ?</string>
 

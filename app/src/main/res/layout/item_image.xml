@@ -128,11 +128,11 @@
             <TextView
                 android:id="@+id/cate"
                 android:layout_width="wrap_content"
-                android:layout_height="17dp"
+                android:layout_height="wrap_content"
                 android:visibility="visible"
                 android:layout_toEndOf="@+id/llColor"
                 android:layout_alignParentBottom="false"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:textColor="#333333"
                 android:fontFamily="@font/opensans_regular"

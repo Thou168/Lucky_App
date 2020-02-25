@@ -183,6 +183,7 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
             public void onClick(View v) {
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_cate,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter_shopdetail.this);
+                bottomSheetDialog.setCanceledOnTouchOutside(false);
                 bottomSheetDialog.setContentView(dialogView);
 //                bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 bottomSheetDialog.show();
@@ -261,6 +262,7 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
             public void onClick(View v) {
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_brand,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter_shopdetail.this);
+                bottomSheetDialog.setCanceledOnTouchOutside(false);
                 bottomSheetDialog.setContentView(dialogView);
                 bottomSheetDialog.show();
                 ImageView close = dialogView.findViewById(R.id.icon_close);
@@ -371,6 +373,7 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
             public void onClick(View v) {
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_year,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter_shopdetail.this);
+                bottomSheetDialog.setCanceledOnTouchOutside(false);
                 bottomSheetDialog.setContentView(dialogView);
                 bottomSheetDialog.show();
                 ImageView close = dialogView.findViewById(R.id.icon_close);
@@ -600,6 +603,7 @@ public class Filter_shopdetail extends AppCompatActivity implements RangeSeekBar
             public void onClick(View v) {
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_type,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter_shopdetail.this);
+                bottomSheetDialog.setCanceledOnTouchOutside(false);
                 bottomSheetDialog.setContentView(dialogView);
                 bottomSheetDialog.show();
                 ImageView close = dialogView.findViewById(R.id.icon_close);

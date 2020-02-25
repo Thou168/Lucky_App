@@ -791,6 +791,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     }else {
                         AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
                         alertDialog.setTitle(getString(R.string.register));
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage(getString(R.string.verify_code_message));
                         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
@@ -812,6 +813,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 public void run() {
                     AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
                     alertDialog.setTitle(getString(R.string.register));
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage(getString(R.string.verify_code_message));
                     alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                             new DialogInterface.OnClickListener() {
@@ -1051,6 +1053,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     }
     private void selectImage(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Register.this);
+        dialogBuilder.setCancelable(false);
         dialogBuilder.setItems(photo_select, (dialog, which) -> {
             switch (which){
                 case 0:
@@ -1185,6 +1188,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     }
     public void showBottomSheet(View view) {
         BottomChooseGender addPhotoBottomDialogFragment = BottomChooseGender.newInstance();
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseGender.TAG);
     }
 
@@ -1434,6 +1438,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     public void run() {
                         androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
                         alertDialog.setTitle(getString(R.string.title_edit_account));
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage(getString(R.string.edit_fail_message));
                         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
@@ -1517,6 +1522,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         }else {
             androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
             alertDialog.setTitle(getString(R.string.title_edit_account));
+            alertDialog.setCancelable(false);
             alertDialog.setMessage(getString(R.string.edit_fail_message));
             alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                     new DialogInterface.OnClickListener() {

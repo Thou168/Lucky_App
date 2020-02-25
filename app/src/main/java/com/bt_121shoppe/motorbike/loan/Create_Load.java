@@ -114,6 +114,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
         final AlertDialog clearDialog = new AlertDialog.Builder(this).create();
         clearDialog.setView(clearDialogView);
+        clearDialog.setCancelable(false);
         TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
         Mssloan.setText(R.string.back_message);
         Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);

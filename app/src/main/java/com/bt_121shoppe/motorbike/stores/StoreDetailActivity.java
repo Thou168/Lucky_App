@@ -174,6 +174,7 @@ public class StoreDetailActivity extends AppCompatActivity {
 
             View dialogView = StoreDetailActivity.this.getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreDetailActivity.this);
+            bottomSheetDialog.setCanceledOnTouchOutside(false);
             bottomSheetDialog.setContentView(dialogView);
             bottomSheetDialog.show();
             ImageView close = dialogView.findViewById(R.id.icon_close);

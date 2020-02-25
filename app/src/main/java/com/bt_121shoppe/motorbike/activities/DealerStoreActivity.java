@@ -47,6 +47,7 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
     private Button btAdd_store;
     int inttab = 0;
     String verify;
+    String currentLanguage;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -63,6 +64,9 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
 
         StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = prefer.getString("My_Lang", "");
 
         Toolbar mToolbar=findViewById(R.id.toolbar);
         mToolbar.setTitle("");
@@ -231,12 +235,21 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
 
         @Override
         public CharSequence getPageTitle(int position) {
+//            if (position==0) {
+//                return getApplicationContext().getString(R.string.tab_store);
+//            } else if (position==1) {
+//                return getApplicationContext().getString(R.string.tab_postlist);
+//            } else {
+//                return null;
+//            }
             if (position==0) {
-                return getApplicationContext().getString(R.string.tab_store);
-            } else if (position==1) {
-                return getApplicationContext().getString(R.string.tab_postlist);
+                if (currentLanguage.equals("en")) {
+                    return "Stores";
+                }else return "ហាង";
             } else {
-                return null;
+                if (currentLanguage.equals("en")) {
+                    return "Post list";
+                }else return "បញ្ជីការប្រកាស";
             }
         }
     }

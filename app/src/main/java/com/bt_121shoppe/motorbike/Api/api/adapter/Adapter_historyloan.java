@@ -186,20 +186,23 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     Log.e("TAG ","My Loan Status"+status);
                     switch (status){
                         case 2:
-                            view.textViewStatus.setText("Removed");
+                            view.textViewStatus.setText(R.string.removed);
                             break;
                         case 9:
                             view.textViewStatus.setText(R.string.pending);
                             break;
                         case 10:
-                            view.textViewStatus.setText("Approved");
+                            view.textViewStatus.setText(R.string.approveval);
                             break;
                         case 11:
-                            view.textViewStatus.setText("Rejected");
+                            view.textViewStatus.setText(R.string.reject);
                             break;
                         case 12:
-                            view.textViewStatus.setText("Cancelled");
+                            view.textViewStatus.setText(R.string.canceled);
                             break;
+                        default:
+                            view.textViewStatus.setText("");
+                        break;
                     }
 
                     try{

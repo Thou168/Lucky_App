@@ -249,6 +249,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                         .setTitle(R.string.Post_Renewal)
                         .setMessage(R.string.renew_post)
                         .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setCancelable(false)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                             String date = null;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -322,7 +323,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                         }
                     };
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage(R.string.remove_po).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                    builder.setMessage(R.string.remove_po)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes_remove, dialogClickListener)
                             .setNegativeButton(R.string.no_remove, dialogClickListener).show();
 //                    builder.setMessage(R.string.remove_po).setPositiveButton(R.string.yes, dialogClickListener)
 //                            .setNegativeButton(R.string.no, dialogClickListener).show();
@@ -409,7 +412,9 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                         }
                     };
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage(R.string.sold_po).setPositiveButton(R.string.yes_remove, dialogClickListener)
+                    builder.setMessage(R.string.sold_po)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes_remove, dialogClickListener)
                             .setNegativeButton(R.string.no_remove, dialogClickListener).show();
                 }
             });

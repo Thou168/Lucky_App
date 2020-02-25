@@ -189,6 +189,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             public void onClick(View v) {
                 //Unlike_post();
                 AlertDialog.Builder alertDialog = new  AlertDialog.Builder(Detail_new_post_java.this);
+                alertDialog.setCancelable(false);
                 alertDialog.setMessage("You liked this post already.");
                 alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override

@@ -119,6 +119,7 @@ public class HomeApiFragment extends Fragment {
         best_match.setOnClickListener(v -> {
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+            bottomSheetDialog.setCanceledOnTouchOutside(false);
             bottomSheetDialog.setContentView(dialogView);
             bottomSheetDialog.show();
             ImageView close = dialogView.findViewById(R.id.icon_close);

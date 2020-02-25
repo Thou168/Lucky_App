@@ -190,6 +190,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         ads.setOnClickListener(v -> {
             View dialogView = StoreListActivity.this.getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StoreListActivity.this);
+            bottomSheetDialog.setCanceledOnTouchOutside(false);
             bottomSheetDialog.setContentView(dialogView);
 //            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             bottomSheetDialog.show();

@@ -110,7 +110,7 @@
                     android:id="@+id/pending_appprove"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:text="Pending"
+                    android:text=""
                     android:textColor="#CCCCCC"
                     android:visibility="gone"
                     android:layout_alignParentEnd="true"

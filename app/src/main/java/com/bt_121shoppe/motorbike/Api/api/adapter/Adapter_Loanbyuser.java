@@ -237,9 +237,10 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     view.btn_cancel.setOnClickListener(v -> {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                         dialog.setTitle(R.string.cancel_loan)
+                                .setCancelable(false)
                                 .setMessage(R.string.delete_loan)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         try{
@@ -279,7 +280,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                                             });
                                         }catch (Exception e){Log.d("CAtchMessage",e.getMessage());}
                                     }
-                                }).setNegativeButton(android.R.string.no, null).show();
+                                }).setNegativeButton(R.string.cancel, null).show();
                     });
 
                     view.linearLayout.setOnClickListener(v -> {

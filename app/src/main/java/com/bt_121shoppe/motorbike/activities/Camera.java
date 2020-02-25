@@ -292,7 +292,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             category           = bundle.getInt("categoryID",0);
             type               = bundle.getInt("typeID",0);
             year               = bundle.getInt("yearID",0);
-            if(process_type != 1 && process_type != 2){
+            if(process_type != 1 && process_type != 2 && process_type!=3){
                 submit_post.setVisibility(View.VISIBLE);
                 bt_update.setVisibility(View.GONE);
                 category = bundle.getInt("category_post",0);
@@ -873,7 +873,9 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     startActivity(new Intent(Camera.this,Home.class));
                 }else if (process_type == 2 ){
                     finish();
-                }else finish();
+                }else if (process_type == 3){
+                    finish();
+                } else finish();
             }
         });
         builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {

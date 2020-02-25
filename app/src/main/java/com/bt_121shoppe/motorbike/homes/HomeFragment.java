@@ -159,14 +159,15 @@ public class HomeFragment extends Fragment {
         best_match.setOnClickListener(v -> {
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.best_match_dialog,null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+            bottomSheetDialog.setCanceledOnTouchOutside(false);
             bottomSheetDialog.setContentView(dialogView);
             bottomSheetDialog.show();
             ImageView close = dialogView.findViewById(R.id.icon_close);
             RadioGroup group = dialogView.findViewById(R.id.radio_group);
-            RadioButton radioButton1 = dialogView.findViewById(R.id.new_ads);
-            RadioButton radioButton2 = dialogView.findViewById(R.id.most_hit_ads);
-            RadioButton radioButton3 = dialogView.findViewById(R.id.low_to_high);
-            RadioButton radioButton4 = dialogView.findViewById(R.id.high_to_low);
+//            RadioButton radioButton1 = dialogView.findViewById(R.id.new_ads);
+//            RadioButton radioButton2 = dialogView.findViewById(R.id.most_hit_ads);
+//            RadioButton radioButton3 = dialogView.findViewById(R.id.low_to_high);
+//            RadioButton radioButton4 = dialogView.findViewById(R.id.high_to_low);
             Button ok = dialogView.findViewById(R.id.btn_ok);
             close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
             group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
