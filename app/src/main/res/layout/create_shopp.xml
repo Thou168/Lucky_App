@@ -48,7 +48,7 @@
             android:textSize="16sp"
             android:textColor="@color/white"
             android:background="@drawable/button_dealer"
-            android:text="Add" />
+            android:text="@string/add" />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

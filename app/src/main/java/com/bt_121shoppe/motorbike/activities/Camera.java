@@ -3426,7 +3426,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     public void onItemClick(String item) {
         tvCondition.setText(item);
         if (category == 2){
-            if (item.equals("Used") || item.equals("ប្រើ")) {
+            if (item.equals("Used") || item.equals("ប្រើប្រាស់រួច")) {
                 layout_estimate.setVisibility(View.VISIBLE);
             }else {
                 layout_estimate.setVisibility(View.GONE);

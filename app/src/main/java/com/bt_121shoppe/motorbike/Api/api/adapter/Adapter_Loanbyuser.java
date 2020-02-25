@@ -284,11 +284,16 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     });
 
                     view.linearLayout.setOnClickListener(v -> {
-                        Intent intent = new Intent(mContext, Detail_new_post_java.class);
-                        intent.putExtra("id",Integer.parseInt(loanid));
+                        Intent intent = new Intent(mContext, Create_Load.class);
                         intent.putExtra("LoanEdit",true);
-                        intent.putExtra("ID",postid);
+                        intent.putExtra("LoanID",Integer.parseInt(loanid));
+                        intent.putExtra("product_id",postid);
                         mContext.startActivity(intent);
+//                        Intent intent = new Intent(mContext, Detail_new_post_java.class);
+//                        intent.putExtra("id",Integer.parseInt(loanid));
+//                        intent.putExtra("LoanEdit",true);
+//                        intent.putExtra("ID",postid);
+//                        mContext.startActivity(intent);
                     });
 
                     view.btn_edit.setOnClickListener(v -> {

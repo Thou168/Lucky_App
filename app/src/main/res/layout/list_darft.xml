@@ -37,5 +37,22 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </ScrollView>
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_marginTop="80dp"
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </ProgressBar>
+    <TextView
+        android:visibility="gone"
+        android:fontFamily="@font/opensans_regular"
+        android:textColor="@color/loan_pening"
+        android:id="@+id/text"
+        android:text="@string/no_result"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 
 </LinearLayout>
