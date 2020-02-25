@@ -159,60 +159,85 @@ public class three extends Fragment {
                     public void onFailure(Call<loan_item> call, Throwable t) { }
                 });
             }else {
-                draft_name.setText(R.string.list_draft);
+                draft_name.setHint(R.string.list_draft);
             }
             clearDialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> clearDialog.dismiss());
             clearDialogView.findViewById(R.id.btnSave).setOnClickListener(v -> {
                 if (itemTwo != null) {
                     if (mDraft != null) {
                         Service api = Client.getClient().create(Service.class);
-                        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
-                                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
-                                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,
-                                itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
-                                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,
-                                mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),
-                                itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),
-                                Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),
-                                itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),
-                                Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()), draft_name.getText().toString(), true);
-                        Call<loan_item> call = api.getEditLoan(mLoanID,loanItem,basicEncode);
+                        loanItem = new loan_item(itemTwo.getLoan_Amount(), 0, Integer.parseInt(itemTwo.getLoan_Term()),
+                                itemTwo.getItemOne().getTotal_Income(), itemTwo.getItemOne().getTotal_Expense(), 9, 1,
+                                pk, itemTwo.getItemOne().getmProductId(), pk, pk, null, itemTwo.getItemOne().getName(), null,
+                                0, itemTwo.getItemOne().getJob(), itemTwo.getItemOne().getPhone_Number(), itemTwo.getItemOne().getProvince(),
+                                itemTwo.getItemOne().getDistrict(), itemTwo.getItemOne().getCommune(), itemTwo.getItemOne().getVillage(), mCard_ID,
+                                mFamily_Book, mCard_Work, mPhoto, itemTwo.getItemOne().getmProvinceID(), itemTwo.getItemOne().getJob(),
+                                itemTwo.getItemOne().getJob_Period(), itemTwo.getLoan_RepaymentType(), itemTwo.getDeposit_Amount(), itemTwo.getBuying_InsuranceProduct(),
+                                itemTwo.getAllow_visito_home(), Integer.parseInt(itemTwo.getNumber_institution()), mCard_ID1, mFamily_Book1, mPhoto1, mCard_Work1,
+                                itemTwo.getItemOne().getRelationship(), itemTwo.getItemOne().getCo_borrower_Job(), itemTwo.getItemOne().getCo_Job_Period(),
+                                itemTwo.getItemOne().isCo_borrower(), Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()), draft_name.getText().toString(), true);
+                        Call<loan_item> call = api.setCreateLoan(loanItem, basicEncode);
                         call.enqueue(new Callback<loan_item>() {
                             @Override
                             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-                                if (!response.isSuccessful()){
-                                    try {
-                                        Log.d("ERROR",response.errorBody().string());
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }else {
-                                    LayoutInflater factory = LayoutInflater.from(getContext());
-                                    final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
-                                    final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
-                                    clearDialog.setView(clearDialogView);
-                                    TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
-                                    Mssloan.setText(R.string.loan_edit_draft);
-                                    Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
-                                    btnYes.setText(R.string.yes_leave);
-                                    Button btnNo = clearDialogView.findViewById(R.id.button_negative);
-                                    btnNo.setText(R.string.no_leave);
-                                    clearDialogView.findViewById(R.id.button_negative).setOnClickListener(v -> {
-                                        clearDialog.dismiss();
-                                    });
-                                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
-                                        mProgress.show();
-                                        Intent intent = new Intent(getContext(), Draft_loan.class);
-                                        startActivity(intent);
-                                    });
-                                    mProgress.dismiss();
-                                    clearDialog.show();
+                                if (response.isSuccessful()) {
+                                    SaveDraftDialog();
                                 }
                             }
+
                             @Override
                             public void onFailure(Call<loan_item> call, Throwable t) {
+                                Log.d("Error on Failure", t.getMessage());
                             }
                         });
+//                        Service api = Client.getClient().create(Service.class);
+//                        loanItem = new loan_item(itemTwo.getLoan_Amount(),0,Integer.parseInt(itemTwo.getLoan_Term()),
+//                                itemTwo.getItemOne().getTotal_Income(),itemTwo.getItemOne().getTotal_Expense(),9,1,
+//                                pk,itemTwo.getItemOne().getmProductId(),pk,pk,null,itemTwo.getItemOne().getName(),null,0,
+//                                itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getPhone_Number(),itemTwo.getItemOne().getProvince(),
+//                                itemTwo.getItemOne().getDistrict(),itemTwo.getItemOne().getCommune(),itemTwo.getItemOne().getVillage(),mCard_ID,mFamily_Book,
+//                                mCard_Work,mPhoto,itemTwo.getItemOne().getmProvinceID(),itemTwo.getItemOne().getJob(),itemTwo.getItemOne().getJob_Period(),
+//                                itemTwo.getLoan_RepaymentType(),itemTwo.getDeposit_Amount(),itemTwo.getBuying_InsuranceProduct(),itemTwo.getAllow_visito_home(),
+//                                Integer.parseInt(itemTwo.getNumber_institution()),mCard_ID1,mFamily_Book1,mPhoto1,mCard_Work1,itemTwo.getItemOne().getRelationship(),
+//                                itemTwo.getItemOne().getCo_borrower_Job(),itemTwo.getItemOne().getCo_Job_Period(),itemTwo.getItemOne().isCo_borrower(),
+//                                Float.parseFloat(itemTwo.getMonthly_AmountPaid_Institurion()), draft_name.getText().toString(), true);
+//                        Call<loan_item> call = api.getEditLoan(mLoanID,loanItem,basicEncode);
+//                        call.enqueue(new Callback<loan_item>() {
+//                            @Override
+//                            public void onResponse(Call<loan_item> call, Response<loan_item> response) {
+//                                if (!response.isSuccessful()){
+//                                    try {
+//                                        Log.d("ERROR",response.errorBody().string());
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }else {
+//                                    LayoutInflater factory = LayoutInflater.from(getContext());
+//                                    final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+//                                    final AlertDialog clearDialog = new AlertDialog.Builder(getContext()).create();
+//                                    clearDialog.setView(clearDialogView);
+//                                    TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
+//                                    Mssloan.setText(R.string.loan_edit_draft);
+//                                    Button btnYes =  clearDialogView.findViewById(R.id.button_positive);
+//                                    btnYes.setText(R.string.yes_leave);
+//                                    Button btnNo = clearDialogView.findViewById(R.id.button_negative);
+//                                    btnNo.setText(R.string.no_leave);
+//                                    clearDialogView.findViewById(R.id.button_negative).setOnClickListener(v -> {
+//                                        clearDialog.dismiss();
+//                                    });
+//                                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
+//                                        mProgress.show();
+//                                        Intent intent = new Intent(getContext(), Draft_loan.class);
+//                                        startActivity(intent);
+//                                    });
+//                                    mProgress.dismiss();
+//                                    clearDialog.show();
+//                                }
+//                            }
+//                            @Override
+//                            public void onFailure(Call<loan_item> call, Throwable t) {
+//                            }
+//                        });
                     }else {
                         Service api = Client.getClient().create(Service.class);
                         loanItem = new loan_item(itemTwo.getLoan_Amount(), 0, Integer.parseInt(itemTwo.getLoan_Term()),
@@ -496,6 +521,7 @@ public class three extends Fragment {
 
     private void MaterialDialog(){
         androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
+        alertDialog.setCancelable(false);
         alertDialog.setTitle(getString(R.string.title_create_loan));
         alertDialog.setMessage(getString(R.string.loan_message));
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
@@ -510,6 +536,7 @@ public class three extends Fragment {
     }
     private void SaveDraftDialog(){
         androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
+        alertDialog.setCancelable(false);
         alertDialog.setMessage(getString(R.string.save_draft_message));
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
             Intent intent = new Intent(getContext(), Detail_new_post_java.class);

@@ -955,8 +955,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     private void getMyLoan(){
         Log.e("Encode",""+encodeAuth);
         ArrayList<Integer> IDPOST = new ArrayList<>();
-        ArrayList<Boolean> IS_DRAFT = new ArrayList<>();
-        String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/";
+        String URL_ENDPOINT = ConsumeAPI.BASE_URL+"loanbyuser/?is_draft=false";
         OkHttpClient client= new OkHttpClient();
         Request request = new Request.Builder()
                 .url(URL_ENDPOINT)
@@ -986,8 +985,6 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int post_id = object.getInt("post");
                                 int re_status = object.getInt("record_status");
-                                boolean isDraft = object.getBoolean("is_draft");
-                                IS_DRAFT.add(isDraft);
 //                                Log.d("Status Id123", String.valueOf(post_id));
 //                                Log.d("Status 123",postId.toString());
                                 if (re_status != 12)

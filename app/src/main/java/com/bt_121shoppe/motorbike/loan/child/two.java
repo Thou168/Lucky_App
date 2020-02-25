@@ -171,7 +171,7 @@ public class two extends Fragment {
 
         mLoan_amount = view.findViewById(R.id.etLoan_amount);
         mLoan_Term = view.findViewById(R.id.etBorrowing_period);
-        mLoan_Term.setFilters(new InputFilter[]{new InputFilterMinMax(1,1000)});
+        mLoan_Term.setFilters(new InputFilter[]{new InputFilterMinMax(1,100000000)});
         mloan_RepaymentType       = view.findViewById(R.id.etPayment_Method);
         mNumber_institution       = view.findViewById(R.id.etNumber_debt);
         mMonthly_Amount_Paid      = view.findViewById(R.id.et_monthly_payment);
