@@ -61,6 +61,7 @@ public class two extends Fragment {
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
     private static final String DRAFT = "draft";
+    private static final String LOAN_HISTORY = "loan_history";
 
     public  SendItemTwo SM;
     private SharedPreferences preferences;
@@ -77,7 +78,7 @@ public class two extends Fragment {
     private item_two itemTwo;
     private AlertDialog dialog;
     private String basicEncode;
-    private String mPrice,mDraft;
+    private String mPrice,mDraft,loan_history;
     private List<draft_Item> list_darft;
     private String[] values1 = {"monthly annuity repayment","monthly declining repayment"};
     private int mProductID,mLoanID;
@@ -85,7 +86,7 @@ public class two extends Fragment {
     private int pk;
     private boolean mVisit_home,mBuy_product_insurance,check_return;
     private boolean mFromLoan,bLoand_amount,bLoan_Period,bPayment_Method,bLoan_Contributions,bNumber_institution,bMonthly_Amount_Paid,bResidence,bProduct_insurance;
-    public static two newInstance(int number,String price,int loanid,boolean fromLoan,String Draft) {
+    public static two newInstance(int number,String price,int loanid,boolean fromLoan,String Draft,String loan_history) {
         two fragment = new two();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
@@ -93,6 +94,7 @@ public class two extends Fragment {
         args.putInt(LOANID,loanid);
         args.putBoolean(FROMLOAN,fromLoan);
         args.putString(DRAFT,Draft);
+        args.putString(LOAN_HISTORY,loan_history);
         fragment.setArguments(args);
         return fragment;
     }
@@ -112,7 +114,8 @@ public class two extends Fragment {
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
             mDraft = args.getString(DRAFT);
-            Log.e("Fragment Two",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+mDraft);
+            loan_history = args.getString(LOAN_HISTORY);
+            Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+","+mDraft+","+loan_history);
         }
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
@@ -352,97 +355,110 @@ public class two extends Fragment {
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-                if (!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
-                }
+                } else {
 
-                mLoan_amount.setText(cuteString(String.valueOf(response.body().getLoan_amount()),0));
-                mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
-                mLoan_Contributions.setText(String.valueOf(response.body().getLoan_deposit_amount()));
-                mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)response.body().getLoan_amount()+(int)response.body().getLoan_deposit_amount())});
-                mLoan_amount.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (!s.toString().isEmpty()&& s.toString().equals(mLoan_amount.getText().toString())){
-                            mLoan_Contributions.setText("0");
-                        }else mLoan_Contributions.setText(null);
-                    }
-                    @Override
-                    public void afterTextChanged(Editable s) { }
-                });
-                double price = response.body().getLoan_amount() + response.body().getLoan_deposit_amount();
-                mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
-                mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
-
-                mLoan_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if (!hasFocus) {
-                            mLoan_Contributions.setText(cuteString(String.valueOf(price - Double.parseDouble(mLoan_amount.getText().toString())),0));
+                    mLoan_amount.setText(cuteString(String.valueOf(response.body().getLoan_amount()), 0));
+                    mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
+                    mLoan_Contributions.setText(String.valueOf(response.body().getLoan_deposit_amount()));
+                    mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int) response.body().getLoan_amount() + (int) response.body().getLoan_deposit_amount())});
+                    mLoan_amount.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                         }
-                    }
-                });
 
-                if (response.body().isIs_product_insurance()){
-                    mBuy_product_insurance= true;
-                    mProduct_insurance.check(R.id.radio1_product_insurance);
-                    rdProduct_insurance.toggle();
-                }else {
-                    mBuy_product_insurance= false;
-                    mProduct_insurance.check(R.id.radio2_product_insurance);
-                    rdProduct_insurance.toggle();
-                }
-                if (response.body().isIs_home_visit()){
-                    mVisit_home= true;
-                    mResidence.check(R.id.radio1_residence);
-                    rdResidence.toggle();
-                }else {
-                    mVisit_home= false;
-                    mResidence.check(R.id.radio2_residence);
-                    rdResidence.toggle();
-                }
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (!s.toString().isEmpty() && s.toString().equals(mLoan_amount.getText().toString())) {
+                                mLoan_Contributions.setText("0");
+                            } else mLoan_Contributions.setText(null);
+                        }
 
-                mLoan_Contributions.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                        }
+                    });
+                    double price = response.body().getLoan_amount() + response.body().getLoan_deposit_amount();
+                    mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price), 0)))});
+                    mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price), 0)))});
 
-                        if (!s.toString().isEmpty()&&!s.toString().equals("0")){
-                            mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(15)});
-                            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price),0)))});
-                            mLoan_amount.setText(cuteString(String.valueOf(price - Double.parseDouble(s.toString())),0));
+                    mLoan_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if (!hasFocus) {
+                                mLoan_Contributions.setText(cuteString(String.valueOf(price - Double.parseDouble(mLoan_amount.getText().toString())), 0));
+                            }
                         }
+                    });
+
+                    if (response.body().isIs_product_insurance()) {
+                        mBuy_product_insurance = true;
+                        mProduct_insurance.check(R.id.radio1_product_insurance);
+                        rdProduct_insurance.toggle();
+                    } else {
+                        mBuy_product_insurance = false;
+                        mProduct_insurance.check(R.id.radio2_product_insurance);
+                        rdProduct_insurance.toggle();
                     }
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        if (s.toString().equals("0") || s.toString().equals("0.0")){
-                            mLoan_Contributions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
+                    if (response.body().isIs_home_visit()) {
+                        mVisit_home = true;
+                        mResidence.check(R.id.radio1_residence);
+                        rdResidence.toggle();
+                    } else {
+                        mVisit_home = false;
+                        mResidence.check(R.id.radio2_residence);
+                        rdResidence.toggle();
+                    }
+
+                    mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                         }
-                    }
-                });
-                mloan_RepaymentType.setText(response.body().getLoan_repayment_type());
-                String repay = response.body().getLoan_repayment_type();
-                if (repay.equals("monthly annuity repayment")){
-                    mloan_RepaymentType.setText(getString(R.string.monthly_annuity_repay));
-                }else mloan_RepaymentType.setText(getString(R.string.monlthly_declining_repay));
-                mLoan_Contributions.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (!s.toString().isEmpty()&&!mLoan_amount.getText().toString().isEmpty()){
-                            mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0,(int)response.body().getLoan_amount()+(int)response.body().getLoan_deposit_amount()-Integer.parseInt(mLoan_amount.getText().toString()))});
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            if (!s.toString().isEmpty() && !s.toString().equals("0")) {
+                                mLoan_Contributions.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+                                mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.parseInt(cuteString(String.valueOf(price), 0)))});
+                                mLoan_amount.setText(cuteString(String.valueOf(price - Double.parseDouble(s.toString())), 0));
+                            }
                         }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (s.toString().equals("0") || s.toString().equals("0.0")) {
+                                mLoan_Contributions.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
+                            }
+                        }
+                    });
+                    mloan_RepaymentType.setText(response.body().getLoan_repayment_type());
+                    String repay = response.body().getLoan_repayment_type();
+                    if (repay.equals("monthly annuity repayment")) {
+                        mloan_RepaymentType.setText(getString(R.string.monthly_annuity_repay));
+                    } else
+                        mloan_RepaymentType.setText(getString(R.string.monlthly_declining_repay));
+                    mLoan_Contributions.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (!s.toString().isEmpty() && !mLoan_amount.getText().toString().isEmpty()) {
+                                mLoan_Contributions.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int) response.body().getLoan_amount() + (int) response.body().getLoan_deposit_amount() - Integer.parseInt(mLoan_amount.getText().toString()))});
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                        }
+                    });
+                    mNumber_institution.setText(String.valueOf(response.body().getLending_intitution_owned()));
+                    if (!(response.body().getLending_intitution_owned() == 0)) {
+                        mMonthly_Amount_Paid.setText(String.valueOf(response.body().getAmount_paid_intitution()));
                     }
-                    @Override
-                    public void afterTextChanged(Editable s) { }
-                });
-                mNumber_institution.setText(String.valueOf(response.body().getLending_intitution_owned()));
-                if (!(response.body().getLending_intitution_owned()==0)){
-                    mMonthly_Amount_Paid.setText(String.valueOf(response.body().getAmount_paid_intitution()));
                 }
             }
             @Override

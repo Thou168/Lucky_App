@@ -72,6 +72,7 @@ public class one extends Fragment{
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
     private static final String DRAFT = "draft";
+    private static final String LOAN_HISTORY = "loan_history";
 
     public  SendItemOne SM;
     private Button mBtnNext;
@@ -94,7 +95,7 @@ public class one extends Fragment{
     private SharedPreferences preferences;
     private String username,password,Encode;
     private String basicEncode,currentLanguage;
-    private String mPrice,mDraft;
+    private String mPrice,mDraft,loan_history;
     private String[] provine,district,commune,village;
     private String[] Job = {"seller","state staff","private company staff","service provider","other",""};
     private String[] Rela = {"husband", "wife", "father", "mother", "son","daugther","brother","sister","other",""};
@@ -108,7 +109,7 @@ public class one extends Fragment{
     private boolean bname,bphone,baddress,bJob,bJob_Period,bRelationship,bco_Relationship,bCo_borrower_Job,bCo_Job_Period,bTotal_Income,bmTotal_Expense;
     private boolean bNet_income,bDistrict,bCommune,bVillage;
 
-    public static one newInstance(int number,String price,int loanid,boolean fromLoan,String Draft) {
+    public static one newInstance(int number,String price,int loanid,boolean fromLoan,String Draft,String loan_history) {
         one fragment = new one();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
@@ -116,6 +117,7 @@ public class one extends Fragment{
         args.putInt(LOANID,loanid);
         args.putBoolean(FROMLOAN,fromLoan);
         args.putString(DRAFT,Draft);
+        args.putString(LOAN_HISTORY,loan_history);
         fragment.setArguments(args);
         return fragment;
     }
@@ -135,7 +137,8 @@ public class one extends Fragment{
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
             mDraft = args.getString(DRAFT);
-            Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
+            loan_history = args.getString(LOAN_HISTORY);
+            Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+","+mDraft+","+loan_history);
         }
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
@@ -698,63 +701,66 @@ public class one extends Fragment{
         call.enqueue(new Callback<loan_item>() {
             @Override
             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
-                if (!response.isSuccessful()){
-                    Log.d("5555555555555555",response.code()+"");
-                }
-                mName.setText(response.body().getUsername());
-                mPhone_Number.setText(response.body().getTelephone());
-                mDistrict.setText(response.body().getDistrmict());
-                mCommune.setText(response.body().getCommune());
-                mVillage.setText(response.body().getVillage());
-                for (int i=0;i<Job.length;i++){
-                    if (response.body().getJob().equals(Job[i])){
-                        mJob.setText(rJob[i]);
-                        indextJom = i;
-                    }
-                }
-                mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
-                if (response.body().ismIs_Co_borrower()){
-                    mCo_borrower.check(R.id.radio1);
-                    radio1.toggle();
-                    for (int i=0;i<rRela.length;i++){
-                        if (response.body().getmRelationship().equals(Rela[i].toLowerCase())) {
-                            mRelationship.setText(rRela[i]);
-                            indexRela = i;
+                if (!response.isSuccessful()) {
+                    Log.d("5555555555555555", response.code() + "");
+                } else {
+                    mName.setText(response.body().getUsername());
+                    mPhone_Number.setText(response.body().getTelephone());
+                    mDistrict.setText(response.body().getDistrmict());
+                    mCommune.setText(response.body().getCommune());
+                    mVillage.setText(response.body().getVillage());
+                    for (int i = 0; i < Job.length; i++) {
+                        if (response.body().getJob().equals(Job[i])) {
+                            mJob.setText(rJob[i]);
+                            indextJom = i;
                         }
                     }
-                    for (int i=0;i<rJob.length;i++){
-                        if (response.body().getmCoborrower_job().equals(Job[i].toLowerCase())){
-                            mCo_borrower_Job.setText(rJob[i]);
-                            indexCoborow_job = i;
+                    mJob_Period.setText(String.valueOf(response.body().getBorrower_job_period()));
+                    if (response.body().ismIs_Co_borrower()) {
+                        mCo_borrower.check(R.id.radio1);
+                        radio1.toggle();
+                        for (int i = 0; i < rRela.length; i++) {
+                            if (response.body().getmRelationship().equals(Rela[i].toLowerCase())) {
+                                mRelationship.setText(rRela[i]);
+                                indexRela = i;
+                            }
                         }
+                        for (int i = 0; i < rJob.length; i++) {
+                            if (response.body().getmCoborrower_job().equals(Job[i].toLowerCase())) {
+                                mCo_borrower_Job.setText(rJob[i]);
+                                indexCoborow_job = i;
+                            }
+                        }
+                        mCo_Job_Period.setText(String.valueOf(response.body().getmCoborrower_job_period()));
+                    } else {
+                        mCo_borrower.check(R.id.radio2);
+                        radio2.toggle();
+                        mRelationship.setText(null);
+                        mCo_Job_Period.setText("0");
                     }
-                    mCo_Job_Period.setText(String.valueOf(response.body().getmCoborrower_job_period()));
-                }else {
-                    mCo_borrower.check(R.id.radio2);
-                    radio2.toggle();
-                    mRelationship.setText(null);
-                    mCo_Job_Period.setText("0");
-                }
 
-                mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
-                mTotal_Expense.setText(String.valueOf(response.body().getAverage_expense()));
-                mNet_Income.setText(response.body().getAverage_income()- response.body().getAverage_expense()+"");
-                mProvinceID = response.body().getProvince_id();
-                Call<Province> call1 = api.getProvince(response.body().getProvince_id());
-                call1.enqueue(new Callback<Province>() {
-                    @Override
-                    public void onResponse(Call<Province> call, Response<Province> response) {
-                        if (!response.isSuccessful()){
-                            Log.e("ONRESPONSE Province", String.valueOf(response.code()));
+                    mTotal_Income.setText(String.valueOf(response.body().getAverage_income()));
+                    mTotal_Expense.setText(String.valueOf(response.body().getAverage_expense()));
+                    mNet_Income.setText(response.body().getAverage_income() - response.body().getAverage_expense() + "");
+                    mProvinceID = response.body().getProvince_id();
+                    Call<Province> call1 = api.getProvince(response.body().getProvince_id());
+                    call1.enqueue(new Callback<Province>() {
+                        @Override
+                        public void onResponse(Call<Province> call, Response<Province> response) {
+                            if (!response.isSuccessful()) {
+                                Log.e("ONRESPONSE Province", String.valueOf(response.code()));
+                            }
+                            if (currentLanguage.equals("en"))
+                                mAddress.setText(response.body().getProvince());
+                            else mAddress.setText(response.body().getProvince_kh());
                         }
-                        if (currentLanguage.equals("en"))
-                        mAddress.setText(response.body().getProvince());
-                        else  mAddress.setText(response.body().getProvince_kh());
-                    }
-                    @Override
-                    public void onFailure(Call<Province> call, Throwable t) { }
-                });
 
+                        @Override
+                        public void onFailure(Call<Province> call, Throwable t) {
+                        }
+                    });
+
+                }
             }
 
             @Override

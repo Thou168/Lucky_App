@@ -41,7 +41,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     private AlertDialog dialog;
     private boolean From_Loan;
     private int product_id,mCardID,mLoandID;
-    private String price,draft;
+    private String price,draft,loan_history;
     private Button btnList_Draft;
     String currentLanguage;
     @Override
@@ -66,6 +66,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         From_Loan = intent.getBooleanExtra("LoanEdit",false);
         price = intent.getStringExtra("price");
         draft = intent.getStringExtra("draft");
+        loan_history = intent.getStringExtra("loan_history");
 
         back = findViewById(R.id.tv_back);
         back.setOnClickListener(v -> onBackPressed());
@@ -78,6 +79,9 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
             Intent intent1 = new Intent(Create_Load.this,Draft_loan.class);
             startActivity(intent1);
         });
+        if (loan_history != null){
+            btnList_Draft.setVisibility(View.GONE);
+        }
 
     }
     public void setBack(int position){
@@ -182,13 +186,13 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         public Fragment getItem(int position) {
             Fragment fragment = null;
             if (position == 0) {
-                fragment = new one().newInstance(product_id,price,mLoandID,From_Loan,draft);
+                fragment = new one().newInstance(product_id,price,mLoandID,From_Loan,draft,loan_history);
 
             } else if (position == 1) {
-                fragment = new two().newInstance(product_id,price,mLoandID,From_Loan,draft);
+                fragment = new two().newInstance(product_id,price,mLoandID,From_Loan,draft,loan_history);
 
             } else if (position == 2) {
-                fragment = new three().newInstance(product_id,price,mLoandID,From_Loan,draft);
+                fragment = new three().newInstance(product_id,price,mLoandID,From_Loan,draft,loan_history);
             }
             return fragment;
         }

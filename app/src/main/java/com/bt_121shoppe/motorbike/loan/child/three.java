@@ -53,6 +53,7 @@ public class three extends Fragment {
     private static final String LOANID = "loanid";
     private static final String FROMLOAN = "fromloan";
     private static final String DRAFT = "draft";
+    private static final String LOAN_HISTORY = "loan_history";
 
     private Button mBtnSubmit,mBtnSaveDraft;
     private RadioGroup etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
@@ -65,14 +66,14 @@ public class three extends Fragment {
     private LinearLayout layout_coborrower;
     private loan_item loanItem;
     private String basicEncode;
-    private String mPrice,mDraft;
+    private String mPrice,mDraft,loan_history;
     private List<draft_Item> list_darft;
     private int mProductID,mLoanID;
     private int pk;
     private int index = 3;
     private boolean mFromLoan;
     private boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
-    public static three newInstance(int number,String price,int loanid,boolean fromLoan,String Draft) {
+    public static three newInstance(int number,String price,int loanid,boolean fromLoan,String Draft,String loan_history) {
         three fragment = new three();
         Bundle args = new Bundle();
         args.putInt(ARG_NUMBER, number);
@@ -80,6 +81,7 @@ public class three extends Fragment {
         args.putInt(LOANID,loanid);
         args.putBoolean(FROMLOAN,fromLoan);
         args.putString(DRAFT,Draft);
+        args.putString(LOAN_HISTORY,loan_history);
         fragment.setArguments(args);
         return fragment;
     }
@@ -100,7 +102,8 @@ public class three extends Fragment {
             mLoanID = args.getInt(LOANID);
             mFromLoan = args.getBoolean(FROMLOAN);
             mDraft = args.getString(DRAFT);
-            Log.e("Fragment Three",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan);
+            loan_history = args.getString(LOAN_HISTORY);
+            Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+","+mDraft+","+loan_history);
         }
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
@@ -127,6 +130,11 @@ public class three extends Fragment {
         mProgress.setMessage(getString(R.string.update));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+
+        if (loan_history != null){
+            mBtnSaveDraft.setVisibility(View.GONE);
+            mBtnSubmit.setVisibility(View.GONE);
+        }
 
         Paper.init(getContext());
         language = Paper.book().read("language");

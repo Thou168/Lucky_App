@@ -949,15 +949,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                                 String phone = object.getString("contact_phone");
 
-                                if (category == 2) {
-                                    type = 3;
-                                    tvType_elec.setVisibility(View.GONE);
-                                    tvType_cate.setVisibility(View.GONE);
-                                } else {
-                                    tvType_elec.setVisibility(View.VISIBLE);
-                                    tvType_cate.setVisibility(View.VISIBLE);
-                                }
-
                                 model = object.getInt("modeling");
                                 mmodel = object.getInt("modeling");
                                 year = object.getInt("year");
@@ -1044,13 +1035,29 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         }
 
                                         String condition = strCondition.substring(0, 1).toUpperCase() + strCondition.substring(1);
-                                        if (condition.equals("New")){
-                                            tvCondition.setText(R.string.newl);
-                                            condition1 = "new";
-                                        }else if (condition.equals("Used")){
-                                            tvCondition.setText(R.string.used);
-                                            condition1 = "used";
-                                            layout_estimate.setVisibility(View.VISIBLE);
+                                        if (category == 2) {
+                                            type = 3;
+                                            tvType_elec.setVisibility(View.GONE);
+                                            tvType_cate.setVisibility(View.GONE);
+                                            if (condition.equals("New")){
+                                                tvCondition.setText(R.string.newl);
+                                                condition1 = "new";
+                                            }else if (condition.equals("Used")){
+                                                tvCondition.setText(R.string.used);
+                                                condition1 = "used";
+                                                layout_estimate.setVisibility(View.VISIBLE);
+                                            }
+                                        } else {
+                                            tvType_elec.setVisibility(View.VISIBLE);
+                                            tvType_cate.setVisibility(View.VISIBLE);
+                                            if (condition.equals("New")){
+                                                tvCondition.setText(R.string.newl);
+                                                condition1 = "new";
+                                            }else if (condition.equals("Used")){
+                                                tvCondition.setText(R.string.used);
+                                                condition1 = "used";
+                                                layout_estimate.setVisibility(View.GONE);
+                                            }
                                         }
 
                                         Log.e("color",""+strColor);

@@ -2,6 +2,7 @@ package com.bt_121shoppe.motorbike.Api.api.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
@@ -79,12 +82,20 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
     @Override
     public void onBindViewHolder(final ViewHolder view, final int position) {
         final Item_loan model = datas.get(position);
-
+        int loanid = (int) model.getId();
         int postid=(int)model.getPost();
         //view.txtview.setVisibility(View.GONE);
         //view.userview.setVisibility(View.GONE);
         view.relativeLayout.setVisibility(View.GONE);
         //view.item_type.setVisibility(View.GONE);
+        view.linearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, Create_Load.class);
+            intent.putExtra("LoanEdit",true);
+            intent.putExtra("LoanID",loanid);
+            intent.putExtra("product_id",postid);
+            intent.putExtra("loan_history","loan_history");
+            mContext.startActivity(intent);
+        });
         try{
             Service api = Client.getClient().create(Service.class);
             Call<Item> itemCall = api.getDetailpost(postid,basic_Encode);
@@ -275,6 +286,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
         TextView title,cost,date,item_type,txtview,userview,itemtype,textViewStatus;
         ImageView imageView;
         RelativeLayout relativeLayout;
+        LinearLayout linearLayout;
         CircleImageView imgUserProfile;
         TextView tvColor1,tvColor2;
         TextView cate;
@@ -288,6 +300,7 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
             userview = view.findViewById(R.id.user_view);
             item_type = view.findViewById(R.id.item_type);
             relativeLayout = view.findViewById(R.id.relative);
+            linearLayout = view.findViewById(R.id.linearLayout);
             imgUserProfile=view.findViewById(R.id.img_user);
             textViewStatus=view.findViewById(R.id.pending_appprove);
             tvColor1=view.findViewById(R.id.tv_color1);
