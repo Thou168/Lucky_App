@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +64,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView txtCountView;
         CircleImageView imgShopProfile;
         TextView txtRateNumber;
+        RatingBar ratingBar;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -70,6 +73,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             txtCountView=itemView.findViewById(R.id.view);
             imgShopProfile=itemView.findViewById(R.id.imageview_shopprofile);
             txtRateNumber= itemView.findViewById(R.id.number_of_rate);
+            ratingBar= itemView.findViewById(R.id.rating_star);
         }
 
         @Override
@@ -86,7 +90,19 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             txtShopLocation.setText(mShop.getShop_address());
             Glide.with(itemView.getContext()).load(mShop.getShop_image()).placeholder(R.mipmap.ic_launcher_round).thumbnail(0.1f).into(imgShopProfile);
             txtCountView.setText(String.valueOf(mShop.getShop_view()));
+
+//            double d = Double.parseDouble(mShop.getShop_rate());
+//            DecimalFormat precision = new DecimalFormat("0.0");
+
             txtRateNumber.setText(mShop.getShop_rate());
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//                    double numStar = Double.parseDouble(precision.format(d));
+//                    numStar = ratingBar.getNumStars();
+                }
+            });
+//            txtRateNumber.setText(d);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

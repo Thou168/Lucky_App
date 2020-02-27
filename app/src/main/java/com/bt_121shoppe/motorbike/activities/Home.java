@@ -26,8 +26,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -130,6 +134,8 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
     private ImageView search_homepage;
     boolean doubleBackToExitPressedOnce = true;
+    FrameLayout frameLayout;
+    LinearLayout linearLayout;
 
     private List<Slider> mImages=new ArrayList<>();
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -179,7 +185,23 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
         //
         mProgressbar=findViewById(R.id.progress_bar1);
+        frameLayout=findViewById(R.id.frameLayout);
         mNestedScrollView=findViewById(R.id.nestedScrollView);
+        linearLayout=findViewById(R.id.ll_page_container);
+        mNestedScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int height = mNestedScrollView.getHeight();
+                if (height!=0){
+//                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, height));
+//                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//                        mNestedScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                    } else {
+//                        mNestedScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                    }
+                }
+            }
+        });
 //        View headerView = mNavigationView.getHeaderView(0);
 //        mUserNameDrawer=headerView.findViewById(R.id.drawer_username);
 //        mProfileImageDrawer=headerView.findViewById(R.id.imageView);

@@ -687,6 +687,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     }else conditon_alert.setText("");
                     if (strColor.isEmpty() || strColor == null ){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
@@ -702,6 +703,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                     if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
@@ -799,6 +801,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     if (color == null ){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                         alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
+                        alertDialog.setCancelable(false);
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -813,6 +816,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                     if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
@@ -1654,6 +1658,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         }
 
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
+                                        alertDialog.setCancelable(false);
                                         alertDialog.setTitle(getString(R.string.title_post));
                                         alertDialog.setMessage(getString(R.string.post_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
@@ -1678,6 +1683,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setCancelable(false);
                                         alertDialog.setMessage(getString(R.string.post_fail_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
@@ -1700,6 +1706,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                 alertDialog.setTitle(getString(R.string.title_post));
+                                alertDialog.setCancelable(false);
                                 alertDialog.setMessage(getString(R.string.post_fail_message));
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
@@ -1725,6 +1732,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             Log.d("Failure:",mMessage );
                             AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                             alertDialog.setTitle(getString(R.string.title_post));
+                            alertDialog.setCancelable(false);
                             alertDialog.setMessage(getString(R.string.post_fail_message));
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                     new DialogInterface.OnClickListener() {
@@ -1746,6 +1754,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 public void run() {
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setTitle(getString(R.string.title_post));
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage(getString(R.string.post_fail_message));
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                             new DialogInterface.OnClickListener() {
@@ -2016,6 +2025,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         }
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setCancelable(false);
                                         alertDialog.setMessage(getString(R.string.waiting_approval));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
@@ -2038,6 +2048,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                     public void run() {
                                         AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                         alertDialog.setTitle(getString(R.string.title_post));
+                                        alertDialog.setCancelable(false);
                                         alertDialog.setMessage(getString(R.string.post_fail_message));
                                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
@@ -2058,6 +2069,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                                 alertDialog.setTitle(getString(R.string.title_post));
+                                alertDialog.setCancelable(false);
                                 alertDialog.setMessage(getString(R.string.post_fail_message));
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                         new DialogInterface.OnClickListener() {
@@ -2081,6 +2093,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         public void run() {
                             AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                             alertDialog.setTitle(getString(R.string.title_post));
+                            alertDialog.setCancelable(false);
                             alertDialog.setMessage(getString(R.string.post_fail_message));
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                     new DialogInterface.OnClickListener() {
@@ -2102,6 +2115,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 public void run() {
                     AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
                     alertDialog.setTitle(getString(R.string.title_post));
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage(getString(R.string.post_fail_message));
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                             new DialogInterface.OnClickListener() {
@@ -2798,6 +2812,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private void selectImage() {
         BottomSheetDialog bottomSheet = new BottomSheetDialog(Camera.this);
         View sheetview = getLayoutInflater().inflate(R.layout.choose_image,null,false);
+        bottomSheet.setCanceledOnTouchOutside(false);
         bottomSheet.setContentView(sheetview);
         bottomSheet.show();
         TextView tv_camera = sheetview.findViewById(R.id.tv_camera);
@@ -3143,6 +3158,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.permission));
+        builder.setCancelable(false);
         builder.setMessage(getString(R.string.setting_permission));
         builder.setPositiveButton(getString(R.string.go_setting), (dialog, which) -> {
             dialog.cancel();
@@ -3402,6 +3418,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
     public void showBottomCondition(View view) {
         BottomChooseCondition addPhotoBottomDialogFragment = BottomChooseCondition.newInstance();
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseCondition.TAG);
     }
     public void showBottomYear(View view) {
@@ -3422,10 +3439,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     }
     public void showBottomType(View view) {
         BottomChooseType addPhotoBottomDialogFragment = BottomChooseType.newInstance();
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseType.TAG);
     }
     public void showBottomTypeCate(View view) {
         BottomChooseTypeCate addPhotoBottomDialogFragment = BottomChooseTypeCate.newInstance();
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseTypeCate.TAG);
     }
 

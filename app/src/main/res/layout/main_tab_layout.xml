@@ -142,8 +142,7 @@
                 android:id="@+id/profile_cover_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:padding="15dp">
                 <RelativeLayout
                     android:id="@+id/relative_profile"
                     android:layout_width="wrap_content"

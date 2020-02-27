@@ -77,7 +77,6 @@ public class HomeApiFragment extends Fragment {
     private ProgressBar mBestDealProgressbar,mAllPostProgressbar;
     ScrollingPagerIndicator recyclerIndicator;
     Parcelable state;
-    TextView connection;
     RelativeLayout rl_besdeal;
     RelativeLayout rl_newpost;
     ConstraintLayout ct_layout;
@@ -94,7 +93,6 @@ public class HomeApiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_home_frist, container, false);
-        connection=view.findViewById(R.id.txt_connection);
         rl_besdeal=view.findViewById(R.id.rl_besdeal);
         mBestDealRecyclerView=view.findViewById(R.id.horizontal);
         mBestDealNoResult=view.findViewById(R.id.text);
@@ -108,6 +106,7 @@ public class HomeApiFragment extends Fragment {
         mGallaryView=view.findViewById(R.id.btn_image);
         mBestDealText=view.findViewById(R.id.bestDeal);
         rl_newpost= view.findViewById(R.id.rl_newpost);
+//        rl_newpost.setNestedScrollingEnabled(false);
         ct_layout=view.findViewById(R.id.ct_layout);
         recyclerIndicator = view.findViewById(R.id.indicator);
         best_match=view.findViewById(R.id.best_match);
