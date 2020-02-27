@@ -212,6 +212,41 @@ public class ChatMainActivity extends AppCompatActivity {
                             return false;
                         });
                     }
+                }else{
+                    bnavigation.setVisibility(View.VISIBLE);
+                    bnavigation.getMenu().getItem(3).setChecked(true);
+                    bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
+                        switch (menuItem.getItemId()) {
+                            case R.id.home:
+                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.notification:
+                                if (prefer.contains("token") || prefer.contains("id")) {
+                                    startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                }
+                                break;
+                            case R.id.camera:
+                                if (prefer.contains("token") || prefer.contains("id")) {
+                                    startActivity(new Intent(getApplicationContext(), Camera.class));
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                }
+                                break;
+                            case R.id.message:
+                                break;
+                            case R.id.account:
+                                if (prefer.contains("token") || prefer.contains("id")) {
+                                    startActivity(new Intent(getApplicationContext(), Account.class));
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                }
+                                break;
+                        }
+                        return false;
+                    });
                 }
             }
 
@@ -351,7 +386,7 @@ public class ChatMainActivity extends AppCompatActivity {
                             }
                         }
 
-                        Log.d("ERROR Receiver", chat.getReceiver() + "," + firebaseUser.getUid());
+                        //Log.d("ERROR Receiver", chat.getReceiver() + "," + firebaseUser.getUid());
                     }
 
                     userList = new ArrayList<>();
@@ -469,13 +504,8 @@ public class ChatMainActivity extends AppCompatActivity {
         @Override
         protected void onStart () {
             super.onStart();
-            CheckGroup check = new CheckGroup();
-            int g = check.getGroup(pk, this);
-            if (g == 3) {
-                bnavigation1.getMenu().getItem(3).setChecked(true);
-            } else {
-                bnavigation.getMenu().getItem(3).setChecked(true);
-            }
+            bnavigation1.getMenu().getItem(3).setChecked(true);
+            bnavigation.getMenu().getItem(3).setChecked(true);
         }
 
         public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.MyViewHolder> {
@@ -635,7 +665,7 @@ public class ChatMainActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         String key = snapshot.getKey();
-                                        Log.e("jjjjjjj", key);
+                                        //Log.e("jjjjjjj", key);
                                         updateData(key);
                                     }
                                 }

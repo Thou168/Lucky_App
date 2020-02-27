@@ -74,22 +74,35 @@ public class DealerPostHistoryFragment extends Fragment {
         call.enqueue(new Callback<AllResponse>() {
             @Override
             public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                listData=new ArrayList<>();
-                List<Item> results=response.body().getresults();
-                for(int i=0;i<results.size();i++){
-                    if(results.get(i).getDealer_shops().size()==0){
-                        listData.add(results.get(i));
+                if(response.isSuccessful()){
+                    if(response.body().getCount()==0){
+                        progressBar.setVisibility(View.GONE);
+                        no_result.setVisibility(View.VISIBLE);
+                    }else{
+                        progressBar.setVisibility(View.GONE);
+                        listData=response.body().getresults();
+                        mAdapter = new Adapter_historybyuser(listData,getContext());
+                        recyclerView.setAdapter(mAdapter);
                     }
-                }
-                //listData = response.body().getresults();
 
-                if (listData.size()==0){
-                    progressBar.setVisibility(View.GONE);
-                    no_result.setVisibility(View.VISIBLE);
                 }
-                progressBar.setVisibility(View.GONE);
-                mAdapter = new Adapter_historybyuser(listData,getContext());
-                recyclerView.setAdapter(mAdapter);
+
+//                listData=new ArrayList<>();
+//                List<Item> results=response.body().getresults();
+//                for(int i=0;i<results.size();i++){
+//                    if(results.get(i).getDealer_shops().size()==0){
+//                        listData.add(results.get(i));
+//                    }
+//                }
+//                //listData = response.body().getresults();
+//
+//                if (listData.size()==0){
+//                    progressBar.setVisibility(View.GONE);
+//                    no_result.setVisibility(View.VISIBLE);
+//                }
+//                progressBar.setVisibility(View.GONE);
+//                mAdapter = new Adapter_historybyuser(listData,getContext());
+//                recyclerView.setAdapter(mAdapter);
             }
 
             @Override

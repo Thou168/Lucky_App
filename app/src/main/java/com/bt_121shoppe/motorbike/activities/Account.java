@@ -70,6 +70,7 @@ import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -101,7 +102,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
     Button uploadcover;
     ImageView upload;
-    TextView tvUsername,tvFullname;
+    TextView tvUsername,tvFullname,tvUserGroup;
     int inttab;
     ImageView logo_kh,logo_en;
     String[] photo_select;
@@ -116,15 +117,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tab_layout1);
 
-        //profile_click
-        rela_profile = findViewById(R.id.relative_profile);
-        rela_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Account.this, Register.class);
-                startActivity(i);
-            }
-        });
 //        locale();
         bundle = getIntent().getExtras();
         if (bundle!=null){
@@ -132,6 +124,17 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             register_intent = bundle.getString("Register_verify");
             process_type = bundle.getInt("process_type",0);
         }
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = prefer.getString("My_Lang", "");
+        preferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
+        username = preferences.getString("name","");
+        password = preferences.getString("pass","");
+        if (preferences.contains("token")){
+            pk = preferences.getInt("Pk",0);
+        }else if (preferences.contains("id")){
+            pk = preferences.getInt("id",0);
+        }
+
         photo_select = getResources().getStringArray(R.array.select_photo);
         logo_kh = findViewById(R.id.khmer);
         logo_en = findViewById(R.id.english);
@@ -140,66 +143,62 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         uploadcover = findViewById(R.id.btnUpload_Cover);
         bnavigation1 = findViewById(R.id.bottom_nav);
         bnavigation = findViewById(R.id.bnaviga);
+        tvUserGroup=findViewById(R.id.tvUserGroup);
 
-        preferences = getSharedPreferences("Register", Context.MODE_PRIVATE);
-        username = preferences.getString("name","");
-        password = preferences.getString("pass","");
         encodeAuth = "Basic "+getEncodedString(username,password);
-
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        currentLanguage = prefer.getString("My_Lang", "");
-        //Log.d("EncodeAuth",encodeAuth);
-        if (preferences.contains("token")){
-            pk = preferences.getInt("Pk",0);
-        }else if (preferences.contains("id")){
-            pk = preferences.getInt("id",0);
-        }
-
-        CheckGroup check = new CheckGroup();
-        g = check.getGroup(pk,this);
-        //Log.e(TAG,"Group "+g);
-        if (g == 3){
-            bnavigation.setVisibility(View.GONE);
-            bnavigation1.setVisibility(View.VISIBLE);
-            bnavigation1.getMenu().getItem(4).setChecked(true);
-            bnavigation1.setOnNavigationItemSelectedListener(mlistener1);
-        }else {
-
-            bnavigation.setVisibility(View.VISIBLE);
-            bnavigation1.setVisibility(View.GONE);
-            bnavigation.getMenu().getItem(4).setChecked(true);
-            bnavigation.setOnNavigationItemSelectedListener(mlistener);
-        }
-
-        //check active and deactive account by samang 2/09/19
-        Active_user activeUser = new Active_user();
-        String active;
-        active = activeUser.isUserActive(pk,this);
-        if (active.equals("false")){
-            activeUser.clear_session(this);
-        }
-        // end
-        //Log.d("Account","Breand pk"+pk);
-        if (pk==0){
-            Intent intent = new Intent(Account.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
         upload=findViewById(R.id.imgProfile);
         tvUsername=findViewById(R.id.tvUsername);
         tvFullname=findViewById(R.id.tvFullname);
         inttab=0;
-
-//        tabs.setupWithViewPager(viewPager);
-//        inttab = getIntent().getIntExtra("Tab",0);
-//        Log.d("Acc",inttab+" "+tabs);
-//        tabs.getTabAt(inttab).select();
-
         mCompressor = new FileCompressor(this);
-        setUpPager();
-        inttab = getIntent().getIntExtra("Tab",0);
-        tabs.getTabAt(inttab).select();
+
+        Service apiService=Client.getClient().create(Service.class);
+        Call<UserResponseModel> call=apiService.getUserProfile(pk);
+        call.enqueue(new Callback<UserResponseModel>() {
+            @Override
+            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
+                if(response.isSuccessful()){
+                    int group=response.body().getProfile().getGroup();
+                    tvUserGroup.setText(String.valueOf(group));
+                    Glide.with(getBaseContext()).load(response.body().getProfile().getProfile_photo()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+                    tvFullname.setText(response.body().getUsername());
+                    if(response.body().getFirst_name()==null || response.body().getFirst_name().isEmpty()){
+                        tvUsername.setText(response.body().getUsername());
+                    }else{
+                        tvUsername.setText(response.body().getFirst_name());
+                    }
+                    //Log.e("TAG","User group in response "+tvUserGroup.getText());
+                    if (group == 3){
+                        bnavigation.setVisibility(View.GONE);
+                        bnavigation1.setVisibility(View.VISIBLE);
+                        bnavigation1.getMenu().getItem(4).setChecked(true);
+                        bnavigation1.setOnNavigationItemSelectedListener(mlistener1);
+                    }else {
+                        bnavigation.setVisibility(View.VISIBLE);
+                        bnavigation1.setVisibility(View.GONE);
+                        bnavigation.getMenu().getItem(4).setChecked(true);
+                        bnavigation.setOnNavigationItemSelectedListener(mlistener);
+                    }
+
+                    setUpPager(group);
+                }else{
+                    bnavigation.setVisibility(View.VISIBLE);
+                    bnavigation1.setVisibility(View.GONE);
+                    bnavigation.getMenu().getItem(4).setChecked(true);
+                    bnavigation.setOnNavigationItemSelectedListener(mlistener);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponseModel> call, Throwable t) {
+
+            }
+        });
+
+//        CheckGroup checkGroup=new CheckGroup();
+//        g=checkGroup.getGroup(pk,this);
+
+
 
         ImageButton imgSetting=findViewById(R.id.btnsetting);
         imgSetting.setOnClickListener(new View.OnClickListener() {
@@ -211,31 +210,15 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             }
         });
 
-        storageReference= FirebaseStorage.getInstance().getReference("uploads");
-        fuser= FirebaseAuth.getInstance().getCurrentUser();
-        if(fuser!=null) {
-            reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.getValue(User.class);
-                        tvFullname.setText(user.getUsername());
-                        //Log.e(TAG,"Profile pic "+user.getImageURL());
-                    if (user.getImageURL().equals("default")) {
-                        Glide.with(Account.this).load(R.drawable.group_2293).thumbnail(0.1f).into(upload);
-//                        img_profile.setImageResource(R.mipmap.ic_launcher_round);
-                    } else {
-                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-        getUserProfile();
+        //profile_click
+        rela_profile = findViewById(R.id.relative_profile);
+        rela_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Account.this, Register.class);
+                startActivity(i);
+            }
+        });
 
     }  // onCreate
 
@@ -289,14 +272,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
         viewPager.setAdapter(adapter);
         //title menu
-//        nav_profile.setTitle(resources.getString(R.string.menu_profile));
-//        nav_post.setTitle(resources.getString(R.string.menu_post));
-//        nav_like.setTitle(resources.getString(R.string.menu_like));
-//        nav_loan.setTitle(resources.getString(R.string.menu_loan));
-//        nav_setting.setTitle(resources.getString(R.string.menu_setting));
-//        nav_about.setTitle(resources.getString(R.string.menu_about));
-//        nav_contact.setTitle(resources.getString(R.string.menu_contact));
-//        nav_term.setTitle(resources.getString(R.string.menu_privacy));
 
     }
 
@@ -304,11 +279,11 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==Activity.RESULT_OK){
-            Log.d(TAG,"REQUEST CODE "+requestCode);
+            //Log.d(TAG,"REQUEST CODE "+requestCode);
             if(requestCode==REQUEST_GALLARY_PHOTO){
                 imageUri=data.getData();
             }else if(requestCode==REQUEST_TAKE_PHOTO){
-                Log.d(TAG,"URN "+mPhotoFile);
+                //Log.d(TAG,"URN "+mPhotoFile);
                 try {
                     mPhotoFile = mCompressor.compressToFile(mPhotoFile);
                 }catch (IOException e){
@@ -327,6 +302,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     }
 
     private void getUserProfile(){
+
         //get username
         Service apiService= Client.getClient().create(Service.class);
         Call<UserResponseModel> call=apiService.getUserProfile(pk);
@@ -334,11 +310,16 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             @Override
             public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
                 if(response.isSuccessful()){
+
+                    Glide.with(getBaseContext()).load(response.body().getProfile().getProfile_photo()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+                    tvFullname.setText(response.body().getUsername());
                     if(response.body().getFirst_name()==null || response.body().getFirst_name().isEmpty()){
                         tvUsername.setText(response.body().getUsername());
                     }else{
                         tvUsername.setText(response.body().getFirst_name());
                     }
+
+                    //Log.e("TAG","endrender render function profile fullname "+ Instant.now().toString());
                 }
             }
 
@@ -347,7 +328,6 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
             }
         });
-
 
     }
     private String getEncodedString(String username,String password){
@@ -399,17 +379,20 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         return true;
     };
 
-    private void setUpPager(){
-        if(g==3)
+    private void setUpPager(int group){
+        if(group==3)
             tabs.addTab(tabs.newTab().setText(R.string.history));
         else
-            tabs.addTab(tabs.newTab().setText(R.string.tab_post));
+            tabs.addTab(tabs.newTab().setText(R.string.post));
         tabs.addTab(tabs.newTab().setText(R.string.tab_like));
         tabs.addTab(tabs.newTab().setText(R.string.tab_loan));
         tabs.setOnTabSelectedListener(this);
         tabs.setupWithViewPager(viewPager);
-        Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount());
+        Pager adapter = new Pager(getSupportFragmentManager(), tabs.getTabCount(),group);
         viewPager.setAdapter(adapter);
+
+        inttab = getIntent().getIntExtra("Tab",0);
+        tabs.getTabAt(inttab).select();
     }
 
     @Override
@@ -429,19 +412,23 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
     public class Pager extends FragmentStatePagerAdapter {
         int tabCount;
+        int pgroup=0;
         public Pager(FragmentManager fm, int tabCount) {
             super(fm);
             //Initializing tab count
             this.tabCount= tabCount;
+        }
+        public Pager(FragmentManager fm, int tabCount,int pgroup) {
+            super(fm);
+            this.tabCount= tabCount;
+            this.pgroup=pgroup;
         }
         @Override
         public Fragment getItem(int position) {
             //Returning the current tabs
             switch (position) {
                 case 0:
-                    //MainPostList tab1 = new MainPostList();
-                    if(g==3){
-                        //history_postbyuser n2 = new history_postbyuser();
+                    if(pgroup==3){
                         DealerPostHistoryFragment n2=new DealerPostHistoryFragment();
                         return n2;
                     }
@@ -467,7 +454,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         @Override
         public CharSequence getPageTitle(int position) {
             if (position==0) {
-                if (g!=3) {
+                if (pgroup!=3) {
                     if (currentLanguage.equals("en")) {
                         return "Post";
                     } else return "ប្រកាស";
@@ -557,13 +544,8 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     @Override
     protected void onStart() {
         super.onStart();
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
-        if (g == 3){
-            bnavigation1.getMenu().getItem(4).setChecked(true);
-        }else {
-            bnavigation.getMenu().getItem(4).setChecked(true);
-        }
+        bnavigation.getMenu().getItem(4).setChecked(true);
+        bnavigation1.getMenu().getItem(4).setChecked(true);
     }
     private void language(String lang) {
         Locale locale = new Locale(lang);

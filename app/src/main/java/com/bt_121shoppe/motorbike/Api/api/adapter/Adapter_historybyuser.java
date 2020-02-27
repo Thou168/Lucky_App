@@ -177,7 +177,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
+        Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
 
         String date = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -193,65 +193,76 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Service apiService = Client.getClient().create(Service.class);
-        Call<AllResponse> call_date = apiService.getpostbyhistory(basic_Encode);
-        call_date.enqueue(new Callback<AllResponse>() {
-            @Override
-            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                if (!response.isSuccessful()){
-                    Log.d("Response", String.valueOf(response.code()));
-                }else {
-                    datas = response.body().getresults();
-                    if (datas.size() == 0) {
-                        view.date.setVisibility(View.GONE);
-                    }
-//                    Date dd;
-//                    String tt;
-
-//                    for (int i = 0; i < datas.size(); i++) {
+//        Service apiService = Client.getClient().create(Service.class);
+//        Call<AllResponse> call_date = apiService.getpostbyhistory(basic_Encode);
+//        call_date.enqueue(new Callback<AllResponse>() {
+//            @Override
+//            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+//                if (!response.isSuccessful()){
+//                    Log.d("Response", String.valueOf(response.code()));
+//                }else {
+//                    datas = response.body().getresults();
+//                    if (datas.size() == 0) {
+//                        view.date.setVisibility(View.GONE);
+//                    }
+////                    Date dd;
+////                    String tt;
+//
+////                    for (int i = 0; i < datas.size(); i++) {
+////                        try {
+////                            dd = inputFormat.parse(model.getModified());
+////                            Log.d("Date dddd", String.valueOf(dd));
+////                            tt = outputFormat.format(dd);
+////                            Log.d("SHow tttttrttt",tt);
+////                            view.date.setText(tt);
+////                        } catch (ParseException e) {
+////                            e.printStackTrace();
+////                        }
+////                    }
+//                    Date d;
+//                    long dd = 0;
+//                    for (int i = 0;i<datas.size();i++) {
 //                        try {
-//                            dd = inputFormat.parse(model.getModified());
-//                            Log.d("Date dddd", String.valueOf(dd));
-//                            tt = outputFormat.format(dd);
-//                            Log.d("SHow tttttrttt",tt);
+//                            d = inputFormat.parse(model.getModified());
+//                            dd = d.getTime();
+//                            Log.d("VVVVVVVVVV", String.valueOf(dd));
+//                            String tt = outputFormat.format(dd);
+//                            Log.d("Show ddddddddddddd", tt);
 //                            view.date.setText(tt);
 //                        } catch (ParseException e) {
 //                            e.printStackTrace();
 //                        }
 //                    }
-                    Date d;
-                    long dd = 0;
-                    for (int i = 0;i<datas.size();i++) {
-                        try {
-                            d = inputFormat.parse(model.getModified());
-                            dd = d.getTime();
-                            Log.d("VVVVVVVVVV", String.valueOf(dd));
-                            String tt = outputFormat.format(dd);
-                            Log.d("Show ddddddddddddd", tt);
-                            view.date.setText(tt);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AllResponse> call, Throwable t) {
-
-            }
-        });
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AllResponse> call, Throwable t) {
+//
+//            }
+//        });
 
         //end
 
-        String removeSt = "";
-        change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
-        int status = (int) change_status.getStatus();
-        if (status != 2){
+//        String removeSt = "";
+//        change_status_delete change_status = new change_status_delete(2,date,pk,removeSt);
+//        int status = (int) change_status.getStatus();
+//        if (status != 2){
+//            view.item_type.setText(R.string.sold);
+//            view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
+//        }else {
+//            view.item_type.setText(R.string.button_remove);
+//            view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
+//        }
+        if(model.getStatus()==7)
+        {
             view.item_type.setText(R.string.sold);
             view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
-        }else {
+        }else if(model.getStatus()==2){
             view.item_type.setText(R.string.button_remove);
+            view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
+        }else if(model.getStatus()==5){
+            view.item_type.setText(R.string.reject);
             view.item_type.setBackgroundResource(R.drawable.roundimage_gray);
         }
 
@@ -262,10 +273,11 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             intent.putExtra("Discount", finalRs_price);
             if (model.getStatus() == 2){
                 intent.putExtra("postt", 2);
+                intent.putExtra("Sold_Remove",2);
             }
-            if (change_status.getStatus()==2){
-                intent.putExtra("Sold_Remove",status);
-            }
+//            if (change_status.getStatus()==2){
+//                intent.putExtra("Sold_Remove",status);
+//            }
             intent.putExtra("ID",Integer.parseInt(iditem));
             mContext.startActivity(intent);
         });

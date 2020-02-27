@@ -445,8 +445,14 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     if(!response.isSuccessful()){
                         Log.e("TAG","Get Shop Result failure:"+response.code());
                     }else{
-                        Log.e("TAG",response.body().getresults().toString());
-                        mStoreList=response.body().getresults();
+                        //Log.e("TAG",response.body().getresults().toString());
+                        //mStoreList=response.body().getresults();
+                        List<ShopViewModel> results=response.body().getresults();
+                        mStoreList=new ArrayList<>();
+                        for (int i=0;i<results.size();i++){
+                            if(results.get(i).getRecord_status()==1)
+                                mStoreList.add(results.get(i));
+                        }
 
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                             List<ShopViewModel> mmStoreList=mStoreList.stream().sorted(Comparator.comparing(ShopViewModel::getShop_name)).collect(Collectors.toList());
@@ -479,8 +485,14 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                     if(!response.isSuccessful()){
                         Log.e("TAG","Get Shop Result failure:"+response.code());
                     }else{
-                        Log.e("TAG",response.body().getresults().toString());
-                        mStoreList=response.body().getresults();
+                        //Log.e("TAG",response.body().getresults().toString());
+                        //mStoreList=response.body().getresults();
+                        List<ShopViewModel> results=response.body().getresults();
+                        mStoreList=new ArrayList<>();
+                        for (int i=0;i<results.size();i++){
+                            if(results.get(i).getRecord_status()==1)
+                                mStoreList.add(results.get(i));
+                        }
                         mAdapter.addItems(mStoreList);
                         mRecyclerViewStoreList.setAdapter(mAdapter);
                         ViewCompat.setNestedScrollingEnabled(mRecyclerViewStoreList,false);

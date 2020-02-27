@@ -39,7 +39,7 @@ public class MainPostList extends Fragment {
 
     public MainPostList(int group){
         this.group=group;
-        Log.e("Main","Main Post List Group "+group);
+        //Log.e("Main","Main Post List Group "+group);
     }
 
     public static MainPostList newInstance(){

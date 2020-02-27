@@ -32,7 +32,6 @@ import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
-import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -161,8 +160,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mProgress.show();
-                postRequest();
-                jilapatitus();
+                //postRequest();
+                checkvalidationusernamepassword();
             }
         });
 
@@ -499,55 +498,103 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void jilapatitus(){
-        String tpm = Username.getText().toString();
-        Service api = Client.getClient().create(Service.class);
-        retrofit2.Call<AllResponse> call = api.getUsername(tpm);
-        call.enqueue(new retrofit2.Callback<AllResponse>() {
-            @Override
-            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+    private void checkvalidationusernamepassword(){
 
-                //Log.d("33333",String.valueOf(response.body().getCount()));
-                String empty_user = Username.getText().toString();
-                String empty_pass = Password.getText().toString();
-
-                //phone
-                if (empty_user.isEmpty()){
-                    alert_phone.setText(R.string.alert_phone1);
-                    alert_phone.setTextColor(getResources().getColor(R.color.red));
-                }else if(response.body().getCount()==1 ){
-                    if (response.body().getCount()==1){
-                        alert_phone.setText("");
+        String empty_user = Username.getText().toString();
+        String empty_pass = Password.getText().toString();
+        alert_phone.setText("");
+        alert_password.setText("");
+        if (empty_user.isEmpty() && empty_pass.isEmpty()){
+            alert_phone.setText(R.string.alert_phone1);
+            alert_phone.setTextColor(getResources().getColor(R.color.red));
+            alert_password.setText(R.string.secret_number1);
+            alert_password.setTextColor(getResources().getColor(R.color.red));
+        }
+        else if(empty_user.isEmpty()){
+            alert_phone.setText(R.string.alert_phone1);
+            alert_phone.setTextColor(getResources().getColor(R.color.red));
+        }else if(empty_pass.isEmpty()){
+            alert_password.setText(R.string.secret_number1);
+            alert_password.setTextColor(getResources().getColor(R.color.red));
+        }
+        else{
+            Service apiService=Client.getClient().create(Service.class);
+            retrofit2.Call<AllResponse> call=apiService.getUsername(empty_user);
+            call.enqueue(new retrofit2.Callback<AllResponse>() {
+                @Override
+                public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+                    if(response.isSuccessful()){
+                        if(response.body().getCount()==0){
+                            //not found username in system
+                            alert_phone.setText(R.string.alert_phone);
+                            alert_phone.setTextColor(getResources().getColor(R.color.red));
+                        }else{
+                            //found username in system
+                            postRequest();
+                        }
+                    }else{
+                        alert_phone.setText(R.string.alert_phone);
+                        alert_phone.setTextColor(getResources().getColor(R.color.red));
                     }
-                }else {
-                    alert_phone.setText(R.string.alert_phone);
-                    alert_phone.setTextColor(getResources().getColor(R.color.red));
                 }
 
-                //password
-                if (empty_pass.isEmpty()){
-                    alert_password.setText(R.string.secret_number1);
-                    alert_password.setTextColor(getResources().getColor(R.color.red));
-                }else if (!empty_pass.isEmpty()){
-                    if (error == 1){
-                        alert_password.setText(R.string.secret_number);
-                        alert_password.setTextColor(getResources().getColor(R.color.red));
-                    }
-                    else {
-                        alert_password.setText("");
-                        Log.d("ajdmsamwjdjansmd","mgnnwejwgwekfkk");
-                    }
+                @Override
+                public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+
                 }
-                mProgress.dismiss();
+            });
+        }
 
-            }
+        mProgress.dismiss();
 
-            @Override
-            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
-
-
-            }
-        });
+//        String tpm = Username.getText().toString();
+//        Service api = Client.getClient().create(Service.class);
+//        retrofit2.Call<AllResponse> call = api.getUsername(tpm);
+//        call.enqueue(new retrofit2.Callback<AllResponse>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<AllResponse> call, retrofit2.Response<AllResponse> response) {
+//
+//                //Log.d("33333",String.valueOf(response.body().getCount()));
+//                String empty_user = Username.getText().toString();
+//                String empty_pass = Password.getText().toString();
+//
+//                //phone
+//                if (empty_user.isEmpty()){
+//                    alert_phone.setText(R.string.alert_phone1);
+//                    alert_phone.setTextColor(getResources().getColor(R.color.red));
+//                }else if(response.body().getCount()==1 ){
+//                    if (response.body().getCount()==1){
+//                        alert_phone.setText("");
+//                    }
+//                }else {
+//                    alert_phone.setText(R.string.alert_phone);
+//                    alert_phone.setTextColor(getResources().getColor(R.color.red));
+//                }
+//
+//                //password
+//                if (empty_pass.isEmpty()){
+//                    alert_password.setText(R.string.secret_number1);
+//                    alert_password.setTextColor(getResources().getColor(R.color.red));
+//                }else if (!empty_pass.isEmpty()){
+//                    if (error == 1){
+//                        alert_password.setText(R.string.secret_number);
+//                        alert_password.setTextColor(getResources().getColor(R.color.red));
+//                    }
+//                    else {
+//                        alert_password.setText("");
+//                        //Log.d("ajdmsamwjdjansmd","mgnnwejwgwekfkk");
+//                    }
+//                }
+//                mProgress.dismiss();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<AllResponse> call, Throwable t) {
+//
+//
+//            }
+//        });
     }
 
 //    private void login_wrong(){
@@ -607,7 +654,7 @@ public class LoginActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Log.e("TAG","Login Body "+postdata);
+        //Log.e("TAG","Login Body "+postdata);
         RequestBody body = RequestBody.create(MEDIA_TYPE, postdata.toString());
         Request request = new Request.Builder()
                 .url(url)
@@ -629,9 +676,9 @@ public class LoginActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            login_wrong();
-//                            login_error();
                             error = 1;
+                            alert_password.setText(R.string.secret_number);
+                            alert_password.setTextColor(getResources().getColor(R.color.red));
                             Toast.makeText(LoginActivity.this,getResources().getString(R.string.login_failure),Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -660,7 +707,7 @@ public class LoginActivity extends AppCompatActivity {
         Convert_Json_Java convertJsonJava = new Convert_Json_Java();
         try{
             convertJsonJava = gson.fromJson(mMessage,Convert_Json_Java.class);
-            Log.d(TAG, convertJsonJava.getUsername()   + "\t" + convertJsonJava.getToken() + "\t" + convertJsonJava.getStatus());
+            //Log.d(TAG, convertJsonJava.getUsername()   + "\t" + convertJsonJava.getToken() + "\t" + convertJsonJava.getStatus());
             final String key = convertJsonJava.getToken();
             User user = convertJsonJava.getUser();
             final int pk = user.getPk();
@@ -720,8 +767,8 @@ public class LoginActivity extends AppCompatActivity {
                     com.bt_121shoppe.motorbike.models.User user=snapshot.getValue(com.bt_121shoppe.motorbike.models.User.class);
                     if(user.getUsername()!=null){
                         if(user.getUsername().equals(username)){
-                            Log.e("email",""+user.getEmail());
-                            Log.e("password",""+user.getPassword());
+//                            Log.e("email",""+user.getEmail());
+//                            Log.e("password",""+user.getPassword());
                             //auth.signInWithEmailAndPassword(user.getEmail(),user.getPassword())
                             auth.signInWithEmailAndPassword(user.getEmail(),ConsumeAPI.DEFAULT_FIREBASE_PASSWORD_ACC)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -803,7 +850,7 @@ public class LoginActivity extends AppCompatActivity {
     private void setfirebasepassword(String userid,String password){
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference("users").child(userid);
         HashMap<String,Object> hashMap=new HashMap<>();
-        //hashMap.put("password",password);
+        hashMap.put("password",password);
         hashMap.put("status","online");
         reference.updateChildren(hashMap);
     }

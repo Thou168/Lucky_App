@@ -250,7 +250,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                 //Log.e("TAG","User id in check group "+response.body().toString());
                 if(response.isSuccessful()){
                     int group=response.body().getProfile().getGroup();
-                    Log.e("TAG","group in function in "+group);
+                    //Log.e("TAG","group in function in "+group);
                     //g=group;
                     if (group == 3){
 
