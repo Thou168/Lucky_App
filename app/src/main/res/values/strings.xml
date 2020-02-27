@@ -32,10 +32,10 @@
 
     //menus
     <string name="condition">Condition</string>
-    <string name="menu_profile">Your Profile</string>
-    <string name="menu_post">Your Post</string>
-    <string name="menu_like">Your Like</string>
-    <string name="menu_loan">Your Loan</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_post">Post</string>
+    <string name="menu_like">Like</string>
+    <string name="menu_loan">Loan</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_about">About</string>
     <string name="menu_contact">Contact 121</string>
@@ -710,7 +710,7 @@
     <string name="not_found">No Data</string>
     <string name="all">All</string>
     //change password
-    <string name="message">You can not send empty message</string>
+    <string name="message">You cannot send empty message</string>
     <string name="removed">Removed</string>
     <string name="pending">Pending</string>
     <string name="approveval">Approve</string>

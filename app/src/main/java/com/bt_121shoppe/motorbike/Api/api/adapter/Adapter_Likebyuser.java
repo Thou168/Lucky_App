@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_unlike;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
@@ -264,41 +266,54 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                     }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
 //Button Unlike
                     view.btn_unlike.setOnClickListener(v -> {
-
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-                        dialog.setTitle(R.string.title_unlike)
-                                .setMessage(R.string.unlike_message)
-                                .setCancelable(false)
-                                .setPositiveButton(R.string.yes_loan, (dialog1, which) -> {
-
-                                    Service api1 = Client.getClient().create(Service.class);
-                                    change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
+                        LayoutInflater factory = LayoutInflater.from(mContext);
+                        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(mContext).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        title.setText(R.string.title_unlike);
+                        Mssloan.setText(R.string.unlike_message);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.yes_leave);
+                        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                        btnNo.setText(R.string.no_leave);
+                        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Service api1 = Client.getClient().create(Service.class);
+                                change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
 //
-                                    Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.parseInt(itemid_like),unlike,basic_Encode);
-                                    call_unlike.enqueue(new Callback<change_status_unlike>() {
-                                        @Override
-                                        public void onResponse(Call<change_status_unlike> call1, Response<change_status_unlike> response1) {
+                                Call<change_status_unlike> call_unlike = api1.getputStatusUnlike(Integer.parseInt(itemid_like),unlike,basic_Encode);
+                                call_unlike.enqueue(new Callback<change_status_unlike>() {
+                                    @Override
+                                    public void onResponse(Call<change_status_unlike> call1, Response<change_status_unlike> response1) {
 //                                            Intent intent = new Intent(mContext, Account.class);
 //                                            mContext.startActivity(intent);
 //                                            ((Activity)mContext).finish();
-                                            String respone = String.valueOf(response.body());
-                                            Log.d("Respone unlike",respone);
+                                        String respone = String.valueOf(response.body());
+                                        Log.d("Respone unlike",respone);
 
 // delete item without intent by samang 9/9/19
-                                            datas.remove(position);
-                                            notifyItemRemoved(position);
-                                            notifyItemRangeChanged(position, datas.size());
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<change_status_unlike> call1, Throwable t) {
-                                        }
-                                    });
-                                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                        datas.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, datas.size());
                                     }
-                                }).show();
+
+                                    @Override
+                                    public void onFailure(Call<change_status_unlike> call1, Throwable t) {
+                                    }
+                                });
+                            }
+                        });
+                        clearDialog.show();
                     });
                 }
 

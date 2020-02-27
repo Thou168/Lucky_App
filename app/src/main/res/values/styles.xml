@@ -204,7 +204,7 @@
 
     <!-- Theme for Dialog Positive Button -->
     <style name="MaterialDialog_PositiveButton">
-        <item name="backgroundTint">?android:attr/colorAccent</item>
+        <item name="backgroundTint">#E5A74F</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:textAllCaps">false</item>
     </style>

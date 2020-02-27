@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -54,6 +55,7 @@ import com.bt_121shoppe.motorbike.Login_Register.UserAccountActivity;
 import com.bt_121shoppe.motorbike.Login_Register.LoginActivity;
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.chats.ChatActivity;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
@@ -1019,17 +1021,25 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     }
 
     private void withStyle() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_AppCompat_Dialog_Alert);
-        builder.setTitle(R.string.for_loan_title);
-        builder.setIcon(R.drawable.tab_message_selector);
-        builder.setMessage(R.string.already_created);
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(this).create();
+        clearDialog.setView(clearDialogView);
+        clearDialog.setIcon(R.drawable.tab_message_selector);
+        clearDialog.setCancelable(false);
+        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.already_created);
+        title.setText(R.string.for_loan_title);
+        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.ok);
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearDialog.dismiss();
             }
         });
-        builder.setCancelable(false);
-        builder.show();
+        clearDialog.show();
     }
 
 

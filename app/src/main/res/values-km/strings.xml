@@ -46,14 +46,14 @@
     <string name="no_loan">មិនយល់ព្រម</string>
 
     //menu
-    <string name="menu_profile">គណនីរបស់អ្នក</string>
-    <string name="menu_post">ការប្រកាសរបស់អ្នក</string>
-    <string name="menu_like">ការចូលចិត្តរបស់អ្នក</string>
-    <string name="menu_loan">ឥណទានរបស់អ្នក</string>
+    <string name="menu_profile">គណនីផ្ទាល់ខ្លួន</string>
+    <string name="menu_post">ប្រកាស</string>
+    <string name="menu_like">ចូលចិត្ត</string>
+    <string name="menu_loan">ឥណទាន</string>
     <string name="menu_setting">ការកំណត់</string>
     <string name="menu_about">អំពីកម្មវិធី</string>
-    <string name="menu_contact">ទំនាក់ទំនង ១២១</string>
-    <string name="menu_privacy">លក្ខខណ្ឌ</string>
+    <string name="menu_contact">ទំនាក់ទំនង</string>
+    <string name="menu_privacy">លក្ខខណ្ឌប្រើប្រាស់</string>
     <string name="title_activity_account">គណនី</string>
 
     //Home
@@ -926,7 +926,7 @@
     <string name="invalid_price">សូមបំពេញតម្លៃផលិតផល</string>
     <string name="invalid_condition">សូមជ្រើសរើសលក្ខខណ្ឌ</string>
     <string name="invalid_shop_name">សូមបំពេញឈ្មោះហាង</string>
-    <string name="store_list">បញ្ជីផ្ទុក</string>
+    <string name="store_list">បញ្ជីហាង</string>
     <string name="add">បន្ថែម</string>
     <string name="map">ផែនទី</string>
 

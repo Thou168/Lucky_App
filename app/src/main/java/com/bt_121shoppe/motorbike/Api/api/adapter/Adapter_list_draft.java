@@ -101,41 +101,53 @@ public class Adapter_list_draft extends RecyclerView.Adapter<Adapter_list_draft.
             view1.getContext().startActivity(intent);
         });
         view.cancel.setOnClickListener(view1 -> {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(view1.getContext());
-            dialog.setTitle(R.string.cancel_loan_draft)
-                    .setMessage(R.string.delete_loan_draft)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(android.R.string.yes, (dialog1, which) -> {
-                        try{
-                            Service api = Client.getClient().create(Service.class);
-                            Item_loan item_loan = new Item_loan(model.getLoan_to(),String.valueOf(model.getLoan_amount()),String.valueOf(model.getLoan_interest_rate()),model.getLoan_duration(),model.getLoan_purpose(),2,12,model.getUsername(),model.getGender(),model.getAge(),model.getJob(),String.valueOf(model.getAverage_income()),String.valueOf(model.getAverage_expense()),model.getTelephone(),model.getAddress(),true,model.isFamily_book(),model.isStaff_id(),model.isHouse_plant(),model.getCreated_by(),model.getModified(),String.valueOf(model.getModified_by()),model.getReceived_date(),model.getRejected_date(),model.getRejected_by(),model.getRejected_comments(),post_by);
+            LayoutInflater factory = LayoutInflater.from(view1.getContext());
+            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(view1.getContext()).create();
+            clearDialog.setView(clearDialogView);
+            clearDialog.setIcon(R.drawable.tab_message_selector);
+            clearDialog.setCancelable(false);
+            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+            Mssloan.setText(R.string.delete_loan_draft);
+            title.setText(R.string.cancel_loan_draft);
+            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+            btnYes.setText(R.string.ok);
+            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        Service api = Client.getClient().create(Service.class);
+                        Item_loan item_loan = new Item_loan(model.getLoan_to(),String.valueOf(model.getLoan_amount()),String.valueOf(model.getLoan_interest_rate()),model.getLoan_duration(),model.getLoan_purpose(),2,12,model.getUsername(),model.getGender(),model.getAge(),model.getJob(),String.valueOf(model.getAverage_income()),String.valueOf(model.getAverage_expense()),model.getTelephone(),model.getAddress(),true,model.isFamily_book(),model.isStaff_id(),model.isHouse_plant(),model.getCreated_by(),model.getModified(),String.valueOf(model.getModified_by()),model.getReceived_date(),model.getRejected_date(),model.getRejected_by(),model.getRejected_comments(),post_by);
 
-                            Call<Item_loan> call_loan = api.getputcancelloan(loanid,item_loan,basic_Encode);
-                            call_loan.enqueue(new Callback<Item_loan>() {
-                                @Override
-                                public void onResponse(Call<Item_loan> call1, Response<Item_loan> response1) {
-                                    if (!response1.isSuccessful()){
-                                        Log.d("444444", String.valueOf(response1.code()));
-                                    }
-                                    Intent intent = new Intent(view1.getContext(), Account.class);
-                                    view1.getContext().startActivity(intent);
+                        Call<Item_loan> call_loan = api.getputcancelloan(loanid,item_loan,basic_Encode);
+                        call_loan.enqueue(new Callback<Item_loan>() {
+                            @Override
+                            public void onResponse(Call<Item_loan> call1, Response<Item_loan> response1) {
+                                if (!response1.isSuccessful()){
+                                    Log.d("444444", String.valueOf(response1.code()));
+                                }
+                                Intent intent = new Intent(view1.getContext(), Account.class);
+                                view1.getContext().startActivity(intent);
 
-                                    if (response1.code() == 400) {
-                                        try {
-                                            Log.v("Error code 400", response1.errorBody().string());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                                if (response1.code() == 400) {
+                                    try {
+                                        Log.v("Error code 400", response1.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
                                     }
                                 }
+                            }
 
-                                @Override
-                                public void onFailure(Call<Item_loan> call1, Throwable t) {
-                                    Log.d("ERROR",t.getMessage());
-                                }
-                            });
-                        }catch (Exception e){Log.e("CatchMessage",e.getMessage());}
-                    }).setNegativeButton(android.R.string.no, null).show();
+                            @Override
+                            public void onFailure(Call<Item_loan> call1, Throwable t) {
+                                Log.d("ERROR",t.getMessage());
+                            }
+                        });
+                    }catch (Exception e){Log.e("CatchMessage",e.getMessage());}
+                }
+            });
+            clearDialog.show();
         });
     }
 

@@ -36,6 +36,7 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -594,22 +595,30 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
-                builder.setMessage(getString(R.string.back_message));
-                builder.setCancelable(false);
-                builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+                LayoutInflater factory = LayoutInflater.from(Camera.this);
+                final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                clearDialog.setView(clearDialogView);
+                clearDialog.setCancelable(false);
+                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                Mssloan.setText(R.string.back_message);
+                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                btnYes.setText(R.string.yes_leave);
+                Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                btnNo.setText(R.string.no_leave);
+                clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(View v) {
+                        clearDialog.dismiss();
+                    }
+                });
+                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         onBackPressed();
                     }
                 });
-                builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        builder.dismiss();
-                    }
-                });
-                builder.show();
+                clearDialog.show();
             }
         });
 
@@ -686,32 +695,44 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         tvCondition.requestFocus();
                     }else conditon_alert.setText("");
                     if (strColor.isEmpty() || strColor == null ){
-                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setCancelable(false);
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        LayoutInflater factory = LayoutInflater.from(Camera.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setCancelable(false);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.missing_color);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialog.show();
                     }
                     if (dbDis_percent >= 100){
                         etDiscount_amount.requestFocus();
                     }
 
                     if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
-                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setCancelable(false);
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        LayoutInflater factory = LayoutInflater.from(Camera.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setCancelable(false);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.missing_image);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialog.show();
                     }
 
                 } else if (category == 1 && tvType_cate.getText().toString().length()==0){
@@ -799,32 +820,44 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     }else conditon_alert.setText("");
 
                     if (color == null ){
-                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_color));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        LayoutInflater factory = LayoutInflater.from(Camera.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setCancelable(false);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.missing_color);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialog.show();
                     }
                     if (dbDis_percent >= 100){
                         etDiscount_amount.requestFocus();
                     }
 
                     if (bitmapImage1==null||bitmapImage2==null||bitmapImage3==null||bitmapImage4==null){
-                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setCancelable(false);
-                        alertDialog.setMessage(Camera.this.getString(R.string.missing_image));
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        LayoutInflater factory = LayoutInflater.from(Camera.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setCancelable(false);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.missing_image);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialog.show();
                     }
 
                 } else if (category == 1 && tvType_cate.getText().toString().length()==0){
@@ -863,12 +896,26 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
     @Override
     public void onBackPressed() {
-        android.app.AlertDialog builder = new android.app.AlertDialog.Builder(Camera.this).create();
-        builder.setMessage(getString(R.string.back_message));
-        builder.setCancelable(false);
-        builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.back_ok), new DialogInterface.OnClickListener() {
+        LayoutInflater factory = LayoutInflater.from(Camera.this);
+        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+        clearDialog.setView(clearDialogView);
+        clearDialog.setCancelable(false);
+        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.back_message);
+        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.yes_leave);
+        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+        btnNo.setText(R.string.no_leave);
+        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View v) {
+                clearDialog.dismiss();
+            }
+        });
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (register_intent!=null || login_verify!=null){
                     startActivity(new Intent(Camera.this,Home.class));
                 }else if (process_type == 1){
@@ -882,13 +929,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } else finish();
             }
         });
-        builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.back_no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                builder.dismiss();
-            }
-        });
-        builder.show();
+        clearDialog.show();
     }
 
     private void getData_Post(String encode, int id){

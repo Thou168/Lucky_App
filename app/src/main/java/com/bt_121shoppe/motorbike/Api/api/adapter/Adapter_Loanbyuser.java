@@ -32,6 +32,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.loan.Create_Load;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -235,52 +236,68 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
 
                     view.btn_cancel.setOnClickListener(v -> {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-                        dialog.setTitle(R.string.cancel_loan)
-                                .setCancelable(false)
-                                .setMessage(R.string.delete_loan)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        try{
-                                            Service api1 = Client.getClient().create(Service.class);
-                                            String post = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
-                                            int Post_by = Integer.parseInt(post);
-                                            Item_loan item_loan = new Item_loan(model.getLoan_to(),model.getLoan_amount(),model.getLoan_interest_rate(),model.getLoan_duration(),model.getLoan_purpose(),2,12,model.getUsername(),model.getGender(),model.getAge(),model.getJob(),model.getAverage_income(),model.getAverage_expense(),model.getTelephone(),model.getAddress(),true,model.isFamily_book(),model.isStaff_id(),model.isHouse_plant(),model.getMfi(),model.getCreated(),model.getCreated_by(),model.getModified(),model.getModified_by(),model.getReceived_date(),model.getReceived_by(),model.getRejected_date(),model.getRejected_by(),model.getRejected_comments(),Post_by);
+                        LayoutInflater factory = LayoutInflater.from(mContext);
+                        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(mContext).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setCancelable(false);
+                        clearDialog .setIcon(android.R.drawable.ic_dialog_alert);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        title.setText(R.string.cancel_loan);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.delete_loan);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.yes_leave);
+                        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                        btnNo.setText(R.string.no_leave);
+                        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try{
+                                    Service api1 = Client.getClient().create(Service.class);
+                                    String post = String.valueOf(model.getPost()).substring(0, String.valueOf(model.getPost()).indexOf("."));
+                                    int Post_by = Integer.parseInt(post);
+                                    Item_loan item_loan = new Item_loan(model.getLoan_to(),model.getLoan_amount(),model.getLoan_interest_rate(),model.getLoan_duration(),model.getLoan_purpose(),2,12,model.getUsername(),model.getGender(),model.getAge(),model.getJob(),model.getAverage_income(),model.getAverage_expense(),model.getTelephone(),model.getAddress(),true,model.isFamily_book(),model.isStaff_id(),model.isHouse_plant(),model.getMfi(),model.getCreated(),model.getCreated_by(),model.getModified(),model.getModified_by(),model.getReceived_date(),model.getReceived_by(),model.getRejected_date(),model.getRejected_by(),model.getRejected_comments(),Post_by);
 //                                               Item_loan item_loan = new Item_loan(2,12);
-                                            Call<Item_loan> call_loan = api1.getputcancelloan(Integer.parseInt(loanid),item_loan,basic_Encode);
-                                            call_loan.enqueue(new Callback<Item_loan>() {
-                                                @Override
-                                                public void onResponse(Call<Item_loan> call1, Response<Item_loan> response1) {
-                                                    if (!response1.isSuccessful()){
-                                                        Log.d("444444", String.valueOf(response1.code()));
-                                                    }
-                                                    Intent intent = new Intent(mContext, Account.class);
-                                                    mContext.startActivity(intent);
-                                                    ((Activity)mContext).finish();
-                                    // delete item withou intent by samang 9/9/19
+                                    Call<Item_loan> call_loan = api1.getputcancelloan(Integer.parseInt(loanid),item_loan,basic_Encode);
+                                    call_loan.enqueue(new Callback<Item_loan>() {
+                                        @Override
+                                        public void onResponse(Call<Item_loan> call1, Response<Item_loan> response1) {
+                                            if (!response1.isSuccessful()){
+                                                Log.d("444444", String.valueOf(response1.code()));
+                                            }
+                                            Intent intent = new Intent(mContext, Account.class);
+                                            mContext.startActivity(intent);
+                                            ((Activity)mContext).finish();
+                                            // delete item withou intent by samang 9/9/19
 //                                                        datas.remove(position);
 //                                                        notifyItemRemoved(position);
 //                                                        notifyItemRangeChanged(position, datas.size());
 
-                                                    if (response1.code() == 400) {
-                                                        try {
-                                                            Log.v("Error code 400", response1.errorBody().string());
-                                                        } catch (IOException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
+                                            if (response1.code() == 400) {
+                                                try {
+                                                    Log.v("Error code 400", response1.errorBody().string());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
                                                 }
+                                            }
+                                        }
 
-                                                @Override
-                                                public void onFailure(Call<Item_loan> call1, Throwable t) {
-                                                    Log.d("ERROR",t.getMessage());
-                                                }
-                                            });
-                                        }catch (Exception e){Log.d("CAtchMessage",e.getMessage());}
-                                    }
-                                }).setNegativeButton(R.string.cancel, null).show();
+                                        @Override
+                                        public void onFailure(Call<Item_loan> call1, Throwable t) {
+                                            Log.d("ERROR",t.getMessage());
+                                        }
+                                    });
+                                }catch (Exception e){Log.d("CAtchMessage",e.getMessage());}
+                            }
+                        });
+                        clearDialog.show();
                     });
 
                     view.linearLayout.setOnClickListener(v -> {

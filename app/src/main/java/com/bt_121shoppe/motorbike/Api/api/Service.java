@@ -121,7 +121,7 @@ public interface Service {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST("api/v1/loan/")
     Call<loan_item> setCreateLoan(@Body loan_item loanItem, @Header("Authorization") String authorization);
-    @GET("api/v1/loan/{id_loan}/")
+    @GET("api/v1/loandetail/{id_loan}/")
     Call<loan_item> getDeailLoan(@Path("id_loan") int id_loan, @Header("Authorization") String authorization);
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/loan/{id_loan}/")
