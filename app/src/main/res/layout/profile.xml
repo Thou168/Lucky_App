@@ -167,12 +167,13 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginBottom="@dimen/dp_16"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -440,12 +441,13 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginBottom="@dimen/dp_16"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -593,12 +595,13 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginBottom="@dimen/dp_16"
                 android:text=""
                 android:textColor="#000"
                 android:textSize="8sp" />
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

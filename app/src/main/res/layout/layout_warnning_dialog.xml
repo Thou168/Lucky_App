@@ -19,9 +19,11 @@
 
         <TextView
             android:id="@+id/textView_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/MaterialDialog_Title"
+            android:drawableStart="@drawable/ic_warning"
+            android:drawablePadding="@dimen/dp_18"
+            style="@style/MaterialDialog_Title_warning"
             tools:text="Title" />
 
         <TextView

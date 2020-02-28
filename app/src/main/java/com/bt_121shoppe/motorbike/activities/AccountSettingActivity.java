@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -127,22 +128,39 @@ public class AccountSettingActivity extends AppCompatActivity {
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(AccountSettingActivity.this);
-                dialog.setTitle(R.string.logout)
-                        .setMessage(R.string.logout_message)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences prefer = getSharedPreferences("Register", MODE_PRIVATE);
-                                SharedPreferences.Editor editor=prefer.edit();
-                                editor.clear();
-                                editor.commit();
-                                dialog.cancel();
-                                FirebaseAuth.getInstance().signOut();
-                                LoginManager.getInstance().logOut();
-                                startActivity(new Intent(AccountSettingActivity.this,Home.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                            }
-                        }).setNegativeButton(android.R.string.no, null).show();
+                LayoutInflater factory = LayoutInflater.from(AccountSettingActivity.this);
+                final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(AccountSettingActivity.this).create();
+                clearDialog.setView(clearDialogView);
+                clearDialog.setCancelable(false);
+                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                title.setText(R.string.logout);
+                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                Mssloan.setText(R.string.logout_message);
+                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                btnYes.setText(R.string.ok);
+                Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                btnNo.setText(R.string.cancel);
+                clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clearDialog.dismiss();
+                    }
+                });
+                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPreferences prefer = getSharedPreferences("Register", MODE_PRIVATE);
+                        SharedPreferences.Editor editor=prefer.edit();
+                        editor.clear();
+                        editor.commit();
+                        clearDialog.cancel();
+                        FirebaseAuth.getInstance().signOut();
+                        LoginManager.getInstance().logOut();
+                        startActivity(new Intent(AccountSettingActivity.this,Home.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    }
+                });
+                clearDialog.show();
             }
         });
 

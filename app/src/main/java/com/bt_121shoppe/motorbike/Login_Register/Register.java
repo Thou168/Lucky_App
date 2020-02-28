@@ -30,6 +30,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.MimeTypeMap;
@@ -800,17 +801,25 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                             registerUserAccount(userEmail,username, pass, String.valueOf(3),id,apiImageURL);
                         }
                     }else {
-                        AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
-                        alertDialog.setTitle(getString(R.string.register));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setMessage(getString(R.string.verify_code_message));
-                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        LayoutInflater factory = LayoutInflater.from(Register.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Register.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.verify_code_message);
+                        title.setText(R.string.register);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialog.show();
                         mProgress.dismiss();
                     }
                 }
@@ -822,19 +831,27 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertDialog alertDialog=new AlertDialog.Builder(Register.this).create();
-                    alertDialog.setTitle(getString(R.string.register));
-                    alertDialog.setCancelable(false);
-                    alertDialog.setMessage(getString(R.string.verify_code_message));
-                    alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
+                    LayoutInflater factory = LayoutInflater.from(Register.this);
+                    final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                    final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Register.this).create();
+                    clearDialog.setView(clearDialogView);
+                    clearDialog.setIcon(R.drawable.tab_message_selector);
+                    clearDialog.setCancelable(false);
+                    TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                    TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                    Mssloan.setText(R.string.verify_code_message);
+                    title.setText(R.string.register);
+                    Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                    btnYes.setText(R.string.ok);
+                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clearDialog.dismiss();
+                        }
+                    });
                     PhoneError.setText(R.string.verify_code_message);
                     PhoneError.setTextColor(getColor(R.color.red));
-                    alertDialog.show();
+                    clearDialog.show();
                     mProgress.dismiss();
                 }
             });
@@ -1074,7 +1091,30 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     requestStoragePermission(false);
                     break;
                 case 2:
-                    RemoveImage();
+                    LayoutInflater factory = LayoutInflater.from(Register.this);
+                    final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                    final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Register.this).create();
+                    clearDialog.setView(clearDialogView);
+                    clearDialog.setCancelable(false);
+                    TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                    Mssloan.setText(R.string.delete_photo);
+                    Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                    btnYes.setText(R.string.ok);
+                    Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                    btnNo.setText(R.string.cancel);
+                    clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clearDialog.dismiss();
+                        }
+                    });
+                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            RemoveImage();
+                        }
+                    });
+                    clearDialog.show();
                     break;
                 case 3:
                     break;
@@ -1447,17 +1487,25 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
-                        alertDialog.setTitle(getString(R.string.title_edit_account));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setMessage(getString(R.string.edit_fail_message));
-                        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        LayoutInflater factory = LayoutInflater.from(Register.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Register.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.edit_fail_message);
+                        title.setText(R.string.title_edit_account);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clearDialog.dismiss();
+                            }
+                        });
+                        clearDialog.show();
                         mProgress.dismiss();
                     }
                 });
@@ -1514,16 +1562,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     map.put("imageURL",image);
                     reference.updateChildren(map);
                     startActivity(new Intent(getApplicationContext(), Account.class));
-//                    AlertDialog alertDialog = new AlertDialog.Builder(Register.this).create();
-//                    alertDialog.setTitle(getString(R.string.title_edit_account));
-//                    alertDialog.setMessage(getString(R.string.edit_success_message));
-//                    alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
-//                        mProgress.dismiss();
-//                        startActivity(new Intent(getApplicationContext(), Account.class));
-//                        dialog.dismiss();
-//                    });
-//                    alertDialog.show();
-//                    mProgress.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -1531,17 +1569,25 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 }
             });
         }else {
-            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(Register.this).create();
-            alertDialog.setTitle(getString(R.string.title_edit_account));
-            alertDialog.setCancelable(false);
-            alertDialog.setMessage(getString(R.string.edit_fail_message));
-            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
+            LayoutInflater factory = LayoutInflater.from(Register.this);
+            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Register.this).create();
+            clearDialog.setView(clearDialogView);
+            clearDialog.setIcon(R.drawable.tab_message_selector);
+            clearDialog.setCancelable(false);
+            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+            Mssloan.setText(R.string.edit_fail_message);
+            title.setText(R.string.title_edit_account);
+            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+            btnYes.setText(R.string.ok);
+            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clearDialog.dismiss();
+                }
+            });
+            clearDialog.show();
             mProgress.dismiss();
         }
     }

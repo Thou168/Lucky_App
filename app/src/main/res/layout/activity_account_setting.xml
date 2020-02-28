@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_regular"
                     android:textSize="15dp"
-                    android:text="@string/term_privacy_heading"/>
+                    android:text="@string/menu_privacy"/>
             </LinearLayout>
 
         </RelativeLayout>
@@ -202,7 +202,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:textAlignment="center"
         android:layout_centerInParent="true"
         android:orientation="horizontal">
         <ImageView

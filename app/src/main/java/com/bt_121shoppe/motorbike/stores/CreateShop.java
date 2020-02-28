@@ -135,6 +135,7 @@ public class CreateShop extends AppCompatActivity {
         mCompressor = new FileCompressor(this);
         mProgress   = new ProgressDialog(this);
         mProgress.setMessage(getString(R.string.update));
+        mProgress.setProgressStyle(R.color.colorPrimary);
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
         SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
@@ -369,6 +370,7 @@ public class CreateShop extends AppCompatActivity {
 
     private void selectImage(){
         android.app.AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CreateShop.this);
+        dialogBuilder.setCancelable(false);
         dialogBuilder.setItems(photo_select, (dialog, which) -> {
             switch (which){
                 case 0:

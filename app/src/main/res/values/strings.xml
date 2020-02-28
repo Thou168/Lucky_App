@@ -256,6 +256,7 @@
 
     <string name="create_loan">Your create</string>
     <string name="for_loan_title">Message</string>
+    <string name="for_reomve_title">Remove Post</string>
     <string name="already_created">You cannot request duplicate loan.</string>
     <string name="title_fill_information">Fill in Information</string>
     <string name="txt_clr_detail">DETAIL</string>
@@ -618,7 +619,7 @@
     <string name="post_fail_message">This Post ads has been error while submitting.</string>
     <string name="post_success_message">This Post ads has been successfully submitted.</string>
     <string name="waiting_approval">Waiting approval</string>
-    <string name="ok">OK</string>
+    <string name="ok">Ok</string>
     <string name="please_wait">Please wait…</string>
     <string name="uploading">Uploading</string>
     <string name="job">Job can`t be empty</string>
@@ -667,7 +668,7 @@
     <string name="edit_fail_message">Account information has been error while submitting.</string>
     <string name="update">Updating…</string>
     <string name="title_unlike">Remove Save Ad</string>
-    <string name="unlike_message">Are you sure to remove this save ad?</string>
+    <string name="unlike_message">Are you sure to remove this saved ad?</string>
     <string name="like_post">You Liked this post</string>
     <string name="forget_pwd">Forget Password?</string>
     <string name="search_account_title">Search Account</string>
@@ -1036,7 +1037,7 @@
     //thou
     <string-array name="select_photo">
         <item>Take Photo</item>
-        <item>Choose from Library</item>
+        <item>Gallery</item>
         <item>Delete Photo</item>
         <item>Cancel</item>
     </string-array>
@@ -1136,4 +1137,5 @@
     <string name="remove_shop_message_confirmation">Do you want to remove this shop?</string>
     <string name="select_color">You cannot choose more than two colors.</string>
     <string name="dialog_camera">Camera</string>
+    <string name="add_post">Add Post</string>
 </resources>

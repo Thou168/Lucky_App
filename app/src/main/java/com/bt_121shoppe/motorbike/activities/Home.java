@@ -23,6 +23,7 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,6 +74,7 @@ import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bumptech.glide.Glide;
 import com.custom.sliderimage.logic.SliderImage;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -458,6 +460,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         mProgressbar.setVisibility(View.VISIBLE);
 
         mProgress=new ProgressDialog(this);
+        mProgress.setProgressStyle(R.color.colorPrimary);
         mProgress.setMessage(getString(R.string.please_wait));
         //mProgress.show();
 
@@ -877,27 +880,37 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     }
 
     public void showUpdateDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Home.this);
 
-        alertDialogBuilder.setTitle(Home.this.getString(R.string.app_name));
-        alertDialogBuilder.setMessage(Home.this.getString(R.string.update_message));
-        alertDialogBuilder.setCancelable(false);
-        alertDialogBuilder.setPositiveButton(R.string.update_now, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Home.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                dialog.cancel();
-            }
-        });
-        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        LayoutInflater factory = LayoutInflater.from(Home.this);
+        final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Home.this).create();
+        clearDialog.setView(clearDialogView);
+        clearDialog.setCancelable(false);
+        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+        title.setText(R.string.app_name);
+        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.update_message);
+        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.update_now);
+        Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+        btnNo.setText(R.string.cancel);
+        clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 if (isForceUpdate) {
                     //finish();
                 }
-                dialog.dismiss();
+                clearDialog.dismiss();
             }
         });
-        alertDialogBuilder.show();
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Home.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+                clearDialog.cancel();
+            }
+        });
+        clearDialog.show();
     }
 
 }

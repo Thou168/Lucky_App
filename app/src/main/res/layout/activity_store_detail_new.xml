@@ -170,7 +170,7 @@
             android:id="@+id/relative_change"
             android:layout_width="match_parent"
             android:layout_below="@+id/img_user"
-            android:layout_marginTop="15.21dp"
+            android:layout_marginTop="@dimen/dp_16"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/best_match"
@@ -185,10 +185,11 @@
             <ImageView
                 android:id="@+id/filter_detail"
                 android:layout_alignParentEnd="true"
-                android:layout_width="@dimen/dp_18"
+                android:layout_width="@dimen/dp_16"
                 android:src="@drawable/filter"
-                android:layout_marginEnd="133dp"
-                android:layout_height="@dimen/dp_18"/>
+                android:layout_marginEnd="123dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="@dimen/dp_16"/>
 
             <TextView
                 android:text="|"
@@ -202,10 +203,10 @@
             <ImageView
                 android:layout_alignParentEnd="true"
                 android:id="@+id/img_list"
-                android:src="@drawable/path_3930"
+                android:src="@drawable/list_brown"
                 android:layout_centerInParent="true"
-                android:layout_width="21.87dp"
-                android:layout_height="@dimen/dp_16"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
                 android:layout_marginEnd="83.13dp"
                 android:layout_toStartOf="@+id/grid" />
             <ImageView
@@ -213,17 +214,17 @@
                 android:layout_marginEnd="49dp"
                 android:layout_centerInParent="true"
                 android:id="@+id/grid"
-                android:src="@drawable/path_16"
-                android:layout_width="18dp"
-                android:layout_height="18dp" />
+                android:src="@drawable/grid"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20" />
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/btn_image"
                 android:layout_marginEnd="15dp"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/path_18" />
+                android:src="@drawable/image" />
 
         </RelativeLayout>
 

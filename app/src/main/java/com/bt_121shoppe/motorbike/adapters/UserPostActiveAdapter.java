@@ -44,6 +44,7 @@ import java.time.Instant;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> {
@@ -245,12 +246,29 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 pending_appprove.setTextColor(Color.parseColor("#43BF64"));
                 btRenewal.setTextColor(Color.parseColor("#0A0909"));
                 btRenewal.setText(R.string.renew);
-                btRenewal.setOnClickListener(v -> new AlertDialog.Builder(itemView.getContext())
-                        .setTitle(R.string.Post_Renewal)
-                        .setMessage(R.string.renew_post)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setCancelable(false)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                btRenewal.setOnClickListener((View.OnClickListener) view -> {
+                    LayoutInflater factory = LayoutInflater.from(itemView.getContext());
+                    final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                    final AlertDialog clearDialog = new AlertDialog.Builder(itemView.getContext()).create();
+                    clearDialog.setView(clearDialogView);
+                    clearDialog.setCancelable(false);
+                    TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                    Mssloan.setText(R.string.renew_post);
+                    TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                    title.setText(R.string.Post_Renewal);
+                    Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                    btnYes.setText(R.string.ok);
+                    Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                    btnNo.setText(R.string.cancel);
+                    clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clearDialog.dismiss();
+                        }
+                    });
+                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
                             String date = null;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 date = Instant.now().toString();
@@ -275,9 +293,45 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                                     Log.d("Error12",t.getMessage());
                                 }
                             });
-                        })
-                        .setNegativeButton(android.R.string.no,null)
-                        .show());
+                            clearDialog.dismiss();
+                        }
+                    });
+                    clearDialog.show();
+                });
+//                btRenewal.setOnClickListener(v ->
+//                        new AlertDialog.Builder(itemView.getContext())
+//                        .setTitle(R.string.Post_Renewal)
+//                        .setMessage(R.string.renew_post)
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .setCancelable(false)
+//                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+//                            String date = null;
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                date = Instant.now().toString();
+//                            }
+//                            change_status_delete change_status = new change_status_delete(4,date,pk,"");
+//                            Service api = Client.getClient().create(Service.class);
+//                            Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+//                            call.enqueue(new retrofit2.Callback<change_status_delete>() {
+//                                @Override
+//                                public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+//                                    if (!response.isSuccessful()){
+//                                        Log.d("10101", String.valueOf(response.code()));
+//                                        return;
+//                                    }
+//                                    FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
+//                                    Intent intent = new Intent(itemView.getContext(), Account.class);
+//                                    itemView.getContext().startActivity(intent);
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<change_status_delete> call, Throwable t) {
+//                                    Log.d("Error12",t.getMessage());
+//                                }
+//                            });
+//                        })
+//                        .setNegativeButton(android.R.string.no,null)
+//                        .show());
             }
 
             btRemove.setOnClickListener(new View.OnClickListener() {
@@ -291,6 +345,8 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                     clearDialog.setCancelable(false);
                     TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
                     Mssloan.setText(R.string.remove_po);
+                    TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                    title.setText(R.string.for_reomve_title);
                     Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
                     btnYes.setText(R.string.yes_leave);
                     Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
@@ -383,44 +439,53 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 //                        }
 //                    });
 //                    dialog.create().show();
-                    DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                Toast.makeText(itemView.getContext(),R.string.sold,Toast.LENGTH_SHORT).show();
-                                String date = null;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    date = Instant.now().toString();
-                                }
-                                change_status_delete change_status = new change_status_delete(7,date,pk,"");
-                                Service api = Client.getClient().create(Service.class);
-                                Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
-                                call.enqueue(new retrofit2.Callback<change_status_delete>() {
-                                    @Override
-                                    public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-                                        FBPostCommonFunction.soldPost(String.valueOf((int)mPost.getId()));
-                                        Intent intent = new Intent(itemView.getContext(), Account.class);
-                                        itemView.getContext().startActivity(intent);
-                                        ((Activity)itemView.getContext()).finish();
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<change_status_delete> call, Throwable t) {
-
-                                    }
-                                });
-                                dialog.dismiss();
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                dialog.dismiss();
-                                break;
+                    LayoutInflater factory = LayoutInflater.from(itemView.getContext());
+                    final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                    final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(itemView.getContext()).create();
+                    clearDialog.setView(clearDialogView);
+                    clearDialog.setCancelable(false);
+                    TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                    Mssloan.setText(R.string.sold_po);
+//                    TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+//                    title.setText(R.string.for_reomve_title);
+                    Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                    btnYes.setText(R.string.ok);
+                    Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                    btnNo.setText(R.string.cancel);
+                    clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clearDialog.dismiss();
                         }
-                    };
-                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage(R.string.sold_po)
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.yes_remove, dialogClickListener)
-                            .setNegativeButton(R.string.no_remove, dialogClickListener).show();
+                    });
+                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String date = null;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                date = Instant.now().toString();
+                            }
+                            change_status_delete change_status = new change_status_delete(7,date,pk,"");
+                            Service api = Client.getClient().create(Service.class);
+                            Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+                            call.enqueue(new retrofit2.Callback<change_status_delete>() {
+                                @Override
+                                public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+                                    FBPostCommonFunction.soldPost(String.valueOf((int)mPost.getId()));
+                                    Intent intent = new Intent(itemView.getContext(), Account.class);
+                                    itemView.getContext().startActivity(intent);
+                                    ((Activity)itemView.getContext()).finish();
+                                }
+
+                                @Override
+                                public void onFailure(Call<change_status_delete> call, Throwable t) {
+
+                                }
+                            });
+                            clearDialog.dismiss();
+                        }
+                    });
+                    clearDialog.show();
                 }
             });
             Double finalPrice=cost;

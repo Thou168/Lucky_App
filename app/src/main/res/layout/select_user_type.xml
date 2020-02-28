@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_16"
         android:layout_margin="15dp"
-        android:background="@drawable/background_cardview">
+        android:background="@drawable/background_card">
         <TextView
             android:id="@+id/tv_public"
             android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
         android:layout_marginRight="@dimen/dp_15"
         android:layout_marginLeft="@dimen/dp_15"
         android:padding="@dimen/dp_16"
-        android:background="@drawable/background_cardview">
+        android:background="@drawable/background_card">
         <TextView
             android:id="@+id/tv_dealer"
             android:layout_width="wrap_content"
