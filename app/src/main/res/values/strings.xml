@@ -1120,6 +1120,14 @@
     <string name="enter_information">Enter Information</string>
     <string name="private_information">Private Information</string>
     <string name="borrow_information">Borrow Information</string>
+    <string name="invalid_card_id">Card ID can`t be empty</string>
+    <string name="invalid_family_book">Family Book can`t be empty</string>
+    <string name="invalid_photo">Photo can`t be empty</string>
+    <string name="invalid_employment">Staff ID can`t be empty</string>
+    <string name="invalid_co_card_id">Card ID can`t be empty</string>
+    <string name="invalid_co_family_book">Family Book can`t be empty</string>
+    <string name="invalid_co_photo">Photo can`t be empty</string>
+    <string name="invalid_co_employment">Staff ID can`t be empty</string>
     <string name="co_borrower_information">Co-Borrower Information</string>
     <string name="save">Save</string>
     <string name="please_fill_information">Please fill your information correctly.</string>

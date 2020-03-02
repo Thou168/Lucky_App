@@ -2576,6 +2576,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
             final ColorAdapter adapter = new ColorAdapter(FunctionColor.itemcolor, getApplication());
             gridView.setAdapter(adapter);
+            selectedColor = FunctionColor.getItemColor(strColor);
             if (index.length == 2) {
                 adapter.selectedPositions.add(index[0]);
                 adapter.selectedPositions.add(index[1]);
@@ -2584,12 +2585,13 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     if (selectedIndex > - 1) {
                         adapter.selectedPositions.remove(selectedIndex);
                         ((CustomView)v).display(false);
-                        selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                        selectedColor.remove(selectedIndex);
                     } else {
                         adapter.selectedPositions.add(position);
                         ((CustomView)v).display(true);
-                        selectedColor.add((Integer) parent.getItemAtPosition(position));
+                        selectedColor.add(position);
                     }
+                    Log.e("select color",""+selectedColor);
                     if (selectedColor.size() > 2 ){
                         LayoutInflater factory = LayoutInflater.from(Camera.this);
                         final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
@@ -2603,34 +2605,18 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         title.setText(R.string.for_loan_title);
                         Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
                         btnYes.setText(R.string.ok);
-                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                selectedIndex = selectedColor.size()-1;
-                                if (selectedIndex > -1 ) {
-                                    adapter.selectedPositions.remove(selectedIndex);
-                                }
-                                ((CustomView)v).display(false);
-                                selectedColor.remove((Integer) parent.getItemAtPosition(position));
-                                clearDialog.dismiss();
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v1 -> {
+                            selectedIndex = selectedColor.size()-1;
+                            if (selectedIndex > -1 ) {
+                                adapter.selectedPositions.remove(selectedIndex);
                             }
+                            ((CustomView) v).display(false);
+                            selectedColor.remove(selectedIndex);
+                            clearDialog.dismiss();
                         });
                         clearDialog.show();
                     }
-                    arrayColor = new ArrayList<>();
-                    if (selectedColor.size() > 0) {
-                        for (int j = 0; j < selectedColor.size(); j++) {
-                            if (j < selectedColor.size() - 1) {
-                                color = String.valueOf(selectedColor.get(j));
-                                Log.e("Select", "" + color);
-                            } else {
-                                color = String.valueOf(selectedColor.get(j));
-                                Log.e("Select", "" + color);
-                            }
-                            arrayColor.add(color);
-                        }
-                    }
-                    strColor = FunctionColor.setColor(arrayColor);
+                    strColor = FunctionColor.setColor(selectedColor);
                     Log.e("color select:",""+strColor);
                 });
             }else {
@@ -2640,45 +2626,42 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     if (selectedIndex > - 1) {
                         adapter.selectedPositions.remove(selectedIndex);
                         ((CustomView)v).display(false);
-                        selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                        selectedColor.remove(position);
                     } else {
                         adapter.selectedPositions.add(position);
                         ((CustomView)v).display(true);
-                        selectedColor.add((Integer) parent.getItemAtPosition(position));
+                        selectedColor.add(position);
                     }
+                    Log.e("select color",""+selectedColor);
                     if (selectedColor.size() > 2 ){
-                        AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                        alertDialog.setMessage(Camera.this.getString(R.string.select_color));
-                        alertDialog.setCancelable(false);
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                (dialog, which) -> {
-                                    selectedIndex = selectedColor.size()-1;
-                                    if (selectedIndex > -1 ) {
-                                        adapter.selectedPositions.remove(selectedIndex);
-                                    }
-                                    ((CustomView)v).display(false);
-                                    selectedColor.remove((Integer) parent.getItemAtPosition(position));
-                                    dialog.dismiss();
-                                });
-                        alertDialog.show();
-                    }
-                    arrayColor = new ArrayList<>();
-                    if (selectedColor.size() > 0) {
-                        for (int j = 0; j < selectedColor.size(); j++) {
-                            if (j < selectedColor.size() - 1) {
-                                color = String.valueOf(selectedColor.get(j));
-                            } else {
-                                color = String.valueOf(selectedColor.get(j));
+                        LayoutInflater factory = LayoutInflater.from(Camera.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.select_color);
+                        title.setText(R.string.for_loan_title);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v1 -> {
+                            selectedIndex = selectedColor.size()-1;
+                            if (selectedIndex > -1 ) {
+                                adapter.selectedPositions.remove(selectedIndex);
                             }
-                            arrayColor.add(color);
-                        }
+                            ((CustomView) v).display(false);
+                            selectedColor.remove(selectedIndex);
+                            clearDialog.dismiss();
+                        });
+                        clearDialog.show();
                     }
-                    strColor = FunctionColor.setColor(arrayColor);
+                    strColor = FunctionColor.setColor(selectedColor);
                     Log.e("color select:",""+strColor);
                 });
             }
         }
-        selectedColor = FunctionColor.getItemColor(strColor);
     }
     private void DropDown() {
 
@@ -2691,44 +2674,38 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             if (selectedIndex > - 1) {
                 adapter.selectedPositions.remove(selectedIndex);
                 ((CustomView)v).display(false);
-                selectedColor.remove((Integer) parent.getItemAtPosition(position));
+                selectedColor.remove(selectedIndex);
             } else {
                 adapter.selectedPositions.add(position);
                 ((CustomView)v).display(true);
-                selectedColor.add((Integer) parent.getItemAtPosition(position));
+                selectedColor.add(position);
             }
-            Log.e("select index",""+selectedIndex);
+            Log.e("select color",""+selectedColor);
             if (selectedColor.size() > 2 ){
-                AlertDialog alertDialog = new AlertDialog.Builder(Camera.this).create();
-                alertDialog.setCancelable(false);
-                alertDialog.setMessage(Camera.this.getString(R.string.select_color));
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                        (dialog, which) -> {
-                            selectedIndex = selectedColor.size()-1;
-                            if (selectedIndex > -1 ) {
-                                adapter.selectedPositions.remove(selectedIndex);
-                            }
-                            ((CustomView)v).display(false);
-                            selectedColor.remove((Integer) parent.getItemAtPosition(position));
-                            dialog.dismiss();
-                        });
-                alertDialog.show();
-            }
-            arrayColor = new ArrayList<>();
-            if (selectedColor.size() > 0) {
-                for (int i = 0; i < selectedColor.size(); i++) {
-                    if (i < selectedColor.size() - 1) {
-                        color = String.valueOf(selectedColor.get(i));
-                        Log.e("Select",""+color);
-                    } else {
-                        color = String.valueOf(selectedColor.get(i));
-                        Log.e("Select",""+color);
+                LayoutInflater factory = LayoutInflater.from(Camera.this);
+                final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                clearDialog.setView(clearDialogView);
+                clearDialog.setIcon(R.drawable.tab_message_selector);
+                clearDialog.setCancelable(false);
+                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                Mssloan.setText(R.string.select_color);
+                title.setText(R.string.for_loan_title);
+                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                btnYes.setText(R.string.ok);
+                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v1 -> {
+                    selectedIndex = selectedColor.size()-1;
+                    if (selectedIndex > -1 ) {
+                        adapter.selectedPositions.remove(selectedIndex);
                     }
-                    arrayColor.add(color);
-                }
+                    ((CustomView) v).display(false);
+                    selectedColor.remove(selectedIndex);
+                    clearDialog.dismiss();
+                });
+                clearDialog.show();
             }
-            Log.e("list color",""+arrayColor.size());
-            strColor = FunctionColor.setColor(arrayColor);
+            strColor = FunctionColor.setColor(selectedColor);
             Log.e("color select:",""+strColor);
         });
 

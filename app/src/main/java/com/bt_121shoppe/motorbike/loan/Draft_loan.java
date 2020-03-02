@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.loan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
@@ -37,10 +38,10 @@ public class Draft_loan extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SharedPreferences prefer;
     private String name,pass,Encode;
-    private String basic_Encode;
+    private String basic_Encode,price;
     private List<draft_Item> listData;
     private Adapter_list_draft mAdapter;
-    private int pk;
+    private int pk,productID;
     ProgressBar progressBar;
     TextView no_result;
 
@@ -65,13 +66,20 @@ public class Draft_loan extends AppCompatActivity {
         Encode = CommonFunction.getEncodedString(name,pass);
 
         basic_Encode = "Basic "+getEncodedString(name,pass);
+        Intent intent = getIntent();
+        productID = intent.getIntExtra("product_id",0);
+        price = intent.getStringExtra("price");
+        Log.e("product ID",""+productID+","+price);
         getLoan_draft();
 
         tv_back = findViewById(R.id.tv_back);
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent1 = new Intent(Draft_loan.this,Create_Load.class);
+                intent1.putExtra("product_id",productID);
+                intent1.putExtra("price",price);
+                startActivity(intent1);
             }
         });
     }
@@ -93,7 +101,7 @@ public class Draft_loan extends AppCompatActivity {
                     no_result.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
-                mAdapter = new Adapter_list_draft(getBaseContext(),listData);
+                mAdapter = new Adapter_list_draft(getBaseContext(),listData,productID,price);
                 recyclerView.setAdapter(mAdapter);
             }
             @Override
@@ -103,4 +111,11 @@ public class Draft_loan extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent1 = new Intent(Draft_loan.this,Create_Load.class);
+        intent1.putExtra("product_id",productID);
+        intent1.putExtra("price",price);
+        startActivity(intent1);
+    }
 }

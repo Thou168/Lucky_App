@@ -25,6 +25,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.activities.Account;
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.loan.child.one;
 import com.bt_121shoppe.motorbike.loan.child.two;
 import com.bt_121shoppe.motorbike.loan.child.three;
@@ -77,6 +79,8 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         btnList_Draft = findViewById(R.id.list_draft);
         btnList_Draft.setOnClickListener(view -> {
             Intent intent1 = new Intent(Create_Load.this,Draft_loan.class);
+            intent1.putExtra("product_id",product_id);
+            intent1.putExtra("price",price);
             startActivity(intent1);
         });
         if (loan_history != null){
@@ -111,6 +115,25 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     public boolean CheckedYear(EditText editText){
         return (!editText.getText().toString().isEmpty() && editText.getText().toString().length()>0);
     }
+    public boolean CheckedRdioButton(RadioGroup radioGroup){
+        if (radioGroup.getCheckedRadioButtonId()==-1) {
+            return false;
+        }
+        return true;
+    }
+    public void request(boolean b,RadioGroup radioGroup,TextView textView,String text){
+        textView.setText("");
+        if (!b) {
+            if(radioGroup.getCheckedRadioButtonId()==-1) {
+                textView.setText(text);
+                textView.setTextColor(getColor(R.color.red));
+            }else {
+                textView.setText("");
+            }
+        }else {
+            textView.setText("");
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -134,8 +157,17 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                clearDialog.dismiss();
+                if (mLoandID != 0){
+                    Intent intent1 = new Intent(Create_Load.this,Account.class);
+                    startActivity(intent1);
+                }else if (product_id != 0) {
+                    Intent intent1 = new Intent(Create_Load.this,Detail_new_post_java.class);
+                    intent1.putExtra("ID",product_id);
+                    startActivity(intent1);
+                }else {
+                    finish();
+                    clearDialog.dismiss();
+                }
             }
         });
         clearDialog.show();

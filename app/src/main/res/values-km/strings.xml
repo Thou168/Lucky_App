@@ -953,6 +953,14 @@
     <string name="invalid_monthly_amount">សូមបំពេញចំនួនទឹកប្រាក់សរុបដែលត្រូវសងប្រចាំខែ</string>
     <string name="invalid_residence">សូមជ្រើសរើសការអនុញ្ញាតឲភ្នាក់ងារចុះជួបដល់លំនៅដ្ឋាន</string>
     <string name="invalid_product_insurance">សូមជ្រើសរើសការទិញធានារ៉ាប់រងផលិតផល</string>
+    <string name="invalid_card_id">សូមជ្រើសរើសអត្តសញ្ញាណប័ណ្ណ</string>
+    <string name="invalid_family_book">សូមជ្រើសរើសសៀវភៅគ្រួសារ</string>
+    <string name="invalid_photo">សូមជ្រើសរើសរូបថត</string>
+    <string name="invalid_employment">សូមជ្រើសរើសកាតសំគាល់បុគ្គលិក</string>
+    <string name="invalid_co_card_id">សូមជ្រើសរើសអត្តសញ្ញាណប័ណ្ណ</string>
+    <string name="invalid_co_family_book">សូមជ្រើសរើសសៀវភៅគ្រួសារ</string>
+    <string name="invalid_co_photo">សូមជ្រើសរើសរូបថត</string>
+    <string name="invalid_co_employment">សូមជ្រើសរើសកាតសំគាល់បុគ្គលិក</string>
     <string name="invalid_province">សូមជ្រើសរើសខេត្ត</string>
     <string name="enter_information">បញ្ចូលព័ត៌មាន</string>
     <string name="private_information">ព័ត៌មានឯកជន</string>

@@ -603,9 +603,9 @@ public class one extends Fragment{
         bDistrict = createLoad.CheckedYear(mDistrict);
         bVillage = createLoad.CheckedYear(mVillage);
         if (index == 0){
-            return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense&&bRelationship&&bCo_borrower_Job;
+            return bname&&bphone&&baddress&&bCommune&&bVillage&&bDistrict&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense&&bRelationship&&bCo_borrower_Job;
         }else {
-            return bname&&bphone&&baddress&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
+            return bname&&bphone&&baddress&&bCommune&&bVillage&&bDistrict&&bJob&&bJob_Period&&radioCheck&&bTotal_Income&&bmTotal_Expense;
         }
     }
 

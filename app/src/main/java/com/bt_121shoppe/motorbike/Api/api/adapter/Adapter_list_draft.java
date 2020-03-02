@@ -57,12 +57,14 @@ public class Adapter_list_draft extends RecyclerView.Adapter<Adapter_list_draft.
     private List<draft_Item> datas;
     SharedPreferences prefer;
     private Context mContext;
-    String name,pass,basic_Encode;
-    private int pk=0;
+    String name,pass,basic_Encode,price;
+    private int pk=0,product_id;
 
-    public Adapter_list_draft(Context mContex,List<draft_Item> datas) {
+    public Adapter_list_draft(Context mContex,List<draft_Item> datas,int product_id,String price) {
         this.mContext=mContex;
         this.datas = datas;
+        this.product_id = product_id;
+        this.price = price;
     }
     @NonNull
     @Override
@@ -89,13 +91,13 @@ public class Adapter_list_draft extends RecyclerView.Adapter<Adapter_list_draft.
         final draft_Item model = datas.get(position);
         int loanid = (int)model.getId();
         int post_by = model.getPost();
-        String price = String.valueOf(model.getLoan_amount());
+//        String price = String.valueOf(model.getLoan_amount());
         view.draft_name.setText(model.getDraft_name());
-        Log.e("item",""+loanid+price+post_by);
+        Log.e("item",""+loanid+price+post_by+product_id);
         view.itemView.setOnClickListener(view1 -> {
             Intent intent = new Intent(view1.getContext(),Create_Load.class);
             intent.putExtra("LoanID",loanid);
-            intent.putExtra("product_id",post_by);
+            intent.putExtra("product_id",product_id);
             intent.putExtra("price",price);
             intent.putExtra("draft","draft");
             view1.getContext().startActivity(intent);

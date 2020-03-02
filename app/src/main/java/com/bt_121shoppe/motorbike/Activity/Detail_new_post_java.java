@@ -333,7 +333,11 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     public void onBackPressed() {
         if (login_verify!=null){
             startActivity(new Intent(Detail_new_post_java.this,Home.class));
-        }else finish();
+        }else if (postId != 0) {
+            startActivity(new Intent(Detail_new_post_java.this,Home.class));
+        }else {
+            finish();
+        }
     }
 
     @Override

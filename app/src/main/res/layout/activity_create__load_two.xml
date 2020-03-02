@@ -199,6 +199,16 @@
                     android:layout_weight="1"
                     android:text="@string/insurance_no" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/product_insurance_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/tv_residence"
@@ -238,6 +248,16 @@
                     android:layout_weight="1"
                     android:text="@string/allow_no" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/visit_home_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_8dp"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/tv_Number_debt"

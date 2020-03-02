@@ -61,6 +61,8 @@ public class three extends Fragment {
     private RadioGroup etID_card,etFamily_book,etPhotos,etEmployment_card,etID_card1,etFamily_book1,etPhotos1,etEmployment_card1;
     private RadioButton rdID_card_yes,rdFamily_book_yes,rdPhotos_yes,rdEmployment_card_yes,rdID_card1_yes,rdFamily_book1_yes,rdPhotos1_yes,rdEmployment_card1_yes;
     private RadioButton rdID_card_no,rdFamily_book_no,rdPhotos_no,rdEmployment_card_no,rdID_card1_no,rdFamily_book1_no,rdPhotos1_no,rdEmployment_card1_no;
+    private TextView etID_card_alert,etFamily_book_alert,etPhotos_alert,etEmployment_card_alert,etID_card1_alert,etFamily_book1_alert,etPhotos1_alert,etEmployment_card1_alert;
+    private boolean bcard_id,bfamily_book,bphoto,bemployment,bcard_id1,bfamily_book1,bphoto1,bemployment1;
     private item_two itemTwo;
     private SharedPreferences preferences;
     private ProgressDialog mProgress;
@@ -75,6 +77,7 @@ public class three extends Fragment {
     private int index = 3;
     private boolean mFromLoan;
     private boolean mCard_ID,mFamily_Book,mPhoto,mCard_Work,mCard_ID1=false,mFamily_Book1=false,mPhoto1=false,mCard_Work1=false;
+    private Create_Load createLoad;
     public static three newInstance(int number,String price,int loanid,boolean fromLoan,String Draft,String loan_history) {
         three fragment = new three();
         Bundle args = new Bundle();
@@ -107,6 +110,7 @@ public class three extends Fragment {
             loan_history = args.getString(LOAN_HISTORY);
             Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+","+mDraft+","+loan_history);
         }
+        createLoad = (Create_Load)this.getActivity();
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
         username=preferences.getString("name","");
         password=preferences.getString("pass","");
@@ -116,14 +120,6 @@ public class three extends Fragment {
             pk = preferences.getInt("Pk",0);
         }else if (preferences.contains("id")) {
             pk = preferences.getInt("id", 0);
-        }
-        if (itemTwo != null) {
-            Log.e("co-borrower", "" + itemTwo.getItemOne().getIndex());
-            if (itemTwo.getItemOne().getIndex() == 1) {
-                layout_coborrower.setVisibility(View.GONE);
-            } else {
-                layout_coborrower.setVisibility(View.VISIBLE);
-            }
         }
         initView(view);
         mBtnSaveDraft = view.findViewById(R.id.btn_back);
@@ -241,6 +237,17 @@ public class three extends Fragment {
             clearDialog.show();
         });
         mBtnSubmit.setOnClickListener(v -> {
+            checkEd();
+            createLoad.request(bcard_id,etID_card,etID_card_alert,getString(R.string.invalid_card_id));
+            createLoad.request(bemployment,etEmployment_card,etEmployment_card_alert,getString(R.string.invalid_employment));
+            createLoad.request(bfamily_book,etFamily_book,etFamily_book_alert,getString(R.string.invalid_family_book));
+            createLoad.request(bphoto,etPhotos,etPhotos_alert,getString(R.string.invalid_photo));
+//            if (itemTwo.getItemOne().getIndex() == 1){
+                createLoad.request(bcard_id1,etID_card1,etID_card1_alert,getString(R.string.invalid_co_card_id));
+                createLoad.request(bemployment1,etEmployment_card1,etEmployment_card1_alert,getString(R.string.invalid_co_employment));
+                createLoad.request(bfamily_book1,etFamily_book1,etFamily_book1_alert,getString(R.string.invalid_co_family_book));
+                createLoad.request(bphoto1,etPhotos1,etPhotos1_alert,getString(R.string.invalid_co_photo));
+//            }
                 Log.e("From Loan",String.valueOf(mFromLoan));
                 if (mFromLoan){
                     dialog_Editloan();
@@ -264,7 +271,9 @@ public class three extends Fragment {
                                 } else {
                                     Log.d("Pk",""+ pk + Encode+"  user "+ username+"  pass  "+password);
                                     if (itemTwo != null) {
-                                        putapi();
+                                        if (checkEd()) {
+                                            putapi();
+                                        }
                                     }else {
                                         android.app.AlertDialog builder = new android.app.AlertDialog.Builder(getContext()).create();
                                         builder.setMessage(getString(R.string.please_fill_information));
@@ -282,7 +291,16 @@ public class three extends Fragment {
                     });
                 }
         });
+        if (itemTwo != null) {
+            Log.e("co-borrower", "" + itemTwo.getItemOne().getIndex());
+            if (itemTwo.getItemOne().getIndex() == 1) {
+                layout_coborrower.setVisibility(View.GONE);
+            } else {
+                layout_coborrower.setVisibility(View.VISIBLE);
+            }
+        }
 
+        Log.e("TAH","I got item 2"+itemTwo);
     }
 
     private void putapi(){
@@ -344,6 +362,22 @@ public class three extends Fragment {
             }
         });
     }
+    private boolean checkEd(){
+        bcard_id = createLoad.CheckedRdioButton(etID_card);
+        bfamily_book = createLoad.CheckedRdioButton(etFamily_book);
+        bemployment = createLoad.CheckedRdioButton(etEmployment_card);
+        bphoto = createLoad.CheckedRdioButton(etPhotos);
+        bcard_id1 = createLoad.CheckedRdioButton(etID_card1);
+        bfamily_book1 = createLoad.CheckedRdioButton(etFamily_book1);
+        bemployment1 = createLoad.CheckedRdioButton(etEmployment_card1);
+        bphoto1 = createLoad.CheckedRdioButton(etPhotos1);
+        return bcard_id && bfamily_book && bemployment && bphoto;
+//        if (itemTwo.getItemOne().getIndex() == 1) {
+//            return bcard_id && bfamily_book && bemployment && bphoto;
+//        }else {
+//            return bcard_id && bfamily_book && bemployment && bphoto && bcard_id1 && bfamily_book1 && bemployment1 && bphoto1;
+//        }
+    }
     private void dialog_Editloan() {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
@@ -388,6 +422,15 @@ public class three extends Fragment {
         rdEmployment_card1_yes  = (RadioButton) view.findViewById(R.id.radio1_Employment_card1);
         rdEmployment_card1_no   = (RadioButton) view.findViewById(R.id.radio2_Employment_card1);
         layout_coborrower       = (LinearLayout)view.findViewById(R.id.layout_co_borrower);
+
+        etID_card_alert           = (TextView) view.findViewById(R.id.card_id_alert);
+        etFamily_book_alert       = (TextView) view.findViewById(R.id.family_alert);
+        etEmployment_card_alert   = (TextView) view.findViewById(R.id.staff_id_alert);
+        etPhotos_alert            = (TextView) view.findViewById(R.id.photo_alert);
+        etID_card1_alert          = (TextView) view.findViewById(R.id.co_card_id_alert);
+        etFamily_book1_alert      = (TextView) view.findViewById(R.id.co_family_book_alert);
+        etEmployment_card1_alert  = (TextView) view.findViewById(R.id.co_staff_id_alert);
+        etPhotos1_alert           = (TextView) view.findViewById(R.id.co_photo_alert);
 
         etID_card = view.findViewById(R.id.radio_group_ID_card);
         etID_card.setOnCheckedChangeListener((group, checkedId) -> {

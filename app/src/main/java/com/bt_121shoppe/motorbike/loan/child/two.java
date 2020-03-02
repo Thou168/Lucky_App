@@ -72,7 +72,7 @@ public class two extends Fragment {
     private EditText mLoan_amount,mLoan_Term,mloan_RepaymentType,mLoan_Contributions,mNumber_institution,mMonthly_Amount_Paid;
     private RadioGroup mResidence,mProduct_insurance;
     private RadioButton rdResidence,rdProduct_insurance;
-    private TextView mLoan_amount_alert,mLoan_Term_alert,mloan_RepaymentType_alert,mLoan_Contributions_alert,mNumber_institution_alert;
+    private TextView mLoan_amount_alert,mLoan_Term_alert,mloan_RepaymentType_alert,mLoan_Contributions_alert,mNumber_institution_alert,product_insurance_alert,visit_home_alert;
     private TextView mMonthly_Amount_Paid_alert,tv_monthly_payment;
     private RadioButton radio1,radio2;
     private item_two itemTwo;
@@ -143,7 +143,11 @@ public class two extends Fragment {
             createLoad.requstFocus(bPayment_Method,mloan_RepaymentType,mloan_RepaymentType_alert,getString(R.string.invalid_repayment_type));
             createLoad.requstFocus(bLoan_Contributions,mLoan_Contributions,mLoan_Contributions_alert,getString(R.string.invalid_contributions));
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,getString(R.string.invalid_number_institutions));
-//            createLoad.requstFocus(bMonthly_Amount_Paid,mMonthly_Amount_Paid,mMonthly_Amount_Paid_alert,getString(R.string.invalid_monthly_amount));
+            createLoad.request(bResidence,mResidence,visit_home_alert,getString(R.string.invalid_residence));
+            createLoad.request(bProduct_insurance,mProduct_insurance,product_insurance_alert,getString(R.string.invalid_product_insurance));
+            if (mNumber_institution.length() > 0 || mNumber_institution.getText().toString().isEmpty()) {
+                createLoad.requstFocus(bMonthly_Amount_Paid, mMonthly_Amount_Paid, mMonthly_Amount_Paid_alert, getString(R.string.invalid_monthly_amount));
+            }
             String monthly;
             if (mMonthly_Amount_Paid.getText().toString().isEmpty()){
                 monthly = "0";
@@ -187,6 +191,8 @@ public class two extends Fragment {
         mNumber_institution_alert  = view.findViewById(R.id.Number_debt_alert);
         mLoan_Contributions_alert  = view.findViewById(R.id.Loan_contributions_alert);
         mLoan_Term_alert           = view.findViewById(R.id.Borrowing_period_alert);
+        product_insurance_alert    = view.findViewById(R.id.product_insurance_alert);
+        visit_home_alert           = view.findViewById(R.id.visit_home_alert);
 
         rdProduct_insurance  = view.findViewById(R.id.radio1_product_insurance);
         rdResidence          = view.findViewById(R.id.radio1_residence);
@@ -318,13 +324,19 @@ public class two extends Fragment {
         return separated[indext];
     }
     private boolean checkEd(){
-        bLoand_amount        = createLoad.CheckedYear(mLoan_amount);
-        bLoan_Period         = createLoad.CheckedYear(mLoan_Term);
-        bPayment_Method      = createLoad.Checked(mloan_RepaymentType);
-        bLoan_Contributions  = createLoad.CheckedYear(mLoan_Contributions);
-        bNumber_institution  = createLoad.CheckedYear(mNumber_institution);
-//        bMonthly_Amount_Paid = createLoad.CheckedYear(mMonthly_Amount_Paid);
-        return bLoand_amount&&bLoan_Period&&bPayment_Method&&bLoan_Contributions&&bNumber_institution;
+        bResidence             = createLoad.CheckedRdioButton(mResidence);
+        bProduct_insurance     = createLoad.CheckedRdioButton(mProduct_insurance);
+        bLoand_amount          = createLoad.CheckedYear(mLoan_amount);
+        bLoan_Period           = createLoad.CheckedYear(mLoan_Term);
+        bPayment_Method        = createLoad.Checked(mloan_RepaymentType);
+        bLoan_Contributions    = createLoad.CheckedYear(mLoan_Contributions);
+        bNumber_institution    = createLoad.CheckedYear(mNumber_institution);
+        bMonthly_Amount_Paid   = createLoad.CheckedYear(mMonthly_Amount_Paid);
+        if (mNumber_institution.length() > 0){
+            return bLoand_amount && bLoan_Period && bPayment_Method && bLoan_Contributions && bNumber_institution && bResidence && bProduct_insurance && bMonthly_Amount_Paid;
+        }else {
+            return bLoand_amount && bLoan_Period && bPayment_Method && bLoan_Contributions && bNumber_institution && bResidence && bProduct_insurance;
+        }
     }
     public class InputFilterMinMax implements InputFilter {
         private int min;
@@ -475,7 +487,7 @@ public class two extends Fragment {
                     Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
                 }
 
-                mLoan_amount.setText(cuteString(String.valueOf(response.body().getLoan_amount()),0));
+                mLoan_amount.setText(cuteString(mPrice,0));
                 mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
                 mLoan_Contributions.setText(String.valueOf(response.body().getLoan_deposit_amount()));
                 mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)response.body().getLoan_amount()+(int)response.body().getLoan_deposit_amount())});

@@ -61,6 +61,16 @@
                     android:layout_weight="1"
                     android:text="@string/borrow_no" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/card_id_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/etFamily_book"
@@ -98,6 +108,16 @@
                     android:layout_weight="1"
                     android:text="@string/borrow_no" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/family_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/etPhotos"
@@ -135,6 +155,16 @@
                     android:layout_weight="1"
                     android:text="@string/borrow_no" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/photo_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
 
             <TextView
                 android:id="@+id/etEmployment_card"
@@ -172,6 +202,16 @@
                     android:layout_weight="1"
                     android:text="@string/borrow_no" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/staff_id_alert"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="8sp"  />
             <LinearLayout
                 android:id="@+id/layout_co_borrower"
                 android:layout_width="match_parent"
@@ -224,6 +264,16 @@
                         android:layout_weight="1"
                         android:text="@string/borrow_no" />
                 </RadioGroup>
+                <TextView
+                    android:id="@+id/co_card_id_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
 
                 <TextView
                     android:id="@+id/etFamily_book1"
@@ -262,6 +312,16 @@
                         android:text="@string/borrow_no" />
                 </RadioGroup>
                 <TextView
+                    android:id="@+id/co_family_book_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
+                <TextView
                     android:id="@+id/etPhotos1"
                     android:textColor="#000"
                     android:layout_marginStart="@dimen/dp_8"
@@ -298,6 +358,16 @@
                         android:text="@string/borrow_no" />
                 </RadioGroup>
                 <TextView
+                    android:id="@+id/co_photo_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
+                <TextView
                     android:id="@+id/etEmployment_card1"
                     android:textColor="#000"
                     android:layout_marginStart="@dimen/dp_8"
@@ -333,6 +403,16 @@
                         android:layout_weight="1"
                         android:text="@string/borrow_no" />
                 </RadioGroup>
+                <TextView
+                    android:id="@+id/co_staff_id_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="8sp"  />
             </LinearLayout>
 
            <LinearLayout
