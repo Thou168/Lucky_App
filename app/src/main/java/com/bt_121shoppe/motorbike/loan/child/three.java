@@ -237,17 +237,21 @@ public class three extends Fragment {
             clearDialog.show();
         });
         mBtnSubmit.setOnClickListener(v -> {
-            checkEd();
+            if (itemTwo != null) {
+                checkEd();
+            }
             createLoad.request(bcard_id,etID_card,etID_card_alert,getString(R.string.invalid_card_id));
             createLoad.request(bemployment,etEmployment_card,etEmployment_card_alert,getString(R.string.invalid_employment));
             createLoad.request(bfamily_book,etFamily_book,etFamily_book_alert,getString(R.string.invalid_family_book));
             createLoad.request(bphoto,etPhotos,etPhotos_alert,getString(R.string.invalid_photo));
-//            if (itemTwo.getItemOne().getIndex() == 1){
-                createLoad.request(bcard_id1,etID_card1,etID_card1_alert,getString(R.string.invalid_co_card_id));
-                createLoad.request(bemployment1,etEmployment_card1,etEmployment_card1_alert,getString(R.string.invalid_co_employment));
-                createLoad.request(bfamily_book1,etFamily_book1,etFamily_book1_alert,getString(R.string.invalid_co_family_book));
-                createLoad.request(bphoto1,etPhotos1,etPhotos1_alert,getString(R.string.invalid_co_photo));
-//            }
+            if (itemTwo != null ){
+                if (itemTwo.getItemOne().getCo_borrower()){
+                    createLoad.request(bcard_id1,etID_card1,etID_card1_alert,getString(R.string.invalid_co_card_id));
+                    createLoad.request(bemployment1,etEmployment_card1,etEmployment_card1_alert,getString(R.string.invalid_co_employment));
+                    createLoad.request(bfamily_book1,etFamily_book1,etFamily_book1_alert,getString(R.string.invalid_co_family_book));
+                    createLoad.request(bphoto1,etPhotos1,etPhotos1_alert,getString(R.string.invalid_co_photo));
+                }
+            }
                 Log.e("From Loan",String.valueOf(mFromLoan));
                 if (mFromLoan){
                     dialog_Editloan();
@@ -292,8 +296,8 @@ public class three extends Fragment {
                 }
         });
         if (itemTwo != null) {
-            Log.e("co-borrower", "" + itemTwo.getItemOne().getIndex());
-            if (itemTwo.getItemOne().getIndex() == 1) {
+            Log.e("co-borrower", "" + itemTwo.getItemOne().getCo_borrower());
+            if (!itemTwo.getItemOne().getCo_borrower()) {
                 layout_coborrower.setVisibility(View.GONE);
             } else {
                 layout_coborrower.setVisibility(View.VISIBLE);
@@ -371,12 +375,11 @@ public class three extends Fragment {
         bfamily_book1 = createLoad.CheckedRdioButton(etFamily_book1);
         bemployment1 = createLoad.CheckedRdioButton(etEmployment_card1);
         bphoto1 = createLoad.CheckedRdioButton(etPhotos1);
-        return bcard_id && bfamily_book && bemployment && bphoto;
-//        if (itemTwo.getItemOne().getIndex() == 1) {
-//            return bcard_id && bfamily_book && bemployment && bphoto;
-//        }else {
-//            return bcard_id && bfamily_book && bemployment && bphoto && bcard_id1 && bfamily_book1 && bemployment1 && bphoto1;
-//        }
+        if (!itemTwo.getItemOne().getCo_borrower()) {
+            return bcard_id && bfamily_book && bemployment && bphoto;
+        }else {
+            return bcard_id && bfamily_book && bemployment && bphoto && bcard_id1 && bfamily_book1 && bemployment1 && bphoto1;
+        }
     }
     private void dialog_Editloan() {
         LayoutInflater factory = LayoutInflater.from(getContext());

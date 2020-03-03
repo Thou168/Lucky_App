@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +35,8 @@ import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Locale;
+
 public class Create_Load extends AppCompatActivity implements one.SendItemOne,two.SendItemTwo {
 
     private TextView back;
@@ -49,6 +52,8 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = prefer.getString("My_Lang", "");
         setContentView(R.layout.activity_create__load);
         Toolbar mToolbar=findViewById(R.id.toolbar);
         mToolbar.setTitle("");
@@ -72,9 +77,6 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
 
         back = findViewById(R.id.tv_back);
         back.setOnClickListener(v -> onBackPressed());
-
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        currentLanguage = prefer.getString("My_Lang", "");
 
         btnList_Draft = findViewById(R.id.list_draft);
         btnList_Draft.setOnClickListener(view -> {
@@ -237,11 +239,20 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         public CharSequence getPageTitle(int position) {
             String title = null;
             if (position==0) {
-                title = getApplicationContext().getString(R.string.private_info);
+//                title = getApplicationContext().getString(R.string.private_info);
+                if (currentLanguage.equals("en")) {
+                    title = "Private Info";
+                } else title = "ព័ត៌មានឯកជន";
             } else if (position==1) {
-                title =  getApplicationContext().getString(R.string.tab_loan_info);
+//                title =  getApplicationContext().getString(R.string.tab_loan_info);
+                if (currentLanguage.equals("en")) {
+                    title = "Loan Info";
+                }else title = "ព័ត៌មានឥណទាន";
             }else if (position == 2){
-                title = getApplicationContext().getString(R.string.borrow_info);
+//                title = getApplicationContext().getString(R.string.borrow_info);
+                if (currentLanguage.equals("en")) {
+                    title = "Borrow Info";
+                }else title = "ព័ត៌មានអ្នកខ្ចី";
             }
             return title;
         }

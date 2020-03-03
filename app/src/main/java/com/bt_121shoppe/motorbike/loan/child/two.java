@@ -145,7 +145,7 @@ public class two extends Fragment {
             createLoad.requstFocus(bNumber_institution,mNumber_institution,mNumber_institution_alert,getString(R.string.invalid_number_institutions));
             createLoad.request(bResidence,mResidence,visit_home_alert,getString(R.string.invalid_residence));
             createLoad.request(bProduct_insurance,mProduct_insurance,product_insurance_alert,getString(R.string.invalid_product_insurance));
-            if (mNumber_institution.length() > 0 || mNumber_institution.getText().toString().isEmpty()) {
+            if (mNumber_institution.getText().toString().equals("0") || mNumber_institution.getText().toString().isEmpty()) {
                 createLoad.requstFocus(bMonthly_Amount_Paid, mMonthly_Amount_Paid, mMonthly_Amount_Paid_alert, getString(R.string.invalid_monthly_amount));
             }
             String monthly;
@@ -332,7 +332,7 @@ public class two extends Fragment {
         bLoan_Contributions    = createLoad.CheckedYear(mLoan_Contributions);
         bNumber_institution    = createLoad.CheckedYear(mNumber_institution);
         bMonthly_Amount_Paid   = createLoad.CheckedYear(mMonthly_Amount_Paid);
-        if (mNumber_institution.length() > 0){
+        if (!mNumber_institution.getText().toString().equals("0")){
             return bLoand_amount && bLoan_Period && bPayment_Method && bLoan_Contributions && bNumber_institution && bResidence && bProduct_insurance && bMonthly_Amount_Paid;
         }else {
             return bLoand_amount && bLoan_Period && bPayment_Method && bLoan_Contributions && bNumber_institution && bResidence && bProduct_insurance;
