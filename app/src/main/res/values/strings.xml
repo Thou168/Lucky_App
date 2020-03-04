@@ -685,6 +685,10 @@
     <string name="title_change_password">Changed Password</string>
     <string name="success_change_password">Your password was changed</string>
     <string name="fail_change_password">Your password has been error while changing.</string>
+    <string name="alert_wrong_password">Wrong password!!</string>
+    <string name="alert_old_password">Please enter your old password.</string>
+    <string name="alert_new_password">Please enter your new password.</string>
+    <string name="alert_renew_password">Please enter your re-new password.</string>
     <string name="tab_post">Post</string>
     <string name="tab_like">Like</string>
     //Account

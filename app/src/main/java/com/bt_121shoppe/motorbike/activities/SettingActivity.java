@@ -16,6 +16,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -120,13 +122,87 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         reset_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onResume();
-                if (renew_pass.getText().toString().equals(new_pass.getText().toString())){
-                    Change_password(Encode);
+//                onResume();
+                if (renew_pass.getText().toString().isEmpty() || new_pass.getText().toString().isEmpty() || old_pass.getText().toString().isEmpty()){
+                    if (old_pass.getText().toString().isEmpty()){
+                        LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.alert_old_password);
+                        title.setText(R.string.title_change_password);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v14 -> {
+                            onResume();
+                            clearDialog.dismiss();
+                        });
+                        clearDialog.show();
+                    }else if (new_pass.getText().toString().isEmpty()){
+                        LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.alert_new_password);
+                        title.setText(R.string.title_change_password);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v13 -> {
+                            onResume();
+                            clearDialog.dismiss();
+                        });
+                        clearDialog.show();
+                    }else if (renew_pass.getText().toString().isEmpty()){
+                        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.alert_renew_password);
+                        title.setText(R.string.title_change_password);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v12 -> {
+                            onResume();
+                            clearDialog.dismiss();
+                        });
+                        clearDialog.show();
+                    }
                 }else {
-                    Toast.makeText(getApplicationContext(),"Wrong Password",Toast.LENGTH_SHORT).show();
-                }
+                    if (renew_pass.getText().toString().equals(new_pass.getText().toString())){
+                        Change_password(Encode);
+                    }else {
+                        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+                        clearDialog.setView(clearDialogView);
+                        clearDialog.setIcon(R.drawable.tab_message_selector);
+                        clearDialog.setCancelable(false);
+                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                        Mssloan.setText(R.string.alert_wrong_password);
+                        title.setText(R.string.title_change_password);
+                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                        btnYes.setText(R.string.ok);
+                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v1 -> {
+                            onResume();
+                            clearDialog.dismiss();
+                        });
+                        clearDialog.show();
+                    }
 
+                }
             }
         });
 
@@ -329,16 +405,20 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this).create();
-                                alertDialog.setTitle(getString(R.string.title_change_password));
-                                alertDialog.setMessage(getString(R.string.fail_change_password));
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                alertDialog.show();
+                                LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
+                                final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+                                clearDialog.setView(clearDialogView);
+                                clearDialog.setIcon(R.drawable.tab_message_selector);
+                                clearDialog.setCancelable(false);
+                                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                                Mssloan.setText(R.string.fail_change_password);
+                                title.setText(R.string.title_change_password);
+                                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                                btnYes.setText(R.string.ok);
+                                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> clearDialog.dismiss());
+                                clearDialog.show();
                             }
                         });
                     }
@@ -378,19 +458,28 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("password", newPassword);
                     reference.updateChildren(map);
-                    AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this).create();
-                    alertDialog.setTitle(getString(R.string.title_change_password));
-                    alertDialog.setMessage(getString(R.string.success_change_password));
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok), (dialog, which) -> {
+                    LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
+                    final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                    final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+                    clearDialog.setView(clearDialogView);
+                    clearDialog.setIcon(R.drawable.tab_message_selector);
+                    clearDialog.setCancelable(false);
+                    TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                    TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                    Mssloan.setText(R.string.success_change_password);
+                    title.setText(R.string.title_change_password);
+                    Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                    btnYes.setText(R.string.ok);
+                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
                         SharedPreferences.Editor editor = prefer.edit();
                         editor.putString("name", name);
                         editor.putString("pass", newPass);
                         editor.commit();
                         startActivity(new Intent(SettingActivity.this, Home.class));
-                        dialog.dismiss();
+                        clearDialog.dismiss();
                         finish();
                     });
-                    alertDialog.show();
+                    clearDialog.show();
                 }
 
                 @Override

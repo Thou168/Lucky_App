@@ -487,7 +487,11 @@ public class two extends Fragment {
                     Log.e("ONRESPONSE ERROR", String.valueOf(response.code()));
                 }
 
-                mLoan_amount.setText(cuteString(mPrice,0));
+                if (mPrice != null ){
+                    mLoan_amount.setText(cuteString(mPrice,0));
+                }else {
+                    mLoan_amount.setText(cuteString(String.valueOf(response.body().getLoan_amount()), 0));
+                }
                 mLoan_Term.setText(String.valueOf(response.body().getLoan_duration()));
                 mLoan_Contributions.setText(String.valueOf(response.body().getLoan_deposit_amount()));
                 mLoan_amount.setFilters(new InputFilter[]{new InputFilterMinMax(0, (int)response.body().getLoan_amount()+(int)response.body().getLoan_deposit_amount())});

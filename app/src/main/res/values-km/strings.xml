@@ -723,6 +723,10 @@
     <string name="title_change_password">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
     <string name="success_change_password">លេខសម្ងាត់របស់លោក-អ្នកត្រូវបានកែប្រែ</string>
     <string name="fail_change_password">ការផ្លាស់ប្តូរពាក្យសម្ងាត់របស់លោក-អ្នកមិនជោគជ័យទេ</string>
+    <string name="alert_wrong_password">ពាក្យសំងាត់​ខុស។</string>
+    <string name="alert_old_password">សូមបញ្ចូលពាក្យសម្ងាត់ចាស់របស់អ្នក។</string>
+    <string name="alert_new_password">សូមបញ្ចូលពាក្យសម្ងាត់ថ្មីរបស់អ្នក។</string>
+    <string name="alert_renew_password">សូមបញ្ជាក់ពាក្យសំងាត់ថ្មីរបស់អ្នកម្តងទៀត។</string>
     //tab account
     <string name="tab_post">ប្រកាស</string>
     <string name="tab_like">ចូលចិត្ត</string>
