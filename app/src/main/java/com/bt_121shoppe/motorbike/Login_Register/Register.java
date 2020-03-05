@@ -239,7 +239,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 editPassword.setVisibility(View.GONE);
                 editComfirmPass.setVisibility(View.GONE);
                 tv_password.setVisibility(View.GONE);
+                PasswordError.setVisibility(View.GONE);
                 tv_re_password.setVisibility(View.GONE);
+                ComfirmPassError.setVisibility(View.GONE);
                 btnSubmit.setVisibility(View.GONE);
                 btUpdate.setVisibility(View.VISIBLE);
                 tv_privacy.setVisibility(View.GONE);
@@ -250,7 +252,9 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 editPassword.setVisibility(View.GONE);
                 editComfirmPass.setVisibility(View.GONE);
                 tv_password.setVisibility(View.GONE);
+                PasswordError.setVisibility(View.GONE);
                 tv_re_password.setVisibility(View.GONE);
+                ComfirmPassError.setVisibility(View.GONE);
                 btnSubmit.setVisibility(View.GONE);
                 btUpdate.setVisibility(View.VISIBLE);
                 tv_privacy.setVisibility(View.GONE);
