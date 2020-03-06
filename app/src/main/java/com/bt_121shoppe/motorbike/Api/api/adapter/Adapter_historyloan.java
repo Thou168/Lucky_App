@@ -105,8 +105,8 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
 
                     String strPostTitle="";
-                    String lang = view.userview.getText().toString();
-
+                    String lang = view.txtview.getText().toString();
+                    Log.e("TAG","lang "+lang);
                     if(response.body().getPost_sub_title()==null){
 
                     }else {

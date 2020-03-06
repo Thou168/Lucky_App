@@ -172,7 +172,7 @@ public class two extends Fragment {
 
         Paper.init(getContext());
         String language = Paper.book().read("language");
-        Log.e("90909090909","Current language is "+language);
+        //Log.e("90909090909","Current language is "+language);
 
         String[] values = getResources().getStringArray(R.array.repayment);
 

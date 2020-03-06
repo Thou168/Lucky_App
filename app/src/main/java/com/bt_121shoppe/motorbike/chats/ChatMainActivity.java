@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.chats;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,9 +28,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
+import com.bt_121shoppe.motorbike.Api.responses.APIUserResponse;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.CheckGroup;
@@ -38,8 +43,11 @@ import com.bt_121shoppe.motorbike.activities.Home;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.consumeapi.UserModel;
 import com.bt_121shoppe.motorbike.models.Chat;
+import com.bt_121shoppe.motorbike.models.User;
 import com.bt_121shoppe.motorbike.models.UserChat;
+import com.bt_121shoppe.motorbike.models.UserProfileModel;
 import com.bt_121shoppe.motorbike.notifications.Token;
 import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
@@ -100,12 +108,18 @@ public class ChatMainActivity extends AppCompatActivity {
     String login_verify;
     String theLastMessage="default";
     String register_intent="";
+    private ProgressDialog pd;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_chat_main);
+
+        pd=new ProgressDialog(ChatMainActivity.this);
+        pd.setMessage(" ");
+        pd.setCancelable(false);
+        pd.show();
 
         bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -256,80 +270,6 @@ public class ChatMainActivity extends AppCompatActivity {
             }
         });
 
-//        CheckGroup check = new CheckGroup();
-//        int g = check.getGroup(pk, this);
-//        if (g == 3) {
-//            bnavigation1 = findViewById(R.id.bottom_nav);
-//            bnavigation1.setVisibility(View.VISIBLE);
-//            bnavigation1.getMenu().getItem(3).setChecked(true);
-//            bnavigation1.setOnNavigationItemSelectedListener(menuItem -> {
-//                switch (menuItem.getItemId()) {
-//                    case R.id.home:
-//                        startActivity(new Intent(getApplicationContext(), Home.class));
-//                        break;
-//                    case R.id.notification:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
-//                        } else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
-//                        break;
-//                    case R.id.dealer:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), DealerStoreActivity.class));
-//                        } else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
-//                        break;
-//                    case R.id.message:
-//                        break;
-//                    case R.id.account:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), Account.class));
-//                        } else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
-//                        break;
-//                }
-//                return false;
-//            });
-//        } else {
-//            bnavigation = findViewById(R.id.bnaviga);
-//            bnavigation.setVisibility(View.VISIBLE);
-//            bnavigation.getMenu().getItem(3).setChecked(true);
-//            bnavigation.setOnNavigationItemSelectedListener(menuItem -> {
-//                switch (menuItem.getItemId()) {
-//                    case R.id.home:
-//                        Intent intent = new Intent(getApplicationContext(), Home.class);
-//                        startActivity(intent);
-//                        break;
-//                    case R.id.notification:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
-//                        } else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
-//                        break;
-//                    case R.id.camera:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), Camera.class));
-//                        } else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
-//                        break;
-//                    case R.id.message:
-//                        break;
-//                    case R.id.account:
-//                        if (prefer.contains("token") || prefer.contains("id")) {
-//                            startActivity(new Intent(getApplicationContext(), Account.class));
-//                        } else {
-//                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        }
-//                        break;
-//                }
-//                return false;
-//            });
-//        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -366,7 +306,7 @@ public class ChatMainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
 
         mNoChat = findViewById(R.id.rl_noResult);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userChatList = new ArrayList<>();
         if (firebaseUser != null) {
             databaseReference = FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
@@ -406,10 +346,14 @@ public class ChatMainActivity extends AppCompatActivity {
 
                     recyclerViewAdapter.setUserList(userList);
 
-                    if (userList.size() > 0)
+                    if (userList.size() > 0) {
                         mNoChat.setVisibility(View.GONE);
-                    else
+                        //pd.dismiss();
+                    }
+                    else {
                         mNoChat.setVisibility(View.VISIBLE);
+                        pd.dismiss();
+                    }
                 }
 
                 @Override
@@ -528,6 +472,7 @@ public class ChatMainActivity extends AppCompatActivity {
 
             @Override
             public void onBindViewHolder(MyViewHolder holder, int position) {
+
                 UserChat user = userList.get(position);
                 databaseReference = FirebaseDatabase.getInstance().getReference("users").child(user.getUserId());
                 databaseReference.addValueEventListener(new ValueEventListener() {
@@ -541,54 +486,143 @@ public class ChatMainActivity extends AppCompatActivity {
                             Glide.with(context).load(fuser.getImageURL()).into(holder.profileImage);
 
                         //initial user information
-                        int userPK = 0, postId = 0;
-                        String postUsername = "", postTitle = "", postPrice = "", postFrontImage = "", postType = "", title = "";
+                        // int userPK, postId = 0;
+                        //final String postUsername = "", postTitle = "", postPrice = "", postFrontImage = "", postType = "", title = "";
                         String username = fuser.getUsername();
-                        String userRespone = "";
-                        try {
-                            userRespone = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/userfilter/?last_name=&username=" + username);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            JSONObject obj = new JSONObject(userRespone);
-                            int count = obj.getInt("count");
-                            if (count > 0) {
-                                JSONArray results = obj.getJSONArray("results");
-                                JSONObject auser = results.getJSONObject(0);
-//                            Log.d(TAG,"User "+auser);
-                                userPK = auser.getInt("id");
-                                if (auser.getString("first_name").isEmpty() || auser.getString("first_name") == null)
-                                    postUsername = auser.getString("username");
-                                else
-                                    postUsername = auser.getString("first_name");
+
+                        Service apiService=Client.getClient().create(Service.class);
+                        Call<APIUserResponse> call=apiService.getUsername1(username);
+                        call.enqueue(new Callback<APIUserResponse>() {
+                            @Override
+                            public void onResponse(Call<APIUserResponse> call, Response<APIUserResponse> response) {
+                                int userPK, postId = 0;
+                                String postUsername,  postPrice = "", postFrontImage = "", postType = "", title = "";
+                                final  String postTitle;
+                                if(response.isSuccessful()){
+                                    if(response.body().getCount()>0){
+                                        List<UserResponseModel> results=response.body().getresults();
+                                        UserResponseModel userResponseModel=results.get(0);
+                                        //get user information from api
+                                        userPK =userResponseModel.getId() ;
+                                        if (userResponseModel.getFirst_name().isEmpty() || userResponseModel.getFirst_name() == null)
+                                            postUsername = userResponseModel.getUsername();
+                                        else
+                                            postUsername = userResponseModel.getFirst_name();
+
+                                        //get post information from api
+                                        Call<Item> call1=apiService.getDetailpost(Integer.parseInt(user.getPostId()));
+                                        call1.enqueue(new Callback<Item>() {
+                                            @Override
+                                            public void onResponse(Call<Item> call, Response<Item> response1) {
+                                                if(response1.isSuccessful()){
+                                                    String postTitle=response1.body().getPost_sub_title();
+                                                    String postFrontImage=response1.body().getFront_image_path();
+                                                    String postPrice=response1.body().getCost();
+                                                    String postType=response1.body().getPost_type();
+
+                                                    String title = postTitle.split(",").length > 1 ? postTitle.split(",")[1] : postTitle.split(",")[0];
+
+                                                    holder.tvUsername.setText(postUsername);
+                                                    holder.tvTitle.setText(title);
+                                                    holder.userChat = new UserChat(postId, title, postPrice, postFrontImage, postType, userPK, postUsername, username);
+                                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            databaseReference = FirebaseDatabase.getInstance().getReference();
+                                                            Query query = databaseReference.child(ConsumeAPI.FB_CHAT).orderByChild("to").equalTo(holder.userChat.getUserId());
+                                                            query.addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                                        String key = snapshot.getKey();
+                                                                        //Log.e("jjjjjjj", key);
+                                                                        updateData(key);
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                }
+                                                            });
+                                                            Intent intent = new Intent(ChatMainActivity.this, ChatActivity.class);
+                                                            intent.putExtra("postId",Integer.parseInt(user.getPostId())
+                                                            );
+                                                            intent.putExtra("postTitle", title);
+                                                            intent.putExtra("postPrice", postPrice);
+                                                            intent.putExtra("postImage", postFrontImage);
+                                                            intent.putExtra("postUserPk", userPK);
+                                                            intent.putExtra("postUsername", postUsername);
+                                                            intent.putExtra("postUserId", username);
+                                                            intent.putExtra("postType", postType);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Item> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }
+                                }
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
+                            @Override
+                            public void onFailure(Call<APIUserResponse> call, Throwable t) {
+
+                            }
+                        });
+
+
+//                        String userRespone = "";
+//                        try {
+//                            userRespone = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "api/v1/userfilter/?last_name=&username=" + username);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            JSONObject obj = new JSONObject(userRespone);
+//                            int count = obj.getInt("count");
+//                            if (count > 0) {
+//                                JSONArray results = obj.getJSONArray("results");
+//                                JSONObject auser = results.getJSONObject(0);
+////                            Log.d(TAG,"User "+auser);
+//                                userPK = auser.getInt("id");
+//                                if (auser.getString("first_name").isEmpty() || auser.getString("first_name") == null)
+//                                    postUsername = auser.getString("username");
+//                                else
+//                                    postUsername = auser.getString("first_name");
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
                         //get post information
-                        String postResult = "";
-                        try {
-                            postResult = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "detailposts/" + user.getPostId());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            JSONObject object = new JSONObject(postResult);
-                            postId = object.getInt("id");
-                            postTitle = object.getString("post_sub_title");
-                            postFrontImage = object.getString("front_image_path");
-                            postPrice = object.getString("cost");
-                            postType = object.getString("post_type");
+//                        String postResult = "";
+//                        try {
+//                            postResult = CommonFunction.doGetRequest(ConsumeAPI.BASE_URL + "detailposts/" + user.getPostId());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            JSONObject object = new JSONObject(postResult);
+//                            postId = object.getInt("id");
+//                            postTitle = object.getString("post_sub_title");
+//                            postFrontImage = object.getString("front_image_path");
+//                            postPrice = object.getString("cost");
+//                            postType = object.getString("post_type");
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        title = postTitle.split(",").length > 1 ? postTitle.split(",")[1] : postTitle.split(",")[0];
+//
+//                        holder.tvUsername.setText(postUsername);
+//                        holder.tvTitle.setText(title);
+//                        holder.userChat = new UserChat(postId, title, postPrice, postFrontImage, postType, userPK, postUsername, username);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        title = postTitle.split(",").length > 1 ? postTitle.split(",")[1] : postTitle.split(",")[0];
-
-                        holder.tvUsername.setText(postUsername);
-                        holder.tvTitle.setText(title);
-                        holder.userChat = new UserChat(postId, title, postPrice, postFrontImage, postType, userPK, postUsername, username);
                     }
 
                     @Override
@@ -625,8 +659,9 @@ public class ChatMainActivity extends AppCompatActivity {
                     }
                 });
 
-                Check_seen_unseen(user.getUserId(), user.getPostId(), holder.tvUsername);
+                //Check_seen_unseen(user.getUserId(), user.getPostId(), holder.tvUsername);
                 lastMessage(user.getUserId(), user.getPostId(), holder.tvLastChat);
+                pd.dismiss();
             }
 
             @Override
@@ -655,38 +690,38 @@ public class ChatMainActivity extends AppCompatActivity {
                     tvTitle = itemView.findViewById(R.id.tvTitle);
                     tvLastChat = itemView.findViewById(R.id.tvLastChat);
 
-                    itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            databaseReference = FirebaseDatabase.getInstance().getReference();
-                            Query query = databaseReference.child(ConsumeAPI.FB_CHAT).orderByChild("to").equalTo(userChat.getUserId());
-                            query.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        String key = snapshot.getKey();
-                                        //Log.e("jjjjjjj", key);
-                                        updateData(key);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                            Intent intent = new Intent(ChatMainActivity.this, ChatActivity.class);
-                            intent.putExtra("postId", userChat.getPostIdd());
-                            intent.putExtra("postTitle", userChat.getPostTitle());
-                            intent.putExtra("postPrice", userChat.getPostPrice());
-                            intent.putExtra("postImage", userChat.getPostFrontImage());
-                            intent.putExtra("postUserPk", userChat.getUserPk());
-                            intent.putExtra("postUsername", userChat.getPostUsername());
-                            intent.putExtra("postUserId", userChat.getFirebaseUsename());
-                            intent.putExtra("postType", userChat.getPostType());
-                            startActivity(intent);
-                        }
-                    });
+//                    itemView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            databaseReference = FirebaseDatabase.getInstance().getReference();
+//                            Query query = databaseReference.child(ConsumeAPI.FB_CHAT).orderByChild("to").equalTo(userChat.getUserId());
+//                            query.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                        String key = snapshot.getKey();
+//                                        //Log.e("jjjjjjj", key);
+//                                        updateData(key);
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//                            Intent intent = new Intent(ChatMainActivity.this, ChatActivity.class);
+//                            intent.putExtra("postId", userChat.getPostIdd());
+//                            intent.putExtra("postTitle", userChat.getPostTitle());
+//                            intent.putExtra("postPrice", userChat.getPostPrice());
+//                            intent.putExtra("postImage", userChat.getPostFrontImage());
+//                            intent.putExtra("postUserPk", userChat.getUserPk());
+//                            intent.putExtra("postUsername", userChat.getPostUsername());
+//                            intent.putExtra("postUserId", userChat.getFirebaseUsename());
+//                            intent.putExtra("postType", userChat.getPostType());
+//                            startActivity(intent);
+//                        }
+//                    });
 
                 }
             }

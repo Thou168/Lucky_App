@@ -36,7 +36,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class BottomChooseProvince extends BottomSheetDialogFragment implements View.OnClickListener{
-    public static final String TAG=BottomChooseProvince.class.getSimpleName();
+    public static final String TAG="ActionBottomDialog";
     private TextView btnClear;
     private ListView ls_province;
     private int[] provinceIdListItems;

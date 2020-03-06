@@ -188,22 +188,24 @@ public class HomeAllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            cate.setVisibility(View.GONE);
 
             double mPrice=0;
-            if(Double.parseDouble(mPost.getDiscount())>0) {
-                postOriginalPrice.setVisibility(View.VISIBLE);
-                postOriginalPrice.setText("$ "+mPost.getCost());
-                postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                Double cost=Double.parseDouble(mPost.getCost());
-                if(mPost.getDiscount_type().equals("amount")){
-                    cost=cost-Double.parseDouble(mPost.getDiscount());
-                }else if(mPost.getDiscount_type().equals("percent")){
-                    Double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
-                    cost=cost-discountPrice;
-                }
-                mPrice=cost;
-                postPrice.setText("$ "+cost.toString());
-            }else{
-                postPrice.setText("$ "+mPost.getCost());
-            }
+//            if(Double.parseDouble(mPost.getDiscount())>0) {
+//                postOriginalPrice.setVisibility(View.VISIBLE);
+//                postOriginalPrice.setText("$ "+mPost.getCost());
+//                postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                Double cost=Double.parseDouble(mPost.getCost());
+//                if(mPost.getDiscount_type().equals("amount")){
+//                    cost=cost-Double.parseDouble(mPost.getDiscount());
+//                }else if(mPost.getDiscount_type().equals("percent")){
+//                    Double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
+//                    cost=cost-discountPrice;
+//                }
+//                mPrice=cost;
+//                postPrice.setText("$ "+cost.toString());
+//            }else{
+//                postPrice.setText("$ "+mPost.getCost());
+//            }
+
+            postPrice.setText("$ "+mPost.getCost());
 
 //            cate.setVisibility(View.VISIBLE);
             if(mPost.getCategory()==1){

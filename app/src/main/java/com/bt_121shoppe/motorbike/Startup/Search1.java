@@ -57,17 +57,12 @@ public class Search1 extends AppCompatActivity {
     SearchView sv;
     RecyclerView rv;
     ArrayList<Item> items;
-//    Bundle bundle;
     String category,model,year,title_filter,post_type;
     TextView not_found;
     ImageView tv_filter;
     TextView show_view;
     ProgressBar mProgress;
-//    ImageView viewlist;
-//    LinearLayoutManager manager;
-//    String view = "list";
     Fragment currentFragment;
-
     CardView cardView;
     RelativeLayout relative_view;
 
@@ -144,10 +139,16 @@ public class Search1 extends AppCompatActivity {
             }
         });
         tv_filter.setOnClickListener(v -> {
+            Log.e("TAG","Search condition "+post_type+" , "+category+" , "+model+","+year+","+min+","+max);
             Intent intent1 = new Intent(Search1.this,Filter.class);
             intent1.putExtra("title",sv.getQuery().toString());
+            intent1.putExtra("post_type",post_type);
+            intent1.putExtra("category",category);
+            intent1.putExtra("model",model);
+            intent1.putExtra("year",year);
+            intent1.putExtra("minPrice",min);
+            intent1.putExtra("maxPrice",max);
             startActivityForResult(intent1,1);
-
         });
     }  // create
 
@@ -160,6 +161,9 @@ public class Search1 extends AppCompatActivity {
     private  void Search_data(String title, String category, String model, String year, int min, int max,String post_type){
        //String url1 = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
         post_type=post_type==null?"":post_type;
+        year=year.equals("0")?"":year;
+        model=model.equals("0")?"":model;
+        category=category.equals("0")?"":category;
         String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
         if(min==0 && max==0)
             url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price=&year="+year;
@@ -168,6 +172,7 @@ public class Search1 extends AppCompatActivity {
         else if(max==0)
             url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price=&year="+year;
         Log.d("Url:",url1);
+
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url1)
@@ -194,7 +199,7 @@ public class Search1 extends AppCompatActivity {
                             cardView.setVisibility(View.GONE);
                             not_found.setVisibility(View.GONE);
                             mProgress.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),String.valueOf(count),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),String.valueOf(count),Toast.LENGTH_SHORT).show();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 int id = object.getInt("id");
@@ -247,33 +252,6 @@ public class Search1 extends AppCompatActivity {
                                                     MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                                     rv.setAdapter(adapterUserPost);
                                                     rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-//                                                    rv.setAdapter(new MyAdapter_list_grid_image(item_apis, "List", Search1.this));
-//                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this,1,GridLayoutManager.VERTICAL,false));
-//                                                        viewlist.setImageResource(R.drawable.icon_list);
-//                                                        viewlist.setOnClickListener(new View.OnClickListener() {
-//                                                            @Override
-//                                                            public void onClick(View v) {
-//                                                                if(view.equals("list")){
-//                                                                    viewlist.setImageResource(R.drawable.icon_grid);
-//                                                                    view = "grid";
-//                                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Grid",Search1.this);
-//                                                                    rv.setAdapter(adapterUserPost);
-//                                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 2));
-//                                                                }else if (view.equals("grid")){
-//                                                                    viewlist.setImageResource(R.drawable.icon_image);
-//                                                                    view = "image";
-//                                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "Image",Search1.this);
-//                                                                    rv.setAdapter(adapterUserPost);
-//                                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-//                                                                }else {
-//                                                                    viewlist.setImageResource(R.drawable.icon_list);
-//                                                                    view = "list";
-//                                                                    MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
-//                                                                    rv.setAdapter(adapterUserPost);
-//                                                                    rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
-//                                                                }
-//                                                            }
-//                                                        });
                                                 }
                                             });
 
@@ -307,16 +285,16 @@ public class Search1 extends AppCompatActivity {
                 if (data != null) {
                     item_apis.clear();
                     title_filter = data.getExtras().getString("title_search");
-                    category = data.getExtras().getString("category");
-                    model = data.getStringExtra("brand");
-                    year = data.getStringExtra("year");
+                    category =String.valueOf(data.getExtras().getInt("category",0));
+                    model =String.valueOf(data.getIntExtra("brand",0));
+                    year =String.valueOf(data.getIntExtra("year",0));
                     min = data.getIntExtra("min_price",0);
                     max = data.getIntExtra("max_price",0);
                     post_type=data.getStringExtra("posttype");
                     sv.setQuery(title_filter, false);
 
                     mProgress.setVisibility(View.VISIBLE);
-                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+","+post_type);
+                    //Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+","+post_type);
                     Search_data(title_filter, category, model, year,min,max,post_type);
                 }
             }

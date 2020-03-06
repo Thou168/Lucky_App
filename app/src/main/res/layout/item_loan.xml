@@ -171,11 +171,11 @@
                         <TextView
                             android:id="@+id/view"
                             android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:text="@string/view"
-                            android:layout_marginEnd="7dp"
+                            android:layout_height="22dp"
                             android:layout_gravity="center"
+                            android:layout_marginEnd="7dp"
                             android:fontFamily="@font/opensans_regular"
+                            android:text="@string/view"
                             android:textSize="12dp" />
 
                         <de.hdodenhof.circleimageview.CircleImageView

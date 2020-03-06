@@ -203,7 +203,7 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
 
     @Override
     public void sendItemTwo(item_two item,int position) {
-        Log.e("item two",""+item);
+        //Log.e("item two",""+item);
         three f = (three) getSupportFragmentManager().findFragmentByTag(makeFragmentName(viewPager.getId(),2));
         if (f != null) {
             f.getItemTwo(item);

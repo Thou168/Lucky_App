@@ -120,4 +120,5 @@ public class StoreListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             });
         }
     }
+
 }

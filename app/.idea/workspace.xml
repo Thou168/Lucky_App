@@ -13,19 +13,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2f9b0df-44e8-4b4f-a85b-945da936516e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainPostList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/AccountTab/MainPostList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historybyuser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Login_Register/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/activities/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_Loanbyuser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historyloan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter/Adapter_historyloan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post_history.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/Api/api/adapter_for_shop/Adapter_store_post_history.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/chats/ChatMainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/DealerPostHistoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/fragments/DealerPostHistoryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/main_tab_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeAllPostAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/homes/HomeAllPostAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bt_121shoppe/motorbike/stores/StoreDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_loan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_loan.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +34,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="RKQGGA75SWBYQWNJ" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_API_28" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -131,7 +132,7 @@
     <property name="ToolWindowBuild.ShowToolbar" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="R58M225JS3Y" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../ProjectSourceCode/Android/MathematicsLearning" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -269,13 +270,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1561799883606</updated>
-    </task>
-    <task id="LOCAL-00019" summary="chat">
-      <created>1563610073336</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1563610073337</updated>
     </task>
     <task id="LOCAL-00020" summary="chatvvvvv">
       <created>1563765143272</created>
@@ -613,7 +607,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582617760588</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Fix bug for UAT issue">
+      <created>1582777019284</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1582777019284</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TodoView">

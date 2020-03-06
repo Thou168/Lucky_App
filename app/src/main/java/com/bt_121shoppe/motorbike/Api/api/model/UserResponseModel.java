@@ -5,6 +5,18 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserResponseModel {
+    @SerializedName("id")
+    @Expose
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @SerializedName("is_active")
     @Expose
     private boolean is_active;

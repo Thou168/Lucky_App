@@ -22,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseBrand;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseFilterBrand;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseYear;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.example.roman.thesimplerangebar.SimpleRangeBar;
@@ -44,8 +47,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class Filter extends AppCompatActivity {
-
+public class Filter extends AppCompatActivity implements BottomChooseFilterBrand.ItemClickListener,BottomChooseYear.ItemClickListener {
 
 //   private  TextView btnCategory,btnBrand,btnyear ,btnCondition,submit_filter,tv_result,tv_done;
 //   private  int cate=0,brand=0,model=0,year=0,type=0;
@@ -55,15 +57,15 @@ public class Filter extends AppCompatActivity {
 //   private  int [] cateIDlist,brandIDlist,yearIDlist;
 //   private LinearLayout rela_cate,rela_brand,rela_year,rela_condition;
 
-    private  TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter;
-    ImageView tv_result,tv_done;
-    private  int cate=0,brand=0,model_fil=0,year_fil=0,type=0; //model & year
-    private  String stTitle="",stCategory="",stBrand="",stYear="",stType,st="";
+    private TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter;
+    private ImageView tv_result,tv_done;
+    private int cate=0,brand=0,model_fil=0,year_fil=0,type=0; //model & year
+    private String stTitle="",stCategory="",stBrand="",stYear="",stType="",st="";
     double dbPrice = 0.0;
-//    private ImageView icCategory_fil,icBrand_fil,icYear_fil,icType_fil;
     private  String [] cateListItems,brandListItems,yearListItems,typeListItems,categoryItemkg,brandItemkh,yearlistItemkh;
     private  int [] cateIDlist,brandIDlist,yearIDlist;
     private LinearLayout rela_cate,rela_brand,rela_year,rela_type;
+    private int seleectedBrandId=0;
 
 //    private SimpleRangeBar simpleRangeBar;
     private RangeSeekBar rangeBar;
@@ -80,16 +82,47 @@ public class Filter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
-        //seekbar
-//        simpleRangeBar = findViewById(R.id.rangeBar);
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = preferences.getString("My_Lang", "");
+        locale();
+        typeListItems = getResources().getStringArray(R.array.filter_type);
+
+
+        tv_result = findViewById(R.id.tv_result);
+        tv_result.setOnClickListener(v -> finish());
+//        tv_done  = findViewById(R.id.tv_done);
+        rela_cate  = findViewById(R.id.linea_cate);
+        rela_brand = findViewById(R.id.linea_brand);
+        rela_year  = findViewById(R.id.linea_year);
+        rela_type = findViewById(R.id.linea_type);
+        btnCategory = findViewById(R.id.search_category);
+        btnBrand = findViewById(R.id.search_brand);
+        btnyear = findViewById(R.id.search_year);
+        btnType = findViewById(R.id.search_type);
+        submit_filter = findViewById(R.id.btnSubmit_filter);
         minText = findViewById(R.id.text_min);
         maxText = findViewById(R.id.text_max);
         rangeBar = findViewById(R.id.rangeBar);
         postId = getIntent().getIntExtra("ID",0);
         dbPrice = getIntent().getDoubleExtra("price",0);
 
-        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        currentLanguage = preferences.getString("My_Lang", "");
+        Intent getTitle = getIntent();
+        stTitle = getTitle.getStringExtra("title");
+        stType=getTitle.getStringExtra("post_type");
+        mMinPrice=getTitle.getIntExtra("min_price",0);
+        mMaxPrice=getTitle.getIntExtra("max_price",20000);
+
+        if(stType!=null){
+            if(stType.equals("sell"))
+                btnType.setText(typeListItems[1]);
+            else if(stType.equals("rent"))
+                btnType.setText(typeListItems[2]);
+            else
+                btnType.setText(getString(R.string.all));
+        }
+        else
+            btnType.setText(getString(R.string.all));
+
 
         //range seekbar
         minText.setText(String.valueOf(mMinPrice));
@@ -119,96 +152,11 @@ public class Filter extends AppCompatActivity {
         });
         rangeBar.getSeekBarChangeListener();
 
-//        simpleRangeBar.setOnSimpleRangeBarChangeListener(new SimpleRangeBarOnChangeListener() {
-//            @Override
-//            public void leftThumbValueChanged(long l) {
-//                mMinPrice = Integer.valueOf(String.valueOf(l));
-//                minText.setText(String.valueOf(mMinPrice));
-//            }
-//
-//            @Override
-//            public void rightThumbValueChanged(long l) {
-//                mMaxPrice = Integer.valueOf(String.valueOf(l));
-//                maxText.setText(String.valueOf(mMaxPrice));
-//            }
-//        });
-//        simpleRangeBar.setRanges(mMinPrice,mMaxPrice);
-//        simpleRangeBar.setThumbValues(mMinPrice, mMaxPrice);
-//        simpleRangeBar.setThumbColor(getResources().getColor(R.color.colorPrimary));
-//        simpleRangeBar.setRangeColor(getResources().getColor(R.color.colorPrimary));
-//        simpleRangeBar.setThumbColorPressed(getResources().getColor(R.color.colorPrimary));
 
-        locale();
-        tv_result = findViewById(R.id.tv_result);
-        tv_result.setOnClickListener(v -> finish());
-//        tv_done  = findViewById(R.id.tv_done);
-        rela_cate  = findViewById(R.id.linea_cate);
-        rela_brand = findViewById(R.id.linea_brand);
-        rela_year  = findViewById(R.id.linea_year);
-        rela_type = findViewById(R.id.linea_type);
-        btnCategory = findViewById(R.id.search_category);
-        btnBrand = findViewById(R.id.search_brand);
-        btnyear = findViewById(R.id.search_year);
-        btnType = findViewById(R.id.search_type);
-        submit_filter = findViewById(R.id.btnSubmit_filter);
-//        icCategory_fil = findViewById(R.id.icCategory_sr);
-//        icBrand_fil    = findViewById(R.id.icBrand_sr);
-//        icYear_fil     = findViewById(R.id.icYear_sr);
-//        icType_fil = findViewById(R.id.icType_sr);
-
-        Intent getTitle = getIntent();
-        stTitle = getTitle.getStringExtra("title");
-
-        SharedPreferences prefer = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefer.getString("My_Lang", "");
-
-        getCategory();
-        getBrand();
-        getYear();
-//        rela_cate.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
-//               mBuilder.setTitle(R.string.choose_category);
-//              if (language.equals("km")){
-//                  mBuilder.setSingleChoiceItems(categoryItemkg, -1, (dialog, i) -> {
-//                      btnCategory.setText(categoryItemkg[i]);
-//                      icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                      cate = cateIDlist[i];
-//                      if (cate==0){
-//                          stCategory = "";
-//                      }else {
-//                          stCategory = String.valueOf(cate);
-//                      }
-//                      Log.d("IDDD", "is:"+stCategory);
-//                      getBrand();
-//                      dialog.dismiss();
-//                  });
-//              }else if (language.equals("en")){
-//                  mBuilder.setSingleChoiceItems(cateListItems, -1, new DialogInterface.OnClickListener() {
-//                      @Override
-//                      public void onClick(DialogInterface dialog, int i) {
-//                          btnCategory.setText(cateListItems[i]);
-//                          icCategory_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                          cate = cateIDlist[i];
-//                          if (cate==0){
-//                              stCategory = "";
-//                          }else {
-//                              stCategory = String.valueOf(cate);
-//                          }
-//                          Log.d("IDDD", "is:"+stCategory);
-//                          getBrand();
-//                          dialog.dismiss();
-//                      }
-//                  });
-//              }
-//            AlertDialog mDialog = mBuilder.create();
-//            mDialog.show();
-//           }
-//       });
         rela_cate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_cate,null);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter.this);
                 bottomSheetDialog.setCanceledOnTouchOutside(false);
@@ -283,13 +231,15 @@ public class Filter extends AppCompatActivity {
                         btnCategory.setText(categoryItemkg[index]);
                     }
                     cate = cateIDlist[index];
+                    Log.e("TAG","Select Category id "+cate);
                 });
             }
         });
 
-//        rela_brand.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        rela_brand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomBrand(v);
 //                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
 //                mBuilder.setTitle(R.string.choose_brand);
 //                if (language.equals("km")){
@@ -297,7 +247,7 @@ public class Filter extends AppCompatActivity {
 //                        @Override
 //                        public void onClick(DialogInterface dialog, int i) {
 //                            btnBrand.setText(brandItemkh[i]);
-//                            icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                            //icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
 //                            brand = brandIDlist[i];
 //                            if (brand == 0){
 //                                stBrand = "";
@@ -312,7 +262,7 @@ public class Filter extends AppCompatActivity {
 //                        @Override
 //                        public void onClick(DialogInterface dialog, int i) {
 //                            btnBrand.setText(brandListItems[i]);
-//                            icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                            //icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
 //                            brand = brandIDlist[i];
 //                            if (brand == 0){
 //                                stBrand = "";
@@ -326,117 +276,118 @@ public class Filter extends AppCompatActivity {
 //                }
 //                AlertDialog mDialog = mBuilder.create();
 //                mDialog.show();
-//            }
-//        });
-        rela_brand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_brand,null);
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter.this);
-                bottomSheetDialog.setCanceledOnTouchOutside(false);
-                bottomSheetDialog.setContentView(dialogView);
-                bottomSheetDialog.show();
-                ImageView close = dialogView.findViewById(R.id.icon_close);
-                RadioGroup group = dialogView.findViewById(R.id.radio_group);
-                Button ok = dialogView.findViewById(R.id.btn_ok);
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
-                group.setOnCheckedChangeListener((group1, checkedId) -> {
-                    View radioButton = group.findViewById(checkedId);
-                    indexB = group.indexOfChild(radioButton);
-//                    if (language!=null) {
-//                        if (language.equals("km")) {
-//                            switch (brand) {
-//                                case 0:
-//                                    indexB=0;
-//                                    break;
-//                                case 1:
-//                                    indexB=1;
-//                                    break;
-//                                case 2:
-//                                    indexB=2;
-//                                    break;
-//                                case 3:
-//                                    indexB=3;
-//                                    break;
-//                                case 4:
-//                                    indexB=4;
-//                                    break;
-//                                case 5:
-//                                    indexB=5;
-//                                    break;
-//                            }
-//                        } else if (language.equals("en")) {
-//                            switch (brand) {
-//                                case 0:
-//                                    indexB=0;
-//                                    break;
-//                                case 1:
-//                                    indexB=1;
-//                                    break;
-//                                case 2:
-//                                    indexB=2;
-//                                    break;
-//                                case 3:
-//                                    indexB=3;
-//                                    break;
-//                                case 4:
-//                                    indexB=4;
-//                                    break;
-//                                case 5:
-//                                    indexB=5;
-//                                    break;
-//                            }
-//                        }
-//                    }
-                });
-
-                ok.setOnClickListener(v12 -> {
-                    if (brand==0){
-                            stBrand = String.valueOf(brand);
-                        getBrand();
-//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        bottomSheetDialog.dismiss();
-                    }else if (brand==1){
-                        stBrand = String.valueOf(brand);
-                        getBrand();
-//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        bottomSheetDialog.dismiss();
-                    }else if (brand==2){
-                        stBrand = String.valueOf(brand);
-                        getBrand();
-//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        bottomSheetDialog.dismiss();
-                    }else if (brand==3){
-                        stBrand = String.valueOf(brand);
-                        getBrand();
-//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        bottomSheetDialog.dismiss();
-                    }else if (brand==4){
-                        stBrand = String.valueOf(brand);
-                        getBrand();
-//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        bottomSheetDialog.dismiss();
-                    }else if (brand==5){
-                        stBrand = String.valueOf(brand);
-                        getBrand();
-//                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                        bottomSheetDialog.dismiss();
-                    }
-                    if (currentLanguage.equals("en")) {
-                        btnBrand.setText(brandListItems[indexB]);
-                    }else {
-                        btnBrand.setText(brandItemkh[indexB]);
-                    }
-                    brand = brandIDlist[indexB];
-                });
             }
         });
+
+//        rela_brand.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_brand,null);
+//                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter.this);
+//                bottomSheetDialog.setCanceledOnTouchOutside(false);
+//                bottomSheetDialog.setContentView(dialogView);
+//                bottomSheetDialog.show();
+//                ImageView close = dialogView.findViewById(R.id.icon_close);
+//                RadioGroup group = dialogView.findViewById(R.id.radio_group);
+//                Button ok = dialogView.findViewById(R.id.btn_ok);
+//                close.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        bottomSheetDialog.dismiss();
+//                    }
+//                });
+//
+//                group.setOnCheckedChangeListener((group1, checkedId) -> {
+//                    View radioButton = group.findViewById(checkedId);
+//                    indexB = group.indexOfChild(radioButton);
+////                    if (language!=null) {
+////                        if (language.equals("km")) {
+////                            switch (brand) {
+////                                case 0:
+////                                    indexB=0;
+////                                    break;
+////                                case 1:
+////                                    indexB=1;
+////                                    break;
+////                                case 2:
+////                                    indexB=2;
+////                                    break;
+////                                case 3:
+////                                    indexB=3;
+////                                    break;
+////                                case 4:
+////                                    indexB=4;
+////                                    break;
+////                                case 5:
+////                                    indexB=5;
+////                                    break;
+////                            }
+////                        } else if (language.equals("en")) {
+////                            switch (brand) {
+////                                case 0:
+////                                    indexB=0;
+////                                    break;
+////                                case 1:
+////                                    indexB=1;
+////                                    break;
+////                                case 2:
+////                                    indexB=2;
+////                                    break;
+////                                case 3:
+////                                    indexB=3;
+////                                    break;
+////                                case 4:
+////                                    indexB=4;
+////                                    break;
+////                                case 5:
+////                                    indexB=5;
+////                                    break;
+////                            }
+////                        }
+////                    }
+//                });
+//
+//                ok.setOnClickListener(v12 -> {
+//                    if (brand==0){
+//                            stBrand = String.valueOf(brand);
+//                        getBrand();
+////                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        bottomSheetDialog.dismiss();
+//                    }else if (brand==1){
+//                        stBrand = String.valueOf(brand);
+//                        getBrand();
+////                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        bottomSheetDialog.dismiss();
+//                    }else if (brand==2){
+//                        stBrand = String.valueOf(brand);
+//                        getBrand();
+////                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        bottomSheetDialog.dismiss();
+//                    }else if (brand==3){
+//                        stBrand = String.valueOf(brand);
+//                        getBrand();
+////                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        bottomSheetDialog.dismiss();
+//                    }else if (brand==4){
+//                        stBrand = String.valueOf(brand);
+//                        getBrand();
+////                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        bottomSheetDialog.dismiss();
+//                    }else if (brand==5){
+//                        stBrand = String.valueOf(brand);
+//                        getBrand();
+////                        icBrand_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+//                        bottomSheetDialog.dismiss();
+//                    }
+//                    if (currentLanguage.equals("en")) {
+//                        btnBrand.setText(brandListItems[indexB]);
+//                    }else {
+//                        btnBrand.setText(brandItemkh[indexB]);
+//                    }
+//                    brand = brandIDlist[indexB];
+//                });
+//            }
+//        });
 
 //        rela_year.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -488,265 +439,156 @@ public class Filter extends AppCompatActivity {
         rela_year.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_year,null);
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter.this);
-                bottomSheetDialog.setCanceledOnTouchOutside(false);
-                bottomSheetDialog.setContentView(dialogView);
-                bottomSheetDialog.show();
-                ImageView close = dialogView.findViewById(R.id.icon_close);
-                RadioGroup group = dialogView.findViewById(R.id.radio_group);
-                Button ok = dialogView.findViewById(R.id.btn_ok);
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        bottomSheetDialog.dismiss();
-                    }
-                });
 
-                group.setOnCheckedChangeListener((group1, checkedId) -> {
-                    View radioButton = group.findViewById(checkedId);
-                    indexY = group.indexOfChild(radioButton);
+                showBottomSheetYear(v);
 
-//                            if (year_fil == 0) {
-//                                stYear = "";
-//                            }
-//                            switch (year_fil) {
-//                                case 0:
-//                                    indexY=0;
-//                                    break;
-//                                case 1:
-//                                    indexY=1;
-//                                    break;
-//                                case 2:
-//                                    indexY=2;
-//                                    break;
-//                                case 3:
-//                                    indexY=3;
-//                                    break;
-//                                case 4:
-//                                    indexY=4;
-//                                    break;
-//                                case 5:
-//                                    indexY=5;
-//                                    break;
-//                                case 6:
-//                                    indexY=6;
-//                                    break;
-//                                case 7:
-//                                    indexY=7;
-//                                    break;
-//                                case 8:
-//                                    indexY=8;
-//                                    break;
-//                                case 9:
-//                                    indexY=9;
-//                                    break;
-//                                case 10:
-//                                    indexY=10;
-//                                    break;
-//                                case 11:
-//                                    indexY=11;
-//                                    break;
-//                                case 12:
-//                                    indexY=12;
-//                                    break;
-//                                case 13:
-//                                    indexY=13;
-//                                    break;
-//                                case 14:
-//                                    indexY=14;
-//                                    break;
-//                                case 15:
-//                                    indexY=15;
-//                                    break;
-//                                case 16:
-//                                    indexY=16;
-//                                    break;
-//                                case 17:
-//                                    indexY=17;
-//                                    break;
-//                                case 18:
-//                                    indexY=18;
-//                                    break;
-//                                case 19:
-//                                    indexY=19;
-//                                    break;
-//                                case 20:
-//                                    indexY=20;
-//                                    break;
-//                                case 21:
-//                                    indexY=21;
-//                                    break;
-//                                case 22:
-//                                    indexY=22;
-//                                    break;
-//                                case 23:
-//                                    indexY=23;
-//                                    break;
-//                                case 24:
-//                                    indexY=24;
-//                                    break;
-//                            }
-                });
-
-                ok.setOnClickListener(v12 -> {
-                    if (indexY==0){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==1){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==2){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==3){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==4){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==5){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==6){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==7){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    } else if (indexY==8) {
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==9){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==10){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==11){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==12){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==13){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==14){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==15){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==16){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==17){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==18){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==19){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==20){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==21){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }else if (indexY==22){
-                        stYear = String.valueOf(year_fil);
-//                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        getYear();
-                        bottomSheetDialog.dismiss();
-                    }
-                    if (currentLanguage.equals("en")) {
-                        btnyear.setText(yearListItems[indexY]);
-                    }else btnyear.setText(yearlistItemkh[indexY]);
-                    year_fil = yearIDlist[indexY];
-                    getYear();
-                });
+//                View dialogView = getLayoutInflater().inflate(R.layout.dialog_for_year,null);
+//                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Filter.this);
+//                bottomSheetDialog.setCanceledOnTouchOutside(false);
+//                bottomSheetDialog.setContentView(dialogView);
+//                bottomSheetDialog.show();
+//                ImageView close = dialogView.findViewById(R.id.icon_close);
+//                RadioGroup group = dialogView.findViewById(R.id.radio_group);
+//                Button ok = dialogView.findViewById(R.id.btn_ok);
+//                close.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        bottomSheetDialog.dismiss();
+//                    }
+//                });
+//
+//                group.setOnCheckedChangeListener((group1, checkedId) -> {
+//                    View radioButton = group.findViewById(checkedId);
+//                    indexY = group.indexOfChild(radioButton);
+//                });
+//
+//                ok.setOnClickListener(v12 -> {
+//                    if (indexY==0){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==1){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==2){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==3){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==4){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==5){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==6){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==7){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    } else if (indexY==8) {
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==9){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==10){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==11){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==12){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==13){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==14){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==15){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==16){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==17){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==18){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==19){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==20){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==21){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }else if (indexY==22){
+//                        stYear = String.valueOf(year_fil);
+////                        icYear_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+////                        getYear();
+//                        bottomSheetDialog.dismiss();
+//                    }
+//                    if (currentLanguage.equals("en")) {
+//                        btnyear.setText(yearListItems[indexY]);
+//                    }else btnyear.setText(yearlistItemkh[indexY]);
+//                    year_fil = yearIDlist[indexY];
+//                    getYear();
+//                });
             }
         });
 
-// add filter condition by samang 27/08
-        typeListItems = getResources().getStringArray(R.array.filter_type);
-//        rela_type.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Filter.this);
-//                mBuilder.setTitle(R.string.choose_type_filter);
-//                mBuilder.setSingleChoiceItems(typeListItems, -1, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int i) {
-//                        btnType.setText(typeListItems[i]);
-//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
-//                        switch (i){
-//                            case 0:
-//                                stType = "";
-//                                break;
-//                            case 1:
-//                                stType = "new";
-//                                break;
-//                            case 2:
-//                                stType = "used";
-//                                break;
-//
-//                        }
-//                        dialog.dismiss();
-//                        Log.d("Filter condition","is:"+stType);
-//                    }
-//                });
-//                AlertDialog mDialog = mBuilder.create();
-//                mDialog.show();
-//            }
-//        });
+        // add filter condition by samang 27/08
 
         rela_type.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -769,51 +611,18 @@ public class Filter extends AppCompatActivity {
                 group.setOnCheckedChangeListener((group1, checkedId) -> {
                     View radioButton = group.findViewById(checkedId);
                     index = group.indexOfChild(radioButton);
-//                    btnType.setText(typeListItems[index]);
-//                    type = index;
-//                    if (language!=null) {
-//                        if (language.equals("km")) {
-//                            switch (type) {
-//                                case 0:
-//                                    index=0;
-//                                    break;
-//                                case 1:
-//                                    index=1;
-//                                    break;
-//                                case 2:
-//                                    index=2;
-//                                    break;
-//                            }
-//                        } else if (language.equals("en")) {
-//                            switch (type) {
-//                                case 0:
-//                                    index=0;
-//                                    break;
-//                                case 1:
-//                                    index=1;
-//                                    break;
-//                                case 2:
-//                                    index=2;
-//                                    break;
-//                            }
-//                        }
-//                    }
                 });
 
                 ok.setOnClickListener(v12 -> {
+                    type = index;
                     if (type==0){
-//                        stType = "";
-//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        stType = "";
                         bottomSheetDialog.dismiss();
                     }else if (type==1){
-                        //stType = "new";
-//                        stType="sell";
-//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        stType="sell";
                         bottomSheetDialog.dismiss();
                     }else if (type==2){
-                        //stType = "used";
-//                        stType="rent";
-//                        icType_fil.setImageResource(R.drawable.ic_check_circle_black_24dp);
+                        stType="rent";
                         bottomSheetDialog.dismiss();
                     }
                     if (currentLanguage.equals("en")) {
@@ -821,18 +630,10 @@ public class Filter extends AppCompatActivity {
                     }else {
                         btnType.setText(typeListItems[index]);
                     }
-                    type = index;
                 });
             }
         });
 
-//        tv_done.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Result();
-//
-//            }
-//        });
         submit_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -843,26 +644,19 @@ public class Filter extends AppCompatActivity {
     } // create
 
     private void Result(){
-//        Intent intent = new Intent(this,Search1.class);
-//        intent.putExtra("title_search",stTitle);
-//        intent.putExtra("category",stCategory);
-//        intent.putExtra("brand",stBrand);
-//        intent.putExtra("year",stYear);
-//        startActivity(intent);
-//        finish();
-
+        Log.d("FIlter","Filter condition "+stType+stTitle+","+stCategory+","+stBrand+","+stYear+","+mMinPrice+","+mMaxPrice);
         Intent intent = new Intent();
         intent.putExtra("posttype",stType);
         intent.putExtra("title_search",stTitle);
-        intent.putExtra("category",stCategory);
-        intent.putExtra("brand",stBrand);
-        intent.putExtra("year",stYear);
+        intent.putExtra("category",cate);
+        intent.putExtra("brand",seleectedBrandId);
+        intent.putExtra("year",year_fil);
         intent.putExtra("min_price",mMinPrice);
         intent.putExtra("max_price",mMaxPrice);
         setResult(2,intent);
         finish();
 
-        Log.d("FIlter",stTitle+","+stCategory+","+stBrand+","+stYear);
+
     }
 
     private void getCategory(){
@@ -1027,8 +821,6 @@ public class Filter extends AppCompatActivity {
                         }
                     }
 
-
-
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -1100,5 +892,35 @@ public class Filter extends AppCompatActivity {
         String language = prefer.getString("My_Lang","");
         Log.d("language",language);
         language(language);
+    }
+
+    private void showBottomBrand(View view){
+        BottomChooseFilterBrand addBottomDialogFragement=BottomChooseFilterBrand.newInstance(cate);
+        addBottomDialogFragement.show(getSupportFragmentManager(),BottomChooseFilterBrand.TAG);
+    }
+    private void showBottomSheetYear(View view){
+        BottomChooseYear addBottomDialogFragment=BottomChooseYear.newInstance();
+        addBottomDialogFragment.show(getSupportFragmentManager(),BottomChooseYear.TAG);
+    }
+
+
+    @Override
+    public void onSetBrandName(String item) {
+        btnBrand.setText(item);
+    }
+
+    @Override
+    public void onSetSelectedBrandIndex(int id) {
+        seleectedBrandId=id;
+    }
+
+    @Override
+    public void onClickItem(String item) {
+        btnyear.setText(item);
+    }
+
+    @Override
+    public void AddIDyear(int id) {
+        year_fil=id;
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -29,9 +30,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
@@ -43,6 +46,8 @@ import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
 import com.bt_121shoppe.motorbike.models.PostProduct;
+import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.models.ShopUpdateViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.stores.adapters.StoreActivePostListAdapter;
@@ -107,6 +112,8 @@ public class StoreDetailActivity extends AppCompatActivity {
     byte[] decodedBytes;
     TextView shopbar;
     ImageView backbar;
+    ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +137,10 @@ public class StoreDetailActivity extends AppCompatActivity {
         mGallaryView=findViewById(R.id.btn_image);
 
         best_match=findViewById(R.id.best_match);
+
+        pd=new ProgressDialog(StoreDetailActivity.this);
+        pd.setMessage(getString(R.string.progress_waiting));
+        pd.setCancelable(false);
 
         Bundle bundle=getIntent().getExtras();
         if(bundle!=null){
@@ -261,7 +272,24 @@ public class StoreDetailActivity extends AppCompatActivity {
                     mAllPostsNoResult.setVisibility(View.VISIBLE);
                 }else{
                     mAllPostsNoResult.setVisibility(View.GONE);
-                    List<StorePostViewModel> postListItems=response.body().getResults();
+                    List<StorePostViewModel> results=response.body().getResults();
+                    List<StorePostViewModel> postListItems=new ArrayList<>();
+                    for(int i=0;i<results.size();i++){
+                        int postId=results.get(i).getPost();
+                        retrofit2.Call<Item> call1=api.getDetailpost(postId);
+                        call1.enqueue(new retrofit2.Callback<Item>() {
+                            @Override
+                            public void onResponse(retrofit2.Call<Item> call, retrofit2.Response<Item> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(retrofit2.Call<Item> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
                     mAllPostAdapter.addItems(postListItems);
                     mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
                     ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
@@ -275,7 +303,6 @@ public class StoreDetailActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -436,15 +463,16 @@ public class StoreDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
                 if(response.isSuccessful()){
-                    //Log.e("TAG","Shop Detail "+response.body().getShop_view());
+                    Log.e("TAG","Shop Detail "+response.body().getShop_view());
                     ShopViewModel shop=response.body();
                     int oldView=shop.getShop_view();
                     shop.setShop_view(oldView+1);
-                    retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(shopId,shop);
+                    retrofit2.Call<ShopViewModel> call1=api.updateShopCountView(shopId,new ShopUpdateViewModel(shop.getId(),shop.getUser(),oldView+1,shop.getShop_image()));
                     call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
                         @Override
                         public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response1) {
                             Log.e("TAG","Submit count view sucess "+response1.message());
+                            count_view.setText(String.valueOf(oldView+1));
                         }
 
                         @Override
@@ -474,13 +502,15 @@ public class StoreDetailActivity extends AppCompatActivity {
         mListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pd.show();
+                mAllPosts=new ArrayList<>();
                 mAllPostAdapter=new StoreActivePostListAdapter(mAllPosts,"List");
                 mListView.setImageResource(R.drawable.list_brown);
                 mGridView.setImageResource(R.drawable.grid);
                 mGallaryView.setImageResource(R.drawable.image);
-                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-                mAllPosts=new ArrayList<>();
+                //mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                //mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+
                 Service api=Client.getClient().create(Service.class);
                 retrofit2.Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
                 model.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
@@ -502,6 +532,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                             mAllPostAdapter.notifyDataSetChanged();
 
                         }
+                        pd.dismiss();
                     }
 
                     @Override
@@ -516,13 +547,14 @@ public class StoreDetailActivity extends AppCompatActivity {
         mGridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pd.show();
                 mAllPosts=new ArrayList<>();
                 mAllPostAdapter=new StoreActivePostListAdapter(mAllPosts,"Grid");
                 mListView.setImageResource(R.drawable.list);
                 mGridView.setImageResource(R.drawable.grid_brown);
                 mGallaryView.setImageResource(R.drawable.image);
-                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+                //mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                //mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
 
                 Service api=Client.getClient().create(Service.class);
                 retrofit2.Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
@@ -545,6 +577,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                             mAllPostAdapter.notifyDataSetChanged();
 
                         }
+                        pd.dismiss();
                     }
 
                     @Override
@@ -559,13 +592,15 @@ public class StoreDetailActivity extends AppCompatActivity {
         mGallaryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pd.show();
+                mAllPosts=new ArrayList<>();
                 mAllPostAdapter=new StoreActivePostListAdapter(mAllPosts,"Image");
                 mListView.setImageResource(R.drawable.list);
                 mGridView.setImageResource(R.drawable.grid);
                 mGallaryView.setImageResource(R.drawable.image_brown);
-                mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-                mAllPosts=new ArrayList<>();
+                //mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                //mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+
                 Service api=Client.getClient().create(Service.class);
                 retrofit2.Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
                 model.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
@@ -587,6 +622,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                             mAllPostAdapter.notifyDataSetChanged();
 
                         }
+                        pd.dismiss();
                     }
 
                     @Override

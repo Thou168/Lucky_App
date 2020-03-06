@@ -99,7 +99,7 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     Glide.with(mContext).load(response.body().getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).thumbnail(0.1f).into(view.imageView);
                     //dd by Raksmey
                     String strPostTitle="";
-                    String lang = view.textview1.getText().toString();
+                    String lang = view.txtview.getText().toString();
                     if(response.body().getPost_sub_title()== null){
 //                        String fullTitle=CommonFunction.generatePostSubTitle(response.body().getModeling(),year,response.body().getColor());
 //                        if(lang.equals("View:"))

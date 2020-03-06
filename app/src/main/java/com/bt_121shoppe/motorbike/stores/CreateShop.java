@@ -570,7 +570,7 @@ public class CreateShop extends AppCompatActivity {
             post1.put("shop_name",usershop.getShop_name());
 //            post1.put("shop_address",usershop.getShop_address());
             //post1.put("shop_province",usershop.getShop_address());
-            post1.put("shop_province",selectedProvinceId);
+            post1.put("shop_province",selectedProvinceId==0?1:selectedProvinceId);
             post1.put("record_status",1);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
@@ -650,7 +650,7 @@ public class CreateShop extends AppCompatActivity {
             post1.put("shop_name",usershop.getShop_name());
 //            post1.put("shop_address",usershop.getShop_address());
             //post1.put("shop_province",usershop.getShop_address());
-            post1.put("shop_province",selectedProvinceId);
+            post1.put("shop_province",selectedProvinceId==0?1:selectedProvinceId);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
             }else{

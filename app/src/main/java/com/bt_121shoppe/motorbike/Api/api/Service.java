@@ -17,6 +17,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Api.responses.APILoanResponse;
 import com.bt_121shoppe.motorbike.Api.responses.APIShopResponse;
 import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
+import com.bt_121shoppe.motorbike.Api.responses.APIUserResponse;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.loan.model.District;
@@ -32,6 +33,7 @@ import com.bt_121shoppe.motorbike.models.FilterConditionViewModel;
 import com.bt_121shoppe.motorbike.models.ModelingViewModel;
 import com.bt_121shoppe.motorbike.models.NotificationResponseViewModel;
 import com.bt_121shoppe.motorbike.models.NotificationViewModel;
+import com.bt_121shoppe.motorbike.models.ShopUpdateViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.models.UserProfileModel;
@@ -136,6 +138,8 @@ public interface Service {
 
     @GET("api/v1/userfilter/?last_name=&username=")
     Call<AllResponse> getUsername(@Query("username") String username);
+    @GET("api/v1/userfilter/?last_name=&username=")
+    Call<APIUserResponse> getUsername1(@Query("username") String username);
     //Buy_Rent_Sell
     @GET("relatedpost/?post_type=rent&category=2&modeling=&min_price=&max_price=")
     Call<AllResponse> getRent_vehicle();
@@ -233,9 +237,10 @@ public interface Service {
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/shop/{id}/")
-    Call<ShopViewModel> updateShopCountView(@Path("id") int id, @Body ShopViewModel shopViewModel);
+    Call<ShopViewModel> updateShopCountView(@Path("id") int id, @Body ShopUpdateViewModel shopViewModel);
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @PUT("api/v1/postdealershop/{id}/")
+
     Call<StorePostViewModel> updateDealerPostStatus(@Path("id") int id, @Body StorePostViewModel shopViewModel);
 
     //--------------START Notification SECTION---------------------//

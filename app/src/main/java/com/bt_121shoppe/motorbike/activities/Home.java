@@ -526,7 +526,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 //
 //        DrawerLayout drawer = findViewById(R.id.drawer_layout);
 //        drawer.closeDrawer(GravityCompat.START);
-//        return true;
+//        return true;m
 //    }
 
     private void buildAlertMessageNoGps(){

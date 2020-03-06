@@ -177,16 +177,18 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
                             intent.putExtra("postt", 2);
                         }
                         intent.putExtra("ID",Integer.parseInt(iditem));
+                        intent.putExtra("Sold_Remove",2);
                         mContext.startActivity(intent);
                     });
                     Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
 
                     view.item_type.setBackgroundResource(R.drawable.roundimage_history);
                     if((int)model.getStatus()==2){
-
                         view.item_type.setText(R.string.button_remove);
                     }else if((int)model.getStatus()==7){
                         view.item_type.setText(R.string.sold);
+                    }else if((int)model.getStatus()==5){
+                        view.item_type.setText(R.string.reject);
                     }
 
 

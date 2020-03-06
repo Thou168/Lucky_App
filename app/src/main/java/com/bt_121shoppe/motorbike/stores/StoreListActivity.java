@@ -92,6 +92,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
                 showBottomProvince(view);
             }
         });
+
 //        mButtonLocation.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

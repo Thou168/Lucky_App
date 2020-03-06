@@ -108,7 +108,7 @@ public class three extends Fragment {
             mFromLoan = args.getBoolean(FROMLOAN);
             mDraft = args.getString(DRAFT);
             loan_history = args.getString(LOAN_HISTORY);
-            Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+","+mDraft+","+loan_history);
+            //Log.e("Item",""+mProductID+","+mPrice+","+mLoanID+","+mFromLoan+","+mDraft+","+loan_history);
         }
         createLoad = (Create_Load)this.getActivity();
         preferences= getContext().getSharedPreferences("Register",MODE_PRIVATE);
@@ -133,6 +133,8 @@ public class three extends Fragment {
             mBtnSaveDraft.setVisibility(View.GONE);
             mBtnSubmit.setVisibility(View.GONE);
         }
+
+
 
         Paper.init(getContext());
         language = Paper.book().read("language");
@@ -253,6 +255,7 @@ public class three extends Fragment {
                 }
             }
                 Log.e("From Loan",String.valueOf(mFromLoan));
+
                 if (mFromLoan){
                     dialog_Editloan();
                 }else {
@@ -810,7 +813,16 @@ public class three extends Fragment {
 
     public void getItemTwo(item_two item)
     {
-        Log.e("item_two",""+item);
+        //Log.e("item_two",""+item);
+        layout_coborrower.setVisibility(View.GONE);
         itemTwo = item;
+        if(itemTwo!=null){
+            if(itemTwo.getItemOne().getCo_borrower()){
+                Log.e("TAG","Loan from from two not null"+item.getItemOne().getCo_borrower());
+                layout_coborrower.setVisibility(View.VISIBLE);
+            }
+
+
+        }
     }
 }

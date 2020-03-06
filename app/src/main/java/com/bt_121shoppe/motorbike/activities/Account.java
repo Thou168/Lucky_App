@@ -160,7 +160,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 if(response.isSuccessful()){
                     int group=response.body().getProfile().getGroup();
                     tvUserGroup.setText(String.valueOf(group));
-                    Glide.with(getBaseContext()).load(response.body().getProfile().getProfile_photo()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+                    //Glide.with(getBaseContext()).load(response.body().getProfile().getProfile_photo()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
                     tvFullname.setText(response.body().getUsername());
                     if(response.body().getFirst_name()==null || response.body().getFirst_name().isEmpty()){
                         tvUsername.setText(response.body().getUsername());
@@ -197,7 +197,25 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
 
 //        CheckGroup checkGroup=new CheckGroup();
 //        g=checkGroup.getGroup(pk,this);
+        fuser=FirebaseAuth.getInstance().getCurrentUser();
+        if(fuser!=null){
+            reference =FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user=dataSnapshot.getValue(User.class);
+                    if(user.getImageURL().equals("default"))
+                        Glide.with(getBaseContext()).load(R.drawable.group_2293).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+                    else
+                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
 
         ImageButton imgSetting=findViewById(R.id.btnsetting);

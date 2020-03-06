@@ -80,7 +80,13 @@ public class DealerPostHistoryFragment extends Fragment {
                         no_result.setVisibility(View.VISIBLE);
                     }else{
                         progressBar.setVisibility(View.GONE);
-                        listData=response.body().getresults();
+                        List<Item> items=response.body().getresults();
+                        listData=new ArrayList<>();
+                        for(int i=0;i<items.size();i++){
+                            if(items.get(i).getDealer_shops().size()==0)
+                                listData.add(items.get(i));
+                        }
+
                         mAdapter = new Adapter_historybyuser(listData,getContext());
                         recyclerView.setAdapter(mAdapter);
                     }

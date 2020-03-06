@@ -352,9 +352,9 @@ public class one extends Fragment{
                             communeId[ccount]=(int)list_Commmune.get(i).getId();
                             if (currentLanguage.equals("en")) {
                                 commune[ccount] = list_Commmune.get(i).getCommune();
-                                Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
+                                //Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
                             } else {
-                                Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
+                                //Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
                                 commune[ccount] = list_Commmune.get(i).getCommune_kh();
                             }
                             communeId[ccount] = (int) list_Commmune.get(i).getId();
@@ -394,9 +394,9 @@ public class one extends Fragment{
                             villageId[ccount]=(int)list_village.get(i).getId();
                             if (currentLanguage.equals("en")) {
                                 village[ccount] = list_village.get(i).getVillage();
-                                Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
+                                //Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
                             } else {
-                                Log.d("Village", list_village.get(i).getVillage_kh() + list_village.get(i).getId());
+                                //Log.d("Village", list_village.get(i).getVillage_kh() + list_village.get(i).getId());
                                 village[ccount] = list_village.get(i).getVillage_kh();
                             }
                             ccount++;

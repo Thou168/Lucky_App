@@ -46,6 +46,18 @@ public class Item implements Serializable {
     private String post_sub_title;
     private String multi_color_code;
 
+    private String used_eta1;
+    private String used_eta2;
+    private String used_eta3;
+    private String used_eta4;
+    private String used_machine1;
+    private String used_machine2;
+    private String used_machine3;
+    private String used_machine4;
+    private String used_other1;
+    private String post_code;
+
+
     @SerializedName("sales")
     private List<Type_item> sales;
     @SerializedName("buys")
@@ -352,6 +364,46 @@ public class Item implements Serializable {
 
     public void setDealer_shops(List<StorePostViewModel> dealer_shops) {
         this.dealer_shops = dealer_shops;
+    }
+
+    public String getPost_code() {
+        return post_code;
+    }
+
+    public String getUsed_eta1() {
+        return used_eta1;
+    }
+
+    public String getUsed_eta2() {
+        return used_eta2;
+    }
+
+    public String getUsed_eta3() {
+        return used_eta3;
+    }
+
+    public String getUsed_eta4() {
+        return used_eta4;
+    }
+
+    public String getUsed_machine1() {
+        return used_machine1;
+    }
+
+    public String getUsed_machine2() {
+        return used_machine2;
+    }
+
+    public String getUsed_machine3() {
+        return used_machine3;
+    }
+
+    public String getUsed_machine4() {
+        return used_machine4;
+    }
+
+    public String getUsed_other1() {
+        return used_other1;
     }
 
     public static class buy_item{

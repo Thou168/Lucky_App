@@ -147,9 +147,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_newpost_java);
         pd=new ProgressDialog(Detail_new_post_java.this);
-        pd.setMessage("Processing....");
+        pd.setMessage(getString(R.string.progress_waiting));
         pd.setCancelable(false);
-
+        pd.show();
         locale();
         call_methot_id();
         layout_call_chat_like_loan = findViewById(R.id.Constrainlayout_call_chat_like_loan);
@@ -173,11 +173,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         pt = getIntent().getIntExtra("postt",0);
         loanID = getIntent().getIntExtra("id",0);
         EditLoan = getIntent().getBooleanExtra("LoanEdit",false);
+
+        back_view.setOnClickListener(v -> onBackPressed());
+        tvUsername=findViewById(R.id.post_username);
         initialProductPostDetail(basic_Encode);
         submitCountView(Encode);
         countPostView(Encode);
-        back_view.setOnClickListener(v -> onBackPressed());
-        tvUsername=findViewById(R.id.post_username);
         //like
         already_like(Encode);
 
@@ -296,6 +297,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         tabLayout.setupWithViewPager(mViewPager);
         setUpPager();
         setupTabIcons();
+        pd.dismiss();
     }
 
     private void call_methot_id(){

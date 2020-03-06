@@ -182,7 +182,7 @@ public class StoreActivePostListAdapter extends RecyclerView.Adapter<BaseViewHol
                         }
                         postTitle.setText(strPostTitle);
 
-                        String[] splitColor=mPost.getColor().split(",");
+                        String[] splitColor=mPost.getMulti_color_code().split(",");
 
                         GradientDrawable shape = new GradientDrawable();
                         shape.setShape(GradientDrawable.OVAL);
