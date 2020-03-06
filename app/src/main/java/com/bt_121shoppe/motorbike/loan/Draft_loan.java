@@ -41,7 +41,8 @@ public class Draft_loan extends AppCompatActivity {
     private String basic_Encode,price;
     private List<draft_Item> listData;
     private Adapter_list_draft mAdapter;
-    private int pk,productID;
+    private int pk,productID,mLoandID;
+    private boolean From_Loan;
     ProgressBar progressBar;
     TextView no_result;
 
@@ -69,6 +70,8 @@ public class Draft_loan extends AppCompatActivity {
         Intent intent = getIntent();
         productID = intent.getIntExtra("product_id",0);
         price = intent.getStringExtra("price");
+        From_Loan = intent.getBooleanExtra("LoanEdit",false);
+        mLoandID = intent.getIntExtra("LoanID",0);
         Log.e("product ID",""+productID+","+price);
         getLoan_draft();
 
@@ -79,6 +82,8 @@ public class Draft_loan extends AppCompatActivity {
                 Intent intent1 = new Intent(Draft_loan.this,Create_Load.class);
                 intent1.putExtra("product_id",productID);
                 intent1.putExtra("price",price);
+                intent1.putExtra("LoanEdit",From_Loan);
+                intent1.putExtra("LoanID",mLoandID);
                 startActivity(intent1);
             }
         });

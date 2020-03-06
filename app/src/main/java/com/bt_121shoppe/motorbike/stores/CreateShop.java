@@ -542,7 +542,8 @@ public class CreateShop extends AppCompatActivity {
                             obj = new JSONObject(message);
                             String shop = editShopname.getText().toString();
                             String address = editAddress.getText().toString();
-                            userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new));
+                            String shop_phonenumber = editPhone.getText().toString();
+                            userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new,shop_phonenumber));
                             if(userShops.size()>0){
                                 for(int i=0;i<userShops.size();i++){
                                     if(userShops.get(i).isEdit())
@@ -571,6 +572,7 @@ public class CreateShop extends AppCompatActivity {
 //            post1.put("shop_address",usershop.getShop_address());
             //post1.put("shop_province",usershop.getShop_address());
             post1.put("shop_province",selectedProvinceId==0?1:selectedProvinceId);
+            post1.put("shop_phonenumber",usershop.getShop_phonenumber());
             post1.put("record_status",1);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
@@ -651,6 +653,7 @@ public class CreateShop extends AppCompatActivity {
 //            post1.put("shop_address",usershop.getShop_address());
             //post1.put("shop_province",usershop.getShop_address());
             post1.put("shop_province",selectedProvinceId==0?1:selectedProvinceId);
+            post1.put("shop_phonenumber",usershop.getShop_phonenumber());
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
             }else{

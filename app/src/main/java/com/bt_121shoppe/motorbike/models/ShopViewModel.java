@@ -29,6 +29,8 @@ public class ShopViewModel {
     private String shop_address_map;
     @SerializedName("shop_province")
     private int shop_province;
+    @SerializedName("shop_phonenumber")
+    private String shop_phonenumber;
 
     public ShopViewModel(){}
 
@@ -127,6 +129,14 @@ public class ShopViewModel {
 
     public void setShop_province(int shop_province) {
         this.shop_province = shop_province;
+    }
+
+    public String getShop_phonenumber() {
+        return shop_phonenumber;
+    }
+
+    public void setShop_phonenumber(String shop_phonenumber) {
+        this.shop_phonenumber = shop_phonenumber;
     }
 
     public class Cards {

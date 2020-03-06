@@ -27,6 +27,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
+import com.bt_121shoppe.motorbike.Api.api.CountViewResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
@@ -36,6 +38,7 @@ import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.models.CountViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,6 +76,7 @@ public class HomeApiFragment extends Fragment {
     private HomeAllPostAdapter mAllPostAdapter;
     private ImageView mListView,mGridView,mGallaryView;
     private List<PostViewModel> mAllPosts;
+    private List<CountViewModel> countView;
     private List<PostViewModel> mPostBestDeals;
     private ProgressBar mBestDealProgressbar,mAllPostProgressbar;
     ScrollingPagerIndicator recyclerIndicator;
@@ -81,7 +85,7 @@ public class HomeApiFragment extends Fragment {
     RelativeLayout rl_newpost;
     ConstraintLayout ct_layout;
     TextView best_match;
-    int index = 0;
+    int index = 0,postID;
     private View view;
 
     public HomeApiFragment() {
@@ -240,6 +244,7 @@ public class HomeApiFragment extends Fragment {
 
     private void setupAllPosts(int index){
         mAllPosts=new ArrayList<>();
+        countView=new ArrayList<>();
         mAllPostLayoutManager=new GridLayoutManager(getContext(),1);
         mAllPostLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mAllPostLayoutManager.setAutoMeasureEnabled(true);
@@ -276,8 +281,24 @@ public class HomeApiFragment extends Fragment {
                                             best_match.setText(R.string.new_ads);
                                             break;
                                         case 1:
-                                            //Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getCountView(), s1.getCountView()));
-                                            best_match.setText(R.string.most_hit_ads);
+                                            try{
+                                                Service apiServiece = Client.getClient().create(Service.class);
+                                                Call<CountViewResponse> call1 = apiServiece.getCountView();
+                                                call1.enqueue(new retrofit2.Callback<CountViewResponse>() {
+                                                    @Override
+                                                    public void onResponse(Call<CountViewResponse> call, Response<CountViewResponse> response) {
+                                                        countView = response.body().getresults();
+                                                        Log.e("countview",""+countView.size()+","+countView);
+                                                        Collections.sort(countView, (s1, s2) -> Integer.compare(Integer.valueOf(s1.getNumber()), Integer.valueOf(s2.getNumber())));
+                                                        best_match.setText(R.string.most_hit_ads);
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<CountViewResponse> call, Throwable t) {
+                                                        Log.d("Error", t.getMessage());
+                                                    }
+                                                });
+                                            }catch (Exception e){Log.d("Error e",e.getMessage());}
                                             break;
                                         case 2:
                                             Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getCost()), Double.valueOf(s2.getCost())));

@@ -9,6 +9,7 @@ public class UserShopViewModel {
     private int user;
     private String shop_name;
     private String shop_address;
+    private String shop_phonenumber;
     private Bitmap shop_image;
     private int record_status;
     private String shop_image_path;
@@ -17,11 +18,12 @@ public class UserShopViewModel {
 
     public UserShopViewModel(){}
 
-    public UserShopViewModel(int id,int user,String shop_name,String shop_address,Bitmap shop_image,int record_status,String shop_image_path,boolean isEdit,boolean isAddNew){
+    public UserShopViewModel(int id,int user,String shop_name,String shop_address,Bitmap shop_image,int record_status,String shop_image_path,boolean isEdit,boolean isAddNew,String shop_phonenumber){
         this.id=id;
         this.user=user;
         this.shop_name=shop_name;
         this.shop_address=shop_address;
+        this.shop_phonenumber=shop_phonenumber;
         this.shop_image=shop_image;
         this.record_status=record_status;
         this.shop_image_path=shop_image_path;
@@ -98,5 +100,12 @@ public class UserShopViewModel {
     public void setAddNew(boolean addNew) {
         isAddNew = addNew;
     }
-    
+
+    public String getShop_phonenumber() {
+        return shop_phonenumber;
+    }
+
+    public void setShop_phonenumber(String shop_phonenumber) {
+        this.shop_phonenumber = shop_phonenumber;
+    }
 }

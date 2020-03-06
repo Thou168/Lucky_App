@@ -2,6 +2,7 @@ package com.bt_121shoppe.motorbike.Api.api;
 
 import com.bt_121shoppe.motorbike.Api.Profile;
 import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.CountViewResponse;
 import com.bt_121shoppe.motorbike.Api.api.model.Brand;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
@@ -91,6 +92,8 @@ public interface Service {
     Call<AllResponse> getCount(@Query("post") String post, @Header("Authorization") String authorization);
     @GET("countview/?post=")
     Call<AllResponse> getCount(@Query("post") String post);
+    @GET("countview/")
+    Call<CountViewResponse> getCountView();
     @GET("detailposts/{id}/")
     Call<Item> getDetailpost(@Path("id") int id, @Header("Authorization") String authorization);
     @GET("detailposts/{id}/")

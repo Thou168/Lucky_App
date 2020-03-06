@@ -83,9 +83,14 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
             Intent intent1 = new Intent(Create_Load.this,Draft_loan.class);
             intent1.putExtra("product_id",product_id);
             intent1.putExtra("price",price);
+            intent1.putExtra("LoanEdit",From_Loan);
+            intent1.putExtra("LoanID",mLoandID);
             startActivity(intent1);
         });
         if (loan_history != null){
+            btnList_Draft.setVisibility(View.GONE);
+        }
+        if (draft != null){
             btnList_Draft.setVisibility(View.GONE);
         }
 
@@ -159,7 +164,9 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mLoandID != 0){
+                if (draft != null){
+                    finish();
+                }else if (mLoandID != 0){
                     Intent intent1 = new Intent(Create_Load.this,Account.class);
                     startActivity(intent1);
                 }else if (product_id != 0) {

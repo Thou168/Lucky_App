@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -45,6 +47,7 @@ import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
+import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.models.ShopUpdateViewModel;
@@ -104,11 +107,11 @@ public class StoreDetailActivity extends AppCompatActivity {
 
     //seekbar
     int min;
-    int max,shopId=0;
+    int max,shopId=0,mProvinceID;
     String view;
     TextView shopname,location,contact,count_view,number_rate;
     CircleImageView cr_image;
-    String name_shop,location_shop,profile_shop,view_shop,ratenum_shop;
+    String name_shop,profile_shop,view_shop,ratenum_shop,currentLanguage,shop_phonenumber;
     byte[] decodedBytes;
     TextView shopbar;
     ImageView backbar;
@@ -137,6 +140,8 @@ public class StoreDetailActivity extends AppCompatActivity {
         mGallaryView=findViewById(R.id.btn_image);
 
         best_match=findViewById(R.id.best_match);
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        currentLanguage = preferences.getString("My_Lang", "");
 
         pd=new ProgressDialog(StoreDetailActivity.this);
         pd.setMessage(getString(R.string.progress_waiting));
@@ -146,19 +151,41 @@ public class StoreDetailActivity extends AppCompatActivity {
         if(bundle!=null){
             shopId=bundle.getInt("id",0);
             mShopName=bundle.getString("shopinfo");
-            location_shop=bundle.getString("shop_location");
+            mProvinceID=bundle.getInt("shop_location",0);
+            Log.e("fjfff",""+mProvinceID);
             profile_shop=bundle.getString("shop_image");
             view_shop=bundle.getString("shop_view");
             ratenum_shop=bundle.getString("shop_rate_num");
+            shop_phonenumber = bundle.getString("shop_phonenumber");
         }
         //submit count shop view
         submitcountshopview(shopId);
 
         shopname.setText(mShopName);
-        location.setText(location_shop);
         count_view.setText(view_shop);
         number_rate.setText(ratenum_shop);
+        contact.setText(shop_phonenumber);
         Glide.with(StoreDetailActivity.this).load(profile_shop).placeholder(R.mipmap.ic_launcher_round).centerCrop().into(cr_image);
+
+        try{
+            Service apiServiece = Client.getClient().create(Service.class);
+            retrofit2.Call<Province> call = apiServiece.getProvince(mProvinceID);
+            call.enqueue(new retrofit2.Callback<Province>() {
+                @Override
+                public void onResponse(retrofit2.Call<Province> call, retrofit2.Response<Province> response) {
+                    if (!response.isSuccessful()){
+                        Log.e("ONRESPONSE Province", String.valueOf(response.code()));
+                    }else {
+                        if (currentLanguage.equals("en"))
+                            location.setText(response.body().getProvince());
+                        else location.setText(response.body().getProvince_kh());
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Province> call, Throwable t) { Log.d("Error",t.getMessage()); }
+            });
+        }catch (Exception e){Log.d("Error e",e.getMessage());}
 
 //        initToolbar(mShopName);
         shopbar.setText(mShopName);
