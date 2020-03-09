@@ -171,7 +171,7 @@
     <string name="khmer">Khmer</string>
     <string name="setting">Setting</string>
     <string name="version">Version</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Sign out</string>
     <string name="app_setting">APP SETTING</string>
     <string name="account_setting">Account Setting</string>
     <string name="txt_account_setting">Account Setting</string>
@@ -681,7 +681,7 @@
     <string name="reset_password_text">You will use this Password to access your account.</string>
     <string name="public_brand">Public User</string>
     <string name="login_fail">Login Failure</string>
-    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="logout_message">Are you sure for Sign out?</string>
     <string name="title_change_password">Changed Password</string>
     <string name="success_change_password">Your password was changed</string>
     <string name="fail_change_password">Your password has been error while changing.</string>

@@ -40,6 +40,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.List;
 
@@ -210,7 +211,8 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
                 double co_price = Double.parseDouble(String.valueOf(per1 * cost))/100;
                 double price = cost - co_price;
-                tvCost.setText("$"+price);
+                DecimalFormat formatter = new DecimalFormat("#0.00");
+                tvCost.setText("$"+formatter.format(price));
                 tvDiscount.setText("$"+cost);
                 tvDiscount.setPaintFlags(tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }

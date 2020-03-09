@@ -79,6 +79,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -542,7 +543,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             double discountPrice = pricefull * (Double.parseDouble(postDetail.getDiscount()) / 100);
                             int per1 = (int) (Double.parseDouble(postDetail.getDiscount()));
                             result = pricefull - discountPrice;
-                            tvPrice.setText("$" + result);
+                            DecimalFormat formatter = new DecimalFormat("#0.00");
+                            tvPrice.setText("$ " + formatter.format(result));
                             tvDiscount.setText("$" + postDetail.getDiscount());
                             tvDiscountPer.setText("- " + per1 + "%");
                             tv_dox.setVisibility(View.GONE);

@@ -44,6 +44,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -252,10 +253,11 @@ public class Postbyuser_Class extends AppCompatActivity {
                         if (title_language==null || title_language.isEmpty()){
 
                         }else {
-                            if(language.equals("View"))
-                                strPostTitle=title_language.split(",")[0];
-                            else
-                                strPostTitle=title_language.split(",")[1];
+                            if(language.equals("View")) {
+                                strPostTitle = title_language.split(",")[0];
+                            } else {
+                                strPostTitle = title_language.split(",")[1];
+                            }
                         }
                         Log.e(TAG,title_language+" " +strPostTitle );
                         tv_title.setText(strPostTitle);
@@ -277,7 +279,8 @@ public class Postbyuser_Class extends AppCompatActivity {
                             double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
                             double result = cost - discountPrice;
                             int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
-                            tv_price.setText("$ "+ result);
+                            DecimalFormat formatter = new DecimalFormat("#0.00");
+                            tv_price.setText("$ "+ formatter.format(result));
                             tv_discount_per.setText("- "+per1+"%");
                             tv_discount.setText("$"+postDetail.getDiscount());
                             tv_discount_per.setVisibility(View.VISIBLE);
