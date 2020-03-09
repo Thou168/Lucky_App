@@ -604,6 +604,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
                         //view type
                         if (postDetail.getPost_type().equals("rent")){
+                            loan.setVisibility(View.GONE);
                             typeView.setText(R.string.ren);
                             typeView.setTextSize(16);
                             typeView.setBackgroundResource(R.drawable.roundimage_rent_newpost);

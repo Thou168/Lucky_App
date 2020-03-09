@@ -9,6 +9,7 @@ public class PostViewModel {
     private String title;
     private int category;
     private int status;
+    private int count;
     private String condition;
     private String discount_type;
     private String discount;
@@ -462,6 +463,14 @@ public class PostViewModel {
 
     public void setMulti_color_code(String multi_color_code) {
         this.multi_color_code = multi_color_code;
+    }
+
+    public int getCountView() {
+        return count;
+    }
+
+    public void setCountView(int count) {
+        this.count = count;
     }
 }
 

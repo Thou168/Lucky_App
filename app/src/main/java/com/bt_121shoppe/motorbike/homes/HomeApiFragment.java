@@ -4,6 +4,9 @@ import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -46,21 +49,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,7 +85,7 @@ public class HomeApiFragment extends Fragment {
     private HomeAllPostAdapter mAllPostAdapter;
     private ImageView mListView,mGridView,mGallaryView;
     private List<PostViewModel> mAllPosts;
-    private List<CountViewModel> countView;
+    private PostViewModel mPost;
     private List<PostViewModel> mPostBestDeals;
     private ProgressBar mBestDealProgressbar,mAllPostProgressbar;
     ScrollingPagerIndicator recyclerIndicator;
@@ -244,7 +253,6 @@ public class HomeApiFragment extends Fragment {
 
     private void setupAllPosts(int index){
         mAllPosts=new ArrayList<>();
-        countView=new ArrayList<>();
         mAllPostLayoutManager=new GridLayoutManager(getContext(),1);
         mAllPostLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mAllPostLayoutManager.setAutoMeasureEnabled(true);
@@ -281,24 +289,28 @@ public class HomeApiFragment extends Fragment {
                                             best_match.setText(R.string.new_ads);
                                             break;
                                         case 1:
-                                            try{
-                                                Service apiServiece = Client.getClient().create(Service.class);
-                                                Call<CountViewResponse> call1 = apiServiece.getCountView();
-                                                call1.enqueue(new retrofit2.Callback<CountViewResponse>() {
-                                                    @Override
-                                                    public void onResponse(Call<CountViewResponse> call, Response<CountViewResponse> response) {
-                                                        countView = response.body().getresults();
-                                                        Log.e("countview",""+countView.size()+","+countView);
-                                                        Collections.sort(countView, (s1, s2) -> Integer.compare(Integer.valueOf(s1.getNumber()), Integer.valueOf(s2.getNumber())));
-                                                        best_match.setText(R.string.most_hit_ads);
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<CountViewResponse> call, Throwable t) {
-                                                        Log.d("Error", t.getMessage());
-                                                    }
-                                                });
-                                            }catch (Exception e){Log.d("Error e",e.getMessage());}
+//                                            mPost = new PostViewModel();
+//                                            for (int i=0;i<mAllPosts.size();i++){
+//                                                try{
+//                                                    Service apiServiece = Client.getClient().create(Service.class);
+//                                                    Call<AllResponse> call1 = apiServiece.getCount(String.valueOf((int)mAllPosts.get(i).getId()));
+//                                                    call1.enqueue(new retrofit2.Callback<AllResponse>() {
+//                                                        @Override
+//                                                        public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+//                                                            mAllPosts = new ArrayList<>();
+//                                                            Log.e("count",""+response.body().getCount());
+//                                                            mPost.setCountView(response.body().getCount());
+//                                                            mAllPosts.add(mPost);
+//                                                        }
+//
+//                                                        @Override
+//                                                        public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
+//                                                    });
+//                                                }catch (Exception e){Log.d("Error e",e.getMessage());}
+//                                            }
+//                                            Log.e("mAllPost",""+mAllPosts);
+                                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(Integer.valueOf(s1.getCountView()), Integer.valueOf(s2.getCountView())));
+                                            best_match.setText(R.string.most_hit_ads);
                                             break;
                                         case 2:
                                             Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getCost()), Double.valueOf(s2.getCost())));
