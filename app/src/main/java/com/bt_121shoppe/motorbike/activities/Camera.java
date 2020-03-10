@@ -1336,29 +1336,20 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                     }
                                     else if (splitPhone.length == 2){
+                                        layout_phone1.setVisibility(View.VISIBLE);
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                         etPhone2.setText(String.valueOf(splitPhone[1]));
                                     } else if (splitPhone.length == 3) {
+                                        layout_phone1.setVisibility(View.VISIBLE);
+                                        layout_phone2.setVisibility(View.VISIBLE);
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                         etPhone2.setText(String.valueOf(splitPhone[1]));
                                         etPhone3.setText(String.valueOf(splitPhone[2]));
                                     }
                                 }
                                 user_address = converJsonJava.getProfile().getAddress();
-                                if(user_address.isEmpty()){
-
-                                }else {
-//                                    String[] splitAddr = user_address.split(",");
-//                                    latitude = Double.valueOf(splitAddr[0]);
-//                                    longtitude = Double.valueOf(splitAddr[1]);
-//                                    get_location(false);
-
-//                                    if (converJsonJava.getProfile().getResponsible_officer()!=null){
-//                                        user_address_name = converJsonJava.getProfile().getResponsible_officer();
-//                                        tvAddress.setQuery(user_address_name,false);
-//                                    }
-//                                    mapFragment.getMapAsync(Camera.this::onMapReady);
-
+                                if(!user_address.isEmpty()){
+                                    etAddress.setText(user_address);
                                 }
                                 //dealer shop section
                                 if (g == 3) {
