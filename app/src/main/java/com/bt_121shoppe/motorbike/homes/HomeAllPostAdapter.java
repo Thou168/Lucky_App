@@ -145,50 +145,58 @@ public class HomeAllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position){
             super.onBind(position);
             final PostViewModel mPost=mPostList.get(position);
-
-            String strPostTitle="";
-            Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
-            String lang=postLang.getText().toString();
-            if(lang.equals("View")) {
-                if (mPost.getPost_type().equals("sell")) {
-                    typeView.setText(R.string.sell);
-                    typeView.setBackgroundResource(R.drawable.roundimage);
-                }
-                else if (mPost.getPost_type().equals("rent")) {
-                    typeView.setText(R.string.ren);
-                    typeView.setBackgroundResource(R.drawable.roundimage_rent);
-                }
-                strPostTitle = mPost.getPost_sub_title().split(",")[0];
-            }else{
-                if (mPost.getPost_type().equals("sell")) {
-                    typeView.setText(R.string.sell);
-                    typeView.setBackgroundResource(R.drawable.roundimage);
-                }
-                else if (mPost.getPost_type().equals("rent")) {
-                    typeView.setText(R.string.ren);
-                    typeView.setBackgroundResource(R.drawable.roundimage_rent);
-                }
-                strPostTitle = mPost.getPost_sub_title().split(",").length>1?mPost.getPost_sub_title().split(",")[1]:mPost.getPost_sub_title().split(",")[0];
+if(mPost!=null){
+    String strPostTitle="";
+    Glide.with(itemView.getContext()).load(mPost.getFront_image_path()).placeholder(R.drawable.no_image_available).thumbnail(0.1f).into(coverImageView);
+    String lang=postLang.getText().toString();
+    if(lang.equals("View")) {
+        if (mPost.getPost_type().equals("sell")) {
+            typeView.setText(R.string.sell);
+            typeView.setBackgroundResource(R.drawable.roundimage);
+        }
+        else if (mPost.getPost_type().equals("rent")) {
+            typeView.setText(R.string.ren);
+            typeView.setBackgroundResource(R.drawable.roundimage_rent);
+        }
+        strPostTitle = mPost.getPost_sub_title().split(",")[0];
+    }else{
+        if(mPost.getPost_type()!=null){
+            if (mPost.getPost_type().equals("sell")) {
+                typeView.setText(R.string.sell);
+                typeView.setBackgroundResource(R.drawable.roundimage);
             }
-            postTitle.setText(strPostTitle);
-
-            String[] splitColor=mPost.getMulti_color_code().split(",");
-
-            GradientDrawable shape = new GradientDrawable();
-            shape.setShape(GradientDrawable.OVAL);
-            shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-            tvColor1.setBackground(shape);
-            tvColor2.setVisibility(View.GONE);
-            if(splitColor.length>1){
-                tvColor2.setVisibility(View.VISIBLE);
-                GradientDrawable shape1 = new GradientDrawable();
-                shape1.setShape(GradientDrawable.OVAL);
-                shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
-                tvColor2.setBackground(shape1);
+            else if (mPost.getPost_type().equals("rent")) {
+                typeView.setText(R.string.ren);
+                typeView.setBackgroundResource(R.drawable.roundimage_rent);
             }
+        }
+if(mPost.getPost_sub_title()!=null)
+        strPostTitle = mPost.getPost_sub_title().split(",").length>1?mPost.getPost_sub_title().split(",")[1]:mPost.getPost_sub_title().split(",")[0];
+    }
+    postTitle.setText(strPostTitle);
+
+    String[] splitColor = new String[0];
+    if(mPost.getMulti_color_code()!=null)
+         splitColor=mPost.getMulti_color_code().split(",");
+
+    if(splitColor.length>0){
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
+        tvColor1.setBackground(shape);
+        tvColor2.setVisibility(View.GONE);
+        if(splitColor.length>1){
+            tvColor2.setVisibility(View.VISIBLE);
+            GradientDrawable shape1 = new GradientDrawable();
+            shape1.setShape(GradientDrawable.OVAL);
+            shape1.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[1])));
+            tvColor2.setBackground(shape1);
+        }
+    }
+
 //            cate.setVisibility(View.GONE);
 
-            double mPrice=0;
+    double mPrice=0;
 //            if(Double.parseDouble(mPost.getDiscount())>0) {
 //                postOriginalPrice.setVisibility(View.VISIBLE);
 //                postOriginalPrice.setText("$ "+mPost.getCost());
@@ -206,61 +214,64 @@ public class HomeAllPostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //                postPrice.setText("$ "+mPost.getCost());
 //            }
 
-            postPrice.setText("$ "+mPost.getCost());
+    postPrice.setText("$ "+mPost.getCost());
 
 //            cate.setVisibility(View.VISIBLE);
-            if(mPost.getCategory()==1){
-                cate.setText(R.string.electronic);
-            }else if(mPost.getCategory()==2){
-                cate.setText(R.string.motor);
-            }else
-                cate.setText("");
+    if(mPost.getCategory()==1){
+        cate.setText(R.string.electronic);
+    }else if(mPost.getCategory()==2){
+        cate.setText(R.string.motor);
+    }else
+        cate.setText("");
 
-            double finalMPrice = mPrice;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(itemView.getContext(), Detail_new_post_java.class);
-                    intent.putExtra("Discount", finalMPrice);
-                    intent.putExtra("Price",mPost.getCost());
-                    intent.putExtra("ID",mPost.getId());
-                    itemView.getContext().startActivity(intent);
+    double finalMPrice = mPrice;
+    itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(itemView.getContext(), Detail_new_post_java.class);
+            intent.putExtra("Discount", finalMPrice);
+            intent.putExtra("Price",mPost.getCost());
+            intent.putExtra("ID",mPost.getId());
+            itemView.getContext().startActivity(intent);
+        }
+    });
+    // 05 09 19 thou
+    try{
+        Service api = Client.getClient().create(Service.class);
+        Call<User> call = api.getuser(Integer.parseInt(mPost.getCreated_by()));
+        call.enqueue(new retrofit2.Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (!response.isSuccessful()){
+                    //Log.d("12122121", String.valueOf(response.code()));
                 }
-            });
-            // 05 09 19 thou
-            try{
-                Service api = Client.getClient().create(Service.class);
-                Call<User> call = api.getuser(Integer.parseInt(mPost.getCreated_by()));
-                call.enqueue(new retrofit2.Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (!response.isSuccessful()){
-                            //Log.d("12122121", String.valueOf(response.code()));
-                        }
-                        CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
-                    }
+                CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
+            }
 
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.d("Error",t.getMessage());
-                    }
-                });
-            }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+    }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
 
-            //count view
-            try{
-                Service apiServiece = Client.getClient().create(Service.class);
-                Call<AllResponse> call1 = apiServiece.getCount(String.valueOf((int)mPost.getId()));
-                call1.enqueue(new retrofit2.Callback<AllResponse>() {
-                    @Override
-                    public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-                        postView.setText(String.valueOf(response.body().getCount()));
-                    }
+    //count view
+    try{
+        Service apiServiece = Client.getClient().create(Service.class);
+        Call<AllResponse> call1 = apiServiece.getCount(String.valueOf((int)mPost.getId()));
+        call1.enqueue(new retrofit2.Callback<AllResponse>() {
+            @Override
+            public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
+                if(response.isSuccessful())
+                postView.setText(String.valueOf(response.body().getCount()));
+            }
 
-                    @Override
-                    public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
-                });
-            }catch (Exception e){Log.d("Error e",e.getMessage());}
+            @Override
+            public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
+        });
+    }catch (Exception e){Log.d("Error e",e.getMessage());}
+}
+
         }
 
     }

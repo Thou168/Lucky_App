@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.homes;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -52,11 +53,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +71,7 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
@@ -85,9 +89,10 @@ public class HomeApiFragment extends Fragment {
     private HomeAllPostAdapter mAllPostAdapter;
     private ImageView mListView,mGridView,mGallaryView;
     private List<PostViewModel> mAllPosts;
-    private PostViewModel mPost;
+    private PostViewModel mPost = new PostViewModel();
     private List<PostViewModel> mPostBestDeals;
     private ProgressBar mBestDealProgressbar,mAllPostProgressbar;
+    private ProgressDialog mProgress;
     ScrollingPagerIndicator recyclerIndicator;
     Parcelable state;
     RelativeLayout rl_besdeal;
@@ -123,6 +128,12 @@ public class HomeApiFragment extends Fragment {
         ct_layout=view.findViewById(R.id.ct_layout);
         recyclerIndicator = view.findViewById(R.id.indicator);
         best_match=view.findViewById(R.id.best_match);
+
+        mProgress = new ProgressDialog(getContext());
+        mProgress.setMessage(getString(R.string.please_wait));
+        mProgress.setProgressStyle(R.color.colorPrimary);
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         setUpBestDeal();
         setupAllPosts(index);
@@ -289,28 +300,65 @@ public class HomeApiFragment extends Fragment {
                                             best_match.setText(R.string.new_ads);
                                             break;
                                         case 1:
-//                                            mPost = new PostViewModel();
-//                                            for (int i=0;i<mAllPosts.size();i++){
-//                                                try{
-//                                                    Service apiServiece = Client.getClient().create(Service.class);
-//                                                    Call<AllResponse> call1 = apiServiece.getCount(String.valueOf((int)mAllPosts.get(i).getId()));
-//                                                    call1.enqueue(new retrofit2.Callback<AllResponse>() {
-//                                                        @Override
-//                                                        public void onResponse(Call<AllResponse> call, Response<AllResponse> response) {
-//                                                            mAllPosts = new ArrayList<>();
-//                                                            Log.e("count",""+response.body().getCount());
-//                                                            mPost.setCountView(response.body().getCount());
-//                                                            mAllPosts.add(mPost);
-//                                                        }
-//
-//                                                        @Override
-//                                                        public void onFailure(Call<AllResponse> call, Throwable t) { Log.d("Error",t.getMessage()); }
-//                                                    });
-//                                                }catch (Exception e){Log.d("Error e",e.getMessage());}
-//                                            }
-//                                            Log.e("mAllPost",""+mAllPosts);
-                                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(Integer.valueOf(s1.getCountView()), Integer.valueOf(s2.getCountView())));
-                                            best_match.setText(R.string.most_hit_ads);
+                                            mProgress.show();
+                                            Log.e("TAG","Before loop "+mAllPosts);
+                                            List<PostViewModel> mmPosts=new ArrayList<>();
+                                            for (int i = 0;i<mAllPosts.size();i++){
+                                                PostViewModel mmPost=mAllPosts.get(i);
+                                                String URL_ENDPOINT=ConsumeAPI.BASE_URL+"countview/?post="+mAllPosts.get(i).getId();
+                                                OkHttpClient client = new OkHttpClient();
+                                                Request request= new Request.Builder()
+                                                        .url(URL_ENDPOINT)
+                                                        .header("Accept","application/json")
+                                                        .header("Content-Type","application/json")
+                                                        .build();
+                                                int finalI = i;
+                                                client.newCall(request).enqueue(new okhttp3.Callback() {
+                                                    @Override
+                                                    public void onFailure(okhttp3.Call call, IOException e) {
+                                                        String mMessage = e.getMessage();
+                                                        Log.w("failure Request",mMessage);
+                                                    }
+
+                                                    @Override
+                                                    public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                                                        String mMessage = response.body().string();
+                                                        //mAllPosts = new ArrayList<>();
+                                                        Gson json = new Gson();
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                try {
+                                                                    Log.e("count view",""+mMessage);
+                                                                    AllResponse mPost = json.fromJson(mMessage,AllResponse.class);
+
+                                                                    mmPost.setCountView(mPost.getCount());
+                                                                    //Log.e("mPost",""+mPost);
+                                                                    mmPosts.add(mmPost);
+                                                                    Log.e("all post",""+mmPost.getId());
+                                                                    if(finalI ==mAllPosts.size()-1){
+                                                                        //mAllPosts=mmPosts;
+                                                                        Log.e("mAllPost","All Post "+mAllPosts.size()+" mm"+mmPosts.size());
+                                                                        Collections.sort(mmPosts, (s1, s2) -> Integer.compare(Integer.valueOf(s2.getCountView()), Integer.valueOf(s1.getCountView())));
+                                                                        best_match.setText(R.string.most_hit_ads);
+                                                                        mAllPostAdapter=new HomeAllPostAdapter(mmPosts,"List");
+                                                                        mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                                                        ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                                                        mAllPostAdapter.notifyDataSetChanged();
+                                                                        mAllPostProgressbar.setVisibility(View.GONE);
+                                                                        mProgress.dismiss();
+                                                                    }
+                                                                } catch (JsonParseException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                        });
+
+
+                                                    }
+                                                });
+                                            }
+
                                             break;
                                         case 2:
                                             Collections.sort(mAllPosts, (s1, s2) -> Double.compare(Double.valueOf(s1.getCost()), Double.valueOf(s2.getCost())));
@@ -322,12 +370,14 @@ public class HomeApiFragment extends Fragment {
                                             break;
                                     }
 
+                                    if(index!=1){
+                                        mAllPostAdapter=new HomeAllPostAdapter(mAllPosts,"List");
+                                        mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                        ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                        mAllPostAdapter.notifyDataSetChanged();
+                                        mAllPostProgressbar.setVisibility(View.GONE);
+                                    }
 
-                                    mAllPostAdapter=new HomeAllPostAdapter(mAllPosts,"List");
-                                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
-                                    mAllPostAdapter.notifyDataSetChanged();
-                                    mAllPostProgressbar.setVisibility(View.GONE);
                                 }
 
                             }
