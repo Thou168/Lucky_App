@@ -1336,10 +1336,16 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                     }
                                     else if (splitPhone.length == 2){
+                                        tv_cancel.setVisibility(View.VISIBLE);
+                                        tv_add.setVisibility(View.GONE);
+                                        tv_add1.setVisibility(View.VISIBLE);
                                         layout_phone1.setVisibility(View.VISIBLE);
                                         etPhone1.setText(String.valueOf(splitPhone[0]));
                                         etPhone2.setText(String.valueOf(splitPhone[1]));
                                     } else if (splitPhone.length == 3) {
+                                        tv_cancel.setVisibility(View.VISIBLE);
+                                        tv_add.setVisibility(View.GONE);
+                                        tv_add1.setVisibility(View.GONE);
                                         layout_phone1.setVisibility(View.VISIBLE);
                                         layout_phone2.setVisibility(View.VISIBLE);
                                         etPhone1.setText(String.valueOf(splitPhone[0]));

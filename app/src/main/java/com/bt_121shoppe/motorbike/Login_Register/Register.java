@@ -1322,11 +1322,16 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                         tv_add.setVisibility(View.VISIBLE);
 
                                     }else if(splitPhone.length == 2){
+                                        tv_cancel.setVisibility(View.VISIBLE);
+                                        tv_add.setVisibility(View.GONE);
                                         tv_add1.setVisibility(View.VISIBLE);
                                         layout_phone1.setVisibility(View.VISIBLE);
                                         editPhone.setText(String.valueOf(splitPhone[0]));
                                         editPhone1.setText(String.valueOf(splitPhone[1]));
                                     }else if (splitPhone.length == 3){
+                                        tv_cancel.setVisibility(View.VISIBLE);
+                                        tv_add.setVisibility(View.GONE);
+                                        tv_add1.setVisibility(View.GONE);
                                         layout_phone1.setVisibility(View.VISIBLE);
                                         layout_phone2.setVisibility(View.VISIBLE);
                                         editPhone.setText(String.valueOf(splitPhone[0]));

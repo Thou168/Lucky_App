@@ -286,6 +286,7 @@ public class StoreDetailActivity extends AppCompatActivity {
 
     private void prepareAllPostsContent(int index){
         mAllPosts=new ArrayList<>();
+        mAllPostAdapter=new StoreActivePostListAdapter(mAllPosts,"List");
         Service api=Client.getClient().create(Service.class);
         retrofit2.Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
         model.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
@@ -300,25 +301,26 @@ public class StoreDetailActivity extends AppCompatActivity {
                 }else{
                     mAllPostsNoResult.setVisibility(View.GONE);
                     List<StorePostViewModel> results=response.body().getResults();
-                    List<StorePostViewModel> postListItems=new ArrayList<>();
-                    for(int i=0;i<results.size();i++){
-                        int postId=results.get(i).getPost();
-                        retrofit2.Call<Item> call1=api.getDetailpost(postId);
-                        call1.enqueue(new retrofit2.Callback<Item>() {
-                            @Override
-                            public void onResponse(retrofit2.Call<Item> call, retrofit2.Response<Item> response) {
+//                    List<StorePostViewModel> postListItems=new ArrayList<>();
+//                    for(int i=0;i<results.size();i++){
+//                        int postId=results.get(i).getPost();
+//                        retrofit2.Call<Item> call1=api.getDetailpost(postId);
+//                        call1.enqueue(new retrofit2.Callback<Item>() {
+//                            @Override
+//                            public void onResponse(retrofit2.Call<Item> call, retrofit2.Response<Item> response) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onFailure(retrofit2.Call<Item> call, Throwable t) {
+//
+//                            }
+//                        });
+//                    }
 
-                            }
-
-                            @Override
-                            public void onFailure(retrofit2.Call<Item> call, Throwable t) {
-
-                            }
-                        });
-                    }
-
-                    mAllPostAdapter.addItems(postListItems);
+                    mAllPostAdapter.addItems(results);
                     mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                    mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
                     ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
                     mAllPostAdapter.notifyDataSetChanged();
 
