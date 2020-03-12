@@ -123,6 +123,7 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         else
             btnType.setText(getString(R.string.all));
 
+        getCategory();
 
         //range seekbar
         minText.setText(String.valueOf(mMinPrice));
@@ -687,9 +688,9 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                     if (currentLanguage.equals("en")) {
                         cateListItems[0] = "All";
                     }else {
-                        cateListItems[0] = "ទាំងអស់";
+                        categoryItemkg[0] = "ទាំងអស់";
                     }
-                    categoryItemkg[0]= "ទាំងអស់";
+                    //categoryItemkg[0]= "ទាំងអស់";
 
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
