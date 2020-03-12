@@ -293,6 +293,7 @@ public class HomeApiFragment extends Fragment {
                                 } else {
                                     mAllPostsNoResult.setVisibility(View.GONE);
                                     mAllPostNoMoreResult.setVisibility(View.VISIBLE);
+                                    //List<PostViewModel> mmPost=new ArrayList<>();
                                     mAllPosts = response.body().getresults();
                                     switch (index){
                                         case 0:

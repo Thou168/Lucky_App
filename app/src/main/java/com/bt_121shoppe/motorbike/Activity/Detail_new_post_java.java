@@ -609,6 +609,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                             typeView.setTextSize(16);
                             typeView.setBackgroundResource(R.drawable.roundimage_rent_newpost);
                             tabLayout.removeTabAt(2);
+                            loan.setVisibility(View.GONE);
                         }
                         if (postDetail.getPost_type().equals("sell")){
                             typeView.setText(R.string.sell);

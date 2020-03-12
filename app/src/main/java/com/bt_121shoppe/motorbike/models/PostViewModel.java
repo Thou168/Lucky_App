@@ -57,6 +57,7 @@ public class PostViewModel {
     private String used_other1;
     private String multi_color_code;
     private List<detail_shop> dealer_shops;
+    private int countview;
 
     public String getUsed_eta1() {
         return used_eta1;

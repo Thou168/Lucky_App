@@ -646,6 +646,7 @@ public class Detail_1 extends Fragment {
                         no_result.setVisibility(View.GONE);
                         for(int i=0;i<response.body().getresults().size();i++){
                             PostViewModel postViewModel=response.body().getresults().get(i);
+                            if(postId!=postViewModel.getId())
                             itemApi.add(new Item_API(
                                     postViewModel.getId(),
                                     Integer.parseInt(postViewModel.getCreated_by()),

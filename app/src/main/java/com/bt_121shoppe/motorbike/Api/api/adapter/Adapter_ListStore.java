@@ -6,7 +6,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
@@ -29,25 +33,35 @@ import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.dealerstores.DealerStoreDetailActivity;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
+import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import retrofit2.Response;
 
 public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.ViewHolder> {
 
     private List<ShopViewModel> datas;
     private Context mContext;
+    SharedPreferences prefer;
+    String name,pass,basic_Encode;
+    int pk=0;
+
     public Adapter_ListStore(List<ShopViewModel> datas, Context mContext) {
         this.datas = datas;
         this.mContext = mContext;
@@ -60,7 +74,16 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         String language = Paper.book().read("language");
         if (language == null)
             Paper.book().write("language","km");
+        prefer = viewGroup.getContext().getSharedPreferences("Register", Context.MODE_PRIVATE);
+        name = prefer.getString("name","");
+        pass = prefer.getString("pass","");
 
+        if (prefer.contains("token")) {
+            pk = prefer.getInt("Pk", 0);
+        } else if (prefer.contains("id")) {
+            pk = prefer.getInt("id", 0);
+        }
+        basic_Encode = "Basic "+ CommonFunction.getEncodedString(name,pass);
         return new ViewHolder(view);
     }
     private void updateView(String language,ViewHolder view) {
@@ -95,6 +118,7 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         view.btRemoveStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 LayoutInflater factory = LayoutInflater.from(view.getContext());
                 final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
                 final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(view.getContext()).create();
@@ -115,7 +139,8 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
                 clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("TAG","Selected Shop id is "+model.getId());
+                        //Log.e("TAG","Selected Shop id is "+model.getId());
+
                         Service api=Client.getClient().create(Service.class);
                         retrofit2.Call<ShopViewModel> call=api.getDealerShop(model.getId());
                         call.enqueue(new retrofit2.Callback<ShopViewModel>() {
@@ -151,6 +176,43 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
                                         @Override
                                         public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                                             Log.e("TAG","Remove Store Successfully. "+response.message());
+                                            //Start remove active post in shop
+                                            retrofit2.Call<APIStorePostResponse> call1=api.GetStoreActivePost(model.getId());
+                                            call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
+                                                @Override
+                                                public void onResponse(retrofit2.Call<APIStorePostResponse> call, Response<APIStorePostResponse> response1) {
+                                                    if(response1.isSuccessful()){
+                                                        ArrayList<StorePostViewModel> results=response1.body().getResults();
+                                                        for(int i=0;i<results.size();i++){
+                                                            int rPostId=results.get(i).getPost();
+                                                            String date = null;
+                                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                                                date = Instant.now().toString();
+                                                            }
+                                                            change_status_delete removePost=new change_status_delete(2,date,pk,"");
+                                                            retrofit2.Call<change_status_delete> call2=api.getputStatus(rPostId,removePost,basic_Encode);
+                                                            call2.enqueue(new retrofit2.Callback<change_status_delete>() {
+                                                                @Override
+                                                                public void onResponse(retrofit2.Call<change_status_delete> call, Response<change_status_delete> response) {
+
+                                                                }
+
+                                                                @Override
+                                                                public void onFailure(retrofit2.Call<change_status_delete> call, Throwable t) {
+
+
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(retrofit2.Call<APIStorePostResponse> call, Throwable t) {
+
+                                                }
+                                            });
+
                                             Intent intent = new Intent(view.getContext(), DealerStoreActivity.class);
                                             view.getContext().startActivity(intent);
                                             ((Activity)view.getContext()).finish();
