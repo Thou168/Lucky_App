@@ -99,7 +99,7 @@ public class Postbyuser_Class extends AppCompatActivity {
     Double latitude= (double) 0;
     Double longtitude= (double) 0;
     TextView tvColor1,tvColor2;
-    int i = 0;
+    int i = 0,rejected_status=0;
     String postUsername,postUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +172,11 @@ public class Postbyuser_Class extends AppCompatActivity {
         p = getIntent().getIntExtra("ID",0);
         pt = getIntent().getIntExtra("postt",0);
         i = getIntent().getIntExtra("Sold_Remove",0);
+        rejected_status = getIntent().getIntExtra("rejected",0);
         if (i==2){
+            edit.setVisibility(View.GONE);
+        }
+        if (rejected_status == 5){
             edit.setVisibility(View.GONE);
         }
         back.setOnClickListener(v -> finish());

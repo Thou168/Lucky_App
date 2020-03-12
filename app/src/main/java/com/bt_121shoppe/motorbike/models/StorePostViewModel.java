@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.bt_121shoppe.motorbike.Api.api.model.Item;
 
 public class StorePostViewModel {
     @SerializedName("id")
@@ -11,6 +12,8 @@ public class StorePostViewModel {
     private int shop;
     @SerializedName("record_status")
     private int record_status;
+    private int countView;
+    private String cost;
     public StorePostViewModel(){}
     public StorePostViewModel(int id,int post,int shop,int record_status){
         this.id=id;
@@ -49,5 +52,21 @@ public class StorePostViewModel {
 
     public void setShop(int shop) {
         this.shop = shop;
+    }
+
+    public int getCountView() {
+        return countView;
+    }
+
+    public void setCountView(int countView) {
+        this.countView = countView;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 }

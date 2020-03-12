@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item;
@@ -47,6 +48,7 @@ import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
 import com.bt_121shoppe.motorbike.classes.APIResponse;
 import com.bt_121shoppe.motorbike.classes.DividerItemDecoration;
 import com.bt_121shoppe.motorbike.classes.PreCachingLayoutManager;
+import com.bt_121shoppe.motorbike.homes.HomeAllPostAdapter;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
@@ -62,6 +64,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
@@ -301,28 +304,198 @@ public class StoreDetailActivity extends AppCompatActivity {
                 }else{
                     mAllPostsNoResult.setVisibility(View.GONE);
                     List<StorePostViewModel> results=response.body().getResults();
-//                    List<StorePostViewModel> postListItems=new ArrayList<>();
-//                    for(int i=0;i<results.size();i++){
-//                        int postId=results.get(i).getPost();
-//                        retrofit2.Call<Item> call1=api.getDetailpost(postId);
-//                        call1.enqueue(new retrofit2.Callback<Item>() {
-//                            @Override
-//                            public void onResponse(retrofit2.Call<Item> call, retrofit2.Response<Item> response) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onFailure(retrofit2.Call<Item> call, Throwable t) {
-//
-//                            }
-//                        });
-//                    }
+                    mAllPosts = response.body().getResults();
+                    switch (index){
+                        case 0:
+                            Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getId(), s1.getId()));
+                            best_match.setText(R.string.new_ads);
+                            break;
+                        case 1:
+                            pd.show();
+                            Log.e("TAG","Before loop "+mAllPosts);
+                            List<StorePostViewModel> mmPosts=new ArrayList<>();
+                            for (int i = 0;i<mAllPosts.size();i++){
+                                StorePostViewModel mmPost=mAllPosts.get(i);
+                                String URL_ENDPOINT=ConsumeAPI.BASE_URL+"countview/?post="+mAllPosts.get(i).getPost();
+                                OkHttpClient client = new OkHttpClient();
+                                Request request= new Request.Builder()
+                                        .url(URL_ENDPOINT)
+                                        .header("Accept","application/json")
+                                        .header("Content-Type","application/json")
+                                        .build();
+                                int finalI = i;
+                                client.newCall(request).enqueue(new okhttp3.Callback() {
+                                    @Override
+                                    public void onFailure(okhttp3.Call call, IOException e) {
+                                        String mMessage = e.getMessage();
+                                        Log.w("failure Request",mMessage);
+                                    }
 
-                    mAllPostAdapter.addItems(results);
-                    mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
-                    mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-                    ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
-                    mAllPostAdapter.notifyDataSetChanged();
+                                    @Override
+                                    public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                                        String mMessage = response.body().string();
+                                        //mAllPosts = new ArrayList<>();
+                                        Gson json = new Gson();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    Log.e("count view",""+mMessage);
+                                                    AllResponse mPost = json.fromJson(mMessage,AllResponse.class);
+
+                                                    mmPost.setCountView(mPost.getCount());
+                                                    //Log.e("mPost",""+mPost);
+                                                    mmPosts.add(mmPost);
+                                                    Log.e("all post",""+mmPost.getId());
+                                                    if(finalI ==mAllPosts.size()-1){
+                                                        //mAllPosts=mmPosts;
+                                                        Log.e("mAllPost","All Post "+mAllPosts.size()+" mm"+mmPosts.size());
+                                                        Collections.sort(mmPosts, (s1, s2) -> Integer.compare(Integer.valueOf(s2.getCountView()), Integer.valueOf(s1.getCountView())));
+                                                        best_match.setText(R.string.most_hit_ads);
+                                                        mAllPostAdapter=new StoreActivePostListAdapter(mmPosts,"List");
+                                                        mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                                        ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                                        mAllPostAdapter.notifyDataSetChanged();
+                                                        pd.dismiss();
+                                                    }
+                                                } catch (JsonParseException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+
+
+                                    }
+                                });
+                            }
+
+                            break;
+                        case 2:
+                            pd.show();
+                            Log.e("TAG","Before loop "+mAllPosts);
+                            List<StorePostViewModel> mpost=new ArrayList<>();
+                            for (int i = 0;i<mAllPosts.size();i++){
+                                StorePostViewModel post=mAllPosts.get(i);
+                                String URL_ENDPOINT=ConsumeAPI.BASE_URL+"detailposts/"+mAllPosts.get(i).getPost();
+                                OkHttpClient client = new OkHttpClient();
+                                Request request= new Request.Builder()
+                                        .url(URL_ENDPOINT)
+                                        .header("Accept","application/json")
+                                        .header("Content-Type","application/json")
+                                        .build();
+                                int finalI = i;
+                                client.newCall(request).enqueue(new okhttp3.Callback() {
+                                    @Override
+                                    public void onFailure(okhttp3.Call call, IOException e) {
+                                        String mMessage = e.getMessage();
+                                        Log.w("failure Request",mMessage);
+                                    }
+
+                                    @Override
+                                    public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                                        String mMessage = response.body().string();
+                                        //mAllPosts = new ArrayList<>();
+                                        Gson json = new Gson();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    Log.e("result",""+mMessage);
+                                                    Item mPost = json.fromJson(mMessage,Item.class);
+
+                                                    post.setCost(mPost.getCost());
+                                                    mpost.add(post);
+                                                    Log.e("store post",""+mPost.getId());
+                                                    if(finalI ==mAllPosts.size()-1){
+                                                        //mAllPosts=mmPosts;
+                                                        Log.e("store"," "+mAllPosts.size()+" size : "+mpost.size());
+
+                                                        Collections.sort(mpost, (s1, s2) -> Double.compare(Double.valueOf(s1.getCost()), Double.valueOf(s2.getCost())));
+                                                        best_match.setText(R.string.low_to_high);
+                                                        mAllPostAdapter=new StoreActivePostListAdapter(mpost,"List");
+                                                        mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                                        ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                                        mAllPostAdapter.notifyDataSetChanged();
+                                                        pd.dismiss();
+                                                    }
+                                                } catch (JsonParseException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+
+
+                                    }
+                                });
+                            }
+                            break;
+                        case 3:
+                            pd.show();
+                            Log.e("TAG","Before loop "+mAllPosts);
+                            List<StorePostViewModel> allpost=new ArrayList<>();
+                            for (int i = 0;i<mAllPosts.size();i++){
+                                StorePostViewModel post=mAllPosts.get(i);
+                                String URL_ENDPOINT=ConsumeAPI.BASE_URL+"detailposts/"+mAllPosts.get(i).getPost();
+                                OkHttpClient client = new OkHttpClient();
+                                Request request= new Request.Builder()
+                                        .url(URL_ENDPOINT)
+                                        .header("Accept","application/json")
+                                        .header("Content-Type","application/json")
+                                        .build();
+                                int finalI = i;
+                                client.newCall(request).enqueue(new okhttp3.Callback() {
+                                    @Override
+                                    public void onFailure(okhttp3.Call call, IOException e) {
+                                        String mMessage = e.getMessage();
+                                        Log.w("failure Request",mMessage);
+                                    }
+
+                                    @Override
+                                    public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                                        String mMessage = response.body().string();
+                                        //mAllPosts = new ArrayList<>();
+                                        Gson json = new Gson();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    Log.e("result",""+mMessage);
+                                                    Item mPost = json.fromJson(mMessage,Item.class);
+
+                                                    post.setCost(mPost.getCost());
+                                                    allpost.add(post);
+                                                    Log.e("store post",""+mPost.getId());
+                                                    if(finalI ==mAllPosts.size()-1){
+                                                        //mAllPosts=mmPosts;
+                                                        Log.e("store",""+mAllPosts.size()+" size : "+allpost.size());
+
+                                                        Collections.sort(allpost, (s1, s2) -> Double.compare(Double.valueOf(s2.getCost()), Double.valueOf(s1.getCost())));
+                                                        best_match.setText(R.string.high_to_low);
+                                                        mAllPostAdapter=new StoreActivePostListAdapter(allpost,"List");
+                                                        mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                                                        ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                                                        mAllPostAdapter.notifyDataSetChanged();
+                                                        pd.dismiss();
+                                                    }
+                                                } catch (JsonParseException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+
+
+                                    }
+                                });
+                            }
+                            break;
+                    }
+                    if (index !=1){
+                        mAllPostAdapter.addItems(results);
+                        mAllPostsRecyclerView.setAdapter(mAllPostAdapter);
+                        mAllPostsRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+                        ViewCompat.setNestedScrollingEnabled(mAllPostsRecyclerView, false);
+                        mAllPostAdapter.notifyDataSetChanged();
+                    }
 
                 }
             }

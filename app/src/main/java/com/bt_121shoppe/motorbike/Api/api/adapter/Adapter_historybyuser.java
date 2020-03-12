@@ -275,6 +275,9 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
                 intent.putExtra("postt", 2);
                 intent.putExtra("Sold_Remove",2);
             }
+            if (model.getStatus() == 5){
+                intent.putExtra("rejected", 5);
+            }
 //            if (change_status.getStatus()==2){
 //                intent.putExtra("Sold_Remove",status);
 //            }

@@ -640,9 +640,10 @@ public class Detail_1 extends Fragment {
             public void onResponse(retrofit2.Call<APIResponse> call, retrofit2.Response<APIResponse> response) {
                 if(response.isSuccessful()){
                     progressBar.setVisibility(View.GONE);
-                    if(response.body().getCount()==0)
+                    if(response.body().getCount()==0) {
                         no_result.setVisibility(View.VISIBLE);
-                    else{
+                        pd.dismiss();
+                    } else{
                         no_result.setVisibility(View.GONE);
                         for(int i=0;i<response.body().getresults().size();i++){
                             PostViewModel postViewModel=response.body().getresults().get(i);

@@ -191,6 +191,7 @@ public class three extends Fragment {
                             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
                                 if (response.isSuccessful()) {
                                     SaveDraftDialog();
+                                    clearDialog.dismiss();
                                 }
                             }
 
@@ -217,6 +218,7 @@ public class three extends Fragment {
                             public void onResponse(Call<loan_item> call, Response<loan_item> response) {
                                 if (response.isSuccessful()) {
                                     SaveDraftDialog();
+                                    clearDialog.dismiss();
                                 }
                             }
 
@@ -599,11 +601,11 @@ public class three extends Fragment {
         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Detail_new_post_java.class);
-                intent.putExtra("ID",mProductID);
-                startActivity(intent);
-                mProgress.show();
-                getActivity().finish();
+//                Intent intent = new Intent(getContext(), Detail_new_post_java.class);
+//                intent.putExtra("ID",mProductID);
+//                startActivity(intent);
+//                mProgress.show();
+//                getActivity().finish();
                 clearDialog.dismiss();
             }
         });
