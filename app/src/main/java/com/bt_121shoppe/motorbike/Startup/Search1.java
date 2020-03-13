@@ -57,7 +57,7 @@ public class Search1 extends AppCompatActivity {
     SearchView sv;
     RecyclerView rv;
     ArrayList<Item> items;
-    String category,model,year,title_filter,post_type;
+    String category,model,year,title_filter,post_type,brand;
     TextView not_found;
     ImageView tv_filter;
     TextView show_view;
@@ -125,7 +125,7 @@ public class Search1 extends AppCompatActivity {
                 cardView.setVisibility(View.GONE);
 
                 String title = sv.getQuery().toString();
-                Search_data(title,category,model,year, min, max,post_type);
+                Search_data(title,category,brand,model,year, min, max,post_type);
                 return false;
             }
 
@@ -139,12 +139,13 @@ public class Search1 extends AppCompatActivity {
             }
         });
         tv_filter.setOnClickListener(v -> {
-            Log.e("TAG","Search condition "+post_type+" , "+category+" , "+model+","+year+","+min+","+max);
+            Log.e("TAG","Search condition "+post_type+" , "+category+" , "+model+","+year+","+min+","+max+","+brand);
             Intent intent1 = new Intent(Search1.this,Filter.class);
             intent1.putExtra("title",sv.getQuery().toString());
             intent1.putExtra("post_type",post_type);
             intent1.putExtra("category",category);
             intent1.putExtra("model",model);
+            intent1.putExtra("brand",brand);
             intent1.putExtra("year",year);
             intent1.putExtra("minPrice",min);
             intent1.putExtra("maxPrice",max);
@@ -158,19 +159,20 @@ public class Search1 extends AppCompatActivity {
         currentFragment = this.getSupportFragmentManager().findFragmentById(R.id.frameLayout);
     }
 
-    private  void Search_data(String title, String category, String model, String year, int min, int max,String post_type){
+    private  void Search_data(String title, String category,String brand, String model, String year, int min, int max,String post_type){
        //String url1 = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
         post_type=post_type==null?"":post_type;
         year=year.equals("0")?"":year;
         model=model.equals("0")?"":model;
+        brand=brand.equals("0")?"":brand;
         category=category.equals("0")?"":category;
-        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
+        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price="+min+"&max_price="+max+"&year="+year;
         if(min==0 && max==0)
-            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price=&year="+year;
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price=&max_price=&year="+year;
         else if(min==0)
-            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price="+max+"&year="+year;
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price=&max_price="+max+"&year="+year;
         else if(max==0)
-            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price=&year="+year;
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price="+min+"&max_price=&year="+year;
         Log.d("Url:",url1);
 
         OkHttpClient client = new OkHttpClient();
@@ -286,7 +288,8 @@ public class Search1 extends AppCompatActivity {
                     item_apis.clear();
                     title_filter = data.getExtras().getString("title_search");
                     category =String.valueOf(data.getExtras().getInt("category",0));
-                    model =String.valueOf(data.getIntExtra("brand",0));
+                    brand =String.valueOf(data.getIntExtra("brand",0));
+                    model =String.valueOf(data.getIntExtra("model",0));
                     year =String.valueOf(data.getIntExtra("year",0));
                     min = data.getIntExtra("min_price",0);
                     max = data.getIntExtra("max_price",0);
@@ -295,7 +298,7 @@ public class Search1 extends AppCompatActivity {
 
                     mProgress.setVisibility(View.VISIBLE);
                     //Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+","+post_type);
-                    Search_data(title_filter, category, model, year,min,max,post_type);
+                    Search_data(title_filter, category,brand, model, year,min,max,post_type);
                 }
             }
         }

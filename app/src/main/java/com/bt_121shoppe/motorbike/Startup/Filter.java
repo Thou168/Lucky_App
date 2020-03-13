@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseBrand;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseFilterBrand;
+import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseModel;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseYear;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.models.PostProduct;
@@ -47,7 +48,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class Filter extends AppCompatActivity implements BottomChooseFilterBrand.ItemClickListener,BottomChooseYear.ItemClickListener {
+public class Filter extends AppCompatActivity implements BottomChooseFilterBrand.ItemClickListener,BottomChooseYear.ItemClickListener,BottomChooseModel.ItemClickListener {
 
 //   private  TextView btnCategory,btnBrand,btnyear ,btnCondition,submit_filter,tv_result,tv_done;
 //   private  int cate=0,brand=0,model=0,year=0,type=0;
@@ -57,14 +58,14 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
 //   private  int [] cateIDlist,brandIDlist,yearIDlist;
 //   private LinearLayout rela_cate,rela_brand,rela_year,rela_condition;
 
-    private TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter;
+    private TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter,tv_model;
     private ImageView tv_result,tv_done;
     private int cate=0,brand=0,model_fil=0,year_fil=0,type=0; //model & year
     private String stTitle="",stCategory="",stBrand="",stYear="",stType="",st="";
     double dbPrice = 0.0;
     private  String [] cateListItems,brandListItems,yearListItems,typeListItems,categoryItemkg,brandItemkh,yearlistItemkh;
     private  int [] cateIDlist,brandIDlist,yearIDlist;
-    private LinearLayout rela_cate,rela_brand,rela_year,rela_type;
+    private LinearLayout rela_cate,rela_brand,rela_year,rela_type,rela_model;
     private int seleectedBrandId=0;
 
 //    private SimpleRangeBar simpleRangeBar;
@@ -87,15 +88,16 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         locale();
         typeListItems = getResources().getStringArray(R.array.filter_type);
 
-
         tv_result = findViewById(R.id.tv_result);
         tv_result.setOnClickListener(v -> finish());
 //        tv_done  = findViewById(R.id.tv_done);
         rela_cate  = findViewById(R.id.linea_cate);
         rela_brand = findViewById(R.id.linea_brand);
+        rela_model  = findViewById(R.id.linea_model);
         rela_year  = findViewById(R.id.linea_year);
         rela_type = findViewById(R.id.linea_type);
         btnCategory = findViewById(R.id.search_category);
+        tv_model = findViewById(R.id.search_model);
         btnBrand = findViewById(R.id.search_brand);
         btnyear = findViewById(R.id.search_year);
         btnType = findViewById(R.id.search_type);
@@ -111,6 +113,18 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         stType=getTitle.getStringExtra("post_type");
         mMinPrice=getTitle.getIntExtra("min_price",0);
         mMaxPrice=getTitle.getIntExtra("max_price",20000);
+        String c = getTitle.getStringExtra("category");
+        String m = getTitle.getStringExtra("model");
+        String b = getTitle.getStringExtra("brand");
+        String y = getTitle.getStringExtra("year");
+        Log.e("TAG",""+c+","+b+","+y+","+m);
+        if (c != null && b != null && y != null && m != null) {
+            cate = Integer.parseInt(c);
+            seleectedBrandId = Integer.parseInt(b);
+            year_fil = Integer.parseInt(y);
+            model_fil = Integer.parseInt(m);
+        }
+        Log.e("Filter"," "+stType+stTitle+","+cate+","+seleectedBrandId+","+year_fil+","+mMinPrice+","+mMaxPrice+","+model_fil);
 
         if(stType!=null){
             if(stType.equals("sell"))
@@ -123,6 +137,10 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         else
             btnType.setText(getString(R.string.all));
 
+        getCategory(cate);
+        getYear(year_fil);
+        getBrand(seleectedBrandId);
+        getModel(model_fil);
         getCategory();
 
         //range seekbar
@@ -436,6 +454,12 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
 //                mDialog.show();
 //            }
 //        });
+        rela_model.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBottomModel(view);
+            }
+        });
 
         rela_year.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -645,12 +669,13 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
     } // create
 
     private void Result(){
-        Log.d("FIlter","Filter condition "+stType+stTitle+","+stCategory+","+stBrand+","+stYear+","+mMinPrice+","+mMaxPrice);
+        Log.d("FIlter","Filter condition "+stType+stTitle+","+cate+","+seleectedBrandId+","+year_fil+","+mMinPrice+","+mMaxPrice);
         Intent intent = new Intent();
         intent.putExtra("posttype",stType);
         intent.putExtra("title_search",stTitle);
         intent.putExtra("category",cate);
         intent.putExtra("brand",seleectedBrandId);
+        intent.putExtra("model",model_fil);
         intent.putExtra("year",year_fil);
         intent.putExtra("min_price",mMinPrice);
         intent.putExtra("max_price",mMaxPrice);
@@ -690,7 +715,6 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                     }else {
                         categoryItemkg[0] = "ទាំងអស់";
                     }
-                    //categoryItemkg[0]= "ទាំងអស់";
 
                     for (int i=1;i<=jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i-1);
@@ -742,86 +766,39 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         });
     }
 
-    private void getBrand( ){
-        String url = ConsumeAPI.BASE_URL+"/api/v1/brands/";
+    private void getCategory(int id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/categories/"+id+"/");
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                String f = e.getMessage();
-                Log.d("Failure",f);
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
-
+                    SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                    String language = preferences.getString("My_Lang", "");
                     JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-
-                    if (cate==0){
-                        brandListItems = new String[jsonArray.length()+1];
-                        brandIDlist = new int[jsonArray.length()+1];
-                        brandItemkh=new String[jsonArray.length()+1];
-                        if (currentLanguage.equals("en")) {
-                            brandListItems[0] = "All";
-                        }else {
-//                            brandListItems[0] = "ទាំងអស់";
-                            brandItemkh[0]= "ទាំងអស់";
-                        }
-
-                        for (int i=1;i<=jsonArray.length();i++){
-                            JSONObject object = jsonArray.getJSONObject(i-1);
-                            int id = object.getInt("id");
-                            String brand = object.getString("brand_name");
-                            String brandkh=object.getString("brand_name_as_kh");
-                            brandItemkh[i]=brandkh;
-                            brandListItems[i] = brand;
-                            brandIDlist[i] = id;
-
-                        }
-                    }else {
-                        int count = 0;
-                        for (int i=0;i<jsonArray.length();i++){
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            int category = object.getInt("category");
-                            if (cate==category){
-                                count++;
+                    String catName = jsonObject.getString("cat_name");
+                    String catNamekh=jsonObject.getString("cat_name_kh");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (language.equals("km")){
+                                btnCategory.setText(catNamekh);
+                            }else if (language.equals("en")) {
+                                btnCategory.setText(catName);
                             }
                         }
-
-                        brandListItems = new String[count+1];
-                        brandItemkh=new String[count+1];
-                        brandIDlist = new int[count+1];
-                        if (currentLanguage.equals("en")) {
-                            brandListItems[0] = "All";
-                        }else {
-//                            brandListItems[0] = "ទាំងអស់";
-                            brandItemkh[0]= "ទាំងអស់";
-                        }
-
-                        int ccount = 0;
-                        for (int i=1;i<=jsonArray.length();i++){
-                            JSONObject object = jsonArray.getJSONObject(i-1);
-                            int category = object.getInt("category");
-                            if (cate==category) {
-                                int id = object.getInt("id");
-                                String name = object.getString("brand_name");
-                                String namekh=object.getString("brand_name_as_kh");
-                                brandItemkh[ccount+1]=namekh;
-                                brandListItems[ccount+1] = name;
-                                brandIDlist[ccount+1] = id;
-                                ccount++;
-                            }
-                        }
-                    }
-
+                    });
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -829,47 +806,116 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         });
     }
 
-    private void getYear(){
-        String url = ConsumeAPI.BASE_URL+"/api/v1/years/";
+    private void getBrand(int id ){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/brands/"+id+"/");
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("Failure Error",e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                            String language = preferences.getString("My_Lang", "");
+                            JSONObject jsonObject = new JSONObject(respon);
+                            String brandname=jsonObject.getString("brand_name");
+                            String brandnamekh=jsonObject.getString("brand_name_as_kh");
+                            if (language.equals("km")){
+                                btnBrand.setText(brandnamekh);
+                            }else if (language.equals("en")){
+                                btnBrand.setText(brandname);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+    private void getModel(int id){
+
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/models/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                String f = e.getMessage();
-                Log.d("Failure",f);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String respon = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+                            String language = preferences.getString("My_Lang", "");
+                            JSONObject jsonObject = new JSONObject(respon);
+                            int brandId=jsonObject.getInt("brand");
+                            String name=jsonObject.getString("modeling_name");
+                            String namekh=jsonObject.getString("modeling_name_kh");
+                            if (language.equals("km")){
+                                tv_model.setText(namekh);
+                            }else if (language.equals("en")){
+                                tv_model.setText(name);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            Log.d("Exception",e.getMessage());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void getYear(int id){
+        final String url = String.format("%s%s", ConsumeAPI.BASE_URL,"api/v1/years/"+id+"/");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .header("Content-Type","application/json")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
                 try{
-
                     JSONObject jsonObject = new JSONObject(respon);
-                    JSONArray jsonArray = jsonObject.getJSONArray("results");
-
-                    yearListItems = new String[jsonArray.length()+1];
-                    yearIDlist = new int[jsonArray.length()+1];
-                    yearlistItemkh=new String[jsonArray.length()+1];
-
-                    if (!currentLanguage.equals("en")) {
-                        yearListItems[0] = "ទាំងអស់";
-                    }else {
-                        yearListItems[0] = "All";
-                    }
-                    for (int i=1;i<=jsonArray.length();i++){
-                        JSONObject object = jsonArray.getJSONObject(i-1);
-                        int id = object.getInt("id");
-                        String name = object.getString("year");
-                        yearlistItemkh[i] = name;
-                        yearListItems[i] = name;
-                        yearIDlist[i] = id;
-
-                    }
+                    String yearname=jsonObject.getString("year");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnyear.setText(yearname);
+                        }
+                    });
 
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -899,6 +945,10 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         BottomChooseFilterBrand addBottomDialogFragement=BottomChooseFilterBrand.newInstance(cate);
         addBottomDialogFragement.show(getSupportFragmentManager(),BottomChooseFilterBrand.TAG);
     }
+    public void showBottomModel(View view) {
+        BottomChooseModel addPhotoBottomDialogFragment = BottomChooseModel.newInstance(seleectedBrandId);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseModel.TAG);
+    }
     private void showBottomSheetYear(View view){
         BottomChooseYear addBottomDialogFragment=BottomChooseYear.newInstance();
         addBottomDialogFragment.show(getSupportFragmentManager(),BottomChooseYear.TAG);
@@ -923,5 +973,15 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
     @Override
     public void AddIDyear(int id) {
         year_fil=id;
+    }
+
+    @Override
+    public void onClickItemModel(String item) {
+        tv_model.setText(item);
+    }
+
+    @Override
+    public void AddModelID(int id) {
+        model_fil = id;
     }
 }

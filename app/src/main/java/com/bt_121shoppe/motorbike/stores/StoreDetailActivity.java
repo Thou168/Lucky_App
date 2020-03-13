@@ -94,7 +94,7 @@ public class StoreDetailActivity extends AppCompatActivity {
 
     private StoreActivePostListAdapter mAllPostAdapter;
     private List<StorePostViewModel> mAllPosts;
-    private String mShopName;
+    private String mShopName,post_type;
     private ProgressBar mAllPostProgressbar;
     private RecyclerView mAllPostsRecyclerView;
     private TextView mAllPostsNoResult,mAllPostNoMoreResult;
@@ -106,7 +106,7 @@ public class StoreDetailActivity extends AppCompatActivity {
     ArrayList<Item_API> item_apis = new ArrayList<>();
 
     ImageView filter;
-    String category,model,year,title_filter;
+    String category,model,year,title_filter,brand;
 
     //seekbar
     int min;
@@ -205,8 +205,15 @@ public class StoreDetailActivity extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Filter_shopdetail.class);
-                startActivityForResult(intent,1);
+                Intent intent1 = new Intent(getApplicationContext(), Filter_shopdetail.class);
+                intent1.putExtra("post_type",post_type);
+                intent1.putExtra("category",category);
+                intent1.putExtra("model",model);
+                intent1.putExtra("brand",brand);
+                intent1.putExtra("year",year);
+                intent1.putExtra("minPrice",min);
+                intent1.putExtra("maxPrice",max);
+                startActivityForResult(intent1,1);
             }
         });
         //filter.setVisibility(View.GONE);
@@ -291,7 +298,7 @@ public class StoreDetailActivity extends AppCompatActivity {
         mAllPosts=new ArrayList<>();
         mAllPostAdapter=new StoreActivePostListAdapter(mAllPosts,"List");
         Service api=Client.getClient().create(Service.class);
-        retrofit2.Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
+        retrofit2.Call<APIStorePostResponse> model=api.GetStorePost(shopId);
         model.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
             @Override
             public void onResponse(retrofit2.Call<APIStorePostResponse> call, retrofit2.Response<APIStorePostResponse> response) {
@@ -305,6 +312,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                     mAllPostsNoResult.setVisibility(View.GONE);
                     List<StorePostViewModel> results=response.body().getResults();
                     mAllPosts = response.body().getResults();
+                    Log.e("index",""+index);
                     switch (index){
                         case 0:
                             Collections.sort(mAllPosts, (s1, s2) -> Integer.compare(s2.getId(), s1.getId()));
@@ -508,9 +516,9 @@ public class StoreDetailActivity extends AppCompatActivity {
 
     }
 
-    private  void Search_data(String title, String category, String model, String year, int min, int max){
+    private  void Search_data(String title, String category,String brand, String model, String year, int min, int max,String post_type){
 //        String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
-        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?post_type="+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
+        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?post_type="+"&category="+category+"&brand="+brand+"&min_price="+min+"&max_price="+max+"&year="+year;
         Log.d("Url:",url1);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -522,7 +530,7 @@ public class StoreDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String respon = response.body().string();
-                Log.d("Search:",respon);
+                Log.d("Filter",respon);
                 runOnUiThread(() -> {
 
                     try {
@@ -645,15 +653,17 @@ public class StoreDetailActivity extends AppCompatActivity {
                 if (data != null) {
                     item_apis.clear();
                     title_filter = data.getExtras().getString("title_search");
-                    category = data.getExtras().getString("category");
-                    model = data.getStringExtra("brand");
-                    year = data.getStringExtra("year");
+                    category =String.valueOf(data.getExtras().getInt("category",0));
+                    brand =String.valueOf(data.getIntExtra("brand",0));
+                    model =String.valueOf(data.getIntExtra("model",0));
+                    year =String.valueOf(data.getIntExtra("year",0));
                     min = data.getIntExtra("min_price",0);
                     max = data.getIntExtra("max_price",0);
+                    post_type=data.getStringExtra("posttype");
 
                     mAllPostProgressbar.setVisibility(View.VISIBLE);
-                    Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+",");
-                    Search_data(title_filter, category, model, year,min,max);
+                    //Log.d("RESULTtttttttt",title_filter+","+category+","+model+","+year+","+min+","+max+","+post_type);
+                    Search_data(title_filter, category,brand, model, year,min,max,post_type);
                 }
             }
         }

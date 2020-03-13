@@ -1722,7 +1722,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         clearDialog.setCancelable(false);
                                         TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
                                         TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                                        Mssloan.setText(R.string.post_message);
+                                        Mssloan.setText(R.string.waiting_approval);
                                         title.setText(R.string.title_post);
                                         Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
                                         btnYes.setText(R.string.ok);

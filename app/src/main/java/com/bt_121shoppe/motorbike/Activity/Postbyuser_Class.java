@@ -175,8 +175,7 @@ public class Postbyuser_Class extends AppCompatActivity {
         rejected_status = getIntent().getIntExtra("rejected",0);
         if (i==2){
             edit.setVisibility(View.GONE);
-        }
-        if (rejected_status == 5){
+        }else if (rejected_status == 5){
             edit.setVisibility(View.GONE);
         }
         back.setOnClickListener(v -> finish());
@@ -257,7 +256,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         if (title_language==null || title_language.isEmpty()){
 
                         }else {
-                            if(language.equals("View")) {
+                            if(language.equals("en")) {
                                 strPostTitle = title_language.split(",")[0];
                             } else {
                                 strPostTitle = title_language.split(",")[1];

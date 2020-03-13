@@ -163,7 +163,7 @@ public class List_store_post extends Fragment {
     }
     private void getListStore(int shopId){
         Service api=Client.getClient().create(Service.class);
-        Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
+        Call<APIStorePostResponse> model=api.GetStorePost(shopId);
         model.enqueue(new Callback<APIStorePostResponse>() {
             @Override
             public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
