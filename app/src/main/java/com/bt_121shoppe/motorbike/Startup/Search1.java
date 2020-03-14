@@ -166,13 +166,13 @@ public class Search1 extends AppCompatActivity {
         model=model.equals("0")?"":model;
         brand=brand.equals("0")?"":brand;
         category=category.equals("0")?"":category;
-        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price="+min+"&max_price="+max+"&year="+year;
+        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
         if(min==0 && max==0)
-            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price=&max_price=&year="+year;
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price=&year="+year;
         else if(min==0)
-            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price=&max_price="+max+"&year="+year;
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price=&max_price="+max+"&year="+year;
         else if(max==0)
-            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&brand="+brand+"&min_price="+min+"&max_price=&year="+year;
+            url1 = ConsumeAPI.BASE_URL+"relatedpost/?search="+title+"&post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price=&year="+year;
         Log.d("Url:",url1);
 
         OkHttpClient client = new OkHttpClient();

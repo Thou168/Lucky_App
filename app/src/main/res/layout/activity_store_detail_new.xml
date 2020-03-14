@@ -182,6 +182,7 @@
                 android:drawableRight="@drawable/ic_arrow_drop_down_gray"/>
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/filter_detail"
                 android:layout_alignParentEnd="true"
                 android:layout_width="@dimen/dp_16"

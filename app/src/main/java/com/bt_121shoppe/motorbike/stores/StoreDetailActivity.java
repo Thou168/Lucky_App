@@ -518,7 +518,12 @@ public class StoreDetailActivity extends AppCompatActivity {
 
     private  void Search_data(String title, String category,String brand, String model, String year, int min, int max,String post_type){
 //        String url = ConsumeAPI.BASE_URL+"postsearch/?search="+title+"&category="+category+"&modeling="+model+"&year="+year+"&min_price"+min+"&max_price"+max;
-        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?post_type="+"&category="+category+"&brand="+brand+"&min_price="+min+"&max_price="+max+"&year="+year;
+        post_type=post_type==null?"":post_type;
+        year=year.equals("0")?"":year;
+        model=model.equals("0")?"":model;
+        brand=brand.equals("0")?"":brand;
+        category=category.equals("0")?"":category;
+        String url1 = ConsumeAPI.BASE_URL+"relatedpost/?post_type="+post_type+"&category="+category+"&modeling="+model+"&min_price="+min+"&max_price="+max+"&year="+year;
         Log.d("Url:",url1);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

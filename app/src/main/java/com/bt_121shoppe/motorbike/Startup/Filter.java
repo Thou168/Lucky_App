@@ -48,7 +48,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class Filter extends AppCompatActivity implements BottomChooseFilterBrand.ItemClickListener,BottomChooseYear.ItemClickListener,BottomChooseModel.ItemClickListener {
+public class Filter extends AppCompatActivity implements BottomChooseFilterBrand.ItemClickListener,BottomChooseYear.ItemClickListener {
 
 //   private  TextView btnCategory,btnBrand,btnyear ,btnCondition,submit_filter,tv_result,tv_done;
 //   private  int cate=0,brand=0,model=0,year=0,type=0;
@@ -58,14 +58,14 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
 //   private  int [] cateIDlist,brandIDlist,yearIDlist;
 //   private LinearLayout rela_cate,rela_brand,rela_year,rela_condition;
 
-    private TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter,tv_model;
+    private TextView btnCategory,btnBrand,btnyear ,btnType,submit_filter;
     private ImageView tv_result,tv_done;
     private int cate=0,brand=0,model_fil=0,year_fil=0,type=0; //model & year
     private String stTitle="",stCategory="",stBrand="",stYear="",stType="",st="";
     double dbPrice = 0.0;
     private  String [] cateListItems,brandListItems,yearListItems,typeListItems,categoryItemkg,brandItemkh,yearlistItemkh;
     private  int [] cateIDlist,brandIDlist,yearIDlist;
-    private LinearLayout rela_cate,rela_brand,rela_year,rela_type,rela_model;
+    private LinearLayout rela_cate,rela_brand,rela_year,rela_type;
     private int seleectedBrandId=0;
 
 //    private SimpleRangeBar simpleRangeBar;
@@ -93,11 +93,9 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
 //        tv_done  = findViewById(R.id.tv_done);
         rela_cate  = findViewById(R.id.linea_cate);
         rela_brand = findViewById(R.id.linea_brand);
-        rela_model  = findViewById(R.id.linea_model);
         rela_year  = findViewById(R.id.linea_year);
         rela_type = findViewById(R.id.linea_type);
         btnCategory = findViewById(R.id.search_category);
-        tv_model = findViewById(R.id.search_model);
         btnBrand = findViewById(R.id.search_brand);
         btnyear = findViewById(R.id.search_year);
         btnType = findViewById(R.id.search_type);
@@ -140,7 +138,6 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         getCategory(cate);
         getYear(year_fil);
         getBrand(seleectedBrandId);
-        getModel(model_fil);
         getCategory();
 
         //range seekbar
@@ -251,6 +248,9 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                     }
                     cate = cateIDlist[index];
                     Log.e("TAG","Select Category id "+cate);
+                    if (cate == 2){
+                        btnBrand.setText(getString(R.string.all));
+                    }
                 });
             }
         });
@@ -454,13 +454,6 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
 //                mDialog.show();
 //            }
 //        });
-        rela_model.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomModel(view);
-            }
-        });
-
         rela_year.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -831,6 +824,7 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                             SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
                             String language = preferences.getString("My_Lang", "");
                             JSONObject jsonObject = new JSONObject(respon);
+                            int brandId=jsonObject.getInt("id");
                             String brandname=jsonObject.getString("brand_name");
                             String brandnamekh=jsonObject.getString("brand_name_as_kh");
                             if (language.equals("km")){
@@ -838,6 +832,7 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                             }else if (language.equals("en")){
                                 btnBrand.setText(brandname);
                             }
+                            getModel(brandId);
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -876,9 +871,9 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                             String name=jsonObject.getString("modeling_name");
                             String namekh=jsonObject.getString("modeling_name_kh");
                             if (language.equals("km")){
-                                tv_model.setText(namekh);
+//                                tv_model.setText(namekh);
                             }else if (language.equals("en")){
-                                tv_model.setText(name);
+//                                tv_model.setText(name);
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -945,10 +940,6 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         BottomChooseFilterBrand addBottomDialogFragement=BottomChooseFilterBrand.newInstance(cate);
         addBottomDialogFragement.show(getSupportFragmentManager(),BottomChooseFilterBrand.TAG);
     }
-    public void showBottomModel(View view) {
-        BottomChooseModel addPhotoBottomDialogFragment = BottomChooseModel.newInstance(seleectedBrandId);
-        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseModel.TAG);
-    }
     private void showBottomSheetYear(View view){
         BottomChooseYear addBottomDialogFragment=BottomChooseYear.newInstance();
         addBottomDialogFragment.show(getSupportFragmentManager(),BottomChooseYear.TAG);
@@ -975,13 +966,4 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         year_fil=id;
     }
 
-    @Override
-    public void onClickItemModel(String item) {
-        tv_model.setText(item);
-    }
-
-    @Override
-    public void AddModelID(int id) {
-        model_fil = id;
-    }
 }

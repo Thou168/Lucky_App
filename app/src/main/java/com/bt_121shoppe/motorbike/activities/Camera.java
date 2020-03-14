@@ -3546,18 +3546,22 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     }
     public void showBottomYear(View view) {
         BottomChooseYear addPhotoBottomDialogFragment = BottomChooseYear.newInstance();
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseYear.TAG);
     }
     public void showBottomBrand(View view) {
         BottomChooseBrand addPhotoBottomDialogFragment = BottomChooseBrand.newInstance(category);
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseBrand.TAG);
     }
     public void showBottomModel(View view) {
         BottomChooseModel addPhotoBottomDialogFragment = BottomChooseModel.newInstance(brand);
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseModel.TAG);
     }
     public void showBottomCategory(View view) {
         BottomChooseCategory addPhotoBottomDialogFragment = BottomChooseCategory.newInstance();
+        addPhotoBottomDialogFragment.setCancelable(false);
         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), BottomChooseCategory.TAG);
     }
     public void showBottomType(View view) {
