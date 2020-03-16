@@ -674,8 +674,6 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         intent.putExtra("max_price",mMaxPrice);
         setResult(2,intent);
         finish();
-
-
     }
 
     private void getCategory(){
@@ -904,13 +902,16 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
                 String respon = response.body().string();
                 try{
                     JSONObject jsonObject = new JSONObject(respon);
-                    String yearname=jsonObject.getString("year");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            btnyear.setText(yearname);
-                        }
-                    });
+                    if(jsonObject!=null){
+                        String yearname=jsonObject.getString("year");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                btnyear.setText(yearname);
+                            }
+                        });
+                    }
+
 
                 }catch (JSONException e){
                     e.printStackTrace();

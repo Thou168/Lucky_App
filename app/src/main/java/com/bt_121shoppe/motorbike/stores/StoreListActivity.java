@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -198,6 +199,8 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             ImageView close = dialogView.findViewById(R.id.icon_close);
             RadioGroup group = dialogView.findViewById(R.id.radio_group);
             Button ok = dialogView.findViewById(R.id.btn_ok);
+            RadioButton rbnewads=dialogView.findViewById(R.id.new_ads);
+            rbnewads.setVisibility(View.GONE);
             close.setOnClickListener(v1 -> bottomSheetDialog.dismiss());
             group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override

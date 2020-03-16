@@ -75,7 +75,7 @@ public class BottomChooseYear extends BottomSheetDialogFragment implements View.
                 .url(url)
                 .header("Accept","application/json")
                 .header("Content-Type","application/json")
-                .header("Authorization",auth)
+//                .header("Authorization",auth)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override

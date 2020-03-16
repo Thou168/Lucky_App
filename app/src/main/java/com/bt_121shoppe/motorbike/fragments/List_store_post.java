@@ -104,7 +104,7 @@ public class List_store_post extends Fragment {
             pk = prefer.getInt("id", 0);
         }
         basic_Encode = "Basic "+getEncodedString(name,pass);
-
+        Log.e("TAG","Shop id na ja :"+shopId);
         getShop_Detail(shopId);
         getShop_Info(pk,Encode);
         //getListStore(pk,Encode);
@@ -131,7 +131,7 @@ public class List_store_post extends Fragment {
                     no_result.setVisibility(View.VISIBLE);
                 }
                 for (int i=0;i<listData.size();i++){
-                    if(listData.get(i).getStatus()==4){
+                    //if(listData.get(i).getStatus()==4){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
                         long date = 0;
@@ -147,7 +147,7 @@ public class List_store_post extends Fragment {
                                 Movetohistory((int) listData.get(i).getId(),ch,basic_Encode);
                             }
                         } catch (ParseException e) { e.printStackTrace(); }
-                    }
+                    //}
                 }
                 progressBar.setVisibility(View.GONE);
                 //Adapter_store_post mAdapter=new Adapter_store_post(listData);
@@ -163,7 +163,8 @@ public class List_store_post extends Fragment {
     }
     private void getListStore(int shopId){
         Service api=Client.getClient().create(Service.class);
-        Call<APIStorePostResponse> model=api.GetStorePost(shopId);
+        //Call<APIStorePostResponse> model=api.GetStorePost(shopId);
+        Call<APIStorePostResponse> model=api.GetStoreActivePost(shopId);
         model.enqueue(new Callback<APIStorePostResponse>() {
             @Override
             public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {

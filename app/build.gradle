@@ -11,8 +11,8 @@ android {
         applicationId 'com.bt_121shoppe.motorbike'
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 41
-        versionName "1.1.2.2"
+        versionCode 44
+        versionName "1.1.2.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "7f07b09034fb44879e413e1314e73b0b"]
     }
