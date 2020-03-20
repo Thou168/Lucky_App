@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Call to the Seller"
+        android:text="@string/call_to_seller"
         android:textSize="18dp"
         android:fontFamily="@font/opensans_semibold"
         android:padding="@dimen/dp_15" />

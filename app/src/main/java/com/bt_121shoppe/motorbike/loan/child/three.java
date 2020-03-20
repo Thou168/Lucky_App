@@ -646,7 +646,7 @@ public class three extends Fragment {
                         etPhotos.check(R.id.radio2_Photos);
                         rdPhotos_no.toggle();
                     }
-
+                    Log.e("card slip",""+response.body().isStaff_id());
                     if (response.body().isStaff_id()){
                         mCard_Work = true;
                         etEmployment_card.check(R.id.radio1_Employment_card);
@@ -685,6 +685,7 @@ public class three extends Fragment {
                         etPhotos1.check(R.id.radio2_Photos1);
                         rdPhotos1_no.toggle();
                     }
+                    Log.e("co-card slip",""+response.body().isIs_coborrower_payslip());
                     if (response.body().isIs_coborrower_payslip()){
                         mCard_Work1= true;
                         etEmployment_card1.check(R.id.radio1_Employment_card1);
@@ -736,7 +737,7 @@ public class three extends Fragment {
                         etPhotos.check(R.id.radio2_Photos);
                         rdPhotos_no.toggle();
                     }
-
+                    Log.e("card slip",""+response.body().isStaff_id());
                     if (response.body().isStaff_id()){
                         mCard_Work = true;
                         etEmployment_card.check(R.id.radio1_Employment_card);
@@ -775,6 +776,7 @@ public class three extends Fragment {
                         etPhotos1.check(R.id.radio2_Photos1);
                         rdPhotos1_no.toggle();
                     }
+                    Log.e("co-card slip",""+response.body().isIs_coborrower_payslip());
                     if (response.body().isIs_coborrower_payslip()){
                         mCard_Work1= true;
                         etEmployment_card1.check(R.id.radio1_Employment_card1);

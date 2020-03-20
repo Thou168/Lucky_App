@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +34,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.Product_dicount.Detail_Discount;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.activities.Camera;
+import com.bt_121shoppe.motorbike.fragments.List_store_post;
 import com.bt_121shoppe.motorbike.models.BrandViewModel;
 import com.bt_121shoppe.motorbike.models.ModelingViewModel;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
@@ -39,6 +44,9 @@ import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.models.YearViewModel;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.custom.sliderimage.logic.SliderImage;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -61,17 +69,17 @@ import static com.bt_121shoppe.motorbike.utils.CommonFunction.getEncodedString;
 
 public class Postbyuser_Class extends AppCompatActivity {
     private Integer postId = 0;
-    private int pk=0;
+    private int pk = 0;
     private String TAG = Detail_Discount.class.getSimpleName();
     PostViewModel postDetail = new PostViewModel();
     SharedPreferences sharedPref;
     private String Encode = "";
     String name = "";
     String pass = "";
-    private int p=0;
-    private int pt=0;
+    private int p = 0;
+    private int pt = 0;
     String encodeAuth = "";
-    String front_image,right_image,back_image,left_image;
+    String front_image, right_image, back_image, left_image;
     String postTitle;
     private String postPrice;
     private String postFrontImage;
@@ -80,10 +88,10 @@ public class Postbyuser_Class extends AppCompatActivity {
     SliderImage slider;
     ImageView back;
     TextView edit;
-    TextView tv_price,tv_title,tv_dox,tv_discount,tv_discount_per;
-    TextView tv_postcode,tv_brand,tv_type,tv_model,tv_year,tv_color,tv_condition;
-    private TextView whole_ink,wheel_sets,the_whole_screw,pumps,engine_counter,engine_head,assembly,console,accessories;
-    TextView tv_seller,tv_phone,tv_email,tv_address;
+    TextView tv_price, tv_title, tv_dox, tv_discount, tv_discount_per;
+    TextView tv_postcode, tv_brand, tv_type, tv_model, tv_year, tv_color, tv_condition;
+    private TextView whole_ink, wheel_sets, the_whole_screw, pumps, engine_counter, engine_head, assembly, console, accessories;
+    TextView tv_seller, tv_phone, tv_email, tv_address;
     private String con;
     View line_rela;
     RelativeLayout rela_eta;
@@ -91,16 +99,17 @@ public class Postbyuser_Class extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private TextView no_result;
-    private TextView description,txtBrandTitle;
+    private TextView description, txtBrandTitle;
 
     View line2;
-    TextView tvTypeTitle,bool_title;
+    TextView tvTypeTitle, bool_title;
 
-    Double latitude= (double) 0;
-    Double longtitude= (double) 0;
-    TextView tvColor1,tvColor2;
-    int i = 0,rejected_status=0;
-    String postUsername,postUserId;
+    Double latitude = (double) 0;
+    Double longtitude = (double) 0;
+    TextView tvColor1, tvColor2;
+    int i = 0, rejected_status = 0,shopID,group=0;
+    String postUsername, postUserId, from_store;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,9 +125,9 @@ public class Postbyuser_Class extends AppCompatActivity {
         tv_discount_per = findViewById(R.id.tv_discount_per);
 
         //type_remove moto
-        line2=findViewById(R.id.line2);
-        tvTypeTitle=findViewById(R.id.tvTypeTitle);
-        bool_title=findViewById(R.id.bool3);
+        line2 = findViewById(R.id.line2);
+        tvTypeTitle = findViewById(R.id.tvTypeTitle);
+        bool_title = findViewById(R.id.bool3);
 
         tv_postcode = findViewById(R.id.tvPostCode);
         tv_brand = findViewById(R.id.tvBrand);
@@ -126,8 +135,8 @@ public class Postbyuser_Class extends AppCompatActivity {
         tv_model = findViewById(R.id.tv_Model);
         tv_year = findViewById(R.id.tv_Year);
 //        tv_color = findViewById(R.id.tv_Color);
-        tvColor1=findViewById(R.id.tv_color1);
-        tvColor2=findViewById(R.id.tv_color2);
+        tvColor1 = findViewById(R.id.tv_color1);
+        tvColor2 = findViewById(R.id.tv_color2);
         tv_condition = findViewById(R.id.tv_Condition);
 
         //motor machin and other
@@ -153,29 +162,32 @@ public class Postbyuser_Class extends AppCompatActivity {
         tv_phone = findViewById(R.id.tv_phone);
         tv_email = findViewById(R.id.tv_email);
         tv_address = findViewById(R.id.address);
-        txtBrandTitle=findViewById(R.id.brandTitle);
+        txtBrandTitle = findViewById(R.id.brandTitle);
 
-        postId = getIntent().getIntExtra("ID",0);
-        discount = getIntent().getDoubleExtra("Discount",0.0);
+        postId = getIntent().getIntExtra("ID", 0);
+        discount = getIntent().getDoubleExtra("Discount", 0.0);
         sharedPref = getSharedPreferences("Register", Context.MODE_PRIVATE);
         name = sharedPref.getString("name", "");
         pass = sharedPref.getString("pass", "");
-        Encode = getEncodedString(name,pass);
+        Encode = getEncodedString(name, pass);
         if (sharedPref.contains("token")) {
-            pk = sharedPref.getInt("Pk",0);
+            pk = sharedPref.getInt("Pk", 0);
         } else if (sharedPref.contains("id")) {
             pk = sharedPref.getInt("id", 0);
         }
-        if (pk!=0) {
-            encodeAuth = "Basic "+ getEncodedString(name,pass);
+        if (pk != 0) {
+            encodeAuth = "Basic " + getEncodedString(name, pass);
         }
-        p = getIntent().getIntExtra("ID",0);
-        pt = getIntent().getIntExtra("postt",0);
-        i = getIntent().getIntExtra("Sold_Remove",0);
-        rejected_status = getIntent().getIntExtra("rejected",0);
-        if (i==2){
+        p = getIntent().getIntExtra("ID", 0);
+        pt = getIntent().getIntExtra("postt", 0);
+        i = getIntent().getIntExtra("Sold_Remove", 0);
+        rejected_status = getIntent().getIntExtra("rejected", 0);
+        shopID = getIntent().getIntExtra("shopid", 0);
+        Log.e("shopid",""+shopID);
+        from_store = getIntent().getStringExtra("store");
+        if (i == 2) {
             edit.setVisibility(View.GONE);
-        }else if (rejected_status == 5){
+        } else if (rejected_status == 5) {
             edit.setVisibility(View.GONE);
         }
         back.setOnClickListener(v -> finish());
@@ -190,9 +202,9 @@ public class Postbyuser_Class extends AppCompatActivity {
 
         //edit
         edit.setOnClickListener(v -> {
-            Intent intent=new Intent(getApplicationContext(), Camera.class);
-            intent.putExtra("process_type",2);
-            intent.putExtra("id_product",Integer.parseInt(String.valueOf(postDetail.getId())));
+            Intent intent = new Intent(getApplicationContext(), Camera.class);
+            intent.putExtra("process_type", 2);
+            intent.putExtra("id_product", Integer.parseInt(String.valueOf(postDetail.getId())));
             startActivity(intent);
         });
     }
@@ -224,7 +236,7 @@ public class Postbyuser_Class extends AppCompatActivity {
 ////                    .header("Content-Type", "application/json")
 ////                    .build();
 //        }
-        url=ConsumeAPI.BASE_URL+"detailposts/"+postId;
+        url = ConsumeAPI.BASE_URL + "detailposts/" + postId;
         request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")
@@ -245,24 +257,24 @@ public class Postbyuser_Class extends AppCompatActivity {
                 Gson json = new Gson();
                 try {
                     runOnUiThread(() -> {
-                        postDetail = json.fromJson(mMessage,PostViewModel.class);
-                        Log.e(TAG,"D"+mMessage);
+                        postDetail = json.fromJson(mMessage, PostViewModel.class);
+                        Log.e(TAG, "D" + mMessage);
                         description.setText(postDetail.getDescription());
-                        postFrontImage=postDetail.getFront_image_path();
-                        postPrice=discount.toString();
+                        postFrontImage = postDetail.getFront_image_path();
+                        postPrice = discount.toString();
 
                         String title_language = postDetail.getPost_sub_title();
-                        String strPostTitle="";
-                        if (title_language==null || title_language.isEmpty()){
+                        String strPostTitle = "";
+                        if (title_language == null || title_language.isEmpty()) {
 
-                        }else {
-                            if(language.equals("en")) {
+                        } else {
+                            if (language.equals("en")) {
                                 strPostTitle = title_language.split(",")[0];
                             } else {
                                 strPostTitle = title_language.split(",")[1];
                             }
                         }
-                        Log.e(TAG,title_language+" " +strPostTitle );
+                        Log.e(TAG, title_language + " " + strPostTitle);
                         tv_title.setText(strPostTitle);
                         tv_title.setTextSize(22F);
 
@@ -277,51 +289,51 @@ public class Postbyuser_Class extends AppCompatActivity {
 //                            tv_dox.setVisibility(View.VISIBLE);
 //                            tv_discount_per.setVisibility(View.VISIBLE);
 //                        }
-                        if (discount != 0.00){
-                            double cost=Double.parseDouble(postDetail.getCost());
-                            double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
+                        if (discount != 0.00) {
+                            double cost = Double.parseDouble(postDetail.getCost());
+                            double discountPrice = cost * (Double.parseDouble(postDetail.getDiscount()) / 100);
                             double result = cost - discountPrice;
-                            int per1 = (int) ( Double.parseDouble(postDetail.getDiscount()));
+                            int per1 = (int) (Double.parseDouble(postDetail.getDiscount()));
                             DecimalFormat formatter = new DecimalFormat("#0.00");
-                            tv_price.setText("$ "+ formatter.format(result));
-                            tv_discount_per.setText("- "+per1+"%");
-                            tv_discount.setText("$"+postDetail.getDiscount());
+                            tv_price.setText("$ " + formatter.format(result));
+                            tv_discount_per.setText("- " + per1 + "%");
+                            tv_discount.setText("$" + postDetail.getDiscount());
                             tv_discount_per.setVisibility(View.VISIBLE);
                             tv_dox.setVisibility(View.GONE);
                         }
-                        if (discount == 0.00){
+                        if (discount == 0.00) {
                             tv_discount.setVisibility(View.GONE);
                             tv_discount_per.setVisibility(View.GONE);
                             tv_dox.setVisibility(View.GONE);
-                            tv_price.setText("$ "+postDetail.getCost());
+                            tv_price.setText("$ " + postDetail.getCost());
                             postPrice = postDetail.getCost();
                         }
-                        String st = "$ "+postDetail.getCost();
-                        st = st.substring(0, st.length()-1);
-                        SpannableString ms = new  SpannableString(st);
-                        StrikethroughSpan mst = new  StrikethroughSpan();
-                        ms.setSpan(mst,0,st.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        String st = "$ " + postDetail.getCost();
+                        st = st.substring(0, st.length() - 1);
+                        SpannableString ms = new SpannableString(st);
+                        StrikethroughSpan mst = new StrikethroughSpan();
+                        ms.setSpan(mst, 0, st.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_discount.setText(ms);
 
-                        front_image ="";
-                        right_image ="";
-                        back_image ="";
-                        left_image ="";
-                        String extra_image1 ="";
-                        String extra_image2 ="";
-                        front_image=postDetail.getFront_image_path();
-                        right_image=postDetail.getRight_image_path();
-                        left_image=postDetail.getLeft_image_path();
-                        back_image=postDetail.getBack_image_path();
-                        ArrayList arrayList2 = new  ArrayList<String>(6);
+                        front_image = "";
+                        right_image = "";
+                        back_image = "";
+                        left_image = "";
+                        String extra_image1 = "";
+                        String extra_image2 = "";
+                        front_image = postDetail.getFront_image_path();
+                        right_image = postDetail.getRight_image_path();
+                        left_image = postDetail.getLeft_image_path();
+                        back_image = postDetail.getBack_image_path();
+                        ArrayList arrayList2 = new ArrayList<String>(6);
                         arrayList2.add(front_image);
                         arrayList2.add(right_image);
                         arrayList2.add(left_image);
                         arrayList2.add(back_image);
-                        if (postDetail.getExtra_image1()!=null){
+                        if (postDetail.getExtra_image1() != null) {
                             arrayList2.add(postDetail.getExtra_image1());
                         }
-                        if (postDetail.getExtra_image2()!=null){
+                        if (postDetail.getExtra_image2() != null) {
                             arrayList2.add(postDetail.getExtra_image2());
                         }
                         //Log.d("@ moret image","numbers:"+extra_image1+","+extra_image2);
@@ -330,17 +342,17 @@ public class Postbyuser_Class extends AppCompatActivity {
                         slider.removeTimerSlide();
                         slider.getIndicator();
 
-                        tv_postcode.setText(postDetail.getPost_code()!=null?postDetail.getPost_code().toString():"");
+                        tv_postcode.setText(postDetail.getPost_code() != null ? postDetail.getPost_code().toString() : "");
                         //get color
 //                            color.setText(postDetail.getColor().toString());
-                        String[] splitColor=postDetail.getMulti_color_code().split(",");
+                        String[] splitColor = postDetail.getMulti_color_code().split(",");
                         GradientDrawable shape = new GradientDrawable();
                         shape.setShape(GradientDrawable.OVAL);
                         shape.setColor(Color.parseColor(CommonFunction.getColorHexbyColorName(splitColor[0])));
-                        Log.d("View color",String.valueOf(CommonFunction.getColorHexbyColorName(splitColor[0])));
+                        Log.d("View color", String.valueOf(CommonFunction.getColorHexbyColorName(splitColor[0])));
                         tvColor1.setBackground(shape);
                         tvColor2.setVisibility(View.GONE);
-                        if(splitColor.length>1){
+                        if (splitColor.length > 1) {
                             tvColor2.setVisibility(View.VISIBLE);
                             GradientDrawable shape1 = new GradientDrawable();
                             shape1.setShape(GradientDrawable.OVAL);
@@ -348,7 +360,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                             tvColor2.setBackground(shape1);
                         }
                         //if empty color
-                        if (postDetail.getMulti_color_code().isEmpty()){
+                        if (postDetail.getMulti_color_code().isEmpty()) {
                             tvColor1.setVisibility(View.GONE);
                             tvColor2.setVisibility(View.GONE);
                         }
@@ -358,7 +370,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                             tv_condition.setText(R.string.newl);
                         } else if (con.equals("used")) {
                             tv_condition.setText(R.string.used);
-                        }else {
+                        } else {
                             tv_condition.setText("");
                         }
                         //type
@@ -375,19 +387,19 @@ public class Postbyuser_Class extends AppCompatActivity {
 //                                line_rela.setVisibility(View.VISIBLE);
                                 rela_eta.setVisibility(View.VISIBLE);
                             }
-                        }else {
+                        } else {
                             tv_type.setText("");
                         }
                         //brand
 //                        tv_brand.setText(String.valueOf(postDetail.getModeling()));
                         //year
-                        if (postDetail.getYear()!=0) {
-                            Service apiService= Client.getClient().create(Service.class);
-                            retrofit2.Call<YearViewModel> call1=apiService.getYearDetail(postDetail.getYear());
+                        if (postDetail.getYear() != 0) {
+                            Service apiService = Client.getClient().create(Service.class);
+                            retrofit2.Call<YearViewModel> call1 = apiService.getYearDetail(postDetail.getYear());
                             call1.enqueue(new retrofit2.Callback<YearViewModel>() {
                                 @Override
                                 public void onResponse(retrofit2.Call<YearViewModel> call, retrofit2.Response<YearViewModel> response) {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         tv_year.setText(response.body().getYear());
                                     }
                                 }
@@ -398,32 +410,32 @@ public class Postbyuser_Class extends AppCompatActivity {
                                 }
                             });
 
-                        }else {
+                        } else {
                             tv_year.setText("");
                         }
 
                         //model
 //                        tv_model.setText(String.valueOf(postDetail.getModeling()));
-                        if (postDetail.getModeling()!=0) {
-                            Service apiService=Client.getClient().create(Service.class);
-                            retrofit2.Call<ModelingViewModel> call1=apiService.getModelDetail(postDetail.getModeling());
+                        if (postDetail.getModeling() != 0) {
+                            Service apiService = Client.getClient().create(Service.class);
+                            retrofit2.Call<ModelingViewModel> call1 = apiService.getModelDetail(postDetail.getModeling());
                             call1.enqueue(new retrofit2.Callback<ModelingViewModel>() {
                                 @Override
                                 public void onResponse(retrofit2.Call<ModelingViewModel> call, retrofit2.Response<ModelingViewModel> response) {
-                                    if(response.isSuccessful()){
-                                        String lang=txtBrandTitle.getText().toString();
-                                        if(lang.equals("Brand"))
+                                    if (response.isSuccessful()) {
+                                        String lang = txtBrandTitle.getText().toString();
+                                        if (lang.equals("Brand"))
                                             tv_model.setText(response.body().getModeling_name());
                                         else
                                             tv_model.setText(response.body().getModeling_name_kh());
 
                                         //Get Brand Detail
-                                        retrofit2.Call<BrandViewModel> call2=apiService.getBrandDetail(response.body().getBrand());
+                                        retrofit2.Call<BrandViewModel> call2 = apiService.getBrandDetail(response.body().getBrand());
                                         call2.enqueue(new retrofit2.Callback<BrandViewModel>() {
                                             @Override
                                             public void onResponse(retrofit2.Call<BrandViewModel> call, retrofit2.Response<BrandViewModel> response) {
-                                                if(response.isSuccessful()){
-                                                    if(lang.equals("Brand"))
+                                                if (response.isSuccessful()) {
+                                                    if (lang.equals("Brand"))
                                                         tv_brand.setText(response.body().getBrand_name());
                                                     else
                                                         tv_brand.setText(response.body().getBrand_name_kh());
@@ -444,7 +456,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                                 }
                             });
 
-                        }else {
+                        } else {
                             tv_brand.setText("");
                             tv_model.setText("");
                         }
@@ -452,80 +464,85 @@ public class Postbyuser_Class extends AppCompatActivity {
                         //for section
                         //Convert
                         double db_e1 = Double.valueOf(postDetail.getUsed_eta1());
-                        int in_e1 = (int)db_e1;
+                        int in_e1 = (int) db_e1;
                         whole_ink.setText(in_e1 + " %");
 
                         double db_e2 = Double.valueOf(postDetail.getUsed_eta2());
-                        int in_e2 = (int)db_e2;
+                        int in_e2 = (int) db_e2;
                         wheel_sets.setText(in_e2 + " %");
 
                         double db_e3 = Double.valueOf(postDetail.getUsed_eta3());
-                        int in_e3 = (int)db_e3;
+                        int in_e3 = (int) db_e3;
                         the_whole_screw.setText(in_e3 + " %");
 
                         double db_e4 = Double.valueOf(postDetail.getUsed_eta4());
-                        int in_e4 = (int)db_e4;
+                        int in_e4 = (int) db_e4;
                         pumps.setText(in_e4 + " %");
 
                         double db_m1 = Double.valueOf(postDetail.getUsed_machine1());
-                        int in_m1 = (int)db_m1;
+                        int in_m1 = (int) db_m1;
                         engine_counter.setText(in_m1 + " %");
 
                         double db_m2 = Double.valueOf(postDetail.getUsed_machine2());
-                        int in_m2 = (int)db_m2;
+                        int in_m2 = (int) db_m2;
                         engine_head.setText(in_m2 + " %");
 
                         double db_m3 = Double.valueOf(postDetail.getUsed_machine3());
-                        int in_m3= (int)db_m3;
+                        int in_m3 = (int) db_m3;
                         assembly.setText(in_m3 + " %");
 
                         double db_m4 = Double.valueOf(postDetail.getUsed_machine4());
-                        int in_m4 = (int)db_m4;
+                        int in_m4 = (int) db_m4;
                         console.setText(in_m4 + " %");
 
                         double db_o1 = Double.valueOf(postDetail.getUsed_other1());
-                        int in_o1 = (int)db_o1;
+                        int in_o1 = (int) db_o1;
                         accessories.setText(in_o1 + " %");
                         //end section
 
                         //post owner name
                         int created_by = Integer.parseInt(postDetail.getCreated_by());
-                        getUserProfile(created_by,auth);
+                        getUserProfile(created_by, auth);
 
                         //phone number
-                        String contact_phone = postDetail.getContact_phone();
-                        String[] splitPhone = contact_phone.split(",");
-                        if (splitPhone.length ==1){
-                            tv_phone.setText(splitPhone[0]);
-                        }else if (splitPhone.length==2){
-                            tv_phone.setText(splitPhone[0]+"\n"+splitPhone[1]);
-                        }else if (splitPhone.length==3){
-                            tv_phone.setText(splitPhone[0]+"\n"+splitPhone[1]+"\n"+splitPhone[2]);
+                        if (from_store != null) {
+                            getShop_Detail(shopID);
+                        } else {
+                            //phone number
+                            String contact_phone = postDetail.getContact_phone();
+                            String[] splitPhone = contact_phone.split(",");
+                            if (splitPhone.length == 1) {
+                                tv_phone.setText(splitPhone[0]);
+                            } else if (splitPhone.length == 2) {
+                                tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1]);
+                            } else if (splitPhone.length == 3) {
+                                tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1] + "\n" + splitPhone[2]);
+                            }
+                            //address
+                            String addr = postDetail.getContact_address();
+                            if (addr.isEmpty()) {
+
+                            } else {
+                                String[] splitAddr = (addr.split(","));
+                                latitude = Double.valueOf(splitAddr[0]);
+                                longtitude = Double.valueOf(splitAddr[1]);
+                                try {
+                                    Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                    List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+                                    String select_add = addresses.get(0).getAddressLine(0);
+                                    if (addresses.isEmpty()) {
+                                        tv_address.setText("no location");
+                                    } else {
+                                        addresses.size();
+                                        tv_address.setText(select_add);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
 
                         tv_email.setText(postDetail.getContact_email());
-                        //address
-                        String addr = postDetail.getContact_address();
-                        if (addr.isEmpty()) {
-
-                        } else {
-                            String[] splitAddr = (addr.split(","));
-                            latitude = Double.valueOf(splitAddr[0]);
-                            longtitude = Double.valueOf(splitAddr[1]);
-                            try {
-                                Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
-                                List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
-                                String select_add = addresses.get(0).getAddressLine(0);
-                                if (addresses.isEmpty()) {
-                                    tv_address.setText("no location");
-                                } else {
-                                    addresses.size();
-                                    tv_address.setText(select_add);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
 
                         String postType = "";
                         RentViewModel[] rent = postDetail.getRents();
@@ -545,14 +562,14 @@ public class Postbyuser_Class extends AppCompatActivity {
         });
     }
 
-    private void getUserProfile(int id,String encode){
-        String URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+id;
-        MediaType MEDIA_TYPE=MediaType.parse("application/json");
-        OkHttpClient client= new  OkHttpClient();
-        Request request= new Request.Builder()
+    private void getUserProfile(int id, String encode) {
+        String URL_ENDPOINT = ConsumeAPI.BASE_URL + "api/v1/users/" + id;
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
                 .url(URL_ENDPOINT)
-                .header("Accept","application/json")
-                .header("Content-Type","application/json")
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 //.header("Authorization",encode)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -565,26 +582,56 @@ public class Postbyuser_Class extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String mMessage = response.body().string();
-                Gson gson = new  Gson();
+                Gson gson = new Gson();
                 try {
-                    User user1= gson.fromJson(mMessage,User.class);
-                    Log.d(TAG,"TAH"+mMessage);
+                    User user1 = gson.fromJson(mMessage, User.class);
+                    Log.d(TAG, "TAH" + mMessage);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(user1.getFirst_name()==null)
-                                    postUsername=user1.getUsername();
-                                else
-                                    postUsername=user1.getFirst_name();
-                                postUserId=user1.getUsername();
-                                tv_seller.setText(postUsername);
-                            }
-                        });
-                }catch (JsonParseException e){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (user1.getFirst_name() == null)
+                                postUsername = user1.getUsername();
+                            else
+                                postUsername = user1.getFirst_name();
+                            postUserId = user1.getUsername();
+                            tv_seller.setText(postUsername);
+                            group = user1.getGroup();
+                            Log.e("Group",""+group);
+                        }
+                    });
+                } catch (JsonParseException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void getShop_Detail(int id) {
+        Service api = Client.getClient().create(Service.class);
+        retrofit2.Call<ShopViewModel> call = api.getDealerShop(id);
+        call.enqueue(new retrofit2.Callback<ShopViewModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                if (response.isSuccessful()) {
+                    tv_address.setText(response.body().getShop_address());
+                    String stphone = response.body().getShop_phonenumber();
+                    tv_phone.setText(method(stphone));
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+            }
+        });
+    }
+    public String method(String str) {
+        for (int i=0;i<str.length();i++){
+            if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+                str = str.substring(0, str.length() - 1);
+            }
+        }
+        return str;
     }
 }

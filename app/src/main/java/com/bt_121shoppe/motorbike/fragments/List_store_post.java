@@ -106,7 +106,7 @@ public class List_store_post extends Fragment {
         basic_Encode = "Basic "+getEncodedString(name,pass);
         Log.e("TAG","Shop id na ja :"+shopId);
         getShop_Detail(shopId);
-        getShop_Info(pk,Encode);
+//        getShop_Info(pk,Encode);
         //getListStore(pk,Encode);
         getListStore(shopId);
 
@@ -215,23 +215,23 @@ public class List_store_post extends Fragment {
             }
         });
     }
-    private void getShop_Info(int pk, String encode) {
-        Service api = Client.getClient().create(Service.class);
-        retrofit2.Call<User_Detail> call = api.getDetailUser(pk,encode);
-        call.enqueue(new retrofit2.Callback<User_Detail>() {
-            @Override
-            public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
-                if (response.isSuccessful()) {
-                    String stphone = response.body().getProfile().getTelephone();
-                    tv_phone.setText(method(stphone));
-                }
-            }
-            @Override
-            public void onFailure(retrofit2.Call<User_Detail> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void getShop_Info(int pk, String encode) {
+//        Service api = Client.getClient().create(Service.class);
+//        retrofit2.Call<User_Detail> call = api.getDetailUser(pk,encode);
+//        call.enqueue(new retrofit2.Callback<User_Detail>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
+//                if (response.isSuccessful()) {
+//                    String stphone = response.body().getProfile().getTelephone();
+//                    tv_phone.setText(method(stphone));
+//                }
+//            }
+//            @Override
+//            public void onFailure(retrofit2.Call<User_Detail> call, Throwable t) {
+//
+//            }
+//        });
+//    }
     private void getShop_Detail(int id) {
         Service api = Client.getClient().create(Service.class);
         retrofit2.Call<ShopViewModel> call = api.getDealerShop(id);
@@ -243,6 +243,8 @@ public class List_store_post extends Fragment {
                     tv_location.setText(response.body().getShop_address());
                     tv_rate.setText(String.valueOf(response.body().getShop_rate()));
                     tv_viewcount.setText(String.valueOf(response.body().getShop_view()));
+                    String stphone = response.body().getShop_phonenumber();
+                    tv_phone.setText(method(stphone));
                     String image = response.body().getShop_image();
                     Glide.with(List_store_post.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
                         @Override

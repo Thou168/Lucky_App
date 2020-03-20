@@ -22,10 +22,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bt_121shoppe.motorbike.Activity.Detail_new_post_java;
 import com.bt_121shoppe.motorbike.Activity.Postbyuser_Class;
+import com.bt_121shoppe.motorbike.Api.ConsumeAPI;
+import com.bt_121shoppe.motorbike.Api.User;
+import com.bt_121shoppe.motorbike.Api.api.adapter.Adapter_ListStore;
+import com.bt_121shoppe.motorbike.Api.responses.APIStorePostResponse;
 import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
@@ -36,12 +41,21 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_delete;
 import com.bt_121shoppe.motorbike.Product_New_Post.Detail_New_Post;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
+import com.bt_121shoppe.motorbike.homes.HomeAllPostAdapter;
+import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
+import com.bt_121shoppe.motorbike.models.StorePostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,7 +70,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     private List<Item> mPostList;
     SharedPreferences prefer;
     String name,pass,basic_Encode;
-    int pk=0;
+    int pk=0,shopID=0,id=0;
     String key = "";
 
     public UserPostActiveAdapter(List<Item> postlist){
@@ -137,7 +151,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvColor1=itemView.findViewById(R.id.tv_color1);
             tvColor2=itemView.findViewById(R.id.tv_color2);
             pending_appprove=itemView.findViewById(R.id.pending_appprove);
-//            user_active=itemView.findViewById(R.id.linear_userActive);
+            user_active=itemView.findViewById(R.id.linear_userActive);
         }
 
         @Override
@@ -242,6 +256,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
                 btSold.setVisibility(View.GONE);
                 btRenewal.setVisibility(View.GONE);
+                user_active.setVisibility(View.GONE);
             }else{
                 //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
                 pending_appprove.setText(R.string.approveval);
@@ -490,6 +505,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                     clearDialog.show();
                 }
             });
+
             Double finalPrice=cost;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

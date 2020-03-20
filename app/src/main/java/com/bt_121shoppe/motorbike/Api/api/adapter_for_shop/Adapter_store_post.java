@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -120,6 +121,7 @@ public class ViewHolder extends BaseViewHolder{
     TextView cate;
     TextView tvColor1,tvColor2;
     TextView pending_appprove;
+    LinearLayout user_active;
     public ViewHolder(View itemView){
         super(itemView);
         ds_price=itemView.findViewById(R.id.ds_price);
@@ -139,6 +141,7 @@ public class ViewHolder extends BaseViewHolder{
         tvColor1=itemView.findViewById(R.id.tv_color1);
         tvColor2=itemView.findViewById(R.id.tv_color2);
         pending_appprove=itemView.findViewById(R.id.pending_appprove);
+        user_active=itemView.findViewById(R.id.relative);
     }
 
     @Override
@@ -273,6 +276,7 @@ public class ViewHolder extends BaseViewHolder{
             pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
             btRenewal.setTextColor(Color.parseColor("#0A0909"));
             btRenewal.setText(R.string.renew);
+            user_active.setVisibility(View.GONE);
         }else{
             //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
             pending_appprove.setText(R.string.approveval);
@@ -484,6 +488,8 @@ public class ViewHolder extends BaseViewHolder{
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(itemView.getContext(), Postbyuser_Class.class);
+                intent.putExtra("store","FromStore");
+                intent.putExtra("shopid", item.getId());
                 intent.putExtra("Price", mPost.getCost());
                 intent.putExtra("Discount", finalPrice);
                 if (mPost.getStatus()==3){
