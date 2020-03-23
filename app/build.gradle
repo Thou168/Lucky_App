@@ -157,4 +157,6 @@ dependencies {
     implementation 'ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.1.0'
 
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
+
+    implementation 'com.github.skydoves:colorpickerpreference:1.0.2'
 }

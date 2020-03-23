@@ -458,9 +458,16 @@
                     android:visibility="gone"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16">
+
+                    <com.skydoves.colorpickerpreference.ColorPickerView
+                        android:id="@+id/colorPickerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:palette="@drawable/palette"
+                        app:selector="@drawable/wheel" />
 
                 </RelativeLayout>
 

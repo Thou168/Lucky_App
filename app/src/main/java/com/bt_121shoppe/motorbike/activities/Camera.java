@@ -108,6 +108,9 @@ import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.skydoves.colorpickerpreference.ColorEnvelope;
+import com.skydoves.colorpickerpreference.ColorListener;
+import com.skydoves.colorpickerpreference.ColorPickerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -188,6 +191,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private GridView gridView;
     private LocationManager locationManager;
     private double latitude,longtitude;
+    private ColorPickerView colorPickerView;
 
     private SeekBar seekbar_pri_per,seekbar_rear,seekbar_screw,seekbar_pumps,seekbar_rigt_engine,seekbar_engine_head;
     private SeekBar seekbar_assmebly,seekbar_console,seekbar_accessories,seekbar_whole;
@@ -2710,7 +2714,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         imgAdd_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                layout_color.setBackground(getDrawable(R.color.light_gray));
+//                layout_color.setBackground(getDrawable(R.color.light_gray));
                 layout_color.setVisibility(View.VISIBLE);
                 cancel_color.setVisibility(View.VISIBLE);
                 imgAdd_color.setVisibility(View.GONE);
@@ -2722,6 +2726,13 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 layout_color.setVisibility(View.GONE);
                 imgAdd_color.setVisibility(View.VISIBLE);
                 cancel_color.setVisibility(View.GONE);
+            }
+        });
+        colorPickerView.setColorListener(new ColorListener() {
+            @Override
+            public void onColorSelected(ColorEnvelope colorEnvelope) {
+                strColor = "#"+colorEnvelope.getColorHtml();
+                Log.e("picker color",""+strColor);
             }
         });
 
@@ -2929,6 +2940,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         imageMap     = (ImageView) findViewById(R.id.map);
 
         gridView     = (GridView) findViewById(R.id.gridview);
+
+        colorPickerView = (ColorPickerView) findViewById(R.id.colorPickerView);
 
     }
 
