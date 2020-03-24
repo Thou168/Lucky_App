@@ -402,7 +402,8 @@ public class CommonFunction {
                 hexColor="#002266";
                 break;
             default:
-                hexColor="#00000000";
+//                hexColor="#00000000";
+                hexColor = color;
                 break;
         }
         Log.e("TAG","Color with Code "+color+":"+hexColor);
