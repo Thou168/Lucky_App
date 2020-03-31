@@ -67,6 +67,14 @@ public class ShopViewModel {
         return shop_address;
     }
 
+    public String getShop_address_map() {
+        return shop_address_map;
+    }
+
+    public void setShop_address_map(String shop_address_map) {
+        this.shop_address_map = shop_address_map;
+    }
+
     public String getShop_image() {
         return shop_image;
     }

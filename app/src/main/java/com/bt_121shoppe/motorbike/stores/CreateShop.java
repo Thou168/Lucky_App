@@ -543,7 +543,7 @@ public class CreateShop extends AppCompatActivity {
                             String shop = editShopname.getText().toString();
                             String address = editAddress.getText().toString();
                             String shop_phonenumber = editPhone.getText().toString()+","+editPhone1.getText().toString()+","+editPhone2.getText().toString();
-                            userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new,shop_phonenumber));
+                            userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new,shop_phonenumber,lat_long));
                             if(userShops.size()>0){
                                 for(int i=0;i<userShops.size();i++){
                                     if(userShops.get(i).isEdit())
@@ -573,6 +573,8 @@ public class CreateShop extends AppCompatActivity {
             //post1.put("shop_province",usershop.getShop_address());
             post1.put("shop_province",selectedProvinceId==0?1:selectedProvinceId);
             post1.put("shop_phonenumber",usershop.getShop_phonenumber());
+            post1.put("shop_address_map",usershop.getShop_address_map());
+            Log.e("map",""+usershop.getShop_address_map());
             post1.put("record_status",1);
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
@@ -653,6 +655,8 @@ public class CreateShop extends AppCompatActivity {
             //post1.put("shop_province",usershop.getShop_address());
             post1.put("shop_province",selectedProvinceId==0?1:selectedProvinceId);
             post1.put("shop_phonenumber",usershop.getShop_phonenumber());
+            post1.put("shop_address_map",usershop.getShop_address_map());
+            Log.e("map",""+usershop.getShop_address_map());
             if(usershop.getShop_image()==null){
                 post1.put("shop_image",null);
             }else{
@@ -939,6 +943,32 @@ public class CreateShop extends AppCompatActivity {
                         editPhone2.setText(String.valueOf(splitPhone[2]));
                     }
 //                    editPhone.setText(method(stphone));
+                    Geocoder geocoder;
+                    List<Address> addresses;
+                    geocoder = new Geocoder(getApplication(), Locale.getDefault());
+                    String locat = response.body().getShop_address_map();
+                    if (!locat.isEmpty()) {
+                        String add[] = locat.split(",");
+                        Double latetitude = Double.parseDouble(add[0]);
+                        Double longtitude = Double.parseDouble(add[1]);
+                        try {
+                            addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                            String road = addresses.get(0).getAddressLine(0);
+                            if (road.length() > 30) {
+                                String loca = road.substring(0,30) + "...";
+                                if (road != null){
+                                    if (road.length() > 30) {
+                                        String locatee = road.substring(0,30) + "...";
+                                        editMap.setText(locatee);
+                                    }
+                                }else {
+                                    editMap.setText(loca);
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     selectedProvinceId=response.body().getShop_province();
                     retrofit2.Call<Province> call1=api.getProvince(selectedProvinceId);

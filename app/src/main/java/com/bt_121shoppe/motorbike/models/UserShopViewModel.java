@@ -15,10 +15,11 @@ public class UserShopViewModel {
     private String shop_image_path;
     private boolean isEdit;
     private boolean isAddNew;
+    private String shop_address_map;
 
     public UserShopViewModel(){}
 
-    public UserShopViewModel(int id,int user,String shop_name,String shop_address,Bitmap shop_image,int record_status,String shop_image_path,boolean isEdit,boolean isAddNew,String shop_phonenumber){
+    public UserShopViewModel(int id,int user,String shop_name,String shop_address,Bitmap shop_image,int record_status,String shop_image_path,boolean isEdit,boolean isAddNew,String shop_phonenumber,String shop_address_map){
         this.id=id;
         this.user=user;
         this.shop_name=shop_name;
@@ -29,6 +30,7 @@ public class UserShopViewModel {
         this.shop_image_path=shop_image_path;
         this.isEdit=isEdit;
         this.isAddNew=isAddNew;
+        this.shop_address_map=shop_address_map;
     }
 
     public int getId() { return id; }
@@ -107,5 +109,13 @@ public class UserShopViewModel {
 
     public void setShop_phonenumber(String shop_phonenumber) {
         this.shop_phonenumber = shop_phonenumber;
+    }
+
+    public String getShop_address_map() {
+        return shop_address_map;
+    }
+
+    public void setShop_address_map(String shop_address_map) {
+        this.shop_address_map = shop_address_map;
     }
 }

@@ -74,6 +74,7 @@ import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
 import com.bt_121shoppe.motorbike.loan.child.one;
+import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
 import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
@@ -175,7 +176,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private int process_type=0,category=0;
     private int cate=0,brand=0,model=0,year=0,type=0;
     private int id_typeother;
-    private int selectedIndex;
+    private int selectedIndex,selectedProvinceId;
     private File mPhotoFile;
     private FileCompressor mCompressor;
     private SharedPreferences prefer,pre_id;
@@ -363,8 +364,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }
             if (shopId>0){
                 getInfo_store(pk,Encode);
-                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                getLocation(true);
             }
 
             Glide.with(Camera.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
@@ -1269,6 +1268,53 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 if(response.isSuccessful()){
                     etName.setText(response.body().getShop_name());
                     etAddress.setText(response.body().getShop_address());
+
+                    selectedProvinceId=response.body().getShop_province();
+                    retrofit2.Call<Province> call1=api.getProvince(selectedProvinceId);
+                    call1.enqueue(new retrofit2.Callback<Province>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<Province> call, retrofit2.Response<Province> response) {
+                            TextView tvAddressTitle=findViewById(R.id.tv_address);
+                            if(response.isSuccessful()){
+                                if(tvAddressTitle.getText().toString().equals("Address"))
+                                    etAddress.setText(response.body().getProvince());
+                                else
+                                    etAddress.setText(response.body().getProvince_kh());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<Province> call, Throwable t) {
+
+                        }
+                    });
+
+                    Geocoder geocoder;
+                    List<Address> addresses;
+                    geocoder = new Geocoder(getApplication(), Locale.getDefault());
+                    String locat = response.body().getShop_address_map();
+                    if (!locat.isEmpty()) {
+                        String add[] = locat.split(",");
+                        Double latetitude = Double.parseDouble(add[0]);
+                        Double longtitude = Double.parseDouble(add[1]);
+                        try {
+                            addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                            String road = addresses.get(0).getAddressLine(0);
+                            if (road.length() > 30) {
+                                String loca = road.substring(0,30) + "...";
+                                if (road != null){
+                                    if (road.length() > 30) {
+                                        String locatee = road.substring(0,30) + "...";
+                                        etMap.setText(locatee);
+                                    }
+                                }else {
+                                    etMap.setText(loca);
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     user_phone = response.body().getShop_phonenumber();
                     String[] splitPhone = user_phone.split(",");
