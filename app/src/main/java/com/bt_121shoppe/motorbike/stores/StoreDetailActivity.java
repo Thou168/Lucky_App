@@ -200,6 +200,7 @@ public class StoreDetailActivity extends AppCompatActivity {
         });
 
         setupAllPosts(index);
+
         call_function();
         filter=findViewById(R.id.filter_detail);
         filter.setOnClickListener(new View.OnClickListener(){

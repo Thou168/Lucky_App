@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Innovattic:range-seek-bar:v1.0.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b5cd9b5492468338e9494b1eaa299774/range-seek-bar-v1.0.6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b5cd9b5492468338e9494b1eaa299774/range-seek-bar-v1.0.6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e756566b2e03240623dbac3234d068e5/jetified-range-seek-bar-v1.0.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e756566b2e03240623dbac3234d068e5/jetified-range-seek-bar-v1.0.6/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

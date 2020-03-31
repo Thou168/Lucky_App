@@ -21,10 +21,12 @@ import com.bt_121shoppe.motorbike.Api.User;
 import com.bt_121shoppe.motorbike.Api.api.AllResponse;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
+import com.bt_121shoppe.motorbike.Api.api.model.detail_shop;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.adapters.AllPostAdapter;
 import com.bt_121shoppe.motorbike.models.PostProduct;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
+import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
@@ -235,25 +237,47 @@ if(mPost.getPost_sub_title()!=null)
             itemView.getContext().startActivity(intent);
         }
     });
-    // 05 09 19 thou
-    try{
-        Service api = Client.getClient().create(Service.class);
-        Call<User> call = api.getuser(Integer.parseInt(mPost.getCreated_by()));
-        call.enqueue(new retrofit2.Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (!response.isSuccessful()){
-                    //Log.d("12122121", String.valueOf(response.code()));
+    // 05 09 19 thou, updated by TTerd Mar 30 2020
+    if(mPost.getDealer_shops().size()==0){
+        try{
+            Service api = Client.getClient().create(Service.class);
+            Call<User> call = api.getuser(Integer.parseInt(mPost.getCreated_by()));
+            call.enqueue(new retrofit2.Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (!response.isSuccessful()){
+                        //Log.d("12122121", String.valueOf(response.code()));
+                    }
+                    CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
                 }
-                CommomAPIFunction.getUserProfileFB(itemView.getContext(),img_user,response.body().getUsername());
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.d("Error",t.getMessage());
+                }
+            });
+        }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
+    }else{
+        detail_shop shopViewModel=mPost.getDealer_shops().get(0);
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<ShopViewModel> call1=api.getDealerShop(shopViewModel.getShop());
+        call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                if (response.body().getShop_image()==null) {
+                    Glide.with(itemView.getContext()).load(R.drawable.group_2293).thumbnail(0.1f).into(img_user);
+                } else {
+                    Glide.with(itemView.getContext()).load(response.body().getShop_image()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(img_user);
+                }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("Error",t.getMessage());
+            public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
             }
         });
-    }catch (Exception e){ Log.d("TRY CATCH",e.getMessage());}
+    }
+
 
     //count view
     try{

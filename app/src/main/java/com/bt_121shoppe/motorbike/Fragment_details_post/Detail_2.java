@@ -142,7 +142,7 @@ public class Detail_2 extends Fragment {
         detail_fragment_2(Encode);
     }
 
-    private void getUserProfile(int id,String encode){
+    private void getUserProfile(int id,boolean isShop,detail_shop shop){
         String URL_ENDPOINT=ConsumeAPI.BASE_URL+"api/v1/users/"+id;
         MediaType MEDIA_TYPE=MediaType.parse("application/json");
         OkHttpClient client= new  OkHttpClient();
@@ -165,13 +165,33 @@ public class Detail_2 extends Fragment {
                 Gson gson = new  Gson();
                 try {
                     User user1= gson.fromJson(mMessage,User.class);
-                    Log.d(TAG,"TAH"+mMessage);
+                    //Log.d(TAG,"TAH"+mMessage);
 
                     if (getActivity()!=null){
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                CommomAPIFunction.getUserProfileFB(getActivity(),cr_img,user1.getUsername());
+
+                                if(isShop){
+                                    Service api=Client.getClient().create(Service.class);
+                                    retrofit2.Call<ShopViewModel> call1=api.getDealerShop(shop.getShop());
+                                    call1.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                                        @Override
+                                        public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                                            if (response.body().getShop_image()==null) {
+                                                Glide.with(getActivity()).load(R.drawable.group_2293).thumbnail(0.1f).into(cr_img);
+                                            } else {
+                                                Glide.with(getActivity()).load(response.body().getShop_image()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(cr_img);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                                        }
+                                    });
+                                }else
+                                    CommomAPIFunction.getUserProfileFB(getActivity(),cr_img,user1.getUsername());
 //                                if (g!=3) {
                                     if (user1.getFirst_name() == null)
                                         postUsername = user1.getUsername();
@@ -197,6 +217,7 @@ public class Detail_2 extends Fragment {
         String url;
         Request request;
         String auth = "Basic" + encode;
+        //Log.e("TAG","Detail 2 post id "+postId);
         if (pt==1){
             url = ConsumeAPI.BASE_URL + "postbyuser/" + postId;
             request = new  Request.Builder()
@@ -215,6 +236,13 @@ public class Detail_2 extends Fragment {
                     .build();
         }
 
+//        url = ConsumeAPI.BASE_URL + "posts/" + postId;
+//        request = new  Request.Builder()
+//                .url(url)
+//                .header("Accept","application/json")
+//                .header("Content-Type", "application/json")
+//                .build();
+
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -232,7 +260,7 @@ public class Detail_2 extends Fragment {
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(() -> {
                             postDetail = json.fromJson(mMessage, PostViewModel.class);
-                            Log.e(TAG, "D" + mMessage);
+                            Log.e(TAG, "D" + postDetail.getDealer_shops().size());
                             Service api = Client.getClient().create(Service.class);
                             retrofit2.Call<APIStorePostResponse> call1=api.GetStorePostItembyPost(postId);
                             call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
@@ -254,8 +282,10 @@ public class Detail_2 extends Fragment {
 //                            username.setText(postDetail.getMachine_code());
 
                             int created_by = Integer.parseInt(postDetail.getCreated_by());
-                            getUserProfile(created_by, auth);
-
+                            if(postDetail.getDealer_shops().size()>0)
+                                getUserProfile(created_by, true,postDetail.getDealer_shops().get(0));
+                            else
+                                getUserProfile(created_by,false,null);
                             //shop name
 
                             for (int i = 0; i < postDetail.getDealer_shops().size(); i++) {

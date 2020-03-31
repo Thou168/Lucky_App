@@ -218,7 +218,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
-        Log.d("Pk",""+pk);
+        //Log.d("Pk",""+pk);
         //ButterKnife.bind(this);
         //check active and deactive account by samang 2/09/19
         Active_user activeUser = new Active_user();
@@ -246,14 +246,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_post);
         DropDown();
         mSeekbar();
-        initialUserInformation(pk,Encode);
-
         show_ID.setText(String.valueOf(CommonFunction.generateRandomDigits(9)));
 
         bundle = getIntent().getExtras();
         if (bundle!=null) {
             shopId=bundle.getInt("shopId",0);
-            Log.e(TAG,"shop Id "+shopId);
+            //Log.e(TAG,"create post shop Id "+shopId);
             post               = bundle.getString("post");
             road               = bundle.getString("road");
             latlng             = bundle.getString("location");
@@ -457,6 +455,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             getLocation(true);
         }
+        //initialUserInformation(pk,Encode);
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1270,21 +1269,48 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 if(response.isSuccessful()){
                     etName.setText(response.body().getShop_name());
                     etAddress.setText(response.body().getShop_address());
-                    Service api = Client.getClient().create(Service.class);
-                    retrofit2.Call<User_Detail> call1 = api.getDetailUser(pk,encode);
-                    call1.enqueue(new retrofit2.Callback<User_Detail>() {
-                        @Override
-                        public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
-                            if (response.isSuccessful()) {
-                                String stphone = response.body().getProfile().getTelephone();
-                                etPhone1.setText(method(stphone));
-                            }
-                        }
-                        @Override
-                        public void onFailure(retrofit2.Call<User_Detail> call, Throwable t) {
 
-                        }
-                    });
+                    user_phone = response.body().getShop_phonenumber();
+                    String[] splitPhone = user_phone.split(",");
+                    if (splitPhone.length == 1) {
+                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                    }
+                    else if (splitPhone.length == 2){
+                        tv_cancel.setVisibility(View.VISIBLE);
+                        tv_add.setVisibility(View.GONE);
+                        tv_add1.setVisibility(View.VISIBLE);
+                        layout_phone1.setVisibility(View.VISIBLE);
+                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                        etPhone2.setText(String.valueOf(splitPhone[1]));
+                    } else if (splitPhone.length == 3) {
+                        tv_cancel.setVisibility(View.VISIBLE);
+                        tv_add.setVisibility(View.GONE);
+                        tv_add1.setVisibility(View.GONE);
+                        layout_phone1.setVisibility(View.VISIBLE);
+                        layout_phone2.setVisibility(View.VISIBLE);
+                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                        etPhone2.setText(String.valueOf(splitPhone[1]));
+                        etPhone3.setText(String.valueOf(splitPhone[2]));
+                    }
+
+
+//                    Service api = Client.getClient().create(Service.class);
+//                    retrofit2.Call<User_Detail> call1 = api.getDetailUser(pk,encode);
+//                    call1.enqueue(new retrofit2.Callback<User_Detail>() {
+//                        @Override
+//                        public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
+//                            if (response.isSuccessful()) {
+//                                String stphone = response.body().getProfile().getTelephone();
+//                                etPhone1.setText(method(stphone));
+//
+//
+//                            }
+//                        }
+//                        @Override
+//                        public void onFailure(retrofit2.Call<User_Detail> call, Throwable t) {
+//
+//                        }
+//                    });
                 }
             }
 
@@ -1304,100 +1330,142 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     }
 
     private void initialUserInformation(int pk, String encode) {
-//        if (bundle==null || bundle.isEmpty()) {
-        final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "api/v1/users/", pk);
-        MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        //Log.d(TAG,"tt"+url);
-        OkHttpClient client = new OkHttpClient();
 
-        String auth = "Basic " + encode;
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .header("Authorization", auth)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String respon = response.body().string();
-                Gson gson = new Gson();
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+        if(shopId==0){
+            final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "api/v1/users/", pk);
+            MediaType MEDIA_TYPE = MediaType.parse("application/json");
+            OkHttpClient client = new OkHttpClient();
+
+            String auth = "Basic " + encode;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", auth)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String respon = response.body().string();
+                    Gson gson = new Gson();
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 //                                User converJsonJava = new User();
-                            if (bundle == null || bundle.isEmpty()) {
-                                User converJsonJava = gson.fromJson(respon, User.class);
-                                int g = converJsonJava.getProfile().getGroup();
-                                id_typeother = g;
-                                etEmail.setText(converJsonJava.getEmail());
+                                if (bundle == null || bundle.isEmpty()) {
+                                    User converJsonJava = gson.fromJson(respon, User.class);
+                                    int g = converJsonJava.getProfile().getGroup();
+                                    id_typeother = g;
+                                    etEmail.setText(converJsonJava.getEmail());
 
-                                if (converJsonJava.getProfile().getTelephone() != null) {
-                                    user_phone = converJsonJava.getProfile().getTelephone();
-                                    String[] splitPhone = user_phone.split(",");
-                                    if (splitPhone.length == 1) {
-                                        etPhone1.setText(String.valueOf(splitPhone[0]));
+                                    if (converJsonJava.getProfile().getTelephone() != null) {
+                                        user_phone = converJsonJava.getProfile().getTelephone();
+                                        String[] splitPhone = user_phone.split(",");
+                                        if (splitPhone.length == 1) {
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                        }
+                                        else if (splitPhone.length == 2){
+                                            tv_cancel.setVisibility(View.VISIBLE);
+                                            tv_add.setVisibility(View.GONE);
+                                            tv_add1.setVisibility(View.VISIBLE);
+                                            layout_phone1.setVisibility(View.VISIBLE);
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                                        } else if (splitPhone.length == 3) {
+                                            tv_cancel.setVisibility(View.VISIBLE);
+                                            tv_add.setVisibility(View.GONE);
+                                            tv_add1.setVisibility(View.GONE);
+                                            layout_phone1.setVisibility(View.VISIBLE);
+                                            layout_phone2.setVisibility(View.VISIBLE);
+                                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                                            etPhone3.setText(String.valueOf(splitPhone[2]));
+                                        }
                                     }
-                                    else if (splitPhone.length == 2){
-                                        tv_cancel.setVisibility(View.VISIBLE);
-                                        tv_add.setVisibility(View.GONE);
-                                        tv_add1.setVisibility(View.VISIBLE);
-                                        layout_phone1.setVisibility(View.VISIBLE);
-                                        etPhone1.setText(String.valueOf(splitPhone[0]));
-                                        etPhone2.setText(String.valueOf(splitPhone[1]));
-                                    } else if (splitPhone.length == 3) {
-                                        tv_cancel.setVisibility(View.VISIBLE);
-                                        tv_add.setVisibility(View.GONE);
-                                        tv_add1.setVisibility(View.GONE);
-                                        layout_phone1.setVisibility(View.VISIBLE);
-                                        layout_phone2.setVisibility(View.VISIBLE);
-                                        etPhone1.setText(String.valueOf(splitPhone[0]));
-                                        etPhone2.setText(String.valueOf(splitPhone[1]));
-                                        etPhone3.setText(String.valueOf(splitPhone[2]));
+                                    user_address = converJsonJava.getProfile().getAddress();
+                                    if(!user_address.isEmpty()){
+                                        etAddress.setText(user_address);
                                     }
-                                }
-                                user_address = converJsonJava.getProfile().getAddress();
-                                if(!user_address.isEmpty()){
-                                    etAddress.setText(user_address);
-                                }
-                                //dealer shop section
-                                if (g == 3) {
+                                    //dealer shop section
+                                    if (g == 3) {
 //                                        txtOther_main.setVisibility(View.VISIBLE);
 //                                        relative_othermain.setVisibility(View.VISIBLE);
 
-                                    /* dealer shop */
-                                    //CommonFunction.initialDealer(converJsonJava.getShops());
+                                        /* dealer shop */
+                                        //CommonFunction.initialDealer(converJsonJava.getShops());
 
-                                    List<String> shopname = new ArrayList<>();
-                                    if (converJsonJava.getShops().size() > 0) {
+                                        List<String> shopname = new ArrayList<>();
+                                        if (converJsonJava.getShops().size() > 0) {
 
-                                        shopListItems=new String[converJsonJava.getShops().size()];
-                                        shopIdListItems=new int[converJsonJava.getShops().size()];
+                                            shopListItems=new String[converJsonJava.getShops().size()];
+                                            shopIdListItems=new int[converJsonJava.getShops().size()];
 
-                                        for(int i=0;i<converJsonJava.getShops().size();i++){
-                                            ShopViewModel shopViewModel = converJsonJava.getShops().get(i);
-                                            shopListItems[i]=shopViewModel.getShop_name();
-                                            shopIdListItems[i]=shopViewModel.getId();
+                                            for(int i=0;i<converJsonJava.getShops().size();i++){
+                                                ShopViewModel shopViewModel = converJsonJava.getShops().get(i);
+                                                shopListItems[i]=shopViewModel.getShop_name();
+                                                shopIdListItems[i]=shopViewModel.getId();
+                                            }
+
                                         }
 
+                                        Log.e("TAG",shopListItems.toString());
                                     }
-
-                                    Log.e("TAG",shopListItems.toString());
                                 }
                             }
-                        }
-                    });
-                } catch (JsonParseException e) {
-                    e.printStackTrace();
+                        });
+                    } catch (JsonParseException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call call, IOException e) {
+                @Override
+                public void onFailure(Call call, IOException e) {
 
-            }
-        });
+                }
+            });
+        }else{
+            Log.e("TAG","initital user information shop id "+shopId);
+            Service api=Client.getClient().create(Service.class);
+            retrofit2.Call<ShopViewModel> shopViewModelCall=api.getDealerShop(shopId);
+            shopViewModelCall.enqueue(new retrofit2.Callback<ShopViewModel>() {
+                @Override
+                public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
+                    if(response.isSuccessful()){
+                        ShopViewModel shopViewModel=response.body();
+                        user_phone = shopViewModel.getShop_phonenumber();
+                        String[] splitPhone = user_phone.split(",");
+                        if (splitPhone.length == 1) {
+                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                        }
+                        else if (splitPhone.length == 2){
+                            tv_cancel.setVisibility(View.VISIBLE);
+                            tv_add.setVisibility(View.GONE);
+                            tv_add1.setVisibility(View.VISIBLE);
+                            layout_phone1.setVisibility(View.VISIBLE);
+                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                        } else if (splitPhone.length == 3) {
+                            tv_cancel.setVisibility(View.VISIBLE);
+                            tv_add.setVisibility(View.GONE);
+                            tv_add1.setVisibility(View.GONE);
+                            layout_phone1.setVisibility(View.VISIBLE);
+                            layout_phone2.setVisibility(View.VISIBLE);
+                            etPhone1.setText(String.valueOf(splitPhone[0]));
+                            etPhone2.setText(String.valueOf(splitPhone[1]));
+                            etPhone3.setText(String.valueOf(splitPhone[2]));
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<ShopViewModel> call, Throwable t) {
+
+                }
+            });
+        }
+
     }
 
     private void PostData(String encode) {

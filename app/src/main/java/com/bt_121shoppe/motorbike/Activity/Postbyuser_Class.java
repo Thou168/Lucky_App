@@ -461,6 +461,9 @@ public class Postbyuser_Class extends AppCompatActivity {
                             tv_model.setText("");
                         }
 
+                        if(postDetail.getStatus()==3)
+                            edit.setVisibility(View.GONE);
+
                         //for section
                         //Convert
                         double db_e1 = Double.valueOf(postDetail.getUsed_eta1());
@@ -502,45 +505,81 @@ public class Postbyuser_Class extends AppCompatActivity {
 
                         //post owner name
                         int created_by = Integer.parseInt(postDetail.getCreated_by());
-                        getUserProfile(created_by, auth);
 
-                        //phone number
-                        if (from_store != null) {
-                            getShop_Detail(shopID);
+                        if(postDetail.getDealer_shops().size()==0)
+                            getUserProfile(created_by, auth);
+                        else
+                            getShop_Detail(postDetail.getDealer_shops().get(0).getShop());
+
+                        String contact_phone = postDetail.getContact_phone();
+                        String[] splitPhone = contact_phone.split(",");
+                        if (splitPhone.length == 1) {
+                            tv_phone.setText(splitPhone[0]);
+                        } else if (splitPhone.length == 2) {
+                            tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1]);
+                        } else if (splitPhone.length == 3) {
+                            tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1] + "\n" + splitPhone[2]);
+                        }
+                        //address
+                        String addr = postDetail.getContact_address();
+                        if (addr.isEmpty()) {
+
                         } else {
-                            //phone number
-                            String contact_phone = postDetail.getContact_phone();
-                            String[] splitPhone = contact_phone.split(",");
-                            if (splitPhone.length == 1) {
-                                tv_phone.setText(splitPhone[0]);
-                            } else if (splitPhone.length == 2) {
-                                tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1]);
-                            } else if (splitPhone.length == 3) {
-                                tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1] + "\n" + splitPhone[2]);
-                            }
-                            //address
-                            String addr = postDetail.getContact_address();
-                            if (addr.isEmpty()) {
-
-                            } else {
-                                String[] splitAddr = (addr.split(","));
-                                latitude = Double.valueOf(splitAddr[0]);
-                                longtitude = Double.valueOf(splitAddr[1]);
-                                try {
-                                    Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
-                                    List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
-                                    String select_add = addresses.get(0).getAddressLine(0);
-                                    if (addresses.isEmpty()) {
-                                        tv_address.setText("no location");
-                                    } else {
-                                        addresses.size();
-                                        tv_address.setText(select_add);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                            String[] splitAddr = (addr.split(","));
+                            latitude = Double.valueOf(splitAddr[0]);
+                            longtitude = Double.valueOf(splitAddr[1]);
+                            try {
+                                Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+                                String select_add = addresses.get(0).getAddressLine(0);
+                                if (addresses.isEmpty()) {
+                                    tv_address.setText("no location");
+                                } else {
+                                    addresses.size();
+                                    tv_address.setText(select_add);
                                 }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
+
+                        //phone number
+//                        if (from_store != null) {
+//                            getShop_Detail(shopID);
+//                        } else {
+//                            //phone number
+//                            String contact_phone = postDetail.getContact_phone();
+//                            String[] splitPhone = contact_phone.split(",");
+//                            if (splitPhone.length == 1) {
+//                                tv_phone.setText(splitPhone[0]);
+//                            } else if (splitPhone.length == 2) {
+//                                tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1]);
+//                            } else if (splitPhone.length == 3) {
+//                                tv_phone.setText(splitPhone[0] + "\n" + splitPhone[1] + "\n" + splitPhone[2]);
+//                            }
+//                            //address
+//                            String addr = postDetail.getContact_address();
+//                            if (addr.isEmpty()) {
+//
+//                            } else {
+//                                String[] splitAddr = (addr.split(","));
+//                                latitude = Double.valueOf(splitAddr[0]);
+//                                longtitude = Double.valueOf(splitAddr[1]);
+//                                try {
+//                                    Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
+//                                    List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+//                                    String select_add = addresses.get(0).getAddressLine(0);
+//                                    if (addresses.isEmpty()) {
+//                                        tv_address.setText("no location");
+//                                    } else {
+//                                        addresses.size();
+//                                        tv_address.setText(select_add);
+//                                    }
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
 
                         tv_email.setText(postDetail.getContact_email());
 
@@ -614,9 +653,11 @@ public class Postbyuser_Class extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<ShopViewModel> call, retrofit2.Response<ShopViewModel> response) {
                 if (response.isSuccessful()) {
-                    tv_address.setText(response.body().getShop_address());
-                    String stphone = response.body().getShop_phonenumber();
-                    tv_phone.setText(method(stphone));
+
+//                    tv_address.setText(response.body().getShop_address());
+//                    String stphone = response.body().getShop_phonenumber();
+//                    tv_phone.setText(method(stphone));
+                    tv_seller.setText(response.body().getShop_name());
                 }
             }
 

@@ -190,13 +190,18 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                     }
 
                     view.textViewStatus.setVisibility(View.VISIBLE);
-                    int status=(int)response.body().getStatus();
+
+                    //int status=(int)response.body().getStatus();
+                    int status=model.getLoan_status();
+                    //Log.e("TAG","Loan Status for pending "+status);
                     switch (status){
                         case 9:
+                        case 2:
                             view.textViewStatus.setText(R.string.pending);
                             view.textViewStatus.setTextColor(Color.parseColor("#CCCCCC"));
                             break;
                         case 10:
+                        case 4:
                             view.textViewStatus.setText(R.string.approveval);
                             view.textViewStatus.setTextColor(Color.parseColor("#43BF64"));
                             break;

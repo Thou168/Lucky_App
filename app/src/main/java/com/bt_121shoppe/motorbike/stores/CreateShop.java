@@ -642,7 +642,6 @@ public class CreateShop extends AppCompatActivity {
             je.printStackTrace();
         }
     }
-
     private void putUserShop(int id,UserShopViewModel usershop,String encode){
         String usershopurl= ConsumeAPI.BASE_URL+"api/v1/shop/"+id+"/";
         OkHttpClient client1=new OkHttpClient();
@@ -876,8 +875,9 @@ public class CreateShop extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<User_Detail> call, retrofit2.Response<User_Detail> response) {
                 if (response.isSuccessful()) {
-                    String stphone = response.body().getProfile().getTelephone();
-                    editPhone.setText(method(stphone));
+
+//                    String stphone = response.body().getProfile().getTelephone();
+//                    editPhone.setText(method(stphone));
                     editWing_account.setText(response.body().getProfile().getWing_account_name());
                     editWing_number.setText(response.body().getProfile().getWing_account_number());
                     String locat = response.body().getProfile().getResponsible_officer();
@@ -923,6 +923,9 @@ public class CreateShop extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     editShopname.setText(response.body().getShop_name());
                     //editAddress.setText(response.body().getShop_address());
+
+                    String stphone = response.body().getShop_phonenumber();
+                    editPhone.setText(method(stphone));
 
                     selectedProvinceId=response.body().getShop_province();
                     retrofit2.Call<Province> call1=api.getProvince(selectedProvinceId);

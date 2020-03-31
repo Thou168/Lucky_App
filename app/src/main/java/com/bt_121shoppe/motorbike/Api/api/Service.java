@@ -232,7 +232,7 @@ public interface Service {
     @GET("api/v1/postdealershop/?record_status=1&shop=")
     Call<APIStorePostResponse> GetStoreActivePost(@Query("shop") int shop);
 
-    @GET("api/v1/postdealershop/?record_status=4&shop=")
+    @GET("api/v1/postdealershop/?record_status=1&shop=")
     Call<APIStorePostResponse> GetStorePost(@Query("shop") int shop);
 
     @GET("api/v1/postdealershop/?record_status=2&shop=")
