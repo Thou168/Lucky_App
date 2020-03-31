@@ -693,7 +693,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                         // add call requestpermission by samang 27/08
                         if (ContextCompat.checkSelfPermission(Home.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
-                            ShowTestMessage();
+//                            ShowTestMessage();
                         }
                     }
 
@@ -735,19 +735,19 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         startActivityForResult(intent, 101);
     }
 
-    private void ShowTestMessage(){
-        Dialog builder =new  Dialog(this);
-        builder.setContentView(R.layout.dialog_custom);
-        builder.setCancelable(true);
-        Button btn_dialog=(Button) builder.findViewById(R.id.btn_dialog);
-        btn_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                builder.dismiss();
-            }
-        });
-        builder.show();
-    }
+//    private void ShowTestMessage(){
+//        Dialog builder =new  Dialog(this);
+//        builder.setContentView(R.layout.dialog_custom);
+//        builder.setCancelable(true);
+//        Button btn_dialog=(Button) builder.findViewById(R.id.btn_dialog);
+//        btn_dialog.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                builder.dismiss();
+//            }
+//        });
+//        builder.show();
+//    }
 
     private void SwitchLanguage(){
         Paper.init(this);

@@ -542,7 +542,7 @@ public class CreateShop extends AppCompatActivity {
                             obj = new JSONObject(message);
                             String shop = editShopname.getText().toString();
                             String address = editAddress.getText().toString();
-                            String shop_phonenumber = editPhone.getText().toString();
+                            String shop_phonenumber = editPhone.getText().toString()+","+editPhone1.getText().toString()+","+editPhone2.getText().toString();
                             userShops.add(new UserShopViewModel(mDealerShopId,pk,shop,address,bitmap,1,"",edit,add_new,shop_phonenumber));
                             if(userShops.size()>0){
                                 for(int i=0;i<userShops.size();i++){
@@ -925,7 +925,20 @@ public class CreateShop extends AppCompatActivity {
                     //editAddress.setText(response.body().getShop_address());
 
                     String stphone = response.body().getShop_phonenumber();
-                    editPhone.setText(method(stphone));
+                    String[] splitPhone = stphone.split(",");
+                    if (splitPhone.length == 1){
+                        editPhone.setText(String.valueOf(splitPhone[0]));
+                    }else if (splitPhone.length == 2){
+                        layout_phone1.setVisibility(View.VISIBLE);
+                        editPhone.setText(String.valueOf(splitPhone[0]));
+                        editPhone1.setText(String.valueOf(splitPhone[1]));
+                    }else if (splitPhone.length == 3){
+                        layout_phone2.setVisibility(View.VISIBLE);
+                        editPhone.setText(String.valueOf(splitPhone[0]));
+                        editPhone1.setText(String.valueOf(splitPhone[1]));
+                        editPhone2.setText(String.valueOf(splitPhone[2]));
+                    }
+//                    editPhone.setText(method(stphone));
 
                     selectedProvinceId=response.body().getShop_province();
                     retrofit2.Call<Province> call1=api.getProvince(selectedProvinceId);
