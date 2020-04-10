@@ -394,6 +394,16 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         return true;
     };
 
+    @Override
+    public void onBackPressed() {
+        if (selectedProvinceId != 0) {
+            initialStoreListData(0);
+            mButtonLocation.setText(getString(R.string.locaion));
+            selectedProvinceId = 0;
+        }else {
+            finish();
+        }
+    }
 
     @Override
     protected void onStart() {

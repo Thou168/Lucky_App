@@ -1294,6 +1294,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     geocoder = new Geocoder(getApplication(), Locale.getDefault());
                     String locat = response.body().getShop_address_map();
                     if (!locat.isEmpty()) {
+                        latlng = locat;
                         String add[] = locat.split(",");
                         Double latetitude = Double.parseDouble(add[0]);
                         Double longtitude = Double.parseDouble(add[1]);
@@ -1314,6 +1315,9 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }else {
+                        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                        getLocation(true);
                     }
 
                     user_phone = response.body().getShop_phonenumber();
@@ -1682,6 +1686,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 post.put("contact_email", etEmail.getText().toString());
             }
 
+            Log.e("latlong",""+latlng);
             post.put("contact_address", latlng);
 // end check
 
