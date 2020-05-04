@@ -200,8 +200,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 //finish();
                                         AlertDialog alertDialog = new AlertDialog.Builder(ResetPasswordActivity.this).create();
                                         alertDialog.setTitle(getString(R.string.reset_password_title));
-                                        alertDialog.setMessage("Your password has been reset.");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        alertDialog.setMessage(getString(R.string.ms_reset_password));
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         SharedPreferences.Editor editor = prefer.edit();

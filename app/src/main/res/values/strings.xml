@@ -1150,4 +1150,5 @@
     <string name="select_color">You cannot choose more than two colors.</string>
     <string name="dialog_camera">Camera</string>
     <string name="add_post">Add Post</string>
+    <string name="ms_reset_password">Your password has been reset.</string>
 </resources>

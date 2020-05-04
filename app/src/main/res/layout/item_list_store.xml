@@ -236,6 +236,17 @@
                     android:textAllCaps="false" />
 
                 <Button
+                    android:id="@+id/btndelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="#00FFFFFF"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="@string/sold"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:textSize="15sp" />
+                <Button
                     android:id="@+id/btnedit_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -247,17 +258,6 @@
                     android:gravity="center"
                     android:textSize="15sp" />
 
-                <Button
-                    android:id="@+id/btndelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:background="#00FFFFFF"
-                    android:fontFamily="@font/opensans_semibold"
-                    android:text="@string/sold"
-                    android:textAllCaps="false"
-                    android:gravity="center"
-                    android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
 <!--        <View style="@style/line"-->
