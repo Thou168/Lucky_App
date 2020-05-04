@@ -18,9 +18,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import com.bt_121shoppe.motorbike.loan.model.item_one;
 import com.bt_121shoppe.motorbike.loan.model.item_two;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Create_Load extends AppCompatActivity implements one.SendItemOne,two.SendItemTwo {
@@ -66,6 +69,15 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         Intent intent = getIntent();
+        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
 
         product_id = intent.getIntExtra("product_id",0);
         mLoandID = intent.getIntExtra("LoanID",0);
