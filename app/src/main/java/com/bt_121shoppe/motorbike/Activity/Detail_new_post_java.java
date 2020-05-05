@@ -27,10 +27,12 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -597,6 +599,11 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                         if (postDetail.getExtra_image2()!=null){
                             arrayList2.add(postDetail.getExtra_image2());
                         }
+                        DisplayMetrics displaymetrics = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                        int height = displaymetrics.heightPixels;
+                        ViewGroup.LayoutParams layoutParams = sliderImage.getLayoutParams();
+                        layoutParams.height = (height*30)/100;
                         sliderImage.setItems(arrayList2);
                         sliderImage.addTimerToSlide(3000);
                         sliderImage.removeTimerSlide();

@@ -27,7 +27,7 @@
                 <com.custom.sliderimage.logic.SliderImage
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="fill_parent" />
 
                 <RelativeLayout
                     android:background="@color/sunflower_black"
