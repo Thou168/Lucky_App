@@ -540,6 +540,8 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                            tvDiscountPer.setVisibility(View.VISIBLE);
 //                        }else {
                         double result=0;
+                        discount=Double.parseDouble(postDetail.getDiscount());
+
                         if (discount!=0.00) {
                             double pricefull = Double.parseDouble(postDetail.getCost());
                             double discountPrice = pricefull * (Double.parseDouble(postDetail.getDiscount()) / 100);

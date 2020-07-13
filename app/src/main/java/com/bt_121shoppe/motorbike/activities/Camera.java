@@ -364,6 +364,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             }
             if (shopId>0){
                 getInfo_store(pk,Encode);
+                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                getLocation(true,"");
             }
 
             Glide.with(Camera.this).asBitmap().load(image1).into(new CustomTarget<Bitmap>() {
@@ -452,9 +454,9 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             });
         }else {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            getLocation(true);
+            getLocation(true,"");
         }
-        //initialUserInformation(pk,Encode);
+        initialUserInformation(pk,Encode);
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1100,31 +1102,34 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             tvPostType.setText(R.string.bu);
                                         }
 
-                                        String condition = strCondition.substring(0, 1).toUpperCase() + strCondition.substring(1);
-                                        if (category == 2) {
-                                            type = 3;
-                                            tvType_elec.setVisibility(View.GONE);
-                                            tvType_cate.setVisibility(View.GONE);
-                                            if (condition.equals("New")){
-                                                tvCondition.setText(R.string.newl);
-                                                condition1 = "new";
-                                            }else if (condition.equals("Used")){
-                                                tvCondition.setText(R.string.used);
-                                                condition1 = "used";
-                                                layout_estimate.setVisibility(View.VISIBLE);
-                                            }
-                                        } else {
-                                            tvType_elec.setVisibility(View.VISIBLE);
-                                            tvType_cate.setVisibility(View.VISIBLE);
-                                            if (condition.equals("New")){
-                                                tvCondition.setText(R.string.newl);
-                                                condition1 = "new";
-                                            }else if (condition.equals("Used")){
-                                                tvCondition.setText(R.string.used);
-                                                condition1 = "used";
-                                                layout_estimate.setVisibility(View.GONE);
+                                        if(!strCondition.isEmpty()){
+                                            String condition = strCondition.substring(0, 1).toUpperCase() + strCondition.substring(1);
+                                            if (category == 2) {
+                                                type = 3;
+                                                tvType_elec.setVisibility(View.GONE);
+                                                tvType_cate.setVisibility(View.GONE);
+                                                if (condition.equals("New")){
+                                                    tvCondition.setText(R.string.newl);
+                                                    condition1 = "new";
+                                                }else if (condition.equals("Used")){
+                                                    tvCondition.setText(R.string.used);
+                                                    condition1 = "used";
+                                                    layout_estimate.setVisibility(View.VISIBLE);
+                                                }
+                                            } else {
+                                                tvType_elec.setVisibility(View.VISIBLE);
+                                                tvType_cate.setVisibility(View.VISIBLE);
+                                                if (condition.equals("New")){
+                                                    tvCondition.setText(R.string.newl);
+                                                    condition1 = "new";
+                                                }else if (condition.equals("Used")){
+                                                    tvCondition.setText(R.string.used);
+                                                    condition1 = "used";
+                                                    layout_estimate.setVisibility(View.GONE);
+                                                }
                                             }
                                         }
+
 
                                         Log.e("color",""+strColor);
 
@@ -1317,7 +1322,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         }
                     }else {
                         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                        getLocation(true);
+                        getLocation(true,"");
                     }
 
                     user_phone = response.body().getShop_phonenumber();
@@ -1403,7 +1408,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             @Override
                             public void run() {
 //                                User converJsonJava = new User();
-                                if (bundle == null || bundle.isEmpty()) {
+                                //if (bundle == null || bundle.isEmpty()) {
                                     User converJsonJava = gson.fromJson(respon, User.class);
                                     int g = converJsonJava.getProfile().getGroup();
                                     id_typeother = g;
@@ -1437,6 +1442,13 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                     if(!user_address.isEmpty()){
                                         etAddress.setText(user_address);
                                     }
+
+                                    String user_map=converJsonJava.getProfile().getResponsible_officer();
+                                    if(!user_map.isEmpty()){
+                                        Log.e("TAG","dfadfadsf Location "+user_map);
+                                        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                                        getLocation(false,user_map);
+                                    }
                                     //dealer shop section
                                     if (g == 3) {
 //                                        txtOther_main.setVisibility(View.VISIBLE);
@@ -1461,7 +1473,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                                         Log.e("TAG",shopListItems.toString());
                                     }
-                                }
+                                //}
                             }
                         });
                     } catch (JsonParseException e) {
@@ -2847,13 +2859,20 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 cancel_color.setVisibility(View.GONE);
             }
         });
+
+        if (android.os.Build.VERSION.SDK_INT < 29){
+            // Do something for lollipop and above versions
+
+        }
+
         colorPickerView.setColorListener(new ColorListener() {
-            @Override
-            public void onColorSelected(ColorEnvelope colorEnvelope) {
-                strColor = "#"+colorEnvelope.getColorHtml();
-                Log.e("picker color",""+strColor);
-            }
-        });
+                @Override
+                public void onColorSelected(ColorEnvelope colorEnvelope) {
+                    strColor = "#"+colorEnvelope.getColorHtml();
+                    Log.e("picker color",""+strColor);
+                }
+            });
+
 
         tvCondition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -3795,7 +3814,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         tvPostType.setText(item);
     }
 
-    private void getLocation(boolean isCurent) {
+    private void getLocation(boolean isCurent,@Nullable String user_map) {
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
@@ -3807,7 +3826,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
                     latlng = latitude+","+longtitude;
+                }else{
+                    String[] spitMap=user_map.split(",");
+                    latitude= Double.parseDouble(spitMap[0]);
+                    longtitude= Double.parseDouble(spitMap[1]);
                 }
+
                 try{
                     Geocoder geocoder = new Geocoder(this);
                     List<Address> addressList = null;

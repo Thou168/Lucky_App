@@ -174,16 +174,22 @@ public interface Service {
     Call<District> getDistrict();
     @GET("api/v1/district/{id}/")
     Call<District> getDistrict(@Path("id") int id);
+    @GET("api/v1/district/?province=")
+    Call<District> getDistrictbyProvince(@Query("province") int province);
 
     @GET("api/v1/commune/")
     Call<Commune> getCommune();
     @GET("api/v1/commune/{id}/")
     Call<Commune> getCommune(@Path("id") int id);
+    @GET("api/v1/commune/?district=")
+    Call<Commune> getCommunebyDistrict(@Query("district") int district);
 
     @GET("api/v1/village/")
     Call<Village> getVillage();
     @GET("api/v1/village/{id}/")
     Call<Village> getVillage(@Path("id") int id);
+    @GET("api/v1/village/?commune=")
+    Call<Village> getVillagebyCommnue(@Query("commune") int commune);
 
     @GET("api/v1/users/{id}/")
     Call<User> getuser(@Path("id")int id);

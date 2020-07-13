@@ -288,9 +288,9 @@ public class one extends Fragment{
         });
     }
     private void getdistrict(int provinceID){
-        Log.e("Province ID",""+provinceID);
+        //Log.e("Province ID",""+provinceID);
         Service api = Client.getClient().create(Service.class);
-        Call<District> call = api.getDistrict();
+        Call<District> call = api.getDistrictbyProvince(provinceID);
         call.enqueue(new Callback<District>() {
             @Override
             public void onResponse(Call<District> call, Response<District> response) {
@@ -299,26 +299,41 @@ public class one extends Fragment{
                 }
                 if (response.body().getresults() != null) {
                     listDistrict = response.body().getresults();
-                    int count=0,ccount=0;
+
+                    //new process by TTerd Mar 31 2020
+                    district = new String[listDistrict.size()];
+                    districtId=new int[listDistrict.size()];
                     for (int i = 0; i < listDistrict.size(); i++) {
-                        if (listDistrict.get(i).getProvinceId() == provinceID) {
-                            count++;
+                        districtId[i]=(int)listDistrict.get(i).getId();
+                        if (currentLanguage.equals("en")) {
+                            district[i] = listDistrict.get(i).getDistrict();
+                        } else {
+                            district[i] = listDistrict.get(i).getDistrict_kh();
                         }
                     }
-                    district = new String[count];
-                    districtId=new int[count];
-                    for (int i = 0; i < listDistrict.size(); i++) {
-                        if (listDistrict.get(i).getProvinceId() == provinceID) {
-                            districtId[ccount]=(int)listDistrict.get(i).getId();
-                            if (currentLanguage.equals("en")) {
-                                district[ccount] = listDistrict.get(i).getDistrict();
-                            } else {
-                                district[ccount] = listDistrict.get(i).getDistrict_kh();
-                            }
-                            districtId[ccount] = (int) listDistrict.get(i).getId();
-                            ccount++;
-                        }
-                    }
+
+
+//                    int count=0,ccount=0;
+//                    for (int i = 0; i < listDistrict.size(); i++) {
+//                        Log.e("TAG","Province List id "+listDistrict.get(i).getProvinceId()+" selected province "+provinceID);
+//                        if (listDistrict.get(i).getProvinceId() == provinceID) {
+//                            count++;
+//                        }
+//                    }
+//                    district = new String[count];
+//                    districtId=new int[count];
+//                    for (int i = 0; i < listDistrict.size(); i++) {
+//                        if (listDistrict.get(i).getProvinceId() == provinceID) {
+//                            districtId[ccount]=(int)listDistrict.get(i).getId();
+//                            if (currentLanguage.equals("en")) {
+//                                district[ccount] = listDistrict.get(i).getDistrict();
+//                            } else {
+//                                district[ccount] = listDistrict.get(i).getDistrict_kh();
+//                            }
+//                            //districtId[ccount] = (int) listDistrict.get(i).getId();
+//                            ccount++;
+//                        }
+//                    }
                 }
             }
             @Override
@@ -330,7 +345,7 @@ public class one extends Fragment{
     private void getCommune(int districtID){
         Log.e("District ID",""+districtID);
         Service api = Client.getClient().create(Service.class);
-        Call<Commune> call = api.getCommune();
+        Call<Commune> call = api.getCommunebyDistrict(districtID);
         call.enqueue(new Callback<Commune>() {
             @Override
             public void onResponse(Call<Commune> call, Response<Commune> response) {
@@ -339,28 +354,43 @@ public class one extends Fragment{
                 }
                 if (response.body().getresults() != null) {
                     list_Commmune = response.body().getresults();
-                    int count=0,ccount=0;
+
+                    commune = new String[list_Commmune.size()];
+                    communeId=new int[list_Commmune.size()];
                     for (int i = 0; i < list_Commmune.size(); i++) {
-                        if (list_Commmune.get(i).getDistrictId() == districtID) {
-                            count++;
+                        communeId[i]=(int)list_Commmune.get(i).getId();
+                        if (currentLanguage.equals("en")) {
+                            commune[i] = list_Commmune.get(i).getCommune();
+                            //Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
+                        } else {
+                            //Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
+                            commune[i] = list_Commmune.get(i).getCommune_kh();
                         }
                     }
-                    commune = new String[count];
-                    communeId=new int[count];
-                    for (int i = 0; i < list_Commmune.size(); i++) {
-                        if (list_Commmune.get(i).getDistrictId() == districtID) {
-                            communeId[ccount]=(int)list_Commmune.get(i).getId();
-                            if (currentLanguage.equals("en")) {
-                                commune[ccount] = list_Commmune.get(i).getCommune();
-                                //Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
-                            } else {
-                                //Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
-                                commune[ccount] = list_Commmune.get(i).getCommune_kh();
-                            }
-                            communeId[ccount] = (int) list_Commmune.get(i).getId();
-                            ccount++;
-                        }
-                    }
+
+
+//                    int count=0,ccount=0;
+//                    for (int i = 0; i < list_Commmune.size(); i++) {
+//                        if (list_Commmune.get(i).getDistrictId() == districtID) {
+//                            count++;
+//                        }
+//                    }
+//                    commune = new String[count];
+//                    communeId=new int[count];
+//                    for (int i = 0; i < list_Commmune.size(); i++) {
+//                        if (list_Commmune.get(i).getDistrictId() == districtID) {
+//                            communeId[ccount]=(int)list_Commmune.get(i).getId();
+//                            if (currentLanguage.equals("en")) {
+//                                commune[ccount] = list_Commmune.get(i).getCommune();
+//                                //Log.d("Commune", list_Commmune.get(i).getCommune() + list_Commmune.get(i).getId());
+//                            } else {
+//                                //Log.d("Commune", list_Commmune.get(i).getCommune_kh() + list_Commmune.get(i).getId());
+//                                commune[ccount] = list_Commmune.get(i).getCommune_kh();
+//                            }
+//                            communeId[ccount] = (int) list_Commmune.get(i).getId();
+//                            ccount++;
+//                        }
+//                    }
                 }
             }
             @Override
@@ -372,7 +402,7 @@ public class one extends Fragment{
     private void getVillage(int communeID){
         Log.e("Commune ID",""+communeID);
         Service api = Client.getClient().create(Service.class);
-        Call<Village> call = api.getVillage();
+        Call<Village> call = api.getVillagebyCommnue(communeID);
         call.enqueue(new Callback<Village>() {
             @Override
             public void onResponse(Call<Village> call, Response<Village> response) {
@@ -381,27 +411,41 @@ public class one extends Fragment{
                 }
                 if (response.body().getresults() != null) {
                     list_village = response.body().getresults();
-                    int count=0,ccount=0;
+
+                    village = new String[list_village.size()];
+                    villageId=new int[list_village.size()];
                     for (int i = 0; i < list_village.size(); i++) {
-                        if (list_village.get(i).getCommuneId() == communeID) {
-                            count++;
+                        villageId[i]=(int)list_village.get(i).getId();
+                        if (currentLanguage.equals("en")) {
+                            village[i] = list_village.get(i).getVillage();
+                            //Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
+                        } else {
+                            //Log.d("Village", list_village.get(i).getVillage_kh() + list_village.get(i).getId());
+                            village[i] = list_village.get(i).getVillage_kh();
                         }
                     }
-                    village = new String[count];
-                    villageId=new int[count];
-                    for (int i = 0; i < list_village.size(); i++) {
-                        if (list_village.get(i).getCommuneId() == communeID) {
-                            villageId[ccount]=(int)list_village.get(i).getId();
-                            if (currentLanguage.equals("en")) {
-                                village[ccount] = list_village.get(i).getVillage();
-                                //Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
-                            } else {
-                                //Log.d("Village", list_village.get(i).getVillage_kh() + list_village.get(i).getId());
-                                village[ccount] = list_village.get(i).getVillage_kh();
-                            }
-                            ccount++;
-                        }
-                    }
+
+//                    int count=0,ccount=0;
+//                    for (int i = 0; i < list_village.size(); i++) {
+//                        if (list_village.get(i).getCommuneId() == communeID) {
+//                            count++;
+//                        }
+//                    }
+//                    village = new String[count];
+//                    villageId=new int[count];
+//                    for (int i = 0; i < list_village.size(); i++) {
+//                        if (list_village.get(i).getCommuneId() == communeID) {
+//                            villageId[ccount]=(int)list_village.get(i).getId();
+//                            if (currentLanguage.equals("en")) {
+//                                village[ccount] = list_village.get(i).getVillage();
+//                                //Log.d("Village", list_village.get(i).getVillage() + list_village.get(i).getId());
+//                            } else {
+//                                //Log.d("Village", list_village.get(i).getVillage_kh() + list_village.get(i).getId());
+//                                village[ccount] = list_village.get(i).getVillage_kh();
+//                            }
+//                            ccount++;
+//                        }
+//                    }
                 }
             }
             @Override
