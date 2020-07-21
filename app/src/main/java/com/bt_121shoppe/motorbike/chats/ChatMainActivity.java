@@ -162,10 +162,12 @@ public class ChatMainActivity extends AppCompatActivity {
                             switch (menuItem.getItemId()) {
                                 case R.id.home:
                                     startActivity(new Intent(getApplicationContext(), Home.class));
+                                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     break;
                                 case R.id.notification:
                                     if (prefer.contains("token") || prefer.contains("id")) {
                                         startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }
@@ -173,6 +175,7 @@ public class ChatMainActivity extends AppCompatActivity {
                                 case R.id.dealer:
                                     if (prefer.contains("token") || prefer.contains("id")) {
                                         startActivity(new Intent(getApplicationContext(), DealerStoreActivity.class));
+                                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }
@@ -198,10 +201,12 @@ public class ChatMainActivity extends AppCompatActivity {
                                 case R.id.home:
                                     Intent intent = new Intent(getApplicationContext(), Home.class);
                                     startActivity(intent);
+                                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     break;
                                 case R.id.notification:
                                     if (prefer.contains("token") || prefer.contains("id")) {
                                         startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }
@@ -209,6 +214,7 @@ public class ChatMainActivity extends AppCompatActivity {
                                 case R.id.camera:
                                     if (prefer.contains("token") || prefer.contains("id")) {
                                         startActivity(new Intent(getApplicationContext(), Camera.class));
+                                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }
@@ -234,10 +240,12 @@ public class ChatMainActivity extends AppCompatActivity {
                             case R.id.home:
                                 Intent intent = new Intent(getApplicationContext(), Home.class);
                                 startActivity(intent);
+                                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                 break;
                             case R.id.notification:
                                 if (prefer.contains("token") || prefer.contains("id")) {
                                     startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                 } else {
                                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                 }
@@ -245,6 +253,7 @@ public class ChatMainActivity extends AppCompatActivity {
                             case R.id.camera:
                                 if (prefer.contains("token") || prefer.contains("id")) {
                                     startActivity(new Intent(getApplicationContext(), Camera.class));
+                                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                 } else {
                                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                 }
@@ -440,9 +449,11 @@ public class ChatMainActivity extends AppCompatActivity {
 
         @Override
         public void onBackPressed () {
-            if (login_verify != null) {
-                startActivity(new Intent(ChatMainActivity.this, Home.class));
-            } else finish();
+//            if (login_verify != null) {
+//                startActivity(new Intent(ChatMainActivity.this, Home.class));
+//            } else finish();
+            startActivity(new Intent(ChatMainActivity.this, Home.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }
 
         @Override

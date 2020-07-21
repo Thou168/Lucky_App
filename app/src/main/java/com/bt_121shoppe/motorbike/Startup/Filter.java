@@ -141,8 +141,8 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
         getCategory();
 
         //range seekbar
-        minText.setText(String.valueOf(mMinPrice));
-        maxText.setText(String.valueOf(mMaxPrice));
+        minText.setText("$ "+mMinPrice);
+        maxText.setText("$ "+mMaxPrice);
         rangeBar.setMinRange(mMinPrice);
         rangeBar.setMax(mMaxPrice);
         rangeBar.setMinThumbValue(mMinPrice);
@@ -162,8 +162,8 @@ public class Filter extends AppCompatActivity implements BottomChooseFilterBrand
             public void onValueChanged(int i, int i1) {
                 mMinPrice=i;
                 mMaxPrice=i1;
-                minText.setText(String.valueOf(mMinPrice));
-                maxText.setText(String.valueOf(mMaxPrice));
+                minText.setText("$ "+mMinPrice);
+                maxText.setText("$ "+mMaxPrice);
             }
         });
         rangeBar.getSeekBarChangeListener();

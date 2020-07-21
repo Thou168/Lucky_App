@@ -95,6 +95,7 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
                 case R.id.home:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
                         startActivity(new Intent(DealerStoreActivity.this, Home.class));
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                     }else{
                         Intent intent=new Intent(DealerStoreActivity.this, UserAccountActivity.class);
                         intent.putExtra("verify","home");
@@ -104,6 +105,7 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
                 case R.id.notification:
                     if(sharedPref.contains("token") || sharedPref.contains("id")){
                         startActivity(new Intent(DealerStoreActivity.this, StoreListActivity.class));
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                     }else{
                         Intent intent=new Intent(DealerStoreActivity.this, UserAccountActivity.class);
                         intent.putExtra("verify","notification");
@@ -154,9 +156,13 @@ public class DealerStoreActivity extends AppCompatActivity implements TabLayout.
             if ("camera".equals(verify)) {
                 Intent i2 = new Intent(DealerStoreActivity.this,Home.class);
                 startActivity(i2);
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         }else {
+            Intent i2 = new Intent(DealerStoreActivity.this,Home.class);
+            startActivity(i2);
             finish();
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }
     }
 

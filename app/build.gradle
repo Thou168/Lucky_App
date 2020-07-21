@@ -159,4 +159,8 @@ dependencies {
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
 
     implementation 'com.github.skydoves:colorpickerpreference:1.0.2'
+
+    //pdf_implementation
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation "com.pdfview:pdfview-android:1.0.0"
 }

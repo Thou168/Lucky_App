@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Layout
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bt_121shoppe.motorbike.R
@@ -16,10 +17,10 @@ class AboutUsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_us)
 
-        var txtBack = findViewById<View>(R.id.tvBack_account) as TextView
+        val txtBack = findViewById<View>(R.id.tvBack_account) as ImageView
         txtBack.setOnClickListener(View.OnClickListener { finish() })
 
-        var txt_about_us_description=findViewById<View>(R.id.about_us_description) as TextView
+        val txt_about_us_description=findViewById<View>(R.id.about_us_description) as TextView
       //  txt_about_us_description.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD)
 // check version if < 8.0 no crash by samang 27/08/2019
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

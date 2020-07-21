@@ -192,6 +192,32 @@
                     android:textSize="15dp"
                     android:text="@string/menu_privacy"/>
             </LinearLayout>
+            <View
+                style="@style/line"
+                android:background="#DDDDDD"
+                android:layout_below="@+id/llTerm"/>
+
+            <LinearLayout
+                android:layout_below="@id/llTerm"
+                android:id="@+id/llHelp"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:visibility="visible"
+                    android:layout_height="24dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/image_info"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="@string/menu_help"/>
+            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>

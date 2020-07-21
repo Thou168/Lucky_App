@@ -54,6 +54,7 @@
     <string name="menu_about">អំពីកម្មវិធី</string>
     <string name="menu_contact">ទំនាក់ទំនង</string>
     <string name="menu_privacy">លក្ខខណ្ឌប្រើប្រាស់</string>
+    <string name="menu_help">ជំនួយ</string>
     <string name="title_activity_account">គណនី</string>
 
     //Home
@@ -91,7 +92,7 @@
     //select
     <string name="select">ជ្រើសរើស</string>
 
-    <string name="call_to_seller">ហៅទៅអ្នកលក់</string>
+    <string name="call_to_seller">ទាក់ទងផ្ទាល់ទៅអ្មកលក់</string>
 
     //brand string
     <string name="honda">ហុងដា</string>

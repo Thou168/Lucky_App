@@ -59,7 +59,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectUserTypeActivity.this, LoginActivity.class));
+                onBackPressed();
             }
         });
 //        Log.d("Facebook register",processType+","+facebooktokenkey+","+facebookid+","+facebookname+","+imageurl);
@@ -127,5 +127,11 @@ public class SelectUserTypeActivity extends AppCompatActivity {
                         startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(SelectUserTypeActivity.this, LoginActivity.class));
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

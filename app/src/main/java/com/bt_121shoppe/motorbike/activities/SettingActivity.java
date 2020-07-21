@@ -320,6 +320,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     @Override
     public void onBackPressed() {
         startActivity(new Intent(SettingActivity.this,AccountSettingActivity.class));
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
         finish();
     }
 
@@ -440,8 +441,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingActivity.this,AccountSettingActivity.class));
-                finish();
+                onBackPressed();
             }
         });
     }

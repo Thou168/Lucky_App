@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
+import com.bt_121shoppe.motorbike.settings.Help;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -88,7 +90,8 @@ public class LoginActivity extends AppCompatActivity {
     private int product_id;
     private String username_message;
     private String password_message;
-    private TextView alert_phone,back,tv_signup;
+    private TextView alert_phone,tv_signup;
+
     private TextView alert_password;
     private LoginButton facebook_login;
     int error = 0;
@@ -97,12 +100,23 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog.Builder dialog;
     private CallbackManager callbackManager;
     private FirebaseAuth auth;
+
+    ImageView img_help,back;
 //    InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //for help info
+        img_help=findViewById(R.id.tv_help);
+        img_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, Help.class));
+            }
+        });
+        //
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -114,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         Username = (EditText)findViewById(R.id.editPhoneLogin);
         Password = (EditText)findViewById(R.id.editPasswordLogin);
         btnSubmit = (Button)findViewById(R.id.btnSubmitLogin);
-        back = (TextView) findViewById(R.id.tv_back);
+        back = (ImageView) findViewById(R.id.tv_back);
         tv_signup = findViewById(R.id.sign_up);
         facebook_login = findViewById(R.id.login_button);
         facebook_login.setReadPermissions(Arrays.asList("public_profile","email","user_birthday","user_gender","user_location"));

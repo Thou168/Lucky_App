@@ -26,6 +26,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
 import com.bt_121shoppe.motorbike.settings.ContactActivity;
+import com.bt_121shoppe.motorbike.settings.Help;
 import com.bt_121shoppe.motorbike.settings.Setting;
 import com.bt_121shoppe.motorbike.settings.TermPrivacyActivity;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
@@ -69,7 +70,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AccountSettingActivity.this,Account.class));
+                onBackPressed();
             }
         });
 
@@ -124,6 +125,14 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout btnHelpofPrivacy=findViewById(R.id.llHelp);
+        btnHelpofPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountSettingActivity.this, Help.class));
+            }
+        });
+
         LinearLayout btnSignout=findViewById(R.id.llSignOut);
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +178,7 @@ public class AccountSettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(AccountSettingActivity.this,Account.class));
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     private void initToolbar(){

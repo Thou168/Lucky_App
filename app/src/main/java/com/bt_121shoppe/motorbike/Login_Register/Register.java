@@ -19,6 +19,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -366,7 +367,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                 return false;
             }
         });
-        TextView tv_back = findViewById(R.id.tv_back);
+        ImageView tv_back = findViewById(R.id.tv_back);
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -377,6 +378,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     finish();
                 }else if (pk != 0){
                     startActivity(new Intent(Register.this, AccountSettingActivity.class));
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else {
                     finish();
                 }
@@ -698,6 +700,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             finish();
         }else if (pk != 0){
             startActivity(new Intent(Register.this, AccountSettingActivity.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }else {
             finish();
         }

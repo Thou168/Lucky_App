@@ -42,6 +42,7 @@
         <activity android:name=".post.PostDetailMapActivity"></activity>
         <activity android:name=".activities.SettingActivity" />
         <activity android:name=".activities.AccountSettingActivity" />
+        <activity android:name=".settings.Help" />
         <activity android:name=".stores.StoreDetailActivity" />
         <activity android:name=".stores.StoreListActivity" />
         <activity

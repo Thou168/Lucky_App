@@ -253,17 +253,18 @@ public class Detail_1 extends Fragment {
                                 }
                             }
                             //type
-                            int inType =(int) postDetail.getCategory();
+                            int inType = (int) postDetail.getCategory();
+                            Log.d("what is this :" , String.valueOf(inType));
                             if (inType == 1) {
                                 type.setText(R.string.electronic);
                             } else if (inType == 2) {
-                                type.setVisibility(View.GONE);
-                                line2.setVisibility(View.GONE);
-                                tvTypeTitle.setVisibility(View.GONE);
-                                bool_title.setVisibility(View.GONE);
+                                type.setVisibility(View.VISIBLE);
+                                line2.setVisibility(View.VISIBLE);
+                                tvTypeTitle.setVisibility(View.VISIBLE);
+                                bool_title.setVisibility(View.VISIBLE);
                                 type.setText(R.string.motor);
                                 if (con.equals("used")) {
-                                    line_rela.setVisibility(View.GONE);
+                                    line_rela.setVisibility(View.VISIBLE);
                                     rela_eta.setVisibility(View.VISIBLE);
                                 }
                             }

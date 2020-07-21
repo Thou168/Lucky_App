@@ -318,6 +318,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             case R.id.home:
                 Intent myIntent = new Intent(StoreListActivity.this, Home.class);
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.notification:
                 break;
@@ -360,6 +361,7 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
         switch (item.getItemId()) {
             case R.id.home:
                 startActivity(new Intent(StoreListActivity.this, Home.class));
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.notification:
                 break;
@@ -401,7 +403,8 @@ public class StoreListActivity extends AppCompatActivity implements SwipeRefresh
             mButtonLocation.setText(getString(R.string.locaion));
             selectedProvinceId = 0;
         }else {
-            finish();
+            startActivity(new Intent(StoreListActivity.this,Home.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }
     }
 

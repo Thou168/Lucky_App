@@ -941,10 +941,12 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             public void onClick(View v) {
                 if (register_intent!=null || login_verify!=null){
                     startActivity(new Intent(Camera.this,Home.class));
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else if (process_type == 1){
                     startActivity(new Intent(Camera.this,Account.class));
                 }else if (post != null){
                     startActivity(new Intent(Camera.this,Home.class));
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else if (process_type == 2 ){
                     finish();
                 }else if (process_type == 3){

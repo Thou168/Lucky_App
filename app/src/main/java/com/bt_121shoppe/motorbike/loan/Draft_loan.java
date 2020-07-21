@@ -85,6 +85,7 @@ public class Draft_loan extends AppCompatActivity {
                 intent1.putExtra("LoanEdit",From_Loan);
                 intent1.putExtra("LoanID",mLoandID);
                 startActivity(intent1);
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         });
     }
@@ -122,5 +123,6 @@ public class Draft_loan extends AppCompatActivity {
         intent1.putExtra("product_id",productID);
         intent1.putExtra("price",price);
         startActivity(intent1);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

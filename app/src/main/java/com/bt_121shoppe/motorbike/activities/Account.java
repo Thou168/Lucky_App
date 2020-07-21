@@ -39,6 +39,7 @@ import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
 import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
 import com.bt_121shoppe.motorbike.Login_Register.Register;
+import com.bt_121shoppe.motorbike.Login_Register.SelectUserTypeActivity;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.fragments.DealerPostHistoryFragment;
@@ -358,17 +359,21 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                     case R.id.home:
                         Intent myIntent = new Intent(Account.this, Home.class);
                         startActivity(myIntent);
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                         break;
                     case R.id.notification:
                         Intent myIntent2 = new Intent(Account.this, StoreListActivity.class);
                         startActivity(myIntent2);
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                         break;
                     case R.id.camera:
                         Intent myIntent3 = new Intent(Account.this, Camera.class);
                         startActivity(myIntent3);
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                         break;
                     case R.id.message:
                         Intent myIntent4 = new Intent(Account.this, ChatMainActivity.class);
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                         startActivity(myIntent4);
                         break;
                     case R.id.account:
@@ -381,15 +386,19 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
         switch (item.getItemId()) {
             case R.id.home:
                 startActivity(new Intent(Account.this, Home.class));
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.notification:
                 startActivity(new Intent(Account.this, StoreListActivity.class));
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.dealer:
                 startActivity(new Intent(Account.this, DealerStoreActivity.class));
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.message:
                 startActivity(new Intent(Account.this, ChatMainActivity.class));
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.account:
                 break;
@@ -554,8 +563,10 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
     public void onBackPressed() {
         if (login_verify != null || register_intent != null){
             startActivity(new Intent(Account.this,Home.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         } else if (process_type!=1 || process_type!=2){
             startActivity(new Intent(Account.this,Home.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         } else finish();
     }
 

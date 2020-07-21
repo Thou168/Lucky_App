@@ -110,7 +110,7 @@ public class NotificationActivity extends AppCompatActivity implements SwipeRefr
         if(active.equals("false"))
             activeUser.clear_session(this);
 
-        TextView tvBack=findViewById(R.id.tvBack);
+        ImageView tvBack=findViewById(R.id.tvBack);
         tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

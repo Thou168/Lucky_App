@@ -22,32 +22,35 @@
             android:gravity="center_vertical"
             android:drawableLeft="@drawable/arrow_backspace"/>
         <Button
-            android:visibility="gone"
             android:id="@+id/bt_edit"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:padding="@dimen/dp_4"
-            android:textAllCaps="false"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:background="@drawable/button_dealer"
-            android:text="@string/button_edit" />
-        <Button
             android:visibility="gone"
-            android:id="@+id/bt_add"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
             android:layout_gravity="right"
             android:gravity="center"
-            android:padding="@dimen/dp_4"
+            android:padding="9dp"
+            android:textSize="13dp"
+            android:fontFamily="@font/opensans_semibold"
             android:textAllCaps="false"
             android:layout_marginEnd="@dimen/dp_16"
-            android:textSize="16sp"
             android:textColor="@color/white"
-            android:background="@drawable/button_dealer"
+            android:background="@drawable/post_background"
+            android:text="@string/button_edit" />
+
+        <Button
+            android:id="@+id/bt_add"
+            android:visibility="gone"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:padding="9dp"
+            android:textSize="13dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:textAllCaps="false"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:textColor="@color/white"
+            android:background="@drawable/post_background"
             android:text="@string/add" />
     </androidx.appcompat.widget.Toolbar>
 

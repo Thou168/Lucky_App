@@ -189,8 +189,10 @@ public class Create_Load extends AppCompatActivity implements one.SendItemOne,tw
                     finish();
                     clearDialog.dismiss();
                 }
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         });
+
         clearDialog.show();
     }
     public void requstFocus(boolean b,EditText editText,TextView textView,String text){

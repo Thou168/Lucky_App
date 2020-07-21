@@ -336,10 +336,9 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
     @Override
     public void onBackPressed() {
-        if (login_verify!=null){
+        if (login_verify!=null || postId != 0){
             startActivity(new Intent(Detail_new_post_java.this,Home.class));
-        }else if (postId != 0) {
-            startActivity(new Intent(Detail_new_post_java.this,Home.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }else {
             finish();
         }
