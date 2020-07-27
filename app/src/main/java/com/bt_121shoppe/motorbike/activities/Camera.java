@@ -944,6 +944,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else if (process_type == 1){
                     startActivity(new Intent(Camera.this,Account.class));
+                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 }else if (post != null){
                     startActivity(new Intent(Camera.this,Home.class));
                     overridePendingTransition(R.anim.left_in, R.anim.right_out);

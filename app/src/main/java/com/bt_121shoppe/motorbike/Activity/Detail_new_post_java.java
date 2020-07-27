@@ -69,6 +69,11 @@ import com.bt_121shoppe.motorbike.loan.model.loan_item;
 import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.newversion.CustomViewPager;
 import com.custom.sliderimage.logic.SliderImage;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -144,11 +149,12 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     String login_verify;
     Bundle bundle;
     ProgressDialog pd;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_newpost_java);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         pd=new ProgressDialog(Detail_new_post_java.this);
         pd.setMessage(getString(R.string.progress_waiting));
         pd.setCancelable(false);
@@ -244,6 +250,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
+            overridePendingTransition(R.anim.right_in, R.anim.left_out);
         });
 
         //loan
@@ -291,7 +298,16 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
             });
         }
 
-        btn_share.setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Share!",Toast.LENGTH_SHORT).show());
+        //share to facebook
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build();
+        btn_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Share",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mViewPager = findViewById(R.id.pagerMain);
         mViewPager.setOnTouchListener((v, event) -> true);

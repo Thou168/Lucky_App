@@ -372,9 +372,9 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         overridePendingTransition(R.anim.left_in, R.anim.right_out);
                         break;
                     case R.id.message:
-                        Intent myIntent4 = new Intent(Account.this, ChatMainActivity.class);
+                        startActivity(new Intent(Account.this, ChatMainActivity.class));
                         overridePendingTransition(R.anim.left_in, R.anim.right_out);
-                        startActivity(myIntent4);
+
                         break;
                     case R.id.account:
                         break;

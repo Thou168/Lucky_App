@@ -30,7 +30,7 @@ class Help : AppCompatActivity() {
 
         val pdf = findViewById<com.pdfview.PDFView>(R.id.pdf_view)
         pdf.visibility = View.VISIBLE
-        pdf.fromAsset("guide_121.pdf").show()
+        pdf.fromAsset("for_android_help.pdf").show()
 
         val sv=findViewById<ScrollView>(R.id.sv)
         sv.visibility = View.GONE

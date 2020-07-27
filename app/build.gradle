@@ -163,4 +163,5 @@ dependencies {
     //pdf_implementation
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation "com.pdfview:pdfview-android:1.0.0"
+
 }

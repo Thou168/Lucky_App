@@ -152,11 +152,7 @@ public class LoginActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (login_verify != null || verify != null){
-                    finish();
-                }else {
-                    startActivity(new Intent(LoginActivity.this, Home.class));
-                }
+                onBackPressed();
             }
         });
         tv_signup.setOnClickListener(new View.OnClickListener() {
@@ -224,6 +220,7 @@ public class LoginActivity extends AppCompatActivity {
         }else {
             startActivity(new Intent(LoginActivity.this, Home.class));
         }
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

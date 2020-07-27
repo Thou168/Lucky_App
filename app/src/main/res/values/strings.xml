@@ -468,7 +468,7 @@
 
     //dialog error register
     <string name="head_dialog_register">Register failure</string>
-    <string name="inputPhone">Phone Number​​ can`t be empty</string>
+    <string name="inputPhone">Phone Number can`t be empty</string>
     <string name="inputPhoneWrong">Invalid Phone Number</string>
     <string name="inputPassword">Please input the Password</string>
     <string name="wrongInputPassword">Invalid Password</string>

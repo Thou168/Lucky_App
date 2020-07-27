@@ -12,8 +12,10 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +61,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import io.paperdb.Paper;
 import okhttp3.Call;
@@ -85,6 +88,10 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     private FirebaseUser fuser;
     private DatabaseReference reference;
     private int pk=0;
+
+    TextView old_pw,new_pw,renew_pw;
+    CheckGroup check = new CheckGroup();
+    int g;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,90 +126,196 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         pass = prefer.getString("pass","");
         Encode = getEncodedString(name,pass);
 
+//        id for password change error
+
+        old_pw=findViewById(R.id.old_pw);
+        new_pw=findViewById(R.id.new_pw);
+        renew_pw=findViewById(R.id.renew_pw);
+
+        g = check.getGroup(pk,this);
         reset_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                onResume();
-                if (renew_pass.getText().toString().isEmpty() || new_pass.getText().toString().isEmpty() || old_pass.getText().toString().isEmpty()){
-                    if (old_pass.getText().toString().isEmpty()){
-                        LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
-                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
-                        clearDialog.setView(clearDialogView);
-                        clearDialog.setIcon(R.drawable.tab_message_selector);
-                        clearDialog.setCancelable(false);
-                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                        Mssloan.setText(R.string.alert_old_password);
-                        title.setText(R.string.title_change_password);
-                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-                        btnYes.setText(R.string.ok);
-                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v14 -> {
-                            onResume();
-                            clearDialog.dismiss();
-                        });
-                        clearDialog.show();
-                    }else if (new_pass.getText().toString().isEmpty()){
-                        LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
-                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
-                        clearDialog.setView(clearDialogView);
-                        clearDialog.setIcon(R.drawable.tab_message_selector);
-                        clearDialog.setCancelable(false);
-                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                        Mssloan.setText(R.string.alert_new_password);
-                        title.setText(R.string.title_change_password);
-                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-                        btnYes.setText(R.string.ok);
-                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v13 -> {
-                            onResume();
-                            clearDialog.dismiss();
-                        });
-                        clearDialog.show();
-                    }else if (renew_pass.getText().toString().isEmpty()){
-                        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
-                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
-                        clearDialog.setView(clearDialogView);
-                        clearDialog.setIcon(R.drawable.tab_message_selector);
-                        clearDialog.setCancelable(false);
-                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                        Mssloan.setText(R.string.alert_renew_password);
-                        title.setText(R.string.title_change_password);
-                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-                        btnYes.setText(R.string.ok);
-                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v12 -> {
-                            onResume();
-                            clearDialog.dismiss();
-                        });
-                        clearDialog.show();
-                    }
-                }else {
-                    if (renew_pass.getText().toString().equals(new_pass.getText().toString())){
-                        Change_password(Encode);
-                    }else {
-                        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
-                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
-                        clearDialog.setView(clearDialogView);
-                        clearDialog.setIcon(R.drawable.tab_message_selector);
-                        clearDialog.setCancelable(false);
-                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                        Mssloan.setText(R.string.alert_wrong_password);
-                        title.setText(R.string.title_change_password);
-                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-                        btnYes.setText(R.string.ok);
-                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v1 -> {
-                            onResume();
-                            clearDialog.dismiss();
-                        });
-                        clearDialog.show();
+                onResume();
+//                if (renew_pass.getText().toString().isEmpty() || new_pass.getText().toString().isEmpty() || old_pass.getText().toString().isEmpty()){
+//                    if (old_pass.getText().toString().isEmpty()){
+//                        LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
+//                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+//                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+//                        clearDialog.setView(clearDialogView);
+//                        clearDialog.setIcon(R.drawable.tab_message_selector);
+//                        clearDialog.setCancelable(false);
+//                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+//                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+//                        Mssloan.setText(R.string.alert_old_password);
+//                        title.setText(R.string.title_change_password);
+//                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+//                        btnYes.setText(R.string.ok);
+//                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v14 -> {
+//                            onResume();
+//                            clearDialog.dismiss();
+//                        });
+//                        clearDialog.show();
+//                    }else if (new_pass.getText().toString().isEmpty()){
+//                        LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
+//                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+//                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+//                        clearDialog.setView(clearDialogView);
+//                        clearDialog.setIcon(R.drawable.tab_message_selector);
+//                        clearDialog.setCancelable(false);
+//                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+//                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+//                        Mssloan.setText(R.string.alert_new_password);
+//                        title.setText(R.string.title_change_password);
+//                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+//                        btnYes.setText(R.string.ok);
+//                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v13 -> {
+//                            onResume();
+//                            clearDialog.dismiss();
+//                        });
+//                        clearDialog.show();
+//                    }else if (renew_pass.getText().toString().isEmpty()){
+//                        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+//                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+//                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+//                        clearDialog.setView(clearDialogView);
+//                        clearDialog.setIcon(R.drawable.tab_message_selector);
+//                        clearDialog.setCancelable(false);
+//                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+//                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+//                        Mssloan.setText(R.string.alert_renew_password);
+//                        title.setText(R.string.title_change_password);
+//                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+//                        btnYes.setText(R.string.ok);
+//                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v12 -> {
+//                            onResume();
+//                            clearDialog.dismiss();
+//                        });
+//                        clearDialog.show();
+//                    }
+//                }else {
+//                    if (renew_pass.getText().toString().equals(new_pass.getText().toString())){
+//                        Change_password(Encode);
+//                    }else {
+//                        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+//                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+//                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
+//                        clearDialog.setView(clearDialogView);
+//                        clearDialog.setIcon(R.drawable.tab_message_selector);
+//                        clearDialog.setCancelable(false);
+//                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+//                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+//                        Mssloan.setText(R.string.alert_wrong_password);
+//                        title.setText(R.string.title_change_password);
+//                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+//                        btnYes.setText(R.string.ok);
+//                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v1 -> {
+//                            onResume();
+//                            clearDialog.dismiss();
+//                        });
+//                        clearDialog.show();
+//                    }
+//
+//                }
+
+                if (g!=3) {  // for public user
+                    // on old pw
+                    if (old_pass.getText().toString().isEmpty()) {
+                        old_pw.setTextColor(getColor(R.color.red));
+                        old_pw.setText(R.string.alert_old_password);
+                    } else if (old_pass.length() < 4) {
+                        old_pw.setTextColor(getColor(R.color.red));
+                        old_pw.setText(R.string.user_message);
+                    } else {
+                        old_pw.setText("");
                     }
 
+                    // on new pw
+                    if (new_pass.getText().toString().isEmpty()) {
+                        new_pw.setTextColor(getColor(R.color.red));
+                        new_pw.setText(R.string.alert_new_password);
+                    } else if (new_pass.length() < 4) {
+                        new_pw.setTextColor(getColor(R.color.red));
+                        new_pw.setText(R.string.user_message);
+                    } else {
+                        new_pw.setText("");
+                    }
+
+                    // on renew pw
+                    if (renew_pass.getText().toString().isEmpty()) {
+                        renew_pw.setTextColor(getColor(R.color.red));
+                        renew_pw.setText(R.string.alert_renew_password);
+                    } else if (!new_pass.getText().toString().equals(renew_pass.getText().toString())) {
+                        renew_pw.setTextColor(getColor(R.color.red));
+                        renew_pw.setText(R.string.wrongInputPasswordSecond);
+                    } else if (renew_pass.getText().toString().equals(new_pass.getText().toString())){
+                        renew_pw.setText("");
+                    }
+
+                    //for result
+                    if (new_pass.getText().toString().trim().length()==4 && renew_pass.getText().toString().trim().length()==4 && !old_pass.getText().toString().isEmpty() && !(old_pass.getText().toString().trim().length()<4)) {
+                        if (renew_pass.getText().toString().equals(new_pass.getText().toString())) {
+                            Change_password(Encode);
+                        }
+                    }
+                }else {  // for dealer user
+                    Pattern lowerCasePatten = Pattern.compile("[a-zA-Z]");
+                    Pattern digitCasePatten = Pattern.compile("[0-9 ]");
+                    Pattern white_space = Pattern.compile("[\\s]");
+
+                    if (old_pass.getText().toString().isEmpty()) {
+                        old_pw.setTextColor(getColor(R.color.red));
+                        old_pw.setText(R.string.inputPassword);
+                    } else if (old_pass.getText().toString().trim().length()<6){
+                        old_pw.setTextColor(getColor(R.color.red));
+                        old_pw.setText(R.string.user_message_dealer);
+                    }
+                    else if (!lowerCasePatten.matcher(old_pass.getText().toString()).find() || !digitCasePatten.matcher(old_pass.getText().toString()).find()){
+                        old_pw.setTextColor(getColor(R.color.red));
+                        old_pw.setText(R.string.valid_dealer_pass);
+                    } else if (white_space.matcher(old_pass.getText().toString()).find()){
+                        old_pw.setText(R.string.no_whitespace_pass);
+                        old_pw.setTextColor(getColor(R.color.red));
+                    } else {
+                        old_pw.setText("");
+                    }
+
+                    // on new pw
+                    if (new_pass.getText().toString().isEmpty()) {
+                        new_pw.setTextColor(getColor(R.color.red));
+                        new_pw.setText(R.string.inputPassword);
+                    } else if (new_pass.getText().toString().trim().length()<6){
+                        new_pw.setTextColor(getColor(R.color.red));
+                        new_pw.setText(R.string.user_message_dealer);
+                    } else if (!lowerCasePatten.matcher(new_pass.getText().toString()).find() || !digitCasePatten.matcher(new_pass.getText().toString()).find()){
+                        new_pw.setTextColor(getColor(R.color.red));
+                        new_pw.setText(R.string.valid_dealer_pass);
+                    } else if (white_space.matcher(new_pass.getText().toString()).find()){
+                        new_pw.setText(R.string.no_whitespace_pass);
+                        new_pw.setTextColor(getColor(R.color.red));
+                    } else {
+                        new_pw.setText("");
+                    }
+
+                    // on renew pw
+                    if (renew_pass.getText().toString().isEmpty()) {
+                        renew_pw.setTextColor(getColor(R.color.red));
+                        renew_pw.setText(R.string.alert_renew_password);
+                    } else if (!renew_pass.getText().toString().equals(new_pass.getText().toString())) {
+                        renew_pw.setTextColor(getColor(R.color.red));
+                        renew_pw.setText(R.string.wrongInputPasswordSecond);
+                    }else {
+                        renew_pw.setText("");
+                    }
+
+                    //for result
+                    if (new_pass.getText().toString().trim().length()>=6 && renew_pass.getText().toString().trim().length()>=6 && !old_pass.getText().toString().isEmpty() && !(old_pass.getText().toString().trim().length()<6)) {
+                        if (renew_pass.getText().toString().equals(new_pass.getText().toString())) {
+                            Change_password(Encode);
+                        }
+                    }
                 }
+
             }
         });
 
@@ -224,11 +337,11 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                 switch (index) {
                     case 0:
                         index=0;
-                        Toast.makeText(SettingActivity.this,"Enable",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingActivity.this,R.string.enable,Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         index=1;
-                        Toast.makeText(SettingActivity.this,"Disable",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingActivity.this,R.string.disable,Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -250,8 +363,8 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     }
 
     private void change_pass(){
-        CheckGroup check = new CheckGroup();
-        int g = check.getGroup(pk,this);
+        g = check.getGroup(pk,this);
+        System.out.println("GG = "+g);
         if (g!=3){
             old_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
             new_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
@@ -260,6 +373,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
             old_pass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             new_pass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             renew_pass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+
         }else {
             old_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
             new_pass.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
@@ -358,6 +472,9 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
             post.put("old_password",old_pass.getText().toString());
             post.put("new_password",renew_pass.getText().toString());
 
+            System.out.println("Old pass = "+post.put("old_password",old_pass.getText().toString()));
+            System.out.println("New pass = "+post.put("new_password",renew_pass.getText().toString()));
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -386,10 +503,12 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                     model=gson.fromJson(st,ChangepassModel.class);
                     if (model!=null){
                         int statusCode = model.getStatus();
+                        System.out.println("Status = "+ model.getStatus());
                         if (statusCode==201){
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+//                                    old_pw.setText("");
                                     ChangePassWithFirebase(renew_pass.getText().toString());
                                 }
                             });
@@ -397,7 +516,10 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getApplicationContext(),st,Toast.LENGTH_LONG).show();
+                                    // run for error
+//                                    Toast.makeText(getApplicationContext(),st,Toast.LENGTH_LONG).show();
+                                    old_pw.setTextColor(getColor(R.color.red));
+                                    old_pw.setText(R.string.alert_wrong_password);
                                 }
                             });
                         }
@@ -447,39 +569,29 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     }
     private void ChangePassWithFirebase(String newPass){
         //String newPassword=newPass+"__";
-        String newPassword=newPass;
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         if (fuser != null) {
             Query query = reference.child("users").orderByChild(fuser.getUid());
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    //ok to confirm
                     reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
                     HashMap<String, Object> map = new HashMap<>();
-                    map.put("password", newPassword);
+                    map.put("password", newPass);
+                    System.out.println("Password New = "+map.put("password", newPass));
                     reference.updateChildren(map);
-                    LayoutInflater factory = LayoutInflater.from(SettingActivity.this);
-                    final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-                    final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(SettingActivity.this).create();
-                    clearDialog.setView(clearDialogView);
-                    clearDialog.setIcon(R.drawable.tab_message_selector);
-                    clearDialog.setCancelable(false);
-                    TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-                    TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                    Mssloan.setText(R.string.success_change_password);
-                    title.setText(R.string.title_change_password);
-                    Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-                    btnYes.setText(R.string.ok);
-                    clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
-                        SharedPreferences.Editor editor = prefer.edit();
-                        editor.putString("name", name);
-                        editor.putString("pass", newPass);
-                        editor.commit();
-                        startActivity(new Intent(SettingActivity.this, Home.class));
-                        clearDialog.dismiss();
-                        finish();
-                    });
-                    clearDialog.show();
+
+                    //put new pass
+                    SharedPreferences.Editor editor = prefer.edit();
+                    editor.putString("name", name);
+                    editor.putString("pass", newPass);
+                    editor.apply();
+
+//                    startActivity(new Intent(SettingActivity.this, Home.class));
+//                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                    //dialog
+                    dialog_success();
                 }
 
                 @Override
@@ -488,5 +600,25 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
                 }
             });
         }
+    }
+
+    private void dialog_success(){
+        AlertDialog.Builder clearDialog = new AlertDialog.Builder(SettingActivity.this);
+        final View clearDialogView = getLayoutInflater().inflate(R.layout.layout_warnning_dialog, null);
+        clearDialog.setView(clearDialogView);
+        clearDialog.setIcon(R.drawable.tab_message_selector);
+//        clearDialog.setCancelable(false);
+        TextView title = clearDialogView.findViewById(R.id.textView_title);
+        TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
+        Mssloan.setText(R.string.success_change_password);
+        title.setText(R.string.title_change_password);
+        Button btnYes = clearDialogView.findViewById(R.id.button_positive);
+        btnYes.setText(R.string.ok);
+        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
+            startActivity(new Intent(SettingActivity.this, Home.class));
+            finish();
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        });
+        clearDialog.create().show();
     }
 }

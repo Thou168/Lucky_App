@@ -403,7 +403,7 @@
             <TextView
                 android:id="@+id/password_alert"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_8dp"
@@ -436,7 +436,7 @@
             <TextView
                 android:id="@+id/re_password_alert"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_16"
