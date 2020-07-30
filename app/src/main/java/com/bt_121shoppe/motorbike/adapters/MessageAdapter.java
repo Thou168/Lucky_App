@@ -50,11 +50,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat=mChat.get(position);
         holder.show_message.setText(chat.getMessage());
-        if(imageurl.equals("default")){
-            holder.profile_image.setImageResource(R.drawable.group_2293);
-        }else{
-            Glide.with(mContext).load(imageurl).into(holder.profile_image);
-        }
+        System.out.println("Chat = "+chat.getMessage());
+//        Glide.with(mContext).load(imageurl).into(holder.profile_image);
+//        if(imageurl.equals("default")){
+//            holder.profile_image.setImageResource(R.drawable.group_2293);
+//        }else{
+//
+//        }
     }
 
     @Override

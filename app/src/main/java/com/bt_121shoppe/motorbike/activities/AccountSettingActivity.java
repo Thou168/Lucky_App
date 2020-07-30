@@ -24,6 +24,7 @@ import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.Item_loan;
 import com.bt_121shoppe.motorbike.R;
+import com.bt_121shoppe.motorbike.chats.ChatActivity;
 import com.bt_121shoppe.motorbike.settings.AboutUsActivity;
 import com.bt_121shoppe.motorbike.settings.ContactActivity;
 import com.bt_121shoppe.motorbike.settings.Help;
@@ -130,6 +131,17 @@ public class AccountSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountSettingActivity.this, Help.class));
+            }
+        });
+
+        LinearLayout btnChatOfPrivacy=findViewById(R.id.llChat_admin);
+        btnChatOfPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(AccountSettingActivity.this, ChatActivity.class));
+                Intent i = new Intent(AccountSettingActivity.this,ChatActivity.class);
+                i.putExtra("chat_admin","this");
+                startActivity(i);
             }
         });
 

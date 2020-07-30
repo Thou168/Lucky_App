@@ -54,6 +54,7 @@
     <string name="menu_about">អំពីកម្មវិធី</string>
     <string name="menu_contact">ទំនាក់ទំនង</string>
     <string name="menu_privacy">លក្ខខណ្ឌប្រើប្រាស់</string>
+    <string name="menu_chat_admin">ជជែកទៅរដ្ឋបាល</string>
     <string name="menu_help">ជំនួយ</string>
     <string name="title_activity_account">គណនី</string>
 

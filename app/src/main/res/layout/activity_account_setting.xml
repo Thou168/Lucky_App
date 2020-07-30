@@ -219,6 +219,33 @@
                     android:text="@string/menu_help"/>
             </LinearLayout>
 
+            <View
+                style="@style/line"
+                android:background="#DDDDDD"
+                android:layout_below="@+id/llHelp"/>
+
+            <LinearLayout
+                android:layout_below="@id/llHelp"
+                android:id="@+id/llChat_admin"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:visibility="visible"
+                    android:layout_height="24dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/icon_chat"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15dp"
+                    android:text="@string/menu_chat_admin"/>
+            </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 

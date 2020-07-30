@@ -21,14 +21,12 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle">
 
-            <TextView
+            <ImageView
                 android:id="@+id/tvBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/back_arrow_x1"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:textSize="@dimen/dp_16" />
+                android:layout_width="20dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="14dp"
+                android:src="@drawable/back_arrow"/>
 
             <RelativeLayout
                 android:id="@+id/rlusername"
@@ -136,7 +134,7 @@
             android:id="@+id/text_send"
             android:background="@android:color/transparent"
             android:hint="@string/type_message"
-            android:layout_toLeftOf="@id/btn_send"
+            android:layout_toStartOf="@id/btn_send"
             android:layout_centerVertical="true"/>
 
         <ImageButton

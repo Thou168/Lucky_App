@@ -11,6 +11,7 @@ public class ConsumeAPI {
     public static final boolean IS_PRODUCTION=false;
     public static final String FB_POST="postssit";
     public static final String FB_CHAT="chatssit";
+    public static final String FB_CHAT_TO_ADMIN="chatadminsit";
     public static final String FB_Notification="notificationssit";
     public static final String PREFIX_EMAIL="user121";
 
@@ -21,6 +22,7 @@ public class ConsumeAPI {
 //    public static final boolean IS_PRODUCTION=true;
 //    public static final String FB_POST="posts";
 //    public static final String FB_CHAT="chats";
+//    public static final String FB_CHAT_TO_ADMIN="chatadmin";
 //    public static final String FB_Notification="notifications";
 //    public static final String PREFIX_EMAIL="produser121";
 

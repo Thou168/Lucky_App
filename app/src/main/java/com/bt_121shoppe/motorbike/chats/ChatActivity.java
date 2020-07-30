@@ -1,8 +1,10 @@
 package com.bt_121shoppe.motorbike.chats;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,13 +86,15 @@ public class ChatActivity extends AppCompatActivity {
 
     APIService apiService;
     boolean notify=false;
-
+    Intent intent;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
-        TextView btnBack=(TextView) findViewById(R.id.tvBack);
+        intent = getIntent();
+        name = intent.getStringExtra("chat_admin");
+        ImageView btnBack=(ImageView) findViewById(R.id.tvBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +157,14 @@ public class ChatActivity extends AppCompatActivity {
             AllowChat(Integer.parseInt(postId));
         }
 
+        if (name!=null){
+            tvusername.setTypeface(ResourcesCompat.getFont(this, R.font.opensans_semibold));
+            tvusername.setTextSize(18);
+            tvusername.setGravity(Gravity.START);
+            tvusername.setText(R.string.menu_chat_admin);
+            rlPost.setVisibility(View.GONE);
+        }
+
         fuser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("users");
         rlUsername.setOnClickListener(new View.OnClickListener() {
@@ -173,10 +186,19 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 notify=true;
                 String msg=text_send.getText().toString();
-                if(!msg.equals("")){
-                    sendMessage(fuser.getUid(),userId,msg,postId,postType);
-                }else{
-                    Toast.makeText(ChatActivity.this,getString(R.string.message),Toast.LENGTH_LONG).show();
+                if (name!=null){  // for chat admin
+                    if (!msg.equals("")) {
+                        sendMessageToAdmin(fuser.getUid(),userId, msg);
+
+                    }else {
+                        Toast.makeText(ChatActivity.this,getString(R.string.message),Toast.LENGTH_LONG).show();
+                    }
+                }else {  // for chat user
+                    if (!msg.equals("")) {
+                        sendMessage(fuser.getUid(), userId, msg, postId, postType);
+                    } else {
+                        Toast.makeText(ChatActivity.this, getString(R.string.message), Toast.LENGTH_LONG).show();
+                    }
                 }
                 text_send.setText("");
             }
@@ -201,6 +223,12 @@ public class ChatActivity extends AppCompatActivity {
                             readMessage(fuser.getUid(),uuser.getId(),postId,uuser.getImageURL());
                             setUserId(uuser.getId());
                         }
+                    }
+
+                    if (name!=null){
+                        tvreceiver.setText(uuser.getId());
+                        readMessageToAdmin(fuser.getUid(),uuser.getId(),uuser.getImageURL());
+                        setUserId(uuser.getId());
                     }
 
                 }
@@ -261,6 +289,37 @@ public class ChatActivity extends AppCompatActivity {
                     }
 
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendMessageToAdmin(String sender,String receiver,String message){
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("sender",sender);
+        hashMap.put("receiver",receiver);
+        hashMap.put("message",message);
+        hashMap.put("isseen",false);
+        reference.child(ConsumeAPI.FB_CHAT_TO_ADMIN).push().setValue(hashMap);
+
+        //add user to chat fragment
+
+        //send notification
+        final String msg=message;
+        reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user=dataSnapshot.getValue(User.class);
+                if(notify) {
+                    sendNotification(receiver, user.getUsername(), msg);
+                }
+                notify=false;
             }
 
             @Override
@@ -347,24 +406,47 @@ public class ChatActivity extends AppCompatActivity {
     private void readMessage(String myid,String userid,String postid,String imageUrl){
         CharSequence usedrId=tvreceiver.getText();
         mChat=new ArrayList<>();
-        databaseReference=FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
+        databaseReference = FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mChat.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getPost().equals(postid) && (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(myid))) {
+                        mChat.add(chat);
+                    }
+                    messageAdapter = new MessageAdapter(ChatActivity.this, mChat, imageUrl);
+                    recyclerView.setAdapter(messageAdapter);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void readMessageToAdmin(String myid,String userid,String imageUrl){
+        CharSequence usedrId=tvreceiver.getText();
+        mChat=new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference(ConsumeAPI.FB_CHAT_TO_ADMIN);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Chat chat=snapshot.getValue(Chat.class);
-                    if(chat.getPost().equals(postid) && (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(myid))){
+                    //chat show
+                    if(chat.getSender().equals(userid) || chat.getSender().equals(myid)){
                         mChat.add(chat);
                     }
+                    // adapter with recycler
                     messageAdapter=new MessageAdapter(ChatActivity.this,mChat,imageUrl);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
